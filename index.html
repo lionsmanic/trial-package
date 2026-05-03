@@ -72,6 +72,29 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .subcat-tab.active{background:var(--primary);color:white;border-color:var(--primary);}
 .subcat-tab .tab-count{font-size:10px;background:rgba(255,255,255,0.25);padding:1px 6px;border-radius:100px;font-family:"JetBrains Mono",monospace;}
 .subcat-tab:not(.active) .tab-count{background:#e2e8f0;color:var(--ink-muted);}
+
+/* Trial browser */
+.browser-cancer-header{padding:10px 18px;font-size:11px;font-weight:800;color:#475569;font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:0.08em;background:#f1f5f9;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:5;}
+.browser-trial-row{padding:12px 18px;border-bottom:1px solid #f1f5f9;display:flex;align-items:flex-start;gap:12px;transition:background 0.12s;}
+.browser-trial-row:hover{background:#f8fafc;}
+.browser-trial-row .b-meta{flex:1;min-width:0;cursor:pointer;}
+.browser-trial-row .b-name{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.browser-trial-row .b-name .b-cancer-tag{font-size:10px;padding:1px 7px;border-radius:6px;font-family:"JetBrains Mono",monospace;font-weight:600;}
+.browser-trial-row .b-cancer-tag.ec{background:#fee2e2;color:#991b1b;}
+.browser-trial-row .b-cancer-tag.oc{background:#ede9fe;color:#5b21b6;}
+.browser-trial-row .b-cancer-tag.cc{background:#fed7aa;color:#9a3412;}
+.browser-trial-row .b-cancer-tag.us{background:#dbeafe;color:#1e40af;}
+.browser-trial-row .b-drug{font-size:11.5px;color:var(--ink-muted);font-family:"JetBrains Mono",monospace;margin-bottom:6px;}
+.browser-trial-row .b-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.browser-trial-row .b-stage-tag{font-size:10px;padding:2px 7px;border-radius:6px;font-weight:700;}
+.b-stage-tag.p-tx{background:#d1fae5;color:#065f46;}
+.b-stage-tag.p-mt{background:#dbeafe;color:#1e40af;}
+.b-stage-tag.r-tx{background:#fee2e2;color:#991b1b;}
+.b-stage-tag.r-mt{background:#ede9fe;color:#5b21b6;}
+.browser-add-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s;color:var(--ink-soft);font-family:"Noto Sans TC",sans-serif;white-space:nowrap;}
+.browser-add-btn:hover{border-color:var(--purple);color:var(--purple);}
+.browser-add-btn.added{background:var(--purple);color:white;border-color:var(--purple);}
+.browser-empty{padding:40px 20px;text-align:center;color:#94a3b8;font-size:13px;}
 .trial-card{background:white;border:2px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:all .2s;position:relative;display:flex;flex-direction:column;gap:8px;}
 .trial-card:hover{border-color:var(--primary);box-shadow:0 4px 16px rgba(37,99,235,0.18);transform:translateY(-2px);}
 .trial-card.ongoing{border-color:#fcd34d;background:#fffef0;}
@@ -280,6 +303,49 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     </div>
     <div class="subcat-tabs hidden" id="rmtTabs"></div>
     <div class="trial-grid" id="rmtGrid"></div>
+  </section>
+
+  <!-- ===== TRIAL BROWSER (with multi-cancer search) ===== -->
+  <section class="stage-section" style="margin-top:32px;">
+    <div style="background:linear-gradient(135deg,#1e293b,#334155);border-radius:16px 16px 0 0;padding:18px 22px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:24px;">📋</span>
+          <div>
+            <div style="font-size:16px;font-weight:800;color:white;">試驗清單瀏覽器</div>
+            <div id="browserCountLabel" style="font-size:11px;color:rgba(255,255,255,0.55);font-family:'JetBrains Mono',monospace;margin-top:2px;">— 個試驗</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.6);font-family:'JetBrains Mono',monospace;">
+          全試驗清單可搜尋 · 跨癌別瀏覽
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <select id="browserCancerFilter" onchange="browserFilter()" style="flex:1;min-width:130px;padding:9px 12px;border-radius:9px;border:none;background:rgba(255,255,255,0.13);color:white;font-size:12px;font-weight:600;cursor:pointer;">
+          <option value="" style="color:#1a202c;background:white;">🌐 全部癌別</option>
+          <option value="EC" style="color:#1a202c;background:white;">🔴 子宮內膜癌 EC</option>
+          <option value="OC" style="color:#1a202c;background:white;">🟣 卵巢癌 OC</option>
+          <option value="CC" style="color:#1a202c;background:white;">🟠 子宮頸癌 CC</option>
+          <option value="US" style="color:#1a202c;background:white;">🔵 子宮肉瘤 US</option>
+        </select>
+        <select id="browserStageFilter" onchange="browserFilter()" style="flex:1;min-width:120px;padding:9px 12px;border-radius:9px;border:none;background:rgba(255,255,255,0.13);color:white;font-size:12px;font-weight:600;cursor:pointer;">
+          <option value="" style="color:#1a202c;background:white;">📌 全部分期</option>
+          <option value="P-TX" style="color:#1a202c;background:white;">🌿 一線治療</option>
+          <option value="P-MT" style="color:#1a202c;background:white;">💊 一線維持</option>
+          <option value="R-TX" style="color:#1a202c;background:white;">🔄 復發治療</option>
+          <option value="R-MT" style="color:#1a202c;background:white;">🔒 復後維持</option>
+        </select>
+        <select id="browserStatusFilter" onchange="browserFilter()" style="flex:1;min-width:100px;padding:9px 12px;border-radius:9px;border:none;background:rgba(255,255,255,0.13);color:white;font-size:12px;font-weight:600;cursor:pointer;">
+          <option value="" style="color:#1a202c;background:white;">📄 全部狀態</option>
+          <option value="published" style="color:#1a202c;background:white;">📚 已發表</option>
+          <option value="ongoing" style="color:#1a202c;background:white;">📍 進行中</option>
+        </select>
+        <input id="browserSearchInput" oninput="browserFilter()" placeholder="🔍 搜尋試驗名稱/藥物/藥廠…" style="flex:2;min-width:160px;padding:9px 13px;border-radius:9px;border:none;background:rgba(255,255,255,0.13);color:white;font-size:12px;outline:none;" />
+      </div>
+    </div>
+    <div id="browserList" style="background:white;border-radius:0 0 16px 16px;border:1px solid var(--border);border-top:none;max-height:600px;overflow-y:auto;">
+      <div style="padding:24px;text-align:center;color:#94a3b8;font-size:13px;">載入中…</div>
+    </div>
   </section>
 </div>
 
@@ -2664,7 +2730,7 @@ const TRIALS = [
 // ========== CC P-MT: Maintenance ==========
 {
   cancer:"CC",
-  subcat:"IO",
+  subcat:["IO","1L-RM"],
   id:"keynote-826",
   phase:["P-MT","R-TX"],
   status:"published",
@@ -2716,6 +2782,119 @@ const TRIALS = [
   guideline:"未進入指引",
   nct:"NCT06079671",
   publication:"Trial-in-progress: ESMO 2024 design"
+},
+
+// ========== CC R-TX: 復發治療 ==========
+{
+  cancer:"CC",
+  subcat:"1L-RM",
+  id:"beatcc",
+  phase:["R-TX"],
+  status:"published",
+  name:"BEATcc",
+  fullName:"BEATcc / ENGOT-Cx10 / GEICO 68-C / JGOG1084 / GOG-3030",
+  pharma:"Roche",
+  drug:"Atezolizumab + Bev + Chemo",
+  tagline:"一線 R/M CC 第二大支柱: mOS 32.1 vs 22.8m (HR 0.68); PFS HR 0.62, ORR 84% — 不依賴 PD-L1 CPS。",
+  rationale:"在 GOG-240 (Bev + chemo) 標準基礎上加入 PD-L1 抑制劑 Atezolizumab — 三藥聯用強化腫瘤微環境之殺傷力。與 KEYNOTE-826 不同, BEATcc 不論 PD-L1 CPS 均見一致獲益,使更多患者受惠。",
+  regimen:"1:1 randomization, n=410\n試驗組 (n=206): Atezolizumab 1200mg + Cisplatin 50mg/m² (或 Carbo AUC5) + Paclitaxel 175mg/m² + Bev 15mg/kg Q3W → Atezolizumab+Bev 維持\n對照組 (n=204): Cisplatin/Carbo + Paclitaxel + Bev Q3W → Bev 維持",
+  inc:["Metastatic (Stage IVB) / persistent / recurrent cervical cancer","measurable disease","previously untreated for advanced setting","可接受 Bev 之患者","ECOG 0-1"],
+  exc:["既往免疫治療","活動性自體免疫需治療","不適合 Bev (出血/廔管/血栓)","CNS 轉移"],
+  outcomes:"【ITT mPFS】13.7 vs 10.4m (HR 0.62, CI 0.49-0.78, P<0.0001) — 顯著\n【ITT mOS interim】32.1 vs 22.8m (HR 0.68, CI 0.52-0.88, P=0.0046) — 顯著\n【ORR】84% vs 72%\n【G3+ AE】79% vs 75% (兩組相當)",
+
+  enrolled:"410 randomized — Atezo+Bev+chemo 206 / Bev+chemo 204\n92 sites, 歐洲 + 日本 + 美國\nMedian FU 32.9m (primary analysis)",
+  hist:"鱗狀 ~76% / 腺癌或腺鱗癌 ~24%\nPD-L1 CPS ≥1: ~70%",
+  stageDist:"Stage IVB (metastatic): 22%\nPersistent / recurrent: 78%\nPrior CCRT 64% (與 KEYNOTE-826 78% 接近)",
+  tech:"【Backbone】Cisplatin 50mg/m² 或 Carbo AUC5 + Pacli 175mg/m² Q3W\n【Bev】15mg/kg Q3W (mandatory) → 維持期續用\n【Atezolizumab】1200mg Q3W concurrent + maintenance 至 PD\n  • 與 KEYNOTE-826 (35 cycle limit) 不同 — Atezo 持續至進展\n\n關鍵安全性:\n  • G3+ AE 79% vs 75% (Atezolizumab 加入未顯著增加)\n  • 高血壓 (Bev 主導)\n  • irAE: hypothyroidism, pneumonitis ~5-10%\n  • 廔管 / 血栓 (Bev 風險)",
+  subgroup:"【ITT PFS】HR 0.62; OS HR 0.68\n\n【PD-L1 CPS subgroup (post-hoc)】\n  • CPS ≥1 (n=219): PFS HR 0.54 (顯著)\n  • CPS <1 (n=84): PFS HR 0.85 (NS, but trending)\n  • 與 KEYNOTE-826 不同: BEATcc CPS-ALL 仍見獲益\n  • 引發臨床決策爭議: 是否限 CPS≥1?\n\n【Histology subgroup】\n  • 鱗狀: HR 0.62\n  • 腺癌或腺鱗癌: HR 0.65\n  • 一致獲益\n\n【Stage subgroup】\n  • IVB metastatic: HR 0.49 (最大獲益)\n  • Recurrent / persistent: HR 0.66\n\n【Prior CCRT subgroup】\n  • 有 CCRT: HR 0.59\n  • 無 CCRT: HR 0.71\n\n【FU update (ESMO 2024 / SGO 2025)】OS 持續 HR ~0.7,長期持久",
+  combo:"與 KEYNOTE-826 並列一線 R/M CC 兩大標準:\n  • KEYNOTE-826: PD-1 (Pembro), 限 CPS≥1 主要適應症\n  • BEATcc: PD-L1 (Atezo), 全人群 (但 CPS<1 趨勢稀釋)\n\n選擇取決:\n  • 健保 / 可及性\n  • PD-L1 status\n  • Bev 適合性\n  • 中心經驗\n\n後續探索:\n  • COMPASSION-16 (Cadonilimab) 中國族群\n  • Cervical 雙特異性抗體擴展",
+  guideline:"NCCN v2.2026 Category 1 for 1L R/M CC (與 KEYNOTE-826 並列)\nFDA approved Aug 2024 (BEATcc data)\nEMA approved 2024\n台灣健保: 已給付 (與 KEYNOTE-826 平行)",
+  nct:"NCT03556839",
+  publication:"Lancet 2024 (Oaknin et al., 主分析); ESMO Plenary 2023 (interim); SGO 2025 (FU update)"
+},
+
+{
+  cancer:"CC",
+  subcat:"1L-RM",
+  id:"gog-240",
+  phase:["R-TX"],
+  status:"published",
+  name:"GOG-240",
+  fullName:"GOG-240",
+  pharma:"NCI / GOG",
+  drug:"Chemo + Bevacizumab",
+  tagline:"轉移 CC 里程碑: 首個證明加 Bev 延長 OS (16.8 vs 13.3m, HR 0.71) 的試驗。奠定一線 R/M CC 標準。",
+  rationale:"抗血管新生藥物協同雙標靶化療 — 強化對晚期宮頸癌的系統性控制。為 GOG-240 之前,advanced CC 治療僅限化療,OS 約 12 個月。Bev 加入帶來史上首次 OS 突破。",
+  regimen:"2x2 factorial design, n=452\nChemo 對比: Cisplatin/Pacli vs Topotecan/Pacli\nBev 對比: ± Bev 15mg/kg Q3W (factorial)\n4 組:\n  • Cis/Pacli alone\n  • Cis/Pacli + Bev\n  • Topo/Pacli alone\n  • Topo/Pacli + Bev",
+  inc:["復發、持久性或轉移性宮頸癌","先前未接受過針對 R/M 之化療","ECOG 0-1","具備可測量病灶"],
+  exc:["臨床顯著心血管疾病","曾受過全身性血管抑制劑治療","活動性出血"],
+  outcomes:"【Bev question ITT mOS】16.8 vs 13.3m (HR 0.71, P=0.004) — 顯著\n【Chemo question】Topo/Pacli 不劣於 Cis/Pacli\n【ORR】Bev arms 48% vs no Bev 36%\n【G3+ AE】Bev arms 較高: GI bleeding, fistula",
+
+  enrolled:"452 randomized\n美國 GOG / NCI 主導\n2009-2012 收案",
+  hist:"鱗狀 ~77% / 腺癌或腺鱗癌 ~23%",
+  stageDist:"Recurrent / persistent / metastatic\n先前 CCRT: ~73%\n首次 advanced setting 治療",
+  tech:"【Cis/Pacli】Cisplatin 50mg/m² + Paclitaxel 135-175mg/m² Q3W\n【Topo/Pacli】Topotecan 0.75mg/m² (D1-3) + Paclitaxel 175mg/m² Q3W\n【Bev】15mg/kg Q3W 至 PD\n\n關鍵安全性 (Bev arms):\n  • GI fistula 6-7% (rectovaginal, vesicovaginal)\n  • 高血壓 G3 12-25%\n  • Thromboembolism 8%\n  • 對既往 CCRT 患者 fistula 風險明顯增加 — 需謹慎評估\n\n臨床啟示: Bev 為一線 R/M 標準,但需嚴選\n  排除: 廔管病史, 嚴重出血, 高血壓未控制",
+  subgroup:"【Bev question ITT】HR 0.71 — 改變實務\n【Chemo question】Topo/Pacli 不劣於 Cis/Pacli — 提供 Cis 不耐受族群替代方案\n\n【FU update (Tewari et al. Lancet 2017)】\n  • 5y OS rate: 22% (with Bev) vs 14% (without)\n  • 持續長期獲益\n  • Cervical fistula incidence ~9% in Bev arms\n\n【Prior CCRT subgroup】Bev 仍見獲益,但 fistula 風險增加\n【No prior CCRT subgroup】Bev 獲益最大\n\n【Histology subgroup】\n  • 鱗狀: HR 0.66\n  • 腺癌: HR 0.81 (仍見獲益但較小)",
+  combo:"奠定 Bev 為 1L R/M CC 標準\n為 KEYNOTE-826 / BEATcc 加入 IO 之 backbone\n後續發展:\n  • KEYNOTE-826 (加 Pembro)\n  • BEATcc (加 Atezolizumab)\n  • 雙 IO 組合探索",
+  guideline:"NCCN v2.2026 Category 1 for 1L R/M CC (Bev + chemo as backbone, 現多加 IO)\nFDA approved Aug 2014 (Avastin for cervical cancer)\nEMA approved 2015\n台灣健保: 已給付",
+  nct:"NCT00803062",
+  publication:"NEJM 2014 (Tewari et al., 主要結果); Lancet 2017 (Tewari et al., final OS)"
+},
+
+{
+  cancer:"CC",
+  subcat:"2L-ADC",
+  id:"innovatv-301",
+  phase:["R-TX"],
+  status:"published",
+  name:"innovaTV 301",
+  fullName:"innovaTV 301 / ENGOT-cx12",
+  pharma:"Genmab / Pfizer",
+  drug:"Tisotumab Vedotin (ADC)",
+  tagline:"後線 ADC 突破: Tisotumab vedotin vs 化療改善 OS (HR 0.70), ORR 17.8% vs 5.2%。FDA 完整核准基礎。",
+  rationale:"標靶 Tissue Factor (CD142) ADC — TF 在子宮頸癌中高度表現 (>90%)。Tisotumab Vedotin 搭載 MMAE (微管蛋白抑制劑),解決後線化療耐藥。為 CC 領域第一個專屬 ADC。",
+  regimen:"1:1 randomization, n=502\n試驗組 (n=253): Tisotumab Vedotin 2.0mg/kg IV Q3W 至 PD\n對照組 (n=249, TPC): 醫師選擇化療 — Topotecan / Vinorelbine / Gemcitabine / Irinotecan / Pemetrexed",
+  inc:["Recurrent / metastatic 宮頸癌","2L 或 3L 治療情境 (1-2 線先前)","ECOG 0-1","具備可測量病灶"],
+  exc:["不適合 ADC / 既往相關藥物限制","嚴重角膜 / 眼部風險","活動性自體免疫"],
+  outcomes:"【ITT mOS】11.5 vs 9.5m (HR 0.70, CI 0.54-0.89, P=0.0038) — 顯著\n【ITT mPFS】4.2 vs 2.9m (HR 0.67, P<0.0001)\n【ORR】17.8% vs 5.2%\n【DOR】mDOR 5.3m",
+
+  enrolled:"502 randomized — Tisotumab Vedotin 253 / TPC 249\n國際多中心 (歐洲 + 美國 + 亞洲)",
+  hist:"鱗狀 ~70% / 腺癌或腺鱗癌 ~30%",
+  stageDist:"Recurrent / metastatic\n先前 1-2 線治療 (含一線含 IO 或 Bev)\n大多 prior CCRT",
+  tech:"【ADC】Tisotumab Vedotin (TIVDAK)\n  • Tissue Factor (CD142) 標靶 ADC\n  • 載荷: MMAE (monomethyl auristatin E, 微管蛋白抑制劑)\n  • Cleavable valine-citrulline linker\n  • DAR ~4\n  • 2.0mg/kg IV Q3W\n\n關鍵安全性 (獨特的眼部毒性):\n  • 結膜炎 ~40% (G3+ ~3%)\n  • 角膜病變 ~30%\n  • Dry eye, blurred vision\n  • 強制眼科共照 — 每 cycle 評估\n  • 預防: 眼藥水 (lubricant + steroid + vasoconstrictor)\n  • 患者教育: avoid contact lenses\n\n其他 AE:\n  • 周邊神經病變 ~40%\n  • 出血 ~40% (epistaxis 多見)",
+  subgroup:"【ITT OS】HR 0.70 — 顯著 (CC 領域罕見的後線 OS 獲益)\n【ITT PFS】HR 0.67\n【ORR】17.8% vs 5.2% — ADC 組近 3 倍\n\n【Histology subgroup】\n  • 鱗狀: HR 0.66\n  • 腺癌或腺鱗癌: HR 0.83 (仍見獲益但較小)\n\n【Prior IO subgroup】\n  • 有先前 IO: HR 0.69\n  • 無先前 IO: HR 0.74\n  • 一致獲益\n\n【Lines of prior therapy】\n  • 2L: HR 0.68\n  • 3L: HR 0.74",
+  combo:"與 EMPOWER-Cervical 1 (Cemiplimab IO 單藥) 並列 CC 後線兩大選項\n選擇:\n  • 先前 IO naive → 先 IO (Cemiplimab/Pembro)\n  • 先前 IO 失敗 → ADC (Tisotumab Vedotin)\n\n後續探索:\n  • Tisotumab Vedotin + Pembrolizumab combo (innovaTV 205)\n  • 一線探索 (innovaTV 207)",
+  guideline:"NCCN v2.2026 Category 1 for 2L+ R/M CC\nFDA accelerated approval Sep 2021 → full approval Apr 2024 (基於 innovaTV 301)\nEMA approved 2024\n台灣食藥署: 2024 年核准\n台灣健保: 部分有條件給付 (post-IO 失敗)",
+  nct:"NCT04697628",
+  publication:"NEJM 2024 (Vergote et al., 主要結果); ESMO 2023 LBA (interim)"
+},
+
+{
+  cancer:"CC",
+  subcat:"2L-IO",
+  id:"empower-cervical-1",
+  phase:["R-TX"],
+  status:"published",
+  name:"EMPOWER-Cervical 1",
+  fullName:"EMPOWER-Cervical 1 / Study 304",
+  pharma:"Regeneron / Sanofi",
+  drug:"Cemiplimab 單藥",
+  tagline:"二線後 IO 單藥: Cemiplimab 較化療延長 mOS (12.0 vs 8.5m, HR 0.69), 不論組織型態均見獲益。",
+  rationale:"針對一線含鉑化療失敗後之患者 — PD-1 阻斷提供持久緩解與生存優勢。Cemiplimab 為 PD-1 抑制劑 (與 Pembrolizumab 同類),已於皮膚癌、NSCLC 證實活性。為 CC 二線後 IO 單藥的關鍵試驗。",
+  regimen:"1:1 randomization, n=608\n試驗組 (n=304): Cemiplimab 350mg IV Q3W 至 PD 或 96 週\n對照組 (n=304): 醫師選擇單藥化療 — Pemetrexed / Vinorelbine / Topotecan / Irinotecan / Gemcitabine",
+  inc:["Recurrent / metastatic 宮頸癌","Progressed after 1L platinum-based therapy","ECOG 0-1","具備可測量病灶"],
+  exc:["既往免疫治療","活動性自體免疫需治療","活動性 CNS 轉移"],
+  outcomes:"【ITT mOS】12.0 vs 8.5m (HR 0.69, CI 0.56-0.84, P<0.001) — 顯著\n【ITT mPFS】2.8 vs 2.9m (HR 0.75)\n【ORR】16% vs 6%\n【DOR】mDOR 16.4m",
+
+  enrolled:"608 randomized — Cemiplimab 304 / Chemo 304\n國際多中心\n組織學: 鱗狀 ~78% / 腺癌或腺鱗癌 ~22%",
+  hist:"鱗狀 (n=477): mOS 11.1 vs 8.8m (HR 0.73)\n腺癌或腺鱗癌 (n=131): mOS 13.3 vs 7.0m (HR 0.56)\n  • 腺癌獲益略大",
+  stageDist:"Recurrent / metastatic\n先前 1L platinum-based",
+  tech:"Cemiplimab 350mg IV Q3W (固定劑量)\n  • 與 Pembro 200mg 不同 — Cemiplimab 採固定劑量設計\n\n關鍵安全性:\n  • G3+ AE: Cemiplimab 50% vs Chemo 56%\n  • irAE: hypothyroidism (~10%), pneumonitis (~3%), hepatitis (~3%)\n  • Skin: pruritus, rash\n  • 整體較化療安全性佳",
+  subgroup:"【ITT OS】HR 0.69\n【ITT PFS】HR 0.75 (數值差異小但顯著)\n\n【Histology subgroup】\n  • 鱗狀 (n=477): mOS 11.1 vs 8.8m (HR 0.73)\n  • 腺癌或腺鱗癌 (n=131): mOS 13.3 vs 7.0m (HR 0.56) — 獲益更大\n\n【PD-L1 status post-hoc】\n  • PD-L1 ≥1%: HR 0.61\n  • PD-L1 <1%: HR 0.91 (NS)\n  • 顯示 PD-L1 expression 仍為預測因子\n\n【Prior Bev subgroup】Cemiplimab 仍見獲益\n【Prior CCRT subgroup】獲益一致",
+  combo:"與 KEYNOTE-158 (Pembrolizumab CPS≥1, ORR ~14%), innovaTV 301 (ADC) 並列 CC 後線三大選項\n選擇:\n  • 先前 IO naive + PD-L1+ → Cemiplimab 或 Pembrolizumab\n  • 先前 IO 失敗 → Tisotumab Vedotin\n  • 同類型 IO 不應交叉使用",
+  guideline:"NCCN v2.2026 Category 1 for 2L R/M CC post-platinum (與 Pembrolizumab 並列)\nFDA approved Oct 2021 (基於 EMPOWER-Cervical 1)\nEMA approved 2022\n台灣食藥署: 已核准\n台灣健保: 已給付 (post-platinum 條件)",
+  nct:"NCT03257267",
+  publication:"NEJM 2022 (Tewari et al., 主要結果); ESMO 2021 (interim plenary)"
 },
 
 // ============================================================
@@ -3298,7 +3477,12 @@ const SUBCAT_LABELS = {
       {key:'IO', label:'🛡 IO 維持'},
       {key:'Other', label:'🎯 其他維持'}
     ],
-    'R-TX': [{key:'ALL', label:'全部'}],
+    'R-TX': [
+      {key:'ALL', label:'全部'},
+      {key:'1L-RM', label:'🥇 一線 R/M (Bev+Chemo±IO)'},
+      {key:'2L-IO', label:'🛡 二線 IO 單藥'},
+      {key:'2L-ADC', label:'🎯 二線 ADC'}
+    ],
     'R-MT': [{key:'ALL', label:'全部'}]
   },
   'US': {
@@ -3476,6 +3660,10 @@ function updateCompareCount(){
     el('floatCmp').classList.add('show');
   } else {
     el('floatCmp').classList.remove('show');
+  }
+  // Sync browser if it exists
+  if(typeof browserRender === 'function' && el('browserList')){
+    browserRender();
   }
 }
 
@@ -3656,13 +3844,112 @@ el('cmpModal').addEventListener('click', e => {
 });
 
 // ============================================================
+// TRIAL BROWSER
+// ============================================================
+const CANCER_LABELS = {'EC':'🔴 子宮內膜癌 EC','OC':'🟣 卵巢癌 OC','CC':'🟠 子宮頸癌 CC','US':'🔵 子宮肉瘤 US'};
+const STAGE_LABELS_BROWSER = {'P-TX':'🌿初治','P-MT':'💊維持','R-TX':'🔄復發','R-MT':'🔒復後'};
+
+function browserGetFiltered(){
+  const cancer = el('browserCancerFilter').value;
+  const stage = el('browserStageFilter').value;
+  const status = el('browserStatusFilter').value;
+  const q = (el('browserSearchInput').value || '').toLowerCase().trim();
+
+  return TRIALS.filter(t => {
+    const tcancer = t.cancer || 'EC';
+    if(cancer && tcancer !== cancer) return false;
+    if(stage && !t.phase.includes(stage)) return false;
+    if(status && t.status !== status) return false;
+    if(q){
+      const haystack = (t.name + ' ' + (t.fullName||'') + ' ' + (t.drug||'') + ' ' + (t.pharma||'') + ' ' + (t.tagline||'')).toLowerCase();
+      if(!haystack.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function browserFilter(){
+  browserRender();
+}
+
+function browserRender(){
+  const filtered = browserGetFiltered();
+  el('browserCountLabel').textContent = filtered.length + ' 個試驗';
+  const pane = el('browserList');
+
+  if(!filtered.length){
+    pane.innerHTML = '<div class="browser-empty">沒有符合條件的試驗</div>';
+    return;
+  }
+
+  // Group by cancer (preserving order: EC → OC → CC → US)
+  const order = ['EC','OC','CC','US'];
+  const groups = {};
+  order.forEach(c => groups[c] = []);
+  filtered.forEach(t => {
+    const c = t.cancer || 'EC';
+    if(!groups[c]) groups[c] = [];
+    groups[c].push(t);
+  });
+
+  let html = '';
+  order.forEach(c => {
+    if(!groups[c].length) return;
+    html += `<div class="browser-cancer-header">${CANCER_LABELS[c]} · ${groups[c].length} 個試驗</div>`;
+    groups[c].forEach(t => {
+      const isSelected = selectedTrials.has(t.id);
+      const statusEmoji = t.status === 'ongoing' ? '📍' : '📚';
+      const stageTags = t.phase.map(p => `<span class="b-stage-tag ${p.toLowerCase()}">${STAGE_LABELS_BROWSER[p] || p}</span>`).join('');
+      const cancerTag = `<span class="b-cancer-tag ${c.toLowerCase()}">${c}</span>`;
+      html += `<div class="browser-trial-row">
+        <div class="b-meta" onclick="showDetail('${t.id}')">
+          <div class="b-name">${statusEmoji} ${t.name} ${cancerTag}</div>
+          <div class="b-drug">${t.drug || ''} · ${t.pharma || ''}</div>
+          <div class="b-tags">${stageTags}</div>
+        </div>
+        <button class="browser-add-btn ${isSelected?'added':''}" onclick="browserToggleCompare('${t.id}', event)">
+          ${isSelected ? '✓ 已加入' : '+ 加入比較'}
+        </button>
+      </div>`;
+    });
+  });
+
+  pane.innerHTML = html;
+}
+
+function browserToggleCompare(id, ev){
+  if(ev) ev.stopPropagation();
+  // Activate compare mode (so upper cards reflect the selection visually)
+  if(!compareMode){
+    compareMode = true;
+    el('cmpToggle').classList.add('on');
+    el('cmpToggle').textContent = '☑ 比較模式 (勾選 2-4 個試驗)';
+    document.body.classList.add('compare-mode');
+  }
+  if(selectedTrials.has(id)){
+    selectedTrials.delete(id);
+  } else {
+    if(selectedTrials.size >= 4){
+      alert('最多比較 4 個試驗。請先取消其他選取。');
+      return;
+    }
+    selectedTrials.add(id);
+  }
+  updateCompareCount();  // This will sync the browser via the auto-render hook
+  renderCards();
+}
+
+// ============================================================
 // INIT
 // ============================================================
 renderCards();
+browserRender();
 updateCompareCount();
-console.log('婦癌試驗導航 (EC + OC) 已載入: ' + TRIALS.length + ' trials');
+console.log('婦癌試驗導航 (EC + OC + CC + US) 已載入: ' + TRIALS.length + ' trials');
 console.log('  EC: ' + TRIALS.filter(t => (t.cancer||'EC')==='EC').length + ' trials');
 console.log('  OC: ' + TRIALS.filter(t => t.cancer==='OC').length + ' trials');
+console.log('  CC: ' + TRIALS.filter(t => t.cancer==='CC').length + ' trials');
+console.log('  US: ' + TRIALS.filter(t => t.cancer==='US').length + ' trials');
 </script>
 </body>
 </html>
