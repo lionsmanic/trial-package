@@ -42,6 +42,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-mol:hover{box-shadow:0 4px 16px rgba(124,58,237,0.45);}
 .header-btn-checklist{background:linear-gradient(135deg,#0891b2,#0e7490);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(8,145,178,0.3);}
 .header-btn-checklist:hover{box-shadow:0 4px 16px rgba(8,145,178,0.45);}
+.header-btn-pathway{background:linear-gradient(135deg,#ea580c,#c2410c);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(234,88,12,0.3);}
+.header-btn-pathway:hover{box-shadow:0 4px 16px rgba(234,88,12,0.45);}
 @media(max-width:640px){
   .hide-on-mobile{display:none;}
   .header-actions{gap:6px;}
@@ -391,6 +393,88 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   border-color:#16a34a;
   transform:translateY(-1px);
   box-shadow:0 6px 16px rgba(22,163,74,0.25);
+}
+
+/* ===== 🗺️ 治療路徑流程圖 Modal ===== */
+.pathway-modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.88);z-index:565;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.pathway-modal-bg.open{display:flex;}
+.pathway-modal-content{background:white;max-width:1400px;width:100%;max-height:94vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
+.pathway-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.pathway-close:hover{background:white;transform:scale(1.05);}
+
+.pathway-header{background:linear-gradient(135deg,#c2410c,#ea580c);color:white;padding:20px 26px 0;flex-shrink:0;}
+.pathway-title-wrap{display:flex;align-items:center;gap:14px;padding-right:50px;margin-bottom:16px;}
+.pathway-icon{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.pathway-title{font-size:18px;font-weight:800;letter-spacing:.02em;}
+.pathway-subtitle{font-size:11.5px;color:rgba(255,255,255,0.75);font-family:"JetBrains Mono",monospace;margin-top:3px;line-height:1.4;}
+.pathway-tabs{display:flex;gap:6px;}
+.pathway-tab{padding:11px 20px;background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.65);font-size:13px;font-weight:700;cursor:pointer;border-radius:9px 9px 0 0;font-family:inherit;transition:all 0.15s;}
+.pathway-tab:hover{background:rgba(255,255,255,0.16);color:white;}
+.pathway-tab.active{background:white;color:#c2410c;font-weight:800;}
+
+.pathway-body{display:flex;flex:1;overflow:hidden;background:#fafaf9;}
+
+/* SVG container */
+.pathway-svg-container{flex:1;overflow:auto;padding:18px;background:#fafaf9;display:flex;align-items:flex-start;justify-content:center;}
+.pathway-svg{width:100%;height:auto;min-width:900px;}
+.pathway-node-group{transition:transform 0.15s;}
+.pathway-node-group:hover{transform:translateY(-2px);}
+
+/* Side panel */
+.pathway-sidepanel{width:340px;flex-shrink:0;background:white;border-left:1px solid #e2e8f0;overflow-y:auto;padding:18px;}
+
+.pw-sidepanel-empty{text-align:center;padding:30px 14px;}
+.pw-empty-icon{font-size:46px;margin-bottom:14px;}
+.pw-empty-title{font-size:15px;font-weight:800;color:#0c1f3d;margin-bottom:6px;}
+.pw-empty-desc{font-size:12px;color:#64748b;margin-bottom:18px;line-height:1.5;}
+.pw-empty-hint{font-size:11.5px;color:#ea580c;font-weight:700;font-family:"JetBrains Mono",monospace;background:#fff7ed;padding:8px 14px;border-radius:8px;display:inline-block;margin-bottom:18px;}
+
+.pw-legend{margin-top:14px;padding:12px 14px;background:#fafaf9;border-radius:9px;text-align:left;}
+.pw-legend-title{font-size:10.5px;font-weight:800;color:#475569;font-family:"JetBrains Mono",monospace;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;}
+.pw-legend-item{display:flex;align-items:center;gap:8px;font-size:11.5px;color:#334155;margin-bottom:5px;}
+.pw-dot{width:14px;height:14px;border-radius:4px;flex-shrink:0;border:2px solid;}
+.pw-dot.red{background:#fee2e2;border-color:#dc2626;}
+.pw-dot.orange{background:#fff7ed;border-color:#ea580c;}
+.pw-dot.blue{background:#dbeafe;border-color:#2563eb;}
+.pw-dot.green{background:#dcfce7;border-color:#16a34a;}
+.pw-dot.purple{background:#f3e8ff;border-color:#7c3aed;}
+.pw-dot.gray{background:#f1f5f9;border-color:#64748b;}
+
+.pw-detail-header{padding:13px 15px;border-radius:10px;margin-bottom:14px;}
+.pw-detail-title{font-size:15px;font-weight:800;line-height:1.4;}
+
+.pw-detail-body{font-size:12.5px;line-height:1.65;color:#334155;}
+.pw-section{margin-bottom:14px;}
+.pw-section h5{font-size:12px;font-weight:800;color:#0c1f3d;margin:0 0 6px;letter-spacing:0.02em;}
+.pw-section p{margin:0;color:#475569;}
+.pw-bullets{margin:0;padding-left:20px;color:#475569;}
+.pw-bullets li{margin-bottom:4px;}
+
+.pw-trial-chips{display:flex;flex-wrap:wrap;gap:5px;}
+.pw-trial-chip{background:white;border:1.5px solid #e2e8f0;color:#475569;font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;cursor:pointer;font-family:inherit;}
+.pw-trial-chip:hover{background:#fff7ed;border-color:#ea580c;color:#c2410c;}
+
+.pw-mol-link{display:block;width:100%;padding:9px 12px;background:linear-gradient(135deg,#faf5ff,#e9d5ff);color:#581c87;border:1.5px solid #c4b5fd;border-radius:9px;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:8px;}
+.pw-mol-link:hover{background:linear-gradient(135deg,#e9d5ff,#c4b5fd);}
+
+@media(max-width:980px){
+  .pathway-modal-content{max-height:96vh;}
+  .pathway-body{flex-direction:column;}
+  .pathway-svg-container{padding:14px;max-height:55vh;}
+  .pathway-sidepanel{width:100%;border-left:none;border-top:1px solid #e2e8f0;max-height:40vh;}
+}
+
+@media(max-width:640px){
+  .pathway-modal-bg{padding:0;}
+  .pathway-modal-content{max-height:100vh;border-radius:0;}
+  .pathway-header{padding:16px 16px 0;}
+  .pathway-title-wrap{padding-right:42px;margin-bottom:12px;}
+  .pathway-title{font-size:15px;}
+  .pathway-subtitle{font-size:10.5px;}
+  .pathway-icon{width:38px;height:38px;font-size:20px;}
+  .pathway-tab{padding:8px 12px;font-size:11.5px;}
+  .pathway-svg-container{padding:10px;}
+  .pathway-sidepanel{padding:14px;}
 }
 
 /* ===== 🌳 臨床下一步互動樹 Modal ===== */
@@ -1397,6 +1481,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="header-btn header-btn-checklist" onclick="openChecklist()" title="開啟臨床檢測 Checklist">
         <span>✅</span><span class="hide-on-mobile">Checklist</span>
       </button>
+      <button class="header-btn header-btn-pathway" onclick="openPathway()" title="開啟治療路徑流程圖">
+        <span>🗺️</span><span class="hide-on-mobile">治療路徑</span>
+      </button>
       <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
         <span>🤖</span><span>AI 治療路徑</span>
       </button>
@@ -1685,6 +1772,29 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div class="mol-pedia-list" id="molList"></div>
       <div class="mol-pedia-detail" id="molDetail"></div>
     </div>
+  </div>
+</div>
+
+<!-- ===== 🗺️ 治療路徑流程圖 Modal ===== -->
+<div class="pathway-modal-bg" id="pathwayModal" onclick="if(event.target.id==='pathwayModal')closePathway()">
+  <div class="pathway-modal-content">
+    <button class="pathway-close" onclick="closePathway()">✕</button>
+    <div class="pathway-header">
+      <div class="pathway-title-wrap">
+        <div class="pathway-icon">🗺️</div>
+        <div>
+          <div class="pathway-title">治療路徑流程圖</div>
+          <div class="pathway-subtitle">4 大癌別治療決策地圖 · 點擊節點看詳細治療 + 對應試驗</div>
+        </div>
+      </div>
+      <div class="pathway-tabs">
+        <button class="pathway-tab active" data-cancer="EC" onclick="switchPathwayTab('EC')">🔴 EC</button>
+        <button class="pathway-tab" data-cancer="OC" onclick="switchPathwayTab('OC')">🟣 OC</button>
+        <button class="pathway-tab" data-cancer="CC" onclick="switchPathwayTab('CC')">🟠 CC</button>
+        <button class="pathway-tab" data-cancer="US" onclick="switchPathwayTab('US')">🔵 US</button>
+      </div>
+    </div>
+    <div class="pathway-body" id="pathwayBody"></div>
   </div>
 </div>
 
@@ -6754,7 +6864,624 @@ function markAllChecklist(checked){
 }
 
 // ============================================================
-// 🌳 臨床下一步互動樹 (Next Step Tree)
+// 🗺️ 治療路徑流程圖 (Treatment Pathway Flowcharts)
+// ============================================================
+// 結構: 節點 + 連線; 用 SVG 繪製
+// node = { id, label, type: 'root'|'branch'|'treatment'|'maintenance', x, y, color, details: { description, treatments, trials, molEntryId } }
+// edge = { from: nodeId, to: nodeId, label?: string }
+
+const PATHWAYS = {
+  EC: {
+    title: '🔴 子宮內膜癌 EC 治療路徑流程圖',
+    subtitle: '依 4-tier 分子分型 + 分期決策',
+    width: 1200,
+    height: 720,
+    nodes: [
+      // Root
+      { id: 'ec-root', label: '診斷 EC', type: 'root', x: 600, y: 40, color: 'red', details: {
+        description: '子宮內膜癌新診斷或復發 — 依分子分型 + FIGO 2023 解剖分期決策',
+        treatments: ['手術: TAH+BSO ± lymphadenectomy', '4-tier 分子分型必做'],
+        trials: [],
+      }},
+
+      // Tier 2: 4-tier 分子分型
+      { id: 'ec-mol', label: '4-tier 分子分型', type: 'branch', x: 600, y: 120, color: 'orange', details: {
+        description: 'POLE → MMR → p53 → NSMP, multi-classifier 時 POLEmut 優先',
+        treatments: ['POLE EDM sequencing (NGS)', 'MMR IHC 4 蛋白', 'p53 IHC pattern'],
+        trials: [],
+        molEntryId: 'POLEm',
+      }},
+
+      // Tier 3: 4 分子亞型
+      { id: 'ec-pole', label: 'POLEmut\n~7%', type: 'branch', x: 200, y: 220, color: 'green', details: {
+        description: '預後最佳 (5y OS >95%); FIGO 2023 IAm POLEmut',
+        treatments: ['POLE EDM pathogenic confirmed'],
+        trials: ['rainbo-program', 'portec-4a'],
+        molEntryId: 'POLEm',
+      }},
+      { id: 'ec-mmrd', label: 'MMRd\n~28%', type: 'branch', x: 470, y: 220, color: 'blue', details: {
+        description: 'IO 高度敏感; 必做 Lynch 篩檢',
+        treatments: ['MMR IHC 4 蛋白', 'MLH1 methylation if MLH1/PMS2 loss'],
+        trials: ['ruby-p1', 'gy018', 'garnet'],
+        molEntryId: 'MMRd',
+      }},
+      { id: 'ec-p53', label: 'p53abn\n~15%', type: 'branch', x: 730, y: 220, color: 'red', details: {
+        description: '預後最差; serous histology >85%; HER2 testing 必做',
+        treatments: ['p53 IHC + TP53 NGS', 'HER2 IHC + ISH', 'HRD test 可考慮'],
+        trials: ['gy018', 'ruby-p1', 'duo-e', 'destiny-pantumor02'],
+        molEntryId: 'p53abn',
+      }},
+      { id: 'ec-nsmp', label: 'NSMP\n~50%', type: 'branch', x: 1000, y: 220, color: 'gray', details: {
+        description: '異質性大, 需再分流 (ER+/low-grade vs ER-/high-grade)',
+        treatments: ['ER/PR IHC', 'CTNNB1 NGS', 'L1CAM IHC'],
+        trials: ['portec-4a', 'rainbo-program'],
+        molEntryId: 'NSMP-low-risk',
+      }},
+
+      // Tier 4: 治療
+      { id: 'ec-pole-tx', label: 'De-escalation\nSurgery alone', type: 'treatment', x: 200, y: 350, color: 'green', details: {
+        description: 'POLEmut 即使 high-grade 預後極佳, 通常不需 adjuvant',
+        treatments: ['Stage I-IV 統一降為 IAm POLEmut', 'Surgery alone 為標準', '不需化療/放療'],
+        trials: ['portec-4a', 'rainbo-program'],
+      }},
+      { id: 'ec-mmrd-early', label: 'Early stage\n依 risk 決策', type: 'treatment', x: 380, y: 350, color: 'blue', details: {
+        description: 'Stage I-II MMRd: 依 FIGO 2023 + 風險因素',
+        treatments: ['Stage IA G1-2: Surveillance', 'IB+ / G3 / LVSI: VBT ± EBRT', 'Stage II+: Carbo/Pacli ± RT'],
+        trials: ['rainbo-program'],
+      }},
+      { id: 'ec-mmrd-advanced', label: 'Advanced\nIO + 化療', type: 'treatment', x: 560, y: 350, color: 'blue', details: {
+        description: 'Advanced/recurrent MMRd → 一線 IO+化療為標準 (HR 0.28-0.30)',
+        treatments: ['Carbo/Pacli + Pembro x 6 → Pembro 維持 (GY018)', 'Carbo/Pacli + Dostar x 6 → Dostar 維持 3y (RUBY P1)', '健保已給付'],
+        trials: ['gy018', 'ruby-p1', 'keynote-c93'],
+      }},
+      { id: 'ec-p53-her2', label: 'HER2+\nTrastuzumab', type: 'treatment', x: 700, y: 350, color: 'red', details: {
+        description: 'HER2+ uterine serous (~30% serous): 強化標靶',
+        treatments: ['一線: Carbo/Pacli + Trastuzumab (Fader)', '後線: T-DXd (DESTINY-PanTumor02)'],
+        trials: ['destiny-pantumor02'],
+      }},
+      { id: 'ec-p53-hrd', label: 'HRD+\nDUO-E Arm 3', type: 'treatment', x: 850, y: 350, color: 'red', details: {
+        description: 'p53abn + HRD+ (~25%) → 三藥維持',
+        treatments: ['Carbo/Pacli + Durva → Durva + Olap 維持 (DUO-E Arm 3)', 'PFS HR 0.57'],
+        trials: ['duo-e', 'duo-e-maint'],
+      }},
+      { id: 'ec-nsmp-low', label: 'ER+/Low-grade\nHormonal可', type: 'treatment', x: 950, y: 350, color: 'gray', details: {
+        description: 'NSMP 中 ~60% 為此 hormone-sensitive subset',
+        treatments: ['Hormonal: Letrozole, Megestrol, LNG-IUD', 'Fertility-sparing 適用', 'Stage I 多數 surveillance'],
+        trials: ['rainbo-program'],
+        molEntryId: 'NSMP-low-risk',
+      }},
+      { id: 'ec-nsmp-high', label: 'ER-/High-grade\n強化 adjuvant', type: 'treatment', x: 1080, y: 350, color: 'gray', details: {
+        description: 'NSMP 中 ~40% — 預後接近 p53abn',
+        treatments: ['Adjuvant: Carbo/Pacli + RT', 'Advanced: 同 p53abn (chemo+IO)'],
+        trials: ['portec-4a', 'duo-e'],
+        molEntryId: 'NSMP-high-risk',
+      }},
+
+      // Tier 5: 後線 / 維持
+      { id: 'ec-recurrent', label: '復發/後線\n單藥 IO', type: 'maintenance', x: 470, y: 480, color: 'purple', details: {
+        description: 'MMRd recurrent EC 後線選擇',
+        treatments: ['Pembro 200mg Q3W (KEYNOTE-158, ORR ~57%)', 'Dostar 500mg Q3W (GARNET)', 'Lenva + Pembro (KEYNOTE-775)'],
+        trials: ['garnet'],
+      }},
+      { id: 'ec-pmmr-recurrent', label: 'pMMR 復發\nLenva+Pembro', type: 'maintenance', x: 800, y: 480, color: 'purple', details: {
+        description: 'pMMR recurrent EC',
+        treatments: ['Lenvatinib + Pembrolizumab (KEYNOTE-775)', 'Lenva 20mg + Pembro 200mg Q3W'],
+        trials: [],
+      }},
+    ],
+    edges: [
+      { from: 'ec-root', to: 'ec-mol' },
+      { from: 'ec-mol', to: 'ec-pole' },
+      { from: 'ec-mol', to: 'ec-mmrd' },
+      { from: 'ec-mol', to: 'ec-p53' },
+      { from: 'ec-mol', to: 'ec-nsmp' },
+      { from: 'ec-pole', to: 'ec-pole-tx' },
+      { from: 'ec-mmrd', to: 'ec-mmrd-early' },
+      { from: 'ec-mmrd', to: 'ec-mmrd-advanced' },
+      { from: 'ec-p53', to: 'ec-p53-her2', label: 'HER2+' },
+      { from: 'ec-p53', to: 'ec-p53-hrd', label: 'HRD+' },
+      { from: 'ec-nsmp', to: 'ec-nsmp-low', label: 'ER+' },
+      { from: 'ec-nsmp', to: 'ec-nsmp-high', label: 'ER-' },
+      { from: 'ec-mmrd-advanced', to: 'ec-recurrent' },
+      { from: 'ec-p53-her2', to: 'ec-pmmr-recurrent' },
+    ],
+  },
+
+  OC: {
+    title: '🟣 卵巢癌 OC 治療路徑流程圖',
+    subtitle: '依組織型 + BRCA/HRD + 治療階段',
+    width: 1200,
+    height: 760,
+    nodes: [
+      { id: 'oc-root', label: '診斷 EOC', type: 'root', x: 600, y: 40, color: 'purple', details: {
+        description: '上皮性卵巢癌新診斷',
+        treatments: ['Cytoreduction (PDS or NACT→IDS)', '所有 epithelial OC 強制 germline BRCA'],
+        trials: [],
+      }},
+
+      { id: 'oc-histo', label: '組織型分流', type: 'branch', x: 600, y: 130, color: 'orange', details: {
+        description: '70% HGSC + 其他罕見組織型',
+        treatments: ['HGSC: TP53 100%', 'OCCC, LGSC, Endometrioid, Mucinous, Carcinosarcoma'],
+        trials: [],
+      }},
+
+      { id: 'oc-hgsc', label: 'HGSC\n~70%', type: 'branch', x: 230, y: 230, color: 'red', details: {
+        description: '主要組織型, BRCA + HRD 主要族群',
+        treatments: ['Carbo/Pacli x 6 ± Bev', '一線完成後維持治療'],
+        trials: ['solo-1', 'paola-1', 'prima'],
+        molEntryId: 'HGSC',
+      }},
+      { id: 'oc-lgsc', label: 'LGSC\n~5%', type: 'branch', x: 480, y: 230, color: 'gray', details: {
+        description: 'TP53 wildtype, KRAS/BRAF/NRAS mut',
+        treatments: ['MEK inhibitor (Trametinib)', 'Hormonal therapy (ER+)'],
+        trials: ['gog-281', 'ramp-201'],
+        molEntryId: 'LGSC',
+      }},
+      { id: 'oc-occc', label: 'OCCC\n~10%', type: 'branch', x: 720, y: 230, color: 'gray', details: {
+        description: 'ARID1A + PIK3CA, IO 反應較好',
+        treatments: ['本院 DOVE: Dostar ± Bev', 'IO trials'],
+        trials: ['dove', 'nrg-gy019'],
+        molEntryId: 'OCCC',
+      }},
+      { id: 'oc-mucinous', label: 'Mucinous\n~3-5%', type: 'branch', x: 970, y: 230, color: 'red', details: {
+        description: '【強制】先排除 GI mets! 80% 為 GI tract 轉移',
+        treatments: ['胃鏡 + 大腸鏡 + CDX-2 IHC', 'KRAS + HER2 testing'],
+        trials: [],
+        molEntryId: 'Mucinous-OC',
+      }},
+
+      { id: 'oc-brcam', label: 'BRCAm\n~22%', type: 'treatment', x: 100, y: 360, color: 'green', details: {
+        description: 'PARPi 強烈獲益族群; SOLO-1 一線維持 NCCN Cat 1',
+        treatments: ['一線維持 +Bev: PAOLA-1 (Olap+Bev)', '一線維持 -Bev: SOLO-1 (Olap)', 'PSOC: SOLO2 / NOVA'],
+        trials: ['solo-1', 'paola-1', 'solo2', 'prima'],
+        molEntryId: 'BRCAm',
+      }},
+      { id: 'oc-hrdpos', label: 'HRD+ BRCAwt\n~28%', type: 'treatment', x: 270, y: 360, color: 'blue', details: {
+        description: 'BRCAness, GIS≥42; PAOLA-1 為主',
+        treatments: ['+Bev: PAOLA-1 (Olap+Bev)', '-Bev: PRIMA (Niraparib)', 'PFS HR 0.33'],
+        trials: ['paola-1', 'prima'],
+        molEntryId: 'HRD-pos',
+      }},
+      { id: 'oc-hrdneg', label: 'HRD- (HRP)\n~50%', type: 'treatment', x: 440, y: 360, color: 'orange', details: {
+        description: 'PARPi 反應差; 一線 Bev only',
+        treatments: ['一線維持: Bev only (GOG-218)', 'PROC: Mirvetuximab (FRα+)', 'PROC: KEYNOTE-B96 (IO+chemo)'],
+        trials: ['gog-0218', 'mirasol', 'keynote-b96', 'trofuse-021'],
+        molEntryId: 'HRD-neg',
+      }},
+
+      { id: 'oc-lgsc-tx', label: 'Trametinib\nMEK抑制劑', type: 'treatment', x: 480, y: 460, color: 'gray', details: {
+        description: 'KRAS/BRAFm LGSC 標靶治療',
+        treatments: ['Trametinib (GOG-281, PFS 13.0m vs 7.2m)', 'Hormonal: Letrozole (ER+)'],
+        trials: ['gog-281', 'gog-3026'],
+      }},
+      { id: 'oc-occc-tx', label: 'IO trial\nDOVE', type: 'treatment', x: 720, y: 460, color: 'gray', details: {
+        description: 'OCCC 鉑類抗藥但 IO 反應較好',
+        treatments: ['本院 DOVE: Dostar ± Bev (黃慧君主持)', 'PD-L1+ subset 反應更好'],
+        trials: ['dove'],
+      }},
+
+      { id: 'oc-proc', label: 'PROC\nADC + IO', type: 'maintenance', x: 280, y: 580, color: 'purple', details: {
+        description: '鉑抗藥復發 — ADC + IO 為突破方向',
+        treatments: ['Mirvetuximab Soravtansine (FRα+, MIRASOL OS HR 0.67)', 'sac-TMT (TROP2, 本院 TroFuse-021)', 'KEYNOTE-B96 (Pembro+pacli)', 'ROSELLA (Relacorilant+nab-pacli)'],
+        trials: ['mirasol', 'trofuse-021', 'keynote-b96', 'rosella', 'destiny-ovarian01'],
+      }},
+    ],
+    edges: [
+      { from: 'oc-root', to: 'oc-histo' },
+      { from: 'oc-histo', to: 'oc-hgsc' },
+      { from: 'oc-histo', to: 'oc-lgsc' },
+      { from: 'oc-histo', to: 'oc-occc' },
+      { from: 'oc-histo', to: 'oc-mucinous' },
+      { from: 'oc-hgsc', to: 'oc-brcam', label: 'BRCAm' },
+      { from: 'oc-hgsc', to: 'oc-hrdpos', label: 'HRD+' },
+      { from: 'oc-hgsc', to: 'oc-hrdneg', label: 'HRD-' },
+      { from: 'oc-lgsc', to: 'oc-lgsc-tx' },
+      { from: 'oc-occc', to: 'oc-occc-tx' },
+      { from: 'oc-brcam', to: 'oc-proc' },
+      { from: 'oc-hrdpos', to: 'oc-proc' },
+      { from: 'oc-hrdneg', to: 'oc-proc' },
+    ],
+  },
+
+  CC: {
+    title: '🟠 子宮頸癌 CC 治療路徑流程圖',
+    subtitle: '依分期 + 組織型 + biomarker',
+    width: 1200,
+    height: 700,
+    nodes: [
+      { id: 'cc-root', label: '診斷 CC', type: 'root', x: 600, y: 40, color: 'orange', details: {
+        description: '子宮頸癌依 FIGO 2018 分期 + WHO 2020 病理分類',
+        treatments: ['p16 IHC + HPV genotyping (病理常規)', 'PD-L1 CPS for advanced'],
+        trials: [],
+      }},
+
+      { id: 'cc-stage', label: '分期分流', type: 'branch', x: 600, y: 130, color: 'orange', details: {
+        description: 'Early (IA-IB1) / LACC (IB2-IVA) / R/M (IVB or recurrent)',
+        treatments: [],
+        trials: [],
+      }},
+
+      { id: 'cc-early', label: 'Early\nIA1-IB2', type: 'branch', x: 200, y: 230, color: 'green', details: {
+        description: '早期 CC: 手術為主',
+        treatments: ['IA1: cone biopsy or simple hyst', 'IA2-IB1: Radical hyst + PLND', 'IB2 (≤4cm): RH+PLND or CCRT'],
+        trials: [],
+      }},
+      { id: 'cc-lacc', label: 'LACC\nIB3-IVA', type: 'branch', x: 600, y: 230, color: 'orange', details: {
+        description: '局部進展 CC: CCRT ± IO',
+        treatments: ['CCRT (cisplatin weekly + EBRT + brachytherapy)', '+ Pembro (KEYNOTE-A18)'],
+        trials: ['keynote-a18', 'ovation-2'],
+      }},
+      { id: 'cc-rm', label: 'R/M\nIVB / Recurrent', type: 'branch', x: 1000, y: 230, color: 'red', details: {
+        description: '復發/轉移 — PD-L1 + HER2 (adenoCa) testing',
+        treatments: ['PD-L1 CPS 必做', 'AdenoCa: 加做 HER2 IHC + ISH'],
+        trials: ['keynote-826', 'beatcc'],
+      }},
+
+      { id: 'cc-early-fertility', label: 'Fertility-sparing\nTrachelectomy', type: 'treatment', x: 100, y: 360, color: 'green', details: {
+        description: 'IA1-IB1 (≤2cm) + 想保留生育能力',
+        treatments: ['Cone biopsy (IA1, no LVSI)', 'Trachelectomy + PLND (IA2-IB1, ≤2cm)', 'Conization + 監測 in selected'],
+        trials: [],
+      }},
+      { id: 'cc-early-rad', label: 'Radical Hyst\n+PLND', type: 'treatment', x: 280, y: 360, color: 'green', details: {
+        description: 'IA2-IB2 標準手術',
+        treatments: ['Radical hyst (Type B/C)', 'Pelvic lymphadenectomy', 'SLN mapping (新趨勢)'],
+        trials: [],
+      }},
+
+      { id: 'cc-lacc-ccrt', label: 'CCRT\n+ Pembro', type: 'treatment', x: 600, y: 360, color: 'orange', details: {
+        description: 'LACC 標準: KEYNOTE-A18',
+        treatments: ['CCRT: cisplatin 40mg/m² weekly × 5 + EBRT 45-50Gy + brachy', '+ Pembro Q3W during/after CCRT', 'PFS HR 0.70'],
+        trials: ['keynote-a18'],
+      }},
+
+      { id: 'cc-rm-pdl1pos', label: 'PD-L1 CPS≥1\nKEYNOTE-826', type: 'treatment', x: 880, y: 360, color: 'red', details: {
+        description: 'R/M CC + PD-L1+ 一線標準',
+        treatments: ['Carbo/Pacli + Pembro ± Bev (KEYNOTE-826, OS HR 0.64)', '健保已給付', 'AdenoCa + HER2+: 加 Trastuzumab'],
+        trials: ['keynote-826'],
+      }},
+      { id: 'cc-rm-pdl1neg', label: 'PD-L1 CPS<1\nBEATcc', type: 'treatment', x: 1080, y: 360, color: 'red', details: {
+        description: 'R/M CC + PD-L1- 替代',
+        treatments: ['Carbo/Pacli + Atezo + Bev (BEATcc, OS HR 0.68)', '不限 CPS, 全人群獲益'],
+        trials: ['beatcc'],
+      }},
+
+      { id: 'cc-her2', label: 'HER2+ AdenoCa\nT-DXd', type: 'maintenance', x: 880, y: 480, color: 'purple', details: {
+        description: 'HER2+ cervical adenoCa (~3-5% adenoCa, ~20% gastric-type)',
+        treatments: ['一線後復發: T-DXd (DESTINY-PanTumor02 ORR ~50%)', 'IHC 3+ 或 ISH amp+'],
+        trials: ['destiny-pantumor02'],
+        molEntryId: 'HER2-cervical',
+      }},
+      { id: 'cc-trofuse', label: '本院 TroFuse-036\nsac-TMT 維持', type: 'maintenance', x: 600, y: 480, color: 'purple', details: {
+        description: 'PD-L1+ + TROP2+ R/M CC 一線維持試驗',
+        treatments: ['sac-TMT (Sacituzumab Tirumotecan) + Pembro', '湯雲心主持, 0/2 競爭收案'],
+        trials: ['trofuse-036'],
+        molEntryId: 'TROP2',
+      }},
+
+      { id: 'cc-cin', label: 'CIN2/3\n本院 PVX4', type: 'treatment', x: 100, y: 480, color: 'green', details: {
+        description: 'Pre-invasive lesion — 本院治療性疫苗試驗',
+        treatments: ['標準: LEEP', 'AIS: cold knife conization', '本院 PVX4: HPV16+ DNA vaccine (賴瓊慧主持)'],
+        trials: ['pvx4'],
+        molEntryId: 'CIN23',
+      }},
+
+      { id: 'cc-tumor-agnostic', label: '後線\nTumor-agnostic', type: 'maintenance', x: 1080, y: 580, color: 'purple', details: {
+        description: 'R/M CC 標準耗盡 — broad NGS panel',
+        treatments: ['MSI/TMB → Pembro', 'NTRK → Larotrectinib/Entrectinib', 'RET → Selpercatinib', 'BRAF V600E → Dabra/Tram'],
+        trials: ['ntrk-basket'],
+        molEntryId: 'Tumor-agnostic-CC',
+      }},
+    ],
+    edges: [
+      { from: 'cc-root', to: 'cc-stage' },
+      { from: 'cc-stage', to: 'cc-early' },
+      { from: 'cc-stage', to: 'cc-lacc' },
+      { from: 'cc-stage', to: 'cc-rm' },
+      { from: 'cc-early', to: 'cc-early-fertility', label: 'Fertility' },
+      { from: 'cc-early', to: 'cc-early-rad', label: 'Standard' },
+      { from: 'cc-lacc', to: 'cc-lacc-ccrt' },
+      { from: 'cc-rm', to: 'cc-rm-pdl1pos', label: 'CPS≥1' },
+      { from: 'cc-rm', to: 'cc-rm-pdl1neg', label: 'CPS<1' },
+      { from: 'cc-rm-pdl1pos', to: 'cc-her2', label: 'HER2+' },
+      { from: 'cc-rm-pdl1pos', to: 'cc-trofuse', label: 'TROP2+' },
+      { from: 'cc-rm-pdl1neg', to: 'cc-tumor-agnostic' },
+    ],
+  },
+
+  US: {
+    title: '🔵 子宮肉瘤 US 治療路徑流程圖',
+    subtitle: '依組織型 + fusion gene + 治療策略',
+    width: 1200,
+    height: 720,
+    nodes: [
+      { id: 'us-root', label: '診斷 US', type: 'root', x: 600, y: 40, color: 'blue', details: {
+        description: '子宮肉瘤罕見 (<5% 子宮惡性), 依組織型分流',
+        treatments: ['【強制】Total hyst + BSO; 禁 morcellation!', 'Stanford 3 criteria 評估 LMS', 'Sarcoma fusion NGS panel'],
+        trials: [],
+      }},
+
+      { id: 'us-histo', label: '組織型分流', type: 'branch', x: 600, y: 130, color: 'orange', details: {
+        description: 'LMS (~63%) / ESS (~10%) / 罕見 entities',
+        treatments: ['SMA, desmin, h-caldesmon (smooth muscle)', 'CD10 (stromal)', 'BCOR, ALK, NTRK, TSC (rare)'],
+        trials: [],
+      }},
+
+      { id: 'us-lms', label: 'LMS\n~63%', type: 'branch', x: 200, y: 230, color: 'red', details: {
+        description: 'Stanford 3 criteria; TP53/RB1/ATRX',
+        treatments: ['ER/PR IHC 必做 (hormonal 適應)', 'NTRK panel (rare 但 actionable)'],
+        trials: ['gog-0277', 'palette', 'lms-04'],
+        molEntryId: 'LMS',
+      }},
+      { id: 'us-ess', label: 'ESS\nLG vs HG', type: 'branch', x: 470, y: 230, color: 'orange', details: {
+        description: 'LG-ESS (JAZF1-SUZ12) vs HG-ESS (YWHAE / BCOR)',
+        treatments: ['JAZF1-SUZ12 FISH', 'YWHAE-NUTM2 / ZC3H7B-BCOR'],
+        trials: ['paragon'],
+        molEntryId: 'LG-ESS',
+      }},
+      { id: 'us-ntrk', label: 'NTRK fusion\n<1%', type: 'branch', x: 700, y: 230, color: 'green', details: {
+        description: 'rare 但 high-impact; Larotrectinib pan-tumor',
+        treatments: ['pan-Trk IHC + NTRK FISH/NGS confirm'],
+        trials: ['ntrk-basket'],
+        molEntryId: 'NTRK-uterine-sarcoma',
+      }},
+      { id: 'us-imt', label: 'IMT\nALK fusion', type: 'branch', x: 880, y: 230, color: 'green', details: {
+        description: 'Inflammatory Myofibroblastic Tumor; ALK ~50-60%',
+        treatments: ['ALK IHC + FISH', 'ROS1, RET, NTRK 替代'],
+        trials: [],
+        molEntryId: 'IMT-ALK',
+      }},
+      { id: 'us-pecoma', label: 'PEComa\nTSC1/2', type: 'branch', x: 1080, y: 230, color: 'green', details: {
+        description: 'TSC1/2 mutation; mTOR-driven',
+        treatments: ['HMB-45 + Melan-A IHC', 'TSC germline (~20% 為 TSC syndrome)'],
+        trials: [],
+        molEntryId: 'PEComa',
+      }},
+
+      { id: 'us-lms-erpos', label: 'ER+/PR+ LMS\n30-40%', type: 'treatment', x: 80, y: 360, color: 'red', details: {
+        description: 'ER+ subset 較佳預後',
+        treatments: ['Letrozole 2.5mg QD (advanced)', 'GnRH agonist 如停經前', '【避免】HRT, tamoxifen 禁忌'],
+        trials: [],
+        molEntryId: 'uLMS-hormonal',
+      }},
+      { id: 'us-lms-erneg', label: 'ER- LMS\nDoxorubicin', type: 'treatment', x: 280, y: 360, color: 'red', details: {
+        description: 'Standard 化療',
+        treatments: ['一線: Doxorubicin (60-75mg/m² Q3W)', '+ Trabectedin (LMS-04)', '+ Gemcitabine/Docetaxel (GeDDiS)'],
+        trials: ['lms-04', 'eortc-62012'],
+      }},
+
+      { id: 'us-lgess', label: 'LG-ESS\nLetrozole', type: 'treatment', x: 380, y: 360, color: 'orange', details: {
+        description: 'JAZF1-SUZ12 fusion + ER/PR+',
+        treatments: ['Hysterectomy + BSO 強烈建議', 'Letrozole / Megestrol 為標準', '【避免】estrogen-containing'],
+        trials: ['paragon', 'letrozole-ngess'],
+        molEntryId: 'LG-ESS',
+      }},
+      { id: 'us-hgess-ywhae', label: 'HG-ESS YWHAE\nCDK4/6 試驗', type: 'treatment', x: 530, y: 360, color: 'orange', details: {
+        description: 'YWHAE-NUTM2 + cyclin D1 strong',
+        treatments: ['Doxorubicin-based 化療', 'CDK4/6 inhibitor (Palbociclib) 試驗'],
+        trials: [],
+        molEntryId: 'HG-ESS-YWHAE',
+      }},
+      { id: 'us-hgess-bcor', label: 'HG-ESS BCOR\n鑑別myxoid LMS', type: 'treatment', x: 680, y: 360, color: 'orange', details: {
+        description: 'ZC3H7B-BCOR / BCOR-ITD; mimic myxoid LMS',
+        treatments: ['BCOR IHC + ZC3H7B-BCOR FISH', 'Doxorubicin-based 化療'],
+        trials: [],
+        molEntryId: 'HG-ESS-BCOR',
+      }},
+
+      { id: 'us-larotrectinib', label: 'Larotrectinib\nORR 75%', type: 'treatment', x: 700, y: 480, color: 'green', details: {
+        description: 'NTRK fusion+ pan-tumor 標靶',
+        treatments: ['Larotrectinib 100mg PO BID (FDA 2018)', 'Entrectinib 600mg QD (CNS+, FDA 2019)', '抗藥: Selitrectinib, Repotrectinib'],
+        trials: ['ntrk-basket'],
+      }},
+      { id: 'us-crizotinib', label: 'Crizotinib\nIMT', type: 'treatment', x: 880, y: 480, color: 'green', details: {
+        description: 'ALK+ IMT 標靶',
+        treatments: ['Crizotinib 250mg BID PO (FDA 2019 IMT)', 'Lorlatinib (CNS+)', 'R0 resection 為 curative'],
+        trials: [],
+      }},
+      { id: 'us-sirolimus', label: 'Nab-Sirolimus\nPEComa', type: 'treatment', x: 1080, y: 480, color: 'green', details: {
+        description: 'PEComa 標靶 (mTOR 抑制)',
+        treatments: ['Nab-Sirolimus (FDA 2021 malignant PEComa)', 'Sirolimus 2-4mg QD; Everolimus 10mg QD', 'CT chest baseline (LAM screening)'],
+        trials: [],
+      }},
+    ],
+    edges: [
+      { from: 'us-root', to: 'us-histo' },
+      { from: 'us-histo', to: 'us-lms' },
+      { from: 'us-histo', to: 'us-ess' },
+      { from: 'us-histo', to: 'us-ntrk' },
+      { from: 'us-histo', to: 'us-imt' },
+      { from: 'us-histo', to: 'us-pecoma' },
+      { from: 'us-lms', to: 'us-lms-erpos', label: 'ER+' },
+      { from: 'us-lms', to: 'us-lms-erneg', label: 'ER-' },
+      { from: 'us-ess', to: 'us-lgess', label: 'LG' },
+      { from: 'us-ess', to: 'us-hgess-ywhae', label: 'HG-YWHAE' },
+      { from: 'us-ess', to: 'us-hgess-bcor', label: 'HG-BCOR' },
+      { from: 'us-ntrk', to: 'us-larotrectinib' },
+      { from: 'us-imt', to: 'us-crizotinib' },
+      { from: 'us-pecoma', to: 'us-sirolimus' },
+    ],
+  },
+};
+
+
+// ============================================================
+// 🗺️ 治療路徑流程圖 (Treatment Pathway Flowchart)
+// ============================================================
+let currentPathwayCancer = 'EC';
+let currentPathwayNode = null;
+
+const NODE_COLORS = {
+  red: { fill: '#fee2e2', stroke: '#dc2626', text: '#7f1d1d' },
+  orange: { fill: '#fff7ed', stroke: '#ea580c', text: '#7c2d12' },
+  blue: { fill: '#dbeafe', stroke: '#2563eb', text: '#1e3a8a' },
+  green: { fill: '#dcfce7', stroke: '#16a34a', text: '#14532d' },
+  purple: { fill: '#f3e8ff', stroke: '#7c3aed', text: '#581c87' },
+  gray: { fill: '#f1f5f9', stroke: '#64748b', text: '#1e293b' },
+};
+
+function openPathway(){
+  el('pathwayModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  switchPathwayTab(currentPathwayCancer);
+}
+
+function closePathway(){
+  el('pathwayModal').classList.remove('open');
+  document.body.style.overflow = '';
+  currentPathwayNode = null;
+}
+
+function switchPathwayTab(cancer){
+  currentPathwayCancer = cancer;
+  currentPathwayNode = null;
+  document.querySelectorAll('.pathway-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.cancer === cancer);
+  });
+  renderPathway();
+}
+
+function renderPathway(){
+  const data = PATHWAYS[currentPathwayCancer];
+  if(!data){
+    el('pathwayBody').innerHTML = '<p style="padding:20px;color:#dc2626;">此癌別治療路徑圖尚未建立</p>';
+    return;
+  }
+
+  // Build SVG
+  const NODE_W = 130;
+  const NODE_H = 56;
+
+  let edgesSvg = '';
+  data.edges.forEach(edge => {
+    const fromNode = data.nodes.find(n => n.id === edge.from);
+    const toNode = data.nodes.find(n => n.id === edge.to);
+    if(!fromNode || !toNode) return;
+
+    const x1 = fromNode.x;
+    const y1 = fromNode.y + NODE_H/2;
+    const x2 = toNode.x;
+    const y2 = toNode.y - NODE_H/2;
+    const midY = (y1 + y2) / 2;
+
+    // Path: from bottom of source → midY → top of target (orthogonal)
+    edgesSvg += `<path d="M ${x1} ${y1} L ${x1} ${midY} L ${x2} ${midY} L ${x2} ${y2}" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>`;
+
+    if(edge.label){
+      edgesSvg += `<rect x="${(x1+x2)/2 - 32}" y="${midY - 11}" width="64" height="22" rx="11" fill="white" stroke="#cbd5e1" stroke-width="1"/>`;
+      edgesSvg += `<text x="${(x1+x2)/2}" y="${midY + 4}" text-anchor="middle" font-size="11" font-weight="700" fill="#475569" font-family="JetBrains Mono, monospace">${escapeHtml(edge.label)}</text>`;
+    }
+  });
+
+  let nodesSvg = '';
+  data.nodes.forEach(node => {
+    const colors = NODE_COLORS[node.color] || NODE_COLORS.gray;
+    const isSelected = currentPathwayNode === node.id;
+    const strokeWidth = isSelected ? 4 : 2;
+    const lines = node.label.split('\n');
+
+    nodesSvg += `<g class="pathway-node-group" data-node-id="${node.id}" onclick="selectPathwayNode('${node.id}')" style="cursor:pointer;">`;
+    nodesSvg += `<rect x="${node.x - NODE_W/2}" y="${node.y - NODE_H/2}" width="${NODE_W}" height="${NODE_H}" rx="11" fill="${colors.fill}" stroke="${colors.stroke}" stroke-width="${strokeWidth}"/>`;
+    if(lines.length === 1){
+      nodesSvg += `<text x="${node.x}" y="${node.y + 5}" text-anchor="middle" font-size="13" font-weight="800" fill="${colors.text}">${escapeHtml(lines[0])}</text>`;
+    } else {
+      nodesSvg += `<text x="${node.x}" y="${node.y - 4}" text-anchor="middle" font-size="12.5" font-weight="800" fill="${colors.text}">${escapeHtml(lines[0])}</text>`;
+      nodesSvg += `<text x="${node.x}" y="${node.y + 13}" text-anchor="middle" font-size="11" font-weight="700" fill="${colors.text}" opacity="0.85">${escapeHtml(lines[1])}</text>`;
+    }
+    nodesSvg += `</g>`;
+  });
+
+  const svg = `
+    <svg viewBox="0 0 ${data.width} ${data.height}" xmlns="http://www.w3.org/2000/svg" class="pathway-svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+        </marker>
+      </defs>
+      ${edgesSvg}
+      ${nodesSvg}
+    </svg>
+  `;
+
+  // Build initial side panel (instructions)
+  const sidePanel = currentPathwayNode ?
+    renderPathwayDetail(data.nodes.find(n => n.id === currentPathwayNode)) :
+    `<div class="pw-sidepanel-empty">
+      <div class="pw-empty-icon">🗺️</div>
+      <div class="pw-empty-title">${escapeHtml(data.title)}</div>
+      <div class="pw-empty-desc">${escapeHtml(data.subtitle)}</div>
+      <div class="pw-empty-hint">點選任一節點查看詳情</div>
+      <div class="pw-legend">
+        <div class="pw-legend-title">節點顏色說明</div>
+        <div class="pw-legend-item"><span class="pw-dot red"></span>診斷 / 高風險</div>
+        <div class="pw-legend-item"><span class="pw-dot orange"></span>分流節點 / 警示</div>
+        <div class="pw-legend-item"><span class="pw-dot blue"></span>標準路徑</div>
+        <div class="pw-legend-item"><span class="pw-dot green"></span>良好預後 / 標靶</div>
+        <div class="pw-legend-item"><span class="pw-dot purple"></span>後線 / 維持</div>
+        <div class="pw-legend-item"><span class="pw-dot gray"></span>NSMP / 其他</div>
+      </div>
+    </div>`;
+
+  el('pathwayBody').innerHTML = `
+    <div class="pathway-svg-container">${svg}</div>
+    <div class="pathway-sidepanel" id="pathwaySidepanel">${sidePanel}</div>
+  `;
+}
+
+function renderPathwayDetail(node){
+  if(!node) return '';
+  const d = node.details || {};
+  const colors = NODE_COLORS[node.color] || NODE_COLORS.gray;
+
+  let trialsHtml = '';
+  if(d.trials && d.trials.length){
+    const chips = d.trials.map(tid => {
+      const t = TRIALS.find(x => x.id === tid);
+      if(!t) return '';
+      const statusEmoji = t.status === 'ongoing' ? '📍' : '📚';
+      const siteIndicator = t.siteInfo ? '🏥' : '';
+      return `<button class="pw-trial-chip" onclick="closePathway(); setTimeout(() => showDetail('${t.id}'), 100);">${statusEmoji} ${siteIndicator} ${escapeHtml(t.name)}</button>`;
+    }).filter(Boolean).join('');
+    trialsHtml = chips ? `
+      <div class="pw-section">
+        <h5>🎯 對應臨床試驗</h5>
+        <div class="pw-trial-chips">${chips}</div>
+      </div>
+    ` : '';
+  }
+
+  let molLinkHtml = '';
+  if(d.molEntryId){
+    molLinkHtml = `
+      <button class="pw-mol-link" onclick="closePathway(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${currentPathwayCancer}'); setTimeout(() => { const data = MOL_PEDIA['${currentPathwayCancer}']; const idx = data.entries.findIndex(e => e.id === '${d.molEntryId}'); if(idx >= 0) selectMolEntry(idx); }, 50); }, 100); }, 100);">
+        🧬 看完整分子分型 (${escapeHtml(d.molEntryId)}) →
+      </button>
+    `;
+  }
+
+  return `
+    <div class="pw-detail-header" style="background:${colors.fill};border-left:5px solid ${colors.stroke};">
+      <div class="pw-detail-title" style="color:${colors.text};">${escapeHtml(node.label.replace(/\n/g, ' '))}</div>
+    </div>
+    <div class="pw-detail-body">
+      ${d.description ? `<div class="pw-section"><h5>📋 說明</h5><p>${escapeHtml(d.description)}</p></div>` : ''}
+      ${d.treatments && d.treatments.length ? `
+        <div class="pw-section">
+          <h5>💊 治療 / 動作</h5>
+          <ul class="pw-bullets">${d.treatments.map(t => `<li>${escapeHtml(t)}</li>`).join('')}</ul>
+        </div>
+      ` : ''}
+      ${trialsHtml}
+      ${molLinkHtml}
+    </div>
+  `;
+}
+
+function selectPathwayNode(nodeId){
+  currentPathwayNode = nodeId;
+  renderPathway();
+}
+
+
 // ============================================================
 let currentTreeEntryId = null;
 let currentTreeStepId = null;
