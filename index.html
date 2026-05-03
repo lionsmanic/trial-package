@@ -368,6 +368,110 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .mol-takeaway{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #f59e0b;border-radius:11px;padding:13px 16px;font-size:13px;line-height:1.65;color:#78350f;margin-top:18px;}
 .mol-takeaway strong{color:#78350f;}
 
+/* 🌳 Tree button on entry detail */
+.mol-tree-btn{
+  display:block;
+  width:100%;
+  padding:14px 18px;
+  background:linear-gradient(135deg,#dcfce7,#bbf7d0);
+  color:#065f46;
+  border:2px solid #86efac;
+  border-radius:11px;
+  font-size:13.5px;
+  font-weight:800;
+  cursor:pointer;
+  font-family:inherit;
+  margin:0 0 18px;
+  text-align:center;
+  letter-spacing:0.02em;
+  transition:all 0.15s;
+}
+.mol-tree-btn:hover{
+  background:linear-gradient(135deg,#bbf7d0,#86efac);
+  border-color:#16a34a;
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(22,163,74,0.25);
+}
+
+/* ===== 🌳 臨床下一步互動樹 Modal ===== */
+.tree-modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.88);z-index:570;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.tree-modal-bg.open{display:flex;}
+.tree-modal-content{background:white;max-width:780px;width:100%;max-height:92vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
+.tree-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.tree-close:hover{background:white;transform:scale(1.05);}
+
+.tree-header{background:linear-gradient(135deg,#065f46,#047857);color:white;padding:22px 26px;display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.tree-header-icon{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.tree-header-title{font-size:17px;font-weight:800;letter-spacing:.02em;line-height:1.3;}
+.tree-header-subtitle{font-size:11.5px;color:rgba(255,255,255,0.75);font-family:"JetBrains Mono",monospace;margin-top:3px;line-height:1.4;}
+
+.tree-body{padding:22px 26px;overflow-y:auto;flex:1;background:#f0fdf4;}
+
+/* Breadcrumb */
+.tree-breadcrumb{display:flex;align-items:center;gap:8px;padding:8px 12px;background:white;border-radius:9px;margin-bottom:14px;font-size:11.5px;color:#64748b;border-left:3px solid #047857;}
+.tree-restart-btn{background:#fef3c7;border:1px solid #fbbf24;color:#92400e;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:inherit;}
+.tree-restart-btn:hover{background:#fde68a;}
+.tree-bc-sep{color:#cbd5e1;}
+.tree-bc-current{font-family:"JetBrains Mono",monospace;font-size:10.5px;}
+
+/* Question step */
+.tree-question{font-size:16px;font-weight:800;color:#065f46;margin-bottom:14px;line-height:1.45;padding:14px 16px;background:white;border-radius:11px;border-left:5px solid #047857;}
+
+.tree-options{display:flex;flex-direction:column;gap:9px;}
+.tree-option{display:flex;align-items:center;gap:11px;padding:13px 16px;background:white;border:2px solid #d1fae5;border-radius:11px;cursor:pointer;font-size:13.5px;font-weight:700;color:#0c1f3d;text-align:left;font-family:inherit;transition:all 0.15s;line-height:1.4;}
+.tree-option:hover{border-color:#10b981;transform:translateX(3px);box-shadow:0 4px 12px rgba(16,185,129,0.18);}
+.tree-opt-arrow{flex-shrink:0;font-size:16px;font-weight:800;color:#047857;}
+.tree-opt-label{flex:1;}
+
+/* Color variants for options */
+.tree-option.green{border-color:#86efac;background:#f0fdf4;}
+.tree-option.green:hover{border-color:#16a34a;background:#dcfce7;}
+.tree-option.green .tree-opt-arrow{color:#15803d;}
+
+.tree-option.blue{border-color:#bfdbfe;background:#eff6ff;}
+.tree-option.blue:hover{border-color:#2563eb;background:#dbeafe;}
+.tree-option.blue .tree-opt-arrow{color:#1e40af;}
+
+.tree-option.orange{border-color:#fed7aa;background:#fff7ed;}
+.tree-option.orange:hover{border-color:#ea580c;background:#ffedd5;}
+.tree-option.orange .tree-opt-arrow{color:#c2410c;}
+
+.tree-option.red{border-color:#fecaca;background:#fef2f2;}
+.tree-option.red:hover{border-color:#dc2626;background:#fee2e2;}
+.tree-option.red .tree-opt-arrow{color:#b91c1c;}
+
+.tree-option.gray{border-color:#e2e8f0;background:#f8fafc;}
+.tree-option.gray:hover{border-color:#64748b;background:#f1f5f9;}
+.tree-option.gray .tree-opt-arrow{color:#475569;}
+
+/* Conclusion step */
+.tree-conclusion{font-size:16px;font-weight:800;color:#065f46;line-height:1.45;padding:14px 16px;background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-radius:11px;border-left:5px solid #16a34a;margin-bottom:14px;}
+.tree-recommendations{margin:0 0 16px;padding-left:24px;font-size:13px;line-height:1.7;color:#1a202c;background:white;padding:16px 16px 16px 36px;border-radius:11px;border:1px solid #d1fae5;}
+.tree-recommendations li{margin-bottom:6px;}
+
+.tree-continue-btn{display:block;width:100%;padding:13px 18px;background:linear-gradient(135deg,#047857,#065f46);color:white;border:none;border-radius:11px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:0.02em;}
+.tree-continue-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(4,120,87,0.4);}
+
+.tree-end-actions{display:flex;gap:9px;}
+.tree-end-actions button{flex:1;padding:11px 16px;border-radius:10px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;border:none;}
+.tree-end-actions .tree-restart-btn{background:#fef3c7;border:1.5px solid #fbbf24;color:#92400e;}
+.tree-close-btn-2{background:#e2e8f0;color:#475569;}
+.tree-close-btn-2:hover{background:#cbd5e1;}
+
+@media(max-width:640px){
+  .tree-modal-bg{padding:0;}
+  .tree-modal-content{max-height:100vh;border-radius:0;}
+  .tree-header{padding:16px 18px;}
+  .tree-header-title{font-size:14.5px;}
+  .tree-header-subtitle{font-size:10.5px;}
+  .tree-header-icon{width:38px;height:38px;font-size:20px;}
+  .tree-body{padding:16px 14px;}
+  .tree-question{font-size:14px;padding:12px 13px;}
+  .tree-option{font-size:12.5px;padding:11px 13px;}
+  .tree-conclusion{font-size:14px;padding:12px 14px;}
+  .tree-recommendations{font-size:12px;padding:14px 14px 14px 32px;}
+}
+
 /* ===== ✅ 臨床檢測 Checklist Modal ===== */
 .checklist-modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.88);z-index:560;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
 .checklist-modal-bg.open{display:flex;}
@@ -1581,6 +1685,21 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div class="mol-pedia-list" id="molList"></div>
       <div class="mol-pedia-detail" id="molDetail"></div>
     </div>
+  </div>
+</div>
+
+<!-- ===== 🌳 臨床下一步互動樹 Modal ===== -->
+<div class="tree-modal-bg" id="treeModal" onclick="if(event.target.id==='treeModal')closeNextStepTree()">
+  <div class="tree-modal-content">
+    <button class="tree-close" onclick="closeNextStepTree()">✕</button>
+    <div class="tree-header">
+      <div class="tree-header-icon">🌳</div>
+      <div>
+        <div class="tree-header-title" id="treeHeaderTitle">臨床下一步互動樹</div>
+        <div class="tree-header-subtitle">依病患具體狀況, 動態展開下一步處置 SOP</div>
+      </div>
+    </div>
+    <div class="tree-body" id="treeBody"></div>
   </div>
 </div>
 
@@ -6634,6 +6753,119 @@ function markAllChecklist(checked){
   renderChecklist();
 }
 
+// ============================================================
+// 🌳 臨床下一步互動樹 (Next Step Tree)
+// ============================================================
+let currentTreeEntryId = null;
+let currentTreeStepId = null;
+let treeHistory = []; // breadcrumb of step IDs visited
+
+function openNextStepTree(entryId){
+  if(!NEXTSTEP_TREES[entryId]){
+    alert('此分子分型尚未建立互動決策樹');
+    return;
+  }
+  currentTreeEntryId = entryId;
+  const tree = NEXTSTEP_TREES[entryId];
+  currentTreeStepId = tree.rootStep;
+  treeHistory = [];
+  el('treeModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderTreeStep();
+}
+
+function closeNextStepTree(){
+  el('treeModal').classList.remove('open');
+  document.body.style.overflow = '';
+  currentTreeEntryId = null;
+  currentTreeStepId = null;
+  treeHistory = [];
+}
+
+function renderTreeStep(){
+  const tree = NEXTSTEP_TREES[currentTreeEntryId];
+  const step = tree.steps[currentTreeStepId];
+
+  if(!step){
+    el('treeBody').innerHTML = '<p style="color:#dc2626;">錯誤: 步驟不存在</p>';
+    return;
+  }
+
+  // Build breadcrumb
+  let breadcrumbHtml = '';
+  if(treeHistory.length){
+    breadcrumbHtml = `
+      <div class="tree-breadcrumb">
+        <button class="tree-restart-btn" onclick="restartTree()">⟲ 重新開始</button>
+        <span class="tree-bc-sep">·</span>
+        <span class="tree-bc-current">已走 ${treeHistory.length} 步</span>
+      </div>
+    `;
+  }
+
+  // Build step content
+  let stepHtml = '';
+  if(step.question){
+    // Question step with options
+    stepHtml = `
+      <div class="tree-question">${escapeHtml(step.question)}</div>
+      <div class="tree-options">
+        ${step.options.map((opt, idx) => `
+          <button class="tree-option ${opt.color || 'default'}" onclick="treeChooseOption(${idx})">
+            <span class="tree-opt-arrow">→</span>
+            <span class="tree-opt-label">${escapeHtml(opt.label)}</span>
+          </button>
+        `).join('')}
+      </div>
+    `;
+  } else if(step.conclusion){
+    // Conclusion step
+    stepHtml = `
+      <div class="tree-conclusion">${escapeHtml(step.conclusion)}</div>
+      <ul class="tree-recommendations">
+        ${(step.recommendations || []).map(r => `<li>${escapeHtml(r)}</li>`).join('')}
+      </ul>
+      ${step.nextBranch ? `
+        <button class="tree-continue-btn" onclick="treeContinueBranch('${step.nextBranch}')">
+          繼續下一階段 →
+        </button>
+      ` : `
+        <div class="tree-end-actions">
+          <button class="tree-restart-btn" onclick="restartTree()">⟲ 重新開始</button>
+          <button class="tree-close-btn-2" onclick="closeNextStepTree()">✕ 關閉</button>
+        </div>
+      `}
+    `;
+  }
+
+  el('treeBody').innerHTML = breadcrumbHtml + stepHtml;
+}
+
+function treeChooseOption(optIdx){
+  const tree = NEXTSTEP_TREES[currentTreeEntryId];
+  const step = tree.steps[currentTreeStepId];
+  const opt = step.options[optIdx];
+
+  if(opt.leadsTo){
+    treeHistory.push({stepId: currentTreeStepId, optionIdx: optIdx});
+    currentTreeStepId = opt.leadsTo;
+    renderTreeStep();
+  }
+}
+
+function treeContinueBranch(stepId){
+  treeHistory.push({stepId: currentTreeStepId, branched: true});
+  currentTreeStepId = stepId;
+  renderTreeStep();
+}
+
+function restartTree(){
+  const tree = NEXTSTEP_TREES[currentTreeEntryId];
+  currentTreeStepId = tree.rootStep;
+  treeHistory = [];
+  renderTreeStep();
+}
+
 function jumpToMolEntry(cancer, entryId){
   closeChecklist();
   setTimeout(() => {
@@ -6648,6 +6880,719 @@ function jumpToMolEntry(cancer, entryId){
     }, 100);
   }, 100);
 }
+
+// ============================================================
+// 🌳 臨床下一步互動樹 (Next Step Decision Tree)
+// ============================================================
+// 結構: 每個 entryId 對應一個 tree
+//   tree = { title, rootStep, steps: { stepId: stepObj } }
+//   step = { question, options: [{label, color, leadsTo}], conclusion?, recommendations? }
+//   leadsTo: stepId (進入下個 step) | null (結束此分支)
+
+const NEXTSTEP_TREES = {
+  'MMRd': {
+    title: '🔬 dMMR EC 臨床下一步互動樹',
+    rootStep: 'pattern',
+    steps: {
+      'pattern': {
+        question: 'Step 1: 病患 MMR IHC 顯示哪一種 pattern?',
+        options: [
+          { label: 'MLH1 + PMS2 雙缺失 (最常見)', color: 'blue', leadsTo: 'mlh1-meth' },
+          { label: 'MSH2 + MSH6 雙缺失', color: 'orange', leadsTo: 'msh2-direct-germline' },
+          { label: 'Isolated MSH6 loss', color: 'orange', leadsTo: 'msh6-iso-germline' },
+          { label: 'Isolated PMS2 loss', color: 'orange', leadsTo: 'pms2-iso-germline' },
+        ],
+      },
+      'mlh1-meth': {
+        question: 'Step 2: MLH1 promoter methylation 結果?',
+        options: [
+          { label: 'Methylated (大多數案例)', color: 'green', leadsTo: 'sporadic-confirm' },
+          { label: 'Unmethylated', color: 'red', leadsTo: 'lynch-suspect' },
+          { label: '尚未測 → 立刻安排', color: 'gray', leadsTo: 'order-mlh1-meth' },
+        ],
+      },
+      'order-mlh1-meth': {
+        conclusion: '⚙️ 立即安排 MLH1 promoter methylation testing',
+        recommendations: [
+          '送檢方式: PCR-based 或 pyrosequencing',
+          '台灣多數醫學中心可做',
+          '結果出來後再回到 Step 2 繼續',
+          '同時可開始 advanced/recurrent 評估 (見治療階段分支)',
+        ],
+      },
+      'sporadic-confirm': {
+        conclusion: '✅ Sporadic MMRd (非 Lynch) — 不需 germline testing',
+        recommendations: [
+          '無需 cascade testing',
+          '無需家族篩檢轉診',
+          '仍適合 IO 治療 (advanced/recurrent)',
+          '繼續評估治療階段 → 見下方治療分支',
+        ],
+        nextBranch: 'treatment-stage',
+      },
+      'lynch-suspect': {
+        conclusion: '⚠️ 懷疑 Lynch syndrome — 需要 germline testing',
+        recommendations: [
+          '轉診 Genetic counseling',
+          'Germline NGS panel: MLH1, MSH2, MSH6, PMS2, EPCAM',
+          '同時準備家族病史調查',
+        ],
+        nextBranch: 'germline-result',
+      },
+      'msh2-direct-germline': {
+        conclusion: '⚠️ MSH2/MSH6 雙缺失 → 高度懷疑 Lynch',
+        recommendations: [
+          '無需 MLH1 methylation (此 pattern 不適用)',
+          '直接 Genetic counseling 轉診',
+          'Germline NGS panel 優先 MSH2 / MSH6',
+          '家族篩檢 cascade testing 準備',
+        ],
+        nextBranch: 'germline-result',
+      },
+      'msh6-iso-germline': {
+        conclusion: '⚠️ Isolated MSH6 loss → Lynch possible',
+        recommendations: [
+          'Germline testing for MSH6',
+          'MSH6 突變表現可較弱, IHC 可能 patchy',
+          'Genetic counseling 轉診',
+          '家族病史調查',
+        ],
+        nextBranch: 'germline-result',
+      },
+      'pms2-iso-germline': {
+        conclusion: '⚠️ Isolated PMS2 loss → PMS2 germline possible',
+        recommendations: [
+          'Germline testing for PMS2',
+          'PMS2 germline mutation 可發生',
+          'Genetic counseling 轉診',
+        ],
+        nextBranch: 'germline-result',
+      },
+      'germline-result': {
+        question: 'Germline panel 結果?',
+        options: [
+          { label: 'Pathogenic mutation 確認 → Lynch syndrome', color: 'red', leadsTo: 'lynch-confirmed' },
+          { label: '陰性 (no germline mutation)', color: 'green', leadsTo: 'sporadic-after-germline' },
+          { label: 'VUS (Variant of Uncertain Significance)', color: 'orange', leadsTo: 'vus-handle' },
+        ],
+      },
+      'lynch-confirmed': {
+        conclusion: '🧬 Lynch syndrome 確診',
+        recommendations: [
+          '【家族篩檢】一級親屬 cascade testing (parents, siblings, children)',
+          '【監測】Q1-2y 大腸鏡 (從 20-25 歲開始)',
+          '【監測】卵巢 / 子宮監測 (RRSO 預防性切除可考慮)',
+          '【預防】Aspirin 81mg QD 降低結腸癌風險 (CAPP2)',
+          '【生育】Reproductive counseling: PGT-M 可考慮',
+          '【後續治療】仍適合 IO 治療 (與 sporadic 相同)',
+        ],
+        nextBranch: 'treatment-stage',
+      },
+      'sporadic-after-germline': {
+        conclusion: '✅ Germline 陰性 → Sporadic MMRd',
+        recommendations: [
+          '不需家族篩檢',
+          '繼續臨床治療路徑',
+        ],
+        nextBranch: 'treatment-stage',
+      },
+      'vus-handle': {
+        conclusion: '⚠️ VUS — 需要進一步評估',
+        recommendations: [
+          'ClinVar / LOVD 資料庫查詢 functional impact',
+          '定期重新檢視 (variant 重新分類常見)',
+          '考慮 family co-segregation analysis',
+          '當前以 sporadic 處理, 但保持警覺',
+        ],
+        nextBranch: 'treatment-stage',
+      },
+      'treatment-stage': {
+        question: 'Step: 治療階段?',
+        options: [
+          { label: 'Early stage (Stage I-II) 已手術', color: 'blue', leadsTo: 'early-stage' },
+          { label: 'Advanced (Stage III-IV) 新診斷', color: 'red', leadsTo: 'advanced-1L' },
+          { label: 'Recurrent (post-platinum)', color: 'orange', leadsTo: 'recurrent' },
+        ],
+      },
+      'early-stage': {
+        conclusion: '🎯 Early stage MMRd EC — Adjuvant 決策',
+        recommendations: [
+          '依 risk stratification (FIGO 2023 + 分子整合)',
+          'Stage IA G1-2: 可考慮 Surveillance only',
+          'Stage IB+ 或 G3 或 LVSI: Vaginal brachytherapy ± EBRT',
+          'Stage II+ : Carbo/Pacli ± RT',
+          '【臨床試驗】RAINBO program (MMRd 專屬 de-escalation 研究)',
+          '【追蹤】Q3-6m × 2 年, 然後 Q6-12m',
+        ],
+      },
+      'advanced-1L': {
+        conclusion: '🎯 Advanced/Newly diagnosed MMRd EC — 一線標準',
+        recommendations: [
+          '【首選】Carboplatin + Paclitaxel + Pembrolizumab 6 cycles → Pembro 維持 (GY018)',
+          '【替代】Carboplatin + Paclitaxel + Dostarlimab 6 cycles → Dostar 維持 3 年 (RUBY P1)',
+          '【效力】MMRd 族群 PFS HR 0.30 (GY018) / 0.28 (RUBY P1)',
+          '【NCCN】Cat 1 不論 MMR status, 但 MMRd 獲益最大',
+          '【健保】Pembro/Dostar 在 advanced EC 已給付',
+          '【其他選項】DUO-E (Durva+Olap+Bev) 為 pMMR 首選, 但 dMMR Arm 2 (單 Durva 維持) 也適',
+        ],
+      },
+      'recurrent': {
+        conclusion: '🎯 Recurrent MMRd EC — 後線治療',
+        recommendations: [
+          '【首選】Pembrolizumab 200mg IV Q3W (KEYNOTE-158, ORR ~57%)',
+          '【替代】Dostarlimab 500mg IV Q3W (GARNET, ORR ~45%)',
+          '【替代】Lenvatinib + Pembro (KEYNOTE-775) — 但 MSI-H 不需 Lenva',
+          '【後線】TIL therapy / 臨床試驗',
+          '【健保】Pembro/Dostar 後線給付',
+        ],
+      },
+    },
+  },
+
+  'BRCAm': {
+    title: '🔬 BRCAm OC 臨床下一步互動樹',
+    rootStep: 'germline-vs-somatic',
+    steps: {
+      'germline-vs-somatic': {
+        question: 'Step 1: BRCA mutation 來源?',
+        options: [
+          { label: 'Germline BRCA1/2 (blood test)', color: 'red', leadsTo: 'germline-confirm' },
+          { label: 'Somatic only (tumor only, blood neg)', color: 'orange', leadsTo: 'somatic-confirm' },
+          { label: '尚未測 germline → 必做!', color: 'gray', leadsTo: 'order-germline' },
+        ],
+      },
+      'order-germline': {
+        conclusion: '⚙️ 立即安排 Germline BRCA testing',
+        recommendations: [
+          '所有 epithelial OC 應做 germline (NCCN Cat 1)',
+          '建議 panel: BRCA1, BRCA2, RAD51C, RAD51D, BRIP1, PALB2, MMR genes',
+          '若沒做, 即使 somatic+ 仍須補做',
+          '結果出來後回到 Step 1',
+        ],
+      },
+      'germline-confirm': {
+        conclusion: '🧬 Germline BRCA mutation 確認',
+        recommendations: [
+          '【家族篩檢】一級親屬 cascade testing',
+          '【對側乳房預防】考慮 mastectomy 或 MRI 監測',
+          '【RRSO 預防】BRCA1: 35-40 歲; BRCA2: 40-45 歲',
+          '【PGT-M】Reproductive counseling 可選',
+          '【父系遺傳】不可忽略 paternal side',
+          '繼續 → 治療階段評估',
+        ],
+        nextBranch: 'treatment-stage',
+      },
+      'somatic-confirm': {
+        conclusion: '⚠️ Somatic BRCA only — 仍適合 PARPi',
+        recommendations: [
+          '不需家族 cascade testing (但仍建議 confirm germline 無誤)',
+          '考慮 mosaicism 可能 (rare)',
+          '【治療】PARPi 適應症同 germline (SOLO-1, PAOLA-1, PRIMA)',
+          '繼續 → 治療階段評估',
+        ],
+        nextBranch: 'treatment-stage',
+      },
+      'treatment-stage': {
+        question: 'Step: 治療階段?',
+        options: [
+          { label: '新診斷, 一線完成 carbo/pacli (CR/PR)', color: 'green', leadsTo: '1L-maintenance' },
+          { label: 'PSOC (鉑敏感復發)', color: 'orange', leadsTo: 'psoc' },
+          { label: 'PROC (鉑抗藥復發)', color: 'red', leadsTo: 'proc' },
+        ],
+      },
+      '1L-maintenance': {
+        question: '一線維持 — 是否使用 Bevacizumab?',
+        options: [
+          { label: '使用 Bev (優先選 PAOLA-1)', color: 'blue', leadsTo: '1L-paola1' },
+          { label: 'Bev 禁忌或不選擇 (優先選 SOLO-1)', color: 'green', leadsTo: '1L-solo1' },
+        ],
+      },
+      '1L-paola1': {
+        conclusion: '🎯 PAOLA-1 regimen: Olaparib + Bev 維持',
+        recommendations: [
+          'Olaparib 300mg PO BID × 24 個月',
+          'Bev 15mg/kg IV Q3W × 15 個月 (含化療期)',
+          '一線完成 carbo/pacli + Bev 後繼續',
+          '【證據】BRCAm OS HR 0.62',
+          '【健保】PAOLA-1 部分給付',
+          '【追蹤】CA-125 + CT Q3m × 2 年',
+        ],
+      },
+      '1L-solo1': {
+        conclusion: '🎯 SOLO-1 regimen: Olaparib 單藥維持',
+        recommendations: [
+          'Olaparib 300mg PO BID × 24 個月',
+          '一線完成 carbo/pacli (CR/PR) 後繼續',
+          '【證據】BRCAm 7 年 OS HR 0.55, PFS 持續獲益',
+          '【健保】Olaparib BRCAm 一線維持已給付',
+          '【追蹤】CA-125 + CT Q3m × 2 年, 然後 Q6m',
+          '【注意】MDS/AML risk ~1-2% long-term',
+        ],
+      },
+      'psoc': {
+        conclusion: '🎯 PSOC BRCAm — 二線後 PARPi 維持',
+        recommendations: [
+          '【首選】Olaparib (SOLO2) — BRCAm 限定 NCCN Cat 1',
+          '【替代】Niraparib (NOVA), Rucaparib (ARIEL3, 已撤回 PSOC 適應症)',
+          '完成二線含鉑 + CR/PR 後啟動',
+          '【若一線已用過 PARPi】重新挑戰 (replatinum sensitive 仍有效)',
+          '【健保】Olaparib PSOC BRCAm 給付',
+        ],
+      },
+      'proc': {
+        conclusion: '🎯 PROC BRCAm — PARPi 反應遞減',
+        recommendations: [
+          '【首選試驗】Mirvetuximab Soravtansine (MIRASOL) for FRα+ — 加做 FRα IHC',
+          '【次選】KEYNOTE-B96 (Pembro + weekly Pacli ± Bev)',
+          '【次選】ROSELLA (Relacorilant + nab-Pacli) — 不依賴 biomarker',
+          '【BRCA reversion】考慮 ctDNA NGS (確認是否仍有 PARPi 反應)',
+          '【後線臨床試驗】PARPi + ATR/Wee1 inhibitor combo',
+          '【避免】PARPi 單藥 (反應差)',
+        ],
+      },
+    },
+  },
+
+  'p53abn': {
+    title: '🔬 p53abn EC 臨床下一步互動樹',
+    rootStep: 'pattern',
+    steps: {
+      'pattern': {
+        question: 'Step 1: p53 IHC pattern 確認',
+        options: [
+          { label: 'Overexpression (≥75% 染色)', color: 'red', leadsTo: 'her2-test' },
+          { label: 'Null / 完全缺失', color: 'red', leadsTo: 'her2-test' },
+          { label: 'Cytoplasmic pattern', color: 'red', leadsTo: 'her2-test' },
+          { label: 'Wild-type → 不是 p53abn!', color: 'green', leadsTo: 'reclassify' },
+        ],
+      },
+      'reclassify': {
+        conclusion: '✅ p53 wildtype — 重新分類',
+        recommendations: [
+          '回到 4-tier 分類流程',
+          '檢查 POLE (NGS) + MMR IHC',
+          '若都 wildtype/intact → NSMP',
+          'NSMP 須再分流: ER+ low-grade vs ER- high-grade',
+        ],
+      },
+      'her2-test': {
+        question: 'Step 2: 是否做 HER2 IHC + ISH?',
+        options: [
+          { label: '尚未測 → 立刻安排 (尤其 serous)', color: 'orange', leadsTo: 'order-her2' },
+          { label: 'IHC 0 / 1+', color: 'gray', leadsTo: 'her2-negative' },
+          { label: 'IHC 2+ → ISH 確認', color: 'orange', leadsTo: 'her2-2plus' },
+          { label: 'IHC 3+ 或 ISH amp+', color: 'green', leadsTo: 'her2-positive' },
+        ],
+      },
+      'order-her2': {
+        conclusion: '⚙️ 立即安排 HER2 IHC + ISH',
+        recommendations: [
+          '所有 advanced uterine serous + p53abn 強烈建議',
+          'IHC scoring: 採乳癌標準 (但部分試驗用 gastric criteria)',
+          'IHC 2+ 必須加做 ISH (FISH/DISH)',
+          '結果出來後回到 Step 2',
+        ],
+      },
+      'her2-negative': {
+        question: 'HRD test 結果?',
+        options: [
+          { label: 'HRD+ (GIS≥42)', color: 'green', leadsTo: 'hrd-pos-treatment' },
+          { label: 'HRD-', color: 'gray', leadsTo: 'hrd-neg-treatment' },
+          { label: '尚未測 → 安排 HRD test', color: 'orange', leadsTo: 'order-hrd' },
+        ],
+      },
+      'her2-2plus': {
+        conclusion: '⚠️ HER2 IHC 2+ — 需要 ISH 確認',
+        recommendations: [
+          'ISH amp+ → 視為 HER2+',
+          'ISH amp- → 視為 HER2 low',
+          'ISH 結果後回到 Step 2',
+        ],
+      },
+      'her2-positive': {
+        conclusion: '🎯 HER2+ p53abn EC — 強化標靶治療',
+        recommendations: [
+          '【一線】Carbo/Pacli + Trastuzumab × 6 cycles → Trastuzumab 維持 (Fader trial)',
+          '【後線】T-DXd (Trastuzumab Deruxtecan, DESTINY-PanTumor02 ORR ~50%)',
+          '【監測】基線 LVEF + ILD risk 評估',
+          '【臨床試驗】HER2-directed trials',
+        ],
+      },
+      'order-hrd': {
+        conclusion: '⚙️ 安排 HRD / GIS test',
+        recommendations: [
+          'Myriad myChoice CDx 或 FoundationOne CDx',
+          '~25% p53abn 為 HRD+ → 適 PARPi',
+          '結果出來後回到 HRD 分支',
+        ],
+      },
+      'hrd-pos-treatment': {
+        conclusion: '🎯 p53abn HRD+ — DUO-E Arm 3',
+        recommendations: [
+          '【首選】Carbo/Pacli + Durvalumab → Durva + Olaparib 維持 (DUO-E Arm 3)',
+          '【證據】pMMR HRRm/p53m PFS HR 0.57',
+          '【替代】RUBY P1 / GY018 (chemo+IO) — p53abn 仍獲益',
+          '【健保】DUO-E 部分給付',
+          '本院 DUO-E 試驗招募中',
+        ],
+      },
+      'hrd-neg-treatment': {
+        conclusion: '🎯 p53abn HRD- — 一線標準',
+        recommendations: [
+          '【首選】Carbo/Pacli + Pembrolizumab/Dostarlimab → IO 維持 (GY018 / RUBY P1)',
+          '【證據】p53abn 在 GY018 / RUBY P1 仍獲益',
+          '【監測】CCNE1 amp 共存可能 (PARPi 抗藥)',
+          '【後線】Lenva + Pembro (KEYNOTE-775)',
+        ],
+      },
+    },
+  },
+
+  'POLEm': {
+    title: '🔬 POLEmut EC 臨床下一步互動樹',
+    rootStep: 'pole-confirm',
+    steps: {
+      'pole-confirm': {
+        question: 'Step 1: POLE 變異是 pathogenic 還是 VUS?',
+        options: [
+          { label: 'Pathogenic POLE EDM (e.g. P286R, V411L)', color: 'green', leadsTo: 'pathogenic-stage' },
+          { label: 'VUS (Variant of Uncertain Significance)', color: 'orange', leadsTo: 'vus-handle' },
+          { label: '不在 hotspot list', color: 'gray', leadsTo: 'vus-handle' },
+        ],
+      },
+      'vus-handle': {
+        conclusion: '⚠️ POLE VUS / non-hotspot — 不歸類為 POLEmut',
+        recommendations: [
+          '不能視為 POLEmut, 不可降階治療',
+          '依 4-tier 流程: 接著看 MMR → p53 → NSMP',
+          'ClinVar / LOVD 查詢 functional impact',
+          '保守治療: 按解剖分期治療 (不 de-escalate)',
+        ],
+      },
+      'pathogenic-stage': {
+        question: 'Step 2: 治療階段?',
+        options: [
+          { label: 'Early stage (Stage I-II) 已手術', color: 'green', leadsTo: 'early-deescal' },
+          { label: 'Advanced/recurrent (極罕見)', color: 'red', leadsTo: 'advanced-rare' },
+        ],
+      },
+      'early-deescal': {
+        conclusion: '✅ Early POLEmut EC — De-escalation 標準',
+        recommendations: [
+          '【FIGO 2023】統一降為 IAm POLEmut (regardless 解剖期)',
+          '【Adjuvant】通常不需 — Surgery alone',
+          '【臨床試驗】PORTEC-4a / RAINBO program',
+          '【追蹤】Q6-12m × 2 年, 然後 Q1y',
+          '【病患溝通】「您的腫瘤雖然突變多, 但這反而是好預後的指標」',
+          '【家族】不需 genetic counseling (sporadic 為主)',
+        ],
+      },
+      'advanced-rare': {
+        conclusion: '🎯 Advanced POLEmut EC — IO 反應極佳',
+        recommendations: [
+          '【極罕見場景】POLEmut advanced 不常見',
+          '【首選】Pembrolizumab/Dostarlimab + chemo (高 TMB → IO 效果好)',
+          '【替代】Pembro 單藥 (KEYNOTE-158)',
+          '【臨床試驗】RAINBO 試驗考量',
+        ],
+      },
+    },
+  },
+
+  'HRD-pos': {
+    title: '🔬 HRD+ OC 臨床下一步互動樹',
+    rootStep: 'brca-status',
+    steps: {
+      'brca-status': {
+        question: 'Step 1: BRCA status?',
+        options: [
+          { label: 'BRCAm (germline 或 somatic)', color: 'red', leadsTo: 'brcam-direct' },
+          { label: 'BRCAwt (但 HRD+)', color: 'orange', leadsTo: 'brcawt-hrd' },
+          { label: '尚未測 BRCA → 必做', color: 'gray', leadsTo: 'order-brca' },
+        ],
+      },
+      'order-brca': {
+        conclusion: '⚙️ 立即安排 germline + somatic BRCA',
+        recommendations: [
+          '所有 epithelial OC 強制 germline BRCA',
+          'germline 陰性必做 somatic BRCA (~7% sBRCA)',
+          '結果出來後回到 Step 1',
+        ],
+      },
+      'brcam-direct': {
+        conclusion: '🎯 BRCAm + HRD+ — 跳到 BRCAm 互動樹',
+        recommendations: [
+          'BRCAm 為 PARPi 強烈獲益族群',
+          '見 BRCAm 互動樹 (按上方分子分型 BRCAm entry)',
+          '一線維持: SOLO-1 / PAOLA-1',
+        ],
+      },
+      'brcawt-hrd': {
+        question: 'Step 2: 治療階段 + Bev 適合性?',
+        options: [
+          { label: '一線維持 + 適合 Bev', color: 'green', leadsTo: 'paola1-non-brca' },
+          { label: '一線維持 + Bev 禁忌', color: 'blue', leadsTo: 'prima-mono' },
+          { label: 'PSOC (二線後)', color: 'orange', leadsTo: 'psoc-hrd' },
+          { label: 'PROC', color: 'red', leadsTo: 'proc-hrd' },
+        ],
+      },
+      'paola1-non-brca': {
+        conclusion: '🎯 BRCAwt HRD+ + Bev → PAOLA-1',
+        recommendations: [
+          'Olaparib 300mg BID × 24m + Bev 15mg/kg Q3W × 15m',
+          '【證據】HRD+ HR 0.33 (vs HRD- 不獲益)',
+          '完成 1L carbo/pacli + Bev 後啟動',
+          '【健保】PAOLA-1 部分給付 (HRD+ confirmation 需要)',
+        ],
+      },
+      'prima-mono': {
+        conclusion: '🎯 BRCAwt HRD+ + Bev 禁忌 → PRIMA',
+        recommendations: [
+          'Niraparib individualized starting dose (IDS)',
+          '【體重 ≥77kg + 血小板 ≥150】 300mg QD',
+          '【其他】 200mg QD',
+          '完成 1L carbo/pacli (CR/PR) 後啟動',
+          '【證據】HRD+ HR 0.43, 全人群 HR 0.62',
+        ],
+      },
+      'psoc-hrd': {
+        conclusion: '🎯 BRCAwt HRD+ PSOC',
+        recommendations: [
+          '【首選】Niraparib (NOVA) — HRD+ 子分析 HR 0.38',
+          '【替代】Rucaparib (ARIEL3 LOH-high subgroup)',
+          '完成二線含鉑 + CR/PR 後啟動',
+        ],
+      },
+      'proc-hrd': {
+        conclusion: '🎯 BRCAwt HRD+ PROC — PARPi 反應遞減',
+        recommendations: [
+          'PARPi 在 PROC 反應有限',
+          '【首選試驗】Mirvetuximab (FRα+) — 加做 FRα IHC',
+          '【次選】KEYNOTE-B96 (IO+chemo)',
+          '【臨床試驗】本院 ENGOT-ov77 (R-DXd CDH6 ADC) 招募中',
+          '【BRCA reversion test】ctDNA NGS',
+        ],
+      },
+    },
+  },
+
+  'HPV-independent-gastric': {
+    title: '🔬 HPV-independent Gastric-type CC 臨床下一步互動樹',
+    rootStep: 'confirm-diagnosis',
+    steps: {
+      'confirm-diagnosis': {
+        question: 'Step 1: 診斷確認 — 是否完成 4 項必做檢測?',
+        options: [
+          { label: 'p16 IHC patchy/(-) ✓', color: 'orange', leadsTo: 'hpv-test' },
+          { label: 'HPV PCR/ISH (-) ✓', color: 'orange', leadsTo: 'gastric-markers' },
+          { label: 'HIK1083 / MUC6 (+) ✓', color: 'orange', leadsTo: 'pjs-screen' },
+          { label: '全部完成 → 進入 PJS 篩檢', color: 'green', leadsTo: 'pjs-screen' },
+        ],
+      },
+      'hpv-test': {
+        conclusion: '⚙️ 確認 HPV PCR/ISH 結果',
+        recommendations: [
+          'p16 patchy/(-) 須以 HPV PCR/ISH 確認 negative',
+          '若 HPV+ → 重新分類為 HPV-associated AdenoCa',
+          '若 HPV- → 繼續 gastric-type 工作',
+        ],
+      },
+      'gastric-markers': {
+        conclusion: '⚙️ 加做 HIK1083 + MUC6 IHC',
+        recommendations: [
+          'HIK1083(+) MUC6(+) 為 gastric differentiation 標記',
+          '與 mesonephric / clear cell / endometrioid 區別',
+          '結果後回 Step 1',
+        ],
+      },
+      'pjs-screen': {
+        question: 'Step 2: Peutz-Jeghers syndrome (STK11) 篩檢?',
+        options: [
+          { label: '已做 germline STK11 testing', color: 'green', leadsTo: 'stk11-result' },
+          { label: '尚未做 → 立刻轉介', color: 'red', leadsTo: 'order-stk11' },
+        ],
+      },
+      'order-stk11': {
+        conclusion: '⚙️ 強制 germline STK11 testing',
+        recommendations: [
+          '所有 HPV-independent gastric-type adenoCa 強制做',
+          '~10% 為 Peutz-Jeghers syndrome',
+          'Genetic counseling 轉介',
+          '同時進行 family history (mucocutaneous pigmentation, GI polyps)',
+          '結果後回 Step 2',
+        ],
+      },
+      'stk11-result': {
+        question: 'STK11 結果?',
+        options: [
+          { label: 'Pathogenic mutation (PJS confirmed)', color: 'red', leadsTo: 'pjs-confirmed' },
+          { label: '陰性 (sporadic gastric-type)', color: 'orange', leadsTo: 'molecular-broad' },
+        ],
+      },
+      'pjs-confirmed': {
+        conclusion: '🧬 PJS 確診 — 多系統監測啟動',
+        recommendations: [
+          '【消化道】Q1-2y 上消化道 + 大腸鏡 (從青少年開始)',
+          '【乳房】每年 mammogram + MRI',
+          '【婦科】卵巢 / 子宮監測',
+          '【家族 cascade testing】一級親屬',
+          '【生育】PGT-M 可考慮',
+          '繼續 → 治療策略',
+        ],
+        nextBranch: 'molecular-broad',
+      },
+      'molecular-broad': {
+        conclusion: '⚙️ 加做 broad NGS panel',
+        recommendations: [
+          'TP53, KRAS, ARID1A, ERBB2 (HER2)',
+          'MSI/TMB (tumor-agnostic IO 適應)',
+          'PD-L1 IHC (CPS, 多 negative)',
+          'HER2 IHC + ISH (~20% gastric-type 有 HER2 amp!)',
+          '完成後 → 治療策略',
+        ],
+        nextBranch: 'treatment-strategy',
+      },
+      'treatment-strategy': {
+        question: 'Step: 治療策略 (依 biomarker)?',
+        options: [
+          { label: 'HER2+ (IHC 3+ 或 ISH amp+)', color: 'green', leadsTo: 'her2-pos-cc' },
+          { label: 'MSI-H / dMMR', color: 'blue', leadsTo: 'msi-h-cc' },
+          { label: 'KRAS G12C+', color: 'orange', leadsTo: 'kras-g12c' },
+          { label: '全部 negative → 標準/試驗', color: 'red', leadsTo: 'standard-trial' },
+        ],
+      },
+      'her2-pos-cc': {
+        conclusion: '🎯 HER2+ Gastric-type — Trastuzumab combo',
+        recommendations: [
+          '【一線】Carbo/Pacli + Trastuzumab (extrapolated from gastric)',
+          '【二線】T-DXd (DESTINY-PanTumor02 ORR ~50%)',
+          '【監測】LVEF baseline + ILD risk',
+        ],
+      },
+      'msi-h-cc': {
+        conclusion: '🎯 MSI-H Gastric-type — IO 適應',
+        recommendations: [
+          'Pembrolizumab tumor-agnostic (FDA 2017+)',
+          'ORR 在 MSI-H pan-tumor ~30-50%',
+        ],
+      },
+      'kras-g12c': {
+        conclusion: '🎯 KRAS G12C Gastric-type — 標靶試驗',
+        recommendations: [
+          'Sotorasib / Adagrasib (lung cancer 已批准, 試驗中)',
+          '臨床試驗匹配',
+        ],
+      },
+      'standard-trial': {
+        conclusion: '🎯 Biomarker negative — 標準 + 試驗',
+        recommendations: [
+          '【LACC】CCRT + Pembro (KEYNOTE-A18, 反應較差但仍嘗試)',
+          '【1L R/M】KEYNOTE-826 / BEATcc (PD-L1 多 negative, 反應有限)',
+          '【臨床試驗為主要選擇】unmet need 強',
+          '【緩和醫療】早期介入 (預後差, 5y OS <50%)',
+        ],
+      },
+    },
+  },
+
+  'LMS': {
+    title: '🔬 LMS 臨床下一步互動樹',
+    rootStep: 'er-pr',
+    steps: {
+      'er-pr': {
+        question: 'Step 1: ER / PR IHC 結果?',
+        options: [
+          { label: 'ER+/PR+ (Allred ≥3 or H-score ≥10%)', color: 'green', leadsTo: 'erpr-pos' },
+          { label: 'ER-/PR-', color: 'gray', leadsTo: 'ntrk-screen' },
+          { label: '尚未測 → 必做', color: 'orange', leadsTo: 'order-erpr' },
+        ],
+      },
+      'order-erpr': {
+        conclusion: '⚙️ 立即測 ER / PR IHC',
+        recommendations: [
+          '所有 LMS 應做 ER / PR',
+          '影響 hormonal therapy 適應',
+          '結果後回 Step 1',
+        ],
+      },
+      'erpr-pos': {
+        question: 'Step 2: 治療階段?',
+        options: [
+          { label: 'Stage I-II (post-surgery)', color: 'blue', leadsTo: 'early-erpr' },
+          { label: 'Advanced / recurrent', color: 'red', leadsTo: 'advanced-erpr' },
+        ],
+      },
+      'early-erpr': {
+        conclusion: '🎯 Early ER+/PR+ LMS',
+        recommendations: [
+          '【手術】Total hysterectomy ± BSO (BSO 個案討論)',
+          '【避免】Morcellation 禁忌!',
+          '【Adjuvant】爭議 — ESGO 不常規推薦 adjuvant chemo',
+          '【避免】HRT, tamoxifen 禁忌',
+          '【追蹤】CT chest Q3-6m × 2 年',
+        ],
+      },
+      'advanced-erpr': {
+        conclusion: '🎯 Advanced ER+/PR+ LMS — Hormonal first-line',
+        recommendations: [
+          '【一線】Letrozole 2.5mg QD PO (PFS ~6-7 個月, ORR 10-20%)',
+          '【替代】Anastrozole / Megestrol 160mg QD',
+          '【更年期前】GnRH agonist + AI combination',
+          '【避免】Estrogen-containing 製劑',
+          '【Hormonal failure】轉化療 (Doxorubicin-based)',
+          '【臨床試驗】Letrozole + CDK4/6 (Palbociclib) combo',
+        ],
+        nextBranch: 'ntrk-screen',
+      },
+      'ntrk-screen': {
+        question: 'Step: NTRK fusion screen?',
+        options: [
+          { label: 'pan-Trk IHC + NGS 都做了', color: 'green', leadsTo: 'ntrk-result' },
+          { label: '尚未做 → 立刻安排', color: 'orange', leadsTo: 'order-ntrk' },
+        ],
+      },
+      'order-ntrk': {
+        conclusion: '⚙️ 安排 NTRK fusion screen',
+        recommendations: [
+          '所有 sarcoma 應 NGS panel 含 NTRK',
+          'pan-Trk IHC 為 screening (specificity 不高)',
+          'NTRK FISH 或 NGS RNA-based confirm',
+          '結果後回 NTRK 分支',
+        ],
+      },
+      'ntrk-result': {
+        question: 'NTRK fusion 結果?',
+        options: [
+          { label: 'NTRK fusion+ (pathogenic)', color: 'green', leadsTo: 'ntrk-pos' },
+          { label: 'NTRK 陰性', color: 'gray', leadsTo: 'standard-chemo' },
+        ],
+      },
+      'ntrk-pos': {
+        conclusion: '🎯 NTRK fusion+ LMS — TRK inhibitor',
+        recommendations: [
+          '【首選】Larotrectinib 100mg PO BID (ORR ~75% pan-tumor)',
+          '【替代】Entrectinib 600mg QD (CNS-penetrant)',
+          '【副作用】dizziness, fatigue, GI symptoms',
+          '【抗藥】Selitrectinib, Repotrectinib (試驗中)',
+          'rare 但 high-impact, 不可錯過',
+        ],
+      },
+      'standard-chemo': {
+        conclusion: '🎯 Standard / Recurrent LMS — 化療',
+        recommendations: [
+          '【一線】Doxorubicin-based (60-75 mg/m² Q3W)',
+          '【一線替代】Doxorubicin + Trabectedin (LMS-04)',
+          '【一線替代】Gemcitabine + Docetaxel (GeDDiS)',
+          '【二線】Trabectedin (FDA-approved for LMS)',
+          '【二線】Pazopanib (PALETTE)',
+          '【二線】Eribulin (vs Dacarbazine)',
+          '【三線】Regorafenib (REGOSARC)',
+        ],
+      },
+    },
+  },
+};
+
 
 const EXAM_CARDS = {
   'POLEm': {
@@ -9109,6 +10054,14 @@ function selectMolEntry(idx){
   const entry = data.entries[idx];
   if(!entry) return;
 
+  // Build 🌳 臨床下一步互動樹 button (if available)
+  const hasTree = NEXTSTEP_TREES[entry.id];
+  const treeButtonHtml = hasTree ? `
+    <button class="mol-tree-btn" onclick="openNextStepTree('${entry.id}'); document.getElementById('treeHeaderTitle').textContent = '${escapeHtml(NEXTSTEP_TREES[entry.id].title.replace(/'/g, ''))}';">
+      🌳 啟動「${escapeHtml(entry.id)}」臨床下一步互動樹 →
+    </button>
+  ` : '';
+
   // Build linked trials section
   let linkedHtml = '';
   if(entry.linkedTrials && entry.linkedTrials.length){
@@ -9195,6 +10148,7 @@ function selectMolEntry(idx){
     ${testingHtml}
     ${clinicalHtml}
     ${nextStepHtml}
+    ${treeButtonHtml}
     ${mechanismHtml}
     ${linkedHtml}
 
