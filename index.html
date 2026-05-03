@@ -98,6 +98,29 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 
 /* ===== 指引徽章 (NCCN / ESMO / 健保) ===== */
 .guide-badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;}
+
+/* ===== 本院收案資訊區塊 (Hospital Site Enrollment - Modal Only) ===== */
+.site-info-block{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:2px solid #fca5a5;border-radius:12px;padding:14px 16px;margin:14px 0;}
+.site-info-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:#991b1b;margin-bottom:10px;}
+.site-info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:10px;}
+.site-info-cell{background:white;border-radius:8px;padding:8px 11px;border:1px solid #fecaca;}
+.site-info-cell .lbl{font-size:10px;font-weight:700;color:#991b1b;font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;}
+.site-info-cell .val{font-size:13px;font-weight:700;color:#1a202c;}
+.site-info-cell.enrollment .val{color:#059669;font-family:"JetBrains Mono",monospace;}
+.site-info-cell.full .val{color:#dc2626;}
+.site-info-note{font-size:11.5px;color:#7f1d1d;line-height:1.5;padding:8px 11px;background:white;border-radius:8px;border-left:3px solid #dc2626;}
+.site-info-contact{font-size:11.5px;color:#7f1d1d;margin-top:8px;}
+.site-info-contact a{color:#1d4ed8;text-decoration:none;font-weight:700;}
+.site-info-contact a:hover{text-decoration:underline;}
+
+@media(max-width:640px){
+  .site-info-block{padding:12px 13px;}
+  .site-info-title{font-size:13px;}
+  .site-info-grid{grid-template-columns:1fr 1fr;gap:7px;}
+  .site-info-cell{padding:6px 9px;}
+  .site-info-cell .lbl{font-size:9px;}
+  .site-info-cell .val{font-size:11.5px;}
+}
 .guide-badge{font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:5px;font-family:"JetBrains Mono",monospace;letter-spacing:0.02em;border:1px solid;display:inline-flex;align-items:center;gap:3px;line-height:1.4;}
 .guide-badge.nccn-1{color:#7c2d12;background:#fef3c7;border-color:#fbbf24;}
 .guide-badge.nccn-2a{color:#9a3412;background:#fed7aa;border-color:#fb923c;}
@@ -829,6 +852,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     <div class="modal-title" id="mTitle"></div>
     <div class="modal-meta" id="mMeta"></div>
     <div id="mGuideBadges"></div>
+    <div id="mSiteInfo"></div>
     <div id="mFactGrid"></div>
 
     <div class="m-section"><div class="m-label"><span class="icon">🎯</span>核心結論 Key Results</div><div class="m-result" id="mResult"></div></div>
@@ -1099,6 +1123,35 @@ const TRIALS = [
   guideline:"未進入指引 (主終點陰性)\nPARPi 單藥不被推薦 EC 一線維持\nNCCN v2.2026: PARPi 在 EC 維持的角色僅限 DUO-E combo (PD-L1+PARPi)",
   nct:"NCT03745950",
   publication:"Lancet Oncol 2024 (Joly et al., 主要結果); Nature Communications 2025 (final analysis); ESMO 2023 LBA42"
+},
+
+{
+  cancer:"EC",
+  subcat:["pMMR","ADC","IO"],
+  id:"trofuse-033",
+  siteInfo:{pi:"賴瓊慧",planned:6,enrolled:1,available:5,sc:"陳裕融",phone:"0975056344",note:"pMMR primary advanced/recurrent EC, sac-TMT+Pembro vs Pembro 維持"},
+  phase:["P-MT"],
+  status:"ongoing",
+  name:"TroFuse-033",
+  fullName:"TroFuse-033 / GOG-3119 / ENGOT-en29 / MK-2870-033",
+  pharma:"MSD",
+  drug:"sac-TMT + Pembro vs Pembro 維持 (pMMR)",
+  tagline:"pMMR EC 1L 維持新策略: sac-TMT (TROP2-ADC) + Pembrolizumab vs 單獨 Pembrolizumab。",
+  rationale:"在 RUBY/NRG-GY018/AtTEnd 確立 pMMR EC + 化療 + IO 標準後, 探索加入 ADC (sac-TMT) 是否可進一步強化維持期療效 — TROP2-ADC + IO 雙標靶為 EC 1L 維持的關鍵升級方向。",
+  regimen:"Phase III, 隨機, 開放性, 多中心\n試驗組: Sacituzumab Tirumotecan (MK-2870) + Pembrolizumab\n對照組: Pembrolizumab 單藥\n至進展 / 不可耐受",
+  inc:["Primary advanced 或 recurrent endometrial carcinoma","Local pathology 確認 pMMR","Stage III (radiographically measurable) 或 Stage IV / recurrent (measurable/non-measurable per RECIST 1.1)","無先前系統性治療 (允許 1 線 platinum-based adjuvant/neoadjuvant for curative intent)","Prior radiation ≥2 週 washout","Prior hormonal therapy ≥1 週 washout","ECOG 0-1"],
+  exc:["dMMR (排除)","先前 IO 或 ADC","活動性自體免疫","活動性 CNS 轉移"],
+  outcomes:"【招募中】Primary: PFS\nSecondary: OS, ORR, DOR, safety\n預計 2027-2028 公布結果",
+
+  enrolled:"招募中\n本院: 1/6",
+  hist:"Primary advanced 或 recurrent EC\n限 pMMR (microsatellite stable)\n含 endometrioid, serous, 等子型",
+  stageDist:"Stage III (measurable) 或 Stage IV / recurrent (measurable / non-measurable)",
+  tech:"Sacituzumab Tirumotecan (sac-TMT, MK-2870):\n  • TROP2-targeted ADC (belotecan-derived payload, DAR ~7.4)\n  • 與 sacituzumab govitecan 不同 payload\n  • IV infusion Q2W\n\nPembrolizumab Q3W 或 Q6W\n\n安全性:\n  • Neutropenia, anemia (sac-TMT)\n  • irAE (Pembro)\n  • 整體 manageable",
+  subgroup:"預計亞組: TROP2 expression levels, p53 status, prior radiation, recurrent vs primary advanced\n關鍵問題: ADC 是否在 pMMR (傳統 IO 反應較差) 提供額外獲益",
+  combo:"與既有 pMMR 1L 標準 (RUBY/NRG-GY018: Pembro + 化療 → Pembro 維持) 銜接\n為 pMMR EC 維持期的 ADC 加成測試\n與 TroFuse-005 (post-platinum/IO EC) + 其他 sac-TMT 系列 (OC, CC) 完整布局",
+  guideline:"未進入指引 (招募中)\n預期 2028+ 改變 pMMR EC 維持實務若 positive",
+  nct:"NCT06132958 (TroFuse-005, related); MK-2870-033 specific NCT 待確認",
+  publication:"Trial-in-progress: ESMO 2024 / SGO 2025 design"
 },
 
 {
@@ -2258,36 +2311,38 @@ const TRIALS = [
 // ========== OC P-MT 補完: BRCA / HRD-targeted ==========
 {
   cancer:"OC",
-  subcat:"BRCAm",
+  subcat:["HRDneg","HER2"],
   id:"destiny-ovarian01",
+  siteInfo:{pi:"湯雲心",planned:10,enrolled:0,available:10,sc:"陳裕融",phone:"0975056344",note:"HER2 表現卵巢癌一線 + Bev 維持 (允許 NACT/HIPEC)"},
   phase:["P-MT"],
   status:"ongoing",
   name:"DESTINY-Ovarian01",
-  fullName:"DESTINY-Ovarian01 / DS8201-A-J302",
+  fullName:"DESTINY-Ovarian01 / DS8201-772 / ENGOT-ov89 / GEICO144-O / GOG-3112",
   pharma:"AstraZeneca / Daiichi Sankyo",
-  drug:"T-DXd 維持",
-  tagline:"HER2-ADC 一線維持: 瞄準 HER2 表現卵巢癌亞群缺乏明確標靶維持標準的 unmet need。",
-  rationale:"標靶 HER2 ADC 用於維持。T-DXd 極高 DAR (8) 優勢 — 清除化療後殘餘 HER2 表現微小病灶。卵巢癌中 HER2 表現率 ~10-20% (高於既往認知)。",
-  regimen:"1:1 randomization, 招募中\n試驗組: Trastuzumab deruxtecan 5.4mg/kg IV Q3W 維持至進展\n對照組: 醫師選擇維持方案 (Bev 或觀察)",
-  inc:["新診斷晚期卵巢癌","HER2 表現 (IHC 3+/2+)","一線含鉑化療後達 CR/PR","ECOG 0-1"],
-  exc:["先前 ADC 治療","活動性 ILD/pneumonitis","活動性 CNS 轉移"],
-  outcomes:"【招募中】預計 2027-2028 公布結果",
+  drug:"T-DXd + Bev 維持 (HER2+, HRP)",
+  tagline:"HER2-ADC + Bev 一線維持: 廣譜 HER2 表現 (IHC 1+/2+/3+) 卵巢癌, 加入 T-DXd 至 Bev 維持是否優於單獨 Bev。",
+  rationale:"標靶 HER2 ADC 強化一線 Bev 維持 — T-DXd 極高 DAR (8) 與強旁觀者效應,清除化療後微小 HER2 表現殘餘病灶。卵巢癌 HER2 表現率較預期高 (廣譜 IHC 1+/2+/3+ 納入)。",
+  regimen:"1:1 randomization, Phase III\n試驗組: Trastuzumab Deruxtecan 5.4mg/kg IV Q3W + Bevacizumab 15mg/kg Q3W\n對照組: Bevacizumab 15mg/kg Q3W 單藥 (標準 1L 維持)\n至進展或不可耐受",
+  inc:["新診斷 FIGO Stage III 或 IV epithelial high-grade ovarian, fallopian tube, 或 primary peritoneal carcinoma","完成 6-8 cycles 一線含鉑化療 + Bev 後達 Non-PD","Central lab 確認 HER2 表現 (IHC 3+/2+/1+),且具備 HRD/BRCA local 結果","治療介入須在最後一次化療後 3-12 週內開始, 尚未開始 Bev 維持","ECOG 0-1","允許 NACT 與 HIPEC"],
+  exc:["先前 ADC 治療","活動性 ILD / pneumonitis","活動性 CNS 轉移","Bev 禁忌"],
+  outcomes:"【招募中】Primary: PFS\nSecondary: OS, ORR, QoL\n預計 2027-2028 公布結果",
 
-  enrolled:"招募中 (預計 ~400 patients)",
-  hist:"HER2 表現卵巢癌 — 含 HGSC, endometrioid, clear cell\nHER2 在卵巢中分布: HGSC ~10-15%; clear cell ~25%; mucinous ~15%",
-  stageDist:"Stage III-IV 一線完成含鉑化療後 CR/PR",
-  tech:"T-DXd 5.4mg/kg IV Q3W\nILD 監測為強制\n基線 ECHO/MUGA",
-  subgroup:"招募中\n預計亞組: HER2 IHC 3+ vs 2+, BRCA status, histology",
-  combo:"開創 ADC 在一線維持的應用\n填補非 BRCAm/HRD- 族群的維持治療空白",
-  guideline:"未進入指引",
-  nct:"NCT05920395",
-  publication:"Trial-in-progress: ESMO 2023 design"
+  enrolled:"招募中 (預計 ~520 patients globally)",
+  hist:"HER2 表現卵巢癌 — 含 HGSC, endometrioid, 偶含 clear cell\nHER2 在卵巢中分布: HGSC ~10-15%; clear cell ~25%\n關鍵: 此試驗包含廣譜 IHC 1+/2+/3+ (vs 過往 HER2 試驗多限 3+)",
+  stageDist:"FIGO Stage III-IV\n一線含鉑 + Bev 後 Non-PD 進入維持\n允許 NACT + HIPEC",
+  tech:"T-DXd 5.4mg/kg IV Q3W + Bev 15mg/kg Q3W\n  • DXd platform 共通 ILD 風險 ~3-7% (含 G3+ ~1%)\n  • 強制 baseline + 每 6 週 CT chest 監測\n  • 噁心 / 嘔吐 (60-70%)\n  • Neutropenia\n  • LVEF 監測 (HER2 ADC class effect)\nBev 加入: 高血壓, 蛋白尿, 廔管 / 出血風險",
+  subgroup:"招募中,亞組依: HER2 IHC 1+ vs 2+ vs 3+, BRCA status, HRD status, histology\n預計關鍵分析:\n  • HRP (HRD-negative) 為主要 unmet need 族群\n  • HER2 1+ 最常見但傳統認為較低反應\n  • 是否在 HRP 提供 PARPi 之外的維持選項",
+  combo:"開創 ADC + anti-VEGF 在一線維持的應用\n填補 HRP (non-BRCAm + HRD-) 族群的維持治療空白\n與 TroFuse-021 (sac-TMT ± Bev for HRP) 並列為 HRP 一線維持兩大 ADC 試驗\n啟發 1L HER2 ADC 標靶在 OC 的整合",
+  guideline:"未進入指引 (招募中)\n預期 2028-2029 改變 HRP 一線維持實務",
+  nct:"NCT06330064",
+  publication:"Trial-in-progress: ESMO 2024 / SGO 2025 design"
 },
 
 {
   cancer:"OC",
   subcat:"BRCAm",
   id:"trofuse-021",
+  siteInfo:{pi:"董秀容",planned:8,enrolled:0,available:8,sc:"陳裕融",phone:"0975056344",note:"HRD 陰性卵巢癌一線維持 ± Bev (排除 HIPEC)"},
   phase:["P-MT"],
   status:"ongoing",
   name:"TroFuse-021",
@@ -2597,6 +2652,35 @@ const TRIALS = [
 
 {
   cancer:"OC",
+  subcat:["PROC","ADC"],
+  id:"engot-ov77",
+  siteInfo:{pi:"周宏學",planned:8,enrolled:0,available:8,sc:"李芸蕙",phone:"0975937602",note:"PROC, R-DXd Phase II/III randomized [全台 30 競爭收案, 本院預計 8]"},
+  phase:["R-TX"],
+  status:"ongoing",
+  name:"ENGOT-ov77 / GOG-3096",
+  fullName:"ENGOT-ov77 / GOG-3096 (Raludotatug Deruxtecan PhII/III)",
+  pharma:"Daiichi Sankyo / AstraZeneca",
+  drug:"R-DXd (Raludotatug Deruxtecan, CDH6-ADC)",
+  tagline:"PROC 隨機對照: R-DXd vs 標準化療; 為 CDH6-ADC 在卵巢癌的關鍵 PhII/III 試驗。",
+  rationale:"在 ROSY-O Phase I/II (rejoice-ovarian01) 顯示 ORR ~46% 後, 進入 randomized Phase II/III 對比標準化療 — 確認 R-DXd (CDH6-ADC) 在 PROC 的療效並推進到註冊試驗。CDH6 在卵巢癌高表現 (~65-95%), 為 unmet PROC 提供新標靶。",
+  regimen:"Phase II/III, 隨機對照, 多中心\n試驗組: Raludotatug Deruxtecan (R-DXd) IV Q3W\n對照組: 醫師選擇化療 (Doxorubicin liposomal, Topotecan, Paclitaxel weekly, Gemcitabine)\n台灣本院: 預計 8 個收案 (全台 30 競爭收案)",
+  inc:["High-grade serous ovarian cancer (HGSC), high-grade endometrioid OVC, primary peritoneal cancer, 或 fallopian tube cancer (組織學或細胞學證實)","先前 1-4 線系統性治療 (其中一線必須含 Bevacizumab)","【1 線含鉑】≥4 cycles platinum, best response 非 PD, 在最後 platinum 劑量後 90-180 天進展","【2-4 線含鉑】≥2 cycles platinum, 在最後 platinum 劑量後 ≤180 天內進展","ECOG 0-1","具備可測量病灶 (RECIST 1.1)"],
+  exc:["先前 ADC 治療 (含 R-DXd)","活動性 ILD / pneumonitis","活動性 CNS 轉移","先前 LVEF <50%"],
+  outcomes:"【招募中】Primary: ORR + PFS\nSecondary: OS, DOR, safety\n預計 2027-2028 公布結果",
+
+  enrolled:"招募中\n本院: 0/8 (全台競爭 30)",
+  hist:"High-grade serous (HGSC) 為主\n含 high-grade endometrioid, primary peritoneal, fallopian tube",
+  stageDist:"PROC (Platinum-resistant)\n先前 1-4 線治療 (其中一線必須含 Bev)",
+  tech:"Raludotatug Deruxtecan (R-DXd, DS-6000):\n  • CDH6 (Cadherin-6) targeted ADC\n  • 載荷: DXd (Topo-I 抑制劑, exatecan derivative)\n  • Cleavable tetrapeptide linker\n  • DAR ~8 (高 DAR 平台)\n  • CDH6 在 OC 高表現 (~65-95%, 主要 HGSC)\n\n安全性 (DXd platform 共通):\n  • ILD / pneumonitis ~3-7% — 強制 CT chest 監測 (baseline + Q6W)\n  • Nausea / vomiting (60-70%) — 強制止吐 prophylaxis\n  • Neutropenia G3+\n  • LVEF 監測 (baseline ECHO/MUGA)\n  • 噁血 / 血小板下降",
+  subgroup:"預計亞組:\n  • CDH6 IHC expression levels (high vs low)\n  • Prior platinum 線數 (1 line vs 2-4 lines)\n  • Histology (HGSC vs endometrioid)\n  • Prior Bev exposure (要求所有患者均有)\n\n關鍵: 是否所有 CDH6 表現患者均獲益,或限定 high expressors",
+  combo:"與 MIRASOL (FRα ADC), DESTINY-Ovarian02 (HER2 ADC), KEYNOTE-B96 (IO+化療), ROSELLA (GR 拮抗) 並列 PROC 多元突破\nCDH6-ADC 平台獨特性 — CDH6 不與其他 ADC target (FRα, HER2, TROP2) 重疊\n啟發 ADC sequencing concept 在 PROC",
+  guideline:"未進入指引 (招募中)\n若 positive, 為 CDH6 表現 PROC 提供新標準",
+  nct:"REJOICE-Ovarian01 為 Phase I/II, ENGOT-ov77/GOG-3096 為 Phase II/III randomized",
+  publication:"Trial-in-progress: ESMO 2024 / SGO 2025 design"
+},
+
+{
+  cancer:"OC",
   subcat:"PROC",
   id:"ninja",
   phase:["R-TX"],
@@ -2853,6 +2937,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:"CCC",
   id:"dove",
+  siteInfo:{pi:"黃慧君",planned:10,enrolled:1,available:9,sc:"陳裕融",phone:"0975056344",note:"復發/持續性婦癌亮細胞癌, ≥50% clear cell histology"},
   phase:["R-TX"],
   status:"ongoing",
   name:"DOVE",
@@ -3164,6 +3249,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:"ADC",
   id:"trofuse-022",
+  siteInfo:{pi:"董秀容",planned:5,enrolled:0,available:5,sc:"陳裕融",phone:"0975056344",note:"PSOC 二線含鉑化療後維持 (BRCAm/HRD+ 須先用 PARPi)"},
   phase:["R-MT"],
   status:"ongoing",
   name:"TroFuse-022",
@@ -3480,6 +3566,7 @@ const TRIALS = [
   cancer:"CC",
   subcat:"IO",
   id:"evolve-cervical",
+  siteInfo:{pi:"湯雲心",planned:8,enrolled:4,available:4,sc:"王筠婷",phone:"0975056154",note:"高風險局部晚期 CC, CCRT 後達 CR/PR"},
   phase:["P-MT"],
   status:"ongoing",
   name:"eVOLVE-Cervical",
@@ -3502,6 +3589,64 @@ const TRIALS = [
   guideline:"未進入指引",
   nct:"NCT06079671",
   publication:"Trial-in-progress: ESMO 2024 design"
+},
+
+{
+  cancer:"CC",
+  subcat:["1L-RM","ADC","IO"],
+  id:"trofuse-036",
+  siteInfo:{pi:"湯雲心",planned:2,enrolled:0,available:2,sc:"陳裕融",phone:"0975056344",note:"PD-L1 CPS≥1, TROP2+ CC 1L 維持 (sac-TMT+Pembro±Bev) [競爭型收案]"},
+  phase:["P-MT"],
+  status:"ongoing",
+  name:"TroFuse-036",
+  fullName:"TroFuse-036 / GOG-3123 / ENGOT-cx22 / MK-2870-036",
+  pharma:"MSD",
+  drug:"sac-TMT + Pembro ± Bev 維持",
+  tagline:"CC 1L 維持新策略: PD-L1+ 持續/復發/轉移 CC, sac-TMT+Pembro 維持 vs 標準 IO/化療。",
+  rationale:"在 KEYNOTE-A18 (LACC) / KEYNOTE-826 + BEATcc (1L R/M) 標準後, 探索 ADC + IO 雙標靶為 1L 持續/復發/轉移 CC 的維持治療。Sacituzumab Tirumotecan (sac-TMT) 為 TROP2-ADC 與 KEYNOTE-826 backbone 的整合策略。",
+  regimen:"Phase III, 隨機, 開放性, 多中心\n試驗組: Sacituzumab Tirumotecan (MK-2870) + Pembrolizumab ± Bevacizumab\n對照組: 標準療法 (Pembro ± Bev 等)\n限 PD-L1 CPS ≥1\n台灣本院: 2 個競爭型收案名額",
+  inc:["Squamous, adenosquamous, 或 adenocarcinoma of the cervix","Persistent, recurrent, 或 newly diagnosed metastatic 不可手術/放療","【Part 1】完成 6 cycles 含鉑雙藥 induction 治療; TROP2(+), PD-L1 CPS ≥1 (locally tested)","【Part 2】無先前系統性治療 (含 IO); Valid TROP2 result, PD-L1 CPS ≥1 (central)","Prior radiation ± radiosensitizing chemo allowed","ECOG 0-1"],
+  exc:["先前 IO (Part 2)","活動性自體免疫","活動性 CNS 轉移","Bev 禁忌 (則納入無 Bev arm)"],
+  outcomes:"【招募中】Primary: PFS, OS\nSecondary: ORR, DOR, safety\n預計 2028-2029 公布結果",
+
+  enrolled:"招募中 (全球多中心)\n本院: 0/2 (競爭型收案)",
+  hist:"Squamous / adenosquamous / adenocarcinoma\n限 PD-L1 CPS ≥1\n限 TROP2 表現",
+  stageDist:"Persistent / recurrent / newly diagnosed metastatic\n不可手術或放療治癒",
+  tech:"Sacituzumab Tirumotecan (sac-TMT, MK-2870):\n  • TROP2-targeted ADC (belotecan-derived payload, DAR ~7.4)\n  • 不同於 sacituzumab govitecan (TROP2 + SN-38)\n  • IV infusion Q2W\n\n與 Pembrolizumab Q3W 或 Q6W 並用\nBev 視適合性加入\n\n安全性:\n  • Neutropenia, anemia (sac-TMT class)\n  • irAE (Pembro): hypothyroidism, pneumonitis\n  • 高血壓, 蛋白尿 (Bev)",
+  subgroup:"預計亞組: PD-L1 CPS levels, TROP2 IHC scores, prior 治療 status\n關鍵: Part 1 vs Part 2 設計\n  • Part 1: 維持治療 (post-induction)\n  • Part 2: 1L 全程 (no prior IO)",
+  combo:"與 BEATcc / KEYNOTE-826 平行 (1L R/M CC 標準)\nsac-TMT 系列在 OC (TroFuse-021/022) + EC (TroFuse-005/MK-2870-005) + 現在 CC 完整布局\n為 ADC + IO maintenance concept 在 CC 的開創性試驗",
+  guideline:"未進入指引 (招募中)",
+  nct:"NCT06420830",
+  publication:"Trial-in-progress: ESMO 2024 / ESGO 2025 design"
+},
+
+{
+  cancer:"CC",
+  subcat:["CIN","Vaccine"],
+  id:"pvx4",
+  siteInfo:{pi:"賴瓊慧",planned:15,enrolled:0,available:15,sc:"陳裕融",phone:"0975056344",note:"HPV16+ CIN2/3, DNA 疫苗肌肉注射 + 電擊穿孔 [競爭型收案]"},
+  phase:["P-TX"],
+  status:"ongoing",
+  name:"PVX4",
+  fullName:"PVX4 (pBI-4 DNA Vaccine, HPV16+ CIN2/3)",
+  pharma:"Inovio Pharmaceuticals",
+  drug:"pBI-4 DNA 疫苗 (TriGrid + electroporation)",
+  tagline:"早期病灶免疫療法: HPV16+ CIN2/3, DNA 疫苗 + 電擊穿孔, 評估病理消退 ≤CIN1 + HPV16 清除率。",
+  rationale:"HPV16 為 CIN2/3 與後續 CC 的主要驅動因子 — pBI-4 DNA 疫苗透過電擊穿孔 (electroporation) 提升肌肉細胞 DNA 攝取效率, 誘發抗 HPV16 E6/E7 T 細胞反應, 期望非手術消退病灶並清除病毒, 避免 LEEP/錐切。",
+  regimen:"隨機, 雙盲, 安慰劑對照\n試驗組: pBI-4 DNA 疫苗 3 劑 (透過 TriGrid 系統電擊穿孔肌肉注射)\n對照組: Placebo\n台灣本院: 15 個競爭型收案名額",
+  inc:["女性 18-60 歲","切片證實高等級 CIN2/3","Roche Cobas (central) 確認 HPV16+ (允許 co-infection)","HIV 陰性","充分器官功能 (CBC/DC, AST/ALT, creatinine)","同意有效避孕或禁慾 6 個月","願配合 1 年追蹤期"],
+  exc:["HIV 陽性","懷孕 / 哺乳","活動性感染","先前 HPV 疫苗治療性試驗"],
+  outcomes:"【招募中】Primary: 病理改善 ≤CIN1 + HPV16 病毒清除率\nSecondary: 安全性, 免疫反應 (T cell), 6/12 個月 follow-up",
+
+  enrolled:"招募中\n本院: 0/15 (競爭型)",
+  hist:"高等級子宮頸上皮內贅瘤 CIN2/3\nHPV16 陽性 (允許其他 HPV 共感染)",
+  stageDist:"Pre-invasive (CIN2/3)\n非侵犯性病變",
+  tech:"pBI-4 DNA Vaccine:\n  • 編碼 HPV16 E6/E7 抗原\n  • 肌肉注射後以電擊穿孔 (electroporation) 提升細胞攝取\n  • 3 劑 schedule\n\nTriGrid Delivery System:\n  • Inovio 專利平台\n  • 短時間電脈衝增加 DNA 細胞核轉染效率\n  • 注射部位輕度疼痛/紅腫為主要反應\n\n免疫機制: 誘發 HPV16-specific CD8+ T 細胞反應",
+  subgroup:"預計亞組: HPV co-infection status, baseline CIN grade, age, smoking",
+  combo:"在現行 CIN2/3 治療 (LEEP / 錐切) 之外提供非手術選項\n若成功, 為 CIN2/3 帶來 fertility-sparing + 病灶完全消退之新策略\n與既有 HPV 預防疫苗 (Gardasil/Cervarix) 互補 — PVX4 為治療性 (已感染), 預防疫苗為預防性 (未感染)",
+  guideline:"未進入指引 (招募中)\n若成功, 可能改變 CIN2/3 處置策略",
+  nct:"NCT06077760 (估)",
+  publication:"Trial-in-progress design 2024-2025"
 },
 
 // ========== CC R-TX: 復發治療 ==========
@@ -4505,6 +4650,29 @@ function showDetail(id){
 
   // Guideline badges (large version)
   el('mGuideBadges').innerHTML = renderGuideBadges(t, true);
+
+  // Site info block (only if trial has siteInfo)
+  if(t.siteInfo){
+    const s = t.siteInfo;
+    const isFull = s.available === 0;
+    el('mSiteInfo').innerHTML = `
+      <div class="site-info-block">
+        <div class="site-info-title">
+          🏥 <span>長庚醫院婦癌科 · 本院收案資訊</span>
+        </div>
+        <div class="site-info-grid">
+          <div class="site-info-cell"><div class="lbl">主持人 PI</div><div class="val">${escapeHtml(s.pi)}</div></div>
+          <div class="site-info-cell ${isFull?'full':'enrollment'}"><div class="lbl">收案進度</div><div class="val">${s.enrolled} / ${s.planned}${isFull?' (額滿)':''}</div></div>
+          <div class="site-info-cell"><div class="lbl">可收案數</div><div class="val">${s.available}</div></div>
+          <div class="site-info-cell"><div class="lbl">SC 聯絡人</div><div class="val">${escapeHtml(s.sc)}</div></div>
+        </div>
+        ${s.note ? `<div class="site-info-note"><strong>備註:</strong> ${escapeHtml(s.note)}</div>` : ''}
+        <div class="site-info-contact">📞 SC 電話: <a href="tel:${escapeHtml(s.phone)}">${escapeHtml(s.phone)}</a></div>
+      </div>
+    `;
+  } else {
+    el('mSiteInfo').innerHTML = '';
+  }
 
   // Fact grid
   el('mFactGrid').innerHTML = `
