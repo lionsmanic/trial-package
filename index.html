@@ -6047,143 +6047,529 @@ const MOL_PEDIA = {
   },
   OC: {
     title: '🟣 卵巢癌 OC',
-    framework: 'HRD/HRR + Histology 雙軸分類',
-    description: 'HGSC 為主 (~70%), TP53 突變 100%。HRD 為關鍵 biomarker (50% HGSC), 決定 PARPi 反應。',
+    framework: 'HRD/HRR + Histology + ADC target 三軸分類',
+    description: 'HGSC 為主 (~70%) 且 TP53 突變 100%。HRD 為關鍵 biomarker (50% HGSC) 決定 PARPi 反應; 近年 ADC (FRα, HER2, TROP2, NaPi2b) 改變 PROC 治療版圖。',
+    workflow: {
+      title: '🔬 新診斷 Advanced Epithelial OC 分子檢測流程',
+      steps: [
+        { num: '1', title: 'germline BRCA1/2 testing', desc: '所有 epithelial OC 強制 (NCCN/ESMO 級指引); 建議 panel: BRCA1, BRCA2, RAD51C, RAD51D, BRIP1, PALB2, MMR genes' },
+        { num: '2', title: 'somatic BRCA1/2 testing', desc: 'Tumor tissue NGS; ~7% OC 有 sBRCA (germline 陰性中); 影響 PARPi 適應症' },
+        { num: '3', title: 'HRD / Genomic Instability Score', desc: 'Myriad myChoice CDx (GIS≥42) 或 FoundationOne CDx (LOH ≥16%); 為 PAOLA-1 / PRIMA 篩選標準' },
+        { num: '4', title: '復發時加做', desc: 'FRα IHC (Ventana FOLR1 PS2+ ≥75%) for Mirvetuximab; HER2 IHC for T-DXd; BRAF / NTRK / RET / MSI/TMB for tumor-agnostic' },
+        { num: '5', title: '特殊組織型補測', desc: 'OCCC: ARID1A/PIK3CA; LGSC: KRAS/BRAF/NRAS; Mucinous: HER2 amp + 排除 GI mets; Endometrioid: MMR + CTNNB1 + 排除 Lynch' },
+      ]
+    },
+    figoStaging: {
+      title: '🎯 ADC Target 完整對照表 (OC + 其他婦癌)',
+      rows: [
+        { mol: 'FRα', stage: 'Mirvetuximab Soravtansine', impact: 'PROC + FRα high (≥75%); MIRASOL 試驗; FDA 2024 完整核准' },
+        { mol: 'HER2', stage: 'T-DXd (Trastuzumab Deruxtecan)', impact: 'OC ~10-15%, EC serous ~30%, CC adenoCa ~3-5%; DESTINY-PanTumor02' },
+        { mol: 'TROP2', stage: 'Sacituzumab Tirumotecan (sac-TMT)', impact: 'OC HRP / EC pMMR / CC: TroFuse-021/022/033/036 系列; 本院多試驗' },
+        { mol: 'NaPi2b', stage: 'Upifitamab Rilsodotin (UpRi)', impact: 'OC ~50% express; UPLIFT 試驗 (mixed results); 仍在開發' },
+        { mol: 'CDH6', stage: 'Raludotatug Deruxtecan (R-DXd)', impact: 'OC ~65-95% express; REJOICE-Ovarian01 + ENGOT-ov77 (本院招募中)' },
+        { mol: 'B7-H4', stage: 'Emerging ADC (alisertib-based)', impact: 'OC + EC; B7-H4 較少 normal tissue; Ph1/2 試驗中' },
+        { mol: 'CLDN6', stage: 'Emerging (autologous T-cell therapy 或 ADC)', impact: 'Germ cell tumors + OC; 早期試驗' },
+      ]
+    },
     entries: [
       {
         id: 'BRCAm',
         name: 'BRCA1/2 突變 (gBRCA + sBRCA)',
         frequency: '~22% (germline ~15% + somatic ~7%)',
         prognosis: '⭐⭐⭐⭐ 較佳預後; 鉑類強反應, PARPi 強烈獲益',
-        examPoints: [
-          'germline: 家族遺傳 (Lynch panel + BRCA1/2)',
-          'somatic: 腫瘤層級突變, 基因諮詢仍須做 germline confirm',
-          'BRCA1: 染色體 17q21, 較常 HGSC + 早發',
-          'BRCA2: 染色體 13q12, 有時年齡稍大',
-          '一線維持 PARPi: SOLO-1 (Olaparib), PRIMA, PAOLA-1 (+Bev)',
-          'PSOC 維持: SOLO2, NOVA, ARIEL3',
-          '篩檢: 所有 EOC 患者建議 germline + somatic 檢測',
+        exam: [
+          'germline BRCA: 家族遺傳, autosomal dominant, 50% offspring',
+          'somatic BRCA: 腫瘤層級突變, 不遺傳給後代',
+          'BRCA1: 染色體 17q21, HBOC syndrome, 較常 HGSC + 早發 (45-55)',
+          'BRCA2: 染色體 13q12, HBOC + male breast + pancreatic, 年齡稍長',
+          'BRCA1m: lifetime OC risk ~40-44%; BRCA2m: ~12-23%',
+          'OC 中 ~80% BRCAm 為 HGSC',
+          'Synthetic lethality: BRCA loss + PARPi → DSB 累積 → cell death',
+        ],
+        testing: [
+          '【germline】Blood / saliva → NGS panel (BRCA1, BRCA2, BRIP1, RAD51C, RAD51D, PALB2, MMR, TP53)',
+          '【somatic】Tumor FFPE → NGS (覆蓋 BRCA1/2 全長 + LOH)',
+          '所有新診斷 epithelial OC: germline 強制 (NCCN Cat 1, ESMO grade A)',
+          'germline 陰性: 加做 somatic BRCA (~7% germline-neg 患者有 sBRCA)',
+          'Variant classification: ACMG 5 類 (Pathogenic/Likely path/VUS/Likely benign/Benign)',
+          'BRCA reversion testing: 復發後考慮 (ctDNA NGS)',
+        ],
+        clinical: [
+          '【一線維持】SOLO-1 (Olaparib) 24 個月 — BRCAm 標準, 7 年 OS HR 0.55',
+          '【一線維持】PAOLA-1 (Olaparib + Bev) — BRCAm OS HR 0.62, HRD+ 全部獲益',
+          '【一線維持】PRIMA (Niraparib) — 全人群選項, BRCAm 獲益最佳',
+          '【PSOC 維持】SOLO2 (Olaparib BRCAm), NOVA, ARIEL3',
+          '【PROC】PARPi 單藥效力遞減 (rucaparib 撤回適應症)',
+          '【健保】Olaparib BRCAm 一線維持台灣健保已給付',
+          '【治療順序】First-line PARPi 後復發,可重新挑戰 (replatinum sensitive)',
+        ],
+        nextStep: [
+          '若 germline 陽性: 啟動家族 cascade testing (parents, siblings, children)',
+          'Reproductive counseling: PGT-M 預植入篩檢可考慮',
+          '本人對側預防: 雙側 mastectomy + RRSO 考量 (BRCA1: 35-40 歲; BRCA2: 40-45 歲)',
+          '若 somatic 陽性 (germline 陰性): 仍須 confirm 無漏掉 germline (考慮 mosaicism)',
+          '臨床試驗匹配: SOLO-1 完成後復發 → 重啟 PARPi 試驗 / olaparib + ATR/Wee1 inhibitor',
+          '本院基因諮詢門診轉診',
         ],
         mechanism: 'BRCA1/2 失活 → DSB 修復缺陷 → synthetic lethality with PARPi → 細胞死亡',
         linkedTrials: ['solo-1', 'paola-1', 'prima', 'solo2', 'nova', 'ariel3', 'duo-o'],
-        keyTakeaway: '考點: BRCAm = PARPi 強烈獲益族群; SOLO-1 是 BRCAm 一線維持 NCCN Cat 1'
+        keyTakeaway: 'BRCAm 為 PARPi 強烈獲益族群; SOLO-1 BRCAm 一線維持 NCCN Cat 1; 所有 epithelial OC 應做 germline + somatic'
       },
       {
         id: 'HRD-pos',
         name: 'HRD positive (Myriad GIS≥42)',
-        frequency: '~50% HGSC (含 BRCAm 22% + non-BRCA HRR)',
+        frequency: '~50% HGSC (含 BRCAm 22% + non-BRCA HRR ~28%)',
         prognosis: '⭐⭐⭐⭐ 較佳, 鉑類敏感, PARPi 中度獲益',
-        examPoints: [
-          'Myriad myChoice CDx: GIS = LOH + TAI + LST 三項合分',
-          'GIS ≥42 為 PARPi 篩選標準 (PRIMA, PAOLA-1)',
-          'BRCAwt 但 HRD+ (~28%): "BRCAness" phenotype',
-          'PAOLA-1: HRD+ HR 0.33; HRD- 不獲益',
+        exam: [
+          'HRD = Homologous Recombination Deficiency, BRCAness phenotype',
+          'GIS (Genomic Instability Score) = LOH + TAI + LST 三項合分',
+          'GIS ≥42 為 PAOLA-1 / PRIMA PARPi 篩選標準',
+          'BRCAwt 但 HRD+ (~28% HGSC): "BRCAness", 仍 PARPi 獲益',
+          'PAOLA-1: HRD+ HR 0.33; HRD- 不獲益 (binary 二分 important!)',
           'PRIMA: HRD+ HR 0.43, 全人群 HR 0.62',
-          'FoundationOne CDx 為替代測試 (LOH-only)',
+          'HRD 為 dynamic state: 治療後可恢復 HRR (acquired resistance)',
         ],
-        mechanism: 'HRR pathway 缺陷 (BRCA + ATM, PALB2, RAD51 等) → 累積基因組 scars → PARPi 敏感',
+        testing: [
+          '【金標】Myriad myChoice CDx (Companion Dx for Olaparib + Bev)',
+          '  • LOH (Loss of Heterozygosity) + TAI (Telomeric Allelic Imbalance) + LST (Large-scale State Transitions)',
+          '  • GIS ≥42 為 cut-off',
+          '【替代】FoundationOne CDx: LOH-only (cut-off ≥16%)',
+          '【新興】Shallow WGS HRD test (DirectHRD, AcornHRD): 較便宜, 同等敏感',
+          '【RAD51 foci】Functional assay (動態評估), 較少臨床用',
+          'Tumor block 需要新鮮 (FFPE <5 年理想)',
+          '健保: HRD test 部分給付 (specific scenarios)',
+        ],
+        clinical: [
+          '【一線維持】PAOLA-1: Olaparib + Bev for HRD+ → PFS HR 0.33',
+          '【一線維持】PRIMA: Niraparib for HRD+ → 全人群均收益',
+          '【BRCAwt + HRD+】PAOLA-1 為主要證據 (PRIMA 也適)',
+          '【HRD+ + Bev contraindication】PRIMA Niraparib 單藥替代',
+          '【PSOC 維持】NOVA HRD+ subgroup HR 0.38',
+          'DUO-O 三藥維持: 化療 + Bev + Durva → Durva + Olaparib (non-BRCAm + HRD+)',
+        ],
+        nextStep: [
+          '所有 epithelial OC 一線後考慮 HRD test (若未做 BRCA panel)',
+          'BRCAwt + HRD+: PAOLA-1 (Olaparib + Bev) 標準',
+          '若 Bev 禁忌 (出血/廔管/控制不良 HTN): PRIMA Niraparib 單藥',
+          '健保 HRD 給付申請: 提供 Myriad 報告 + 病理',
+          '臨床試驗: ENGOT-ov77 (R-DXd CDH6 ADC) 本院招募中',
+        ],
+        mechanism: 'HRR pathway 缺陷 (BRCA + ATM, PALB2, RAD51 等) → DSB 累積 → PARPi synthetic lethality',
         linkedTrials: ['paola-1', 'prima', 'duo-o', 'ariel3'],
-        keyTakeaway: '考點: HRD+ 含 BRCA + 其他 HRR; PAOLA-1 (+Bev) 為 HRD+ 一線維持代表'
+        keyTakeaway: 'HRD+ 含 BRCA + 其他 HRR; PAOLA-1 (+Bev) 為 HRD+ 一線維持代表; GIS≥42 為篩選 cut-off'
       },
       {
         id: 'HRD-neg',
         name: 'HRD negative (HRP / HRD-)',
         frequency: '~50% HGSC',
         prognosis: '⭐⭐ 較差; PARPi 反應差, unmet need',
-        examPoints: [
+        exam: [
+          'HRP = Homologous Recombination Proficient',
           'GIS <42 (Myriad)',
-          'PARPi 維持 PFS 改善有限 (PAOLA-1: HRD- 無顯著差異)',
-          'CCNE1 amplification: HRD- 中常見, PARPi 強抗藥',
-          '一線維持選擇: Bev only (GOG-218, ICON7)',
-          '正在測試: TroFuse-021 (sac-TMT for HRP), DESTINY-Ovarian01 (T-DXd+Bev for HER2+ HRP)',
+          'PARPi 維持 PFS 改善有限 (PAOLA-1 HRD- 無顯著差異)',
+          'CCNE1 amplification 在 HRD- 中富集 (~25-30%), PARPi 強抗藥',
+          '一線維持選擇有限: Bev only (GOG-218, ICON7)',
+          'PROC 階段 unmet need: ADC + IO 為近年突破',
+        ],
+        testing: [
+          'Myriad GIS <42 → HRD- (HRP)',
+          '【加做】CCNE1 amplification (FISH 或 NGS) — 預測 PARPi 抗藥',
+          '【加做】HER2 IHC + ISH (10-15% 表現)',
+          '【PROC 加做】FRα IHC (Mirvetuximab); CDH6 IHC (R-DXd 試驗)',
+          '【PROC 加做】NaPi2b IHC (UpRi 試驗)',
+          'Tumor-agnostic: MSI-H, NTRK fusion, BRAF, RET',
+        ],
+        clinical: [
+          '【一線維持】Bev maintenance (GOG-218, ICON7) — Stage IV / suboptimal 獲益最大',
+          '【一線維持】NOT recommended: PARPi (PAOLA-1 HRD- 無獲益)',
+          '【PROC】MIRASOL: Mirvetuximab (FRα+) — OS HR 0.67',
+          '【PROC】KEYNOTE-B96: Pembro + weekly Pacli ± Bev — 第一個 IO+chemo PROC OS+',
+          '【PROC】ROSELLA: Relacorilant (GR antagonist) + nab-Pacli — 不依賴 biomarker',
+          '【PROC】TroFuse-021 (sac-TMT for HRP) — 本院招募中',
+          '【PROC】DESTINY-Ovarian01 (T-DXd+Bev for HER2+ HRP) — 本院招募中',
+        ],
+        nextStep: [
+          'HRD- 確認: 加做 CCNE1 amp (預測 PARPi 抗藥)',
+          'PROC 階段強制 broad biomarker testing: FRα, HER2, MSI/TMB, NTRK',
+          '臨床試驗匹配: 本院 TroFuse-021, DESTINY-Ovarian01, ENGOT-ov77 多選項',
+          '若無試驗 + 標準耗盡: tumor-agnostic NGS (Larotrectinib 等)',
+          '緩和醫療早期介入',
         ],
         mechanism: 'HRR 完整 → 鉑類反應較弱, PARPi 抗性; 治療仰賴 ADC + IO + Bev',
-        linkedTrials: ['gog-0218', 'icon7', 'trofuse-021', 'destiny-ovarian01', 'mirasol', 'keynote-b96'],
-        keyTakeaway: '考點: HRP 為 unmet need; 一線 Bev only, 復發 PROC 用 ADC (Mirvetuximab) 或 IO+chemo'
+        linkedTrials: ['gog-0218', 'icon7', 'trofuse-021', 'destiny-ovarian01', 'mirasol', 'keynote-b96', 'rosella'],
+        keyTakeaway: 'HRP 為 unmet need; 一線 Bev only; 復發 PROC 用 ADC (Mirvetuximab) 或 IO+chemo; 多本院試驗'
       },
       {
         id: 'HRRm',
-        name: 'HRR 基因突變 (non-BRCA)',
+        name: 'HRR 基因突變 (non-BRCA HRRm)',
         frequency: '~10-15% (BRCA wt 中 ~22% 仍 HRD+)',
         prognosis: '⭐⭐⭐ 較佳, 鉑類敏感',
-        examPoints: [
+        exam: [
           '11-gene panel (Myriad reference): ATM, BARD1, BRIP1, CHEK1, CHEK2, FANC, MRE11A, NBN, PALB2, RAD51C, RAD51D',
-          'PALB2: BRCAness 最強的 non-BRCA 基因',
-          'RAD51C/D: 卵巢癌 risk gene',
+          'PALB2: BRCAness 最強的 non-BRCA 基因 (PARPi 反應接近 BRCA)',
+          'RAD51C/D: 卵巢癌風險基因 (lifetime risk ~10-15%)',
           'ATM, BRIP1: 較弱 PARPi 反應 (vs BRCA)',
-          '所有患者建議 panel testing (含 BRCA + HRR)',
+          'BARD1, FANC: 中度反應',
+          '不同基因 PARPi 效力差異大: PALB2 > RAD51C/D > BRIP1 > ATM',
+        ],
+        testing: [
+          '【germline panel】至少含 BRCA1/2 + RAD51C/D + BRIP1 + PALB2',
+          '【somatic panel】Tumor NGS 涵蓋 11-gene HRR + LOH',
+          '部分 HRRm 為 germline (RAD51C/D, BRIP1, PALB2 也是 hereditary risk genes)',
+          'Genetic counseling 強制 (家族篩檢)',
+          'Variant classification: ACMG criteria',
+        ],
+        clinical: [
+          '【PALB2m】PARPi 反應接近 BRCA (限定數據)',
+          '【RAD51C/D】PAOLA-1 / PRIMA 子分析顯示獲益',
+          '【ATM, BRIP1】PARPi 反應較弱, 但仍可考慮',
+          '一線維持: PAOLA-1 / PRIMA / SOLO-1 多含 HRRm 子分析',
+          'PSOC 維持: NOVA / ARIEL3 子分析',
+          '不應視為與 BRCA 完全相同 (異質性大)',
+        ],
+        nextStep: [
+          'germline cascade testing: RAD51C/D / BRIP1 / PALB2 carriers 也應家族篩檢',
+          '預防性手術: BRIP1, RAD51C/D 帶因者 RRSO 考量 (年紀略晚於 BRCA, ~45-50)',
+          '臨床試驗: 部分 PARPi-combo 試驗對 HRRm 有興趣',
+          'Tumor reversion testing 復發後',
         ],
         mechanism: 'HRR pathway 部分缺失 → BRCAness phenotype → 鉑類 + PARPi 中度反應',
         linkedTrials: ['paola-1', 'solo2', 'nova', 'prima'],
-        keyTakeaway: '考點: HRRm 為 "BRCAness", 包含於 HRD+ 內; 不同基因效力不同 (PALB2 > ATM)'
+        keyTakeaway: 'HRRm 為 BRCAness (異質性大: PALB2 ≈ BRCA, ATM 較弱); 包含於 HRD+ 內; 多為 hereditary'
+      },
+      {
+        id: 'BRCA-reversion',
+        name: 'BRCA Reversion / Acquired PARPi Resistance (進階)',
+        frequency: '~20-40% PARPi 抗藥患者',
+        prognosis: '⭐⭐ 抗藥後預後較差',
+        exam: [
+          '【高頻考點】PARPi 抗藥的多種分子機制',
+          '【1】BRCA reversion mutation: 二次突變恢復 reading frame → BRCA 功能恢復',
+          '【2】RAD51 foci recovery: 修復功能恢復, 不需 BRCA reversion',
+          '【3】CCNE1 amplification: 同時有 HRD 與 CCNE1 → 後者主導抗藥',
+          '【4】Replication fork stabilization: 阻止 stalled fork degradation',
+          '【5】Drug efflux: P-glycoprotein 上調 → PARPi 排出',
+          'Cross-resistance: PARPi 抗藥常 cross-resistant 至 platinum',
+        ],
+        testing: [
+          '【ctDNA NGS】最敏感, 不需 tumor biopsy (Guardant360, FoundationOne Liquid)',
+          '【tumor biopsy】FFPE → NGS panel 檢測 BRCA reversion',
+          '時機: 第一次 PARPi 失敗後考慮',
+          '可同時檢測 CCNE1 amp, MET amp 等其他抗藥機制',
+          '功能性 RAD51 foci assay 為 research tool',
+        ],
+        clinical: [
+          'BRCA reversion → PARPi 不會再有效, 改用其他機制',
+          'Cross-resistant 至 platinum 機率高',
+          '改用 ADC (Mirvetuximab if FRα+, T-DXd if HER2+)',
+          'IO+chemo (KEYNOTE-B96)',
+          'GR antagonist + nab-Pacli (ROSELLA)',
+          '臨床試驗: PARPi + ATR / Wee1 inhibitor (rechallenge concept)',
+        ],
+        nextStep: [
+          'PARPi 失敗後立刻 ctDNA NGS 找抗藥 mechanism',
+          '若 BRCA reversion: 不再 rechallenge PARPi',
+          '若 RAD51 functional recovery: 考慮 PARPi + ATRi combo 試驗',
+          '若 CCNE1 amp: WEE1 / CDK2 inhibitor 試驗',
+          '臨床試驗匹配 (依 mechanism)',
+        ],
+        mechanism: '多重機制 (reversion, RAD51 recovery, CCNE1, fork stabilization, efflux) 解釋為何初效後失敗',
+        linkedTrials: [],
+        keyTakeaway: 'PARPi 抗藥多機制, BRCA reversion 為最重要; ctDNA NGS 為最佳檢測; 抗藥後改 ADC/IO/試驗'
       },
       {
         id: 'CCNE1',
         name: 'CCNE1 amplification',
         frequency: '~15-20% HGSC (HRD- 為主)',
-        prognosis: '⭐⭐ 較差, PARPi 抗藥',
-        examPoints: [
-          'Cyclin E1 (CCNE1) 基因擴增',
+        prognosis: '⭐⭐ 較差, PARPi 抗藥標記',
+        exam: [
+          'Cyclin E1 (CCNE1) 基因擴增 (位於 19q12)',
           'HRD 互斥: CCNE1 amp 與 BRCA mut 通常不共存',
           'PARPi 強抗藥 (HRD- 子群)',
-          '臨床試驗中: WEE1 inhibitor (adavosertib), CDK2 inhibitor',
+          'Replication stress 高 → WEE1 / CDK2 / ATR inhibitor 為合成致死標靶',
+          '預後比一般 HRD- 更差',
+          'Type II HGSC 特徵 (高度進展, 化療抗藥)',
+        ],
+        testing: [
+          '【主要】FISH (CCNE1:CEP19 ratio ≥2.0)',
+          '【替代】NGS-based copy number analysis',
+          '建議在所有 HRD- 患者加做 CCNE1 (預測 PARPi 抗藥)',
+          'IHC for cyclin E protein 為 surrogate (semi-quantitative)',
+          '通常 tumor block 需新鮮 (FFPE <5 年)',
+        ],
+        clinical: [
+          '不適合 PARPi 維持 (即使 advanced)',
+          '一線: Bev maintenance (GOG-218 機制)',
+          'PROC: ADC (Mirvetuximab if FRα+)',
+          '臨床試驗: WEE1 inhibitor (Adavosertib) + 化療',
+          '臨床試驗: CDK2 inhibitor 早期試驗',
           '尚無 standard targeted therapy',
         ],
-        mechanism: 'Cyclin E 過度表現 → S phase 進入失控 → replication stress → WEE1/CDK2 為合成致死標靶',
+        nextStep: [
+          'HRD- 患者強制加做 CCNE1 amp test',
+          '若 CCNE1+ : 不啟動 PARPi 維持',
+          '臨床試驗匹配: WEE1 / CDK2 / ATR inhibitor 試驗',
+          'broad NGS 看其他 actionable target',
+        ],
+        mechanism: 'Cyclin E 過度表現 → S phase 失控 → replication stress → WEE1/CDK2/ATR 為合成致死標靶',
         linkedTrials: [],
-        keyTakeaway: '考點: CCNE1 amp = PARPi 抗藥標記; 為 HRD- 中 unmet need'
+        keyTakeaway: 'CCNE1 amp = PARPi 抗藥標記, HRD- 中富集; 為 unmet need; WEE1/CDK2 inhibitor 試驗中'
       },
       {
         id: 'HGSC',
-        name: 'High-Grade Serous (HGSC)',
+        name: 'High-Grade Serous Carcinoma (HGSC)',
         frequency: '~70% 全 EOC',
         prognosis: '⭐⭐⭐ 中等; 鉑類敏感但易復發',
-        examPoints: [
-          'TP53 mutation 100% (定義標準)',
-          'Fallopian tube fimbria 起源 (STIC lesion)',
-          '一半起源於輸卵管, 早期手術: 雙側 BSO + omentectomy',
-          'WT-1 IHC+, PAX-8+, p53 異常',
-          'BRCA + HRD 主要族群',
-          '化療: carbo + paclitaxel ± Bev (一線)',
+        exam: [
+          'TP53 mutation 100% (定義標準!)',
+          '起源: Fallopian tube fimbria (STIC lesion 為前驅)',
+          'WT-1 IHC+ (vs OCCC WT-1-)',
+          'PAX-8+, p16+, ER± (~70% ER+)',
+          'BRCA + HRD 主要族群 (50% HGSC HRD+)',
+          'CA-125 為主要追蹤 marker',
+          '高度型態: 通常 Grade 3, mitosis 高',
         ],
-        mechanism: 'TP53 失活 → 染色體不穩定; HRD 為亞分類; 鉑類仰賴 platinum-DNA damage',
+        testing: [
+          '【病理】WT-1, PAX-8, p53, p16, ER/PR IHC',
+          '【分子】TP53 NGS (所有 HGSC 應有)',
+          '【germline】BRCA1/2 + 11-gene HRR panel',
+          '【somatic】Tumor NGS (BRCA, HRD, CCNE1, HER2, etc.)',
+          'STIC lesion 在輸卵管: serial sectioning of fimbria (SEE-FIM protocol)',
+        ],
+        clinical: [
+          '【手術】Cytoreductive surgery (PDS or IDS post-NACT)',
+          '【一線化療】Carboplatin + Paclitaxel × 6 cycles ± Bev',
+          '【一線維持】依 BRCA/HRD status:',
+          '  • BRCAm → SOLO-1 (Olaparib)',
+          '  • HRD+ BRCAwt → PAOLA-1 (Olap+Bev)',
+          '  • HRD- → Bev only or PRIMA (Niraparib)',
+          '【PSOC】SOLO2 / NOVA / ARIEL3 + 化療',
+          '【PROC】MIRASOL / KEYNOTE-B96 / ROSELLA / ADC trials',
+        ],
+        nextStep: [
+          '所有新診斷 HGSC: germline BRCA + HRD test',
+          'HER2 IHC + ISH (10-15% 表現)',
+          '若 HGSC + germline-neg: somatic NGS (BRCA + HRR + HRD)',
+          'PROC 階段: 加做 FRα, NaPi2b, MSI/TMB, NTRK',
+          '輸卵管 SEE-FIM examination if BRCA carrier (STIC screening)',
+        ],
+        mechanism: 'TP53 失活 → 染色體不穩定; HRD 為亞分類; 仰賴 platinum-DNA damage + PARPi synthetic lethality',
         linkedTrials: ['solo-1', 'paola-1', 'prima', 'gog-0218', 'icon7', 'mirasol'],
-        keyTakeaway: '考點: HGSC = OC 主類; TP53 100%; HRD 分流決定 PARPi 使用'
+        keyTakeaway: 'HGSC = OC 主類; TP53 100%; HRD 分流決定 PARPi; 起源於輸卵管 STIC; CA-125 monitoring'
       },
       {
         id: 'OCCC',
-        name: '透明細胞癌 (OCCC / Clear Cell)',
-        frequency: '~10% (西方), 亞洲較高 (~15-25%)',
-        prognosis: '⭐⭐ 早期可治, 但 advanced 鉑類抗藥, 預後差',
-        examPoints: [
-          'ARID1A mutation ~50%, PIK3CA mutation ~50%',
-          'WT-1 IHC negative (與 HGSC 區別關鍵)',
-          'Napsin A+, HNF-1β+',
-          'Endometriosis 相關 (ARID1A 為連結)',
-          '常合併血栓 (高 thrombosis risk)',
-          'Hyperglycemia, hypercalcemia 副現象',
-          '鉑類抗藥 → 二線 IO 較有反應 (PD-L1 expression 偏高)',
+        name: 'Ovarian Clear Cell Carcinoma (OCCC)',
+        frequency: '~10% (西方), 亞洲較高 (~15-25%, 台灣高頻)',
+        prognosis: '⭐⭐ 早期可治 (Stage IA OS >85%), advanced 鉑類抗藥, 預後差',
+        exam: [
+          'ARID1A mutation ~50% (chromatin remodeler)',
+          'PIK3CA mutation ~50%',
+          'PTEN loss 也常見',
+          'WT-1 IHC negative (與 HGSC 區別關鍵!)',
+          'Napsin A+, HNF-1β+ (定義性 markers)',
+          'ER/PR usually negative',
+          'p53 wild-type 為主 (與 HGSC 區別)',
+          'Endometriosis 相關 (ARID1A 為連結, ~20-25% OCCC 來自 endometriosis)',
+          '副腫瘤現象: 高血鈣 (paraneoplastic), 高血糖, 血栓 risk 高 (VTE incidence ~25%)',
+          'MSI rare (~10%) 但 IO 反應仍較 HGSC 佳',
         ],
-        mechanism: 'ARID1A 缺失 → 表觀遺傳調控異常; PIK3CA 過度活化 → mTOR 訊號',
+        testing: [
+          '【病理】WT-1 (-), Napsin A (+), HNF-1β (+), ER/PR (-/+ low)',
+          '【分子】ARID1A IHC (loss-of-function 為 surrogate)',
+          '【分子】NGS panel: ARID1A, PIK3CA, PTEN, MMR, MSI',
+          '【加做】PD-L1 IHC (反應較高)',
+          'BAP1 IHC (rare 但 actionable)',
+          'NTRK fusion 測試 (rare 但 actionable)',
+        ],
+        clinical: [
+          '【手術】Comprehensive staging + cytoreduction',
+          '【一線化療】Carbo/pacli (但反應較差); 部分中心改用 Carbo/Irinotecan (JGOG3017)',
+          '【鉑抗藥】快, 多在 first-line 內進展',
+          '【二線 IO】較好反應 (PD-L1 較高):',
+          '  • 本院 DOVE 試驗 (Dostarlimab ± Bev) — 黃慧君主持',
+          '  • Pembrolizumab 單藥 (KEYNOTE-158)',
+          '  • Nivolumab + Ipilimumab (NRG-GY003)',
+          '【PI3K/AKT/mTOR inhibitor】試驗中',
+          '【BAP1 loss】PARPi rechallenge 可能 (early data)',
+        ],
+        nextStep: [
+          '【強制】WT-1 + Napsin A + HNF-1β IHC 確認 OCCC (與 endometrioid 鑑別)',
+          'NGS panel: ARID1A, PIK3CA, PTEN, MMR, NTRK',
+          'PD-L1 IHC for IO 試驗',
+          '本院 DOVE 試驗 (DOSTARLIMAB ± BEV) 招募中, ≥50% clear cell histology',
+          'VTE prophylaxis 考量 (高血栓 risk)',
+          '若 endometriosis 病史: 強化 surveillance for malignant transformation',
+        ],
+        mechanism: 'ARID1A 缺失 → 表觀遺傳調控異常; PIK3CA 過度活化 → mTOR signaling; PD-L1 表現高 → IO 反應較佳',
         linkedTrials: ['dove', 'nrg-gy019', 'jgog3017', 'meoc-gog0241'],
-        keyTakeaway: '考點: OCCC 鉑類抗藥, IO 反應較佳; 本院 DOVE 試驗 (Dostar ± Bev) 收案中'
+        keyTakeaway: 'OCCC: WT-1(-) + Napsin A(+); 鉑抗藥但 IO 反應較佳; 本院 DOVE 招募中; VTE risk 高'
       },
       {
         id: 'LGSC',
-        name: 'Low-Grade Serous (LGSC)',
+        name: 'Low-Grade Serous Carcinoma (LGSC)',
         frequency: '~5% 全 EOC',
-        prognosis: '⭐⭐ 緩慢進展, 但化療抗藥',
-        examPoints: [
-          'KRAS / BRAF / NRAS 突變',
+        prognosis: '⭐⭐ 緩慢進展但化療抗藥 (median OS 80m vs HGSC 40m)',
+        exam: [
+          'KRAS / BRAF / NRAS 突變 (約 60% 患者有其中一)',
           'TP53 wildtype (與 HGSC 區別)',
-          '年輕族群多 (mean 45-50)',
-          'MEK 抑制劑為標靶選擇 (Trametinib, GOG-281)',
-          'Hormonal therapy (letrozole) 中度有效',
-          '化療反應差但緩慢進展',
+          'MAPK pathway 過度活化',
+          '年輕族群多 (mean 45-50 歲)',
+          'ER/PR 陽性高 (>80%)',
+          'Serous borderline tumor (SBT) 可演變至 LGSC',
+          'CDKN2A loss 也常見',
         ],
-        mechanism: 'RAS-MAPK pathway 過度活化 → MEK 為標靶',
+        testing: [
+          '【分子】KRAS, BRAF, NRAS NGS testing 強制',
+          '【分子】NGS panel for MAPK + RAS',
+          '【病理】ER/PR IHC (多陽性)',
+          'p53 IHC: wildtype (排除 HGSC)',
+          'Ki-67 通常低 (<10%)',
+          'NF1 / RAF1 alterations (rare)',
+        ],
+        clinical: [
+          '【手術】Optimal cytoreduction (但化療反應差, 完整切除最重要)',
+          '【標靶】MEK inhibitor 為標靶選擇:',
+          '  • Trametinib (GOG-281) — PFS 13.0m vs 7.2m',
+          '  • Binimetinib + paclitaxel',
+          '【標靶】RAF/MEK combo (試驗中)',
+          '【Hormonal】Letrozole / Anastrozole 中度有效 (PFS ~7-10m)',
+          '【化療】Carbo/pacli 反應 25% (差), 但仍為 standard',
+          '【BRAF V600E】Dabrafenib + Trametinib (rare 但有效)',
+        ],
+        nextStep: [
+          '所有 LGSC: KRAS / BRAF / NRAS NGS (決定 MEK 適應)',
+          'ER/PR IHC: ER+ → 考慮 hormonal therapy first (年輕保留卵巢功能)',
+          '臨床試驗: GOG-281 (Trametinib), RAMP-201, GOG-3026',
+          'BRAF V600E carriers: 考慮 BRAF/MEK combo (Dabrafenib + Trametinib)',
+          '長期 surveillance (緩慢進展, 5-10 年復發常見)',
+        ],
+        mechanism: 'RAS-MAPK pathway 過度活化 → MEK 為標靶; ER signaling 為 secondary driver',
         linkedTrials: ['gog-281', 'ramp-201', 'gog-3026'],
-        keyTakeaway: '考點: LGSC + KRAS/BRAFm → Trametinib (MEK 抑制劑); GOG-281 confirms'
+        keyTakeaway: 'LGSC + KRAS/BRAFm → Trametinib (MEK 抑制劑); ER+ → Hormonal first; 化療反應差但緩慢'
+      },
+      {
+        id: 'Endometrioid-OC',
+        name: 'Endometrioid Ovarian Carcinoma',
+        frequency: '~10-15% 全 EOC',
+        prognosis: '⭐⭐⭐⭐ Stage I 預後好 (5年 OS >85%); advanced 較差',
+        exam: [
+          '組織類似子宮內膜 endometrioid carcinoma',
+          'CTNNB1 (β-catenin) mutation ~38-50% (高頻!)',
+          'PTEN mutation ~20%',
+          'ARID1A mutation ~30%',
+          'MMR deficiency ~13-20% (Lynch 風險!)',
+          'Endometriosis 相關 (~20-25%)',
+          'ER/PR 多陽性',
+          'p53 wildtype 為主',
+          'Synchronous endometrial cancer ~10-20% (clonality test 重要)',
+        ],
+        testing: [
+          '【病理】CK7+, ER+, PR+, vimentin+; WT-1 (-)',
+          '【分子】CTNNB1 NGS (β-catenin nuclear staining IHC for screening)',
+          '【分子】PTEN, ARID1A, PIK3CA NGS',
+          '【MMR】IHC 4 蛋白 (Lynch 篩檢) — 強制!',
+          'Synchronous EC: 兩個 site 都做 NGS, 檢查 clonality (independent vs metastatic)',
+        ],
+        clinical: [
+          '【手術】Comprehensive staging + cytoreduction',
+          '【Stage I 低風險】Surgery alone 可能足夠',
+          '【一線化療】Carbo/pacli (反應較 HGSC 佳)',
+          '【MMR-d】IO 反應佳 — Pembro / Dostar',
+          '【ER+ low-grade】Hormonal therapy (Letrozole) 可考慮',
+          '【BRCA testing】仍需做 (~5% endometrioid 有 BRCAm)',
+        ],
+        nextStep: [
+          '【關鍵】MMR IHC 4 蛋白強制 (與 EC 一樣 Lynch 篩檢)',
+          'CTNNB1 + PTEN + ARID1A NGS panel',
+          'Synchronous EC 同時切除: clonality test → 影響分期',
+          'Lynch confirmed: 家族篩檢 + 大腸鏡',
+          'Endometriosis 病史: 加強 surveillance',
+        ],
+        mechanism: 'Wnt/β-catenin (CTNNB1) + PI3K/PTEN pathway alterations 為主 driver',
+        linkedTrials: [],
+        keyTakeaway: 'Endometrioid OC 與 EC 類似: CTNNB1 + PTEN + MMR 為核心; 強制 Lynch 篩檢; ER+ 可 hormonal'
+      },
+      {
+        id: 'Mucinous-OC',
+        name: 'Mucinous Ovarian Carcinoma',
+        frequency: '~3-5% 全 EOC (但需先排除 metastatic)',
+        prognosis: '⭐⭐ Stage I 預後好, advanced 化療抗藥, 預後差',
+        exam: [
+          '【關鍵考點】80% 的所謂「卵巢黏液癌」實為 GI tract metastasis (大腸/胃/胰)',
+          'KRAS mutation ~50-65% (高頻!)',
+          'HER2 amplification ~20% (重要 actionable!)',
+          'TP53 mutation ~50%',
+          'CK7+ / CK20± (與 GI mets 鑑別困難)',
+          'CEA elevated 常見',
+          '通常單側, 大腫瘤 (mean 18cm)',
+          '預後與分期高度相關 (Stage I OS >90%, Stage III/IV <30%)',
+        ],
+        testing: [
+          '【鑑別 GI mets】胃鏡 + 大腸鏡 + 影像 + IHC (CDX-2, CK7/CK20 pattern)',
+          '【病理】CK7+/CK20± (primary) vs CK7-/CK20+ (GI mets); CDX-2 重要',
+          '【分子】KRAS NGS',
+          '【分子】HER2 IHC + ISH (~20% amp)',
+          '【分子】TP53 NGS',
+          'BRCA testing 仍需 (rare 但有)',
+        ],
+        clinical: [
+          '【手術】先全面排除 metastatic from GI',
+          '【手術】單側 → unilateral salpingo-oophorectomy (年輕保留 fertility)',
+          '【一線化療】Carbo/pacli (反應差, 部分中心改 5-FU/oxaliplatin GI-style)',
+          '【HER2+】Trastuzumab + 化療可考慮 (HER2 ADC trial)',
+          '【KRAS G12C】Sotorasib / Adagrasib (lung cancer 已批准, OC 試驗中)',
+          '【MSI-H】罕見, 但發現可用 IO',
+        ],
+        nextStep: [
+          '【強制】排除 GI primary: 胃鏡 + 大腸鏡 + CDX-2 IHC + CK7/20',
+          'HER2 IHC + ISH (考慮 Trastuzumab combo)',
+          'KRAS testing (G12C 為 actionable)',
+          '臨床試驗: HER2-directed therapy, KRAS G12C inhibitor',
+          '若年輕 + Stage I: fertility-sparing 可考慮',
+        ],
+        mechanism: 'KRAS-MAPK 為主, HER2 amp 為 actionable; 與 GI tumors 分子 overlap',
+        linkedTrials: [],
+        keyTakeaway: 'Mucinous OC: 先排除 GI mets!; KRAS + HER2 amp 為核心; HER2+ → Trastuzumab combo'
+      },
+      {
+        id: 'Carcinosarcoma',
+        name: 'Ovarian Carcinosarcoma (MMMT)',
+        frequency: '~1-3% 全 OC',
+        prognosis: '⭐ 預後很差 (median OS <2 years)',
+        exam: [
+          'Mixed Müllerian Malignant Tumor (MMMT) — 含 carcinoma + sarcoma 雙成分',
+          'TP53 mutation 高頻 (~80%)',
+          'BRCA / HRD 部分有 (~25-30%)',
+          '通常 high-grade, advanced presentation',
+          'Carcinoma 部分常為 serous-like',
+          'Sarcoma 部分為 stromal / heterologous (rhabdomyosarcoma, chondrosarcoma)',
+          '與 uterine carcinosarcoma 機制類似',
+          '考試: 治療思維接近 HGSC',
+        ],
+        testing: [
+          '【病理】Dual component (epithelial + mesenchymal)',
+          'IHC: 兩種成分各別評估',
+          '【分子】TP53 NGS, BRCA + HRR panel',
+          '【分子】HRD test (~25-30% 為 HRD+)',
+          'PAX-8 (epithelial), desmin/myogenin (sarcoma)',
+        ],
+        clinical: [
+          '【手術】Cytoreduction (與 HGSC 一樣 R0 為目標)',
+          '【一線化療】Carbo/pacli + Ifosfamide combo (uterine MMMT 證據)',
+          '【BRCAm/HRD+】PARPi 維持可考慮 (限定 evidence)',
+          '【放療】部分需要 (locally advanced)',
+          '【臨床試驗】Sarcoma + carcinoma combo trials',
+        ],
+        nextStep: [
+          'TP53 NGS + BRCA panel + HRD test',
+          'HER2 IHC (考量 T-DXd)',
+          '臨床試驗匹配 (ovarian + sarcoma combined)',
+          '緩和醫療早期介入 (預後差)',
+        ],
+        mechanism: 'TP53 失活 + 雙成分共同 origin (clonal); 機制接近 HGSC + sarcoma 混合',
+        linkedTrials: [],
+        keyTakeaway: 'Ovarian carcinosarcoma: 預後差; TP53 + 部分 HRD; 治療類 HGSC + ifosfamide'
       },
     ]
   },
@@ -6440,12 +6826,12 @@ function renderMolList(){
     </div>
     ${data.workflow ? `
       <button class="mol-special-btn workflow" onclick="showMolSpecial('workflow')">
-        🔬 ${escapeHtml(data.workflow.title.replace(/^[🔬📐]\s*/, ''))}
+        ${escapeHtml(data.workflow.title)}
       </button>
     ` : ''}
     ${data.figoStaging ? `
       <button class="mol-special-btn staging" onclick="showMolSpecial('staging')">
-        📐 ${escapeHtml(data.figoStaging.title.replace(/^[🔬📐]\s*/, ''))}
+        ${escapeHtml(data.figoStaging.title)}
       </button>
     ` : ''}
     <div class="mol-entries">
@@ -6492,6 +6878,8 @@ function showMolSpecial(type){
       </div>
     `;
   } else if(type === 'staging' && data.figoStaging){
+    // For OC, this is actually the ADC Target table; takeaway differs
+    const isOCAdc = currentMolTab === 'OC';
     detail.innerHTML = `
       <div class="mol-detail-header">
         <h3>${escapeHtml(data.figoStaging.title)}</h3>
@@ -6499,9 +6887,9 @@ function showMolSpecial(type){
       <table class="mol-staging-table">
         <thead>
           <tr>
-            <th>分子分型</th>
-            <th>FIGO 2023 特殊分期</th>
-            <th>臨床/考試重點</th>
+            <th>${isOCAdc ? 'ADC Target' : '分子分型'}</th>
+            <th>${isOCAdc ? '代表藥物' : 'FIGO 2023 特殊分期'}</th>
+            <th>${isOCAdc ? '適應族群 / 試驗' : '臨床/考試重點'}</th>
           </tr>
         </thead>
         <tbody>
@@ -6515,7 +6903,10 @@ function showMolSpecial(type){
         </tbody>
       </table>
       <div class="mol-takeaway">
-        💡 <strong>2023 FIGO 重大變革:</strong> 首次將分子分型整合進 staging system; ESGO/ESTRO/ESP 2025 進一步明確 IAm POLEmut / IICm p53abn 之治療含義
+        💡 <strong>${isOCAdc ?
+          'ADC 為近年 PROC 的關鍵突破: FRα (Mirvetuximab) 為首個 OS 改善 ADC; HER2/TROP2/CDH6 多試驗並進; 新興 NaPi2b/B7-H4/CLDN6 在後線開發中。' :
+          '2023 FIGO 重大變革: 首次將分子分型整合進 staging system; ESGO/ESTRO/ESP 2025 進一步明確 IAm POLEmut / IICm p53abn 之治療含義'
+        }</strong>
       </div>
     `;
   }
