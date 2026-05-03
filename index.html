@@ -397,6 +397,78 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   box-shadow:0 6px 16px rgba(22,163,74,0.25);
 }
 
+/* ===== 🔗 相似試驗交叉比較 ===== */
+.similar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:11px;}
+.similar-card{
+  background:white;
+  border:1.5px solid #e2e8f0;
+  border-radius:11px;
+  padding:13px 14px;
+  transition:all 0.15s;
+}
+.similar-card:hover{border-color:#7c3aed;box-shadow:0 4px 14px rgba(124,58,237,0.15);transform:translateY(-1px);}
+.sc-header{display:flex;align-items:flex-start;gap:9px;margin-bottom:6px;}
+.sc-name{font-size:13px;font-weight:800;color:#0c1f3d;flex:1;line-height:1.35;}
+.sc-score{
+  font-size:11px;
+  font-weight:800;
+  font-family:"JetBrains Mono",monospace;
+  background:linear-gradient(135deg,#fae8ff,#f0abfc);
+  color:#86198f;
+  padding:3px 8px;
+  border-radius:50px;
+  flex-shrink:0;
+}
+.sc-tagline{font-size:11.5px;color:#64748b;line-height:1.5;margin-bottom:8px;min-height:30px;}
+.sc-reasons{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:9px;}
+.sc-reason-tag{
+  font-size:10.5px;
+  font-weight:700;
+  padding:3px 8px;
+  border-radius:6px;
+  background:#faf5ff;
+  color:#581c87;
+  border:1px solid #e9d5ff;
+}
+.sc-actions{display:flex;gap:6px;}
+.sc-view-btn,.sc-compare-btn{
+  flex:1;
+  padding:7px 10px;
+  border-radius:7px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:inherit;
+  border:1.5px solid;
+  transition:all 0.15s;
+}
+.sc-view-btn{background:white;color:#0c1f3d;border-color:#cbd5e1;}
+.sc-view-btn:hover{background:#f1f5f9;border-color:#0c1f3d;}
+.sc-compare-btn{background:white;color:#7c3aed;border-color:#c4b5fd;}
+.sc-compare-btn:hover{background:#faf5ff;}
+.sc-compare-btn.added{background:#7c3aed;color:white;border-color:#7c3aed;}
+
+.similar-action-row{margin-top:14px;display:flex;justify-content:center;}
+.similar-add-all-btn{
+  padding:11px 22px;
+  background:linear-gradient(135deg,#7c3aed,#6d28d9);
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+  font-family:inherit;
+  letter-spacing:0.02em;
+  box-shadow:0 3px 12px rgba(124,58,237,0.3);
+}
+.similar-add-all-btn:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(124,58,237,0.45);}
+
+@media(max-width:640px){
+  .similar-grid{grid-template-columns:1fr;}
+  .similar-add-all-btn{font-size:12px;padding:10px 16px;}
+}
+
 /* ===== 🎯 試驗匹配引擎 Modal ===== */
 .trial-match-modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.88);z-index:567;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
 .trial-match-modal-bg.open{display:flex;}
@@ -2035,6 +2107,15 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
         <div class="criteria-box inc"><h5>✅ Inclusion</h5><ul id="mInc"></ul></div>
         <div class="criteria-box exc"><h5>❌ Exclusion</h5><ul id="mExc"></ul></div>
       </div>
+    </div>
+
+    <!-- 🔗 相似試驗交叉比較 -->
+    <div class="m-section" id="mSimilarSec">
+      <div class="m-label">
+        <span class="icon">🔗</span>相似試驗交叉比較
+        <span style="font-size:11px;color:#94a3b8;font-weight:600;margin-left:8px;">(同癌別 + 同治療線 + 同分子標記)</span>
+      </div>
+      <div id="mSimilarTrials"></div>
     </div>
   </div>
 </div>
@@ -6150,8 +6231,184 @@ function showDetail(id){
   el('mInc').innerHTML = (t.inc||[]).map(i => `<li>${i}</li>`).join('');
   el('mExc').innerHTML = (t.exc||[]).map(i => `<li>${i}</li>`).join('');
 
+  // 🔗 相似試驗交叉比較
+  renderSimilarTrials(t);
+
   el('detailOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+function renderSimilarTrials(currentTrial){
+  const t = currentTrial;
+  const allOthers = TRIALS.filter(x => x.id !== t.id);
+
+  // Score each trial by similarity
+  const scored = allOthers.map(other => {
+    let score = 0;
+    const reasons = [];
+
+    // Same cancer (essential)
+    const sameCancer = (Array.isArray(t.cancer) ? t.cancer : [t.cancer])
+      .some(c => (Array.isArray(other.cancer) ? other.cancer : [other.cancer]).includes(c));
+    if(!sameCancer) return { trial: other, score: 0, reasons: [] };
+    score += 30;
+    reasons.push('同癌別');
+
+    // Same phase / treatment line
+    if(t.phase && other.phase){
+      const tPhases = Array.isArray(t.phase) ? t.phase : [t.phase];
+      const oPhases = Array.isArray(other.phase) ? other.phase : [other.phase];
+      const sharedPhase = tPhases.filter(p => oPhases.includes(p));
+      if(sharedPhase.length){
+        score += 25;
+        reasons.push(`同治療線 (${sharedPhase[0]})`);
+      }
+    }
+
+    // Same subcategory (e.g., MMRd, BRCAm)
+    if(t.subcat && other.subcat){
+      const tSub = Array.isArray(t.subcat) ? t.subcat : [t.subcat];
+      const oSub = Array.isArray(other.subcat) ? other.subcat : [other.subcat];
+      const shared = tSub.filter(s => oSub.includes(s));
+      if(shared.length){
+        score += 20 * shared.length;
+        reasons.push(`共同 ${shared.join(', ')}`);
+      }
+    }
+
+    // Same molecular tags
+    const tMolTags = parseMolecularTags(t).map(tag => tag.label);
+    const oMolTags = parseMolecularTags(other).map(tag => tag.label);
+    const sharedMol = tMolTags.filter(m => oMolTags.includes(m));
+    if(sharedMol.length){
+      score += 8 * sharedMol.length;
+      reasons.push(`分子: ${sharedMol.slice(0,3).join(', ')}${sharedMol.length>3?'...':''}`);
+    }
+
+    // Same drug class hint (rough)
+    if(t.drug && other.drug){
+      const tDrug = t.drug.toLowerCase();
+      const oDrug = other.drug.toLowerCase();
+      const drugClasses = [
+        ['pembro', 'dostar', 'nivolu', 'atezo', 'cemip', 'durva'], // IO
+        ['olap', 'nirap', 'rucap', 'parp'], // PARPi
+        ['bev', 'bevac'], // anti-VEGF
+        ['mirvet', 'sac-tmt', 't-dxd', 'trastuz', 'sacituz'], // ADC
+        ['letroz', 'anastr', 'megestr', 'tamox'], // hormonal
+        ['carbo', 'paclit', 'doxor', 'gemcit'], // chemo
+        ['lenva', 'pazop', 'cabozan', 'tramet', 'crizot', 'larotrec', 'entrect'], // TKI
+      ];
+      for(const cls of drugClasses){
+        const tHas = cls.some(d => tDrug.includes(d));
+        const oHas = cls.some(d => oDrug.includes(d));
+        if(tHas && oHas){
+          score += 8;
+          reasons.push('同藥物類別');
+          break;
+        }
+      }
+    }
+
+    return { trial: other, score, reasons };
+  });
+
+  // Filter & sort: show top 6 with score >= 50
+  const similar = scored
+    .filter(s => s.score >= 50)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 6);
+
+  if(similar.length === 0){
+    el('mSimilarTrials').innerHTML = `
+      <div style="padding:14px;background:#f8fafc;border-radius:9px;color:#64748b;font-size:12.5px;text-align:center;">
+        🔍 此試驗較為獨特,資料庫中無高度相似的其他試驗
+      </div>
+    `;
+    return;
+  }
+
+  let html = `
+    <div class="similar-grid">
+      ${similar.map(s => {
+        const ot = s.trial;
+        const statusEmoji = ot.status === 'ongoing' ? '📍' : '📚';
+        const siteIndicator = ot.siteInfo ? '🏥' : '';
+        const isSelected = selectedTrials.has(ot.id);
+
+        return `
+          <div class="similar-card">
+            <div class="sc-header">
+              <div class="sc-name">${statusEmoji} ${siteIndicator} ${escapeHtml(ot.name)}</div>
+              <div class="sc-score" title="相似度">${s.score}</div>
+            </div>
+            <div class="sc-tagline">${escapeHtml(ot.tagline || ot.drug || '')}</div>
+            <div class="sc-reasons">${s.reasons.map(r => `<span class="sc-reason-tag">${escapeHtml(r)}</span>`).join('')}</div>
+            <div class="sc-actions">
+              <button class="sc-view-btn" onclick="showDetail('${ot.id}')">查看詳情 →</button>
+              <button class="sc-compare-btn ${isSelected ? 'added' : ''}" onclick="toggleSimilarCompare('${t.id}', '${ot.id}', event)">
+                ${isSelected ? '✓ 已加入比較' : '⚖️ 加入比較'}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+    <div class="similar-action-row">
+      <button class="similar-add-all-btn" onclick="addSimilarTopToCompare('${t.id}', ${JSON.stringify(similar.slice(0, 3).map(s => s.trial.id)).replace(/"/g, '&quot;')})">
+        ⚖️ 一鍵加入 Top 3 + 此試驗,直接比較
+      </button>
+    </div>
+  `;
+  el('mSimilarTrials').innerHTML = html;
+}
+
+function toggleSimilarCompare(currentTid, otherTid, ev){
+  if(ev) ev.stopPropagation();
+  if(!compareMode){
+    compareMode = true;
+    el('cmpToggle').classList.add('on');
+    el('cmpToggle').textContent = '☑ 比較模式 (勾選 2-4 個試驗)';
+    document.body.classList.add('compare-mode');
+  }
+  // Add current trial first if not in
+  if(!selectedTrials.has(currentTid) && selectedTrials.size < 4){
+    selectedTrials.add(currentTid);
+  }
+  // Toggle other
+  if(selectedTrials.has(otherTid)){
+    selectedTrials.delete(otherTid);
+  } else if(selectedTrials.size < 4){
+    selectedTrials.add(otherTid);
+  } else {
+    alert('最多比較 4 個試驗');
+    return;
+  }
+  // Re-render similar to update button state
+  const t = TRIALS.find(x => x.id === currentTid);
+  if(t) renderSimilarTrials(t);
+  // Sync UI
+  if(typeof updateCompareUI === 'function') updateCompareUI();
+  renderTrialList();
+}
+
+function addSimilarTopToCompare(currentTid, topTids){
+  // topTids may be array (correct) or stringified
+  if(typeof topTids === 'string'){
+    try { topTids = JSON.parse(topTids); } catch(e){ topTids = []; }
+  }
+  if(!compareMode){
+    compareMode = true;
+    el('cmpToggle').classList.add('on');
+    el('cmpToggle').textContent = '☑ 比較模式 (勾選 2-4 個試驗)';
+    document.body.classList.add('compare-mode');
+  }
+  selectedTrials.clear();
+  selectedTrials.add(currentTid);
+  topTids.slice(0, 3).forEach(tid => selectedTrials.add(tid));
+  closeDetail();
+  setTimeout(() => {
+    openCompareModal();
+  }, 200);
 }
 
 function showSec(secId, content, contentId){
@@ -6495,10 +6752,18 @@ const CHECKLISTS = {
         items: [
           {
             id: 'ec-mlh1-meth',
-            name: 'MLH1 promoter methylation',
-            when: 'MLH1/PMS2 IHC 雙缺失',
-            how: 'PCR 或 pyrosequencing',
-            why: 'Methylated → sporadic (不需 germline); Unmethylated → Lynch 懷疑 → germline',
+            name: 'MLH1 promoter methylation (分子,非IHC)',
+            when: 'MLH1/PMS2 IHC 雙缺失 (其他 pattern 不需做)',
+            how: 'MS-PCR / Pyrosequencing / MethyLight (Bisulfite conversion + 分析); 不可用 IHC!',
+            why: 'Methylated → sporadic (~75%, 不需 germline); Unmethylated → 懷疑 Lynch → germline',
+            molEntryId: 'MMR-Lynch-Workflow'
+          },
+          {
+            id: 'ec-braf-note',
+            name: 'BRAF V600E 在 EC 不適用 (考點)',
+            when: 'CRC 用於排除 Lynch (EC 不適用)',
+            how: 'IHC (VE1 抗體) 或 PCR / NGS — EC 直接 methylation 即可',
+            why: 'BRAF V600E + dMMR 在 CRC 高度提示 sporadic, 但此規則 EC 不適用',
             molEntryId: 'MMR-Lynch-Workflow'
           },
           {
@@ -6583,18 +6848,18 @@ const CHECKLISTS = {
         items: [
           {
             id: 'oc-fra',
-            name: 'FRα IHC',
-            when: 'Platinum-resistant OC (PROC)',
-            how: 'Ventana FOLR1 IHC (PS2+ ≥75% 為 high)',
-            why: 'FRα high → Mirvetuximab Soravtansine (MIRASOL, OS HR 0.67)',
+            name: 'FRα IHC (Folate Receptor α)',
+            when: 'Platinum-resistant OC (PROC) — 決定 Mirvetuximab 適應',
+            how: 'Ventana FOLR1-2.1 CDx IHC 染色; PS2+ scoring system; ≥75% PS2+ 為 "high"',
+            why: 'FRα high → Mirvetuximab Soravtansine (MIRASOL ORR 42.3%, OS HR 0.67); 低表現不適用',
             molEntryId: 'HRD-neg'
           },
           {
             id: 'oc-her2',
-            name: 'HER2 IHC + ISH',
-            when: 'Mucinous / clear cell / recurrent OC',
-            how: 'IHC + ISH for IHC 2+',
-            why: 'HER2+ Mucinous → Trastuzumab combo; HER2+ general → T-DXd',
+            name: 'HER2 IHC + ISH (採乳癌標準)',
+            when: 'Mucinous OC / Clear cell / Recurrent / Carcinosarcoma',
+            how: 'IHC scoring 0/1+/2+/3+; IHC 3+ 直接陽性; IHC 2+ → ISH (FISH/DISH) confirm; ISH HER2/CEP17 ≥2.0 為 amp',
+            why: 'HER2+ → T-DXd (DESTINY-PanTumor02 ORR ~50%); HER2 IHC 1+ low expression 也可能適用 T-DXd',
             molEntryId: 'Mucinous-OC'
           },
           {
@@ -6679,10 +6944,10 @@ const CHECKLISTS = {
           },
           {
             id: 'cc-pdl1',
-            name: 'PD-L1 CPS',
-            when: '所有 R/M CC (1L IO 適應決策)',
-            how: 'Dako 22C3 IHC (FDA Companion Dx)',
-            why: 'CPS≥1 → KEYNOTE-826 (Pembro+chemo±Bev); 健保已給付',
+            name: 'PD-L1 CPS (Combined Positive Score)',
+            when: '所有 R/M CC (1L IO 適應決策, 健保給付要求)',
+            how: 'Dako 22C3 pharmDx IHC (FDA Companion Dx); CPS = (PD-L1+ tumor + immune cells) ÷ total viable tumor cells × 100; CPS≠TPS',
+            why: 'CPS≥1 → KEYNOTE-826 (Pembro+chemo±Bev, OS HR 0.64); CPS<1 → BEATcc Atezo+chemo+Bev',
             molEntryId: 'PD-L1-CPS'
           },
         ]
@@ -6692,10 +6957,10 @@ const CHECKLISTS = {
         items: [
           {
             id: 'cc-her2',
-            name: 'HER2 IHC + ISH',
-            when: '【強制】所有 cervical adenocarcinoma + gastric-type',
-            how: 'IHC + ISH (IHC 2+ 加做)',
-            why: 'HER2+ → T-DXd (DESTINY-PanTumor02 ORR ~50%)',
+            name: 'HER2 IHC + ISH (cervical adenoCa)',
+            when: '【強制】所有 cervical adenocarcinoma + 特別是 HPV-independent gastric-type (~20% amp)',
+            how: '採乳癌標準: IHC 0/1+/2+/3+; IHC 3+ 直接陽性; IHC 2+ 加做 ISH (FISH/DISH); 部分試驗用 gastric criteria',
+            why: 'HER2+ → T-DXd (DESTINY-PanTumor02 ORR ~50%); SCC <1% 不需常規測',
             molEntryId: 'HER2-cervical'
           },
           {
