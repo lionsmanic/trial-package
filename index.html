@@ -31,6 +31,19 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .logo-sub{font-size:11px;color:rgba(255,255,255,.5);font-family:"JetBrains Mono",monospace;margin-top:2px;}
 .scope-badge{margin-left:auto;padding:5px 14px;background:rgba(220,38,38,0.2);border:1px solid rgba(252,165,165,0.4);color:#fecaca;border-radius:100px;font-size:11px;font-weight:700;font-family:"JetBrains Mono",monospace;}
 
+/* Header action buttons (API Key + AI Analysis) */
+.header-actions{margin-left:auto;display:flex;gap:8px;align-items:center;}
+.header-btn{padding:8px 14px;border-radius:9px;border:1.5px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:white;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all 0.15s;}
+.header-btn:hover{background:rgba(255,255,255,0.18);transform:translateY(-1px);}
+.header-btn-config.has-key{border-color:#10b981;background:rgba(16,185,129,0.15);color:#6ee7b7;}
+.header-btn-ai{background:linear-gradient(135deg,#10b981,#06b6d4);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(16,185,129,0.3);}
+.header-btn-ai:hover{box-shadow:0 4px 16px rgba(16,185,129,0.45);}
+@media(max-width:640px){
+  .hide-on-mobile{display:none;}
+  .header-actions{gap:6px;}
+  .header-btn{padding:7px 11px;font-size:11.5px;}
+}
+
 /* Cancer picker */
 .cancer-pick{padding:9px 18px;border-radius:100px;border:2px solid var(--border);background:white;color:var(--ink-soft);font-size:13px;font-weight:700;cursor:pointer;transition:all .18s;}
 .cancer-pick:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-1px);}
@@ -195,9 +208,16 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   .ai-trial-suggestion:hover{transform:none !important;}
 }
 
-/* AI 患者分析區 */
-.ai-section{margin-top:32px;background:linear-gradient(135deg,#0c1f3d,#1e3a8a);border-radius:16px;padding:24px;color:white;}
-.ai-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+/* AI 患者分析 Modal Wrapper */
+.ai-pathway-modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.85);z-index:550;backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:30px 20px;overflow-y:auto;}
+.ai-pathway-modal-bg.open{display:flex;}
+.ai-pathway-modal-content{background:transparent;max-width:1000px;width:100%;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);margin:auto;}
+.ai-pathway-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
+.ai-pathway-close:hover{background:white;transform:scale(1.05);}
+
+/* AI 患者分析區 (now inside modal) */
+.ai-section{margin-top:0;background:linear-gradient(135deg,#0c1f3d,#1e3a8a);border-radius:16px;padding:24px;color:white;box-shadow:0 25px 60px rgba(0,0,0,0.4);}
+.ai-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;padding-right:50px;}
 .ai-header-left{display:flex;align-items:center;gap:12px;}
 .ai-icon-circle{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#10b981,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:22px;}
 .ai-title{font-size:17px;font-weight:800;}
@@ -582,8 +602,11 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
   }
 
   /* ===== AI section ===== */
-  .ai-section{padding:16px 14px;border-radius:13px;}
-  .ai-header{flex-direction:column;align-items:stretch;gap:10px;}
+  .ai-pathway-modal-bg{padding:0;}
+  .ai-pathway-modal-content{margin:0;border-radius:0;max-width:100vw;}
+  .ai-pathway-close{top:10px;right:10px;width:34px;height:34px;font-size:16px;}
+  .ai-section{padding:16px 14px;border-radius:0;box-shadow:none;}
+  .ai-header{flex-direction:column;align-items:stretch;gap:10px;padding-right:42px;}
   .ai-header-left{justify-content:flex-start;}
   .ai-icon-circle{width:36px;height:36px;font-size:18px;}
   .ai-title{font-size:14.5px;}
@@ -668,7 +691,14 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div class="logo-title">婦癌臨床試驗導航系統</div>
       <div class="logo-sub">Gynecologic Oncology Trial Navigator · 2026 Extended</div>
     </div>
-    <span class="scope-badge">🎯 EC + OC 範圍</span>
+    <div class="header-actions">
+      <button class="header-btn header-btn-config" id="aiConfigBtn" onclick="openAiConfig()" title="設定 Gemini API Key">
+        <span>⚙️</span><span class="hide-on-mobile">API Key</span>
+      </button>
+      <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
+        <span>🤖</span><span>AI 治療路徑</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -799,30 +829,33 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div style="padding:24px;text-align:center;color:#94a3b8;font-size:13px;">載入中…</div>
     </div>
   </section>
+</div>
 
-  <!-- ===== AI 患者臨床路徑分析 ===== -->
-  <section class="ai-section">
-    <div class="ai-header">
-      <div class="ai-header-left">
-        <div class="ai-icon-circle">🤖</div>
-        <div>
-          <div class="ai-title">AI 患者臨床路徑分析</div>
-          <div class="ai-subtitle">Powered by Gemini · 標準治療建議 + 適合臨床試驗匹配</div>
+<!-- ===== AI 患者臨床路徑分析 Modal ===== -->
+<div class="ai-pathway-modal-bg" id="aiPathwayModal" onclick="if(event.target.id==='aiPathwayModal')closeAiPathwayModal()">
+  <div class="ai-pathway-modal-content">
+    <button class="ai-pathway-close" onclick="closeAiPathwayModal()">✕</button>
+    <section class="ai-section">
+      <div class="ai-header">
+        <div class="ai-header-left">
+          <div class="ai-icon-circle">🤖</div>
+          <div>
+            <div class="ai-title">AI 患者臨床路徑分析</div>
+            <div class="ai-subtitle">Powered by Gemini · 標準治療建議 + 適合臨床試驗匹配</div>
+          </div>
         </div>
       </div>
-      <button class="ai-config-btn" id="aiConfigBtn" onclick="openAiConfig()">⚙️ 設定 API Key</button>
-    </div>
 
-    <div class="ai-input-tabs">
-      <button class="ai-input-tab active" data-input="text" onclick="switchInputMode('text')">📝 文字描述</button>
-      <button class="ai-input-tab" data-input="form" onclick="switchInputMode('form')">📋 結構化表單</button>
-      <button class="ai-input-tab" data-input="image" onclick="switchInputMode('image')">📷 影像/報告上傳</button>
-    </div>
+      <div class="ai-input-tabs">
+        <button class="ai-input-tab active" data-input="text" onclick="switchInputMode('text')">📝 文字描述</button>
+        <button class="ai-input-tab" data-input="form" onclick="switchInputMode('form')">📋 結構化表單</button>
+        <button class="ai-input-tab" data-input="image" onclick="switchInputMode('image')">📷 影像/報告上傳</button>
+      </div>
 
-    <div class="ai-input-pane">
-      <!-- 文字輸入 -->
-      <div id="aiInputText">
-        <textarea id="aiTextInput" placeholder="請描述病患資料,例如:
+      <div class="ai-input-pane">
+        <!-- 文字輸入 -->
+        <div id="aiInputText">
+          <textarea id="aiTextInput" placeholder="請描述病患資料,例如:
 55 歲女性,體能狀態 ECOG 1
 初次診斷子宮內膜癌,FIGO 2018 Stage IIIC1
 病理: endometrioid carcinoma, Grade 2
@@ -830,100 +863,101 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 影像: 骨盆 LN 受累,無遠端轉移
 共病: 高血壓控制中
 目前計畫: 根治性手術 + 輔助治療"></textarea>
-      </div>
+        </div>
 
-      <!-- 結構化表單 -->
-      <div id="aiInputForm" style="display:none;">
-        <div class="ai-form-grid">
-          <div class="ai-form-field">
-            <label>癌別</label>
-            <select id="formCancer">
-              <option value="">請選擇</option>
-              <option value="子宮內膜癌 EC">🔴 子宮內膜癌 EC</option>
-              <option value="卵巢癌 OC">🟣 卵巢癌 OC</option>
-              <option value="子宮頸癌 CC">🟠 子宮頸癌 CC</option>
-              <option value="子宮肉瘤 US">🔵 子宮肉瘤 US</option>
-            </select>
+        <!-- 結構化表單 -->
+        <div id="aiInputForm" style="display:none;">
+          <div class="ai-form-grid">
+            <div class="ai-form-field">
+              <label>癌別</label>
+              <select id="formCancer">
+                <option value="">請選擇</option>
+                <option value="子宮內膜癌 EC">🔴 子宮內膜癌 EC</option>
+                <option value="卵巢癌 OC">🟣 卵巢癌 OC</option>
+                <option value="子宮頸癌 CC">🟠 子宮頸癌 CC</option>
+                <option value="子宮肉瘤 US">🔵 子宮肉瘤 US</option>
+              </select>
+            </div>
+            <div class="ai-form-field">
+              <label>年齡</label>
+              <input type="number" id="formAge" placeholder="例: 55" min="18" max="100">
+            </div>
+            <div class="ai-form-field">
+              <label>ECOG 體能狀態</label>
+              <select id="formEcog">
+                <option value="">未知</option>
+                <option value="0">0 - 完全正常</option>
+                <option value="1">1 - 輕微症狀</option>
+                <option value="2">2 - 行動受限</option>
+                <option value="3">3 - 大部分時間臥床</option>
+                <option value="4">4 - 完全臥床</option>
+              </select>
+            </div>
+            <div class="ai-form-field">
+              <label>FIGO 分期</label>
+              <select id="formStage">
+                <option value="">請選擇</option>
+                <option value="Stage I">Stage I</option>
+                <option value="Stage II">Stage II</option>
+                <option value="Stage III">Stage III</option>
+                <option value="Stage IV">Stage IV</option>
+                <option value="Recurrent">Recurrent (復發)</option>
+                <option value="Metastatic">Metastatic (轉移)</option>
+              </select>
+            </div>
+            <div class="ai-form-field">
+              <label>組織學</label>
+              <input type="text" id="formHistology" placeholder="例: HGSC / 子宮內膜樣 / clear cell / LMS">
+            </div>
+            <div class="ai-form-field">
+              <label>分子分型 / Biomarker</label>
+              <input type="text" id="formMolecular" placeholder="例: dMMR / BRCAm / HRD+ / p53abn / POLEm">
+            </div>
+            <div class="ai-form-field">
+              <label>治療階段</label>
+              <select id="formPhase">
+                <option value="">請選擇</option>
+                <option value="新診斷未治療">新診斷未治療</option>
+                <option value="一線治療中">一線治療中 (P-TX)</option>
+                <option value="一線維持期">一線維持期 (P-MT)</option>
+                <option value="復發治療">復發治療 (R-TX)</option>
+                <option value="復後維持">復後維持 (R-MT)</option>
+              </select>
+            </div>
+            <div class="ai-form-field" style="grid-column:1/-1;">
+              <label>先前治療史</label>
+              <input type="text" id="formPriorTx" placeholder="例: 廣泛性子宮切除 → carbo/pacli x6 cycles → niraparib 維持中">
+            </div>
+            <div class="ai-form-field" style="grid-column:1/-1;">
+              <label>共病 / 其他補充</label>
+              <input type="text" id="formComorbid" placeholder="例: 高血壓、出血傾向、自體免疫疾病等">
+            </div>
           </div>
-          <div class="ai-form-field">
-            <label>年齡</label>
-            <input type="number" id="formAge" placeholder="例: 55" min="18" max="100">
-          </div>
-          <div class="ai-form-field">
-            <label>ECOG 體能狀態</label>
-            <select id="formEcog">
-              <option value="">未知</option>
-              <option value="0">0 - 完全正常</option>
-              <option value="1">1 - 輕微症狀</option>
-              <option value="2">2 - 行動受限</option>
-              <option value="3">3 - 大部分時間臥床</option>
-              <option value="4">4 - 完全臥床</option>
-            </select>
-          </div>
-          <div class="ai-form-field">
-            <label>FIGO 分期</label>
-            <select id="formStage">
-              <option value="">請選擇</option>
-              <option value="Stage I">Stage I</option>
-              <option value="Stage II">Stage II</option>
-              <option value="Stage III">Stage III</option>
-              <option value="Stage IV">Stage IV</option>
-              <option value="Recurrent">Recurrent (復發)</option>
-              <option value="Metastatic">Metastatic (轉移)</option>
-            </select>
-          </div>
-          <div class="ai-form-field">
-            <label>組織學</label>
-            <input type="text" id="formHistology" placeholder="例: HGSC / 子宮內膜樣 / clear cell / LMS">
-          </div>
-          <div class="ai-form-field">
-            <label>分子分型 / Biomarker</label>
-            <input type="text" id="formMolecular" placeholder="例: dMMR / BRCAm / HRD+ / p53abn / POLEm">
-          </div>
-          <div class="ai-form-field">
-            <label>治療階段</label>
-            <select id="formPhase">
-              <option value="">請選擇</option>
-              <option value="新診斷未治療">新診斷未治療</option>
-              <option value="一線治療中">一線治療中 (P-TX)</option>
-              <option value="一線維持期">一線維持期 (P-MT)</option>
-              <option value="復發治療">復發治療 (R-TX)</option>
-              <option value="復後維持">復後維持 (R-MT)</option>
-            </select>
-          </div>
-          <div class="ai-form-field" style="grid-column:1/-1;">
-            <label>先前治療史</label>
-            <input type="text" id="formPriorTx" placeholder="例: 廣泛性子宮切除 → carbo/pacli x6 cycles → niraparib 維持中">
-          </div>
-          <div class="ai-form-field" style="grid-column:1/-1;">
-            <label>共病 / 其他補充</label>
-            <input type="text" id="formComorbid" placeholder="例: 高血壓、出血傾向、自體免疫疾病等">
-          </div>
+        </div>
+
+        <!-- 影像上傳 -->
+        <div id="aiInputImage" style="display:none;">
+          <label class="ai-image-drop" id="aiImageDrop" for="aiImageFile">
+            <input type="file" id="aiImageFile" accept="image/*,.pdf" onchange="onAiImageSelect(event)">
+            <div style="font-size:38px;margin-bottom:8px;">📤</div>
+            <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);">點擊上傳影像或報告</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;font-family:'JetBrains Mono',monospace;">支援: 病理報告 / 影像學報告 / 手寫筆記照片</div>
+            <div id="aiImagePreviewWrap"></div>
+          </label>
+          <textarea id="aiImageContext" placeholder="(選填) 補充說明文字,例如關注的問題或額外資訊…" style="margin-top:10px;min-height:60px;width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;color:white;font-size:13px;font-family:inherit;outline:none;"></textarea>
         </div>
       </div>
 
-      <!-- 影像上傳 -->
-      <div id="aiInputImage" style="display:none;">
-        <label class="ai-image-drop" id="aiImageDrop" for="aiImageFile">
-          <input type="file" id="aiImageFile" accept="image/*,.pdf" onchange="onAiImageSelect(event)">
-          <div style="font-size:38px;margin-bottom:8px;">📤</div>
-          <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);">點擊上傳影像或報告</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;font-family:'JetBrains Mono',monospace;">支援: 病理報告 / 影像學報告 / 手寫筆記照片</div>
-          <div id="aiImagePreviewWrap"></div>
-        </label>
-        <textarea id="aiImageContext" placeholder="(選填) 補充說明文字,例如關注的問題或額外資訊…" style="margin-top:10px;min-height:60px;width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;color:white;font-size:13px;font-family:inherit;outline:none;"></textarea>
+      <div class="ai-action-row">
+        <div class="ai-status-text" id="aiStatusText">⚠️ 此分析僅供參考,不可取代臨床判斷</div>
+        <button class="ai-analyze-btn" id="aiAnalyzeBtn" onclick="runAiAnalysis()">
+          <span>🔬</span><span>AI 分析患者路徑</span>
+        </button>
       </div>
-    </div>
 
-    <div class="ai-action-row">
-      <div class="ai-status-text" id="aiStatusText">⚠️ 此分析僅供參考,不可取代臨床判斷</div>
-      <button class="ai-analyze-btn" id="aiAnalyzeBtn" onclick="runAiAnalysis()">
-        <span>🔬</span><span>AI 分析患者路徑</span>
-      </button>
-    </div>
-
-    <div class="ai-result-pane" id="aiResultPane"></div>
-  </section>
+      <div class="ai-result-pane" id="aiResultPane"></div>
+    </section>
+  </div>
 </div>
 
 <!-- AI Config Modal -->
@@ -4919,7 +4953,7 @@ function renderCompareTable(){
       </button>
     </div>
     ${!hasKey ? `<div class="ai-commentary-no-key">
-      ⚠️ 此功能需要 Gemini API Key。請至頁面下方 AI 患者分析區塊點擊「⚙️ 設定 API Key」,或前往 <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a> 取得免費 API Key。
+      ⚠️ 此功能需要 Gemini API Key。請點 Header 右上角「⚙️ API Key」設定,或前往 <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a> 取得免費 API Key。
     </div>` : ''}
     <div class="ai-commentary-result" id="aiCommentaryResult"></div>
   </div>
@@ -5060,12 +5094,15 @@ function getAiConfig(){
 function updateAiConfigBtn(){
   const cfg = getAiConfig();
   const btn = el('aiConfigBtn');
+  if(!btn) return;
   if(cfg.apiKey){
     btn.classList.add('has-key');
-    btn.innerHTML = '✓ ' + cfg.model;
+    btn.innerHTML = '<span>✓</span><span class="hide-on-mobile">已設定</span>';
+    btn.title = '已設定 API Key (' + cfg.model + ') · 點擊可變更';
   } else {
     btn.classList.remove('has-key');
-    btn.textContent = '⚙️ 設定 API Key';
+    btn.innerHTML = '<span>⚙️</span><span class="hide-on-mobile">API Key</span>';
+    btn.title = '設定 Gemini API Key';
   }
 }
 
@@ -5078,6 +5115,18 @@ function openAiConfig(){
 
 function closeAiConfig(){
   el('aiConfigModal').classList.remove('show');
+}
+
+function openAiPathwayModal(){
+  el('aiPathwayModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Restore last input on first open
+  loadLastAiInput();
+}
+
+function closeAiPathwayModal(){
+  el('aiPathwayModal').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 function saveAiConfig(){
@@ -5616,7 +5665,7 @@ function printTrialList(){
 async function runCompareCommentary(){
   const cfg = getAiConfig();
   if(!cfg.apiKey){
-    alert('請先設定 Gemini API Key (頁面下方 AI 患者分析區塊)');
+    alert('請先設定 Gemini API Key (Header 右上角 ⚙️)');
     return;
   }
 
