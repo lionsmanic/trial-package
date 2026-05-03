@@ -6575,139 +6575,452 @@ const MOL_PEDIA = {
   },
   CC: {
     title: '🟠 子宮頸癌 CC',
-    framework: 'HPV 型別 + 組織學 + 分子標記',
-    description: 'HPV 為主要 driver (>95%); HPV16/18 為主, HPV45 在腺癌重要。PD-L1, HER2, TROP2 為近年新興標靶。',
+    framework: 'HPV 型別 + 組織學 (HPV-associated vs HPV-independent) + 治療導向 biomarker',
+    description: 'HPV 為主要 driver (>95%), 但 HPV-independent gastric-type 為近年重要 entity。WHO 2020 病理分類已分為 HPV-associated 與 HPV-independent 兩大類。PD-L1 CPS, HER2, TROP2 為近年新興標靶。',
+    workflow: {
+      title: '🔬 WHO 2020 子宮頸癌病理分類流程',
+      steps: [
+        { num: '1', title: '組織型判讀', desc: 'Squamous / Adenocarcinoma / Adenosquamous / 其他罕見型 (clear cell, mesonephric, gastric, endometrioid)' },
+        { num: '2', title: 'p16 IHC (block-positive 為 surrogate)', desc: 'p16 block-positive (diffuse strong nuclear + cytoplasmic) → HPV-associated; patchy/negative → 考慮 HPV-independent' },
+        { num: '3', title: 'HPV 檢測 (PCR or ISH)', desc: '高風險 HPV genotyping: HPV16/18/45/31/33/52/58 等; 對病理鑑別 + 預後 + 疫苗策略均有意義' },
+        { num: '4', title: 'HPV-independent → 進階分類', desc: 'Gastric-type adenocarcinoma (HIK1083+, MUC6+); Clear cell type; Mesonephric type; Endometrioid type' },
+        { num: '5', title: '治療導向 biomarker testing', desc: '【All R/M】PD-L1 CPS; 【AdenoCa】HER2 IHC + ISH; 【All】MSI/TMB; 【ADC】TROP2; 【Tumor-agnostic】NTRK / RET fusion' },
+      ]
+    },
+    figoStaging: {
+      title: '🧬 HPV-associated vs HPV-independent 完整對照',
+      rows: [
+        { mol: 'HPV-associated SCC', stage: 'p16 block(+), HPV(+)', impact: '最常見 (~95% SCC); HPV16 主導; IO + Pembro/化療反應佳' },
+        { mol: 'HPV-associated AdenoCa (usual-type)', stage: 'p16 block(+), HPV(+)', impact: '腺癌主類; HPV18 主導 (~37-41%); 預後與 SCC 相近' },
+        { mol: 'HPV-independent gastric-type', stage: 'p16 patchy/(-), HPV(-), HIK1083(+)', impact: '預後差! 化療抗藥; 與 Peutz-Jeghers (~10%) 相關; 治療仰賴 HER2/MSI/個案標靶' },
+        { mol: 'HPV-independent clear cell', stage: 'HPV(-), HNF-1β(+)', impact: '罕見, DES 暴露相關; 治療類 OCCC; IO 反應較好' },
+        { mol: 'HPV-independent mesonephric', stage: 'HPV(-), GATA-3(+), TTF-1(+)', impact: '極罕見; KRAS/NRAS mut; 預後中等' },
+        { mol: 'HPV-independent endometrioid', stage: 'HPV(-), p16(-)', impact: '罕見; 與 endometrial 鑑別; 通常 ER+' },
+      ]
+    },
     entries: [
       {
         id: 'HPV16',
         name: 'HPV16',
         frequency: 'SCC 46-63%, 腺癌 26-36%',
         prognosis: '⭐⭐⭐ 預後相對較好 (相對其他 HPV 型)',
-        examPoints: [
-          'HPV16 = 鱗癌主要病因',
-          '快速進展風險 (HSIL→SCC)',
-          'E6/E7 → p53 + Rb 降解',
-          '九價疫苗涵蓋 (Gardasil-9)',
-          '本院 PVX4 試驗: HPV16+ CIN2/3 治療性疫苗',
-          'TIL 治療 (Lifileucel) 對 HPV16+ R/M CC 有效',
+        exam: [
+          'HPV16 = 鱗癌主要病因 (alpha-9 species)',
+          'E6 → p53 ubiquitin 降解; E7 → Rb 失活 → 細胞週期失控',
+          '快速進展風險 (HSIL→SCC 比其他 type 快)',
+          '九價疫苗 (Gardasil-9) 涵蓋',
+          '本院 PVX4 試驗: HPV16+ CIN2/3 治療性 DNA 疫苗',
+          'TIL 治療 (Lifileucel) 對 HPV16+ R/M CC 反應率 ~40%',
+          '台灣 HPV 疫苗公費 (國一女生) 涵蓋 HPV16/18 + 4 型 (4 價 / 9 價)',
         ],
-        mechanism: 'E6 → p53 ubiquitin 降解; E7 → Rb 失活 → 細胞週期失控',
-        linkedTrials: ['pvx4', 'keynote-826', 'beatcc', 'keynote-a18'],
-        keyTakeaway: '考點: HPV16 鱗癌主因; 快速進展; Gardasil-9 涵蓋; 本院 PVX4 試驗'
+        testing: [
+          '【主要】Roche Cobas HPV (FDA-approved): 區分 HPV16 / 18 / 其他 12 種高風險',
+          '【替代】HC2 (Hybrid Capture 2): pooled high-risk, 不分型',
+          '【病理】p16 IHC block-positive (HPV-driven 之 surrogate)',
+          '【ISH】HPV ISH (chromogenic 或 RNA-based) 看活性感染',
+          '【NGS】部分中心提供 detailed genotyping',
+          'Cervical screening: HPV co-test or primary HPV (越來越多國家採後者)',
+        ],
+        clinical: [
+          '【CIN2/3 治療】LEEP / cold knife conization (標準)',
+          '【本院 PVX4 試驗】HPV16+ CIN2/3 → DNA vaccine + electroporation (非手術)',
+          '【LACC】KEYNOTE-A18: Pembro + CCRT (HPV16 患者顯著獲益)',
+          '【1L R/M】KEYNOTE-826: Pembro + chemo ± Bev (PD-L1 CPS≥1)',
+          '【BEATcc】Atezolizumab + carbo/pacli + Bev (1L R/M)',
+          '【後線】TIL therapy (Lifileucel) for HPV16+ R/M CC — FDA 2024',
+          '【預防】所有適齡女性接種 9 價疫苗 (Gardasil-9)',
+        ],
+        nextStep: [
+          'CIN2/3 + HPV16+ → 考慮本院 PVX4 試驗 (賴瓊慧主持, 0/15 招募中)',
+          'R/M HPV16+ + IO 失敗 → 考慮 TIL therapy referral',
+          '家族篩檢: 一級女性親屬 HPV testing + cytology',
+          '九價疫苗接種建議 (即使有過 HPV16 感染, 仍可預防其他型)',
+        ],
+        mechanism: 'E6 → p53 降解; E7 → Rb 失活 → 細胞週期失控; 高 neoantigen → IO 反應好',
+        linkedTrials: ['pvx4', 'keynote-826', 'beatcc', 'keynote-a18', 'innovatv-301'],
+        keyTakeaway: 'HPV16 鱗癌主因; 快速進展; Gardasil-9 涵蓋; 本院 PVX4 試驗; HPV16+ R/M CC TIL therapy 可考慮'
       },
       {
         id: 'HPV18',
-        name: 'HPV18',
-        frequency: 'SCC 10-14%, 腺癌 31-37% (主要型!)',
+        name: 'HPV18 / 45 (alpha-7 species)',
+        frequency: 'HPV18 SCC 10-14%, 腺癌 31-37% (主要型!); HPV45 SCC 2-8%, 腺癌 5-13%',
         prognosis: '⭐⭐ 較差預後; 篩檢易遺漏 (位於 transformation zone 上方)',
-        examPoints: [
+        exam: [
           'HPV18 = 腺癌主要病因 (>30%)',
-          'SCC 中第二常見',
-          '篩檢盲區 (endocervical glandular)',
-          '九價疫苗涵蓋',
+          'HPV45 = 腺癌中第三常見 (alpha-7 species 同 HPV18)',
+          'HPV16 + 18 + 45 ≈ 94% 腺癌',
+          '篩檢盲區 (endocervical glandular epithelium)',
           'AIS+ glandular lesion 高風險族群',
-          '50 歲以上女性 SCC 風險增加',
+          '50 歲以上女性風險增加',
+          '九價疫苗涵蓋 HPV18 + 45',
+          'Adenocarcinoma in situ (AIS) — HPV18/45 為主要病因',
         ],
-        mechanism: '同 HPV16 (E6/E7), 但傾向感染 endocervical columnar cells → 腺癌',
-        linkedTrials: ['keynote-826', 'beatcc', 'keynote-a18'],
-        keyTakeaway: '考點: HPV18 為腺癌主因 (~37%), 篩檢易遺漏'
+        testing: [
+          '【主要】Roche Cobas HPV: 區分 HPV16, HPV18, others (但 HPV45 在 "others")',
+          '【NGS-based】可區分 HPV16/18/45 individually',
+          '【病理】Endocervical curettage 增加敏感度 (HPV18/45 多在 endocervix)',
+          '【p16 IHC】Block-positive (HPV-driven 腺癌)',
+          'Co-testing 比 cytology alone 更敏感 (尤其腺癌)',
+        ],
+        clinical: [
+          '【AIS treatment】Conization (cold knife > LEEP, 取得 negative margin)',
+          '【AIS post-treatment】HPV-based surveillance Q6m × 2 年',
+          '【LACC adenoCa】KEYNOTE-A18 + CCRT (相同治療)',
+          '【1L R/M adenoCa】KEYNOTE-826 / BEATcc + Pembro/Atezo',
+          '【AdenoCa-specific】HER2 IHC + ISH 強制 (見 HER2 entry)',
+          '【後線】TROP2 ADC (sac-TMT, TroFuse-036) + ADC 試驗',
+        ],
+        nextStep: [
+          'AdenoCa 患者: 加做 HER2 IHC + ISH (~3-5% amp)',
+          '加做 MSI/TMB (tumor-agnostic 適應)',
+          '本院 TroFuse-036 試驗 (PD-L1+ + TROP2+ adenoCa, 湯雲心主持)',
+          '九價疫苗接種建議',
+        ],
+        mechanism: '同 HPV16 (E6/E7), 但傾向感染 endocervical columnar cells → 腺癌; alpha-7 species (HPV18/45) 共同特徵',
+        linkedTrials: ['keynote-826', 'beatcc', 'keynote-a18', 'trofuse-036'],
+        keyTakeaway: 'HPV18/45 為腺癌主因 (~50%); 篩檢易遺漏; AdenoCa 強制 HER2 testing; 本院 TroFuse-036 招募'
       },
       {
-        id: 'HPV45',
-        name: 'HPV45',
-        frequency: 'SCC 2-8%, 腺癌 5-13%',
-        prognosis: '⭐⭐ 較差預後',
-        examPoints: [
-          'HPV18 phylogenetic 親緣 (alpha-7 species)',
-          '腺癌中第三常見 type',
-          'HPV16+18+45 = 腺癌 ~94%',
-          '九價疫苗涵蓋',
-          '可能更易在 endocervix 持續感染',
-        ],
-        mechanism: '與 HPV18 機制類似, alpha-7 species',
-        linkedTrials: [],
-        keyTakeaway: '考點: HPV16+18+45 涵蓋 ~94% 腺癌; HPV45 為 alpha-7 species'
-      },
-      {
-        id: 'PD-L1',
-        name: 'PD-L1 expression (CPS)',
-        frequency: '~70% R/M CC (CPS≥1)',
+        id: 'PD-L1-CPS',
+        name: 'PD-L1 CPS (Combined Positive Score)',
+        frequency: '~70% R/M CC (CPS≥1); ~30% CPS≥10',
         prognosis: '⭐⭐⭐ IO 適用族群',
-        examPoints: [
-          'CPS = (PD-L1+ tumor + immune cells) / total tumor cells × 100',
-          'CPS≥1 為 KEYNOTE-826 / KEYNOTE-A18 標準',
-          'KEYNOTE-826 全人群獲益, PD-L1+ 顯著',
-          'PD-L1+ subset 與 HPV16/18 status 相關',
-          'Pembrolizumab 為 anchor IO (與 Bev + chemo combo)',
+        exam: [
+          '【高頻考點】CPS = (PD-L1+ tumor cells + immune cells) / total viable tumor cells × 100',
+          '【區別 TPS】TPS = PD-L1+ tumor cells / total tumor cells × 100 (CPS 包含 immune cells)',
+          'CC 採用 CPS (不是 TPS); 乳癌 / NSCLC 也用 CPS',
+          'CPS ≥1: KEYNOTE-826 / KEYNOTE-A18 標準',
+          'CPS ≥10: 預後更佳, 部分試驗加值',
+          'PD-L1 + 與 HPV16/18 status 相關 (HPV+ 多 PD-L1+)',
+          '不同 antibody clone: 22C3 (Dako, FDA companion); SP263 (Ventana)',
+          'KEYNOTE-826 全人群獲益, PD-L1+ 顯著加值',
         ],
-        mechanism: 'PD-L1 上調 → T cell 抑制; anti-PD-1/PD-L1 解除 → 抗腫瘤免疫',
+        testing: [
+          '【金標】Dako 22C3 IHC (FDA Companion Diagnostic for Pembrolizumab)',
+          '【替代】Ventana SP263, Agilent 28-8',
+          '【判讀】CPS = 染色 tumor + immune cells 總數 / total viable tumor cells × 100, 上限 100',
+          '需要病理醫師 trained for CPS scoring',
+          '【替代】TPS — 不適用 CC (TPS 適用 NSCLC 等)',
+          'Tumor block: 新鮮 FFPE (<3 年最佳)',
+          '台灣健保 PD-L1 testing 部分給付 (R/M CC + IO 適應症)',
+        ],
+        clinical: [
+          '【1L R/M CC】KEYNOTE-826: Pembro + carbo/pacli ± Bev (CPS≥1, OS HR 0.64)',
+          '【1L R/M CC】BEATcc: Atezo + carbo/pacli + Bev (不限 CPS, OS HR 0.68)',
+          '【LACC】KEYNOTE-A18: Pembro + CCRT (CPS 不分層, 全人群)',
+          '【後線】Cemiplimab (EMPOWER-Cervical 1) for 2L+',
+          '【健保】Pembrolizumab 已給付 1L R/M CC + PD-L1 CPS≥1',
+          'Pembrolizumab 為 anchor IO (與 Bev + chemo combo)',
+          'Anti-CTLA-4 (Volrustomig) 維持期試驗中 (本院 eVOLVE-Cervical)',
+        ],
+        nextStep: [
+          '所有 R/M CC: PD-L1 IHC (CPS) 強制 (決定 IO 適應)',
+          'CPS≥1 → 一線 Pembro + chemo ± Bev (KEYNOTE-826) 為 NCCN preferred',
+          'CPS<1 → BEATcc (Atezo + carbo/pacli + Bev) 為主要選擇',
+          'LACC 高風險: KEYNOTE-A18 (不論 CPS)',
+          '本院維持試驗: eVOLVE-Cervical (Volrustomig PD-1/CTLA-4 雙抗)',
+          '本院 1L 維持: TroFuse-036 (sac-TMT + Pembro)',
+        ],
+        mechanism: 'PD-L1 上調 (HPV-driven 或 IFN-γ 誘導) → T cell 抑制; anti-PD-1/PD-L1 解除 → 抗腫瘤免疫',
         linkedTrials: ['keynote-826', 'beatcc', 'keynote-a18', 'empower-cervical-1', 'evolve-cervical', 'trofuse-036'],
-        keyTakeaway: '考點: PD-L1 CPS≥1 → KEYNOTE-826/A18 標準 IO; 全 CC 70% 適用'
+        keyTakeaway: 'CPS = (tumor + immune cells) / viable tumor × 100; CPS≥1 → KEYNOTE-826/A18; CPS≠TPS!'
       },
       {
-        id: 'HER2',
-        name: 'HER2 amplification / overexpression',
-        frequency: '~3-5% (腺癌中 ~5-10%)',
-        prognosis: '⭐⭐ 通常較差但可標靶',
-        examPoints: [
-          'IHC 3+ 或 ISH amp 為標準',
-          '腺癌中較高',
-          'T-DXd (Trastuzumab Deruxtecan) 對 HER2+ pan-tumor 有效',
-          'DESTINY-PanTumor02: HER2+ CC ORR ~50%',
-          'FDA 2024 給予 T-DXd HER2+ pan-tumor 指引',
+        id: 'HPV-independent-gastric',
+        name: 'HPV-independent Gastric-type Adenocarcinoma (HPVI-GAS)',
+        frequency: '~10% 子宮頸腺癌 (亞洲較高, 台日韓 ~15-20%)',
+        prognosis: '⭐ 預後最差 (5年 OS <50%, advanced 更差)',
+        exam: [
+          '【近年重要 entity】WHO 2020 正式分類為 HPV-independent adenocarcinoma',
+          'HPV(-): PCR / ISH 均陰性',
+          'p16 patchy 或 negative (與 HPV-associated 區別關鍵)',
+          'HIK1083(+), MUC6(+) 為 gastric differentiation 標記',
+          '與 Peutz-Jeghers syndrome 相關 (~10% 為 PJS, STK11 germline)',
+          '化療抗藥 (vs HPV-associated)',
+          'TP53, KRAS, ARID1A, STK11, GNAS 突變高頻',
+          '日文文獻原稱 "minimal deviation adenocarcinoma" (MDA / Adenoma malignum)',
+          '與九價疫苗 NOT 相關 (HPV-independent)',
         ],
-        mechanism: 'HER2 過度表現 → ErbB signaling 過度活化 → ADC 標靶 + bystander effect',
+        testing: [
+          '【病理】Mucin production (PAS-D, mucicarmine 強陽性)',
+          '【IHC】HIK1083(+), MUC6(+), p16 patchy/(-), ER/PR usually(-)',
+          '【HPV】PCR / ISH 雙重確認 (-)',
+          '【germline】STK11 testing (Peutz-Jeghers syndrome)',
+          '【NGS】TP53, KRAS, ARID1A, STK11, ERBB2 (HER2)',
+          '【MSI/TMB】MSI rare 但若 + 則 IO 適應',
+          'PD-L1 IHC (CPS, 較常 CPS<1)',
+          'HER2 IHC + ISH (~20% amp, actionable!)',
+        ],
+        clinical: [
+          '【手術】根除性子宮切除 + lymphadenectomy (傳統 staging)',
+          '【LACC】CCRT + Pembro (KEYNOTE-A18) 反應較差但仍嘗試',
+          '【1L R/M】KEYNOTE-826 / BEATcc 嘗試 (PD-L1 多 negative, 反應有限)',
+          '【HER2+】Trastuzumab + chemo (extrapolated from gastric cancer)',
+          '【HER2+】T-DXd (Trastuzumab Deruxtecan, DESTINY-PanTumor02)',
+          '【MSI-H】Pembro tumor-agnostic',
+          '【KRAS G12C】Sotorasib / Adagrasib (試驗中)',
+          '臨床試驗為主要選擇 (unmet need)',
+        ],
+        nextStep: [
+          '【強制】HPV PCR 確認 negative + p16 IHC 確認 patchy/negative',
+          'HIK1083 + MUC6 IHC 確認 gastric differentiation',
+          '【強制】germline STK11 testing — 排除 Peutz-Jeghers syndrome',
+          '若 PJS: 大腸鏡 + 上消化道內視鏡 + 乳房 surveillance + 家族篩檢',
+          'HER2 IHC + ISH (考慮 Trastuzumab combo)',
+          'MSI/TMB testing (tumor-agnostic IO 適應)',
+          'Broad NGS panel: TP53, KRAS, ARID1A, ERBB2',
+          '臨床試驗匹配 (unmet need 強)',
+        ],
+        mechanism: 'HPV-independent → KRAS-MAPK + TP53 + ARID1A 等多重 pathway; 與胃腸道腺癌分子 overlap',
         linkedTrials: ['destiny-pantumor02'],
-        keyTakeaway: '考點: HER2+ CC 用 T-DXd (FDA 2024 pan-tumor approval)'
+        keyTakeaway: 'HPVI-GAS 預後最差; HIK1083+MUC6+, p16 patchy; 強制排 PJS (STK11); HER2+ → T-DXd; 化療抗藥'
+      },
+      {
+        id: 'HER2-cervical',
+        name: 'HER2 amplification / overexpression (尤其腺癌)',
+        frequency: 'SCC <1%, AdenoCa ~3-5%, Gastric-type ~20%',
+        prognosis: '⭐⭐ 通常較差但可標靶',
+        exam: [
+          'HER2 amp / overexpression 在 cervical adenoCa 較常見',
+          'Gastric-type adenoCa 尤其高 (~20%)',
+          'IHC scoring 採乳癌標準 (但部分試驗用 gastric criteria)',
+          '與 HPV status 不相關 (HPV-associated 與 -independent 都可能 HER2+)',
+          'DESTINY-PanTumor02: HER2-IHC 3+ CC ORR ~50%',
+          'FDA 2024: T-DXd 給予 HER2 IHC 3+ pan-tumor 適應',
+          '應與 squamous CC 分開 testing 策略',
+        ],
+        testing: [
+          '【強制 (AdenoCa)】HER2 IHC 為 first-line testing',
+          'IHC 0 → 陰性',
+          'IHC 1+ → low expression (T-DXd 仍可能適 — DESTINY-PanTumor)',
+          'IHC 2+ → equivocal → ISH (FISH or DISH) 確認',
+          'IHC 3+ → 陽性, 直接適應 T-DXd',
+          'ISH ratio HER2/CEP17 ≥2.0 為陽性',
+          '【加做】所有 cervical adenoCa (含 gastric-type) 應做',
+          'PD-L1 + HER2 同時 testing (互不衝突)',
+        ],
+        clinical: [
+          '【HER2+ AdenoCa R/M】',
+          '  • 一線: Pembro/Atezo + chemo ± Bev (KEYNOTE-826/BEATcc) — 標準',
+          '  • 二線: T-DXd (DESTINY-PanTumor02 ORR ~50%)',
+          '  • 後線: Trastuzumab + chemo (extrapolated)',
+          '【HER2+ Gastric-type AdenoCa】',
+          '  • Trastuzumab + chemo 早期使用 (Peutz-Jeghers 相關預後差)',
+          '  • T-DXd 二線',
+          '【監測】Baseline LVEF + ILD 風險 (T-DXd)',
+          'Pertuzumab 證據在 CC 較少 (vs 乳癌)',
+        ],
+        nextStep: [
+          '所有 cervical adenoCa (含 gastric-type) → HER2 IHC 強制',
+          'IHC 2+ → ISH 確認',
+          'HER2+ R/M → 一線標準後考慮 T-DXd 或 Trastuzumab combo',
+          '本院 DESTINY-PanTumor02 (若有資格)',
+          '基線 ECHO/MUGA + Chest CT (ILD baseline)',
+          '若 gastric-type + HER2+ → 強烈考慮 Trastuzumab 早期加入',
+        ],
+        mechanism: 'HER2 amp → ErbB signaling → 增殖訊號; T-DXd 透過 ADC payload + bystander effect',
+        linkedTrials: ['destiny-pantumor02'],
+        keyTakeaway: '所有 cervical adenoCa (尤 gastric-type) 應測 HER2; HER2+ → T-DXd (FDA 2024 pan-tumor)'
       },
       {
         id: 'TROP2',
         name: 'TROP2 expression',
         frequency: '~95% CC (高表現)',
         prognosis: '取決於治療反應',
-        examPoints: [
-          'Trophoblast cell surface antigen 2',
-          'CC 中廣泛高表現',
-          'sac-TMT (Sacituzumab Tirumotecan) 為新 ADC',
-          '本院 TroFuse-036 試驗: PD-L1+ + TROP2+ R/M CC 1L 維持',
-          '與 Pembrolizumab combo',
+        exam: [
+          'Trophoblast cell surface antigen 2 (TACSTD2)',
+          'CC 中廣泛高表現 (vs OC ~70%)',
+          'sac-TMT (Sacituzumab Tirumotecan, MK-2870) 為新 ADC',
+          '本院 TroFuse-036 試驗 (PD-L1+ + TROP2+ R/M CC 1L 維持)',
+          '與 Pembrolizumab combo 為 KEYNOTE-826 強化版',
+          'Sacituzumab govitecan 為 first-gen TROP2 ADC',
         ],
-        mechanism: 'TROP2 → ADC binding → 內化 → topoisomerase-I 抑制',
+        testing: [
+          '【主要】TROP2 IHC (Ventana 或 Roche)',
+          '【判讀】H-score (0-300) 或 percent positive cells',
+          '通常 cut-off ≥50% staining 為陽性',
+          'TROP2 過度表現非 mutation, 為 protein expression',
+          '若 TroFuse 試驗則需 central confirmation',
+        ],
+        clinical: [
+          '【本院 TroFuse-036】sac-TMT + Pembro ± Bev for PD-L1 CPS≥1 + TROP2+ R/M CC',
+          'sac-TMT 為 ADC, payload 為 belotecan-derived (DAR ~7.4)',
+          '與 Pembro Q3W 或 Q6W combo',
+          '安全性: Neutropenia, anemia (sac-TMT class), irAE (Pembro), HTN/proteinuria (Bev)',
+          'Sacituzumab govitecan (TROP2 + SN-38) 也在試驗 (TROPiCS-X)',
+        ],
+        nextStep: [
+          'R/M CC 患者: 考慮加做 TROP2 IHC',
+          '若 PD-L1+ + TROP2+ → 本院 TroFuse-036 (湯雲心主持, 0/2 競爭收案)',
+          '臨床試驗匹配 (TROP2 ADC 系列正快速擴展)',
+        ],
+        mechanism: 'TROP2 → ADC binding → 內化 → topoisomerase-I 抑制 (belotecan/SN-38) + bystander effect',
         linkedTrials: ['trofuse-036'],
-        keyTakeaway: '考點: TROP2 在 CC 廣泛高表現; sac-TMT 為新 ADC, 本院在收案'
+        keyTakeaway: 'TROP2 在 CC 廣泛高表現; sac-TMT 為新 ADC; 本院 TroFuse-036 招募中 (PD-L1+ + TROP2+)'
+      },
+      {
+        id: 'Tumor-agnostic-CC',
+        name: 'Tumor-Agnostic Biomarkers (MSI/TMB/NTRK/RET/BRAF)',
+        frequency: '依 marker 而異 (見下)',
+        prognosis: '取決於發現之 actionable target',
+        exam: [
+          '【MSI-H / dMMR】CC ~3-5%, 但若 + 則 Pembro tumor-agnostic 適應',
+          '【TMB-high (≥10 mut/Mb)】CC ~10-15%, 若 + 則 Pembro tumor-agnostic 適應',
+          '【NTRK fusion】極罕見 (<1%) 但 Larotrectinib / Entrectinib ORR ~75%',
+          '【RET fusion】極罕見, Selpercatinib 適應 tumor-agnostic',
+          '【BRAF V600E】罕見, Dabrafenib + Trametinib pan-tumor (FDA 2024)',
+          '【HER2】見獨立 entry (細節更詳)',
+          'Tumor-agnostic 概念: 不限定 cancer type, 看 molecular target',
+          '為 cervical cancer post-1L/2L progression 之 unmet need',
+        ],
+        testing: [
+          '【MSI】PCR (5 markers) 或 NGS-based MSI assay',
+          '【dMMR】IHC 4 蛋白 (MLH1/PMS2/MSH2/MSH6)',
+          '【TMB】NGS panel (FoundationOne CDx, MSK-IMPACT)',
+          '【NTRK】FISH 或 NGS (Pan-Trk IHC 為 screening)',
+          '【RET】NGS fusion panel',
+          '【BRAF】NGS 或 PCR (V600E)',
+          '建議 R/M CC 進入 broad NGS panel (含上述所有)',
+          'Liquid biopsy (ctDNA NGS) 為替代 (Guardant360, FoundationOne Liquid)',
+        ],
+        clinical: [
+          '【MSI-H / TMB-H】Pembrolizumab 200mg Q3W (tumor-agnostic, FDA 2017+)',
+          '【NTRK fusion】Larotrectinib 100mg BID 或 Entrectinib 600mg QD',
+          '【RET fusion】Selpercatinib 160mg BID',
+          '【BRAF V600E】Dabrafenib + Trametinib (FDA 2024 pan-tumor)',
+          '【HER2 IHC 3+ pan-tumor】T-DXd (FDA 2024)',
+          '通常為後線 (post 1L+2L)',
+          '可能完全改變 treatment trajectory (rare 但 high-impact)',
+        ],
+        nextStep: [
+          '所有 R/M CC + 標準耗盡 → broad NGS panel (覆蓋上述所有 marker)',
+          '考慮 ctDNA NGS (替代 tumor biopsy)',
+          '若發現 actionable: 立刻轉介 / 試驗匹配',
+          '本院 NTRK basket trial 等可能適用',
+          'Genomic tumor board 跨科會議',
+        ],
+        mechanism: '各 driver 不同; 共同特徵: 不限 organ origin, 看 molecular alteration',
+        linkedTrials: ['ntrk-basket'],
+        keyTakeaway: 'Tumor-agnostic biomarkers: MSI/TMB → Pembro; NTRK → Larotrectinib; RET → Selpercatinib; BRAF V600E → Dabra/Tram; HER2 → T-DXd'
       },
       {
         id: 'PIK3CA',
         name: 'PIK3CA mutation',
         frequency: '~38% CC (鱗癌中較高)',
         prognosis: '⭐⭐ 較差預後',
-        examPoints: [
+        exam: [
           'PI3K-AKT-mTOR pathway 過度活化',
-          '與 HPV 共同 driver',
+          '與 HPV 共同 driver (HPV-associated CC 中常見)',
+          '不同 mutation hotspot: E542K, E545K, H1047R',
           'PI3K inhibitor 試驗中 (alpelisib 等)',
-          '可能影響 IO 反應',
-          '尚無 standard targeted therapy',
+          '可能影響 IO 反應 (mixed evidence)',
+          '尚無 standard targeted therapy in CC',
+        ],
+        testing: [
+          'NGS panel (Foundation, Tempus 等)',
+          'PCR-based hotspot testing 為替代',
+          '同時測 AKT, PTEN, mTOR pathway',
+          '通常包含於 broad NGS panel',
+        ],
+        clinical: [
+          '尚無 CC-specific PI3K inhibitor approval',
+          'Alpelisib (FDA-approved for HR+/HER2- breast) 在 CC 試驗中',
+          'AKT inhibitor (Capivasertib) 試驗中',
+          '可能與 IO 結合 (PI3K signaling 影響 TME)',
+          '不影響標準治療選擇 (research only)',
+        ],
+        nextStep: [
+          'broad NGS panel 中常會 cover',
+          '臨床試驗匹配 (PI3K inhibitor combo trials)',
+          '不直接影響當前標準治療',
         ],
         mechanism: 'PI3K p110α 過度活化 → AKT/mTOR → 增殖訊號',
         linkedTrials: [],
-        keyTakeaway: '考點: PIK3CA mut ~38% CC, 為預後較差指標; 標靶治療在試驗中'
+        keyTakeaway: 'PIK3CA mut ~38% CC; 預後較差指標; 標靶治療在試驗中 (尚無 standard)'
       },
       {
         id: 'CIN23',
         name: 'CIN2/3 (高度上皮內贅瘤)',
-        frequency: '~50,000-100,000 cases/yr (Taiwan)',
-        prognosis: '⭐⭐⭐⭐⭐ Pre-invasive, 治療後預後極佳',
-        examPoints: [
+        frequency: 'Pre-invasive lesion (~每年數萬例 in Taiwan)',
+        prognosis: '⭐⭐⭐⭐⭐ 治療後預後極佳',
+        exam: [
           'CIN2 = moderate dysplasia, CIN3 = severe / CIS',
-          'p16/Ki-67 雙染色為輔助診斷',
-          '標準: LEEP / cone biopsy',
+          'p16/Ki-67 雙染色 (CINtec PLUS) 為輔助診斷',
+          '標準: LEEP (Loop Electrosurgical Excision) / cold knife conization',
           '本院 PVX4 試驗: HPV16+ CIN2/3 治療性 DNA 疫苗 (非手術)',
           '懷孕 / fertility-sparing 考量',
-          'HPV genotyping 影響 management',
+          'HPV genotyping 影響 management (HPV16/18 vs others)',
+          'AIS (Adenocarcinoma in situ): 腺癌前驅 — 治療更積極 (cold knife > LEEP)',
+        ],
+        testing: [
+          '【篩檢】Pap smear + HPV co-test (or primary HPV)',
+          '【鏡檢】Colposcopy + biopsy',
+          '【p16/Ki-67】CINtec PLUS 雙染色 — 區分 真 HSIL vs 反應性變化',
+          '【HPV genotyping】Roche Cobas (區分 16/18/others)',
+          'Endocervical curettage (尤其腺體 lesions)',
+          'Cone biopsy: 完整 staging + 治療',
+        ],
+        clinical: [
+          '【LEEP】outpatient, 局麻, 標準 first-line for CIN2/3',
+          '【Cold knife conization】全身麻醉, 保留 fertility 較好 margin assessment',
+          '【本院 PVX4 試驗】HPV16+ CIN2/3 → DNA vaccine (非手術)',
+          '【AIS】Cold knife > LEEP (取得 negative margin, 避免 fragmentation)',
+          '【Post-treatment surveillance】HPV-based testing Q6m × 2 年',
+          '【Pregnancy】若懷孕 + CIN2/3, 通常 deferred treatment 至產後',
+        ],
+        nextStep: [
+          'CIN2/3 + HPV16+ + 適齡: 考慮本院 PVX4 試驗 (賴瓊慧主持, 0/15 招募中)',
+          'AIS: 強制 cold knife conization + endocervical curettage',
+          'Post-LEEP: HPV co-test Q6m × 2 年, 然後 Q3y',
+          '九價疫苗接種 (即使治療後)',
+          'Persistent HPV 感染: 加強 surveillance',
         ],
         mechanism: 'HPV 持續感染 → E6/E7 持續表現 → 細胞週期失控 → 累積突變 → 浸潤癌',
         linkedTrials: ['pvx4'],
-        keyTakeaway: '考點: CIN2/3 為侵犯前病變; LEEP 為標準; 本院 PVX4 為非手術疫苗選項'
+        keyTakeaway: 'CIN2/3 為侵犯前病變; LEEP 為標準; AIS 用 cold knife; 本院 PVX4 為非手術疫苗選項'
+      },
+      {
+        id: 'HPV-ctDNA',
+        name: 'HPV ctDNA (Future Direction / Translational)',
+        frequency: '~70-90% CC (取決於 HPV+ status)',
+        prognosis: 'Persistent ctDNA → 預後較差',
+        exam: [
+          '【新興工具】Circulating Tumor DNA — HPV E6/E7 sequences',
+          'Minimal Residual Disease (MRD) 監測 — CCRT 後 / 手術後',
+          'Persistent HPV ctDNA at 3 個月 post-CCRT → 復發風險顯著上升',
+          'Earlier than imaging (CT/MRI 之前 3-6 個月)',
+          '為 personalized surveillance + early intervention 工具',
+          '研究中: HPV ctDNA-guided adjuvant therapy intensification',
+          'Methodology: digital PCR (ddPCR) 或 NGS',
+          'NRG-CC008 試驗等正在驗證臨床用途',
+        ],
+        testing: [
+          '【ddPCR】Most sensitive, low cost, 量化 HPV16/18/45 個別',
+          '【NGS-based】更廣 type coverage, 但 cost 高',
+          '【樣本】Plasma (~10mL whole blood, 2 EDTA tubes)',
+          '【時機】Pre-treatment baseline + 治療結束後 + 每 3 個月 surveillance',
+          '【Cut-off】仍研究中, 多用 detectable vs undetectable',
+          '台灣商業可及性: 部分中心 research-based, 尚非 standard care',
+        ],
+        clinical: [
+          '【現況】Not yet standard of care (research / translational)',
+          '【未來方向】',
+          '  • Post-CCRT MRD detection',
+          '  • Early recurrence detection (前 imaging 數月)',
+          '  • Treatment intensification 決策 (persistent ctDNA → 加 IO?)',
+          '  • Surveillance interval 個人化',
+          '【相關試驗】NRG-CC008, EORTC-1532',
+          '【類似 model】HPV+ HNSCC (頭頸癌) 已有更多 data',
+        ],
+        nextStep: [
+          '目前不是 routine clinical care',
+          '可考慮 enrollment 在 ctDNA-driven trials (NRG-CC008 等)',
+          '若取得結果: persistent ctDNA → 加強 surveillance / 試驗',
+          '研究背景: 本院 translational research 可能參與',
+        ],
+        mechanism: 'Tumor 釋放 cell-free DNA → blood; HPV E6/E7 sequences 為 tumor-specific marker (vs host germline)',
+        linkedTrials: [],
+        keyTakeaway: 'HPV ctDNA: MRD 監測新工具; persistent ctDNA = 復發 high risk; 尚非 standard, 但快速進展中'
       },
     ]
   },
@@ -6878,8 +7191,21 @@ function showMolSpecial(type){
       </div>
     `;
   } else if(type === 'staging' && data.figoStaging){
-    // For OC, this is actually the ADC Target table; takeaway differs
+    // Adjust column headers based on cancer type
     const isOCAdc = currentMolTab === 'OC';
+    const isCCType = currentMolTab === 'CC';
+    let col1, col2, col3, takeaway;
+    if(isOCAdc){
+      col1 = 'ADC Target'; col2 = '代表藥物'; col3 = '適應族群 / 試驗';
+      takeaway = 'ADC 為近年 PROC 的關鍵突破: FRα (Mirvetuximab) 為首個 OS 改善 ADC; HER2/TROP2/CDH6 多試驗並進; 新興 NaPi2b/B7-H4/CLDN6 在後線開發中。';
+    } else if(isCCType){
+      col1 = '組織型 / 分類'; col2 = '病理特徵'; col3 = '臨床意義';
+      takeaway = 'WHO 2020 大幅改變 CC 病理分類: 區分 HPV-associated vs HPV-independent; gastric-type 為近年重要 entity (亞洲較高頻 + 預後最差); 強制 p16 IHC + HPV testing 雙重確認。';
+    } else {
+      col1 = '分子分型'; col2 = 'FIGO 2023 特殊分期'; col3 = '臨床/考試重點';
+      takeaway = '2023 FIGO 重大變革: 首次將分子分型整合進 staging system; ESGO/ESTRO/ESP 2025 進一步明確 IAm POLEmut / IICm p53abn 之治療含義';
+    }
+
     detail.innerHTML = `
       <div class="mol-detail-header">
         <h3>${escapeHtml(data.figoStaging.title)}</h3>
@@ -6887,9 +7213,9 @@ function showMolSpecial(type){
       <table class="mol-staging-table">
         <thead>
           <tr>
-            <th>${isOCAdc ? 'ADC Target' : '分子分型'}</th>
-            <th>${isOCAdc ? '代表藥物' : 'FIGO 2023 特殊分期'}</th>
-            <th>${isOCAdc ? '適應族群 / 試驗' : '臨床/考試重點'}</th>
+            <th>${col1}</th>
+            <th>${col2}</th>
+            <th>${col3}</th>
           </tr>
         </thead>
         <tbody>
@@ -6903,10 +7229,7 @@ function showMolSpecial(type){
         </tbody>
       </table>
       <div class="mol-takeaway">
-        💡 <strong>${isOCAdc ?
-          'ADC 為近年 PROC 的關鍵突破: FRα (Mirvetuximab) 為首個 OS 改善 ADC; HER2/TROP2/CDH6 多試驗並進; 新興 NaPi2b/B7-H4/CLDN6 在後線開發中。' :
-          '2023 FIGO 重大變革: 首次將分子分型整合進 staging system; ESGO/ESTRO/ESP 2025 進一步明確 IAm POLEmut / IICm p53abn 之治療含義'
-        }</strong>
+        💡 <strong>${takeaway}</strong>
       </div>
     `;
   }
