@@ -366,6 +366,297 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .mol-takeaway{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #f59e0b;border-radius:11px;padding:13px 16px;font-size:13px;line-height:1.65;color:#78350f;margin-top:18px;}
 .mol-takeaway strong{color:#78350f;}
 
+/* ===== 📇 考試速記卡 (Exam Card) ===== */
+.mol-exam-card{
+  background:linear-gradient(135deg,#fffbeb,#fef3c7);
+  border:2px solid #f59e0b;
+  border-radius:13px;
+  padding:18px 18px 14px;
+  margin:0 0 18px;
+  position:relative;
+  box-shadow:0 4px 14px rgba(245,158,11,0.18);
+}
+.mol-exam-card .ec-label{
+  position:absolute;
+  top:-11px;
+  left:14px;
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  color:white;
+  font-size:11px;
+  font-weight:800;
+  padding:4px 11px;
+  border-radius:50px;
+  font-family:"JetBrains Mono",monospace;
+  letter-spacing:0.05em;
+  box-shadow:0 2px 6px rgba(245,158,11,0.4);
+}
+.mol-exam-card .ec-grid{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  margin-top:6px;
+}
+
+/* View mode switcher */
+.ec-view-switcher{
+  display:flex;
+  gap:5px;
+  margin:8px 0 12px;
+  padding:4px;
+  background:rgba(255,255,255,0.5);
+  border-radius:9px;
+  border:1px solid rgba(245,158,11,0.25);
+}
+.ec-view-btn{
+  flex:1;
+  padding:7px 9px;
+  border:none;
+  border-radius:6px;
+  background:transparent;
+  color:#92400e;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:inherit;
+  transition:all 0.15s;
+  letter-spacing:0.02em;
+}
+.ec-view-btn:hover{background:rgba(255,255,255,0.7);}
+.ec-view-btn.active{
+  background:white;
+  color:#78350f;
+  font-weight:800;
+  box-shadow:0 1px 4px rgba(245,158,11,0.3);
+}
+.mol-exam-card .ec-row{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  font-size:12.5px;
+  line-height:1.6;
+  color:#1a202c;
+  padding:7px 10px;
+  background:rgba(255,255,255,0.6);
+  border-radius:8px;
+  border-left:3px solid transparent;
+}
+.mol-exam-card .ec-row .ec-icon{
+  flex-shrink:0;
+  font-size:15px;
+  line-height:1.4;
+}
+.mol-exam-card .ec-row strong{
+  color:#78350f;
+  font-weight:800;
+  margin-right:3px;
+}
+.mol-exam-card .ec-row.warning{
+  background:rgba(254,202,202,0.45);
+  border-left-color:#dc2626;
+}
+.mol-exam-card .ec-row.warning strong{color:#7f1d1d;}
+.mol-exam-card .ec-row.highlight{
+  background:rgba(254,243,199,0.95);
+  border-left-color:#f59e0b;
+  font-weight:600;
+}
+.mol-exam-card .ec-row.highlight strong{color:#92400e;}
+
+@media(max-width:640px){
+  .mol-exam-card{padding:16px 13px 12px;}
+  .mol-exam-card .ec-row{font-size:11.5px;line-height:1.55;padding:6px 9px;gap:8px;}
+  .mol-exam-card .ec-row .ec-icon{font-size:13px;}
+  .mol-exam-card .ec-label{font-size:10px;padding:3px 9px;left:11px;top:-9px;}
+  .ec-view-btn{font-size:10.5px;padding:6px 6px;letter-spacing:0;}
+}
+
+@media print{
+  .mol-exam-card{
+    background:#fef9c3 !important;
+    border:2px solid #f59e0b !important;
+    box-shadow:none !important;
+    page-break-inside:avoid;
+  }
+  .mol-exam-card .ec-label{
+    background:#d97706 !important;
+    color:white !important;
+  }
+  .mol-exam-card .ec-row{background:white !important;}
+  .mol-exam-card .ec-row.warning{background:#fee2e2 !important;}
+  .mol-exam-card .ec-row.highlight{background:#fef3c7 !important;}
+}
+
+/* ===== 📇 翻牌複習模式 (Flashcard Mode) ===== */
+.flashcard-mode-btn{
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  color:white;
+  border:none;
+  padding:10px 16px;
+  border-radius:10px;
+  font-size:12.5px;
+  font-weight:800;
+  cursor:pointer;
+  font-family:inherit;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:8px;
+  width:100%;
+  justify-content:center;
+  letter-spacing:0.02em;
+  box-shadow:0 2px 6px rgba(220,38,38,0.3);
+}
+.flashcard-mode-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(220,38,38,0.4);}
+
+/* Flashcard overlay */
+.flashcard-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,0.96);
+  z-index:580;
+  backdrop-filter:blur(10px);
+  align-items:center;
+  justify-content:center;
+  padding:24px 16px;
+}
+.flashcard-overlay.open{display:flex;}
+.flashcard-container{
+  max-width:680px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.flashcard-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:white;
+  padding:0 4px;
+}
+.flashcard-progress{
+  font-family:"JetBrains Mono",monospace;
+  font-size:13px;
+  color:rgba(255,255,255,0.85);
+  font-weight:700;
+}
+.flashcard-cancer-tag{
+  font-size:11px;
+  color:rgba(255,255,255,0.65);
+  font-family:"JetBrains Mono",monospace;
+}
+.flashcard-close{
+  background:rgba(255,255,255,0.15);
+  border:none;
+  color:white;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+}
+.flashcard-close:hover{background:rgba(255,255,255,0.25);}
+
+.flashcard{
+  background:white;
+  border-radius:18px;
+  padding:32px 28px;
+  min-height:340px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  cursor:pointer;
+  position:relative;
+  box-shadow:0 25px 60px rgba(0,0,0,0.4);
+  transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.flashcard.flipped{
+  background:linear-gradient(135deg,#fffbeb,#fef3c7);
+}
+.flashcard-front-content,
+.flashcard-back-content{
+  width:100%;
+}
+.flashcard-question-label{
+  font-size:11px;
+  font-weight:800;
+  color:#dc2626;
+  font-family:"JetBrains Mono",monospace;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+  text-align:center;
+}
+.flashcard-name{
+  font-size:24px;
+  font-weight:800;
+  color:#0c1f3d;
+  text-align:center;
+  line-height:1.3;
+  margin-bottom:8px;
+}
+.flashcard-hint{
+  font-size:12px;
+  color:#94a3b8;
+  text-align:center;
+  margin-top:20px;
+  font-style:italic;
+}
+.flashcard-back-content .ec-grid{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  font-size:12.5px;
+  line-height:1.55;
+}
+.flashcard-back-content .ec-row{
+  display:flex;
+  gap:9px;
+  padding:6px 9px;
+  background:rgba(255,255,255,0.7);
+  border-radius:7px;
+}
+.flashcard-back-content .ec-row strong{color:#78350f;font-weight:800;}
+.flashcard-back-content .ec-row.warning{background:rgba(254,202,202,0.55);}
+.flashcard-back-content .ec-row.highlight{background:rgba(255,237,170,0.95);}
+
+.flashcard-controls{
+  display:flex;
+  gap:8px;
+  justify-content:space-between;
+}
+.flashcard-controls button{
+  flex:1;
+  padding:11px 16px;
+  border:none;
+  border-radius:11px;
+  font-size:12.5px;
+  font-weight:800;
+  cursor:pointer;
+  font-family:inherit;
+  letter-spacing:0.02em;
+  transition:all 0.15s;
+}
+.flashcard-btn-prev{background:rgba(255,255,255,0.18);color:white;border:1.5px solid rgba(255,255,255,0.25);}
+.flashcard-btn-prev:hover{background:rgba(255,255,255,0.28);}
+.flashcard-btn-flip{background:linear-gradient(135deg,#10b981,#059669);color:white;}
+.flashcard-btn-flip:hover{box-shadow:0 4px 12px rgba(16,185,129,0.4);}
+.flashcard-btn-next{background:linear-gradient(135deg,#7c3aed,#6d28d9);color:white;}
+.flashcard-btn-next:hover{box-shadow:0 4px 12px rgba(124,58,237,0.45);}
+
+@media(max-width:640px){
+  .flashcard-overlay{padding:16px 12px;}
+  .flashcard{padding:24px 18px;min-height:300px;border-radius:14px;}
+  .flashcard-name{font-size:20px;}
+  .flashcard-back-content .ec-grid{font-size:11.5px;}
+  .flashcard-controls button{padding:10px 12px;font-size:11.5px;}
+}
+
 /* Special buttons (workflow / staging) */
 .mol-special-btn{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:10px 12px;border-radius:10px;border:2px solid transparent;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;margin-bottom:6px;line-height:1.35;transition:all 0.15s;}
 .mol-special-btn.workflow{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1e3a8a;}
@@ -1206,6 +1497,28 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     <div class="mol-pedia-body">
       <div class="mol-pedia-list" id="molList"></div>
       <div class="mol-pedia-detail" id="molDetail"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 📇 考試模式 (Flashcard Overlay) ===== -->
+<div class="flashcard-overlay" id="flashcardOverlay" onclick="if(event.target.id==='flashcardOverlay')closeFlashcardMode()">
+  <div class="flashcard-container">
+    <div class="flashcard-header">
+      <div>
+        <div class="flashcard-progress" id="flashcardProgress">1 / 41</div>
+        <div class="flashcard-cancer-tag" id="flashcardCancerTag">All Cancers</div>
+      </div>
+      <button class="flashcard-close" onclick="closeFlashcardMode()" title="關閉考試模式">✕</button>
+    </div>
+    <div class="flashcard" id="flashcardCard" onclick="flipFlashcard()">
+      <div id="flashcardContent"></div>
+      <div class="flashcard-hint" id="flashcardHint">點擊卡片查看答案 (或按空白鍵)</div>
+    </div>
+    <div class="flashcard-controls">
+      <button class="flashcard-btn-prev" onclick="prevFlashcard()">← 上一張</button>
+      <button class="flashcard-btn-flip" onclick="flipFlashcard()">🔄 翻牌</button>
+      <button class="flashcard-btn-next" onclick="nextFlashcard()">下一張 →</button>
     </div>
   </div>
 </div>
@@ -5672,6 +5985,378 @@ function closeAiPathwayModal(){
 // ============================================================
 // 分子分型百科 (Molecular Subtype Encyclopedia)
 // ============================================================
+const EXAM_CARDS = {
+  'POLEm': {
+    definition: 'POLE exonuclease domain pathogenic mutation (exon 9-14, e.g. P286R, V411L)',
+    testMethod: 'NGS / Sanger sequencing — IHC 無法檢測',
+    keyIHC: '無 IHC 替代; 必須分子檢測',
+    prognosis: 'Excellent (5年 OS >95%) — 即使 high-grade morphology',
+    clinicalUse: 'Adjuvant de-escalation; FIGO 2023 IAm POLEmut; PORTEC-4a 不給 adjuvant',
+    commonPitfall: '並非所有 POLE variants 皆 pathogenic — 須使用驗證過的 hotspot list, VUS 不歸類',
+    mustRemember: 'Multiple-classifier 中 POLEmut 優先 (預後決定權)',
+  },
+  'MMRd': {
+    definition: 'MMR-deficient: MLH1, MSH2, MSH6, PMS2 任一 IHC loss → MSI-H',
+    testMethod: 'IHC 4 蛋白 (主要) + MSI PCR / NGS (補充)',
+    keyIHC: 'MLH1/PMS2 雙缺失最常見 (sporadic, 多 MLH1 methylation)',
+    prognosis: '中等; 化療反應較差但 IO 高度敏感',
+    clinicalUse: '一線 IO+化療 (RUBY P1 / GY018, HR 0.28-0.30); 必做 Lynch 篩檢',
+    commonPitfall: 'MLH1 缺失 → 須做 methylation 區分 sporadic vs Lynch; 不可直接 germline',
+    mustRemember: 'Universal screening: 所有 EC 都應做 MMR IHC',
+  },
+  'MMR-Lynch-Workflow': {
+    definition: 'MMR IHC pattern → 推測病因 → 引導 germline / methylation testing',
+    testMethod: 'IHC 4 蛋白 + MLH1 promoter methylation PCR + germline panel',
+    keyIHC: '4 種 pattern: MLH1/PMS2 雙缺 / MSH2/MSH6 雙缺 / iso MSH6 / iso PMS2',
+    prognosis: 'Lynch 為癌症 syndrome (大腸 / EC / OC / 胃 / 尿路 risk)',
+    clinicalUse: 'Lynch confirm → 大腸鏡 + 家族 cascade testing + RRSO 預防',
+    commonPitfall: 'BRAF V600E 在 EC 不適用 (僅 CRC 用); 不可省略 methylation test',
+    mustRemember: 'MSH2/MSH6 雙缺 → 直接 germline; MLH1/PMS2 → 先 methylation',
+  },
+  'p53abn': {
+    definition: 'p53 abnormal IHC: overexpression / null (complete loss) / cytoplasmic',
+    testMethod: 'p53 IHC (3 種異常 pattern); TP53 NGS confirm if equivocal',
+    keyIHC: 'p53 IHC ≥75% staining (over) / 完全(-) (null) / 細胞質 (cyto) → abnormal',
+    prognosis: '預後最差 (5年 OS ~50-60%, advanced 更差)',
+    clinicalUse: 'DUO-E Arm 3 (chemo+IO+PARPi); HER2+ subset → T-DXd; FIGO 2023 IICm',
+    commonPitfall: 'p53 wildtype 染色為 heterogeneous (<50%); 不可漏判 cytoplasmic pattern',
+    mustRemember: 'serous histology >85% 為 p53abn; HER2 IHC + ISH 必加做',
+  },
+  'NSMP-low-risk': {
+    definition: 'NSMP + ER/PR(+) + Grade 1-2 + endometrioid (hormone-sensitive subset)',
+    testMethod: 'ER/PR IHC (Allred / H-score); CTNNB1 NGS; 排除 POLE/MMR/p53',
+    keyIHC: 'ER(+), PR(+), p53 wildtype, MMR intact',
+    prognosis: '較佳預後 (Stage I 5年 OS >85%)',
+    clinicalUse: 'Hormonal therapy (Letrozole, Megestrol, LNG-IUD); fertility-sparing 適用',
+    commonPitfall: 'CTNNB1m subset 雖 low-grade 但易早期復發 — 不應 over-de-escalate',
+    mustRemember: 'NSMP 中 ~60% 為此 subset; ESGO 2025 視為 lower-risk',
+  },
+  'NSMP-high-risk': {
+    definition: 'NSMP + ER(-) 或 high-grade 或 non-endometrioid (預後較差 subset)',
+    testMethod: 'ER/PR IHC (negative); L1CAM IHC; NGS panel',
+    keyIHC: 'ER(-), L1CAM ≥10%, p53 wildtype (避免被歸 p53abn)',
+    prognosis: '較差預後 (接近 p53abn, 不應視為 "良好" NSMP)',
+    clinicalUse: '強化 adjuvant (chemoradiation); 不適合 hormonal therapy',
+    commonPitfall: '若漏看 high-grade serous-like 形態, 可能漏判 p53abn',
+    mustRemember: 'NSMP ≠ 都很好; ER- / high-grade NSMP 治療強度應接近 p53abn',
+  },
+  'CTNNB1': {
+    definition: 'CTNNB1 exon 3 (β-catenin) mutation: hotspot S33, S37, T41, S45',
+    testMethod: 'CTNNB1 exon 3 NGS (確認); β-catenin nuclear IHC (screening)',
+    keyIHC: 'β-catenin nuclear staining (vs 正常 membranous)',
+    prognosis: 'NSMP 中相對較差 (早期復發 HR ~2-3)',
+    clinicalUse: 'PORTEC-4a integrated risk model 中為 unfavorable factor',
+    commonPitfall: '矛盾考點: 看似 low-grade endometrioid + 早期 + 年輕, 但易早期復發',
+    mustRemember: '~25-30% 全 EC; ~50% NSMP; PORTEC-4a 整合考量',
+  },
+  'L1CAM': {
+    definition: 'L1 cell adhesion molecule overexpression (≥10% IHC staining)',
+    testMethod: 'L1CAM IHC (cut-off ≥10%)',
+    keyIHC: 'Cytoplasmic / membranous staining ≥10%',
+    prognosis: '不良預後因子 (尤其 distant recurrence)',
+    clinicalUse: 'PORTEC-4a integrated risk model; 強化 adjuvant 之參考',
+    commonPitfall: '不屬於四大分型, 不可單獨用於分子分類',
+    mustRemember: 'NSMP 風險細分工具; distant recurrence 預測力強',
+  },
+  'HER2-uterine-serous': {
+    definition: 'HER2 amp / overexpression in uterine serous carcinoma (~30% serous)',
+    testMethod: 'HER2 IHC + ISH (FISH/DISH) for IHC 2+ equivocal',
+    keyIHC: 'IHC 0/1+/2+/3+ scoring; IHC 3+ 直接陽性, 2+ 加 ISH 確認',
+    prognosis: '較差但有 anti-HER2 治療可改善',
+    clinicalUse: '一線 carbo/pacli + Trastuzumab (Fader); 後線 T-DXd (DESTINY-PanTumor02)',
+    commonPitfall: '採乳癌 cut-off, 但部分試驗用 gastric criteria; 不可用 NSCLC criteria',
+    mustRemember: '所有 advanced uterine serous 應做 HER2 testing',
+  },
+  'BRCAm': {
+    definition: 'BRCA1/2 pathogenic mutation (germline ~15% + somatic ~7%)',
+    testMethod: 'germline: blood NGS panel; somatic: tumor FFPE NGS',
+    keyIHC: '無直接 IHC; 仰賴分子檢測',
+    prognosis: '較佳預後; 鉑類強反應, PARPi 強烈獲益',
+    clinicalUse: 'SOLO-1 (Olap), PAOLA-1 (+Bev), PRIMA (Niraparib) 一線維持',
+    commonPitfall: 'germline 陰性不代表沒事 — 須加 somatic (~7% 陽性)',
+    mustRemember: '所有 epithelial OC 強制 germline; BRCA1 OC risk ~40%, BRCA2 ~12-23%',
+  },
+  'HRD-pos': {
+    definition: 'Homologous Recombination Deficiency: GIS≥42 (Myriad) 或 LOH≥16% (Foundation)',
+    testMethod: 'Myriad myChoice CDx (GIS) / FoundationOne CDx (LOH)',
+    keyIHC: '無 IHC; 為 genomic scar score (LOH+TAI+LST 三項)',
+    prognosis: '較佳, 鉑類敏感, PARPi 中度獲益',
+    clinicalUse: 'PAOLA-1 (Olap+Bev) for HRD+; PRIMA (Niraparib) 全人群但 HRD+ 最佳',
+    commonPitfall: 'HRD 為 dynamic state, 治療後可恢復 (acquired resistance)',
+    mustRemember: '~50% HGSC HRD+ (含 BRCA 22% + non-BRCA HRR 28%)',
+  },
+  'HRD-neg': {
+    definition: 'HRD negative / HRP: GIS<42, HRR pathway 完整',
+    testMethod: 'Myriad GIS<42; 加做 CCNE1 amp 預測 PARPi 抗藥',
+    keyIHC: '無',
+    prognosis: '較差; PARPi 反應差, unmet need',
+    clinicalUse: '一線 Bev only; PROC 階段 ADC (Mirvetuximab) 或 IO+chemo (KEYNOTE-B96)',
+    commonPitfall: 'PARPi 維持在 HRD- 不應使用 (PAOLA-1 HRD- 無顯著獲益)',
+    mustRemember: '~50% HGSC; 強制 PROC 階段 broad biomarker testing',
+  },
+  'HRRm': {
+    definition: 'non-BRCA HRR gene mutation: ATM, BARD1, BRIP1, CHEK1/2, FANC, PALB2, RAD51C/D',
+    testMethod: '11-gene panel (germline + somatic NGS)',
+    keyIHC: '無 (基因 panel)',
+    prognosis: '較佳, 鉑類敏感; PARPi 反應依基因不同',
+    clinicalUse: 'PALB2 ≈ BRCA; RAD51C/D 卵巢 risk gene; ATM/BRIP1 較弱反應',
+    commonPitfall: 'HRRm 不等於均同效力 — PALB2 強, ATM 弱',
+    mustRemember: '部分 HRRm (BRIP1/RAD51C/D/PALB2) 也是 hereditary risk genes',
+  },
+  'BRCA-reversion': {
+    definition: 'BRCA reversion mutation: 二次突變恢復 reading frame → BRCA 功能回復',
+    testMethod: 'ctDNA NGS (Guardant360, FoundationOne Liquid); tumor biopsy NGS',
+    keyIHC: '無; 為分子事件',
+    prognosis: '抗藥後預後較差, 通常 cross-resistant 至 platinum',
+    clinicalUse: '改用 ADC (Mirvetuximab/T-DXd) / IO+chemo / GR antagonist (Rosella)',
+    commonPitfall: '5 種抗藥機制: reversion / RAD51 recovery / CCNE1 amp / fork stabilization / efflux',
+    mustRemember: 'PARPi 失敗後 ctDNA NGS 為最佳檢測; reversion 後不再 rechallenge PARPi',
+  },
+  'CCNE1': {
+    definition: 'Cyclin E1 (CCNE1) gene amplification (19q12, ratio ≥2.0)',
+    testMethod: 'FISH (CCNE1:CEP19 ratio ≥2.0); NGS-based copy number',
+    keyIHC: 'Cyclin E protein IHC 為 surrogate (semi-quantitative)',
+    prognosis: '較差, PARPi 強抗藥標記',
+    clinicalUse: '不啟動 PARPi 維持; 試驗中 WEE1 / CDK2 / ATR inhibitor',
+    commonPitfall: 'HRD 互斥 (CCNE1 amp 與 BRCA mut 通常不共存)',
+    mustRemember: '~15-20% HGSC, HRD- 中富集; HRD- 患者強制加做',
+  },
+  'HGSC': {
+    definition: 'High-Grade Serous Carcinoma: TP53 mutation 100% + high-grade morphology',
+    testMethod: 'TP53 IHC (overexpression/null) + NGS confirm; WT-1 + PAX-8 + p16 IHC',
+    keyIHC: 'WT-1(+), PAX-8(+), p53 abnormal, p16(+), ER variable',
+    prognosis: '中等; 鉑類敏感但易復發',
+    clinicalUse: 'Cytoreduction + carbo/pacli ± Bev → 維持依 BRCA/HRD',
+    commonPitfall: 'WT-1(-) 為 OCCC; STIC lesion 在輸卵管 fimbria 為前驅',
+    mustRemember: '~70% 全 EOC; TP53 100%; CA-125 monitoring; 起源於輸卵管',
+  },
+  'OCCC': {
+    definition: 'Ovarian Clear Cell Carcinoma: 透明胞質 + 高 VTE risk + 鉑類抗藥',
+    testMethod: 'WT-1(-) + Napsin A(+) + HNF-1β(+) IHC; ARID1A/PIK3CA NGS',
+    keyIHC: 'WT-1(-) 關鍵! Napsin A(+), HNF-1β(+), ER通常(-)',
+    prognosis: '早期可治 (Stage IA OS >85%); advanced 預後差',
+    clinicalUse: '本院 DOVE 試驗 (Dostar ± Bev); IO 反應較佳',
+    commonPitfall: 'VTE incidence ~25% — 強制血栓 prophylaxis 評估',
+    mustRemember: '亞洲較高頻 (~15-25%); ARID1A m + PIK3CA m; Endometriosis 相關',
+  },
+  'LGSC': {
+    definition: 'Low-Grade Serous Carcinoma: TP53 wildtype + KRAS/BRAF/NRAS mut',
+    testMethod: 'KRAS / BRAF / NRAS NGS; ER/PR IHC; p53 wildtype',
+    keyIHC: 'p53 wildtype, ER/PR 多陽性, Ki-67 低 (<10%)',
+    prognosis: '緩慢進展但化療抗藥 (median OS 80m vs HGSC 40m)',
+    clinicalUse: 'Trametinib (GOG-281) MEK inhibitor; ER+ → Letrozole hormonal',
+    commonPitfall: '與 HGSC 區別: TP53 wildtype 為關鍵; 化療反應差不應 over-treat',
+    mustRemember: '~5% EOC; 年輕族群多 (mean 45-50); SBT 可演變至 LGSC',
+  },
+  'Endometrioid-OC': {
+    definition: 'Endometrioid Ovarian Carcinoma: 類 endometrial endometrioid 形態',
+    testMethod: 'CK7+ ER+ PR+ vimentin+ IHC; CTNNB1/PTEN/ARID1A NGS; MMR IHC',
+    keyIHC: 'CK7(+), ER(+), PR(+), vimentin(+), WT-1(-)',
+    prognosis: '較好 (Stage I OS >85%)',
+    clinicalUse: 'Carbo/pacli (反應較好); MMRd → IO; ER+ → hormonal',
+    commonPitfall: 'Synchronous EC ~10-20% 須 clonality test (independent vs metastatic)',
+    mustRemember: 'MMR IHC 強制 (Lynch 篩檢, 與 EC 一樣); CTNNB1 mut ~38-50%',
+  },
+  'Mucinous-OC': {
+    definition: 'Mucinous Ovarian Carcinoma: 黏液產生 + 80% 為 GI tract 轉移!',
+    testMethod: '胃鏡 + 大腸鏡 + CDX-2/CK7/CK20 IHC; KRAS + HER2 NGS',
+    keyIHC: 'CK7(+)/CK20± (primary) vs CK7-/CK20+ (GI mets); CDX-2 重要',
+    prognosis: 'Stage I 好, advanced 化療抗藥, 預後差',
+    clinicalUse: '排除 GI mets 後手術; HER2+ → Trastuzumab combo; KRAS G12C 試驗',
+    commonPitfall: '【最大陷阱】80% 為 GI mets! 不可不排除直接視為原發',
+    mustRemember: 'KRAS m ~50-65%, HER2 amp ~20%; 強制 GI workup',
+  },
+  'Carcinosarcoma': {
+    definition: 'Mixed Müllerian Malignant Tumor (MMMT): carcinoma + sarcoma 雙成分',
+    testMethod: '雙成分病理確認; TP53 NGS; HRD test (~25-30% +)',
+    keyIHC: 'PAX-8 (epithelial), desmin/myogenin (sarcoma)',
+    prognosis: '預後差 (median OS <2 年)',
+    clinicalUse: 'Carbo/pacli ± Ifosfamide; HRD+ 可考慮 PARPi; T-DXd if HER2+',
+    commonPitfall: '與 sarcoma 不同: 治療思維接近 HGSC + sarcoma 混合',
+    mustRemember: '~1-3% 全 OC; TP53 高頻; 與 uterine carcinosarcoma 機制類似',
+  },
+  'HPV16': {
+    definition: 'HPV16 high-risk genotype: alpha-9 species, 鱗癌主因 (SCC 46-63%)',
+    testMethod: 'Roche Cobas HPV (區分 16/18/其他); p16 IHC block-positive',
+    keyIHC: 'p16 block-positive (diffuse strong nuclear+cytoplasmic)',
+    prognosis: '預後相對較好 (相對其他 HPV 型)',
+    clinicalUse: 'KEYNOTE-A18 (LACC); KEYNOTE-826 (1L R/M); TIL therapy (HPV16+ R/M)',
+    commonPitfall: '九價疫苗涵蓋 HPV16, 但不能防已感染者; 治療性疫苗為新方向',
+    mustRemember: '本院 PVX4 試驗 (HPV16+ CIN2/3 DNA vaccine); 賴瓊慧主持',
+  },
+  'HPV18': {
+    definition: 'HPV18/45 (alpha-7 species): 腺癌主因 (HPV18 ~37-41%, HPV45 ~5-13% 腺癌)',
+    testMethod: 'Roche Cobas HPV (HPV18 individual); HPV45 在 "others"',
+    keyIHC: 'p16 block-positive (HPV-driven AdenoCa)',
+    prognosis: '較差預後; 篩檢易遺漏 (endocervical glandular)',
+    clinicalUse: '相同 IO+chemo; AdenoCa 強制 HER2 IHC; 本院 TroFuse-036',
+    commonPitfall: 'HPV18/45 在 endocervix 上方, cytology 易遺漏',
+    mustRemember: 'HPV16+18+45 ≈ 94% 腺癌; AIS 主要病因',
+  },
+  'PD-L1-CPS': {
+    definition: 'PD-L1 Combined Positive Score = (tumor + immune cells) / viable tumor × 100',
+    testMethod: 'Dako 22C3 IHC (FDA Companion Dx); SP263 / 28-8 替代',
+    keyIHC: '計算: PD-L1+ tumor + immune cells / total viable tumor × 100, 上限 100',
+    prognosis: 'IO 適用族群 (CPS≥1 → KEYNOTE-826/A18 標準)',
+    clinicalUse: 'CPS≥1: Pembro+chemo±Bev (KEYNOTE-826); CPS不限: BEATcc Atezo',
+    commonPitfall: 'CPS ≠ TPS! TPS 僅 tumor cells (NSCLC 用); CC 用 CPS',
+    mustRemember: '~70% R/M CC CPS≥1; 所有 R/M CC 強制 PD-L1 testing',
+  },
+  'HPV-independent-gastric': {
+    definition: 'HPV-independent Gastric-type Adenocarcinoma: HPV(-), HIK1083+/MUC6+',
+    testMethod: 'HPV PCR/ISH (-) + p16 patchy/(-); HIK1083+/MUC6+ IHC; STK11 germline',
+    keyIHC: 'HIK1083(+), MUC6(+), p16 patchy/(-), ER通常(-)',
+    prognosis: '預後最差! 5年 OS <50%, 化療抗藥',
+    clinicalUse: '臨床試驗為主; HER2+ → Trastuzumab; MSI-H → IO; KRAS G12C 試驗',
+    commonPitfall: '與 Peutz-Jeghers (~10%) 相關 — 強制排除 STK11 germline',
+    mustRemember: '亞洲較高頻 (~15-20% 腺癌); 與九價疫苗 NOT 相關',
+  },
+  'HER2-cervical': {
+    definition: 'HER2 amp/overexpression in cervical AdenoCa (~3-5% adenoCa, ~20% gastric-type)',
+    testMethod: 'HER2 IHC (採乳癌標準) + ISH (IHC 2+ 加做)',
+    keyIHC: 'IHC 0/1+/2+/3+; 3+ 陽性, 2+ 須 ISH 確認',
+    prognosis: '較差但有標靶治療可改善',
+    clinicalUse: 'T-DXd (DESTINY-PanTumor02 ORR ~50%); Trastuzumab + chemo (extrapolated)',
+    commonPitfall: 'SCC <1%, 通常不需做; AdenoCa 強制 — 不可省略',
+    mustRemember: '所有 cervical adenoCa (尤 gastric-type) 應測 HER2',
+  },
+  'TROP2': {
+    definition: 'Trophoblast cell surface antigen 2: CC ~95% 高表現 (廣泛)',
+    testMethod: 'TROP2 IHC (Ventana); H-score 或 % positive',
+    keyIHC: 'Membranous staining ≥50% 為陽性',
+    prognosis: '取決於治療反應',
+    clinicalUse: 'sac-TMT (Sacituzumab Tirumotecan); 本院 TroFuse-036 (PD-L1+ + TROP2+)',
+    commonPitfall: 'TROP2 為 protein expression 非 mutation; 不需 NGS',
+    mustRemember: 'sac-TMT vs sacituzumab govitecan: 不同 payload (belotecan vs SN-38)',
+  },
+  'Tumor-agnostic-CC': {
+    definition: 'Tumor-agnostic biomarkers: MSI/TMB/NTRK/RET/BRAF V600E/HER2',
+    testMethod: 'Broad NGS panel (FoundationOne, MSK-IMPACT, Tempus 等)',
+    keyIHC: 'pan-Trk (NTRK screening); MMR 4 蛋白 (dMMR)',
+    prognosis: '依 actionable target 而異',
+    clinicalUse: 'MSI/TMB → Pembro; NTRK → Larotrectinib; RET → Selpercatinib; BRAFv600 → D+T',
+    commonPitfall: 'pan-Trk IHC 陽性必 confirm fusion (不等於 fusion)',
+    mustRemember: '所有 R/M CC 標準耗盡 → broad NGS panel; 為 unmet need 突破點',
+  },
+  'PIK3CA': {
+    definition: 'PIK3CA mutation: PI3K-AKT-mTOR pathway 過度活化',
+    testMethod: 'NGS panel; hotspot PCR (E542K, E545K, H1047R)',
+    keyIHC: '無直接 IHC',
+    prognosis: '較差預後',
+    clinicalUse: '尚無 CC-specific 標靶; PI3K inhibitor (Alpelisib) 試驗中',
+    commonPitfall: '不影響當前標準治療 (僅 research / 試驗)',
+    mustRemember: '~38% CC, 鱗癌中較高; HPV-associated CC 共同 driver',
+  },
+  'CIN23': {
+    definition: 'Cervical Intraepithelial Neoplasia 2/3: pre-invasive (CIS)',
+    testMethod: 'Pap + HPV co-test → colposcopy → biopsy; CINtec PLUS (p16/Ki-67)',
+    keyIHC: 'p16 block-positive + Ki-67 過度表現 (CINtec PLUS)',
+    prognosis: '治療後極佳; 但 untreated 進展 risk',
+    clinicalUse: 'LEEP 為標準; AIS 用 cold knife; 本院 PVX4 試驗 (HPV16+ DNA vaccine)',
+    commonPitfall: 'AIS 用 cold knife > LEEP (避免 fragmentation, 取得 negative margin)',
+    mustRemember: '本院 PVX4: HPV16+ CIN2/3 治療性疫苗 (賴瓊慧主持, 0/15 招募中)',
+  },
+  'HPV-ctDNA': {
+    definition: 'Circulating HPV E6/E7 DNA: minimal residual disease (MRD) 監測',
+    testMethod: 'ddPCR (digital PCR, sensitivity 高) 或 NGS-based',
+    keyIHC: '無 IHC; 為 plasma-based 分子檢測',
+    prognosis: 'Persistent ctDNA → 復發 high risk',
+    clinicalUse: 'Post-CCRT MRD; Earlier than imaging (前 3-6 月)',
+    commonPitfall: '尚非 standard of care; 為 research / translational tool',
+    mustRemember: '研究中: NRG-CC008, EORTC-1532; HPV+ HNSCC 已有更多 data',
+  },
+  'LMS': {
+    definition: 'Leiomyosarcoma: Stanford 3 criteria 中 ≥2 (mitosis ≥10/10HPF + necrosis + atypia)',
+    testMethod: 'SMA/desmin/h-caldesmon IHC (smooth muscle); TP53/RB1/ATRX NGS',
+    keyIHC: 'SMA(+), desmin(+), h-caldesmon(+), CD10(-), ER/PR variable',
+    prognosis: '預後差 (Stage I 5y OS ~50%, advanced <30%)',
+    clinicalUse: 'Doxorubicin-based; Trabectedin (LMS-04); Pazopanib (PALETTE); ER+ → Letrozole',
+    commonPitfall: '【最大警示】Morcellation 禁忌! FDA black-box warning',
+    mustRemember: '~63% 全 US; 無 MED12 mutation (與 leiomyoma 區別); NTRK panel 必測',
+  },
+  'LG-ESS': {
+    definition: 'Low-Grade Endometrial Stromal Sarcoma: JAZF1-SUZ12 fusion + ER/PR+',
+    testMethod: 'JAZF1-SUZ12 FISH (gold standard); NGS sarcoma fusion panel',
+    keyIHC: 'CD10(+), ER(+), PR(+), cyclin D1 通常(-)',
+    prognosis: '較佳預後 (5y OS ~80-90%) 但晚期復發常見 (10-20 年後)',
+    clinicalUse: 'Hysterectomy + BSO + Hormonal (Letrozole 2.5mg QD)',
+    commonPitfall: '避免任何 estrogen-containing (HRT, tamoxifen 禁忌)',
+    mustRemember: 'Tongue-like growth pattern; BSO 強烈建議; 長期 follow-up (10+ 年)',
+  },
+  'HG-ESS-YWHAE': {
+    definition: 'High-Grade ESS YWHAE type: YWHAE-NUTM2 fusion + cyclin D1 strong',
+    testMethod: 'YWHAE-NUTM2 FISH; cyclin D1 IHC (>50% strong nuclear)',
+    keyIHC: 'Cyclin D1 strong nuclear(+), CD10 weak/(-), ER/PR weak/(-)',
+    prognosis: '預後差 (median OS ~3-4 年)',
+    clinicalUse: 'Doxorubicin-based; CDK4/6 inhibitor (Palbociclib) 試驗中',
+    commonPitfall: '與 BCOR type 區別: YWHAE 有 cyclin D1+, BCOR 有 BCOR IHC+',
+    mustRemember: 'Cyclin D1 過度表現 → CDK4/6 為理論標靶',
+  },
+  'HG-ESS-BCOR': {
+    definition: 'High-Grade ESS BCOR type: ZC3H7B-BCOR fusion or BCOR ITD; mimic myxoid LMS',
+    testMethod: 'BCOR IHC (strong nuclear+); ZC3H7B-BCOR FISH; NGS BCOR ITD',
+    keyIHC: 'BCOR strong nuclear(+) — 關鍵鑑別; cyclin D1(-)',
+    prognosis: '預後差',
+    clinicalUse: 'Doxorubicin-based; sarcoma basket trials',
+    commonPitfall: '【鑑別困難】Mimic myxoid LMS — 若 myxoid 形態必做 BCOR IHC',
+    mustRemember: 'Sarcoma expert pathologist consultation 必要',
+  },
+  'NTRK-uterine-sarcoma': {
+    definition: 'NTRK-rearranged Uterine Sarcoma: NTRK1/2/3 fusion (TPM3, ETV6, LMNA partner)',
+    testMethod: 'pan-Trk IHC (screening) → NTRK FISH/NGS confirm fusion',
+    keyIHC: 'pan-Trk cytoplasmic/membranous (screening only)',
+    prognosis: 'Larotrectinib/Entrectinib 反應極佳 (ORR ~75%)',
+    clinicalUse: 'Larotrectinib 100mg BID; Entrectinib 600mg QD (CNS+); pan-tumor agnostic',
+    commonPitfall: 'pan-Trk IHC ≠ NTRK fusion! Specificity 不高, 必須 confirm fusion',
+    mustRemember: 'WHO 2020 新 entity; 所有 sarcoma 應 NGS panel 含 NTRK',
+  },
+  'IMT-ALK': {
+    definition: 'Inflammatory Myofibroblastic Tumor: ALK fusion ~50-60% + ROS1/RET/NTRK rare',
+    testMethod: 'ALK IHC (granular cytoplasmic+); ALK FISH break-apart probe',
+    keyIHC: 'ALK strong granular cytoplasmic(+); SMA variable',
+    prognosis: 'ALK inhibitor 反應極佳; R0 resection 可 curative',
+    clinicalUse: 'Crizotinib 250mg BID (FDA 2019 IMT); Lorlatinib (CNS+)',
+    commonPitfall: '可 mimic LMS; 子宮 IMT 越來越多被認識, 不可漏診',
+    mustRemember: 'ALK-negative IMT 須 ROS1/RET/NTRK panel; 鑑別 LMS 重要',
+  },
+  'PEComa': {
+    definition: 'Perivascular Epithelioid Cell Tumor: TSC1/TSC2 mut + mTOR-driven',
+    testMethod: 'HMB-45/Melan-A/SMA IHC; TSC1/TSC2 NGS; germline TSC if 懷疑',
+    keyIHC: 'HMB-45(+), Melan-A(+), SMA(+), Cathepsin K(+)',
+    prognosis: 'Folpe criteria 三分類; mTOR inhibitor 反應好',
+    clinicalUse: 'Nab-Sirolimus (FDA 2021 malignant PEComa); Sirolimus / Everolimus',
+    commonPitfall: '與 Tuberous Sclerosis Complex (TSC) 相關 (~20% 為 germline)',
+    mustRemember: 'HMB-45/Melan-A(+) 鑑別 LMS; CT chest baseline (LAM screening)',
+  },
+  'Adenosarcoma': {
+    definition: 'Müllerian Adenosarcoma: biphasic (benign glands + sarcomatous stroma)',
+    testMethod: '病理評估 sarcomatous overgrowth (SO) 比例; TP53/TERT/FGFR2 NGS',
+    keyIHC: 'CD10 stromal(+); ER/PR variable; cyclin D1 常 overexpression',
+    prognosis: 'SO(-) 較好, SO(+) 接近 LMS / HG-ESS',
+    clinicalUse: 'SO(-): Surgery alone; SO(+): Adjuvant chemo (Doxo-based)',
+    commonPitfall: '【核心考點】SO >25% 為關鍵預後因子; 病理報告必含',
+    mustRemember: 'Heterologous elements (rhabdo, chondro) 可有; 預後變化大',
+  },
+  'STUMP': {
+    definition: 'Smooth Muscle Tumor of Uncertain Malignant Potential: Stanford criteria 不全符 LMS',
+    testMethod: 'Stanford criteria 完整評估; Ki-67; p53 IHC; expert pathologist',
+    keyIHC: 'SMA/desmin(+); Ki-67 中度; p53 不確定',
+    prognosis: '多良性, ~10-15% 復發',
+    clinicalUse: 'Total hysterectomy; 不需 adjuvant; long-term surveillance',
+    commonPitfall: 'Mitosis 5-10/10 HPF + 部分 atypia 或 necrosis 為 borderline',
+    mustRemember: '無 MED12 (區別 leiomyoma); TP53 較少 (區別 LMS); 10+ 年 follow-up',
+  },
+  'uLMS-hormonal': {
+    definition: 'ER/PR(+) uLMS subset: ~30-40% LMS 有 ER/PR 表現',
+    testMethod: 'ER/PR IHC (Allred / H-score); cut-off ≥10%',
+    keyIHC: 'ER(+) ≥10% 為陽性; PR(+) 同樣',
+    prognosis: '較佳預後 (相對 ER- LMS)',
+    clinicalUse: 'Letrozole 2.5mg QD (advanced); GnRH agonist 如停經前',
+    commonPitfall: '避免 estrogen-containing (HRT, tamoxifen 禁忌)',
+    mustRemember: '所有 LMS 應做 ER/PR IHC; 復發時可重測 (status 可變)',
+  },
+};
+
 const MOL_PEDIA = {
   EC: {
     title: '🔴 子宮內膜癌 EC',
@@ -7539,6 +8224,9 @@ function renderMolList(){
       <div class="mol-fw-title">${data.framework}</div>
       <div class="mol-fw-desc">${data.description}</div>
     </div>
+    <button class="flashcard-mode-btn" onclick="openFlashcardMode('${currentMolTab}')">
+      📇 ${currentMolTab} 考試模式 (翻牌記憶)
+    </button>
     ${data.workflow ? `
       <button class="mol-special-btn workflow" onclick="showMolSpecial('workflow')">
         ${escapeHtml(data.workflow.title)}
@@ -7641,6 +8329,106 @@ function showMolSpecial(type){
   }
 }
 
+// ============================================================
+// 📇 考試卡 Render (3 view modes: 完整 / 精簡 / 癌別)
+// ============================================================
+let currentExamView = 'full'; // 'full' | 'compact' | 'cancer'
+
+function setExamView(mode){
+  currentExamView = mode;
+  // Re-render current entry to update card
+  const data = MOL_PEDIA[currentMolTab];
+  if(!currentMolSpecial && data && data.entries[currentMolEntry]){
+    selectMolEntry(currentMolEntry);
+  }
+}
+
+function renderExamCard(entryId, card, cancer){
+  const viewSwitcher = `
+    <div class="ec-view-switcher">
+      <button class="ec-view-btn ${currentExamView === 'full' ? 'active' : ''}" onclick="setExamView('full')" title="完整 7 欄位 — 第一次學習用">
+        🟢 完整
+      </button>
+      <button class="ec-view-btn ${currentExamView === 'compact' ? 'active' : ''}" onclick="setExamView('compact')" title="精簡 5 欄位 — 快速複習用">
+        🔵 精簡
+      </button>
+      <button class="ec-view-btn ${currentExamView === 'cancer' ? 'active' : ''}" onclick="setExamView('cancer')" title="${cancer} 癌別客製重點">
+        🟣 ${cancer} 重點
+      </button>
+    </div>
+  `;
+
+  let rowsHtml = '';
+
+  if(currentExamView === 'full'){
+    // === Mode A: 完整 7 欄位 ===
+    rowsHtml = `
+      <div class="ec-row"><span class="ec-icon">🎯</span><div><strong>定義:</strong> ${escapeHtml(card.definition)}</div></div>
+      <div class="ec-row"><span class="ec-icon">🔬</span><div><strong>檢測:</strong> ${escapeHtml(card.testMethod)}</div></div>
+      <div class="ec-row"><span class="ec-icon">🧫</span><div><strong>IHC 重點:</strong> ${escapeHtml(card.keyIHC)}</div></div>
+      <div class="ec-row"><span class="ec-icon">📈</span><div><strong>預後:</strong> ${escapeHtml(card.prognosis)}</div></div>
+      <div class="ec-row"><span class="ec-icon">💊</span><div><strong>臨床用途:</strong> ${escapeHtml(card.clinicalUse)}</div></div>
+      <div class="ec-row warning"><span class="ec-icon">⚠️</span><div><strong>易錯陷阱:</strong> ${escapeHtml(card.commonPitfall)}</div></div>
+      <div class="ec-row highlight"><span class="ec-icon">💡</span><div><strong>必記重點:</strong> ${escapeHtml(card.mustRemember)}</div></div>
+    `;
+  } else if(currentExamView === 'compact'){
+    // === Mode B: 精簡 5 欄位 (合併) ===
+    rowsHtml = `
+      <div class="ec-row"><span class="ec-icon">🎯</span><div><strong>定義 + 檢測:</strong> ${escapeHtml(card.definition)} · ${escapeHtml(card.testMethod)}${card.keyIHC && card.keyIHC !== '無' && !card.keyIHC.startsWith('無') ? ` · IHC: ${escapeHtml(card.keyIHC)}` : ''}</div></div>
+      <div class="ec-row"><span class="ec-icon">📈</span><div><strong>預後:</strong> ${escapeHtml(card.prognosis)}</div></div>
+      <div class="ec-row"><span class="ec-icon">💊</span><div><strong>臨床應用:</strong> ${escapeHtml(card.clinicalUse)}</div></div>
+      <div class="ec-row warning"><span class="ec-icon">⚠️</span><div><strong>易錯 + 必記:</strong> ${escapeHtml(card.commonPitfall)} ／ ${escapeHtml(card.mustRemember)}</div></div>
+    `;
+  } else if(currentExamView === 'cancer'){
+    // === Mode C: 癌別客製重點 ===
+    if(cancer === 'EC'){
+      // EC: IHC pattern + 預後 + Adjuvant 決策 + FIGO 2023
+      rowsHtml = `
+        <div class="ec-row"><span class="ec-icon">🧫</span><div><strong>IHC pattern (EC 重點):</strong> ${escapeHtml(card.keyIHC)}</div></div>
+        <div class="ec-row"><span class="ec-icon">📈</span><div><strong>預後:</strong> ${escapeHtml(card.prognosis)}</div></div>
+        <div class="ec-row"><span class="ec-icon">💊</span><div><strong>Adjuvant 決策:</strong> ${escapeHtml(card.clinicalUse)}</div></div>
+        <div class="ec-row highlight"><span class="ec-icon">📐</span><div><strong>FIGO 2023 / 必記:</strong> ${escapeHtml(card.mustRemember)}</div></div>
+        <div class="ec-row warning"><span class="ec-icon">⚠️</span><div><strong>EC 易錯:</strong> ${escapeHtml(card.commonPitfall)}</div></div>
+      `;
+    } else if(cancer === 'OC'){
+      // OC: Genetic + HRD + 標靶 + 試驗
+      rowsHtml = `
+        <div class="ec-row"><span class="ec-icon">🧬</span><div><strong>Genetic / 檢測:</strong> ${escapeHtml(card.testMethod)}</div></div>
+        <div class="ec-row"><span class="ec-icon">📈</span><div><strong>HRD / 預後:</strong> ${escapeHtml(card.prognosis)}</div></div>
+        <div class="ec-row"><span class="ec-icon">💊</span><div><strong>標靶治療 / 試驗:</strong> ${escapeHtml(card.clinicalUse)}</div></div>
+        <div class="ec-row highlight"><span class="ec-icon">💡</span><div><strong>OC 必記:</strong> ${escapeHtml(card.mustRemember)}</div></div>
+        <div class="ec-row warning"><span class="ec-icon">⚠️</span><div><strong>OC 易錯:</strong> ${escapeHtml(card.commonPitfall)}</div></div>
+      `;
+    } else if(cancer === 'CC'){
+      // CC: HPV/p16 + PD-L1 + 治療 + 鑑別診斷
+      rowsHtml = `
+        <div class="ec-row"><span class="ec-icon">🧫</span><div><strong>HPV/p16 / IHC:</strong> ${escapeHtml(card.keyIHC)}</div></div>
+        <div class="ec-row"><span class="ec-icon">🎯</span><div><strong>定義 / 檢測:</strong> ${escapeHtml(card.definition)} · ${escapeHtml(card.testMethod)}</div></div>
+        <div class="ec-row"><span class="ec-icon">💊</span><div><strong>治療藥物:</strong> ${escapeHtml(card.clinicalUse)}</div></div>
+        <div class="ec-row warning"><span class="ec-icon">⚠️</span><div><strong>鑑別診斷 / 易錯:</strong> ${escapeHtml(card.commonPitfall)}</div></div>
+        <div class="ec-row highlight"><span class="ec-icon">💡</span><div><strong>CC 必記:</strong> ${escapeHtml(card.mustRemember)}</div></div>
+      `;
+    } else if(cancer === 'US'){
+      // US: Fusion gene + IHC + 治療 + 鑑別
+      rowsHtml = `
+        <div class="ec-row"><span class="ec-icon">🧬</span><div><strong>Fusion / 分子:</strong> ${escapeHtml(card.definition)}</div></div>
+        <div class="ec-row"><span class="ec-icon">🧫</span><div><strong>IHC 鑑別:</strong> ${escapeHtml(card.keyIHC)}</div></div>
+        <div class="ec-row"><span class="ec-icon">💊</span><div><strong>治療策略:</strong> ${escapeHtml(card.clinicalUse)}</div></div>
+        <div class="ec-row warning"><span class="ec-icon">⚠️</span><div><strong>鑑別診斷 / 易錯:</strong> ${escapeHtml(card.commonPitfall)}</div></div>
+        <div class="ec-row highlight"><span class="ec-icon">💡</span><div><strong>US 必記:</strong> ${escapeHtml(card.mustRemember)}</div></div>
+      `;
+    }
+  }
+
+  return `
+    <div class="mol-exam-card">
+      <div class="ec-label">📇 考試速記卡 · 30 秒記住</div>
+      ${viewSwitcher}
+      <div class="ec-grid">${rowsHtml}</div>
+    </div>
+  `;
+}
+
 function selectMolEntry(idx){
   currentMolEntry = idx;
   currentMolSpecial = null;
@@ -7694,6 +8482,10 @@ function selectMolEntry(idx){
     </div>
   ` : '');
 
+  // Render 7-field exam card (📇 速記卡) — supports 3 view modes
+  const card = EXAM_CARDS[entry.id];
+  const examCardHtml = card ? renderExamCard(entry.id, card, currentMolTab) : '';
+
   const testingHtml = entry.testing ? `
     <div class="mol-detail-section">
       <h4>🔬 2. 臨床怎麼測 (IHC / NGS / methylation / FISH / ISH / PCR)</h4>
@@ -7731,6 +8523,7 @@ function selectMolEntry(idx){
       </div>
     </div>
 
+    ${examCardHtml}
     ${examHtml}
     ${testingHtml}
     ${clinicalHtml}
@@ -7742,6 +8535,133 @@ function selectMolEntry(idx){
       💡 <strong>${escapeHtml(entry.keyTakeaway)}</strong>
     </div>
   `;
+}
+
+// ============================================================
+// 📇 考試模式 (Flashcard Mode)
+// ============================================================
+let flashcardDeck = [];
+let flashcardIndex = 0;
+let flashcardFlipped = false;
+let flashcardCancer = 'EC';
+
+function openFlashcardMode(cancer){
+  flashcardCancer = cancer;
+  // Build deck from MOL_PEDIA[cancer].entries that have exam cards
+  const data = MOL_PEDIA[cancer];
+  flashcardDeck = data.entries
+    .filter(e => EXAM_CARDS[e.id])
+    .map(e => ({id: e.id, name: e.name, card: EXAM_CARDS[e.id]}));
+
+  if(flashcardDeck.length === 0){
+    alert('此癌別目前無考試卡資料');
+    return;
+  }
+
+  // Shuffle deck for randomized review
+  for(let i = flashcardDeck.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcardDeck[i], flashcardDeck[j]] = [flashcardDeck[j], flashcardDeck[i]];
+  }
+
+  flashcardIndex = 0;
+  flashcardFlipped = false;
+  el('flashcardOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderFlashcard();
+
+  // Add keyboard listener
+  document.addEventListener('keydown', flashcardKeyHandler);
+}
+
+function closeFlashcardMode(){
+  el('flashcardOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', flashcardKeyHandler);
+}
+
+function flashcardKeyHandler(e){
+  if(!el('flashcardOverlay').classList.contains('open')) return;
+  if(e.key === 'ArrowLeft'){ prevFlashcard(); e.preventDefault(); }
+  else if(e.key === 'ArrowRight'){ nextFlashcard(); e.preventDefault(); }
+  else if(e.key === ' ' || e.key === 'Enter'){ flipFlashcard(); e.preventDefault(); }
+  else if(e.key === 'Escape'){ closeFlashcardMode(); }
+}
+
+function renderFlashcard(){
+  const total = flashcardDeck.length;
+  const item = flashcardDeck[flashcardIndex];
+  const card = item.card;
+
+  el('flashcardProgress').textContent = `${flashcardIndex + 1} / ${total}`;
+  el('flashcardCancerTag').textContent = `${flashcardCancer} · ${item.id}`;
+
+  const cardEl = el('flashcardCard');
+  cardEl.classList.toggle('flipped', flashcardFlipped);
+
+  if(!flashcardFlipped){
+    // Front: name only
+    el('flashcardContent').innerHTML = `
+      <div class="flashcard-front-content">
+        <div class="flashcard-question-label">📇 請說出此分子分型的考點</div>
+        <div class="flashcard-name">${escapeHtml(item.name)}</div>
+      </div>
+    `;
+    el('flashcardHint').textContent = '點擊卡片或按空白鍵查看答案';
+    el('flashcardHint').style.display = 'block';
+  } else {
+    // Back: 7 fields
+    el('flashcardContent').innerHTML = `
+      <div class="flashcard-back-content">
+        <div class="flashcard-question-label">${escapeHtml(item.name)}</div>
+        <div class="ec-grid">
+          <div class="ec-row"><span>🎯</span><div><strong>定義:</strong> ${escapeHtml(card.definition)}</div></div>
+          <div class="ec-row"><span>🔬</span><div><strong>檢測:</strong> ${escapeHtml(card.testMethod)}</div></div>
+          <div class="ec-row"><span>🧫</span><div><strong>IHC:</strong> ${escapeHtml(card.keyIHC)}</div></div>
+          <div class="ec-row"><span>📈</span><div><strong>預後:</strong> ${escapeHtml(card.prognosis)}</div></div>
+          <div class="ec-row"><span>💊</span><div><strong>臨床用:</strong> ${escapeHtml(card.clinicalUse)}</div></div>
+          <div class="ec-row warning"><span>⚠️</span><div><strong>易錯:</strong> ${escapeHtml(card.commonPitfall)}</div></div>
+          <div class="ec-row highlight"><span>💡</span><div><strong>必記:</strong> ${escapeHtml(card.mustRemember)}</div></div>
+        </div>
+      </div>
+    `;
+    el('flashcardHint').style.display = 'none';
+  }
+}
+
+function flipFlashcard(){
+  flashcardFlipped = !flashcardFlipped;
+  renderFlashcard();
+}
+
+function nextFlashcard(){
+  if(flashcardIndex < flashcardDeck.length - 1){
+    flashcardIndex++;
+    flashcardFlipped = false;
+    renderFlashcard();
+  } else {
+    // End of deck
+    if(confirm(`已複習完 ${flashcardDeck.length} 張卡片! 重新開始嗎?`)){
+      // Reshuffle
+      for(let i = flashcardDeck.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [flashcardDeck[i], flashcardDeck[j]] = [flashcardDeck[j], flashcardDeck[i]];
+      }
+      flashcardIndex = 0;
+      flashcardFlipped = false;
+      renderFlashcard();
+    } else {
+      closeFlashcardMode();
+    }
+  }
+}
+
+function prevFlashcard(){
+  if(flashcardIndex > 0){
+    flashcardIndex--;
+    flashcardFlipped = false;
+    renderFlashcard();
+  }
 }
 
 function saveAiConfig(){
