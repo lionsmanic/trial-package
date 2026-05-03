@@ -96,6 +96,82 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .browser-add-btn.added{background:var(--purple);color:white;border-color:var(--purple);}
 .browser-empty{padding:40px 20px;text-align:center;color:#94a3b8;font-size:13px;}
 
+/* ===== 指引徽章 (NCCN / ESMO / 健保) ===== */
+.guide-badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;}
+.guide-badge{font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:5px;font-family:"JetBrains Mono",monospace;letter-spacing:0.02em;border:1px solid;display:inline-flex;align-items:center;gap:3px;line-height:1.4;}
+.guide-badge.nccn-1{color:#7c2d12;background:#fef3c7;border-color:#fbbf24;}
+.guide-badge.nccn-2a{color:#9a3412;background:#fed7aa;border-color:#fb923c;}
+.guide-badge.nccn-2b{color:#92400e;background:#fef3c7;border-color:#fbbf24;}
+.guide-badge.nccn-no{color:#64748b;background:#f1f5f9;border-color:#cbd5e1;}
+.guide-badge.esmo-y{color:#1e3a8a;background:#dbeafe;border-color:#60a5fa;}
+.guide-badge.esmo-no{color:#64748b;background:#f1f5f9;border-color:#cbd5e1;}
+.guide-badge.tw-y{color:#065f46;background:#d1fae5;border-color:#34d399;}
+.guide-badge.tw-cond{color:#854d0e;background:#fef9c3;border-color:#facc15;}
+.guide-badge.tw-no{color:#64748b;background:#f1f5f9;border-color:#cbd5e1;}
+
+/* In modal version - 較大 */
+.guide-badges-large{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 14px;}
+.guide-badges-large .guide-badge{font-size:11px;padding:4px 10px;}
+
+/* ===== PDF 匯出 / 列印增強 ===== */
+.export-btn-floating{position:fixed;bottom:24px;left:24px;z-index:140;display:none;align-items:center;gap:6px;padding:10px 16px;border-radius:50px;border:none;background:white;color:#0c1f3d;font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.18);}
+.export-btn-floating:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,0,0,0.22);}
+.export-btn-floating.show{display:inline-flex;}
+
+.print-only{display:none;}
+.print-meta{padding:14px 20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;margin-bottom:14px;font-size:11.5px;color:#475569;}
+.print-meta strong{color:#0c1f3d;}
+
+@media print{
+  /* 列印通用設定 */
+  @page{size:A4;margin:1.5cm 1.2cm;}
+  body{background:white !important;color:black !important;font-size:11pt;}
+
+  /* 隱藏所有非列印內容 */
+  .site-header, .compare-control, .floating-compare, .export-btn-floating,
+  .ai-input-tabs, .ai-input-pane, .ai-action-row, .ai-config-btn,
+  .modal-close, .ai-modal-bg, .browser-add-btn,
+  body.print-mode-compare .stage-section,
+  body.print-mode-compare .ai-section,
+  body.print-mode-compare section[style*="background:linear-gradient(135deg,#1e293b"],
+  body.print-mode-ai .stage-section,
+  body.print-mode-ai section[style*="background:linear-gradient(135deg,#1e293b"],
+  body.print-mode-ai .ai-section .ai-header > button,
+  body.print-mode-ai .ai-section .ai-input-tabs,
+  body.print-mode-ai .ai-section .ai-input-pane,
+  body.print-mode-ai .ai-section .ai-action-row,
+  body.print-mode-trials .ai-section,
+  body.print-mode-trials .compare-control,
+  body.print-mode-trials section[style*="background:linear-gradient(135deg,#1e293b"]{
+    display:none !important;
+  }
+
+  .print-only{display:block !important;}
+
+  /* AI 結果列印優化 */
+  .ai-section{background:white !important;color:black !important;padding:0 !important;border-radius:0 !important;page-break-inside:auto;}
+  .ai-result-pane{background:white !important;color:black !important;box-shadow:none !important;border:none !important;padding:0 !important;display:block !important;}
+  .ai-result-section{page-break-inside:avoid;}
+  .ai-result-section h3{color:#0c1f3d !important;font-size:14pt;border-bottom:2px solid #cbd5e1;}
+  .ai-result-section .ai-content{font-size:11pt;color:#1a202c;}
+  .ai-trial-suggestion{background:#f8fafc !important;border-left:3px solid #10b981 !important;page-break-inside:avoid;}
+
+  /* 試驗詳細 modal 列印 (若開啟) */
+  .detail-overlay.open{position:static !important;background:white !important;display:block !important;backdrop-filter:none !important;padding:0 !important;}
+  .detail-overlay.open .detail-modal{box-shadow:none !important;border-radius:0 !important;page-break-inside:auto;}
+
+  /* 比較表列印 */
+  .compare-modal.open{position:static !important;background:white !important;display:block !important;backdrop-filter:none !important;padding:0 !important;}
+  .compare-modal.open .compare-content{box-shadow:none !important;border-radius:0 !important;max-height:none !important;}
+  .compare-table th, .compare-table td{font-size:9pt !important;padding:6px 8px !important;}
+
+  /* 試驗卡列印 */
+  .trial-card{break-inside:avoid;box-shadow:none !important;border:1px solid #cbd5e1 !important;}
+
+  /* 隱藏 AI 推薦試驗的 hover */
+  .ai-trial-suggestion:hover{transform:none !important;}
+}
+
 /* AI 患者分析區 */
 .ai-section{margin-top:32px;background:linear-gradient(135deg,#0c1f3d,#1e3a8a);border-radius:16px;padding:24px;color:white;}
 .ai-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
@@ -452,16 +528,6 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
   .ai-input-pane{padding:9px;}
 }
 
-/* ===== 印刷模式 (列印報告時隱藏 UI 元素) ===== */
-@media print{
-  .site-header, .compare-control, .floating-compare, .stage-section,
-  .ai-input-tabs, .ai-input-pane, .ai-action-row, .ai-config-btn,
-  #browserList, .browser-cancer-header, .ai-section .ai-header > .ai-config-btn{
-    display:none !important;
-  }
-  .ai-result-pane{display:block !important;background:white !important;color:black !important;box-shadow:none !important;border:1px solid #ccc;page-break-inside:avoid;}
-  body{background:white;}
-}
 </style>
 </head>
 <body>
@@ -572,9 +638,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
             <div id="browserCountLabel" style="font-size:11px;color:rgba(255,255,255,0.55);font-family:'JetBrains Mono',monospace;margin-top:2px;">— 個試驗</div>
           </div>
         </div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.6);font-family:'JetBrains Mono',monospace;">
-          全試驗清單可搜尋 · 跨癌別瀏覽
-        </div>
+        <button onclick="printTrialList()" title="列印或匯出當前篩選結果 PDF" style="padding:7px 13px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:white;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;">
+          <span>🖨</span><span>列印 / PDF</span>
+        </button>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <select id="browserCancerFilter" onchange="browserFilter()" style="flex:1;min-width:130px;padding:9px 12px;border-radius:9px;border:none;background:rgba(255,255,255,0.13);color:white;font-size:12px;font-weight:600;cursor:pointer;">
@@ -762,6 +828,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     <button class="modal-close" onclick="closeDetail(null,true)">✕</button>
     <div class="modal-title" id="mTitle"></div>
     <div class="modal-meta" id="mMeta"></div>
+    <div id="mGuideBadges"></div>
     <div id="mFactGrid"></div>
 
     <div class="m-section"><div class="m-label"><span class="icon">🎯</span>核心結論 Key Results</div><div class="m-result" id="mResult"></div></div>
@@ -788,6 +855,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     <div class="compare-head">
       <h2>⚖️ 試驗多面向比較</h2>
       <div class="actions">
+        <button onclick="printCompareResult()" title="列印或匯出 PDF">🖨 列印 / PDF</button>
         <button onclick="clearSelection();renderCompareTable();">🗑 清空</button>
         <button onclick="closeCompareModal()">✕ 關閉</button>
       </div>
@@ -4285,6 +4353,59 @@ function emptyHTML(){
   return '<div style="grid-column:1/-1;padding:30px;text-align:center;color:#94a3b8;font-size:13px;background:#fafafa;border-radius:12px;border:1px dashed #cbd5e0;">此分區暫無試驗 — 後續擴充中</div>';
 }
 
+// ============================================================
+// 指引徽章解析 (NCCN / ESMO / 台灣健保)
+// ============================================================
+function parseGuidelineBadges(guideline){
+  if(!guideline) return [];
+  const text = guideline;
+  const badges = [];
+
+  // NCCN 解析
+  if(/NCCN.*Category\s*1\b/i.test(text) || /NCCN.*Cat\s*1\b/i.test(text)){
+    badges.push({type:'nccn', cls:'nccn-1', label:'📕 NCCN-1', tip:'NCCN Category 1: 高證據強度,一致共識推薦'});
+  } else if(/NCCN.*Category\s*2A\b/i.test(text) || /NCCN.*Cat\s*2A\b/i.test(text)){
+    badges.push({type:'nccn', cls:'nccn-2a', label:'📕 NCCN-2A', tip:'NCCN Category 2A: 較低證據,但 NCCN 一致共識'});
+  } else if(/NCCN.*Category\s*2B\b/i.test(text) || /NCCN.*Cat\s*2B\b/i.test(text)){
+    badges.push({type:'nccn', cls:'nccn-2b', label:'📕 NCCN-2B', tip:'NCCN Category 2B: 較低證據,NCCN 共識度低'});
+  } else if(/NCCN.*已納入|NCCN.*推薦|NCCN.*認可|NCCN.*接受/i.test(text)){
+    badges.push({type:'nccn', cls:'nccn-2a', label:'📕 NCCN', tip:'NCCN 已納入指引 (詳見 guideline 內容)'});
+  } else if(/未進入指引|尚未納入指引|不被推薦/i.test(text) && /NCCN/i.test(text)){
+    badges.push({type:'nccn', cls:'nccn-no', label:'📕 NCCN✗', tip:'未進入 NCCN 指引或不被推薦'});
+  } else if(/NCCN/i.test(text)){
+    badges.push({type:'nccn', cls:'nccn-2a', label:'📕 NCCN', tip:'有 NCCN 提及'});
+  }
+
+  // ESMO 解析
+  if(/ESMO.*推薦|ESMO.*已納入|ESMO.*認可|ESMO.*接受|ESMO.*Category\s*1/i.test(text)){
+    badges.push({type:'esmo', cls:'esmo-y', label:'📘 ESMO', tip:'ESMO 指引已推薦 / 認可'});
+  } else if(/ESMO.*一致|ESMO.*\d{4}/i.test(text)){
+    badges.push({type:'esmo', cls:'esmo-y', label:'📘 ESMO', tip:'ESMO 指引有提及'});
+  }
+
+  // 台灣健保解析
+  if(/台灣健保.*已給付|台灣.*已給付|健保.*已給付/i.test(text)){
+    badges.push({type:'tw', cls:'tw-y', label:'🟢 健保', tip:'台灣健保已給付'});
+  } else if(/部分有條件給付|部分給付|有條件給付/i.test(text)){
+    badges.push({type:'tw', cls:'tw-cond', label:'🟡 健保·條件', tip:'台灣健保有條件給付 (限族群/條件)'});
+  } else if(/台灣.*待後續審議|台灣.*尚未|健保.*未涵蓋|台灣.*off-label|台灣.*自費/i.test(text)){
+    badges.push({type:'tw', cls:'tw-no', label:'⚪ 健保✗', tip:'台灣健保未給付 / 自費 / off-label'});
+  } else if(/台灣食藥署.*核准|台灣.*已核准/i.test(text) && !/健保/.test(text)){
+    badges.push({type:'tw', cls:'tw-cond', label:'🟡 食藥署', tip:'台灣食藥署已核准 (健保狀態未明)'});
+  }
+
+  return badges;
+}
+
+function renderGuideBadges(t, large){
+  const badges = parseGuidelineBadges(t.guideline);
+  if(!badges.length) return '';
+  const cls = large ? 'guide-badges-large' : 'guide-badges';
+  return `<div class="${cls}">${badges.map(b =>
+    `<span class="guide-badge ${b.cls}" title="${escapeHtml(b.tip)}">${b.label}</span>`
+  ).join('')}</div>`;
+}
+
 function cardHTML(t){
   const isOng = t.status === 'ongoing';
   const isSel = selectedTrials.has(t.id);
@@ -4299,6 +4420,7 @@ function cardHTML(t){
       <span class="trial-tag tag-pharma">${t.pharma}</span>
       ${t.outcomes && t.outcomes.includes('HR') ? '<span class="trial-tag tag-result">含完整數據</span>' : ''}
     </div>
+    ${renderGuideBadges(t, false)}
   </div>`;
 }
 
@@ -4380,6 +4502,9 @@ function showDetail(id){
     <span class="modal-pill pill-pharma">🏢 ${t.pharma}</span>
     <span class="modal-pill pill-nct">🔗 ${t.nct||'—'}</span>
   `;
+
+  // Guideline badges (large version)
+  el('mGuideBadges').innerHTML = renderGuideBadges(t, true);
 
   // Fact grid
   el('mFactGrid').innerHTML = `
@@ -4923,6 +5048,7 @@ function renderAiResult(text){
   const recommendedCount = mentionedTrialIds.size;
   html += `<div style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:14px;flex-wrap:wrap;">
     ${recommendedCount >= 2 ? `<button onclick="aiAddRecommendedToCompare(${JSON.stringify(Array.from(mentionedTrialIds)).replace(/"/g,'&quot;')})" style="padding:7px 13px;border-radius:7px;border:1.5px solid #7c3aed;background:white;color:#7c3aed;font-size:11.5px;font-weight:700;cursor:pointer;">⚖️ 將推薦試驗加入比較 (${Math.min(recommendedCount,4)})</button>` : ''}
+    <button onclick="printAiResult()" style="padding:7px 13px;border-radius:7px;border:1.5px solid #e2e8f0;background:white;color:#475569;font-size:11.5px;font-weight:700;cursor:pointer;">🖨 列印 / PDF</button>
     <button onclick="copyAiResult()" style="padding:7px 13px;border-radius:7px;border:1.5px solid #e2e8f0;background:white;color:#475569;font-size:11.5px;font-weight:700;cursor:pointer;">📋 複製結果</button>
     <button onclick="clearAiResult()" style="padding:7px 13px;border-radius:7px;border:1.5px solid #e2e8f0;background:white;color:#475569;font-size:11.5px;font-weight:700;cursor:pointer;">🗑 清除</button>
   </div>`;
@@ -4971,6 +5097,200 @@ function clearAiResult(){
   el('aiResultPane').classList.remove('show');
   el('aiResultPane').innerHTML = '';
   window._aiLastResultRaw = '';
+}
+
+// ============================================================
+// PDF 匯出 / 列印功能
+// ============================================================
+function getCurrentTimestamp(){
+  const d = new Date();
+  return `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+function injectPrintHeader(title, meta){
+  // Remove old print headers
+  document.querySelectorAll('.print-header-injected').forEach(n => n.remove());
+
+  const header = document.createElement('div');
+  header.className = 'print-only print-header-injected';
+  header.style.cssText = 'padding:16px 0 12px;border-bottom:2px solid #0c1f3d;margin-bottom:18px;';
+  header.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <span style="font-size:22px;">🩺</span>
+      <div>
+        <div style="font-size:14pt;font-weight:800;color:#0c1f3d;">婦癌臨床試驗導航系統</div>
+        <div style="font-size:9pt;color:#64748b;font-family:monospace;">${escapeHtml(title)}</div>
+      </div>
+    </div>
+    <div class="print-meta" style="margin-top:8px;font-size:9pt;color:#475569;">
+      <strong>產生時間:</strong> ${escapeHtml(getCurrentTimestamp())} ${meta ? ' · ' + escapeHtml(meta) : ''}
+    </div>
+    <div style="font-size:8.5pt;color:#94a3b8;margin-top:6px;font-style:italic;">
+      ⚠️ 本文件僅供臨床參考,不可取代專業醫療判斷。
+    </div>
+  `;
+  return header;
+}
+
+function injectPrintFooter(){
+  const footer = document.createElement('div');
+  footer.className = 'print-only print-header-injected';
+  footer.style.cssText = 'padding:14px 0 0;margin-top:18px;border-top:1px solid #cbd5e1;font-size:9pt;color:#64748b;';
+  footer.innerHTML = `
+    <div>資料來源: Published trial results · ClinicalTrials.gov · NCCN v2.2026 · ESMO 2024-2025</div>
+    <div style="margin-top:4px;">本系統涵蓋 ${TRIALS.length} 個試驗 (EC ${TRIALS.filter(t=>(t.cancer||'EC')==='EC').length} / OC ${TRIALS.filter(t=>t.cancer==='OC').length} / CC ${TRIALS.filter(t=>t.cancer==='CC').length} / US ${TRIALS.filter(t=>t.cancer==='US').length})</div>
+  `;
+  return footer;
+}
+
+function setPrintMode(mode){
+  document.body.classList.remove('print-mode-compare', 'print-mode-ai', 'print-mode-trials');
+  if(mode) document.body.classList.add('print-mode-' + mode);
+}
+
+// === 1. 列印比較結果 ===
+function printCompareResult(){
+  if(selectedTrials.size < 2){
+    alert('請先選取至少 2 個試驗再列印');
+    return;
+  }
+  const trialNames = Array.from(selectedTrials).map(id => {
+    const t = TRIALS.find(x => x.id === id);
+    return t ? t.name : id;
+  }).join(' vs ');
+
+  setPrintMode('compare');
+
+  const cmpModal = el('cmpModal');
+  const oldHeader = cmpModal.querySelector('.print-header-injected');
+  if(oldHeader) oldHeader.remove();
+  cmpModal.querySelector('.compare-content').insertBefore(
+    injectPrintHeader('多試驗比較報告', `比較試驗: ${trialNames}`),
+    cmpModal.querySelector('.compare-head')
+  );
+  cmpModal.querySelector('.compare-content').appendChild(injectPrintFooter());
+
+  setTimeout(() => {
+    window.print();
+    // Cleanup after print dialog
+    setTimeout(() => {
+      setPrintMode(null);
+      document.querySelectorAll('.print-header-injected').forEach(n => n.remove());
+    }, 1000);
+  }, 100);
+}
+
+// === 2. 列印 AI 分析結果 ===
+function printAiResult(){
+  if(!window._aiLastResultRaw){
+    alert('沒有可列印的 AI 分析結果');
+    return;
+  }
+
+  setPrintMode('ai');
+
+  const aiSection = document.querySelector('.ai-section');
+  const oldHeader = document.querySelector('.print-header-injected');
+  if(oldHeader) oldHeader.remove();
+
+  // Get patient input summary
+  let patientSummary = '';
+  if(aiCurrentInputMode === 'text'){
+    const txt = el('aiTextInput').value.trim();
+    if(txt) patientSummary = txt.split('\n').slice(0,2).join(' / ').slice(0, 80) + (txt.length > 80 ? '…' : '');
+  } else if(aiCurrentInputMode === 'form'){
+    const items = [];
+    if(el('formCancer').value) items.push(el('formCancer').value);
+    if(el('formStage').value) items.push(el('formStage').value);
+    if(el('formMolecular').value) items.push(el('formMolecular').value);
+    patientSummary = items.join(' / ');
+  } else {
+    patientSummary = '影像/報告分析';
+  }
+
+  aiSection.insertBefore(injectPrintHeader('AI 患者臨床路徑分析報告', patientSummary), aiSection.firstChild);
+  aiSection.appendChild(injectPrintFooter());
+
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => {
+      setPrintMode(null);
+      document.querySelectorAll('.print-header-injected').forEach(n => n.remove());
+    }, 1000);
+  }, 100);
+}
+
+// === 3. 列印試驗清單 (依當前篩選) ===
+function printTrialList(){
+  const filtered = browserGetFiltered();
+  if(!filtered.length){
+    alert('當前篩選結果為空,無可列印內容');
+    return;
+  }
+
+  setPrintMode('trials');
+
+  // Build a temporary printable version with full info
+  const cancerLabels = {'EC':'🔴 子宮內膜癌','OC':'🟣 卵巢癌','CC':'🟠 子宮頸癌','US':'🔵 子宮肉瘤'};
+  const stageLabels = {'P-TX':'初治','P-MT':'維持','R-TX':'復發','R-MT':'復後維持'};
+
+  // Filter description
+  const filterDesc = [];
+  if(el('browserCancerFilter').value) filterDesc.push('癌別=' + cancerLabels[el('browserCancerFilter').value]);
+  if(el('browserStageFilter').value) filterDesc.push('分期=' + stageLabels[el('browserStageFilter').value]);
+  if(el('browserStatusFilter').value) filterDesc.push('狀態=' + (el('browserStatusFilter').value === 'ongoing' ? '進行中' : '已發表'));
+  const q = el('browserSearchInput').value.trim();
+  if(q) filterDesc.push('搜尋="' + q + '"');
+  const filterStr = filterDesc.length ? filterDesc.join(' · ') : '無篩選 (全部)';
+
+  // Group trials by cancer
+  const grouped = {};
+  filtered.forEach(t => {
+    const c = t.cancer || 'EC';
+    if(!grouped[c]) grouped[c] = [];
+    grouped[c].push(t);
+  });
+
+  let html = '<div class="print-only print-header-injected" id="trialListPrintWrap" style="padding:0;">';
+  html += injectPrintHeader('試驗清單報告', `共 ${filtered.length} 個試驗 · ${filterStr}`).outerHTML;
+
+  for(const c of ['EC','OC','CC','US']){
+    if(!grouped[c]) continue;
+    html += `<div style="margin-bottom:16px;page-break-inside:auto;">
+      <h2 style="font-size:13pt;color:#0c1f3d;margin-bottom:8px;padding:6px 10px;background:#f1f5f9;border-radius:6px;">${cancerLabels[c]} · ${grouped[c].length} 個試驗</h2>`;
+
+    for(const t of grouped[c]){
+      const phaseStr = t.phase.map(p => stageLabels[p] || p).join(' / ');
+      const statusEmoji = t.status === 'ongoing' ? '📍 進行中' : '📚 已發表';
+      const subcatStr = Array.isArray(t.subcat) ? t.subcat.join('/') : (t.subcat || '');
+      const badges = parseGuidelineBadges(t.guideline);
+      const badgeHtml = badges.map(b => `<span style="font-size:8pt;padding:1px 5px;border:1px solid #cbd5e1;border-radius:3px;margin-right:3px;">${b.label}</span>`).join('');
+
+      html += `<div style="margin-bottom:10px;padding:8px 11px;border:1px solid #cbd5e1;border-radius:6px;page-break-inside:avoid;font-size:9.5pt;line-height:1.5;">
+        <div style="font-weight:800;color:#0c1f3d;font-size:10.5pt;">${escapeHtml(t.name)} <span style="font-weight:500;color:#64748b;font-size:8.5pt;">${statusEmoji} · ${phaseStr}${subcatStr ? ' · ' + subcatStr : ''}</span></div>
+        <div style="color:#475569;font-size:9pt;margin-top:2px;"><strong>藥物:</strong> ${escapeHtml(t.drug || '—')} · <strong>藥廠:</strong> ${escapeHtml(t.pharma || '—')} · <strong>NCT:</strong> ${escapeHtml(t.nct || '—')}</div>
+        <div style="color:#1a202c;font-size:9pt;margin-top:3px;">${escapeHtml(t.tagline || '')}</div>
+        ${badgeHtml ? `<div style="margin-top:4px;">${badgeHtml}</div>` : ''}
+      </div>`;
+    }
+    html += '</div>';
+  }
+
+  html += injectPrintFooter().outerHTML;
+  html += '</div>';
+
+  // Append to body so it renders for printing
+  const oldWrap = el('trialListPrintWrap');
+  if(oldWrap) oldWrap.remove();
+  document.body.insertAdjacentHTML('beforeend', html);
+
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => {
+      setPrintMode(null);
+      document.querySelectorAll('.print-header-injected').forEach(n => n.remove());
+    }, 1000);
+  }, 100);
 }
 
 function aiAddRecommendedToCompare(trialIds){
