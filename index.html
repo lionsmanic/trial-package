@@ -38,6 +38,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-config.has-key{border-color:#10b981;background:rgba(16,185,129,0.15);color:#6ee7b7;}
 .header-btn-ai{background:linear-gradient(135deg,#10b981,#06b6d4);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(16,185,129,0.3);}
 .header-btn-ai:hover{box-shadow:0 4px 16px rgba(16,185,129,0.45);}
+.header-btn-mol{background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(124,58,237,0.3);}
+.header-btn-mol:hover{box-shadow:0 4px 16px rgba(124,58,237,0.45);}
 @media(max-width:640px){
   .hide-on-mobile{display:none;}
   .header-actions{gap:6px;}
@@ -310,6 +312,81 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 
   /* 隱藏 AI 推薦試驗的 hover */
   .ai-trial-suggestion:hover{transform:none !important;}
+}
+
+/* 🧬 分子分型百科 Modal */
+.mol-pedia-modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.88);z-index:560;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.mol-pedia-modal-bg.open{display:flex;}
+.mol-pedia-modal-content{background:white;max-width:1100px;width:100%;max-height:92vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
+.mol-pedia-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.mol-pedia-close:hover{background:white;transform:scale(1.05);}
+
+.mol-pedia-header{background:linear-gradient(135deg,#581c87,#7c3aed);color:white;padding:22px 26px 0;flex-shrink:0;}
+.mol-pedia-title-wrap{display:flex;align-items:center;gap:14px;padding-right:50px;margin-bottom:18px;}
+.mol-pedia-icon{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.mol-pedia-title{font-size:18px;font-weight:800;letter-spacing:.02em;}
+.mol-pedia-subtitle{font-size:11.5px;color:rgba(255,255,255,0.7);font-family:"JetBrains Mono",monospace;margin-top:3px;line-height:1.4;}
+.mol-pedia-tabs{display:flex;gap:6px;}
+.mol-tab{padding:11px 20px;background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.65);font-size:13px;font-weight:700;cursor:pointer;border-radius:9px 9px 0 0;font-family:inherit;transition:all 0.15s;}
+.mol-tab:hover{background:rgba(255,255,255,0.16);color:white;}
+.mol-tab.active{background:white;color:#581c87;font-weight:800;}
+
+.mol-pedia-body{display:flex;flex:1;overflow:hidden;}
+
+.mol-pedia-list{width:320px;flex-shrink:0;background:#faf5ff;border-right:1px solid #e9d5ff;overflow-y:auto;padding:16px 14px;}
+.mol-framework{background:white;border-radius:10px;padding:11px 13px;margin-bottom:14px;border-left:4px solid #7c3aed;}
+.mol-fw-title{font-size:11px;font-weight:800;color:#581c87;font-family:"JetBrains Mono",monospace;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:5px;}
+.mol-fw-desc{font-size:11.5px;color:#475569;line-height:1.55;}
+.mol-entries{display:flex;flex-direction:column;gap:6px;}
+.mol-entry-btn{text-align:left;background:white;border:2px solid transparent;border-radius:10px;padding:10px 12px;cursor:pointer;transition:all 0.15s;font-family:inherit;}
+.mol-entry-btn:hover{border-color:#c4b5fd;transform:translateX(2px);}
+.mol-entry-btn.active{background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;border-color:#7c3aed;}
+.mol-entry-name{font-size:13px;font-weight:800;color:#0c1f3d;margin-bottom:3px;line-height:1.3;}
+.mol-entry-btn.active .mol-entry-name{color:white;}
+.mol-entry-freq{font-size:10.5px;color:#64748b;font-family:"JetBrains Mono",monospace;line-height:1.4;}
+.mol-entry-btn.active .mol-entry-freq{color:rgba(255,255,255,0.85);}
+
+.mol-pedia-detail{flex:1;overflow-y:auto;padding:22px 26px;background:white;}
+.mol-detail-header{margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #f1f5f9;}
+.mol-detail-header h3{font-size:20px;font-weight:800;color:#581c87;margin:0 0 12px;line-height:1.3;}
+.mol-detail-meta{display:flex;flex-direction:column;gap:6px;}
+.mol-meta-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#1a202c;line-height:1.5;}
+.mol-meta-label{font-size:11px;font-weight:800;color:#7c3aed;font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:0.05em;flex-shrink:0;min-width:50px;padding-top:1px;}
+
+.mol-detail-section{margin-bottom:18px;}
+.mol-detail-section h4{font-size:13.5px;font-weight:800;color:#0c1f3d;margin:0 0 9px;display:flex;align-items:center;gap:6px;}
+.mol-bullets{margin:0;padding-left:24px;font-size:12.5px;line-height:1.7;color:#334155;}
+.mol-bullets li{margin-bottom:4px;}
+.mol-mechanism{background:#f8fafc;border-left:3px solid #7c3aed;padding:10px 13px;border-radius:0 8px 8px 0;font-size:12.5px;line-height:1.65;color:#334155;}
+
+.mol-trial-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.mol-trial-chip{background:white;border:1.5px solid #e9d5ff;color:#581c87;font-size:12px;font-weight:700;padding:7px 13px;border-radius:8px;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.mol-trial-chip:hover{background:#faf5ff;border-color:#a855f7;transform:translateY(-1px);box-shadow:0 2px 8px rgba(124,58,237,0.25);}
+
+.mol-takeaway{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #f59e0b;border-radius:11px;padding:13px 16px;font-size:13px;line-height:1.65;color:#78350f;margin-top:18px;}
+.mol-takeaway strong{color:#78350f;}
+
+@media(max-width:900px){
+  .mol-pedia-modal-content{max-height:96vh;border-radius:12px;}
+  .mol-pedia-body{flex-direction:column;}
+  .mol-pedia-list{width:100%;max-height:240px;border-right:none;border-bottom:1px solid #e9d5ff;}
+}
+
+@media(max-width:640px){
+  .mol-pedia-modal-bg{padding:0;}
+  .mol-pedia-modal-content{max-height:100vh;border-radius:0;}
+  .mol-pedia-header{padding:18px 18px 0;}
+  .mol-pedia-title-wrap{padding-right:42px;margin-bottom:14px;}
+  .mol-pedia-title{font-size:15px;}
+  .mol-pedia-subtitle{font-size:10.5px;}
+  .mol-pedia-icon{width:40px;height:40px;font-size:20px;}
+  .mol-tab{padding:9px 14px;font-size:11.5px;}
+  .mol-pedia-list{padding:13px;max-height:200px;}
+  .mol-pedia-detail{padding:18px;}
+  .mol-detail-header h3{font-size:17px;}
+  .mol-bullets{font-size:12px;padding-left:20px;}
+  .mol-mechanism{font-size:12px;}
+  .mol-trial-chip{font-size:11px;padding:6px 11px;}
 }
 
 /* AI 患者分析 Modal Wrapper */
@@ -799,6 +876,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="header-btn header-btn-config" id="aiConfigBtn" onclick="openAiConfig()" title="設定 Gemini API Key">
         <span>⚙️</span><span class="hide-on-mobile">API Key</span>
       </button>
+      <button class="header-btn header-btn-mol" onclick="openMolPedia()" title="開啟分子分型百科">
+        <span>🧬</span><span>分子分型</span>
+      </button>
       <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
         <span>🤖</span><span>AI 治療路徑</span>
       </button>
@@ -1061,6 +1141,32 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 
       <div class="ai-result-pane" id="aiResultPane"></div>
     </section>
+  </div>
+</div>
+
+<!-- ===== 🧬 分子分型百科 Modal ===== -->
+<div class="mol-pedia-modal-bg" id="molPediaModal" onclick="if(event.target.id==='molPediaModal')closeMolPedia()">
+  <div class="mol-pedia-modal-content">
+    <button class="mol-pedia-close" onclick="closeMolPedia()">✕</button>
+    <div class="mol-pedia-header">
+      <div class="mol-pedia-title-wrap">
+        <div class="mol-pedia-icon">🧬</div>
+        <div>
+          <div class="mol-pedia-title">婦癌分子分型百科</div>
+          <div class="mol-pedia-subtitle">考試 + 臨床雙用 · 4 大癌別分子分型 · 自動連結對應試驗</div>
+        </div>
+      </div>
+      <div class="mol-pedia-tabs">
+        <button class="mol-tab active" data-cancer="EC" onclick="switchMolTab('EC')">🔴 EC</button>
+        <button class="mol-tab" data-cancer="OC" onclick="switchMolTab('OC')">🟣 OC</button>
+        <button class="mol-tab" data-cancer="CC" onclick="switchMolTab('CC')">🟠 CC</button>
+        <button class="mol-tab" data-cancer="US" onclick="switchMolTab('US')">🔵 US</button>
+      </div>
+    </div>
+    <div class="mol-pedia-body">
+      <div class="mol-pedia-list" id="molList"></div>
+      <div class="mol-pedia-detail" id="molDetail"></div>
+    </div>
   </div>
 </div>
 
@@ -5517,6 +5623,555 @@ function openAiPathwayModal(){
 function closeAiPathwayModal(){
   el('aiPathwayModal').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// ============================================================
+// 分子分型百科 (Molecular Subtype Encyclopedia)
+// ============================================================
+const MOL_PEDIA = {
+  EC: {
+    title: '🔴 子宮內膜癌 EC',
+    framework: 'TCGA / ProMisE 4 分類框架',
+    description: '依分子特徵分為 4 大類, 預後與治療策略各異。2023 年 FIGO staging 已正式整合分子分型。',
+    entries: [
+      {
+        id: 'POLEm',
+        name: 'POLE 突變 (POLEm / POLE-ultramutated)',
+        frequency: '~7% (TCGA cohort)',
+        prognosis: '⭐⭐⭐⭐⭐ 預後最佳 (5年 OS >95%)',
+        examPoints: [
+          'POLE EDM (exonuclease domain mutation): exon 9-14 hotspot',
+          '極高突變負荷 (~232 mut/Mb), 但預後反而最佳',
+          '通常 endometrioid histology, 但可見於高度型態',
+          '2023 FIGO staging: POLEm 一律降為 Stage IA1m (regardless 解剖期)',
+          'PORTEC-4a: POLEm 不需 adjuvant therapy (de-escalation)',
+        ],
+        mechanism: '極高 neoantigen 負荷 → 強免疫反應 → 預後佳; 對 IO 反應極佳但通常不需要治療',
+        linkedTrials: ['rainbo-program', 'portec-4a', 'gy018', 'ruby-p1'],
+        keyTakeaway: '考點: POLEm 雖突變多但預後最佳, 是 EC de-escalation 的代表族群'
+      },
+      {
+        id: 'MMRd',
+        name: 'MMR-deficient (MMRd / MSI-H / dMMR)',
+        frequency: '~28% (TCGA), Lynch syndrome 占 ~2% 全 EC',
+        prognosis: '⭐⭐⭐ 中等預後; 化療反應較差但 IO 高度敏感',
+        examPoints: [
+          'MMR 蛋白缺失: MLH1, MSH2, MSH6, PMS2 (IHC 為 surrogate)',
+          'MLH1 promoter methylation 為最常見原因 (sporadic)',
+          'germline mutation = Lynch syndrome (~2%, 需基因諮詢)',
+          'PTEN, PIK3CA, PIK3R1 突變高頻',
+          'LVSI 較常見, 化療反應較差',
+          '對 IO 反應極佳 (ORR 40-60%) — KEYNOTE-158, GARNET',
+        ],
+        mechanism: 'MMR 缺失 → 微衛星不穩定 → 高 TMB + neoantigen → IO 高反應; PARPi 有限獲益',
+        linkedTrials: ['ruby-p1', 'gy018', 'attend', 'duo-e', 'keynote-c93', 'garnet', 'rainbo-program'],
+        keyTakeaway: '考點: dMMR + advanced/recurrent EC → 一線 IO+化療 (RUBY P1 / GY018), HR 0.28-0.30'
+      },
+      {
+        id: 'p53abn',
+        name: 'p53 abnormal (p53abn / Copy-Number-High)',
+        frequency: '~15% (TCGA), 但 serous histology 中 >85%',
+        prognosis: '⭐ 預後最差 (5年 OS ~50-60%, advanced 更差)',
+        examPoints: [
+          'TP53 突變 ~85%, IHC 三大模式: overexpression / 完全缺失 / cytoplasmic',
+          '73% 為 serous 形態 (TCGA Type II)',
+          '高頻 alterations: PIK3CA, FBXW7, PPP2R1A, CCNE1, MYC, ERBB2',
+          '較常見高齡, advanced stage',
+          'CCNE1 amp 為 PARPi 抗藥指標',
+          'HER2+ 亞族群: T-DXd 有效 (DESTINY-PanTumor02)',
+        ],
+        mechanism: 'TP53 失活 → 染色體不穩定 → 高 SCNA → 預後差; 部分有 HRD 可考慮 PARPi (DUO-E Arm 3)',
+        linkedTrials: ['gy018', 'ruby-p1', 'duo-e', 'duo-e-maint', 'destiny-pantumor02', 'utola'],
+        keyTakeaway: '考點: p53abn = 預後最差; 治療需強化 (DUO-E Arm 3 chemo+IO+PARPi); HER2+ subset 用 T-DXd'
+      },
+      {
+        id: 'NSMP',
+        name: 'No Specific Molecular Profile (NSMP / Copy-Number-Low / p53wt)',
+        frequency: '~50% (最大族群)',
+        prognosis: '⭐⭐⭐⭐ 中上預後 (異質性高,需細分)',
+        examPoints: [
+          '排除性診斷: 不是 POLEm + 不是 MMRd + 不是 p53abn',
+          '通常 endometrioid histology, ER/PR+',
+          '較常 BMI 高 (mean 33.7)',
+          '進一步亞分類:',
+          '  • NSMP-CTNNB1m (~52%): 預後較佳, β-catenin exon 3',
+          '  • NSMP-PIK3CA/PTEN: 標準 NSMP',
+          '  • NSMP cluster C3: 高度型態, 預後較差',
+          'PORTEC-4a: NSMP-CTNNB1m 不需 adjuvant',
+        ],
+        mechanism: 'PI3K/AKT + Wnt/β-catenin 為主要 driver; ER/PR+ 為內分泌治療目標',
+        linkedTrials: ['rainbo-program', 'portec-4a', 'gy018', 'ruby-p1', 'duo-e'],
+        keyTakeaway: '考點: NSMP 異質性高, CTNNB1m 預後較好; ER+ 可用 hormonal therapy'
+      },
+    ]
+  },
+  OC: {
+    title: '🟣 卵巢癌 OC',
+    framework: 'HRD/HRR + Histology 雙軸分類',
+    description: 'HGSC 為主 (~70%), TP53 突變 100%。HRD 為關鍵 biomarker (50% HGSC), 決定 PARPi 反應。',
+    entries: [
+      {
+        id: 'BRCAm',
+        name: 'BRCA1/2 突變 (gBRCA + sBRCA)',
+        frequency: '~22% (germline ~15% + somatic ~7%)',
+        prognosis: '⭐⭐⭐⭐ 較佳預後; 鉑類強反應, PARPi 強烈獲益',
+        examPoints: [
+          'germline: 家族遺傳 (Lynch panel + BRCA1/2)',
+          'somatic: 腫瘤層級突變, 基因諮詢仍須做 germline confirm',
+          'BRCA1: 染色體 17q21, 較常 HGSC + 早發',
+          'BRCA2: 染色體 13q12, 有時年齡稍大',
+          '一線維持 PARPi: SOLO-1 (Olaparib), PRIMA, PAOLA-1 (+Bev)',
+          'PSOC 維持: SOLO2, NOVA, ARIEL3',
+          '篩檢: 所有 EOC 患者建議 germline + somatic 檢測',
+        ],
+        mechanism: 'BRCA1/2 失活 → DSB 修復缺陷 → synthetic lethality with PARPi → 細胞死亡',
+        linkedTrials: ['solo-1', 'paola-1', 'prima', 'solo2', 'nova', 'ariel3', 'duo-o'],
+        keyTakeaway: '考點: BRCAm = PARPi 強烈獲益族群; SOLO-1 是 BRCAm 一線維持 NCCN Cat 1'
+      },
+      {
+        id: 'HRD-pos',
+        name: 'HRD positive (Myriad GIS≥42)',
+        frequency: '~50% HGSC (含 BRCAm 22% + non-BRCA HRR)',
+        prognosis: '⭐⭐⭐⭐ 較佳, 鉑類敏感, PARPi 中度獲益',
+        examPoints: [
+          'Myriad myChoice CDx: GIS = LOH + TAI + LST 三項合分',
+          'GIS ≥42 為 PARPi 篩選標準 (PRIMA, PAOLA-1)',
+          'BRCAwt 但 HRD+ (~28%): "BRCAness" phenotype',
+          'PAOLA-1: HRD+ HR 0.33; HRD- 不獲益',
+          'PRIMA: HRD+ HR 0.43, 全人群 HR 0.62',
+          'FoundationOne CDx 為替代測試 (LOH-only)',
+        ],
+        mechanism: 'HRR pathway 缺陷 (BRCA + ATM, PALB2, RAD51 等) → 累積基因組 scars → PARPi 敏感',
+        linkedTrials: ['paola-1', 'prima', 'duo-o', 'ariel3'],
+        keyTakeaway: '考點: HRD+ 含 BRCA + 其他 HRR; PAOLA-1 (+Bev) 為 HRD+ 一線維持代表'
+      },
+      {
+        id: 'HRD-neg',
+        name: 'HRD negative (HRP / HRD-)',
+        frequency: '~50% HGSC',
+        prognosis: '⭐⭐ 較差; PARPi 反應差, unmet need',
+        examPoints: [
+          'GIS <42 (Myriad)',
+          'PARPi 維持 PFS 改善有限 (PAOLA-1: HRD- 無顯著差異)',
+          'CCNE1 amplification: HRD- 中常見, PARPi 強抗藥',
+          '一線維持選擇: Bev only (GOG-218, ICON7)',
+          '正在測試: TroFuse-021 (sac-TMT for HRP), DESTINY-Ovarian01 (T-DXd+Bev for HER2+ HRP)',
+        ],
+        mechanism: 'HRR 完整 → 鉑類反應較弱, PARPi 抗性; 治療仰賴 ADC + IO + Bev',
+        linkedTrials: ['gog-0218', 'icon7', 'trofuse-021', 'destiny-ovarian01', 'mirasol', 'keynote-b96'],
+        keyTakeaway: '考點: HRP 為 unmet need; 一線 Bev only, 復發 PROC 用 ADC (Mirvetuximab) 或 IO+chemo'
+      },
+      {
+        id: 'HRRm',
+        name: 'HRR 基因突變 (non-BRCA)',
+        frequency: '~10-15% (BRCA wt 中 ~22% 仍 HRD+)',
+        prognosis: '⭐⭐⭐ 較佳, 鉑類敏感',
+        examPoints: [
+          '11-gene panel (Myriad reference): ATM, BARD1, BRIP1, CHEK1, CHEK2, FANC, MRE11A, NBN, PALB2, RAD51C, RAD51D',
+          'PALB2: BRCAness 最強的 non-BRCA 基因',
+          'RAD51C/D: 卵巢癌 risk gene',
+          'ATM, BRIP1: 較弱 PARPi 反應 (vs BRCA)',
+          '所有患者建議 panel testing (含 BRCA + HRR)',
+        ],
+        mechanism: 'HRR pathway 部分缺失 → BRCAness phenotype → 鉑類 + PARPi 中度反應',
+        linkedTrials: ['paola-1', 'solo2', 'nova', 'prima'],
+        keyTakeaway: '考點: HRRm 為 "BRCAness", 包含於 HRD+ 內; 不同基因效力不同 (PALB2 > ATM)'
+      },
+      {
+        id: 'CCNE1',
+        name: 'CCNE1 amplification',
+        frequency: '~15-20% HGSC (HRD- 為主)',
+        prognosis: '⭐⭐ 較差, PARPi 抗藥',
+        examPoints: [
+          'Cyclin E1 (CCNE1) 基因擴增',
+          'HRD 互斥: CCNE1 amp 與 BRCA mut 通常不共存',
+          'PARPi 強抗藥 (HRD- 子群)',
+          '臨床試驗中: WEE1 inhibitor (adavosertib), CDK2 inhibitor',
+          '尚無 standard targeted therapy',
+        ],
+        mechanism: 'Cyclin E 過度表現 → S phase 進入失控 → replication stress → WEE1/CDK2 為合成致死標靶',
+        linkedTrials: [],
+        keyTakeaway: '考點: CCNE1 amp = PARPi 抗藥標記; 為 HRD- 中 unmet need'
+      },
+      {
+        id: 'HGSC',
+        name: 'High-Grade Serous (HGSC)',
+        frequency: '~70% 全 EOC',
+        prognosis: '⭐⭐⭐ 中等; 鉑類敏感但易復發',
+        examPoints: [
+          'TP53 mutation 100% (定義標準)',
+          'Fallopian tube fimbria 起源 (STIC lesion)',
+          '一半起源於輸卵管, 早期手術: 雙側 BSO + omentectomy',
+          'WT-1 IHC+, PAX-8+, p53 異常',
+          'BRCA + HRD 主要族群',
+          '化療: carbo + paclitaxel ± Bev (一線)',
+        ],
+        mechanism: 'TP53 失活 → 染色體不穩定; HRD 為亞分類; 鉑類仰賴 platinum-DNA damage',
+        linkedTrials: ['solo-1', 'paola-1', 'prima', 'gog-0218', 'icon7', 'mirasol'],
+        keyTakeaway: '考點: HGSC = OC 主類; TP53 100%; HRD 分流決定 PARPi 使用'
+      },
+      {
+        id: 'OCCC',
+        name: '透明細胞癌 (OCCC / Clear Cell)',
+        frequency: '~10% (西方), 亞洲較高 (~15-25%)',
+        prognosis: '⭐⭐ 早期可治, 但 advanced 鉑類抗藥, 預後差',
+        examPoints: [
+          'ARID1A mutation ~50%, PIK3CA mutation ~50%',
+          'WT-1 IHC negative (與 HGSC 區別關鍵)',
+          'Napsin A+, HNF-1β+',
+          'Endometriosis 相關 (ARID1A 為連結)',
+          '常合併血栓 (高 thrombosis risk)',
+          'Hyperglycemia, hypercalcemia 副現象',
+          '鉑類抗藥 → 二線 IO 較有反應 (PD-L1 expression 偏高)',
+        ],
+        mechanism: 'ARID1A 缺失 → 表觀遺傳調控異常; PIK3CA 過度活化 → mTOR 訊號',
+        linkedTrials: ['dove', 'nrg-gy019', 'jgog3017', 'meoc-gog0241'],
+        keyTakeaway: '考點: OCCC 鉑類抗藥, IO 反應較佳; 本院 DOVE 試驗 (Dostar ± Bev) 收案中'
+      },
+      {
+        id: 'LGSC',
+        name: 'Low-Grade Serous (LGSC)',
+        frequency: '~5% 全 EOC',
+        prognosis: '⭐⭐ 緩慢進展, 但化療抗藥',
+        examPoints: [
+          'KRAS / BRAF / NRAS 突變',
+          'TP53 wildtype (與 HGSC 區別)',
+          '年輕族群多 (mean 45-50)',
+          'MEK 抑制劑為標靶選擇 (Trametinib, GOG-281)',
+          'Hormonal therapy (letrozole) 中度有效',
+          '化療反應差但緩慢進展',
+        ],
+        mechanism: 'RAS-MAPK pathway 過度活化 → MEK 為標靶',
+        linkedTrials: ['gog-281', 'ramp-201', 'gog-3026'],
+        keyTakeaway: '考點: LGSC + KRAS/BRAFm → Trametinib (MEK 抑制劑); GOG-281 confirms'
+      },
+    ]
+  },
+  CC: {
+    title: '🟠 子宮頸癌 CC',
+    framework: 'HPV 型別 + 組織學 + 分子標記',
+    description: 'HPV 為主要 driver (>95%); HPV16/18 為主, HPV45 在腺癌重要。PD-L1, HER2, TROP2 為近年新興標靶。',
+    entries: [
+      {
+        id: 'HPV16',
+        name: 'HPV16',
+        frequency: 'SCC 46-63%, 腺癌 26-36%',
+        prognosis: '⭐⭐⭐ 預後相對較好 (相對其他 HPV 型)',
+        examPoints: [
+          'HPV16 = 鱗癌主要病因',
+          '快速進展風險 (HSIL→SCC)',
+          'E6/E7 → p53 + Rb 降解',
+          '九價疫苗涵蓋 (Gardasil-9)',
+          '本院 PVX4 試驗: HPV16+ CIN2/3 治療性疫苗',
+          'TIL 治療 (Lifileucel) 對 HPV16+ R/M CC 有效',
+        ],
+        mechanism: 'E6 → p53 ubiquitin 降解; E7 → Rb 失活 → 細胞週期失控',
+        linkedTrials: ['pvx4', 'keynote-826', 'beatcc', 'keynote-a18'],
+        keyTakeaway: '考點: HPV16 鱗癌主因; 快速進展; Gardasil-9 涵蓋; 本院 PVX4 試驗'
+      },
+      {
+        id: 'HPV18',
+        name: 'HPV18',
+        frequency: 'SCC 10-14%, 腺癌 31-37% (主要型!)',
+        prognosis: '⭐⭐ 較差預後; 篩檢易遺漏 (位於 transformation zone 上方)',
+        examPoints: [
+          'HPV18 = 腺癌主要病因 (>30%)',
+          'SCC 中第二常見',
+          '篩檢盲區 (endocervical glandular)',
+          '九價疫苗涵蓋',
+          'AIS+ glandular lesion 高風險族群',
+          '50 歲以上女性 SCC 風險增加',
+        ],
+        mechanism: '同 HPV16 (E6/E7), 但傾向感染 endocervical columnar cells → 腺癌',
+        linkedTrials: ['keynote-826', 'beatcc', 'keynote-a18'],
+        keyTakeaway: '考點: HPV18 為腺癌主因 (~37%), 篩檢易遺漏'
+      },
+      {
+        id: 'HPV45',
+        name: 'HPV45',
+        frequency: 'SCC 2-8%, 腺癌 5-13%',
+        prognosis: '⭐⭐ 較差預後',
+        examPoints: [
+          'HPV18 phylogenetic 親緣 (alpha-7 species)',
+          '腺癌中第三常見 type',
+          'HPV16+18+45 = 腺癌 ~94%',
+          '九價疫苗涵蓋',
+          '可能更易在 endocervix 持續感染',
+        ],
+        mechanism: '與 HPV18 機制類似, alpha-7 species',
+        linkedTrials: [],
+        keyTakeaway: '考點: HPV16+18+45 涵蓋 ~94% 腺癌; HPV45 為 alpha-7 species'
+      },
+      {
+        id: 'PD-L1',
+        name: 'PD-L1 expression (CPS)',
+        frequency: '~70% R/M CC (CPS≥1)',
+        prognosis: '⭐⭐⭐ IO 適用族群',
+        examPoints: [
+          'CPS = (PD-L1+ tumor + immune cells) / total tumor cells × 100',
+          'CPS≥1 為 KEYNOTE-826 / KEYNOTE-A18 標準',
+          'KEYNOTE-826 全人群獲益, PD-L1+ 顯著',
+          'PD-L1+ subset 與 HPV16/18 status 相關',
+          'Pembrolizumab 為 anchor IO (與 Bev + chemo combo)',
+        ],
+        mechanism: 'PD-L1 上調 → T cell 抑制; anti-PD-1/PD-L1 解除 → 抗腫瘤免疫',
+        linkedTrials: ['keynote-826', 'beatcc', 'keynote-a18', 'empower-cervical-1', 'evolve-cervical', 'trofuse-036'],
+        keyTakeaway: '考點: PD-L1 CPS≥1 → KEYNOTE-826/A18 標準 IO; 全 CC 70% 適用'
+      },
+      {
+        id: 'HER2',
+        name: 'HER2 amplification / overexpression',
+        frequency: '~3-5% (腺癌中 ~5-10%)',
+        prognosis: '⭐⭐ 通常較差但可標靶',
+        examPoints: [
+          'IHC 3+ 或 ISH amp 為標準',
+          '腺癌中較高',
+          'T-DXd (Trastuzumab Deruxtecan) 對 HER2+ pan-tumor 有效',
+          'DESTINY-PanTumor02: HER2+ CC ORR ~50%',
+          'FDA 2024 給予 T-DXd HER2+ pan-tumor 指引',
+        ],
+        mechanism: 'HER2 過度表現 → ErbB signaling 過度活化 → ADC 標靶 + bystander effect',
+        linkedTrials: ['destiny-pantumor02'],
+        keyTakeaway: '考點: HER2+ CC 用 T-DXd (FDA 2024 pan-tumor approval)'
+      },
+      {
+        id: 'TROP2',
+        name: 'TROP2 expression',
+        frequency: '~95% CC (高表現)',
+        prognosis: '取決於治療反應',
+        examPoints: [
+          'Trophoblast cell surface antigen 2',
+          'CC 中廣泛高表現',
+          'sac-TMT (Sacituzumab Tirumotecan) 為新 ADC',
+          '本院 TroFuse-036 試驗: PD-L1+ + TROP2+ R/M CC 1L 維持',
+          '與 Pembrolizumab combo',
+        ],
+        mechanism: 'TROP2 → ADC binding → 內化 → topoisomerase-I 抑制',
+        linkedTrials: ['trofuse-036'],
+        keyTakeaway: '考點: TROP2 在 CC 廣泛高表現; sac-TMT 為新 ADC, 本院在收案'
+      },
+      {
+        id: 'PIK3CA',
+        name: 'PIK3CA mutation',
+        frequency: '~38% CC (鱗癌中較高)',
+        prognosis: '⭐⭐ 較差預後',
+        examPoints: [
+          'PI3K-AKT-mTOR pathway 過度活化',
+          '與 HPV 共同 driver',
+          'PI3K inhibitor 試驗中 (alpelisib 等)',
+          '可能影響 IO 反應',
+          '尚無 standard targeted therapy',
+        ],
+        mechanism: 'PI3K p110α 過度活化 → AKT/mTOR → 增殖訊號',
+        linkedTrials: [],
+        keyTakeaway: '考點: PIK3CA mut ~38% CC, 為預後較差指標; 標靶治療在試驗中'
+      },
+      {
+        id: 'CIN23',
+        name: 'CIN2/3 (高度上皮內贅瘤)',
+        frequency: '~50,000-100,000 cases/yr (Taiwan)',
+        prognosis: '⭐⭐⭐⭐⭐ Pre-invasive, 治療後預後極佳',
+        examPoints: [
+          'CIN2 = moderate dysplasia, CIN3 = severe / CIS',
+          'p16/Ki-67 雙染色為輔助診斷',
+          '標準: LEEP / cone biopsy',
+          '本院 PVX4 試驗: HPV16+ CIN2/3 治療性 DNA 疫苗 (非手術)',
+          '懷孕 / fertility-sparing 考量',
+          'HPV genotyping 影響 management',
+        ],
+        mechanism: 'HPV 持續感染 → E6/E7 持續表現 → 細胞週期失控 → 累積突變 → 浸潤癌',
+        linkedTrials: ['pvx4'],
+        keyTakeaway: '考點: CIN2/3 為侵犯前病變; LEEP 為標準; 本院 PVX4 為非手術疫苗選項'
+      },
+    ]
+  },
+  US: {
+    title: '🔵 子宮肉瘤 US',
+    framework: '組織學亞型 + 分子變異',
+    description: '罕見 (<5% 子宮惡性), 預後差, 化療反應有限。LMS 為主要亞型 (~63%), ESS 次之。',
+    entries: [
+      {
+        id: 'LMS',
+        name: 'Leiomyosarcoma (LMS)',
+        frequency: '~63% 全 US (子宮肉瘤中最常見)',
+        prognosis: '⭐⭐ 預後差 (5年 OS ~50% Stage I, advanced <30%)',
+        examPoints: [
+          'TP53 mutation, RB1 loss, ATRX mutation',
+          '無 MED12 突變 (與 leiomyoma 區別)',
+          'Mitosis ≥10/10 HPF + necrosis + cytologic atypia 三項中 2 項以上',
+          '預後差: 早期高復發率',
+          '一線: Doxorubicin ± Olaratumab (但 Olaratumab failed Phase III)',
+          '二線: Trabectedin, Pazopanib, Eribulin, Gemcitabine+Docetaxel',
+          'NTRK fusion 罕見但 targetable',
+        ],
+        mechanism: 'TP53/RB1 缺失 → 染色體不穩定 → 高度型態; 無已知統一 driver',
+        linkedTrials: ['gog-0277', 'eortc-55874', 'palette', 'lms-04', 'eribulin-vs-dacarbazine'],
+        keyTakeaway: '考點: LMS = US 主類; TP53/RB1/ATRX; 化療為基礎, 二線標靶選擇'
+      },
+      {
+        id: 'ESS',
+        name: 'Endometrial Stromal Sarcoma (ESS)',
+        frequency: '~10% 全 US',
+        prognosis: 'low-grade ESS ⭐⭐⭐⭐, high-grade ESS ⭐ 差',
+        examPoints: [
+          'Low-grade ESS: JAZF1-SUZ12 fusion, ER/PR+',
+          'High-grade ESS: BCOR fusion, YWHAE-NUTM2 fusion',
+          'CD10+ IHC (cells 似 endometrial stroma)',
+          'Hormonal therapy (Letrozole, Megestrol) 對 LG-ESS 有效',
+          'High-grade ESS 預後差, 治療仰賴化療',
+          'PARP/HDAC inhibitor 試驗中',
+        ],
+        mechanism: 'Fusion gene 為主 driver; LG-ESS 仰賴 ER signaling, HG-ESS 仰賴 fusion-driven oncogene',
+        linkedTrials: ['paragon', 'letrozole-ngess'],
+        keyTakeaway: '考點: LG-ESS = JAZF1-SUZ12 + ER+ → 內分泌治療; HG-ESS = BCOR/YWHAE → 化療'
+      },
+      {
+        id: 'uLMS-hormonal',
+        name: 'ER/PR+ uLMS subset',
+        frequency: '~30-40% LMS (ER/PR 表現)',
+        prognosis: '⭐⭐⭐ 較佳預後, 內分泌治療反應',
+        examPoints: [
+          'ER+ / PR+ 表現約 30-40%',
+          'Aromatase inhibitor (Letrozole) 反應率 ~10-20%',
+          '更年期前 / 後均適用',
+          '較常見於停經前年輕女性',
+          '通常與 hormonal exposure 相關',
+        ],
+        mechanism: '受 estrogen signaling 推動 → AI 阻斷雌激素合成 → 抑制生長',
+        linkedTrials: [],
+        keyTakeaway: '考點: ER+ uLMS 用 Letrozole; PFS 中度延長'
+      },
+      {
+        id: 'NTRK-fusion',
+        name: 'NTRK fusion (rare US)',
+        frequency: '<1% (但 panel testing 重要)',
+        prognosis: '⭐⭐⭐⭐ Larotrectinib/Entrectinib 反應極佳',
+        examPoints: [
+          'NTRK1/2/3 fusion (TPM3, ETV6 為 partner)',
+          'Pan-tumor agnostic indication',
+          'Larotrectinib ORR ~75% pan-tumor',
+          'Entrectinib similar',
+          'NGS panel 必含 NTRK fusion',
+          '可考慮 paediatric oncology refer',
+        ],
+        mechanism: 'TRK 受體酪氨酸激酶 fusion → 持續活化 → 增殖訊號',
+        linkedTrials: ['ntrk-basket'],
+        keyTakeaway: '考點: NTRK fusion 罕見但極治療反應; 所有 sarcoma 應 panel test'
+      },
+    ]
+  },
+};
+
+let currentMolTab = 'EC';
+let currentMolEntry = 0;
+
+function openMolPedia(){
+  el('molPediaModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  switchMolTab(currentMolTab);
+}
+
+function closeMolPedia(){
+  el('molPediaModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchMolTab(cancer){
+  currentMolTab = cancer;
+  currentMolEntry = 0;
+  // Update tab buttons
+  document.querySelectorAll('.mol-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.cancer === cancer);
+  });
+  // Render list and detail
+  renderMolList();
+  selectMolEntry(0);
+}
+
+function renderMolList(){
+  const data = MOL_PEDIA[currentMolTab];
+  const list = el('molList');
+  list.innerHTML = `
+    <div class="mol-framework">
+      <div class="mol-fw-title">${data.framework}</div>
+      <div class="mol-fw-desc">${data.description}</div>
+    </div>
+    <div class="mol-entries">
+      ${data.entries.map((e, idx) => `
+        <button class="mol-entry-btn ${idx === currentMolEntry ? 'active' : ''}" onclick="selectMolEntry(${idx})">
+          <div class="mol-entry-name">${escapeHtml(e.name)}</div>
+          <div class="mol-entry-freq">${escapeHtml(e.frequency)}</div>
+        </button>
+      `).join('')}
+    </div>
+  `;
+}
+
+function selectMolEntry(idx){
+  currentMolEntry = idx;
+  // Update list active state
+  document.querySelectorAll('.mol-entry-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === idx);
+  });
+  // Render detail
+  const data = MOL_PEDIA[currentMolTab];
+  const entry = data.entries[idx];
+  if(!entry) return;
+
+  // Build linked trials section
+  let linkedHtml = '';
+  if(entry.linkedTrials && entry.linkedTrials.length){
+    const trialChips = entry.linkedTrials.map(tid => {
+      const t = TRIALS.find(x => x.id === tid);
+      if(!t) return '';
+      const statusEmoji = t.status === 'ongoing' ? '📍' : '📚';
+      const siteIndicator = t.siteInfo ? '🏥' : '';
+      return `<button class="mol-trial-chip" onclick="closeMolPedia(); setTimeout(() => showDetail('${t.id}'), 100);">
+        ${statusEmoji} ${siteIndicator} ${escapeHtml(t.name)}
+      </button>`;
+    }).filter(Boolean).join('');
+    linkedHtml = `
+      <div class="mol-detail-section">
+        <h4>🎯 對應臨床試驗 (點擊查看詳情)</h4>
+        <div class="mol-trial-chips">${trialChips || '<span style="color:#94a3b8;font-size:12px;">尚無資料庫匹配試驗</span>'}</div>
+      </div>
+    `;
+  } else {
+    linkedHtml = `
+      <div class="mol-detail-section">
+        <h4>🎯 對應臨床試驗</h4>
+        <div style="color:#94a3b8;font-size:12px;font-style:italic;">尚無資料庫匹配試驗 (此分子分型主要為診斷/預後概念)</div>
+      </div>
+    `;
+  }
+
+  el('molDetail').innerHTML = `
+    <div class="mol-detail-header">
+      <h3>${escapeHtml(entry.name)}</h3>
+      <div class="mol-detail-meta">
+        <div class="mol-meta-row"><span class="mol-meta-label">📊 頻率</span><span>${escapeHtml(entry.frequency)}</span></div>
+        <div class="mol-meta-row"><span class="mol-meta-label">📈 預後</span><span>${escapeHtml(entry.prognosis)}</span></div>
+      </div>
+    </div>
+
+    <div class="mol-detail-section">
+      <h4>📚 考試重點</h4>
+      <ul class="mol-bullets">
+        ${entry.examPoints.map(p => `<li>${escapeHtml(p)}</li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="mol-detail-section">
+      <h4>⚙️ 機制與藥物標靶</h4>
+      <div class="mol-mechanism">${escapeHtml(entry.mechanism)}</div>
+    </div>
+
+    ${linkedHtml}
+
+    <div class="mol-takeaway">
+      💡 <strong>${escapeHtml(entry.keyTakeaway)}</strong>
+    </div>
+  `;
 }
 
 function saveAiConfig(){
