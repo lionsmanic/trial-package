@@ -112,6 +112,110 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 /* ===== 指引徽章 (NCCN / ESMO / 健保) ===== */
 .guide-badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;}
 
+/* ===== 分子分型徽章 (Molecular Subtypes) ===== */
+.mol-badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;}
+.mol-badge{font-size:9.5px;font-weight:800;padding:2px 8px;border-radius:5px;font-family:"JetBrains Mono",monospace;letter-spacing:0.02em;border:1px solid;display:inline-flex;align-items:center;gap:3px;line-height:1.4;}
+.mol-badges-large{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 14px;}
+.mol-badges-large .mol-badge{font-size:11px;padding:3px 11px;}
+
+/* EC molecular */
+.mol-badge.mol-pole{color:#5b21b6;background:#ede9fe;border-color:#a78bfa;}
+.mol-badge.mol-mmrd{color:#15803d;background:#dcfce7;border-color:#4ade80;}
+.mol-badge.mol-pmmr{color:#475569;background:#f1f5f9;border-color:#94a3b8;}
+.mol-badge.mol-p53abn{color:#991b1b;background:#fee2e2;border-color:#f87171;}
+.mol-badge.mol-nsmp{color:#9a3412;background:#fed7aa;border-color:#fb923c;}
+
+/* OC molecular */
+.mol-badge.mol-brcam{color:#7c2d12;background:#fef3c7;border-color:#fbbf24;}
+.mol-badge.mol-hrd-pos{color:#0e7490;background:#cffafe;border-color:#22d3ee;}
+.mol-badge.mol-hrd-neg{color:#374151;background:#e5e7eb;border-color:#9ca3af;}
+.mol-badge.mol-hrrm{color:#6b21a8;background:#f3e8ff;border-color:#c084fc;}
+.mol-badge.mol-hgsc{color:#1e40af;background:#dbeafe;border-color:#60a5fa;}
+.mol-badge.mol-occc{color:#0369a1;background:#e0f2fe;border-color:#38bdf8;}
+.mol-badge.mol-lgsc{color:#1e3a8a;background:#dbeafe;border-color:#93c5fd;}
+
+/* CC molecular */
+.mol-badge.mol-hpv16{color:#be123c;background:#ffe4e6;border-color:#fb7185;}
+.mol-badge.mol-hpv18{color:#9f1239;background:#ffe4e6;border-color:#f43f5e;}
+.mol-badge.mol-pdl1{color:#0f766e;background:#ccfbf1;border-color:#2dd4bf;}
+.mol-badge.mol-her2{color:#7c2d12;background:#ffedd5;border-color:#fb923c;}
+.mol-badge.mol-trop2{color:#92400e;background:#fef3c7;border-color:#facc15;}
+.mol-badge.mol-fra{color:#86198f;background:#fae8ff;border-color:#e879f9;}
+.mol-badge.mol-cdh6{color:#581c87;background:#f3e8ff;border-color:#a855f7;}
+.mol-badge.mol-cin{color:#831843;background:#fce7f3;border-color:#ec4899;}
+
+/* US sarcoma */
+.mol-badge.mol-lms{color:#365314;background:#ecfccb;border-color:#84cc16;}
+.mol-badge.mol-ess{color:#1e3a8a;background:#dbeafe;border-color:#3b82f6;}
+
+/* ===== 核心結論區塊 (Core Conclusion - exam + clinical) ===== */
+.core-conclusion-block{
+  background:linear-gradient(135deg,#fffbeb,#fef3c7);
+  border:2px solid #f59e0b;
+  border-radius:12px;
+  padding:16px 18px 14px;
+  margin:10px 0 16px;
+  position:relative;
+  box-shadow:0 4px 14px rgba(245,158,11,0.15);
+}
+.core-conclusion-block .cc-label{
+  position:absolute;
+  top:-10px;
+  left:14px;
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  color:white;
+  font-size:10px;
+  font-weight:800;
+  padding:3px 10px;
+  border-radius:50px;
+  font-family:"JetBrains Mono",monospace;
+  letter-spacing:0.05em;
+  box-shadow:0 2px 6px rgba(245,158,11,0.35);
+}
+.core-conclusion-block .cc-row{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin:8px 0;
+  font-size:13px;
+  line-height:1.65;
+  color:#1a202c;
+}
+.core-conclusion-block .cc-row:first-of-type{margin-top:6px;}
+.core-conclusion-block .cc-row .cc-icon{
+  flex-shrink:0;
+  font-size:16px;
+  line-height:1.3;
+}
+.core-conclusion-block .cc-row strong{
+  color:#78350f;
+  font-weight:800;
+  margin-right:3px;
+}
+
+@media(max-width:640px){
+  .core-conclusion-block{padding:14px 13px 12px;}
+  .core-conclusion-block .cc-row{font-size:12px;line-height:1.6;}
+  .core-conclusion-block .cc-row .cc-icon{font-size:14px;}
+  .core-conclusion-block .cc-label{font-size:9px;padding:2px 9px;left:11px;top:-9px;}
+  .mol-badges-large{gap:5px;margin:8px 0 12px;}
+  .mol-badges-large .mol-badge{font-size:10.5px;padding:3px 9px;}
+  .mol-badge{font-size:9px;padding:2px 6px;}
+}
+
+@media print{
+  .core-conclusion-block{
+    background:#fef9c3 !important;
+    border:2px solid #f59e0b !important;
+    box-shadow:none !important;
+    page-break-inside:avoid;
+  }
+  .core-conclusion-block .cc-label{
+    background:#d97706 !important;
+    color:white !important;
+  }
+}
+
 /* ===== 本院收案資訊區塊 (Hospital Site Enrollment - Modal Only) ===== */
 .site-info-block{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:2px solid #fca5a5;border-radius:12px;padding:14px 16px;margin:14px 0;}
 .site-info-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:#991b1b;margin-bottom:10px;}
@@ -993,6 +1097,8 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     <div class="modal-title" id="mTitle"></div>
     <div class="modal-meta" id="mMeta"></div>
     <div id="mGuideBadges"></div>
+    <div id="mMolBadges"></div>
+    <div id="mCoreConclusion"></div>
     <div id="mSiteInfo"></div>
     <div id="mFactGrid"></div>
 
@@ -4692,6 +4798,283 @@ function renderGuideBadges(t, large){
   ).join('')}</div>`;
 }
 
+// ============================================================
+// 分子分型徽章解析
+// ============================================================
+function parseMolecularTags(t){
+  const tags = [];
+  const seen = new Set();
+  const addTag = (label, cls, tip) => {
+    if(seen.has(label)) return;
+    seen.add(label);
+    tags.push({label, cls, tip});
+  };
+
+  // Combine all relevant text for pattern matching
+  const subcatStr = Array.isArray(t.subcat) ? t.subcat.join(' ') : (t.subcat || '');
+  const incStr = (t.inc || []).join(' ');
+  const histStr = t.hist || '';
+  const subgStr = t.subgroup || '';
+  const text = `${subcatStr} ${incStr} ${histStr} ${subgStr} ${t.tagline || ''}`;
+
+  // EC molecular subtypes (TCGA / ProMisE)
+  if(/POLE\s*(mut|m\b|EDM|ultramut)/i.test(text)) addTag('POLEm', 'mol-pole', 'POLE 突變 (~7% EC) — 預後最佳, 通常輕度治療即可');
+  if(/dMMR|MSI[-\s]?H|MMRd|MMR[-\s]?deficient|mismatch[-\s]repair/i.test(text)) addTag('dMMR', 'mol-mmrd', 'MMR-deficient / MSI-H — 免疫治療敏感族群');
+  if(/pMMR|MSS|MMR[-\s]?proficient/i.test(text)) addTag('pMMR', 'mol-pmmr', 'MMR-proficient / MSS — IO 反應較弱, 需 combo 策略');
+  if(/p53\s*ab(n|normal)|TP53\s*mut|p53\s*mut/i.test(text)) addTag('p53abn', 'mol-p53abn', 'p53 abnormal — EC 預後最差亞型');
+  if(/NSMP|no specific molecular profile|p53\s*wild|p53wt/i.test(text)) addTag('NSMP', 'mol-nsmp', 'No Specific Molecular Profile — 異質性, EC 最大族群 ~50%');
+
+  // OC HRD/BRCA
+  if(/BRCA\s*1\/2\s*m|BRCAm|gBRCA|sBRCA|BRCA\s*mut|germline BRCA|somatic BRCA/i.test(text)) addTag('BRCAm', 'mol-brcam', 'BRCA1/2 突變 (germline + somatic) — PARPi 強烈獲益');
+  if(/HRD\s*[+]|HRD[-\s]positive|HRD-pos|GIS\s*[≥>]\s*42|Myriad/i.test(text)) addTag('HRD+', 'mol-hrd-pos', 'HRD positive (含 BRCA + 其他 HRR 缺陷) — PARPi 適用');
+  if(/HRD\s*[-]|HRD[-\s]neg|HRP|HRD\s*proficient/i.test(text)) addTag('HRD-', 'mol-hrd-neg', 'HRD negative / HRP — PARPi 反應較弱, unmet need 族群');
+  if(/HRR\s*m|HRRm|homologous recombination repair/i.test(text)) addTag('HRRm', 'mol-hrrm', 'HRR 基因突變 (ATM, PALB2, RAD51, BRIP1 等)');
+
+  // OC histology subtypes
+  if(/HGSC|high[-\s]grade serous/i.test(text)) addTag('HGSC', 'mol-hgsc', 'High-Grade Serous (~70% OC) — TP53 mut 100%');
+  if(/clear[-\s]cell|OCCC|CCC/i.test(text) && t.cancer === 'OC') addTag('OCCC', 'mol-occc', '透明細胞癌 — ARID1A m, PIK3CA m, IO 較有反應');
+  if(/LGSC|low[-\s]grade serous/i.test(text)) addTag('LGSC', 'mol-lgsc', 'Low-Grade Serous — KRAS/BRAF/NRAS, MEK 抑制劑適用');
+
+  // CC HPV / biomarkers
+  if(/HPV\s*16/i.test(text)) addTag('HPV16+', 'mol-hpv16', 'HPV16 陽性 — 鱗癌主要病因');
+  if(/HPV\s*18/i.test(text)) addTag('HPV18+', 'mol-hpv18', 'HPV18 陽性 — 腺癌主要病因');
+  if(/PD[-\s]?L1\s*(CPS|≥|\+|positive)/i.test(text)) addTag('PD-L1+', 'mol-pdl1', 'PD-L1 CPS≥1 — IO 適用 (KEYNOTE-826/A18)');
+  if(/HER2\s*(amp|over[-\s]?express|3\+|2\+|1\+|positive|\+)/i.test(text)) addTag('HER2+', 'mol-her2', 'HER2 表現 — T-DXd 適用 (DESTINY)');
+  if(/TROP\s*2\s*\+|TROP2\s*positive/i.test(text)) addTag('TROP2+', 'mol-trop2', 'TROP2 表現 — sac-TMT (TroFuse) 適用');
+  if(/FR[αa]|folate receptor alpha|FOLR1|FRα\+/i.test(text)) addTag('FRα+', 'mol-fra', 'FRα 高表現 — Mirvetuximab (MIRASOL) 適用');
+  if(/CDH6/i.test(text)) addTag('CDH6+', 'mol-cdh6', 'CDH6 表現 — R-DXd 適用 (REJOICE/ENGOT-ov77)');
+
+  // US sarcoma
+  if(/LMS|leiomyosarcom/i.test(text)) addTag('LMS', 'mol-lms', '平滑肌肉瘤 — TP53/RB1/ATRX 高頻');
+  if(/ESS|endometrial stromal sarcom/i.test(text)) addTag('ESS', 'mol-ess', '子宮內膜間質肉瘤 — JAZF1-SUZ12, BCOR fusion');
+
+  // CIN
+  if(/CIN\s*[123]|cervical intraepithelial neoplasia/i.test(text)) addTag('CIN2/3', 'mol-cin', '子宮頸上皮內贅瘤 — 預防/治療性疫苗目標');
+
+  return tags;
+}
+
+function renderMolecularBadges(t, large){
+  const tags = parseMolecularTags(t);
+  if(!tags.length) return '';
+  const cls = large ? 'mol-badges-large' : 'mol-badges';
+  return `<div class="${cls}">${tags.map(tag =>
+    `<span class="mol-badge ${tag.cls}" title="${escapeHtml(tag.tip)}">${tag.label}</span>`
+  ).join('')}</div>`;
+}
+
+// ============================================================
+// 核心結論生成器 (考試 + 臨床雙用)
+// ============================================================
+
+// 精選試驗的高品質 coreConclusion (手寫版本)
+const CORE_CONCLUSIONS = {
+  'ruby-p1': {
+    summary: 'Dostarlimab + chemo → maintenance 改寫 advanced/recurrent EC 一線標準, dMMR 族群獲益最劇 (HR 0.28)',
+    exam: '【關鍵】Stage III/IV 或 first recurrence EC, 不論 MMR status; 一線 carbo/pacli + Dostar 6 cycles → Dostar 維持 3 年',
+    clinical: 'dMMR: 首選 RUBY P1 / GY018; pMMR 高風險可考慮 RUBY P2 (+Niraparib); 與 GY018 (Pembro) 同為 NCCN Cat 1'
+  },
+  'gy018': {
+    summary: 'Pembrolizumab + chemo 改寫 EC 一線標準, dMMR PFS HR 0.30, pMMR HR 0.54',
+    exam: '【關鍵】Stage III-IVA + measurable disease 或 IVB 或 first recurrence EC; carbo/pacli + Pembro → Pembro 維持',
+    clinical: '與 RUBY P1 (Dostar) 為兩大平行選項, 美國較常用 Pembro; NCCN Cat 1 不論 MMR'
+  },
+  'duo-e': {
+    summary: 'Durva + chemo → Durva 維持 ± Olaparib; pMMR + HRRm/p53m 用 3-arm 雙藥維持獲益最大',
+    exam: '【關鍵】Stage III/IV 或 first recurrence EC; 三臂設計拆解 PD-L1 vs PARPi 各自貢獻; pMMR Arm3 HR 0.57',
+    clinical: 'pMMR 高風險 (HRRm/p53m): 首選 Arm 3 (Durva+Olaparib); dMMR: Arm 2 已足夠'
+  },
+  'attend': {
+    summary: 'Atezolizumab + chemo → 維持; dMMR 強烈獲益 (HR 0.36), pMMR 不顯著',
+    exam: '【關鍵】Stage III-IVB 或 recurrent EC; dMMR 與 RUBY/GY018 一致, pMMR 結果較弱',
+    clinical: 'dMMR 為主要獲益族群; pMMR 建議改用 RUBY P1 / GY018 / DUO-E Arm 3'
+  },
+  'keynote-775': {
+    summary: 'Lenvatinib + Pembro 為 EC 二線新標準 (post-platinum), pMMR mPFS 6.6m vs 3.8m',
+    exam: '【關鍵】Advanced/recurrent EC, post-platinum; Lenva 20mg PO QD + Pembro 200mg Q3W; LEAP-001 一線測試中',
+    clinical: '二線首選 (尤其 pMMR); MSI-H 患者建議先用 dostarlimab/pembrolizumab 單藥'
+  },
+  'solo-1': {
+    summary: 'Olaparib 確立 BRCAm OC 一線維持標準, 7 年 PFS 持續獲益, OS HR 0.55',
+    exam: '【關鍵】BRCAm + Stage III/IV OC + 一線含鉑後 CR/PR; Olaparib 300mg bid × 24 個月',
+    clinical: 'BRCAm 首選 (NCCN Cat 1, 健保已給付); 與 PAOLA-1 (+Bev) 為 BRCAm 兩大選擇'
+  },
+  'paola-1': {
+    summary: 'Olaparib + Bev 維持改寫 BRCAm + HRD+ 一線標準, BRCAm OS HR 0.62',
+    exam: '【關鍵】Stage III/IV OC + 一線含鉑+Bev 後 CR/PR; Olaparib 24m + Bev 15m; 限 HRD+ 獲益',
+    clinical: 'HRD+ 首選 (含 BRCAm); HRD- 不獲益; 與 SOLO-1 並列 BRCAm 標準, 加 Bev 可額外收益'
+  },
+  'prima': {
+    summary: 'Niraparib 全人群 OC 一線維持 (不限 BRCA), HRD+ HR 0.43, HRD- HR 0.68',
+    exam: '【關鍵】Stage III/IV 高風險 (Stage IV 或殘餘病灶); 一線含鉑後 CR/PR; 個別化起始劑量 (IDS)',
+    clinical: '無 BRCA / 不確定 HRD 狀態的全人群選擇; HRD+ 獲益較佳; 與 PAOLA-1 互補'
+  },
+  'duo-o': {
+    summary: '化療 + Bev + Durva → Durva + Olaparib 三藥維持; non-BRCAm + HRD+ 為主要獲益',
+    exam: '【關鍵】Stage III/IV non-BRCAm OC; 一線 carbo/pacli + Bev + Durva → Durva + Olaparib 維持',
+    clinical: 'non-BRCAm + HRD+ 高風險族群; 與 PAOLA-1 競爭, 三藥成本高'
+  },
+  'nova': {
+    summary: 'Niraparib 全人群 PSOC 維持確立 (NCT01847274), gBRCAm HR 0.27, non-gBRCAm HR 0.45',
+    exam: '【關鍵】PSOC + ≥2 prior platinum; CR/PR; gBRCA / non-gBRCA / HRD 三層分析',
+    clinical: 'PSOC 維持 PARPi 全人群 evidence base, FDA 2017 批准; 後續因 OS 數據改限 BRCAm/HRD+'
+  },
+  'solo2': {
+    summary: 'Olaparib BRCAm PSOC 維持, BRCAm 限定設計, OS 趨勢 HR 0.74 (cross-over 校正後 HR 0.56)',
+    exam: '【關鍵】BRCAm PSOC + ≥2 prior platinum; Olaparib tablet 300mg bid; NCCN Cat 1 限 BRCAm',
+    clinical: 'BRCAm PSOC 維持首選; 與 ARIEL3 (LOH+) 互補; non-gBRCAm 改用 OPINION 證據'
+  },
+  'ariel3': {
+    summary: 'Rucaparib PSOC 維持, LOH+ 為分流 biomarker; BRCAm HR 0.23, BRCAwt LOH-high HR 0.44',
+    exam: '【關鍵】PSOC, ≥2 prior platinum; LOH score 16% 為分界; 後因 OS 數據撤回 PSOC 適應症 (2022)',
+    clinical: '歷史上重要 LOH 概念; 但 Rucaparib PSOC 適應症已撤回; 現實務以 SOLO2/NOVA 為主'
+  },
+  'study-19': {
+    summary: 'PARPi 維持治療開創性 PhII (n=265), Olaparib mPFS HR 0.35, 11% 患者用藥 >6 年',
+    exam: '【關鍵】PSOC + ≥2 prior platinum + CR/PR; 為所有後續 PSOC PARPi 試驗的基石',
+    clinical: '歷史地位重要 (NEJM 2012); 啟發 SOLO2, NOVA, ARIEL3 等後續設計'
+  },
+  'mirasol': {
+    summary: 'Mirvetuximab Soravtansine vs 化療 for FRα+ PROC, OS HR 0.67 — PROC 首個 ADC OS 改善',
+    exam: '【關鍵】FRα 高表現 (≥75%) PROC; Mirvetuximab 6mg/kg Q3W; 強制 FRα IHC 篩選',
+    clinical: 'FRα+ PROC 首選 (NCCN Cat 1, FDA 2024); 與 KEYNOTE-B96, ROSELLA 並列近年 PROC 三大突破'
+  },
+  'keynote-b96': {
+    summary: 'Pembro + weekly Pacli ± Bev 為 PROC 首個 IO+chemo 改善 OS 之 PhIII (HR ~0.82, OS 延長 4.2m PD-L1+)',
+    exam: '【關鍵】PROC + 1-2 prior lines; 打破 NINJA (IO 單藥) 陰影; 證實 IO+chemo 在 PROC 有效',
+    clinical: 'PROC 新標準選項 (FDA 2026); 與 MIRASOL (FRα ADC) 平行可考慮'
+  },
+  'rosella': {
+    summary: 'Relacorilant + nab-Pacli 為 PROC 全新機制 (GR 拮抗 + chemo) 改善 OS, 不依賴 biomarker',
+    exam: '【關鍵】PROC + 1-3 prior lines; Relacorilant 150mg PO + nab-Pacli weekly; FDA 2026 預期核准',
+    clinical: 'biomarker-naive PROC 選項; 與 ADC (MIRASOL) / IO+chemo (KEYNOTE-B96) 機制互補'
+  },
+  'aurelia': {
+    summary: 'Bev + 非鉑化療為 PROC 經典標準 (PFS HR 0.48), Pacli weekly subset 反應最佳',
+    exam: '【關鍵】PROC + 先前 ≤2 鉑類化療; Bev 10mg/kg Q2W + 化療; 為 KEYNOTE-B96 backbone 起源',
+    clinical: 'PROC 老標準 (>10 年); 現多被 KEYNOTE-B96 (加 Pembro) 取代'
+  },
+  'ninja': {
+    summary: 'Nivolumab 單藥在 PROC 不優於 Gem/PLD (HR 1.0), PFS 反差; IO 單藥失敗里程碑',
+    exam: '【關鍵】陰性結果; PROC IO 單藥不可作為標準; 啟發後續 IO+chemo combo 試驗',
+    clinical: '不推薦; 用 KEYNOTE-B96 (IO+chemo) 取代 IO 單藥概念'
+  },
+  'keynote-826': {
+    summary: 'Pembro + chemo ± Bev 為 1L R/M CC 標準, PD-L1+ OS 改善顯著 (HR 0.64)',
+    exam: '【關鍵】Persistent/recurrent/metastatic CC, 不可手術; PD-L1 CPS≥1 強化獲益',
+    clinical: '1L R/M CC 標準 (NCCN Cat 1, 健保已給付); 與 BEATcc (+Bev) 同等並列'
+  },
+  'beatcc': {
+    summary: 'Atezolizumab + carbo/pacli + Bev 為 1L R/M CC 第二個 PhIII OS 改善試驗 (HR 0.68)',
+    exam: '【關鍵】1L R/M CC; 不限 PD-L1; 4-drug regimen 為強化版 KEYNOTE-826',
+    clinical: '與 KEYNOTE-826 並列 1L R/M CC 標準, FDA 2024 核准, 健保已給付'
+  },
+  'innovatv-301': {
+    summary: 'Tisotumab Vedotin (Tissue Factor ADC) for 2L+ R/M CC, OS HR 0.70 vs 化療',
+    exam: '【關鍵】2L+ R/M CC, post-chemo+IO; TV 2.0mg/kg Q3W; 強制眼科共照',
+    clinical: 'CC 2L 首個 OS-improving ADC; FDA 2024 完整核准; 健保有條件給付'
+  },
+  'keynote-a18': {
+    summary: 'Pembro + CCRT for high-risk LACC, 3 年 OS 82.6% vs 74.8% (HR 0.67) — 改寫 LACC 標準',
+    exam: '【關鍵】FIGO 2014 III-IVA 或 IIIC1 LACC; CCRT + Pembro → Pembro 維持; PFS HR 0.72',
+    clinical: 'LACC 新標準 (NCCN Cat 1, FDA 2024, 健保已給付); 與 INTERLACE (induction) 互補'
+  },
+  'interlace': {
+    summary: 'Induction 化療 (carbo/pacli x6 weeks) → CCRT 改善 LACC 5 年 OS (80% vs 72%)',
+    exam: '【關鍵】FIGO 2008 IB1-IVA LACC; Induction CT 為短時間 (<7 週) 後接 CCRT',
+    clinical: 'NICE UK 已採用; NCCN Cat 2A; 與 KEYNOTE-A18 互補非競爭, 可序列使用'
+  },
+  'shape-trial': {
+    summary: 'Simple hysterectomy 不劣於 radical hysterectomy in low-risk early-stage CC (HR 0.78 for PFS)',
+    exam: '【關鍵】FIGO 2009 IA2-IB1 (≤2cm) low-risk CC; 簡單子宮切除 = 根除子宮切除',
+    clinical: '改寫早期 CC 手術標準 (NCCN Cat 1); 重要的 de-escalation 試驗'
+  },
+  'lacc-trial': {
+    summary: '腹腔鏡 vs 開腹 radical hysterectomy 為陰性 (DFS HR 3.74, OS HR 6.0), 微創劣於開腹',
+    exam: '【關鍵】Early-stage CC; 微創 (含腹腔鏡 + robotic) 不可接受; 改寫手術標準',
+    clinical: 'NCCN 已標明開腹為 standard; 重要的 surgical safety 警示試驗'
+  },
+  'ruby-p2': {
+    summary: 'Dostar + Niraparib + chemo → Dostar+Niraparib 維持; pMMR 主要族群獲益 (HR 0.60)',
+    exam: '【關鍵】Stage III/IV 或 first recurrence EC; 與 RUBY P1 (Dostar 單藥維持) 比較',
+    clinical: 'pMMR 高風險可考慮 (Niraparib 加成); dMMR Dostar 單藥已足夠 (RUBY P1)'
+  },
+  'duo-e-maint': {
+    summary: 'DUO-E 為三臂設計 (Arm1=化療, Arm2=+Durva 維持, Arm3=+Durva+Olaparib 維持)',
+    exam: '【關鍵】Arm 3 (Durva+Olaparib 維持) 在 pMMR 最大獲益 (HR 0.57)',
+    clinical: 'pMMR 高風險 (HRRm/p53m): 首選 Arm 3; dMMR: Arm 2 已足夠'
+  },
+  'utola': {
+    summary: 'Olaparib 單藥 EC 一線維持為陰性 (HR 0.94 NS); p53abn / HRD+ subgroup 仍有 trend',
+    exam: '【關鍵】陰性結果; PARPi 單藥不夠, 需 combo (DUO-E 證實 PD-L1+PARPi 才有效)',
+    clinical: '不推薦 Olaparib 單藥 EC 維持; 改用 DUO-E Arm 3 combo'
+  },
+  'gog-218': {
+    summary: 'Bev + chemo → Bev 維持為 OC 一線標準, ICON7 一致; Stage IV / 殘餘病灶獲益最大',
+    exam: '【關鍵】Stage III suboptimal 或 IV OC; Bev 15mg/kg Q3W maintenance 至 15 個月',
+    clinical: '高風險族群 (Stage IV / 殘餘) 標準; 與 PAOLA-1 (+Olaparib) 銜接強化維持'
+  },
+  'icon7': {
+    summary: '與 GOG-218 平行確認 Bev 維持價值, Stage IV / 殘餘病灶 OS 獲益顯著',
+    exam: '【關鍵】Stage I-IV OC; Bev 7.5mg/kg + 維持; Stage IV / 殘餘 OS HR 0.64',
+    clinical: 'Bev 維持的歐洲版證據, 與 GOG-218 互補確認標準'
+  }
+};
+
+function getCoreConclusion(t){
+  // 1. Use manual high-quality version if available
+  if(CORE_CONCLUSIONS[t.id]){
+    return CORE_CONCLUSIONS[t.id];
+  }
+
+  // 2. Auto-generate from existing fields
+  const summary = (t.tagline || '尚未撰寫').replace(/\s*\([^)]*\)\s*/g, ' ').trim();
+
+  // Extract key inclusion (first 2 critical items)
+  const incList = t.inc || [];
+  const examParts = [];
+  if(incList.length){
+    examParts.push(incList.slice(0, 2).join(', '));
+  }
+  // Add regimen brief
+  const regimenLine = t.regimen ? t.regimen.split('\n')[0].replace(/^.*?:\s*/, '') : '';
+  if(regimenLine && regimenLine.length < 100) examParts.push(regimenLine);
+  const exam = examParts.length ? examParts.join(' · ') : '參考下方詳細條件';
+
+  // Generate clinical application from guideline + status
+  let clinical = '';
+  if(t.status === 'ongoing'){
+    clinical = '招募中試驗,結果尚未公布';
+    if(t.siteInfo) clinical += ' · 本院主持人: ' + t.siteInfo.pi;
+  } else {
+    const guidelineBrief = (t.guideline || '').split('\n')[0].slice(0, 80);
+    clinical = guidelineBrief || '已發表試驗,參考下方指引狀態';
+  }
+
+  return {summary, exam, clinical};
+}
+
+function renderCoreConclusion(t){
+  const cc = getCoreConclusion(t);
+  return `
+    <div class="core-conclusion-block">
+      <div class="cc-label">⚡ 核心結論 · 30 秒看懂</div>
+      <div class="cc-row">
+        <span class="cc-icon">📌</span>
+        <div><strong>一句話結論:</strong> ${escapeHtml(cc.summary)}</div>
+      </div>
+      <div class="cc-row">
+        <span class="cc-icon">🎯</span>
+        <div><strong>考試重點:</strong> ${escapeHtml(cc.exam)}</div>
+      </div>
+      <div class="cc-row">
+        <span class="cc-icon">🏥</span>
+        <div><strong>臨床應用:</strong> ${escapeHtml(cc.clinical)}</div>
+      </div>
+    </div>
+  `;
+}
+
 function cardHTML(t){
   const isOng = t.status === 'ongoing';
   const isSel = selectedTrials.has(t.id);
@@ -4706,6 +5089,7 @@ function cardHTML(t){
       <span class="trial-tag tag-pharma">${t.pharma}</span>
       ${t.outcomes && t.outcomes.includes('HR') ? '<span class="trial-tag tag-result">含完整數據</span>' : ''}
     </div>
+    ${renderMolecularBadges(t, false)}
     ${renderGuideBadges(t, false)}
   </div>`;
 }
@@ -4791,6 +5175,12 @@ function showDetail(id){
 
   // Guideline badges (large version)
   el('mGuideBadges').innerHTML = renderGuideBadges(t, true);
+
+  // Molecular badges (large version)
+  el('mMolBadges').innerHTML = renderMolecularBadges(t, true);
+
+  // Core conclusion (3-line summary for exam + clinical)
+  el('mCoreConclusion').innerHTML = renderCoreConclusion(t);
 
   // Site info block (only if trial has siteInfo)
   if(t.siteInfo){
