@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>婦癌臨床試驗導航 · 擴充版 2026 (EC + OC)</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -256,12 +256,211 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 
 footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px;font-family:"JetBrains Mono",monospace;line-height:1.9;background:white;margin-top:30px;border-top:1px solid var(--border);}
 
+/* ==========================================================
+   響應式設計 (RWD)
+   ========================================================== */
+
+/* ===== Tablet (≤980px) ===== */
+@media(max-width:980px){
+  .page-content{padding:0 14px 100px;}
+  .header-inner{padding:12px 14px;}
+  .scope-badge{margin-left:0;font-size:10.5px;padding:4px 11px;}
+  .logo-title{font-size:15px;}
+  .logo-sub{font-size:10.5px;}
+
+  /* Trial card grid 變單列或雙列 */
+  .trial-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+
+  /* 比較 modal 內容寬度 */
+  .compare-content{max-width:96vw;}
+
+  /* AI form grid 縮窄 */
+  .ai-form-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;}
+}
+
+/* ===== Phone (≤640px) ===== */
 @media(max-width:640px){
-  .trial-grid{grid-template-columns:1fr;}
-  .compare-table{min-width:600px;}
-  .compare-content{max-height:100vh;border-radius:0;}
-  .criteria-grid{grid-template-columns:1fr;}
-  .floating-compare{bottom:16px;right:16px;padding:11px 18px;font-size:12.5px;}
+  body{font-size:14px;}
+  .page-content{padding:0 10px 90px;}
+
+  /* Header - 更緊湊 */
+  .site-header{padding:0;}
+  .header-inner{padding:10px 12px;gap:8px;}
+  .logo-icon{width:34px;height:34px;font-size:18px;}
+  .logo-title{font-size:13.5px;line-height:1.2;}
+  .logo-sub{font-size:9.5px;}
+  .scope-badge{font-size:9.5px;padding:3px 9px;}
+
+  /* 癌別切換按鈕 - 緊湊版 */
+  .cancer-picker{padding:10px 12px !important;gap:6px !important;flex-wrap:wrap;}
+  .cancer-pick{padding:7px 11px;font-size:11.5px;border-width:1.5px;flex:1;min-width:calc(50% - 4px);text-align:center;}
+
+  /* Stage bar - 縮排 */
+  .stage-bar{padding:11px 13px;gap:9px;border-radius:11px;margin-bottom:10px;}
+  .stage-bar > div:first-child{font-size:18px;}
+  .stage-bar > div:nth-child(2) > div:first-child{font-size:13.5px;}
+  .stage-bar > div:nth-child(2) > div:last-child{font-size:10.5px;}
+  .stage-bar .count-pill{font-size:10.5px;padding:3px 9px;}
+
+  /* Subcat tabs - 緊湊滑動 */
+  .subcat-tabs{padding:0 2px;gap:4px;margin-bottom:10px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;}
+  .subcat-tabs::-webkit-scrollbar{display:none;}
+  .subcat-tab{padding:6px 11px;font-size:11px;flex-shrink:0;white-space:nowrap;}
+  .subcat-tab .tab-count{font-size:9.5px;padding:1px 5px;}
+
+  /* Trial cards - 全寬, 緊湊 */
+  .trial-grid{grid-template-columns:1fr;gap:10px;}
+  .trial-card{padding:14px !important;}
+  .trial-card .trial-name{font-size:14px !important;}
+  .trial-card .trial-drug{font-size:11.5px !important;}
+  .trial-card .trial-tagline{font-size:11.5px !important;}
+  .trial-card .trial-status{font-size:9.5px !important;padding:2px 7px !important;}
+
+  /* Compare control - 直立排版 */
+  .compare-control{padding:13px 14px;gap:10px;flex-direction:column;align-items:stretch;}
+  .compare-toggle-btn{font-size:12.5px;padding:9px 16px;text-align:center;}
+  .compare-action{display:flex;gap:8px;width:100%;}
+  .compare-action button{flex:1;font-size:11.5px;padding:8px 12px;}
+
+  /* Floating compare button */
+  .floating-compare{bottom:14px;right:14px;padding:10px 16px;font-size:11.5px;}
+  .floating-compare .badge{width:21px;height:21px;font-size:11.5px;}
+
+  /* ===== Detail Modal - 手機全螢幕 ===== */
+  .detail-overlay{padding:0;align-items:flex-end;}
+  .detail-modal{max-width:100vw;max-height:96vh;border-radius:16px 16px 0 0;padding:18px 16px;overflow-y:auto;}
+  .modal-title{font-size:17px;padding-right:36px;}
+  .modal-meta{gap:5px;}
+  .modal-pill{font-size:10px;padding:2px 8px;}
+  .modal-close{top:12px;right:12px;width:32px;height:32px;font-size:16px;}
+
+  /* Detail fact grid - 1 欄 */
+  .fact-grid{grid-template-columns:1fr 1fr;gap:6px;}
+  .fact-cell{padding:7px 9px;}
+  .fact-cell .lbl{font-size:8.5px;}
+  .fact-cell .val{font-size:11.5px;}
+
+  /* Detail sections */
+  .m-section{margin-bottom:12px;}
+  .m-label{font-size:10.5px;}
+
+  /* Detail criteria grid - 1 欄 */
+  .criteria-grid{grid-template-columns:1fr;gap:10px;}
+
+  /* ===== Compare Modal - 橫向滑動表格 ===== */
+  .compare-modal{padding:0;}
+  .compare-content{max-height:100vh;border-radius:0;width:100vw;max-width:100vw;}
+  .compare-head{padding:13px 14px;flex-direction:column;align-items:flex-start;gap:8px;}
+  .compare-head h2{font-size:15px;}
+  .compare-head .actions{align-self:stretch;display:flex;gap:6px;}
+  .compare-head .actions button{flex:1;font-size:11px;padding:6px 10px;}
+  .compare-body{padding:0;}
+  .compare-table{font-size:11px;min-width:max(640px, 100%);}
+  .compare-table th, .compare-table td{padding:7px 9px;font-size:11px;line-height:1.55;}
+
+  /* ===== Trial browser ===== */
+  .browser-cancer-header{padding:8px 14px;font-size:10.5px;}
+  .browser-trial-row{padding:10px 14px;gap:10px;flex-direction:column;align-items:stretch;}
+  .browser-trial-row .b-name{font-size:12.5px;}
+  .browser-trial-row .b-name .b-cancer-tag{font-size:9.5px;padding:1px 6px;}
+  .browser-trial-row .b-drug{font-size:10.5px;}
+  .browser-trial-row .b-stage-tag{font-size:9.5px;padding:1.5px 6px;}
+  .browser-add-btn{font-size:10.5px;padding:5px 10px;align-self:flex-start;}
+
+  /* Browser filters - 直立排版 */
+  #browserCancerFilter, #browserStageFilter, #browserStatusFilter, #browserSearchInput{
+    flex:1 1 100% !important;
+    min-width:100% !important;
+    font-size:12px !important;
+    padding:10px 12px !important;
+  }
+
+  /* ===== AI section ===== */
+  .ai-section{padding:16px 14px;border-radius:13px;}
+  .ai-header{flex-direction:column;align-items:stretch;gap:10px;}
+  .ai-header-left{justify-content:flex-start;}
+  .ai-icon-circle{width:36px;height:36px;font-size:18px;}
+  .ai-title{font-size:14.5px;}
+  .ai-subtitle{font-size:9.5px;line-height:1.3;}
+  .ai-config-btn{font-size:11px;padding:7px 11px;align-self:flex-start;}
+
+  /* AI input tabs - 一列三等分緊湊 */
+  .ai-input-tabs{gap:5px;}
+  .ai-input-tab{padding:9px 8px;font-size:11px;min-width:0;}
+
+  /* AI input pane - 縮減 padding */
+  .ai-input-pane{padding:11px;}
+  .ai-input-pane textarea{padding:10px;font-size:13px;min-height:140px;}
+
+  /* AI form - 全寬欄位 */
+  .ai-form-grid{grid-template-columns:1fr;gap:9px;}
+  .ai-form-field label{font-size:10px;}
+  .ai-form-field select, .ai-form-field input{padding:9px 10px;font-size:13px;}
+
+  /* AI image drop area */
+  .ai-image-drop{padding:24px 14px;}
+  .ai-image-drop > div:first-of-type{font-size:32px;}
+  .ai-image-drop > div:nth-of-type(2){font-size:12px;}
+  .ai-image-drop > div:nth-of-type(3){font-size:10px;}
+
+  /* AI action row */
+  .ai-action-row{flex-direction:column;align-items:stretch;gap:10px;}
+  .ai-status-text{font-size:10px;text-align:center;}
+  .ai-analyze-btn{padding:12px 18px;font-size:13px;justify-content:center;}
+
+  /* AI result pane */
+  .ai-result-pane{padding:14px;border-radius:10px;margin-top:14px;}
+  .ai-result-section h3{font-size:13px;}
+  .ai-result-section .ai-content{font-size:12px;line-height:1.6;}
+  .ai-trial-suggestion{padding:9px 11px;font-size:11.5px;}
+  .ai-trial-suggestion .t-name{font-size:12.5px;}
+  .ai-trial-suggestion .t-rationale{font-size:11px;}
+
+  /* Result toolbar buttons - 一行 */
+  .ai-result-pane > div:first-child > button{font-size:10.5px !important;padding:6px 10px !important;}
+
+  /* AI config modal */
+  .ai-modal{padding:18px;max-width:94vw;}
+  .ai-modal h3{font-size:15px;}
+  .ai-modal .ai-modal-desc{font-size:11.5px;}
+  .ai-modal label{font-size:10.5px;}
+  .ai-modal input, .ai-modal select{font-size:13px;padding:9px 11px;}
+  .ai-modal-actions button{font-size:11.5px;padding:8px 14px;}
+}
+
+/* ===== Small phone (≤380px) - iPhone SE 等 ===== */
+@media(max-width:380px){
+  .header-inner{padding:9px 10px;}
+  .logo-title{font-size:12.5px;}
+  .logo-sub{font-size:9px;}
+
+  .cancer-pick{padding:6px 9px;font-size:10.5px;min-width:0;flex:1 1 calc(50% - 3px);}
+
+  .page-content{padding:0 8px 80px;}
+
+  .stage-bar{padding:9px 11px;}
+  .stage-bar > div:nth-child(2) > div:first-child{font-size:12.5px;}
+
+  .trial-card{padding:12px !important;}
+  .trial-card .trial-name{font-size:13px !important;}
+
+  /* AI input tabs - 直立 */
+  .ai-input-tabs{flex-direction:column;}
+  .ai-input-tab{width:100%;}
+
+  .ai-section{padding:14px 11px;}
+  .ai-input-pane{padding:9px;}
+}
+
+/* ===== 印刷模式 (列印報告時隱藏 UI 元素) ===== */
+@media print{
+  .site-header, .compare-control, .floating-compare, .stage-section,
+  .ai-input-tabs, .ai-input-pane, .ai-action-row, .ai-config-btn,
+  #browserList, .browser-cancer-header, .ai-section .ai-header > .ai-config-btn{
+    display:none !important;
+  }
+  .ai-result-pane{display:block !important;background:white !important;color:black !important;box-shadow:none !important;border:1px solid #ccc;page-break-inside:avoid;}
+  body{background:white;}
 }
 </style>
 </head>
@@ -281,7 +480,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 <div style="background:white;border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:74px;z-index:150;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
   <div style="max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
     <span style="font-size:11px;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.06em;">Step 1 · 選擇癌別</span>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <div class="cancer-picker" style="display:flex;gap:8px;flex-wrap:wrap;">
       <button class="cancer-pick active" data-cancer="EC" onclick="selectCancer('EC')">🔴 子宮內膜癌 EC</button>
       <button class="cancer-pick" data-cancer="OC" onclick="selectCancer('OC')">🟣 卵巢癌 OC</button>
       <button class="cancer-pick" data-cancer="CC" onclick="selectCancer('CC')">🟠 子宮頸癌 CC</button>
