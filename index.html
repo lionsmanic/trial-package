@@ -95,6 +95,63 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .browser-add-btn:hover{border-color:var(--purple);color:var(--purple);}
 .browser-add-btn.added{background:var(--purple);color:white;border-color:var(--purple);}
 .browser-empty{padding:40px 20px;text-align:center;color:#94a3b8;font-size:13px;}
+
+/* AI 患者分析區 */
+.ai-section{margin-top:32px;background:linear-gradient(135deg,#0c1f3d,#1e3a8a);border-radius:16px;padding:24px;color:white;}
+.ai-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.ai-header-left{display:flex;align-items:center;gap:12px;}
+.ai-icon-circle{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#10b981,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:22px;}
+.ai-title{font-size:17px;font-weight:800;}
+.ai-subtitle{font-size:11px;color:rgba(255,255,255,0.6);font-family:"JetBrains Mono",monospace;margin-top:2px;}
+.ai-config-btn{padding:8px 14px;border-radius:9px;border:1.5px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.08);color:white;font-size:12px;font-weight:700;cursor:pointer;}
+.ai-config-btn:hover{background:rgba(255,255,255,0.15);}
+.ai-config-btn.has-key{border-color:#10b981;color:#10b981;}
+.ai-input-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.ai-input-tab{flex:1;min-width:130px;padding:10px 14px;border-radius:9px;border:1.5px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);font-size:12px;font-weight:700;cursor:pointer;text-align:center;transition:all 0.15s;}
+.ai-input-tab.active{background:rgba(16,185,129,0.18);border-color:#10b981;color:white;}
+.ai-input-pane{background:rgba(0,0,0,0.18);border-radius:11px;padding:14px;border:1px solid rgba(255,255,255,0.08);}
+.ai-input-pane textarea{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:12px;color:white;font-size:13px;font-family:inherit;min-height:120px;resize:vertical;outline:none;}
+.ai-input-pane textarea::placeholder{color:rgba(255,255,255,0.35);}
+.ai-form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;}
+.ai-form-field{display:flex;flex-direction:column;gap:4px;}
+.ai-form-field label{font-size:11px;font-weight:700;color:rgba(255,255,255,0.7);font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:0.05em;}
+.ai-form-field select,.ai-form-field input{padding:8px 10px;border-radius:7px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:white;font-size:12px;font-family:inherit;outline:none;}
+.ai-form-field select option{color:#1a202c;background:white;}
+.ai-image-drop{border:2px dashed rgba(255,255,255,0.2);border-radius:10px;padding:32px 18px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.ai-image-drop:hover{border-color:#10b981;background:rgba(16,185,129,0.05);}
+.ai-image-drop.has-image{border-color:#10b981;}
+.ai-image-drop input{display:none;}
+.ai-image-preview{max-width:100%;max-height:200px;border-radius:8px;margin-top:10px;}
+.ai-action-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap;}
+.ai-status-text{font-size:11px;color:rgba(255,255,255,0.55);font-family:"JetBrains Mono",monospace;}
+.ai-analyze-btn{padding:11px 22px;border-radius:9px;border:none;background:linear-gradient(135deg,#10b981,#06b6d4);color:white;font-size:13px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;}
+.ai-analyze-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(16,185,129,0.35);}
+.ai-analyze-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none;}
+.ai-result-pane{margin-top:18px;background:white;color:#1a202c;border-radius:12px;padding:18px;display:none;}
+.ai-result-pane.show{display:block;}
+.ai-result-section{margin-bottom:18px;}
+.ai-result-section h3{font-size:14px;font-weight:800;color:#0c1f3d;margin-bottom:8px;display:flex;align-items:center;gap:8px;border-bottom:2px solid #e2e8f0;padding-bottom:6px;}
+.ai-result-section .ai-content{font-size:13px;line-height:1.65;color:#334155;white-space:pre-wrap;}
+.ai-result-section .ai-content strong{color:#0c1f3d;}
+.ai-loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:40px;color:#64748b;font-size:13px;}
+.ai-loading .spinner{width:18px;height:18px;border:2.5px solid #e2e8f0;border-top-color:#10b981;border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.ai-trial-suggestion{background:#f8fafc;border-left:3px solid #10b981;padding:10px 13px;margin:6px 0;border-radius:5px;font-size:12.5px;cursor:pointer;transition:all 0.15s;}
+.ai-trial-suggestion:hover{background:#f1f5f9;transform:translateX(2px);}
+.ai-trial-suggestion .t-name{font-weight:800;color:#0c1f3d;margin-bottom:3px;font-size:13px;}
+.ai-trial-suggestion .t-rationale{color:#475569;font-size:12px;line-height:1.5;}
+.ai-modal-bg{position:fixed;inset:0;background:rgba(15,23,42,0.7);z-index:200;display:none;align-items:center;justify-content:center;padding:18px;}
+.ai-modal-bg.show{display:flex;}
+.ai-modal{background:white;border-radius:14px;max-width:480px;width:100%;padding:24px;}
+.ai-modal h3{font-size:16px;font-weight:800;color:#0c1f3d;margin-bottom:8px;}
+.ai-modal .ai-modal-desc{font-size:12.5px;color:#64748b;margin-bottom:14px;line-height:1.55;}
+.ai-modal label{font-size:11px;font-weight:700;color:#64748b;font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-top:12px;margin-bottom:5px;}
+.ai-modal input,.ai-modal select{width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid #e2e8f0;font-size:13px;font-family:inherit;outline:none;}
+.ai-modal input:focus,.ai-modal select:focus{border-color:#10b981;}
+.ai-modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;}
+.ai-modal-actions button{padding:9px 18px;border-radius:8px;border:none;font-size:12.5px;font-weight:700;cursor:pointer;}
+.ai-modal-actions .btn-cancel{background:#f1f5f9;color:#475569;}
+.ai-modal-actions .btn-save{background:#10b981;color:white;}
 .trial-card{background:white;border:2px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:all .2s;position:relative;display:flex;flex-direction:column;gap:8px;}
 .trial-card:hover{border-color:var(--primary);box-shadow:0 4px 16px rgba(37,99,235,0.18);transform:translateY(-2px);}
 .trial-card.ongoing{border-color:#fcd34d;background:#fffef0;}
@@ -347,6 +404,151 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div style="padding:24px;text-align:center;color:#94a3b8;font-size:13px;">載入中…</div>
     </div>
   </section>
+
+  <!-- ===== AI 患者臨床路徑分析 ===== -->
+  <section class="ai-section">
+    <div class="ai-header">
+      <div class="ai-header-left">
+        <div class="ai-icon-circle">🤖</div>
+        <div>
+          <div class="ai-title">AI 患者臨床路徑分析</div>
+          <div class="ai-subtitle">Powered by Gemini · 標準治療建議 + 適合臨床試驗匹配</div>
+        </div>
+      </div>
+      <button class="ai-config-btn" id="aiConfigBtn" onclick="openAiConfig()">⚙️ 設定 API Key</button>
+    </div>
+
+    <div class="ai-input-tabs">
+      <button class="ai-input-tab active" data-input="text" onclick="switchInputMode('text')">📝 文字描述</button>
+      <button class="ai-input-tab" data-input="form" onclick="switchInputMode('form')">📋 結構化表單</button>
+      <button class="ai-input-tab" data-input="image" onclick="switchInputMode('image')">📷 影像/報告上傳</button>
+    </div>
+
+    <div class="ai-input-pane">
+      <!-- 文字輸入 -->
+      <div id="aiInputText">
+        <textarea id="aiTextInput" placeholder="請描述病患資料,例如:
+55 歲女性,體能狀態 ECOG 1
+初次診斷子宮內膜癌,FIGO 2018 Stage IIIC1
+病理: endometrioid carcinoma, Grade 2
+分子分型: dMMR (MLH1/PMS2 表達缺失), p53 wild-type
+影像: 骨盆 LN 受累,無遠端轉移
+共病: 高血壓控制中
+目前計畫: 根治性手術 + 輔助治療"></textarea>
+      </div>
+
+      <!-- 結構化表單 -->
+      <div id="aiInputForm" style="display:none;">
+        <div class="ai-form-grid">
+          <div class="ai-form-field">
+            <label>癌別</label>
+            <select id="formCancer">
+              <option value="">請選擇</option>
+              <option value="子宮內膜癌 EC">🔴 子宮內膜癌 EC</option>
+              <option value="卵巢癌 OC">🟣 卵巢癌 OC</option>
+              <option value="子宮頸癌 CC">🟠 子宮頸癌 CC</option>
+              <option value="子宮肉瘤 US">🔵 子宮肉瘤 US</option>
+            </select>
+          </div>
+          <div class="ai-form-field">
+            <label>年齡</label>
+            <input type="number" id="formAge" placeholder="例: 55" min="18" max="100">
+          </div>
+          <div class="ai-form-field">
+            <label>ECOG 體能狀態</label>
+            <select id="formEcog">
+              <option value="">未知</option>
+              <option value="0">0 - 完全正常</option>
+              <option value="1">1 - 輕微症狀</option>
+              <option value="2">2 - 行動受限</option>
+              <option value="3">3 - 大部分時間臥床</option>
+              <option value="4">4 - 完全臥床</option>
+            </select>
+          </div>
+          <div class="ai-form-field">
+            <label>FIGO 分期</label>
+            <select id="formStage">
+              <option value="">請選擇</option>
+              <option value="Stage I">Stage I</option>
+              <option value="Stage II">Stage II</option>
+              <option value="Stage III">Stage III</option>
+              <option value="Stage IV">Stage IV</option>
+              <option value="Recurrent">Recurrent (復發)</option>
+              <option value="Metastatic">Metastatic (轉移)</option>
+            </select>
+          </div>
+          <div class="ai-form-field">
+            <label>組織學</label>
+            <input type="text" id="formHistology" placeholder="例: HGSC / 子宮內膜樣 / clear cell / LMS">
+          </div>
+          <div class="ai-form-field">
+            <label>分子分型 / Biomarker</label>
+            <input type="text" id="formMolecular" placeholder="例: dMMR / BRCAm / HRD+ / p53abn / POLEm">
+          </div>
+          <div class="ai-form-field">
+            <label>治療階段</label>
+            <select id="formPhase">
+              <option value="">請選擇</option>
+              <option value="新診斷未治療">新診斷未治療</option>
+              <option value="一線治療中">一線治療中 (P-TX)</option>
+              <option value="一線維持期">一線維持期 (P-MT)</option>
+              <option value="復發治療">復發治療 (R-TX)</option>
+              <option value="復後維持">復後維持 (R-MT)</option>
+            </select>
+          </div>
+          <div class="ai-form-field" style="grid-column:1/-1;">
+            <label>先前治療史</label>
+            <input type="text" id="formPriorTx" placeholder="例: 廣泛性子宮切除 → carbo/pacli x6 cycles → niraparib 維持中">
+          </div>
+          <div class="ai-form-field" style="grid-column:1/-1;">
+            <label>共病 / 其他補充</label>
+            <input type="text" id="formComorbid" placeholder="例: 高血壓、出血傾向、自體免疫疾病等">
+          </div>
+        </div>
+      </div>
+
+      <!-- 影像上傳 -->
+      <div id="aiInputImage" style="display:none;">
+        <label class="ai-image-drop" id="aiImageDrop" for="aiImageFile">
+          <input type="file" id="aiImageFile" accept="image/*,.pdf" onchange="onAiImageSelect(event)">
+          <div style="font-size:38px;margin-bottom:8px;">📤</div>
+          <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);">點擊上傳影像或報告</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;font-family:'JetBrains Mono',monospace;">支援: 病理報告 / 影像學報告 / 手寫筆記照片</div>
+          <div id="aiImagePreviewWrap"></div>
+        </label>
+        <textarea id="aiImageContext" placeholder="(選填) 補充說明文字,例如關注的問題或額外資訊…" style="margin-top:10px;min-height:60px;width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;color:white;font-size:13px;font-family:inherit;outline:none;"></textarea>
+      </div>
+    </div>
+
+    <div class="ai-action-row">
+      <div class="ai-status-text" id="aiStatusText">⚠️ 此分析僅供參考,不可取代臨床判斷</div>
+      <button class="ai-analyze-btn" id="aiAnalyzeBtn" onclick="runAiAnalysis()">
+        <span>🔬</span><span>AI 分析患者路徑</span>
+      </button>
+    </div>
+
+    <div class="ai-result-pane" id="aiResultPane"></div>
+  </section>
+</div>
+
+<!-- AI Config Modal -->
+<div class="ai-modal-bg" id="aiConfigModal" onclick="if(event.target.id==='aiConfigModal')closeAiConfig()">
+  <div class="ai-modal">
+    <h3>⚙️ Gemini API 設定</h3>
+    <p class="ai-modal-desc">您的 API Key 僅儲存在瀏覽器本機 (localStorage),不會傳送到任何外部伺服器。請至 <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#10b981;">Google AI Studio</a> 取得免費 API key。</p>
+    <label>API Key</label>
+    <input type="password" id="aiApiKeyInput" placeholder="貼上您的 Gemini API Key (AIza...)">
+    <label>模型選擇</label>
+    <select id="aiModelInput">
+      <option value="gemini-2.5-flash">Gemini 2.5 Flash (快速、平衡)</option>
+      <option value="gemini-2.5-pro">Gemini 2.5 Pro (高深度分析)</option>
+      <option value="gemini-2.0-flash">Gemini 2.0 Flash (穩定)</option>
+    </select>
+    <div class="ai-modal-actions">
+      <button class="btn-cancel" onclick="closeAiConfig()">取消</button>
+      <button class="btn-save" onclick="saveAiConfig()">儲存</button>
+    </div>
+  </div>
 </div>
 
 <!-- Floating Compare Button -->
@@ -4217,6 +4419,467 @@ function browserToggleCompare(id, ev){
   updateCompareCount();  // This will sync the browser via the auto-render hook
   renderCards();
 }
+
+// ============================================================
+// AI PATIENT CLINICAL PATHWAY ANALYSIS (Gemini)
+// ============================================================
+let aiCurrentInputMode = 'text';
+let aiUploadedImage = null;  // {data: base64, mimeType}
+
+function getAiConfig(){
+  return {
+    apiKey: localStorage.getItem('gyne_gemini_apikey') || '',
+    model: localStorage.getItem('gyne_gemini_model') || 'gemini-2.5-flash'
+  };
+}
+
+function updateAiConfigBtn(){
+  const cfg = getAiConfig();
+  const btn = el('aiConfigBtn');
+  if(cfg.apiKey){
+    btn.classList.add('has-key');
+    btn.innerHTML = '✓ ' + cfg.model;
+  } else {
+    btn.classList.remove('has-key');
+    btn.textContent = '⚙️ 設定 API Key';
+  }
+}
+
+function openAiConfig(){
+  const cfg = getAiConfig();
+  el('aiApiKeyInput').value = cfg.apiKey;
+  el('aiModelInput').value = cfg.model;
+  el('aiConfigModal').classList.add('show');
+}
+
+function closeAiConfig(){
+  el('aiConfigModal').classList.remove('show');
+}
+
+function saveAiConfig(){
+  const key = el('aiApiKeyInput').value.trim();
+  const model = el('aiModelInput').value;
+  if(!key){
+    alert('請輸入 API Key');
+    return;
+  }
+  if(!key.startsWith('AIza')){
+    if(!confirm('API Key 通常以 "AIza" 開頭。確定要儲存嗎?')) return;
+  }
+  localStorage.setItem('gyne_gemini_apikey', key);
+  localStorage.setItem('gyne_gemini_model', model);
+  closeAiConfig();
+  updateAiConfigBtn();
+}
+
+function switchInputMode(mode){
+  aiCurrentInputMode = mode;
+  document.querySelectorAll('.ai-input-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.input === mode);
+  });
+  el('aiInputText').style.display = mode === 'text' ? '' : 'none';
+  el('aiInputForm').style.display = mode === 'form' ? '' : 'none';
+  el('aiInputImage').style.display = mode === 'image' ? '' : 'none';
+}
+
+function onAiImageSelect(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const dataUrl = e.target.result;
+    const base64 = dataUrl.split(',')[1];
+    aiUploadedImage = {data: base64, mimeType: file.type};
+    const wrap = el('aiImagePreviewWrap');
+    if(file.type.startsWith('image/')){
+      wrap.innerHTML = `<img class="ai-image-preview" src="${dataUrl}">`;
+    } else {
+      wrap.innerHTML = `<div style="color:#10b981;margin-top:8px;font-size:12px;">✓ 已載入: ${file.name}</div>`;
+    }
+    el('aiImageDrop').classList.add('has-image');
+  };
+  reader.readAsDataURL(file);
+}
+
+function buildAiPrompt(){
+  // Build trial summary for context (compressed to save tokens)
+  const trialList = TRIALS.map(t => {
+    const subcatStr = Array.isArray(t.subcat) ? t.subcat.join('/') : (t.subcat || '');
+    const phaseStr = t.phase.join('+');
+    return `[${t.id}] ${t.name} (${t.cancer} ${phaseStr} ${subcatStr}) | ${t.drug || ''} | ${t.tagline || ''}`;
+  }).join('\n');
+
+  let patientInfo = '';
+  if(aiCurrentInputMode === 'text'){
+    patientInfo = el('aiTextInput').value.trim();
+    if(!patientInfo) return null;
+  } else if(aiCurrentInputMode === 'form'){
+    const fields = {
+      '癌別': el('formCancer').value,
+      '年齡': el('formAge').value,
+      'ECOG': el('formEcog').value,
+      'FIGO 分期': el('formStage').value,
+      '組織學': el('formHistology').value.trim(),
+      '分子分型/Biomarker': el('formMolecular').value.trim(),
+      '治療階段': el('formPhase').value,
+      '先前治療史': el('formPriorTx').value.trim(),
+      '共病/補充': el('formComorbid').value.trim()
+    };
+    const lines = [];
+    for(const [k,v] of Object.entries(fields)){
+      if(v) lines.push(`${k}: ${v}`);
+    }
+    if(!lines.length) return null;
+    patientInfo = lines.join('\n');
+  } else {
+    patientInfo = el('aiImageContext').value.trim() || '(請從附加的影像/報告中分析病患資料)';
+  }
+
+  const systemPrompt = `你是專業婦癌臨床醫學顧問,協助臨床醫師分析病患並建議標準治療與適合的臨床試驗。
+
+【現有試驗資料庫】(${TRIALS.length} 個試驗,涵蓋 EC/OC/CC/US 4 大癌別與 P-TX/P-MT/R-TX/R-MT 4 個分期):
+${trialList}
+
+【你的分析任務】
+依以下結構提供完整繁體中文分析報告。每個區塊以 \`### 標題\` 開始:
+
+### 🔬 病患分析摘要
+1-2 句總結病患的關鍵特徵 (癌別、分期、分子分型、治療階段)
+
+### 📋 標準治療建議
+依當前 NCCN/ESMO 指引,列出該病患適合的標準治療選項。每個選項說明:
+- 治療方案 (具體藥物 + 劑量)
+- 證據等級 (NCCN Category 1/2A/2B)
+- 預期 PFS/OS 數據
+
+### 🎯 適合的臨床試驗 (從上述資料庫中精準匹配)
+依優先順序列出 3-5 個最適合的試驗。每個試驗用以下格式:
+
+[試驗 ID] 試驗名稱
+理由: (為何適合此病患,1-2 句)
+關鍵 inclusion 條件: (必須符合)
+關鍵 exclusion 條件: (需注意)
+
+### ⚠️ 試驗參與考量
+- 病患可能不符合的條件
+- 需要追加檢測 (例如 PD-L1, BRCA, HRD, NTRK)
+- 健保 / 自費考量
+
+### 🔮 預期預後與後續路徑
+- 一線治療 → 維持 → 復發場景的預期路徑
+- 關鍵 biomarker 應在哪個時點檢測
+
+### 💡 臨床決策提示
+1-3 個關鍵決策點與建議
+
+【重要原則】
+- 試驗推薦必須真實存在於上述資料庫中,絕不杜撰
+- 試驗 ID 必須完全匹配資料庫
+- 若病患資料不足,在開頭明確指出缺失資訊
+- 不取代臨床判斷,僅作參考`;
+
+  return {systemPrompt, patientInfo};
+}
+
+async function runAiAnalysis(){
+  const cfg = getAiConfig();
+  if(!cfg.apiKey){
+    alert('請先設定 Gemini API Key');
+    openAiConfig();
+    return;
+  }
+
+  const promptData = buildAiPrompt();
+  if(!promptData){
+    alert('請輸入病患資料');
+    return;
+  }
+
+  // Persist input for next session (so user doesn't lose data on refresh)
+  try {
+    if(aiCurrentInputMode === 'text'){
+      localStorage.setItem('gyne_ai_last_text', el('aiTextInput').value);
+    } else if(aiCurrentInputMode === 'form'){
+      const formData = {
+        cancer: el('formCancer').value,
+        age: el('formAge').value,
+        ecog: el('formEcog').value,
+        stage: el('formStage').value,
+        histology: el('formHistology').value,
+        molecular: el('formMolecular').value,
+        phase: el('formPhase').value,
+        priorTx: el('formPriorTx').value,
+        comorbid: el('formComorbid').value
+      };
+      localStorage.setItem('gyne_ai_last_form', JSON.stringify(formData));
+    }
+  } catch(e){ /* localStorage 滿時忽略 */ }
+
+  const btn = el('aiAnalyzeBtn');
+  const resultPane = el('aiResultPane');
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳</span><span>分析中…</span>';
+  resultPane.classList.add('show');
+
+  // Show progress with elapsed time
+  const startTime = Date.now();
+  let progressInterval;
+  const updateProgress = () => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const phase = elapsed < 5 ? '正在傳送病患資料給 Gemini…' :
+                  elapsed < 15 ? '正在分析病情與匹配試驗資料庫…' :
+                  elapsed < 30 ? '正在生成完整臨床路徑報告…' :
+                  '正在最後整理輸出結果…';
+    resultPane.innerHTML = `<div class="ai-loading">
+      <div class="spinner"></div>
+      <div>
+        <div style="font-weight:700;color:#0c1f3d;margin-bottom:3px;">${phase}</div>
+        <div style="font-size:11px;color:#94a3b8;">已耗時 ${elapsed} 秒 (一般 10-30 秒,Pro 模型可能稍長)</div>
+      </div>
+    </div>`;
+  };
+  updateProgress();
+  progressInterval = setInterval(updateProgress, 1000);
+
+  try {
+    const parts = [
+      {text: promptData.systemPrompt + '\n\n【病患資料】\n' + promptData.patientInfo}
+    ];
+
+    if(aiCurrentInputMode === 'image' && aiUploadedImage){
+      parts.push({
+        inlineData: {
+          mimeType: aiUploadedImage.mimeType,
+          data: aiUploadedImage.data
+        }
+      });
+    }
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${cfg.model}:generateContent?key=${cfg.apiKey}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        contents: [{role: 'user', parts: parts}],
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 8192
+        }
+      })
+    });
+
+    clearInterval(progressInterval);
+
+    if(!response.ok){
+      const errText = await response.text();
+      throw new Error(`API 錯誤 ${response.status}: ${errText}`);
+    }
+
+    const data = await response.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '(API 沒有回應)';
+
+    renderAiResult(text);
+
+  } catch(err){
+    clearInterval(progressInterval);
+    resultPane.innerHTML = `<div style="padding:24px;color:#dc2626;font-size:13px;">
+      <strong>❌ 分析失敗</strong><br><br>
+      ${escapeHtml(err.message || '未知錯誤')}<br><br>
+      <span style="color:#64748b;font-size:12px;">請檢查:<br>
+      • API Key 是否正確 (前往 <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#10b981;">Google AI Studio</a> 確認)<br>
+      • 是否超過 API quota 限制 (Free tier 每分鐘有限)<br>
+      • 網路連線是否正常<br>
+      • 影像檔案是否過大 (建議 <5MB)</span>
+    </div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<span>🔬</span><span>AI 分析患者路徑</span>';
+  }
+}
+
+function renderAiResult(text){
+  const resultPane = el('aiResultPane');
+
+  // Store raw text for copy
+  window._aiLastResultRaw = text;
+
+  // Find all trial IDs mentioned by AI in the format [trial-id]
+  const trialMap = {};
+  TRIALS.forEach(t => trialMap[t.id] = t);
+  const mentionedTrialIds = new Set();
+  const trialIdRegex = /\[([a-z0-9-]+)\]/gi;
+  let m;
+  while((m = trialIdRegex.exec(text)) !== null){
+    if(trialMap[m[1].toLowerCase()]){
+      mentionedTrialIds.add(m[1].toLowerCase());
+    }
+  }
+
+  // Parse the markdown-like structure (### sections)
+  const sections = text.split(/^###\s+/m).filter(s => s.trim());
+
+  let html = '';
+
+  // Action toolbar at top
+  const recommendedCount = mentionedTrialIds.size;
+  html += `<div style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:14px;flex-wrap:wrap;">
+    ${recommendedCount >= 2 ? `<button onclick="aiAddRecommendedToCompare(${JSON.stringify(Array.from(mentionedTrialIds)).replace(/"/g,'&quot;')})" style="padding:7px 13px;border-radius:7px;border:1.5px solid #7c3aed;background:white;color:#7c3aed;font-size:11.5px;font-weight:700;cursor:pointer;">⚖️ 將推薦試驗加入比較 (${Math.min(recommendedCount,4)})</button>` : ''}
+    <button onclick="copyAiResult()" style="padding:7px 13px;border-radius:7px;border:1.5px solid #e2e8f0;background:white;color:#475569;font-size:11.5px;font-weight:700;cursor:pointer;">📋 複製結果</button>
+    <button onclick="clearAiResult()" style="padding:7px 13px;border-radius:7px;border:1.5px solid #e2e8f0;background:white;color:#475569;font-size:11.5px;font-weight:700;cursor:pointer;">🗑 清除</button>
+  </div>`;
+
+  for(const section of sections){
+    const lines = section.split('\n');
+    const title = lines[0].trim();
+    const content = lines.slice(1).join('\n').trim();
+    const processedContent = processAiContent(content);
+
+    html += `<div class="ai-result-section">
+      <h3>${escapeHtml(title)}</h3>
+      <div class="ai-content">${processedContent}</div>
+    </div>`;
+  }
+
+  // Add disclaimer footer
+  html += `<div style="margin-top:18px;padding:11px 14px;background:#fef3c7;border-radius:8px;border-left:3px solid #f59e0b;font-size:11.5px;color:#78350f;line-height:1.5;">
+    <strong>⚠️ 重要聲明</strong>: 此 AI 分析報告僅供臨床參考,不可取代專業醫療判斷。所有治療決策應由具備專業資格的醫師依個別病患狀況評估後執行。試驗推薦請以最新指引與試驗 protocol 為準。
+  </div>`;
+
+  resultPane.innerHTML = html;
+}
+
+function copyAiResult(){
+  const text = window._aiLastResultRaw || '';
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    // Brief visual feedback
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓ 已複製';
+    btn.style.color = '#10b981';
+    btn.style.borderColor = '#10b981';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 1500);
+  }).catch(() => {
+    alert('無法複製到剪貼簿。請手動選取文字後複製。');
+  });
+}
+
+function clearAiResult(){
+  el('aiResultPane').classList.remove('show');
+  el('aiResultPane').innerHTML = '';
+  window._aiLastResultRaw = '';
+}
+
+function aiAddRecommendedToCompare(trialIds){
+  selectedTrials.clear();
+  // Take up to 4
+  for(const id of trialIds.slice(0, 4)){
+    selectedTrials.add(id);
+  }
+  // Activate compare mode
+  if(!compareMode){
+    compareMode = true;
+    el('cmpToggle').classList.add('on');
+    el('cmpToggle').textContent = '☑ 比較模式 (勾選 2-4 個試驗)';
+    document.body.classList.add('compare-mode');
+  }
+  updateCompareCount();
+  renderCards();
+  // Scroll to top to see the floating compare button
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  // Open compare modal directly
+  setTimeout(() => openCompareModal(), 600);
+}
+
+function loadLastAiInput(){
+  // Restore last input on page load
+  try {
+    const lastText = localStorage.getItem('gyne_ai_last_text');
+    if(lastText){
+      el('aiTextInput').value = lastText;
+    }
+    const lastFormStr = localStorage.getItem('gyne_ai_last_form');
+    if(lastFormStr){
+      const f = JSON.parse(lastFormStr);
+      if(f.cancer) el('formCancer').value = f.cancer;
+      if(f.age) el('formAge').value = f.age;
+      if(f.ecog) el('formEcog').value = f.ecog;
+      if(f.stage) el('formStage').value = f.stage;
+      if(f.histology) el('formHistology').value = f.histology;
+      if(f.molecular) el('formMolecular').value = f.molecular;
+      if(f.phase) el('formPhase').value = f.phase;
+      if(f.priorTx) el('formPriorTx').value = f.priorTx;
+      if(f.comorbid) el('formComorbid').value = f.comorbid;
+    }
+  } catch(e){ /* ignore */ }
+}
+
+function processAiContent(text){
+  // Replace [trial-id] with clickable suggestion blocks
+  // Match patterns like [ruby-p1], [keynote-826], etc.
+  const trialMap = {};
+  TRIALS.forEach(t => trialMap[t.id] = t);
+
+  // Find blocks that look like trial suggestions: starts with [id]
+  const lines = text.split('\n');
+  const processed = [];
+  let inTrialBlock = false;
+  let currentTrial = null;
+  let blockBuffer = [];
+
+  for(let i=0; i<lines.length; i++){
+    const line = lines[i];
+    const trialMatch = line.match(/^\[([a-z0-9-]+)\]\s*(.+)?$/i);
+
+    if(trialMatch && trialMap[trialMatch[1].toLowerCase()]){
+      // Flush previous block
+      if(inTrialBlock && blockBuffer.length){
+        processed.push(renderTrialBlock(currentTrial, blockBuffer));
+      }
+      currentTrial = trialMap[trialMatch[1].toLowerCase()];
+      blockBuffer = trialMatch[2] ? [trialMatch[2]] : [];
+      inTrialBlock = true;
+    } else if(inTrialBlock && line.trim()){
+      blockBuffer.push(line);
+    } else {
+      // Flush trial block if exists
+      if(inTrialBlock && blockBuffer.length){
+        processed.push(renderTrialBlock(currentTrial, blockBuffer));
+        inTrialBlock = false;
+        currentTrial = null;
+        blockBuffer = [];
+      }
+      processed.push(escapeHtml(line));
+    }
+  }
+  // Flush final
+  if(inTrialBlock && blockBuffer.length){
+    processed.push(renderTrialBlock(currentTrial, blockBuffer));
+  }
+
+  return processed.join('\n').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
+
+function renderTrialBlock(trial, lines){
+  const desc = lines.join('\n').trim();
+  return `<div class="ai-trial-suggestion" onclick="showDetail('${trial.id}')">
+    <div class="t-name">📍 ${escapeHtml(trial.name)} <span style="font-size:11px;font-weight:600;color:#10b981;">${trial.cancer} ${trial.phase.join('+')}</span></div>
+    <div class="t-rationale">${escapeHtml(desc)}</div>
+  </div>`;
+}
+
+function escapeHtml(s){
+  if(s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// Initialize AI config button display
+updateAiConfigBtn();
+loadLastAiInput();
 
 // ============================================================
 // INIT
