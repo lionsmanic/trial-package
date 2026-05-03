@@ -40,6 +40,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-ai:hover{box-shadow:0 4px 16px rgba(16,185,129,0.45);}
 .header-btn-mol{background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(124,58,237,0.3);}
 .header-btn-mol:hover{box-shadow:0 4px 16px rgba(124,58,237,0.45);}
+.header-btn-study{background:linear-gradient(135deg,#f59e0b,#d97706);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(245,158,11,0.3);}
+.header-btn-study:hover{box-shadow:0 4px 16px rgba(245,158,11,0.45);}
 .header-btn-checklist{background:linear-gradient(135deg,#0891b2,#0e7490);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(8,145,178,0.3);}
 .header-btn-checklist:hover{box-shadow:0 4px 16px rgba(8,145,178,0.45);}
 .header-btn-pathway{background:linear-gradient(135deg,#ea580c,#c2410c);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(234,88,12,0.3);}
@@ -467,6 +469,218 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 @media(max-width:640px){
   .similar-grid{grid-template-columns:1fr;}
   .similar-add-all-btn{font-size:12px;padding:10px 16px;}
+}
+
+/* ===== 📚 讀書計畫 + 進度追蹤 Modal ===== */
+.study-plan-modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.88);z-index:568;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.study-plan-modal-bg.open{display:flex;}
+.study-plan-modal-content{background:white;max-width:1100px;width:100%;max-height:94vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
+.study-plan-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.study-plan-close:hover{background:white;transform:scale(1.05);}
+
+.study-plan-header{background:linear-gradient(135deg,#d97706,#b45309);color:white;padding:22px 26px 0;flex-shrink:0;}
+.study-plan-title-wrap{display:flex;align-items:center;gap:14px;padding-right:50px;margin-bottom:18px;}
+.study-plan-icon{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.study-plan-title{font-size:18px;font-weight:800;letter-spacing:.02em;}
+.study-plan-subtitle{font-size:11.5px;color:rgba(255,255,255,0.75);font-family:"JetBrains Mono",monospace;margin-top:3px;line-height:1.4;}
+
+.study-tabs{display:flex;gap:6px;}
+.study-tab{padding:11px 18px;background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.65);font-size:13px;font-weight:700;cursor:pointer;border-radius:9px 9px 0 0;font-family:inherit;transition:all 0.15s;}
+.study-tab:hover{background:rgba(255,255,255,0.16);color:white;}
+.study-tab.active{background:white;color:#b45309;font-weight:800;}
+
+.study-body{padding:22px 26px;overflow-y:auto;flex:1;background:#fffbeb;}
+
+/* ===== Tab 1: Overview ===== */
+.study-overview{}
+.study-hero{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fbbf24;border-radius:13px;padding:18px 20px;margin-bottom:18px;}
+.study-hero-icon{font-size:48px;flex-shrink:0;}
+.study-hero-title{font-size:18px;font-weight:800;color:#78350f;margin-bottom:5px;}
+.study-hero-desc{font-size:12.5px;color:#92400e;line-height:1.55;}
+
+.study-quick-stat{background:white;border:1.5px solid #fde68a;border-radius:12px;padding:16px 20px;margin-bottom:18px;}
+.sqs-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px;}
+.sqs-num{font-size:30px;font-weight:800;color:#b45309;font-family:"JetBrains Mono",monospace;}
+.sqs-label{font-size:13px;color:#78350f;font-weight:700;}
+.sqs-bar{height:10px;background:#fef3c7;border-radius:50px;overflow:hidden;margin-bottom:8px;}
+.sqs-bar-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#d97706);border-radius:50px;transition:width 0.4s;}
+.sqs-detail{font-size:11.5px;color:#92400e;font-family:"JetBrains Mono",monospace;}
+
+.study-features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:18px;}
+.study-feature-card{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:18px 16px;cursor:pointer;transition:all 0.15s;}
+.study-feature-card:hover{border-color:#f59e0b;transform:translateY(-2px);box-shadow:0 6px 18px rgba(245,158,11,0.18);}
+.sfc-icon{font-size:32px;margin-bottom:8px;}
+.sfc-title{font-size:15px;font-weight:800;color:#0c1f3d;margin-bottom:5px;}
+.sfc-desc{font-size:11.5px;color:#64748b;line-height:1.55;margin-bottom:10px;min-height:50px;}
+.sfc-link{font-size:12px;font-weight:700;color:#d97706;}
+
+.study-tips{background:white;border:1.5px solid #fde68a;border-radius:12px;padding:16px 20px;}
+.study-tips h4{font-size:14px;font-weight:800;color:#78350f;margin:0 0 11px;}
+.study-tips ol{margin:0;padding-left:24px;font-size:13px;line-height:1.75;color:#1e293b;}
+.study-tips ol li{margin-bottom:5px;}
+.study-tips strong{color:#b45309;}
+
+/* ===== Tab 2: Priority ===== */
+.study-priority-controls{margin-bottom:18px;}
+.study-priority-controls h3{font-size:17px;font-weight:800;color:#b45309;margin:0 0 11px;}
+.priority-counts{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap;}
+.priority-counts .pc{padding:6px 13px;border-radius:50px;font-size:12px;font-weight:800;}
+.priority-counts .pc.high{background:#fee2e2;color:#991b1b;}
+.priority-counts .pc.mid{background:#fef9c3;color:#854d0e;}
+.priority-counts .pc.low{background:#dcfce7;color:#166534;}
+
+.priority-filter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.pf-label{font-size:11.5px;color:#64748b;font-weight:700;font-family:"JetBrains Mono",monospace;}
+.pf-btn{padding:7px 13px;background:white;border:1.5px solid #cbd5e1;color:#475569;font-size:11.5px;font-weight:700;cursor:pointer;border-radius:9px;font-family:inherit;}
+.pf-btn:hover{border-color:#f59e0b;}
+.pf-btn.active{background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border-color:#d97706;}
+
+.priority-cancer-group{margin-bottom:20px;}
+.priority-cancer-group h4{font-size:14px;font-weight:800;color:#0c1f3d;margin:0 0 11px;padding:8px 13px;background:white;border-radius:9px;border-left:5px solid #f59e0b;}
+
+.priority-entry-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;}
+.priority-entry-card{background:white;border:1.5px solid #e2e8f0;border-radius:11px;padding:0;display:flex;gap:0;overflow:hidden;transition:all 0.15s;}
+.priority-entry-card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.06);}
+.priority-entry-card.high{border-color:#fca5a5;}
+.priority-entry-card.mid{border-color:#fde68a;}
+.priority-entry-card.low{border-color:#bbf7d0;}
+.pec-prio-bar{width:5px;flex-shrink:0;}
+.priority-entry-card.high .pec-prio-bar{background:linear-gradient(180deg,#dc2626,#b91c1c);}
+.priority-entry-card.mid .pec-prio-bar{background:linear-gradient(180deg,#f59e0b,#d97706);}
+.priority-entry-card.low .pec-prio-bar{background:linear-gradient(180deg,#16a34a,#15803d);}
+
+.pec-content{flex:1;padding:10px 13px 12px;min-width:0;}
+.pec-row1{display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap;}
+.pec-prio-badge{padding:3px 8px;border-radius:50px;font-size:10.5px;font-weight:800;}
+.pec-prio-badge.high{background:#fee2e2;color:#991b1b;}
+.pec-prio-badge.mid{background:#fef9c3;color:#854d0e;}
+.pec-prio-badge.low{background:#dcfce7;color:#166534;}
+.pec-status-badge{padding:3px 8px;border-radius:50px;font-size:10.5px;font-weight:800;}
+.pec-status-badge.unread{background:#f1f5f9;color:#475569;}
+.pec-status-badge.learned{background:#dbeafe;color:#1e40af;}
+.pec-status-badge.mastered{background:#dcfce7;color:#166534;}
+.pec-name{font-size:13px;font-weight:800;color:#0c1f3d;margin-bottom:3px;line-height:1.35;}
+.pec-freq{font-size:11px;color:#64748b;font-family:"JetBrains Mono",monospace;margin-bottom:8px;}
+.pec-actions{display:flex;gap:5px;}
+.pec-btn-read,.pec-btn-status{flex:1;padding:6px 9px;border:1.5px solid;border-radius:7px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:inherit;background:white;}
+.pec-btn-read{border-color:#cbd5e1;color:#0c1f3d;}
+.pec-btn-read:hover{background:#f1f5f9;border-color:#0c1f3d;}
+.pec-btn-status{border-color:#fbbf24;color:#92400e;}
+.pec-btn-status:hover{background:#fffbeb;}
+
+/* ===== Tab 3: Plan ===== */
+.study-plan-controls{margin-bottom:18px;}
+.study-plan-controls h3{font-size:17px;font-weight:800;color:#b45309;margin:0 0 12px;}
+
+.plan-selector{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px;margin-bottom:14px;}
+.plan-sel-btn{padding:14px 13px;background:white;border:2px solid #e2e8f0;border-radius:11px;color:#475569;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit;line-height:1.45;transition:all 0.15s;}
+.plan-sel-btn small{display:block;font-size:11px;color:#64748b;font-weight:700;margin-top:4px;font-family:"JetBrains Mono",monospace;}
+.plan-sel-btn:hover{border-color:#f59e0b;}
+.plan-sel-btn.active{background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border-color:#d97706;}
+.plan-sel-btn.active small{color:rgba(255,255,255,0.85);}
+
+.plan-info{background:white;border:1.5px solid #fde68a;border-radius:11px;padding:13px 16px;margin-bottom:14px;}
+.plan-info strong{display:block;font-size:14px;color:#b45309;margin-bottom:4px;}
+.plan-info p{margin:0;font-size:12px;color:#64748b;line-height:1.55;}
+
+.plan-day-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px;padding:11px 13px;background:white;border-radius:11px;border:1.5px solid #fde68a;}
+.day-tab{width:40px;height:40px;background:white;border:1.5px solid #cbd5e1;color:#475569;font-size:13px;font-weight:800;cursor:pointer;border-radius:9px;font-family:inherit;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.day-tab:hover{border-color:#f59e0b;}
+.day-tab.active{background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border-color:#d97706;}
+.day-tab.complete{background:#dcfce7;color:#166534;border-color:#86efac;}
+.day-tab.complete.active{background:linear-gradient(135deg,#16a34a,#15803d);color:white;border-color:#15803d;}
+
+.plan-day-content{}
+.day-header{background:white;border-radius:12px;padding:16px 20px;margin-bottom:14px;border:1.5px solid #fde68a;}
+.day-header h4{font-size:16px;font-weight:800;color:#b45309;margin:0 0 9px;}
+.day-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:#64748b;font-weight:700;font-family:"JetBrains Mono",monospace;margin-bottom:10px;}
+.day-progress-bar{height:8px;background:#fef3c7;border-radius:50px;overflow:hidden;}
+.day-progress-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#d97706);border-radius:50px;transition:width 0.4s;}
+
+.day-tasks{display:flex;flex-direction:column;gap:8px;}
+.task-item{display:flex;gap:11px;background:white;border:1.5px solid #e2e8f0;border-radius:11px;padding:12px 14px;align-items:center;transition:all 0.15s;}
+.task-item:hover{border-color:#f59e0b;}
+.task-item.done{background:#f0fdf4;border-color:#86efac;opacity:0.85;}
+.task-check{width:32px;height:32px;border-radius:8px;border:1.5px solid #cbd5e1;background:white;color:#94a3b8;font-size:15px;font-weight:800;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:inherit;}
+.task-check:hover{background:#fffbeb;border-color:#f59e0b;color:#d97706;}
+.task-check.checked{background:#16a34a;border-color:#15803d;color:white;}
+.task-content{flex:1;min-width:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.task-row{display:flex;align-items:center;gap:8px;flex:1;min-width:200px;flex-wrap:wrap;}
+.task-icon{font-size:16px;flex-shrink:0;}
+.task-label{font-size:13px;color:#0c1f3d;font-weight:700;line-height:1.4;}
+.task-time{font-size:10.5px;color:#92400e;font-weight:800;background:#fef3c7;padding:2px 8px;border-radius:50px;font-family:"JetBrains Mono",monospace;}
+.task-go-btn{padding:6px 11px;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border:none;border-radius:7px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;flex-shrink:0;}
+.task-go-btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(245,158,11,0.35);}
+
+/* ===== Tab 4: Progress Dashboard ===== */
+.progress-dashboard{}
+.progress-dashboard h3{font-size:17px;font-weight:800;color:#b45309;margin:0 0 14px;}
+.progress-dashboard h4{font-size:14px;font-weight:800;color:#0c1f3d;margin:18px 0 10px;}
+
+.progress-overall{background:white;border:2px solid #fde68a;border-radius:13px;padding:22px;margin-bottom:18px;text-align:center;}
+.po-big-num{font-size:42px;font-weight:800;color:#b45309;font-family:"JetBrains Mono",monospace;line-height:1;}
+.po-label{font-size:14px;font-weight:800;color:#92400e;margin:6px 0 12px;}
+.po-bar{height:12px;background:#fef3c7;border-radius:50px;overflow:hidden;margin-bottom:9px;}
+.po-bar-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#d97706);border-radius:50px;transition:width 0.4s;}
+.po-detail{font-size:11.5px;color:#64748b;font-family:"JetBrains Mono",monospace;}
+
+.prio-progress-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:11px;margin-bottom:18px;}
+.prio-prog-card{background:white;border:2px solid;border-radius:11px;padding:14px;text-align:center;}
+.prio-prog-card.high{border-color:#fca5a5;}
+.prio-prog-card.mid{border-color:#fde68a;}
+.prio-prog-card.low{border-color:#bbf7d0;}
+.ppc-emoji{font-size:24px;}
+.ppc-name{font-size:12px;font-weight:800;color:#475569;margin-bottom:5px;}
+.ppc-num{font-size:20px;font-weight:800;color:#0c1f3d;font-family:"JetBrains Mono",monospace;margin-bottom:8px;}
+.ppc-bar{height:8px;background:#f1f5f9;border-radius:50px;overflow:hidden;margin-bottom:5px;}
+.ppc-bar-fill{height:100%;border-radius:50px;transition:width 0.4s;}
+.ppc-bar-fill.high{background:linear-gradient(90deg,#dc2626,#991b1b);}
+.ppc-bar-fill.mid{background:linear-gradient(90deg,#f59e0b,#d97706);}
+.ppc-bar-fill.low{background:linear-gradient(90deg,#16a34a,#15803d);}
+.ppc-pct{font-size:11px;color:#64748b;font-weight:700;font-family:"JetBrains Mono",monospace;}
+
+.cancer-progress-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:11px;margin-bottom:18px;}
+.cancer-prog-card{background:white;border:1.5px solid #e2e8f0;border-radius:11px;padding:13px 16px;}
+.cpc-header{display:flex;align-items:center;gap:9px;margin-bottom:8px;}
+.cpc-emoji{font-size:18px;}
+.cpc-name{font-size:14px;font-weight:800;color:#0c1f3d;}
+.cpc-num{margin-left:auto;font-size:11.5px;color:#475569;font-weight:700;font-family:"JetBrains Mono",monospace;}
+.cpc-bar{height:8px;background:#f1f5f9;border-radius:50px;overflow:hidden;margin-bottom:7px;}
+.cpc-bar-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#d97706);border-radius:50px;transition:width 0.4s;}
+.cpc-detail{font-size:10.5px;color:#64748b;font-weight:700;font-family:"JetBrains Mono",monospace;}
+
+.weak-list{display:flex;flex-direction:column;gap:6px;}
+.weak-item{display:flex;align-items:center;gap:10px;background:white;border:1.5px solid #fca5a5;border-left:5px solid #dc2626;border-radius:9px;padding:10px 13px;cursor:pointer;transition:all 0.15s;}
+.weak-item:hover{transform:translateX(3px);box-shadow:0 4px 12px rgba(220,38,38,0.15);}
+.weak-tag{font-size:11px;font-weight:800;color:#991b1b;background:#fee2e2;padding:3px 9px;border-radius:50px;flex-shrink:0;}
+.weak-cancer{font-size:11.5px;font-weight:800;color:#475569;font-family:"JetBrains Mono",monospace;flex-shrink:0;}
+.weak-name{flex:1;font-size:12.5px;color:#0c1f3d;font-weight:700;}
+.weak-arrow{color:#dc2626;font-size:14px;font-weight:800;flex-shrink:0;}
+
+.progress-actions{margin-top:18px;display:flex;justify-content:center;}
+.btn-reset-progress{padding:9px 18px;background:white;border:1.5px solid #cbd5e1;color:#64748b;font-size:12px;font-weight:700;cursor:pointer;border-radius:9px;font-family:inherit;}
+.btn-reset-progress:hover{background:#fef2f2;border-color:#fca5a5;color:#dc2626;}
+
+@media(max-width:640px){
+  .study-plan-modal-bg{padding:0;}
+  .study-plan-modal-content{max-height:100vh;border-radius:0;}
+  .study-plan-header{padding:16px 16px 0;}
+  .study-plan-title-wrap{padding-right:42px;margin-bottom:12px;}
+  .study-plan-title{font-size:15px;}
+  .study-plan-subtitle{font-size:10.5px;}
+  .study-plan-icon{width:38px;height:38px;font-size:20px;}
+  .study-tab{padding:8px 11px;font-size:11px;}
+  .study-body{padding:14px;}
+  .study-hero{padding:14px;}
+  .study-hero-icon{font-size:36px;}
+  .study-hero-title{font-size:15px;}
+  .priority-entry-list{grid-template-columns:1fr;}
+  .plan-selector{grid-template-columns:1fr;}
+  .day-tab{width:34px;height:34px;font-size:11.5px;}
+  .task-content{flex-direction:column;align-items:flex-start;gap:7px;}
+  .task-go-btn{width:100%;}
+  .po-big-num{font-size:32px;}
+  .cancer-progress-grid,.prio-progress-grid{grid-template-columns:1fr;}
 }
 
 /* ===== 🎯 試驗匹配引擎 Modal ===== */
@@ -1652,6 +1866,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="header-btn header-btn-mol" onclick="openMolPedia()" title="開啟分子分型百科">
         <span>🧬</span><span>分子分型</span>
       </button>
+      <button class="header-btn header-btn-study" onclick="openStudyPlan()" title="開啟讀書計畫 + 考點等級 + 進度追蹤">
+        <span>📚</span><span class="hide-on-mobile">讀書計畫</span>
+      </button>
       <button class="header-btn header-btn-checklist" onclick="openChecklist()" title="開啟臨床檢測 Checklist">
         <span>✅</span><span class="hide-on-mobile">Checklist</span>
       </button>
@@ -1949,6 +2166,29 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div class="mol-pedia-list" id="molList"></div>
       <div class="mol-pedia-detail" id="molDetail"></div>
     </div>
+  </div>
+</div>
+
+<!-- ===== 📚 讀書計畫 + 進度追蹤 Modal ===== -->
+<div class="study-plan-modal-bg" id="studyPlanModal" onclick="if(event.target.id==='studyPlanModal')closeStudyPlan()">
+  <div class="study-plan-modal-content">
+    <button class="study-plan-close" onclick="closeStudyPlan()">✕</button>
+    <div class="study-plan-header">
+      <div class="study-plan-title-wrap">
+        <div class="study-plan-icon">📚</div>
+        <div>
+          <div class="study-plan-title">考試複習系統 (三件套)</div>
+          <div class="study-plan-subtitle">考點等級 + 讀書計畫 + 進度追蹤 · 婦癌專科考試專用</div>
+        </div>
+      </div>
+      <div class="study-tabs">
+        <button class="study-tab active" data-tab="overview" onclick="switchStudyTab('overview')">🏠 總覽</button>
+        <button class="study-tab" data-tab="priority" onclick="switchStudyTab('priority')">⭐ 考點等級</button>
+        <button class="study-tab" data-tab="plan" onclick="switchStudyTab('plan')">📅 讀書計畫</button>
+        <button class="study-tab" data-tab="progress" onclick="switchStudyTab('progress')">📊 進度追蹤</button>
+      </div>
+    </div>
+    <div class="study-body" id="studyBody"></div>
   </div>
 </div>
 
@@ -9496,6 +9736,363 @@ const NEXTSTEP_TREES = {
 };
 
 
+const ENTRY_PRIORITIES = {
+  'POLEm': 'high',
+  'MMRd': 'high',
+  'p53abn': 'high',
+  'BRCAm': 'high',
+  'HRD-pos': 'high',
+  'HRD-neg': 'high',
+  'HGSC': 'high',
+  'PD-L1-CPS': 'high',
+  'HPV16': 'high',
+  'HPV18': 'high',
+  'LMS': 'high',
+  'MMR-Lynch-Workflow': 'high',
+  'NSMP-low-risk': 'mid',
+  'NSMP-high-risk': 'mid',
+  'CTNNB1': 'mid',
+  'HER2-uterine-serous': 'mid',
+  'HRRm': 'mid',
+  'CCNE1': 'mid',
+  'OCCC': 'mid',
+  'LGSC': 'mid',
+  'Endometrioid-OC': 'mid',
+  'Mucinous-OC': 'mid',
+  'HPV-independent-gastric': 'mid',
+  'HER2-cervical': 'mid',
+  'CIN23': 'mid',
+  'Tumor-agnostic-CC': 'mid',
+  'LG-ESS': 'mid',
+  'HG-ESS-YWHAE': 'mid',
+  'HG-ESS-BCOR': 'mid',
+  'NTRK-uterine-sarcoma': 'mid',
+  'L1CAM': 'low',
+  'BRCA-reversion': 'low',
+  'Carcinosarcoma': 'low',
+  'TROP2': 'low',
+  'PIK3CA': 'low',
+  'HPV-ctDNA': 'low',
+  'IMT-ALK': 'low',
+  'PEComa': 'low',
+  'Adenosarcoma': 'low',
+  'STUMP': 'low',
+  'uLMS-hormonal': 'low',
+};
+
+// ============================================================
+// 📅 讀書計畫 (Study Plans) — 4 種長度
+// ============================================================
+// 結構: 每個計畫含 days[]; 每個 day 含 tasks[]
+// task = { type, target, label, estTime }
+// type: 'read-entry' | 'read-workflow' | 'read-staging' | 'flashcard' | 'tree' | 'pathway' | 'match' | 'review' | 'quiz'
+
+const STUDY_PLANS = {
+  '7day': {
+    title: '⚡ 7 天衝刺計畫',
+    desc: '考試前 1-2 週使用; 每天 2-3 小時; 適合已有基礎',
+    totalHours: '14-21 小時',
+    days: [
+      {
+        day: 1,
+        title: 'Day 1: EC 4-tier + 必考分子分型',
+        focusCancer: 'EC',
+        tasks: [
+          { type: 'read-workflow', target: 'EC', label: '看 ProMisE 5 步驟流程', estTime: 10 },
+          { type: 'read-staging', target: 'EC', label: '看 FIGO 2023 分子分期表', estTime: 10 },
+          { type: 'read-entry', target: 'POLEm', label: '讀 POLEm 完整 entry', estTime: 20 },
+          { type: 'read-entry', target: 'MMRd', label: '讀 MMRd 完整 entry', estTime: 25 },
+          { type: 'read-entry', target: 'p53abn', label: '讀 p53abn 完整 entry', estTime: 25 },
+          { type: 'read-entry', target: 'NSMP-low-risk', label: '讀 NSMP-low-risk', estTime: 15 },
+          { type: 'read-entry', target: 'NSMP-high-risk', label: '讀 NSMP-high-risk', estTime: 15 },
+          { type: 'flashcard', target: 'EC', label: '🃏 EC 翻牌過 1 輪', estTime: 25 },
+        ]
+      },
+      {
+        day: 2,
+        title: 'Day 2: EC 進階 + dMMR 互動樹',
+        focusCancer: 'EC',
+        tasks: [
+          { type: 'read-entry', target: 'MMR-Lynch-Workflow', label: '讀 MMR/Lynch 流程', estTime: 30 },
+          { type: 'tree', target: 'MMRd', label: '🌳 dMMR 互動樹 (走 5 個分支)', estTime: 25 },
+          { type: 'read-entry', target: 'HER2-uterine-serous', label: '讀 HER2 子宮漿液癌', estTime: 20 },
+          { type: 'read-entry', target: 'CTNNB1', label: '讀 CTNNB1 (進階)', estTime: 15 },
+          { type: 'tree', target: 'p53abn', label: '🌳 p53abn 互動樹', estTime: 20 },
+          { type: 'pathway', target: 'EC', label: '🗺️ EC 治療路徑流程圖', estTime: 30 },
+        ]
+      },
+      {
+        day: 3,
+        title: 'Day 3: OC 核心 + BRCA / HRD',
+        focusCancer: 'OC',
+        tasks: [
+          { type: 'read-workflow', target: 'OC', label: '看新診斷 OC 檢測流程', estTime: 10 },
+          { type: 'read-staging', target: 'OC', label: '看 ADC Target 對照表', estTime: 15 },
+          { type: 'read-entry', target: 'BRCAm', label: '讀 BRCAm 完整', estTime: 30 },
+          { type: 'read-entry', target: 'HRD-pos', label: '讀 HRD+ 完整', estTime: 25 },
+          { type: 'read-entry', target: 'HRD-neg', label: '讀 HRD- (含 CCNE1 連結)', estTime: 25 },
+          { type: 'tree', target: 'BRCAm', label: '🌳 BRCAm 互動樹', estTime: 25 },
+        ]
+      },
+      {
+        day: 4,
+        title: 'Day 4: OC 進階 + PARPi 抗藥',
+        focusCancer: 'OC',
+        tasks: [
+          { type: 'read-entry', target: 'CCNE1', label: '讀 CCNE1 (機制詳解)', estTime: 25 },
+          { type: 'read-entry', target: 'BRCA-reversion', label: '讀 PARPi 5 大抗藥機制', estTime: 30 },
+          { type: 'read-entry', target: 'OCCC', label: '讀 OCCC', estTime: 20 },
+          { type: 'read-entry', target: 'LGSC', label: '讀 LGSC', estTime: 15 },
+          { type: 'read-entry', target: 'Mucinous-OC', label: '讀 Mucinous-OC (排除 GI)', estTime: 20 },
+          { type: 'flashcard', target: 'OC', label: '🃏 OC 翻牌過 1 輪', estTime: 30 },
+        ]
+      },
+      {
+        day: 5,
+        title: 'Day 5: CC 核心 + WHO 2020',
+        focusCancer: 'CC',
+        tasks: [
+          { type: 'read-workflow', target: 'CC', label: '看 WHO 2020 CC 病理分類流程', estTime: 15 },
+          { type: 'read-staging', target: 'CC', label: '看 HPV-assoc vs HPV-indep 對照表', estTime: 15 },
+          { type: 'read-entry', target: 'HPV16', label: '讀 HPV16', estTime: 20 },
+          { type: 'read-entry', target: 'HPV18', label: '讀 HPV18 (腺癌)', estTime: 20 },
+          { type: 'read-entry', target: 'PD-L1-CPS', label: '讀 PD-L1 CPS (公式 + KEYNOTE-826/A18)', estTime: 25 },
+          { type: 'read-entry', target: 'HPV-independent-gastric', label: '讀 HPV-indep gastric (PJS)', estTime: 25 },
+          { type: 'read-entry', target: 'HER2-cervical', label: '讀 HER2 cervical (adenoCa)', estTime: 15 },
+        ]
+      },
+      {
+        day: 6,
+        title: 'Day 6: US 病理 + Fusion',
+        focusCancer: 'US',
+        tasks: [
+          { type: 'read-workflow', target: 'US', label: '看子宮肉瘤鑑別診斷流程', estTime: 15 },
+          { type: 'read-staging', target: 'US', label: '看 Fusion gene 對照表', estTime: 15 },
+          { type: 'read-entry', target: 'LMS', label: '讀 LMS (Stanford 3 criteria)', estTime: 25 },
+          { type: 'read-entry', target: 'LG-ESS', label: '讀 LG-ESS (JAZF1-SUZ12)', estTime: 20 },
+          { type: 'read-entry', target: 'HG-ESS-YWHAE', label: '讀 HG-ESS YWHAE', estTime: 15 },
+          { type: 'read-entry', target: 'HG-ESS-BCOR', label: '讀 HG-ESS BCOR (mimic myxoid LMS)', estTime: 20 },
+          { type: 'read-entry', target: 'NTRK-uterine-sarcoma', label: '讀 NTRK uterine sarcoma', estTime: 15 },
+          { type: 'flashcard', target: 'US', label: '🃏 US 翻牌過 1 輪', estTime: 25 },
+        ]
+      },
+      {
+        day: 7,
+        title: 'Day 7: 整合測試 + 弱點補強',
+        focusCancer: 'all',
+        tasks: [
+          { type: 'flashcard', target: 'EC', label: '🃏 EC 翻牌再過 (鞏固)', estTime: 20 },
+          { type: 'flashcard', target: 'OC', label: '🃏 OC 翻牌再過', estTime: 25 },
+          { type: 'flashcard', target: 'CC', label: '🃏 CC 翻牌再過', estTime: 20 },
+          { type: 'flashcard', target: 'US', label: '🃏 US 翻牌再過', estTime: 20 },
+          { type: 'match', target: 'all', label: '🎯 試驗匹配 — 自己出 5 個情境練習', estTime: 30 },
+          { type: 'review', target: 'all', label: '回頭看 ⚠️ 易錯陷阱 + 💡 必記重點', estTime: 30 },
+        ]
+      },
+    ]
+  },
+
+  '14day': {
+    title: '📚 14 天扎實計畫',
+    desc: '考試前 2-3 週; 每天 1-2 小時; 比 7 天版多重複習',
+    totalHours: '20-30 小時',
+    days: [
+      { day: 1, title: 'Day 1: EC POLEm + MMRd', focusCancer: 'EC', tasks: [
+        { type: 'read-workflow', target: 'EC', label: '看 ProMisE 5 步驟', estTime: 10 },
+        { type: 'read-entry', target: 'POLEm', label: 'POLEm 完整', estTime: 25 },
+        { type: 'read-entry', target: 'MMRd', label: 'MMRd 完整', estTime: 30 },
+        { type: 'tree', target: 'POLEm', label: '🌳 POLEm 互動樹', estTime: 15 },
+      ]},
+      { day: 2, title: 'Day 2: EC p53abn + NSMP', focusCancer: 'EC', tasks: [
+        { type: 'read-staging', target: 'EC', label: 'FIGO 2023 分子分期', estTime: 10 },
+        { type: 'read-entry', target: 'p53abn', label: 'p53abn 完整', estTime: 30 },
+        { type: 'read-entry', target: 'NSMP-low-risk', label: 'NSMP-low-risk', estTime: 20 },
+        { type: 'read-entry', target: 'NSMP-high-risk', label: 'NSMP-high-risk', estTime: 20 },
+        { type: 'tree', target: 'p53abn', label: '🌳 p53abn 互動樹', estTime: 15 },
+      ]},
+      { day: 3, title: 'Day 3: EC Lynch + HER2', focusCancer: 'EC', tasks: [
+        { type: 'read-entry', target: 'MMR-Lynch-Workflow', label: 'MMR/Lynch 判讀流程', estTime: 35 },
+        { type: 'read-entry', target: 'HER2-uterine-serous', label: 'HER2 uterine serous', estTime: 25 },
+        { type: 'tree', target: 'MMRd', label: '🌳 dMMR 互動樹 (深度走)', estTime: 25 },
+      ]},
+      { day: 4, title: 'Day 4: EC 進階 + 流程圖', focusCancer: 'EC', tasks: [
+        { type: 'read-entry', target: 'CTNNB1', label: 'CTNNB1', estTime: 20 },
+        { type: 'read-entry', target: 'L1CAM', label: 'L1CAM', estTime: 15 },
+        { type: 'pathway', target: 'EC', label: '🗺️ EC 治療路徑流程圖', estTime: 30 },
+        { type: 'flashcard', target: 'EC', label: '🃏 EC 翻牌過 1 輪', estTime: 25 },
+      ]},
+      { day: 5, title: 'Day 5: OC BRCA / HRD', focusCancer: 'OC', tasks: [
+        { type: 'read-workflow', target: 'OC', label: '新診斷 OC 檢測流程', estTime: 10 },
+        { type: 'read-entry', target: 'BRCAm', label: 'BRCAm 完整', estTime: 30 },
+        { type: 'read-entry', target: 'HRD-pos', label: 'HRD+ 完整', estTime: 25 },
+        { type: 'tree', target: 'BRCAm', label: '🌳 BRCAm 互動樹', estTime: 25 },
+      ]},
+      { day: 6, title: 'Day 6: OC HRD- + CCNE1', focusCancer: 'OC', tasks: [
+        { type: 'read-entry', target: 'HRD-neg', label: 'HRD- (含 CCNE1 連結)', estTime: 30 },
+        { type: 'read-entry', target: 'CCNE1', label: 'CCNE1 (合成致死機制)', estTime: 30 },
+        { type: 'read-entry', target: 'BRCA-reversion', label: 'PARPi 5 大抗藥機制', estTime: 35 },
+      ]},
+      { day: 7, title: 'Day 7: OC 組織型', focusCancer: 'OC', tasks: [
+        { type: 'read-staging', target: 'OC', label: 'ADC Target 對照表', estTime: 15 },
+        { type: 'read-entry', target: 'HGSC', label: 'HGSC', estTime: 25 },
+        { type: 'read-entry', target: 'OCCC', label: 'OCCC (本院 DOVE)', estTime: 25 },
+        { type: 'read-entry', target: 'LGSC', label: 'LGSC', estTime: 20 },
+      ]},
+      { day: 8, title: 'Day 8: OC 罕見型 + 流程', focusCancer: 'OC', tasks: [
+        { type: 'read-entry', target: 'Endometrioid-OC', label: 'Endometrioid OC', estTime: 20 },
+        { type: 'read-entry', target: 'Mucinous-OC', label: 'Mucinous OC (排 GI)', estTime: 25 },
+        { type: 'read-entry', target: 'HRRm', label: 'HRRm', estTime: 20 },
+        { type: 'pathway', target: 'OC', label: '🗺️ OC 治療路徑', estTime: 30 },
+        { type: 'flashcard', target: 'OC', label: '🃏 OC 翻牌', estTime: 25 },
+      ]},
+      { day: 9, title: 'Day 9: CC HPV + 病理', focusCancer: 'CC', tasks: [
+        { type: 'read-workflow', target: 'CC', label: 'WHO 2020 病理分類流程', estTime: 15 },
+        { type: 'read-staging', target: 'CC', label: 'HPV-assoc vs HPV-indep', estTime: 15 },
+        { type: 'read-entry', target: 'HPV16', label: 'HPV16', estTime: 25 },
+        { type: 'read-entry', target: 'HPV18', label: 'HPV18 (腺癌)', estTime: 25 },
+      ]},
+      { day: 10, title: 'Day 10: CC IO + HER2', focusCancer: 'CC', tasks: [
+        { type: 'read-entry', target: 'PD-L1-CPS', label: 'PD-L1 CPS 公式', estTime: 30 },
+        { type: 'read-entry', target: 'HER2-cervical', label: 'HER2 cervical', estTime: 25 },
+        { type: 'read-entry', target: 'TROP2', label: 'TROP2', estTime: 15 },
+      ]},
+      { day: 11, title: 'Day 11: CC HPV-indep + 進階', focusCancer: 'CC', tasks: [
+        { type: 'read-entry', target: 'HPV-independent-gastric', label: 'HPV-indep gastric (PJS)', estTime: 30 },
+        { type: 'tree', target: 'HPV-independent-gastric', label: '🌳 HPV-indep gastric 互動樹', estTime: 25 },
+        { type: 'read-entry', target: 'CIN23', label: 'CIN2/3 (本院 PVX4)', estTime: 20 },
+        { type: 'read-entry', target: 'Tumor-agnostic-CC', label: 'Tumor-agnostic biomarkers', estTime: 25 },
+      ]},
+      { day: 12, title: 'Day 12: US 主要組織型', focusCancer: 'US', tasks: [
+        { type: 'read-workflow', target: 'US', label: '子宮肉瘤鑑別流程', estTime: 15 },
+        { type: 'read-staging', target: 'US', label: 'Fusion gene 對照表', estTime: 15 },
+        { type: 'read-entry', target: 'LMS', label: 'LMS (Stanford 3 criteria)', estTime: 30 },
+        { type: 'read-entry', target: 'LG-ESS', label: 'LG-ESS (JAZF1-SUZ12)', estTime: 25 },
+        { type: 'tree', target: 'LMS', label: '🌳 LMS 互動樹', estTime: 20 },
+      ]},
+      { day: 13, title: 'Day 13: US 罕見 + 標靶', focusCancer: 'US', tasks: [
+        { type: 'read-entry', target: 'HG-ESS-YWHAE', label: 'HG-ESS YWHAE', estTime: 20 },
+        { type: 'read-entry', target: 'HG-ESS-BCOR', label: 'HG-ESS BCOR (mimic myxoid)', estTime: 25 },
+        { type: 'read-entry', target: 'NTRK-uterine-sarcoma', label: 'NTRK uterine sarcoma', estTime: 20 },
+        { type: 'read-entry', target: 'PEComa', label: 'PEComa (Nab-Sirolimus)', estTime: 20 },
+        { type: 'read-entry', target: 'Adenosarcoma', label: 'Adenosarcoma (SO 考點)', estTime: 20 },
+      ]},
+      { day: 14, title: 'Day 14: 整合測試', focusCancer: 'all', tasks: [
+        { type: 'flashcard', target: 'EC', label: '🃏 EC 翻牌 (鞏固)', estTime: 20 },
+        { type: 'flashcard', target: 'OC', label: '🃏 OC 翻牌', estTime: 25 },
+        { type: 'flashcard', target: 'CC', label: '🃏 CC 翻牌', estTime: 20 },
+        { type: 'flashcard', target: 'US', label: '🃏 US 翻牌', estTime: 20 },
+        { type: 'match', target: 'all', label: '🎯 試驗匹配練習 5 情境', estTime: 30 },
+        { type: 'review', target: 'all', label: '⚠️ 重看易錯 + 💡 必記', estTime: 30 },
+      ]},
+    ]
+  },
+
+  '8week': {
+    title: '🎓 8 週系統計畫 (推薦長期準備)',
+    desc: '2-3 個月準備期適用; 每週 1 個主題; 每週 3-5 小時; 漸進+鞏固',
+    totalHours: '30-40 小時',
+    days: [
+      { day: 1, title: 'Week 1: EC 4-tier 系統建立', focusCancer: 'EC', tasks: [
+        { type: 'read-workflow', target: 'EC', label: 'ProMisE 5 步驟流程', estTime: 15 },
+        { type: 'read-staging', target: 'EC', label: 'FIGO 2023 分子分期表', estTime: 15 },
+        { type: 'read-entry', target: 'POLEm', label: 'POLEm 4 維度詳讀', estTime: 30 },
+        { type: 'read-entry', target: 'MMRd', label: 'MMRd 4 維度詳讀', estTime: 35 },
+        { type: 'read-entry', target: 'p53abn', label: 'p53abn 4 維度詳讀', estTime: 35 },
+        { type: 'read-entry', target: 'NSMP-low-risk', label: 'NSMP-low-risk', estTime: 20 },
+        { type: 'read-entry', target: 'NSMP-high-risk', label: 'NSMP-high-risk', estTime: 20 },
+        { type: 'tree', target: 'POLEm', label: '🌳 POLEm 互動樹', estTime: 15 },
+        { type: 'tree', target: 'p53abn', label: '🌳 p53abn 互動樹', estTime: 20 },
+        { type: 'flashcard', target: 'EC', label: '🃏 EC 翻牌 (週末鞏固)', estTime: 30 },
+      ]},
+      { day: 2, title: 'Week 2: EC 進階 (Lynch / 罕見)', focusCancer: 'EC', tasks: [
+        { type: 'read-entry', target: 'MMR-Lynch-Workflow', label: 'MMR/Lynch 完整流程', estTime: 40 },
+        { type: 'tree', target: 'MMRd', label: '🌳 dMMR 互動樹 (深度走 5 個分支)', estTime: 30 },
+        { type: 'read-entry', target: 'HER2-uterine-serous', label: 'HER2 uterine serous', estTime: 25 },
+        { type: 'read-entry', target: 'CTNNB1', label: 'CTNNB1', estTime: 20 },
+        { type: 'read-entry', target: 'L1CAM', label: 'L1CAM', estTime: 15 },
+        { type: 'pathway', target: 'EC', label: '🗺️ EC 治療路徑流程圖', estTime: 35 },
+        { type: 'flashcard', target: 'EC', label: '🃏 EC 翻牌再過 (鞏固)', estTime: 30 },
+        { type: 'review', target: 'EC', label: '回顧本週弱點', estTime: 30 },
+      ]},
+      { day: 3, title: 'Week 3: OC 核心 (BRCA / HRD)', focusCancer: 'OC', tasks: [
+        { type: 'read-workflow', target: 'OC', label: '新診斷 OC 5 步驟檢測流程', estTime: 15 },
+        { type: 'read-staging', target: 'OC', label: 'ADC Target 7 種對照表', estTime: 20 },
+        { type: 'read-entry', target: 'BRCAm', label: 'BRCAm 完整 (germline + somatic)', estTime: 40 },
+        { type: 'read-entry', target: 'HRD-pos', label: 'HRD+ (Myriad CDx)', estTime: 35 },
+        { type: 'read-entry', target: 'HRD-neg', label: 'HRD- (含 CCNE1 連結)', estTime: 35 },
+        { type: 'read-entry', target: 'HRRm', label: 'HRRm (non-BRCA)', estTime: 25 },
+        { type: 'tree', target: 'BRCAm', label: '🌳 BRCAm 互動樹 (含 PROC)', estTime: 30 },
+        { type: 'tree', target: 'HRD-pos', label: '🌳 HRD-pos 互動樹', estTime: 25 },
+      ]},
+      { day: 4, title: 'Week 4: OC 進階 (CCNE1 / PARPi 抗藥)', focusCancer: 'OC', tasks: [
+        { type: 'read-entry', target: 'CCNE1', label: 'CCNE1 (HRD 互斥 + 合成致死)', estTime: 35 },
+        { type: 'read-entry', target: 'BRCA-reversion', label: 'PARPi 5 大抗藥機制', estTime: 40 },
+        { type: 'read-entry', target: 'HGSC', label: 'HGSC (TP53 + STIC)', estTime: 30 },
+        { type: 'read-entry', target: 'OCCC', label: 'OCCC (本院 DOVE)', estTime: 30 },
+        { type: 'read-entry', target: 'LGSC', label: 'LGSC (KRAS/BRAF + MEK)', estTime: 25 },
+        { type: 'read-entry', target: 'Endometrioid-OC', label: 'Endometrioid OC', estTime: 20 },
+        { type: 'read-entry', target: 'Mucinous-OC', label: 'Mucinous (排 GI mets)', estTime: 25 },
+        { type: 'read-entry', target: 'Carcinosarcoma', label: 'Carcinosarcoma', estTime: 20 },
+        { type: 'pathway', target: 'OC', label: '🗺️ OC 治療路徑', estTime: 35 },
+        { type: 'flashcard', target: 'OC', label: '🃏 OC 翻牌', estTime: 30 },
+        { type: 'review', target: 'OC', label: 'OC 弱點補強', estTime: 30 },
+      ]},
+      { day: 5, title: 'Week 5: CC HPV + IO', focusCancer: 'CC', tasks: [
+        { type: 'read-workflow', target: 'CC', label: 'WHO 2020 病理分類流程', estTime: 15 },
+        { type: 'read-staging', target: 'CC', label: 'HPV-assoc vs HPV-indep 對照', estTime: 20 },
+        { type: 'read-entry', target: 'HPV16', label: 'HPV16 (alpha-9, 鱗癌主因)', estTime: 30 },
+        { type: 'read-entry', target: 'HPV18', label: 'HPV18 (alpha-7, 腺癌主因)', estTime: 30 },
+        { type: 'read-entry', target: 'PD-L1-CPS', label: 'PD-L1 CPS 公式 + KEYNOTE-826/A18', estTime: 35 },
+        { type: 'read-entry', target: 'HER2-cervical', label: 'HER2 cervical adenoCa', estTime: 30 },
+        { type: 'read-entry', target: 'TROP2', label: 'TROP2 (sac-TMT)', estTime: 20 },
+        { type: 'read-entry', target: 'CIN23', label: 'CIN2/3 (本院 PVX4)', estTime: 25 },
+      ]},
+      { day: 6, title: 'Week 6: CC HPV-independent + 進階', focusCancer: 'CC', tasks: [
+        { type: 'read-entry', target: 'HPV-independent-gastric', label: 'HPV-indep gastric-type (PJS)', estTime: 40 },
+        { type: 'tree', target: 'HPV-independent-gastric', label: '🌳 HPV-indep 互動樹 (走 5 步)', estTime: 30 },
+        { type: 'read-entry', target: 'Tumor-agnostic-CC', label: 'Tumor-agnostic biomarkers', estTime: 30 },
+        { type: 'read-entry', target: 'PIK3CA', label: 'PIK3CA', estTime: 15 },
+        { type: 'read-entry', target: 'HPV-ctDNA', label: 'HPV ctDNA (research)', estTime: 20 },
+        { type: 'pathway', target: 'CC', label: '🗺️ CC 治療路徑', estTime: 35 },
+        { type: 'flashcard', target: 'CC', label: '🃏 CC 翻牌', estTime: 30 },
+        { type: 'review', target: 'CC', label: 'CC 弱點補強', estTime: 30 },
+      ]},
+      { day: 7, title: 'Week 7: US 完整 (LMS / ESS / Fusion)', focusCancer: 'US', tasks: [
+        { type: 'read-workflow', target: 'US', label: '子宮肉瘤鑑別診斷流程', estTime: 20 },
+        { type: 'read-staging', target: 'US', label: 'Fusion gene 8 種對照表', estTime: 25 },
+        { type: 'read-entry', target: 'LMS', label: 'LMS (Stanford 3 criteria)', estTime: 35 },
+        { type: 'read-entry', target: 'LG-ESS', label: 'LG-ESS (JAZF1-SUZ12)', estTime: 30 },
+        { type: 'read-entry', target: 'HG-ESS-YWHAE', label: 'HG-ESS YWHAE-NUTM2', estTime: 25 },
+        { type: 'read-entry', target: 'HG-ESS-BCOR', label: 'HG-ESS BCOR (mimic myxoid LMS)', estTime: 30 },
+        { type: 'read-entry', target: 'NTRK-uterine-sarcoma', label: 'NTRK uterine sarcoma', estTime: 25 },
+        { type: 'read-entry', target: 'IMT-ALK', label: 'IMT (ALK)', estTime: 20 },
+        { type: 'read-entry', target: 'PEComa', label: 'PEComa (TSC + mTORi)', estTime: 25 },
+        { type: 'read-entry', target: 'Adenosarcoma', label: 'Adenosarcoma (SO 核心考點)', estTime: 30 },
+        { type: 'read-entry', target: 'STUMP', label: 'STUMP', estTime: 15 },
+        { type: 'read-entry', target: 'uLMS-hormonal', label: 'uLMS-hormonal', estTime: 15 },
+        { type: 'tree', target: 'LMS', label: '🌳 LMS 互動樹', estTime: 25 },
+        { type: 'pathway', target: 'US', label: '🗺️ US 治療路徑', estTime: 30 },
+      ]},
+      { day: 8, title: 'Week 8: 整合 + 模擬考', focusCancer: 'all', tasks: [
+        { type: 'flashcard', target: 'EC', label: '🃏 EC 翻牌 (鞏固第 1 輪)', estTime: 25 },
+        { type: 'flashcard', target: 'OC', label: '🃏 OC 翻牌 (鞏固第 1 輪)', estTime: 30 },
+        { type: 'flashcard', target: 'CC', label: '🃏 CC 翻牌 (鞏固第 1 輪)', estTime: 25 },
+        { type: 'flashcard', target: 'US', label: '🃏 US 翻牌 (鞏固第 1 輪)', estTime: 25 },
+        { type: 'match', target: 'all', label: '🎯 試驗匹配 — 自己出 5 個情境', estTime: 35 },
+        { type: 'tree', target: 'BRCAm', label: '🌳 重走 BRCAm 互動樹', estTime: 20 },
+        { type: 'tree', target: 'MMRd', label: '🌳 重走 dMMR 互動樹', estTime: 20 },
+        { type: 'review', target: 'all', label: '⚠️ 重看所有易錯陷阱', estTime: 40 },
+        { type: 'review', target: 'all', label: '💡 重看所有必記重點', estTime: 40 },
+        { type: 'flashcard', target: 'EC', label: '🃏 EC 翻牌 (鞏固第 2 輪)', estTime: 25 },
+        { type: 'flashcard', target: 'OC', label: '🃏 OC 翻牌 (鞏固第 2 輪)', estTime: 30 },
+        { type: 'flashcard', target: 'CC', label: '🃏 CC 翻牌 (鞏固第 2 輪)', estTime: 25 },
+        { type: 'flashcard', target: 'US', label: '🃏 US 翻牌 (鞏固第 2 輪)', estTime: 25 },
+      ]},
+    ]
+  },
+};
+
+
 const EXAM_CARDS = {
   'POLEm': {
     definition: 'POLE exonuclease domain pathogenic mutation (exon 9-14, e.g. P286R, V411L)',
@@ -11764,6 +12361,493 @@ const MOL_PEDIA = {
 let currentMolTab = 'EC';
 let currentMolEntry = 0;
 let currentMolSpecial = null; // 'workflow' | 'staging' | null
+
+// ============================================================
+// 📚 讀書計畫 + 進度追蹤 + 重點等級 (Study Plan + Progress Tracking)
+// ============================================================
+const STUDY_PROGRESS_KEY = 'gyne_navigator_study_progress';
+const STUDY_PLAN_KEY = 'gyne_navigator_study_plan_state';
+
+let currentStudyTab = 'overview'; // 'overview' | 'priority' | 'plan' | 'progress'
+let currentStudyPlan = '8week'; // '7day' | '14day' | '8week'
+let currentStudyDay = 1;
+let priorityFilter = 'all'; // 'all' | 'high' | 'high-mid'
+
+function getStudyProgress(){
+  try {
+    return JSON.parse(localStorage.getItem(STUDY_PROGRESS_KEY) || '{}');
+  } catch(e){ return {}; }
+}
+
+function setStudyProgress(p){
+  try { localStorage.setItem(STUDY_PROGRESS_KEY, JSON.stringify(p)); } catch(e){}
+}
+
+function getStudyPlanState(){
+  try {
+    return JSON.parse(localStorage.getItem(STUDY_PLAN_KEY) || '{}');
+  } catch(e){ return {}; }
+}
+
+function setStudyPlanState(s){
+  try { localStorage.setItem(STUDY_PLAN_KEY, JSON.stringify(s)); } catch(e){}
+}
+
+function openStudyPlan(){
+  el('studyPlanModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  switchStudyTab(currentStudyTab);
+}
+
+function closeStudyPlan(){
+  el('studyPlanModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchStudyTab(tab){
+  currentStudyTab = tab;
+  document.querySelectorAll('.study-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  if(tab === 'overview') renderStudyOverview();
+  else if(tab === 'priority') renderStudyPriority();
+  else if(tab === 'plan') renderStudyPlan();
+  else if(tab === 'progress') renderStudyProgress();
+}
+
+// ===== Tab 1: Overview (3 features intro) =====
+function renderStudyOverview(){
+  const progress = getStudyProgress();
+  const totalEntries = Object.keys(ENTRY_PRIORITIES).length;
+  const learnedCount = Object.values(progress).filter(s => s === 'learned' || s === 'mastered').length;
+  const masteredCount = Object.values(progress).filter(s => s === 'mastered').length;
+  const pct = totalEntries > 0 ? Math.round((learnedCount / totalEntries) * 100) : 0;
+
+  el('studyBody').innerHTML = `
+    <div class="study-overview">
+      <div class="study-hero">
+        <div class="study-hero-icon">📚</div>
+        <div>
+          <div class="study-hero-title">三件套考試複習系統</div>
+          <div class="study-hero-desc">
+            針對婦癌專科考試設計, 整合「考點等級」+「讀書計畫」+「進度追蹤」三大功能
+          </div>
+        </div>
+      </div>
+
+      <div class="study-quick-stat">
+        <div class="sqs-row">
+          <div class="sqs-num">${learnedCount}/${totalEntries}</div>
+          <div class="sqs-label">已讀 entry 進度</div>
+        </div>
+        <div class="sqs-bar">
+          <div class="sqs-bar-fill" style="width:${pct}%;"></div>
+        </div>
+        <div class="sqs-detail">
+          📖 已讀: ${learnedCount} · ✓ 已掌握: ${masteredCount} · 📊 完成度: ${pct}%
+        </div>
+      </div>
+
+      <div class="study-features-grid">
+        <div class="study-feature-card" onclick="switchStudyTab('priority')">
+          <div class="sfc-icon">⭐</div>
+          <div class="sfc-title">考點等級</div>
+          <div class="sfc-desc">41 entries 標記 🔴必考 / 🟡重要 / 🟢進階, 可篩選只看必考</div>
+          <div class="sfc-link">前往查看 →</div>
+        </div>
+        <div class="study-feature-card" onclick="switchStudyTab('plan')">
+          <div class="sfc-icon">📅</div>
+          <div class="sfc-title">讀書計畫</div>
+          <div class="sfc-desc">3 種長度: 7天衝刺 / 14天扎實 / 8週系統 (推薦長期準備)</div>
+          <div class="sfc-link">前往查看 →</div>
+        </div>
+        <div class="study-feature-card" onclick="switchStudyTab('progress')">
+          <div class="sfc-icon">📊</div>
+          <div class="sfc-title">進度追蹤</div>
+          <div class="sfc-desc">三狀態 (未讀/已讀/已掌握) · 各癌別進度條 · localStorage 自動記憶</div>
+          <div class="sfc-link">前往查看 →</div>
+        </div>
+      </div>
+
+      <div class="study-tips">
+        <h4>💡 推薦複習路徑 (基於您的目標)</h4>
+        <ol>
+          <li><strong>第一週</strong>: 點 ⭐ 考點等級 → 篩選「只看必考」→ 集中讀 12 個必考 entries</li>
+          <li><strong>第二週</strong>: 切換 📅 讀書計畫 → 選擇適合的計畫 (7/14/8週)</li>
+          <li><strong>每天</strong>: 按計畫做任務 → 標記 ✓ 完成 → 看 📊 進度追蹤</li>
+          <li><strong>每週末</strong>: 用 🃏 翻牌模式測驗自己 (考試模式按鈕)</li>
+          <li><strong>考前 1 週</strong>: 重看所有 ⚠️ 易錯陷阱 + 💡 必記重點</li>
+        </ol>
+      </div>
+    </div>
+  `;
+}
+
+// ===== Tab 2: Priority (entry list with priority badges) =====
+function renderStudyPriority(){
+  const progress = getStudyProgress();
+
+  // Filter & sort
+  const allEntries = [];
+  ['EC', 'OC', 'CC', 'US'].forEach(cancer => {
+    if(MOL_PEDIA[cancer]){
+      MOL_PEDIA[cancer].entries.forEach(e => {
+        const prio = ENTRY_PRIORITIES[e.id] || 'low';
+        const status = progress[e.id] || 'unread';
+        allEntries.push({ cancer, entry: e, prio, status });
+      });
+    }
+  });
+
+  let filtered = allEntries;
+  if(priorityFilter === 'high') filtered = allEntries.filter(x => x.prio === 'high');
+  else if(priorityFilter === 'high-mid') filtered = allEntries.filter(x => x.prio === 'high' || x.prio === 'mid');
+
+  // Group by cancer
+  const byCancer = { EC: [], OC: [], CC: [], US: [] };
+  filtered.forEach(x => byCancer[x.cancer].push(x));
+
+  const counts = {
+    high: allEntries.filter(x => x.prio === 'high').length,
+    mid: allEntries.filter(x => x.prio === 'mid').length,
+    low: allEntries.filter(x => x.prio === 'low').length,
+  };
+
+  let html = `
+    <div class="study-priority-controls">
+      <h3>⭐ 41 entries 考點等級分類</h3>
+      <div class="priority-counts">
+        <span class="pc high">🔴 必考 ${counts.high}</span>
+        <span class="pc mid">🟡 重要 ${counts.mid}</span>
+        <span class="pc low">🟢 進階 ${counts.low}</span>
+      </div>
+      <div class="priority-filter-row">
+        <span class="pf-label">篩選顯示:</span>
+        <button class="pf-btn ${priorityFilter==='high'?'active':''}" onclick="priorityFilter='high'; renderStudyPriority();">🔴 只看必考 (${counts.high})</button>
+        <button class="pf-btn ${priorityFilter==='high-mid'?'active':''}" onclick="priorityFilter='high-mid'; renderStudyPriority();">🔴+🟡 重點 (${counts.high+counts.mid})</button>
+        <button class="pf-btn ${priorityFilter==='all'?'active':''}" onclick="priorityFilter='all'; renderStudyPriority();">全部 (41)</button>
+      </div>
+    </div>
+  `;
+
+  ['EC', 'OC', 'CC', 'US'].forEach(cancer => {
+    const items = byCancer[cancer];
+    if(items.length === 0) return;
+    const cancerEmoji = { EC:'🔴', OC:'🟣', CC:'🟠', US:'🔵' }[cancer];
+    const cancerName = MOL_PEDIA[cancer].title;
+
+    html += `<div class="priority-cancer-group">
+      <h4>${escapeHtml(cancerName)} (${items.length})</h4>
+      <div class="priority-entry-list">`;
+
+    items.forEach(({ entry, prio, status }) => {
+      const prioInfo = {
+        high: { emoji: '🔴', label: '必考', class: 'high' },
+        mid: { emoji: '🟡', label: '重要', class: 'mid' },
+        low: { emoji: '🟢', label: '進階', class: 'low' },
+      }[prio];
+      const statusInfo = {
+        unread: { emoji: '○', label: '未讀', class: 'unread' },
+        learned: { emoji: '📖', label: '已讀', class: 'learned' },
+        mastered: { emoji: '✓', label: '已掌握', class: 'mastered' },
+      }[status];
+
+      html += `
+        <div class="priority-entry-card ${prioInfo.class}">
+          <div class="pec-prio-bar"></div>
+          <div class="pec-content">
+            <div class="pec-row1">
+              <span class="pec-prio-badge ${prioInfo.class}">${prioInfo.emoji} ${prioInfo.label}</span>
+              <span class="pec-status-badge ${statusInfo.class}">${statusInfo.emoji} ${statusInfo.label}</span>
+            </div>
+            <div class="pec-name">${escapeHtml(entry.name)}</div>
+            <div class="pec-freq">${escapeHtml(entry.frequency)}</div>
+            <div class="pec-actions">
+              <button class="pec-btn-read" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancer}'); setTimeout(() => { const idx = MOL_PEDIA['${cancer}'].entries.findIndex(e => e.id === '${entry.id}'); if(idx >= 0) selectMolEntry(idx); }, 50); }, 100); }, 100);">📖 開啟讀</button>
+              <button class="pec-btn-status" onclick="cycleEntryStatus('${entry.id}'); renderStudyPriority();" title="點擊切換: 未讀 → 已讀 → 已掌握">
+                ${statusInfo.label === '未讀' ? '標記已讀' : statusInfo.label === '已讀' ? '標記掌握' : '重置未讀'}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div></div>`;
+  });
+
+  el('studyBody').innerHTML = html;
+}
+
+function cycleEntryStatus(entryId){
+  const progress = getStudyProgress();
+  const current = progress[entryId] || 'unread';
+  if(current === 'unread') progress[entryId] = 'learned';
+  else if(current === 'learned') progress[entryId] = 'mastered';
+  else delete progress[entryId];
+  setStudyProgress(progress);
+}
+
+// ===== Tab 3: Plan (study plans) =====
+function renderStudyPlan(){
+  const planState = getStudyPlanState();
+  const planKey = currentStudyPlan;
+  const plan = STUDY_PLANS[planKey];
+
+  let html = `
+    <div class="study-plan-controls">
+      <h3>📅 選擇您的讀書計畫</h3>
+      <div class="plan-selector">
+        <button class="plan-sel-btn ${currentStudyPlan==='7day'?'active':''}" onclick="currentStudyPlan='7day'; currentStudyDay=1; renderStudyPlan();">
+          ⚡ 7 天衝刺<br><small>${STUDY_PLANS['7day'].totalHours}</small>
+        </button>
+        <button class="plan-sel-btn ${currentStudyPlan==='14day'?'active':''}" onclick="currentStudyPlan='14day'; currentStudyDay=1; renderStudyPlan();">
+          📚 14 天扎實<br><small>${STUDY_PLANS['14day'].totalHours}</small>
+        </button>
+        <button class="plan-sel-btn ${currentStudyPlan==='8week'?'active':''}" onclick="currentStudyPlan='8week'; currentStudyDay=1; renderStudyPlan();">
+          🎓 8 週系統<br><small>${STUDY_PLANS['8week'].totalHours}</small>
+        </button>
+      </div>
+      <div class="plan-info">
+        <strong>${escapeHtml(plan.title)}</strong>
+        <p>${escapeHtml(plan.desc)}</p>
+      </div>
+    </div>
+
+    <div class="plan-day-tabs">
+      ${plan.days.map(d => {
+        const dayKey = `${planKey}-day-${d.day}`;
+        const dayDone = planState[dayKey] || {};
+        const totalTasks = d.tasks.length;
+        const doneTasks = Object.keys(dayDone).filter(k => dayDone[k]).length;
+        const isComplete = doneTasks === totalTasks;
+        return `
+          <button class="day-tab ${currentStudyDay === d.day ? 'active' : ''} ${isComplete ? 'complete' : ''}" onclick="currentStudyDay=${d.day}; renderStudyPlan();">
+            ${isComplete ? '✓' : ''} ${d.day}
+          </button>
+        `;
+      }).join('')}
+    </div>
+  `;
+
+  // Current day detail
+  const day = plan.days.find(d => d.day === currentStudyDay);
+  if(day){
+    const dayKey = `${planKey}-day-${day.day}`;
+    const dayDone = planState[dayKey] || {};
+    const totalMin = day.tasks.reduce((s, t) => s + (t.estTime || 0), 0);
+    const totalTasks = day.tasks.length;
+    const doneTasks = Object.keys(dayDone).filter(k => dayDone[k]).length;
+    const dayPct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+
+    html += `
+      <div class="plan-day-content">
+        <div class="day-header">
+          <h4>${escapeHtml(day.title)}</h4>
+          <div class="day-meta">
+            <span>📚 ${totalTasks} 任務</span>
+            <span>⏱ ${totalMin} 分鐘 (${(totalMin/60).toFixed(1)} 小時)</span>
+            <span>📊 完成 ${doneTasks}/${totalTasks} (${dayPct}%)</span>
+          </div>
+          <div class="day-progress-bar">
+            <div class="day-progress-fill" style="width:${dayPct}%;"></div>
+          </div>
+        </div>
+        <div class="day-tasks">
+    `;
+
+    day.tasks.forEach((task, idx) => {
+      const taskKey = `task-${idx}`;
+      const isDone = !!dayDone[taskKey];
+      const taskIcon = {
+        'read-entry': '📖',
+        'read-workflow': '🔬',
+        'read-staging': '📐',
+        'flashcard': '🃏',
+        'tree': '🌳',
+        'pathway': '🗺️',
+        'match': '🎯',
+        'review': '🔄',
+        'quiz': '❓'
+      }[task.type] || '📝';
+
+      const cancerOfTarget = (() => {
+        for(const c of ['EC','OC','CC','US']){
+          if(MOL_PEDIA[c] && MOL_PEDIA[c].entries.find(e => e.id === task.target)) return c;
+        }
+        return ['EC','OC','CC','US'].includes(task.target) ? task.target : null;
+      })();
+
+      let actionBtn = '';
+      if(task.type === 'read-entry' && cancerOfTarget){
+        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancerOfTarget}'); setTimeout(() => { const idx = MOL_PEDIA['${cancerOfTarget}'].entries.findIndex(e => e.id === '${task.target}'); if(idx >= 0) selectMolEntry(idx); }, 50); }, 100); }, 100);">前往 →</button>`;
+      } else if(task.type === 'flashcard' && cancerOfTarget){
+        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openFlashcardMode('${cancerOfTarget}'); }, 200);">開始翻牌 →</button>`;
+      } else if(task.type === 'tree'){
+        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openNextStepTree('${task.target}'); }, 200);">開始互動樹 →</button>`;
+      } else if(task.type === 'pathway' && cancerOfTarget){
+        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openPathway(); setTimeout(() => switchPathwayTab('${cancerOfTarget}'), 100); }, 200);">看流程圖 →</button>`;
+      } else if(task.type === 'match'){
+        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => openTrialMatch(), 200);">開始匹配 →</button>`;
+      } else if(task.type === 'read-workflow' && cancerOfTarget){
+        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancerOfTarget}'); setTimeout(() => showMolSpecial('workflow'), 50); }, 100); }, 100);">看流程 →</button>`;
+      } else if(task.type === 'read-staging' && cancerOfTarget){
+        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancerOfTarget}'); setTimeout(() => showMolSpecial('staging'), 50); }, 100); }, 100);">看表格 →</button>`;
+      } else {
+        actionBtn = '';
+      }
+
+      html += `
+        <div class="task-item ${isDone ? 'done' : ''}">
+          <button class="task-check ${isDone ? 'checked' : ''}" onclick="toggleStudyTask('${dayKey}', '${taskKey}'); renderStudyPlan();">
+            ${isDone ? '✓' : '○'}
+          </button>
+          <div class="task-content">
+            <div class="task-row">
+              <span class="task-icon">${taskIcon}</span>
+              <span class="task-label">${escapeHtml(task.label)}</span>
+              <span class="task-time">${task.estTime}m</span>
+            </div>
+            ${actionBtn}
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div></div>`;
+  }
+
+  el('studyBody').innerHTML = html;
+}
+
+function toggleStudyTask(dayKey, taskKey){
+  const state = getStudyPlanState();
+  if(!state[dayKey]) state[dayKey] = {};
+  state[dayKey][taskKey] = !state[dayKey][taskKey];
+  setStudyPlanState(state);
+}
+
+// ===== Tab 4: Progress Dashboard =====
+function renderStudyProgress(){
+  const progress = getStudyProgress();
+
+  // Per-cancer stats
+  const cancerStats = {};
+  ['EC', 'OC', 'CC', 'US'].forEach(c => {
+    cancerStats[c] = { total: 0, learned: 0, mastered: 0, weak: [] };
+    if(MOL_PEDIA[c]){
+      MOL_PEDIA[c].entries.forEach(e => {
+        cancerStats[c].total++;
+        const status = progress[e.id] || 'unread';
+        if(status === 'learned' || status === 'mastered') cancerStats[c].learned++;
+        if(status === 'mastered') cancerStats[c].mastered++;
+        // Weak = high priority + unread
+        if(ENTRY_PRIORITIES[e.id] === 'high' && status === 'unread'){
+          cancerStats[c].weak.push(e);
+        }
+      });
+    }
+  });
+
+  // Priority stats
+  const totalEntries = Object.keys(ENTRY_PRIORITIES).length;
+  const allLearned = Object.values(progress).filter(s => s === 'learned' || s === 'mastered').length;
+  const allMastered = Object.values(progress).filter(s => s === 'mastered').length;
+  const overallPct = totalEntries > 0 ? Math.round((allLearned / totalEntries) * 100) : 0;
+
+  // Priority-based progress
+  const prioStats = { high: { total: 0, learned: 0 }, mid: { total: 0, learned: 0 }, low: { total: 0, learned: 0 } };
+  Object.keys(ENTRY_PRIORITIES).forEach(id => {
+    const prio = ENTRY_PRIORITIES[id];
+    prioStats[prio].total++;
+    const status = progress[id] || 'unread';
+    if(status === 'learned' || status === 'mastered') prioStats[prio].learned++;
+  });
+
+  let html = `
+    <div class="progress-dashboard">
+      <h3>📊 學習進度儀表板</h3>
+
+      <div class="progress-overall">
+        <div class="po-big-num">${allLearned}/${totalEntries}</div>
+        <div class="po-label">總體進度 ${overallPct}%</div>
+        <div class="po-bar"><div class="po-bar-fill" style="width:${overallPct}%;"></div></div>
+        <div class="po-detail">
+          📖 已讀: ${allLearned} ·
+          ✓ 已掌握: ${allMastered} ·
+          ○ 未讀: ${totalEntries - allLearned}
+        </div>
+      </div>
+
+      <h4>🎯 依考點等級進度</h4>
+      <div class="prio-progress-grid">
+        ${['high','mid','low'].map(p => {
+          const s = prioStats[p];
+          const pct = s.total > 0 ? Math.round((s.learned / s.total) * 100) : 0;
+          const info = { high: { e: '🔴', n: '必考' }, mid: { e: '🟡', n: '重要' }, low: { e: '🟢', n: '進階' } }[p];
+          return `
+            <div class="prio-prog-card ${p}">
+              <div class="ppc-emoji">${info.e}</div>
+              <div class="ppc-name">${info.n}</div>
+              <div class="ppc-num">${s.learned}/${s.total}</div>
+              <div class="ppc-bar"><div class="ppc-bar-fill ${p}" style="width:${pct}%;"></div></div>
+              <div class="ppc-pct">${pct}%</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <h4>🎨 依癌別進度</h4>
+      <div class="cancer-progress-grid">
+        ${['EC','OC','CC','US'].map(c => {
+          const s = cancerStats[c];
+          const pct = s.total > 0 ? Math.round((s.learned / s.total) * 100) : 0;
+          const emoji = { EC:'🔴', OC:'🟣', CC:'🟠', US:'🔵' }[c];
+          return `
+            <div class="cancer-prog-card">
+              <div class="cpc-header">
+                <span class="cpc-emoji">${emoji}</span>
+                <span class="cpc-name">${c}</span>
+                <span class="cpc-num">${s.learned}/${s.total} (${pct}%)</span>
+              </div>
+              <div class="cpc-bar"><div class="cpc-bar-fill" style="width:${pct}%;"></div></div>
+              <div class="cpc-detail">
+                ✓ 掌握 ${s.mastered} · 📖 已讀 ${s.learned - s.mastered} · ○ 未讀 ${s.total - s.learned}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <h4>⚠️ 優先補強建議 (必考但未讀)</h4>
+      <div class="weak-list">
+        ${(() => {
+          const weakEntries = [];
+          ['EC','OC','CC','US'].forEach(c => {
+            cancerStats[c].weak.forEach(e => weakEntries.push({ cancer: c, entry: e }));
+          });
+          if(weakEntries.length === 0){
+            return `<div style="padding:14px;background:#f0fdf4;border-radius:9px;color:#15803d;font-size:13px;">🎉 所有必考 entries 都已讀過! 太棒了!</div>`;
+          }
+          return weakEntries.map(({ cancer, entry }) => `
+            <div class="weak-item" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancer}'); setTimeout(() => { const idx = MOL_PEDIA['${cancer}'].entries.findIndex(e => e.id === '${entry.id}'); if(idx >= 0) selectMolEntry(idx); }, 50); }, 100); }, 100);">
+              <span class="weak-tag">🔴 必考</span>
+              <span class="weak-cancer">${cancer}</span>
+              <span class="weak-name">${escapeHtml(entry.name)}</span>
+              <span class="weak-arrow">→</span>
+            </div>
+          `).join('');
+        })()}
+      </div>
+
+      <div class="progress-actions">
+        <button onclick="if(confirm('確定要清除所有學習進度紀錄嗎? 此動作無法復原.')){ localStorage.removeItem(STUDY_PROGRESS_KEY); renderStudyProgress(); }" class="btn-reset-progress">🔄 清除進度</button>
+      </div>
+    </div>
+  `;
+
+  el('studyBody').innerHTML = html;
+}
 
 function openMolPedia(){
   el('molPediaModal').classList.add('open');
