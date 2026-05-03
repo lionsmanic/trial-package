@@ -366,6 +366,46 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .mol-takeaway{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #f59e0b;border-radius:11px;padding:13px 16px;font-size:13px;line-height:1.65;color:#78350f;margin-top:18px;}
 .mol-takeaway strong{color:#78350f;}
 
+/* Special buttons (workflow / staging) */
+.mol-special-btn{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:10px 12px;border-radius:10px;border:2px solid transparent;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;margin-bottom:6px;line-height:1.35;transition:all 0.15s;}
+.mol-special-btn.workflow{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1e3a8a;}
+.mol-special-btn.workflow:hover{border-color:#60a5fa;transform:translateX(2px);}
+.mol-special-btn.workflow.active{background:linear-gradient(135deg,#1e40af,#1e3a8a);color:white;border-color:#1e40af;}
+.mol-special-btn.staging{background:linear-gradient(135deg,#fce7f3,#fbcfe8);color:#831843;}
+.mol-special-btn.staging:hover{border-color:#ec4899;transform:translateX(2px);}
+.mol-special-btn.staging.active{background:linear-gradient(135deg,#9d174d,#831843);color:white;border-color:#9d174d;}
+
+/* Workflow steps */
+.mol-workflow-steps{display:flex;flex-direction:column;gap:11px;margin:14px 0;}
+.mol-step{display:flex;align-items:flex-start;gap:14px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-left:4px solid #0284c7;border-radius:0 11px 11px 0;padding:13px 15px;}
+.mol-step-num{width:30px;height:30px;flex-shrink:0;background:linear-gradient(135deg,#0284c7,#0369a1);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;font-family:"JetBrains Mono",monospace;}
+.mol-step-content{flex:1;}
+.mol-step-title{font-size:13.5px;font-weight:800;color:#0c4a6e;margin-bottom:3px;}
+.mol-step-desc{font-size:12px;line-height:1.6;color:#334155;}
+
+/* FIGO staging table */
+.mol-staging-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12.5px;background:white;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+.mol-staging-table thead{background:linear-gradient(135deg,#9d174d,#831843);color:white;}
+.mol-staging-table th{padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px;letter-spacing:0.03em;}
+.mol-staging-table td{padding:10px 12px;border-bottom:1px solid #f1f5f9;line-height:1.5;color:#1a202c;}
+.mol-staging-table tbody tr:last-child td{border-bottom:none;}
+.mol-staging-table tbody tr:hover{background:#fdf2f8;}
+.mol-staging-table code{background:#fce7f3;color:#831843;padding:2px 7px;border-radius:5px;font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:700;}
+
+/* Next step section special styling */
+.mol-detail-section.nextstep{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-left:4px solid #16a34a;padding:14px 16px;border-radius:0 10px 10px 0;margin:14px 0;}
+.mol-detail-section.nextstep h4{color:#14532d;}
+.mol-detail-section.nextstep .mol-bullets{color:#15803d;}
+
+@media(max-width:640px){
+  .mol-step{padding:11px 12px;gap:11px;}
+  .mol-step-num{width:26px;height:26px;font-size:12px;}
+  .mol-step-title{font-size:12.5px;}
+  .mol-step-desc{font-size:11.5px;}
+  .mol-staging-table{font-size:11.5px;}
+  .mol-staging-table th, .mol-staging-table td{padding:8px 9px;}
+}
+
 @media(max-width:900px){
   .mol-pedia-modal-content{max-height:96vh;border-radius:12px;}
   .mol-pedia-body{flex-direction:column;}
@@ -5631,77 +5671,377 @@ function closeAiPathwayModal(){
 const MOL_PEDIA = {
   EC: {
     title: '🔴 子宮內膜癌 EC',
-    framework: 'TCGA / ProMisE 4 分類框架',
-    description: '依分子特徵分為 4 大類, 預後與治療策略各異。2023 年 FIGO staging 已正式整合分子分型。',
+    framework: 'TCGA / ProMisE 4 分類框架 + 細項 biomarkers',
+    description: '依分子特徵分為 4 大類, 預後與治療策略各異。2023 年 FIGO staging 已正式整合分子分型 (IAm POLEmut, IICm p53abn 等)。',
+    workflow: {
+      title: '🔬 EC 分子判讀 5 步驟流程 (ProMisE Algorithm)',
+      steps: [
+        { num: '1', title: 'POLE EDM sequencing', desc: '先測 exon 9-14 hotspot (P286R, V411L 等), 一旦陽性即定為 POLEmut, 不需再分類' },
+        { num: '2', title: 'MMR IHC 4 蛋白', desc: 'MLH1 / PMS2 / MSH2 / MSH6 任一缺失 → MMRd; 多為 MLH1/PMS2 雙缺失' },
+        { num: '3', title: 'p53 IHC pattern', desc: 'Wild-type / overexpression / null (完全缺失) / cytoplasmic → 後三者為 p53abn' },
+        { num: '4', title: '不能歸類者 = NSMP', desc: 'p53 wild-type + MMR proficient + 無 POLE mut → NSMP (最大族群 ~50%)' },
+        { num: '5', title: 'Multiple-classifier 處理', desc: 'POLEmut > MMRd > p53abn (POLEmut 優先, 預後決定權)' },
+      ]
+    },
+    figoStaging: {
+      title: '📐 FIGO 2023 分子分期 (ESGO/ESTRO/ESP 2025)',
+      rows: [
+        { mol: 'POLEmut', stage: 'IAm POLEmut', impact: '即使 high-grade 也可能降階治療; PORTEC-4a 不給 adjuvant' },
+        { mol: 'p53abn', stage: 'IICm p53abn', impact: 'Stage I-II + myometrial invasion + p53abn → 風險升; 需強化 adjuvant' },
+        { mol: 'MMRd', stage: '影響 risk + IO 治療選擇', impact: '需連到 Lynch / MLH1 methylation 判讀' },
+        { mol: 'NSMP', stage: '需再分流', impact: 'ER, grade, LVSI 細分; ER+ low-grade vs ER- high-grade 預後差異大' },
+      ]
+    },
     entries: [
       {
         id: 'POLEm',
-        name: 'POLE 突變 (POLEm / POLE-ultramutated)',
+        name: 'POLE 突變 (POLEmut / POLE-ultramutated)',
         frequency: '~7% (TCGA cohort)',
-        prognosis: '⭐⭐⭐⭐⭐ 預後最佳 (5年 OS >95%)',
-        examPoints: [
-          'POLE EDM (exonuclease domain mutation): exon 9-14 hotspot',
-          '極高突變負荷 (~232 mut/Mb), 但預後反而最佳',
-          '通常 endometrioid histology, 但可見於高度型態',
-          '2023 FIGO staging: POLEm 一律降為 Stage IA1m (regardless 解剖期)',
-          'PORTEC-4a: POLEm 不需 adjuvant therapy (de-escalation)',
+        prognosis: '⭐⭐⭐⭐⭐ 預後最佳 (5年 OS >95%, 即使 high-grade)',
+        exam: [
+          'POLE EDM (exonuclease domain mutation) hotspot: exon 9-14, 常見 P286R, V411L, S297F, A456P, S459F',
+          '極高突變負荷 (~232 mut/Mb), 但預後反而最佳 — 矛盾性最常考',
+          '通常 endometrioid histology, 但可見於高度型態 (high-grade 不影響預後)',
+          'FIGO 2023: POLEmut 一律降為 Stage IAm POLEmut (regardless 解剖期)',
+          'Multiple classifier 中, POLEmut 優先 (預後決定權)',
+        ],
+        testing: [
+          'NGS / Sanger sequencing: POLE exon 9-14 (主要為 9, 13, 14)',
+          '優先測, 一旦陽性即定型, 不需再做 MMR / p53',
+          'IHC 無法檢測 POLE 突變',
+          '分為 pathogenic (定型) vs VUS (variant of uncertain significance, 需小心)',
+        ],
+        clinical: [
+          'Adjuvant: PORTEC-4a 試驗 — POLEmut 即使 high-risk 也不需 adjuvant therapy',
+          'Surgery: 標準 hysterectomy + BSO; 不需 lymphadenectomy upgrade',
+          '不適用標靶 (預後已極佳)',
+          'Advanced/recurrent (極罕見): IO 反應極佳 (高 TMB) → Pembro / Dostar',
+        ],
+        nextStep: [
+          '若 POLE 為 VUS: 改採 conservative management (按解剖分期治療)',
+          '可考慮 PORTEC-4a / RAINBO 之 de-escalation 試驗',
+          '不需 genetic counseling (sporadic 為主)',
+          '與病患溝通: 「您的腫瘤雖然突變多, 但這反而是好預後的指標」',
         ],
         mechanism: '極高 neoantigen 負荷 → 強免疫反應 → 預後佳; 對 IO 反應極佳但通常不需要治療',
         linkedTrials: ['rainbo-program', 'portec-4a', 'gy018', 'ruby-p1'],
-        keyTakeaway: '考點: POLEm 雖突變多但預後最佳, 是 EC de-escalation 的代表族群'
+        keyTakeaway: 'POLEmut 雖突變多但預後最佳, 是 EC de-escalation 的代表族群; FIGO 2023 統一降為 IAm'
       },
       {
         id: 'MMRd',
-        name: 'MMR-deficient (MMRd / MSI-H / dMMR)',
+        name: 'MMR-deficient (MMRd / dMMR / MSI-H)',
         frequency: '~28% (TCGA), Lynch syndrome 占 ~2% 全 EC',
         prognosis: '⭐⭐⭐ 中等預後; 化療反應較差但 IO 高度敏感',
-        examPoints: [
-          'MMR 蛋白缺失: MLH1, MSH2, MSH6, PMS2 (IHC 為 surrogate)',
-          'MLH1 promoter methylation 為最常見原因 (sporadic)',
-          'germline mutation = Lynch syndrome (~2%, 需基因諮詢)',
-          'PTEN, PIK3CA, PIK3R1 突變高頻',
-          'LVSI 較常見, 化療反應較差',
-          '對 IO 反應極佳 (ORR 40-60%) — KEYNOTE-158, GARNET',
+        exam: [
+          'MMR 蛋白缺失: MLH1, PMS2, MSH2, MSH6 (任一)',
+          'MLH1 promoter methylation 為最常見原因 (sporadic, ~75%)',
+          'germline mutation = Lynch syndrome (~2% 全 EC, 但 MMRd 中佔 ~25%)',
+          'PTEN, PIK3CA, PIK3R1 突變高頻共存',
+          'LVSI 較常見, 化療反應較差但 IO 反應極佳',
+          'MMRd EC 全身 IO ORR ~40-60% (KEYNOTE-158, GARNET)',
+        ],
+        testing: [
+          '【主要】IHC 4 蛋白 panel: MLH1 / PMS2 / MSH2 / MSH6',
+          '【補充】MSI PCR: 5 個 microsatellite markers (BAT-25, BAT-26, NR-21, NR-24, MONO-27)',
+          '【補充】NGS-based MSI assay (Foundation, Tempus 等)',
+          'IHC 比 PCR 更直接顯示哪個基因缺失 → 引導後續處理',
+          'PD-L1 IHC 不需 (MSI-H 即為 IO 適應症)',
+        ],
+        clinical: [
+          'Lynch screening 強制: 所有 EC 應做 MMR IHC (universal screening)',
+          'Adjuvant: MMRd 化療反應較差, 但 IO 加成顯著',
+          'Advanced/recurrent: 一線 carbo/pacli + Dostar/Pembro (RUBY P1 / GY018), HR 0.28-0.30',
+          '單藥 IO (Dostar, Pembro) 為 advanced MSI-H EC 後線標準',
+          'KEYNOTE-C93: Pembro 單藥 vs 化療 (一線), 招募中',
+        ],
+        nextStep: [
+          '【關鍵】MMR IHC 缺失 → 必須做 MLH1 promoter methylation 區分 sporadic vs Lynch',
+          '若 MLH1 methylated → sporadic, 可不做 germline',
+          '若 MLH1 unmethylated 或 MSH2/MSH6/PMS2 缺失 → genetic counseling + germline test',
+          '若確認 Lynch → 家族篩檢 + 大腸鏡 / 卵巢監測',
+          '臨床試驗: 本院 GARNET (Dostar pan-tumor MSI-H) 可考慮',
         ],
         mechanism: 'MMR 缺失 → 微衛星不穩定 → 高 TMB + neoantigen → IO 高反應; PARPi 有限獲益',
         linkedTrials: ['ruby-p1', 'gy018', 'attend', 'duo-e', 'keynote-c93', 'garnet', 'rainbo-program'],
-        keyTakeaway: '考點: dMMR + advanced/recurrent EC → 一線 IO+化療 (RUBY P1 / GY018), HR 0.28-0.30'
+        keyTakeaway: 'dMMR + advanced/recurrent EC → 一線 IO+化療 (RUBY P1 / GY018), HR 0.28-0.30; 必做 Lynch 鑑別'
+      },
+      {
+        id: 'MMR-Lynch-Workflow',
+        name: '🔍 MMR / Lynch / MLH1 methylation 判讀流程',
+        frequency: '輔助診斷流程 (重要考點)',
+        prognosis: '依 MMR 結果而定',
+        exam: [
+          '【高頻考點】MMR IHC pattern → 推測病因 → 後續處理',
+          'Universal screening: 所有 EC + 所有 CRC 都應做 MMR IHC',
+          'Bethesda guidelines + Amsterdam II criteria 為臨床懷疑 Lynch 之依據',
+          'Lynch syndrome = HNPCC = 大腸 + EC + 卵巢 + 胃 + 尿路 risk',
+          'EC 是 Lynch 女性最常見的 sentinel cancer',
+        ],
+        testing: [
+          '【Pattern 1】MLH1 + PMS2 雙缺失 → 多為 MLH1 promoter methylation (~75%)',
+          '  → 下一步: MLH1 methylation test (PCR or pyrosequencing)',
+          '  → 若 methylated: sporadic, 不需 germline',
+          '  → 若 unmethylated: 懷疑 Lynch → germline testing',
+          '【Pattern 2】MSH2 + MSH6 雙缺失 → 高度懷疑 Lynch → 直接 germline',
+          '【Pattern 3】Isolated MSH6 loss → Lynch possible (MSH6 突變較弱) → germline',
+          '【Pattern 4】Isolated PMS2 loss → PMS2 germline possible → germline',
+          'BRAF V600E 在 EC 不適用 (僅 CRC 用於排除 Lynch)',
+        ],
+        clinical: [
+          '所有 MMRd EC: 強制 IO 篩選 (PD-1 inhibitor 適應)',
+          '若確認 Lynch:',
+          '  • 大腸鏡 Q1-2 年 (從 20-25 歲開始)',
+          '  • 卵巢 / 子宮監測 (RRSO 預防性切除可考慮)',
+          '  • 家族成員 cascade testing',
+          '  • Aspirin 81mg QD 可降低結腸癌風險 (CAPP2)',
+          'Sporadic MMRd: 不需家族篩檢, 仍適 IO 治療',
+        ],
+        nextStep: [
+          '所有 MMRd 患者強制 genetic counseling (不論最終 sporadic vs Lynch)',
+          'germline panel: 至少含 MLH1, MSH2, MSH6, PMS2, EPCAM',
+          '一級親屬 (parents, siblings, children) cascade testing',
+          'Reproductive counseling: PGT 可考慮 (preimplantation genetic testing)',
+          '本院 genetic clinic 轉診',
+        ],
+        mechanism: 'MLH1 epigenetic silencing (sporadic) vs germline mutation (Lynch) → 同樣 MMR loss 但臨床意義完全不同',
+        linkedTrials: ['garnet', 'keynote-c93'],
+        keyTakeaway: 'MMR IHC pattern 預測 Lynch 機率: MSH2/MSH6 → 高; isolated MSH6/PMS2 → 中; MLH1/PMS2 → 先測 methylation'
       },
       {
         id: 'p53abn',
         name: 'p53 abnormal (p53abn / Copy-Number-High)',
         frequency: '~15% (TCGA), 但 serous histology 中 >85%',
         prognosis: '⭐ 預後最差 (5年 OS ~50-60%, advanced 更差)',
-        examPoints: [
-          'TP53 突變 ~85%, IHC 三大模式: overexpression / 完全缺失 / cytoplasmic',
+        exam: [
+          'TP53 突變 ~85%, IHC 三大異常 pattern',
           '73% 為 serous 形態 (TCGA Type II)',
-          '高頻 alterations: PIK3CA, FBXW7, PPP2R1A, CCNE1, MYC, ERBB2',
-          '較常見高齡, advanced stage',
-          'CCNE1 amp 為 PARPi 抗藥指標',
-          'HER2+ 亞族群: T-DXd 有效 (DESTINY-PanTumor02)',
+          '高頻共存 alterations: PIK3CA, FBXW7, PPP2R1A, CCNE1, MYC, ERBB2',
+          '較常見高齡 (>65), advanced stage',
+          'CCNE1 amp 為 PARPi 抗藥指標 (~25% p53abn 共存)',
+          'HER2+ 亞族群 (~30% serous): T-DXd 有效 (DESTINY-PanTumor02)',
+          'FIGO 2023: Stage I-II + myometrial invasion + p53abn → IICm p53abn',
         ],
-        mechanism: 'TP53 失活 → 染色體不穩定 → 高 SCNA → 預後差; 部分有 HRD 可考慮 PARPi (DUO-E Arm 3)',
+        testing: [
+          '【主要】p53 IHC pattern (3 種異常):',
+          '  • Overexpression: ≥75-80% nuclear staining → missense mutation',
+          '  • Null (complete loss): 完全無染色 → truncating mutation',
+          '  • Cytoplasmic: 細胞質染色 → truncating with cytoplasmic shift',
+          '【確認】TP53 NGS (sequencing) — 如 IHC 模糊',
+          '【加做】HER2 IHC + ISH (尤其 serous): IHC 3+ 或 IHC 2+/ISH amp 為陽性',
+          '【加做】HRD test: ~25% p53abn 為 HRD+ (PARPi 適應)',
+        ],
+        clinical: [
+          'Adjuvant: 強化治療 (carboplatin/paclitaxel + 可能 RT)',
+          'Stage I-II p53abn: PORTEC-3 證據支持 chemoradiation > RT alone',
+          'Advanced: 一線 carbo/pacli + Pembro/Dostar (RUBY P1 / GY018, p53abn 仍獲益)',
+          'pMMR + HRRm/p53m: DUO-E Arm 3 (chemo + Durva + Olaparib) 最佳',
+          'HER2+ uterine serous: 可考慮 carbo/pacli + Trastuzumab (Fader trial)',
+          'Recurrent HER2+: T-DXd (Trastuzumab Deruxtecan)',
+          'CCNE1 amp: PARPi 抗藥, 不適合 PARPi 維持',
+        ],
+        nextStep: [
+          '若 IHC 顯示 p53abn: NGS 確認 TP53 mutation type',
+          '加做 HER2 IHC + ISH (尤其 serous histology)',
+          '加做 HRD test (Myriad GIS) — 評估 PARPi 適應',
+          '考慮 BRCA1/2 germline (~10% p53abn 有 germline BRCA)',
+          '臨床試驗: DUO-E (本院招募中) 為 p53abn / HRRm 首選',
+        ],
+        mechanism: 'TP53 失活 → 染色體不穩定 → 高 SCNA → 預後差; 部分有 HRD 可考慮 PARPi',
         linkedTrials: ['gy018', 'ruby-p1', 'duo-e', 'duo-e-maint', 'destiny-pantumor02', 'utola'],
-        keyTakeaway: '考點: p53abn = 預後最差; 治療需強化 (DUO-E Arm 3 chemo+IO+PARPi); HER2+ subset 用 T-DXd'
+        keyTakeaway: 'p53abn = 預後最差; 治療需強化 (DUO-E Arm 3); HER2+ subset 用 T-DXd; FIGO 2023 升為 IICm'
       },
       {
-        id: 'NSMP',
-        name: 'No Specific Molecular Profile (NSMP / Copy-Number-Low / p53wt)',
-        frequency: '~50% (最大族群)',
-        prognosis: '⭐⭐⭐⭐ 中上預後 (異質性高,需細分)',
-        examPoints: [
-          '排除性診斷: 不是 POLEm + 不是 MMRd + 不是 p53abn',
-          '通常 endometrioid histology, ER/PR+',
-          '較常 BMI 高 (mean 33.7)',
-          '進一步亞分類:',
-          '  • NSMP-CTNNB1m (~52%): 預後較佳, β-catenin exon 3',
-          '  • NSMP-PIK3CA/PTEN: 標準 NSMP',
-          '  • NSMP cluster C3: 高度型態, 預後較差',
-          'PORTEC-4a: NSMP-CTNNB1m 不需 adjuvant',
+        id: 'NSMP-low-risk',
+        name: 'NSMP — ER+ / Low-grade subset',
+        frequency: '~30% 全 EC (NSMP 中 ~60%)',
+        prognosis: '⭐⭐⭐⭐⭐ 較佳預後 (Hormone-sensitive 概念)',
+        exam: [
+          'NSMP 中 ER/PR 陽性 + Grade 1-2 + endometrioid',
+          '通常 BMI 高 (mean 33.7), 較年輕停經前後',
+          'CTNNB1 exon 3 mutation 富集 (~50% NSMP)',
+          'PI3K/AKT/mTOR pathway alterations',
+          '預後與 type I (estrogen-dependent) 相符',
+          '2025 ESGO 視為 lower-risk subset, 可 de-escalation',
         ],
-        mechanism: 'PI3K/AKT + Wnt/β-catenin 為主要 driver; ER/PR+ 為內分泌治療目標',
-        linkedTrials: ['rainbo-program', 'portec-4a', 'gy018', 'ruby-p1', 'duo-e'],
-        keyTakeaway: '考點: NSMP 異質性高, CTNNB1m 預後較好; ER+ 可用 hormonal therapy'
+        testing: [
+          'ER / PR IHC (Allred score 或 H-score)',
+          'p53 IHC: wild-type pattern (heterogeneous, <50% staining)',
+          'MMR IHC: intact',
+          'POLE: wildtype',
+          'CTNNB1 IHC: nuclear β-catenin staining 為 surrogate',
+          'CTNNB1 NGS exon 3 mutation 確認',
+        ],
+        clinical: [
+          'Adjuvant: 多數 Stage I 可省略 adjuvant 或僅 vaginal brachytherapy',
+          'Hormonal therapy 為非手術選擇:',
+          '  • Megestrol acetate 160-320mg/day',
+          '  • Levonorgestrel-IUD (LNG-IUD) for fertility-sparing',
+          '  • Letrozole 2.5mg QD',
+          'Fertility-sparing: 適合年輕希望保留生育能力的低度型態',
+          'Advanced: hormonal first-line 可考慮 (反應率 20-30%)',
+          'Hormonal failure → 化療 ± IO',
+        ],
+        nextStep: [
+          '若年輕希望保留生育能力: hormonal therapy + LNG-IUD 試驗',
+          '3-6 個月切片監測反應',
+          '完成生育後考慮 hysterectomy',
+          '臨床試驗: feMME, NSMP-ORANGE 試驗 (de-escalation)',
+        ],
+        mechanism: 'ER signaling 為主 driver → AI / progestin 阻斷 → 抑制生長',
+        linkedTrials: ['rainbo-program', 'portec-4a'],
+        keyTakeaway: 'NSMP ER+ / low-grade = hormone-sensitive 族群; 預後好, 可 de-escalation; fertility-sparing 適用'
+      },
+      {
+        id: 'NSMP-high-risk',
+        name: 'NSMP — ER- / High-grade subset',
+        frequency: '~20% 全 EC (NSMP 中 ~40%)',
+        prognosis: '⭐⭐ 較差預後 (與 p53abn 相近)',
+        exam: [
+          'NSMP 中 ER- 或 Grade 3 或非 endometrioid',
+          'NSMP cluster C3 (Momeni-Boroujeni 分類)',
+          '預後與 p53abn 相近 — 不應視為 "良好" NSMP',
+          '2025 ESGO/ESTRO/ESP 已視為 higher-risk subset',
+          'L1CAM overexpression 常見 (進階考點)',
+          'Adjuvant 治療策略應強化',
+        ],
+        testing: [
+          'ER / PR IHC: 陰性 (<10% 染色) 或 Allred score <3',
+          'p53 IHC: wild-type pattern (避免被歸為 p53abn)',
+          'L1CAM IHC: ≥10% 為 overexpression',
+          '考慮 NGS panel 找尋 actionable mutations (PIK3CA, FGFR2, ERBB2)',
+          '若有 high-grade serous-like 形態, 重新評估 p53 IHC (避免漏診)',
+        ],
+        clinical: [
+          'Adjuvant: 強化治療 (chemoradiation > RT alone)',
+          'Stage I high-grade NSMP: 考慮 EBRT + brachytherapy + chemo',
+          'Stage II+ : 標準 carbo/pacli + RT',
+          'Advanced/recurrent: 一線 carbo/pacli + Pembro/Dostar (與 p53abn 相同策略)',
+          '不適合 hormonal therapy (ER-)',
+          'L1CAM overexpression 預示更高復發風險 → 強化 surveillance',
+        ],
+        nextStep: [
+          'NGS panel 尋找 actionable mutations',
+          'HER2 IHC (尤其 high-grade)',
+          '考慮 HRD test 評估 PARPi 適應',
+          '臨床試驗: PORTEC-4a integrated risk model 適用',
+          '密集 surveillance (相對於 NSMP-low-risk)',
+        ],
+        mechanism: 'ER signaling 缺失 → 仰賴 PI3K / 其他 driver; L1CAM 為 EMT 與 invasion 標記',
+        linkedTrials: ['portec-4a', 'gy018', 'ruby-p1', 'duo-e', 'rainbo-program'],
+        keyTakeaway: 'NSMP ≠ 都很好; ER- / high-grade NSMP 預後差, 治療強度應接近 p53abn'
+      },
+      {
+        id: 'CTNNB1',
+        name: 'CTNNB1 exon 3 mutation (進階考點)',
+        frequency: '~25-30% 全 EC; ~50% NSMP',
+        prognosis: '⭐⭐ NSMP 中相對較差預後 (尤其早期復發)',
+        exam: [
+          'β-catenin gene exon 3 mutation (S33, S37, T41, S45 hotspot)',
+          '【矛盾考點】常見於 low-grade endometrioid + 早期 + 年輕族群',
+          '但 NSMP 中 CTNNB1m 反而為較差預後 (早期復發風險升)',
+          'PORTEC-1 / PORTEC-2 retrospective: CTNNB1m 復發 HR ~2-3',
+          'PORTEC-4a integrated risk model: 將 CTNNB1 納入評估',
+          '與 BMI 高 / endometriosis 相關性',
+        ],
+        testing: [
+          '【Surrogate】β-catenin IHC: nuclear staining (vs 正常 membranous)',
+          '【Confirm】CTNNB1 exon 3 NGS sequencing',
+          '通常與 ER/PR + 共存',
+          '如 IHC 顯示 nuclear β-catenin → NGS 確認',
+        ],
+        clinical: [
+          'Adjuvant: NSMP-CTNNB1m 早期不應 over-de-escalate',
+          'PORTEC-4a: integrated risk model 將 CTNNB1m 視為 unfavorable',
+          'Surveillance 應更密集 (考量早期復發風險)',
+          '不影響 hormonal therapy 反應 (仍為 ER+ subset)',
+          '研究中: Wnt pathway inhibitor (尚無 standard targeted therapy)',
+        ],
+        nextStep: [
+          '若 NSMP + CTNNB1m: 考慮升級 adjuvant therapy',
+          '密集 surveillance (Q3-6m for first 2 years)',
+          'PORTEC-4a 試驗適用 (integrated molecular risk)',
+          '無需 genetic counseling (sporadic 為主)',
+        ],
+        mechanism: 'Wnt/β-catenin pathway 持續活化 → 細胞增殖 + 侵犯 EMT',
+        linkedTrials: ['portec-4a', 'rainbo-program'],
+        keyTakeaway: 'CTNNB1m 為 NSMP 內預後較差亞群 (反差: 看似 low-grade 但易早期復發); PORTEC-4a 整合考量'
+      },
+      {
+        id: 'L1CAM',
+        name: 'L1CAM overexpression (進階考點)',
+        frequency: '~10-20% 全 EC; high-grade / advanced 中更高',
+        prognosis: '⭐⭐ 不良預後因子',
+        exam: [
+          'L1 cell adhesion molecule, EMT (epithelial-mesenchymal transition) 標記',
+          '不屬於 TCGA 4 分類, 但作為輔助 risk stratification',
+          'PORTEC-4a integrated risk model 中之要素',
+          'L1CAM ≥10% IHC staining 為 overexpression',
+          'Distant recurrence 預測力強 (vs locoregional)',
+          '常見於 NSMP high-grade / serous / clear cell',
+        ],
+        testing: [
+          '【主要】L1CAM IHC (cut-off ≥10% staining)',
+          '不需 NGS / molecular testing',
+          '常做於 PORTEC-4a 試驗背景下',
+          '台灣多數醫學中心可做',
+        ],
+        clinical: [
+          '輔助治療強化參考: L1CAM+ 應考慮加 chemo (vs RT alone)',
+          'PORTEC-4a 試驗: L1CAM 為 risk model 一部分',
+          '可幫助 NSMP 風險再分層',
+          '不直接影響系統性治療選擇 (仍依分子分型決定)',
+          'Distant recurrence 風險高 → 全身化療為主',
+        ],
+        nextStep: [
+          'Stage I-II + L1CAM+: 考慮加入 adjuvant chemotherapy',
+          '密集影像 surveillance (CT/MRI Q6m)',
+          'PORTEC-4a 試驗適用',
+          '研究中: L1CAM-targeted therapy (尚無 standard)',
+        ],
+        mechanism: 'L1CAM → integrin signaling → EMT → invasion / metastasis',
+        linkedTrials: ['portec-4a'],
+        keyTakeaway: 'L1CAM 不是四大分型, 但為 NSMP risk 細分重要工具; PORTEC-4a 整合用'
+      },
+      {
+        id: 'HER2-uterine-serous',
+        name: 'HER2+ Uterine Serous Carcinoma',
+        frequency: '~30% uterine serous carcinoma; ~3-5% 全 EC',
+        prognosis: '⭐⭐ 改善 (有 anti-HER2 治療可用)',
+        exam: [
+          'Serous histology (高度型態) 主要族群',
+          '通常與 p53abn 共存 (TCGA copy-number-high subgroup)',
+          'IHC scoring: 0 / 1+ / 2+ / 3+',
+          'IHC 3+ 直接陽性; IHC 2+ 加做 ISH amp 確認',
+          'Fader trial (NRG-GY026): carbo/pacli + trastuzumab 改善 advanced 預後',
+          'DESTINY-PanTumor02: T-DXd 在 HER2-IHC 3+ EC ORR ~57%',
+        ],
+        testing: [
+          '【主要】HER2 IHC (採乳癌 cut-off, 但部分研究用 ASCO/CAP gastric criteria)',
+          'IHC 0 → 陰性',
+          'IHC 1+ → low expression (T-DXd 仍可能適用 — DESTINY-PanTumor)',
+          'IHC 2+ → equivocal → ISH (FISH or DISH) 確認',
+          'IHC 3+ → 陽性, 直接適應',
+          '應對所有 serous / high-grade EC 進行 HER2 testing',
+        ],
+        clinical: [
+          'Advanced/recurrent uterine serous carcinoma:',
+          '  • 一線: carbo/pacli + Trastuzumab (Fader phase II)',
+          '  • 二線: T-DXd (Trastuzumab Deruxtecan)',
+          '  • 三線: 化療 / IO',
+          '【關鍵】所有 advanced uterine serous 應做 HER2 testing',
+          'Pertuzumab 證據較少 (vs 乳癌)',
+          'T-DXd 注意 ILD (interstitial lung disease) 風險',
+        ],
+        nextStep: [
+          '所有 uterine serous carcinoma → HER2 IHC + ISH (if equivocal)',
+          'HER2+ 患者 → 考慮 Fader regimen (carbo/pacli + Trastuzumab)',
+          '一線後復發: T-DXd (NCCN preferred)',
+          '本院 DESTINY-PanTumor02 試驗 (若有資格)',
+          '基線 LVEF + ILD risk 評估',
+        ],
+        mechanism: 'HER2 amp / overexpression → ErbB signaling 過度活化 → 增殖訊號; T-DXd 透過 ADC payload + bystander effect',
+        linkedTrials: ['destiny-pantumor02'],
+        keyTakeaway: '所有 uterine serous 應測 HER2; HER2+ 一線加 trastuzumab (Fader); 後線 T-DXd'
       },
     ]
   },
@@ -6064,6 +6404,7 @@ const MOL_PEDIA = {
 
 let currentMolTab = 'EC';
 let currentMolEntry = 0;
+let currentMolSpecial = null; // 'workflow' | 'staging' | null
 
 function openMolPedia(){
   el('molPediaModal').classList.add('open');
@@ -6079,6 +6420,7 @@ function closeMolPedia(){
 function switchMolTab(cancer){
   currentMolTab = cancer;
   currentMolEntry = 0;
+  currentMolSpecial = null;
   // Update tab buttons
   document.querySelectorAll('.mol-tab').forEach(b => {
     b.classList.toggle('active', b.dataset.cancer === cancer);
@@ -6096,9 +6438,19 @@ function renderMolList(){
       <div class="mol-fw-title">${data.framework}</div>
       <div class="mol-fw-desc">${data.description}</div>
     </div>
+    ${data.workflow ? `
+      <button class="mol-special-btn workflow" onclick="showMolSpecial('workflow')">
+        🔬 ${escapeHtml(data.workflow.title.replace(/^[🔬📐]\s*/, ''))}
+      </button>
+    ` : ''}
+    ${data.figoStaging ? `
+      <button class="mol-special-btn staging" onclick="showMolSpecial('staging')">
+        📐 ${escapeHtml(data.figoStaging.title.replace(/^[🔬📐]\s*/, ''))}
+      </button>
+    ` : ''}
     <div class="mol-entries">
       ${data.entries.map((e, idx) => `
-        <button class="mol-entry-btn ${idx === currentMolEntry ? 'active' : ''}" onclick="selectMolEntry(${idx})">
+        <button class="mol-entry-btn ${idx === currentMolEntry && !currentMolSpecial ? 'active' : ''}" onclick="selectMolEntry(${idx})">
           <div class="mol-entry-name">${escapeHtml(e.name)}</div>
           <div class="mol-entry-freq">${escapeHtml(e.frequency)}</div>
         </button>
@@ -6107,12 +6459,76 @@ function renderMolList(){
   `;
 }
 
+function showMolSpecial(type){
+  currentMolSpecial = type;
+  // Deactivate entry buttons
+  document.querySelectorAll('.mol-entry-btn').forEach(b => b.classList.remove('active'));
+  // Activate special button
+  document.querySelectorAll('.mol-special-btn').forEach(b => b.classList.remove('active'));
+  const targetBtn = document.querySelector(`.mol-special-btn.${type}`);
+  if(targetBtn) targetBtn.classList.add('active');
+
+  const data = MOL_PEDIA[currentMolTab];
+  const detail = el('molDetail');
+
+  if(type === 'workflow' && data.workflow){
+    detail.innerHTML = `
+      <div class="mol-detail-header">
+        <h3>${escapeHtml(data.workflow.title)}</h3>
+      </div>
+      <div class="mol-workflow-steps">
+        ${data.workflow.steps.map(s => `
+          <div class="mol-step">
+            <div class="mol-step-num">${escapeHtml(s.num)}</div>
+            <div class="mol-step-content">
+              <div class="mol-step-title">${escapeHtml(s.title)}</div>
+              <div class="mol-step-desc">${escapeHtml(s.desc)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="mol-takeaway">
+        💡 <strong>記憶口訣:</strong> POLE → MMR → p53 → 都不是 = NSMP; 多重分類時 POLEmut 優先
+      </div>
+    `;
+  } else if(type === 'staging' && data.figoStaging){
+    detail.innerHTML = `
+      <div class="mol-detail-header">
+        <h3>${escapeHtml(data.figoStaging.title)}</h3>
+      </div>
+      <table class="mol-staging-table">
+        <thead>
+          <tr>
+            <th>分子分型</th>
+            <th>FIGO 2023 特殊分期</th>
+            <th>臨床/考試重點</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.figoStaging.rows.map(r => `
+            <tr>
+              <td><strong>${escapeHtml(r.mol)}</strong></td>
+              <td><code>${escapeHtml(r.stage)}</code></td>
+              <td>${escapeHtml(r.impact)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <div class="mol-takeaway">
+        💡 <strong>2023 FIGO 重大變革:</strong> 首次將分子分型整合進 staging system; ESGO/ESTRO/ESP 2025 進一步明確 IAm POLEmut / IICm p53abn 之治療含義
+      </div>
+    `;
+  }
+}
+
 function selectMolEntry(idx){
   currentMolEntry = idx;
+  currentMolSpecial = null;
   // Update list active state
   document.querySelectorAll('.mol-entry-btn').forEach((b, i) => {
     b.classList.toggle('active', i === idx);
   });
+  document.querySelectorAll('.mol-special-btn').forEach(b => b.classList.remove('active'));
   // Render detail
   const data = MOL_PEDIA[currentMolTab];
   const entry = data.entries[idx];
@@ -6145,6 +6561,47 @@ function selectMolEntry(idx){
     `;
   }
 
+  // Render 4-dimensional content
+  const examHtml = entry.exam ? `
+    <div class="mol-detail-section">
+      <h4>📚 1. 考試重點 (定義 / 預後 / 治療)</h4>
+      <ul class="mol-bullets">${entry.exam.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+    </div>
+  ` : (entry.examPoints ? `
+    <div class="mol-detail-section">
+      <h4>📚 考試重點</h4>
+      <ul class="mol-bullets">${entry.examPoints.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+    </div>
+  ` : '');
+
+  const testingHtml = entry.testing ? `
+    <div class="mol-detail-section">
+      <h4>🔬 2. 臨床怎麼測 (IHC / NGS / methylation / FISH / ISH / PCR)</h4>
+      <ul class="mol-bullets">${entry.testing.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+    </div>
+  ` : '';
+
+  const clinicalHtml = entry.clinical ? `
+    <div class="mol-detail-section">
+      <h4>🏥 3. 臨床怎麼用 (手術 / 輔助 / 系統治療 / 試驗)</h4>
+      <ul class="mol-bullets">${entry.clinical.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+    </div>
+  ` : '';
+
+  const nextStepHtml = entry.nextStep ? `
+    <div class="mol-detail-section nextstep">
+      <h4>📋 4. 遇到病人下一步 (還缺什麼 / 轉診 / 找試驗)</h4>
+      <ul class="mol-bullets">${entry.nextStep.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+    </div>
+  ` : '';
+
+  const mechanismHtml = entry.mechanism ? `
+    <div class="mol-detail-section">
+      <h4>⚙️ 機制與藥物標靶</h4>
+      <div class="mol-mechanism">${escapeHtml(entry.mechanism)}</div>
+    </div>
+  ` : '';
+
   el('molDetail').innerHTML = `
     <div class="mol-detail-header">
       <h3>${escapeHtml(entry.name)}</h3>
@@ -6154,18 +6611,11 @@ function selectMolEntry(idx){
       </div>
     </div>
 
-    <div class="mol-detail-section">
-      <h4>📚 考試重點</h4>
-      <ul class="mol-bullets">
-        ${entry.examPoints.map(p => `<li>${escapeHtml(p)}</li>`).join('')}
-      </ul>
-    </div>
-
-    <div class="mol-detail-section">
-      <h4>⚙️ 機制與藥物標靶</h4>
-      <div class="mol-mechanism">${escapeHtml(entry.mechanism)}</div>
-    </div>
-
+    ${examHtml}
+    ${testingHtml}
+    ${clinicalHtml}
+    ${nextStepHtml}
+    ${mechanismHtml}
     ${linkedHtml}
 
     <div class="mol-takeaway">
