@@ -349,6 +349,52 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .compare-empty h3{font-size:16px;color:#475569;margin-bottom:6px;}
 .compare-empty p{font-size:13px;line-height:1.6;}
 
+/* ===== AI 比較點評區塊 ===== */
+.ai-commentary-section{margin:20px 22px 22px;background:linear-gradient(135deg,#0c1f3d,#1e3a8a);border-radius:14px;padding:18px 20px;color:white;}
+.ai-commentary-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px;}
+.ai-commentary-header-left{display:flex;align-items:center;gap:10px;}
+.ai-commentary-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#10b981,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.ai-commentary-title{font-size:15px;font-weight:800;line-height:1.3;}
+.ai-commentary-subtitle{font-size:10.5px;color:rgba(255,255,255,0.55);font-family:"JetBrains Mono",monospace;margin-top:2px;line-height:1.4;}
+.ai-commentary-btn{padding:10px 20px;border-radius:9px;border:none;background:linear-gradient(135deg,#10b981,#06b6d4);color:white;font-size:12.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:7px;flex-shrink:0;font-family:"Noto Sans TC",sans-serif;}
+.ai-commentary-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(16,185,129,0.35);}
+.ai-commentary-btn:disabled{opacity:0.45;cursor:not-allowed;transform:none;box-shadow:none;}
+.ai-commentary-result{background:white;color:#1a202c;border-radius:11px;padding:16px 18px;margin-top:12px;display:none;font-size:13px;line-height:1.7;}
+.ai-commentary-result.show{display:block;}
+.ai-commentary-result h3{font-size:14px;font-weight:800;color:#0c1f3d;margin:0 0 8px;display:flex;align-items:center;gap:7px;border-bottom:2px solid #e2e8f0;padding-bottom:6px;}
+.ai-commentary-result .ai-comm-section{margin-bottom:14px;}
+.ai-commentary-result .ai-comm-section:last-child{margin-bottom:0;}
+.ai-commentary-result .ai-comm-content{font-size:12.5px;line-height:1.7;color:#334155;white-space:pre-wrap;}
+.ai-commentary-result .ai-comm-content strong{color:#0c1f3d;}
+.ai-commentary-loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:30px;color:#64748b;font-size:12.5px;}
+.ai-commentary-loading .spinner{width:16px;height:16px;border:2.5px solid #e2e8f0;border-top-color:#10b981;border-radius:50%;animation:spin 0.7s linear infinite;}
+.ai-commentary-toolbar{display:flex;gap:7px;justify-content:flex-end;margin-bottom:10px;flex-wrap:wrap;}
+.ai-commentary-toolbar button{padding:6px 12px;border-radius:7px;border:1.5px solid #e2e8f0;background:white;color:#475569;font-size:11px;font-weight:700;cursor:pointer;font-family:"Noto Sans TC",sans-serif;}
+.ai-commentary-toolbar button:hover{background:#f1f5f9;}
+.ai-commentary-no-key{padding:14px 16px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);border-radius:9px;font-size:11.5px;color:rgba(255,255,255,0.85);line-height:1.6;margin-top:10px;}
+.ai-commentary-no-key a{color:#fbbf24;text-decoration:none;font-weight:700;}
+.ai-commentary-no-key a:hover{text-decoration:underline;}
+
+@media(max-width:640px){
+  .ai-commentary-section{margin:14px;padding:14px 13px;border-radius:11px;}
+  .ai-commentary-header{flex-direction:column;align-items:stretch;gap:10px;}
+  .ai-commentary-title{font-size:14px;}
+  .ai-commentary-subtitle{font-size:10px;}
+  .ai-commentary-btn{padding:11px 18px;font-size:12px;justify-content:center;}
+  .ai-commentary-result{padding:13px;font-size:12px;}
+  .ai-commentary-result .ai-comm-content{font-size:12px;}
+}
+
+@media print{
+  .ai-commentary-section{background:white !important;color:black !important;border:1px solid #cbd5e1;page-break-inside:auto;margin:14px 0 !important;padding:12px !important;}
+  .ai-commentary-header > button{display:none !important;}
+  .ai-commentary-icon{background:#f1f5f9 !important;}
+  .ai-commentary-title, .ai-commentary-subtitle{color:#0c1f3d !important;}
+  .ai-commentary-result{box-shadow:none;border:none;page-break-inside:auto;display:block !important;}
+  .ai-commentary-toolbar{display:none !important;}
+  .ai-comm-section{page-break-inside:avoid;}
+}
+
 .floating-compare{position:fixed;bottom:24px;right:24px;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;border:none;border-radius:50px;padding:13px 22px;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:0 6px 22px rgba(124,58,237,0.5);z-index:150;display:none;align-items:center;gap:8px;}
 .floating-compare.show{display:flex;}
 .floating-compare .badge{background:white;color:#7c3aed;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;}
@@ -4793,6 +4839,31 @@ function renderCompareTable(){
     html += '</tr>';
   });
   html += '</tbody></table>';
+
+  // ========== AI 點評區塊 ==========
+  const cfg = getAiConfig();
+  const hasKey = !!cfg.apiKey;
+  html += `
+  <div class="ai-commentary-section">
+    <div class="ai-commentary-header">
+      <div class="ai-commentary-header-left">
+        <div class="ai-commentary-icon">🤖</div>
+        <div>
+          <div class="ai-commentary-title">AI 點評試驗差異</div>
+          <div class="ai-commentary-subtitle">Powered by Gemini · 自動分析這 ${list.length} 個試驗的關鍵異同 · 適用族群比對</div>
+        </div>
+      </div>
+      <button class="ai-commentary-btn" id="aiCommentaryBtn" onclick="runCompareCommentary()" ${!hasKey ? 'disabled' : ''}>
+        <span>🔬</span><span>${hasKey ? 'AI 分析差異' : '需先設定 API Key'}</span>
+      </button>
+    </div>
+    ${!hasKey ? `<div class="ai-commentary-no-key">
+      ⚠️ 此功能需要 Gemini API Key。請至頁面下方 AI 患者分析區塊點擊「⚙️ 設定 API Key」,或前往 <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a> 取得免費 API Key。
+    </div>` : ''}
+    <div class="ai-commentary-result" id="aiCommentaryResult"></div>
+  </div>
+  `;
+
   el('cmpBody').innerHTML = html;
 }
 
@@ -5459,6 +5530,210 @@ function printTrialList(){
       document.querySelectorAll('.print-header-injected').forEach(n => n.remove());
     }, 1000);
   }, 100);
+}
+
+// ============================================================
+// AI 點評試驗差異 (Compare Commentary)
+// ============================================================
+async function runCompareCommentary(){
+  const cfg = getAiConfig();
+  if(!cfg.apiKey){
+    alert('請先設定 Gemini API Key (頁面下方 AI 患者分析區塊)');
+    return;
+  }
+
+  const list = TRIALS.filter(t => selectedTrials.has(t.id));
+  if(list.length < 2){
+    alert('請選取至少 2 個試驗');
+    return;
+  }
+
+  const btn = el('aiCommentaryBtn');
+  const resultPane = el('aiCommentaryResult');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳</span><span>分析中…</span>';
+  resultPane.classList.add('show');
+
+  // Progress
+  const startTime = Date.now();
+  let progressInterval;
+  const updateProgress = () => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const phase = elapsed < 5 ? '正在傳送試驗資料給 Gemini…' :
+                  elapsed < 15 ? `正在比對 ${list.length} 個試驗的設計與結果…` :
+                  elapsed < 30 ? '正在生成關鍵差異與臨床決策點評…' :
+                  '正在最後整理輸出結果…';
+    resultPane.innerHTML = `<div class="ai-commentary-loading">
+      <div class="spinner"></div>
+      <div>
+        <div style="font-weight:700;color:#0c1f3d;margin-bottom:3px;font-size:12.5px;">${phase}</div>
+        <div style="font-size:10.5px;color:#94a3b8;">已耗時 ${elapsed} 秒</div>
+      </div>
+    </div>`;
+  };
+  updateProgress();
+  progressInterval = setInterval(updateProgress, 1000);
+
+  try {
+    // Build trial summary for AI prompt
+    const trialSummary = list.map((t, idx) => {
+      const subcatStr = Array.isArray(t.subcat) ? t.subcat.join('/') : (t.subcat || '');
+      return `## 試驗 ${idx+1}: ${t.name} (${t.fullName || ''})
+- **癌別/分期**: ${t.cancer} ${t.phase.join('+')} ${subcatStr}
+- **狀態**: ${t.status === 'ongoing' ? '招募中' : '已發表'}
+- **藥物**: ${t.drug || '—'}
+- **藥廠**: ${t.pharma || '—'}
+- **NCT**: ${t.nct || '—'}
+- **N enrolled**: ${t.enrolled || '—'}
+- **組織學**: ${t.hist || '—'}
+- **分期分布**: ${t.stageDist || '—'}
+- **Tagline**: ${t.tagline || '—'}
+- **Rationale 科學理據**: ${t.rationale || '—'}
+- **Regimen 給藥方案**: ${t.regimen || '—'}
+- **Tech 技術細節**: ${t.tech || '—'}
+- **Outcomes 主要結果**: ${t.outcomes || '—'}
+- **Subgroup 次群組**: ${t.subgroup || '—'}
+- **Combination/Maintenance**: ${t.combo || '—'}
+- **Inclusion 納入標準**: ${(t.inc || []).join('; ')}
+- **Exclusion 排除標準**: ${(t.exc || []).join('; ')}
+- **Guideline 指引地位**: ${t.guideline || '—'}
+- **Publication**: ${t.publication || '—'}`;
+    }).join('\n\n');
+
+    const systemPrompt = `你是專業婦癌臨床試驗分析顧問,協助臨床醫師理解多個試驗之間的關鍵差異與臨床選擇。
+
+【任務】
+比較以下 ${list.length} 個試驗,提供結構化點評。請以繁體中文回答,使用以下 6 個區塊結構,每個區塊以 ### 標題開始:
+
+### 🎯 一句話總結
+用 1-2 句話精準總結這幾個試驗的核心關係 (例如: "皆為 PSOC PARPi 維持試驗,但 X 限定 BRCAm, Y 為全人群, Z 採亞洲族群擴展")
+
+### 🔍 關鍵異同對比
+列出 3-5 個最重要的差異點,使用 bullet 結構:
+- **族群差異**: ...
+- **設計差異**: ...
+- **結果差異**: ...
+- **族群代表性**: ...
+- **臨床定位**: ...
+
+### 💊 藥物機制與 dosing 比較
+深入比對各試驗的藥物機制、給藥頻率、劑量, 找出值得臨床注意的差異 (例如: "X 採 Q3W, Y 採 Q2W; X 為純 PD-1, Y 為 PD-1/CTLA-4 雙抗")
+
+### ⚠️ 臨床選擇考量
+若臨床醫師面對符合多個試驗納入條件的病患,該如何選擇?提供具體建議:
+- 何時選 A 試驗較佳
+- 何時選 B 試驗較佳
+- 何時其實互換性高
+
+### 📊 證據等級與指引地位
+比較各試驗在 NCCN/ESMO/台灣健保的位置, 哪一個是當前實務首選?哪些是探索性?
+
+### 💡 整合性洞察
+提供 2-3 個臨床醫師應該記住的關鍵 take-home points (例如: "這幾個試驗共同顯示 PARPi 在 PSOC 的價值與 BRCA status 高度相關"; "未來 3 年實務可能因 X 試驗結果而改變")
+
+【重要原則】
+- 嚴格基於提供的資料分析,不杜撰
+- 點評要有 nuance, 避免「都很好」這種空洞評論
+- 對陰性試驗 / 失敗結果要明確指出
+- 對招募中試驗強調預期 + 不確定性
+- 引用具體 PFS/OS/ORR 數據時務必準確 (從提供資料取得)
+- 為每個區塊保持簡潔, 整體報告控制在 800-1500 字`;
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${cfg.model}:generateContent?key=${cfg.apiKey}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        contents: [{
+          role: 'user',
+          parts: [{text: systemPrompt + '\n\n【試驗資料】\n\n' + trialSummary}]
+        }],
+        generationConfig: {
+          temperature: 0.4,
+          maxOutputTokens: 4096
+        }
+      })
+    });
+
+    clearInterval(progressInterval);
+
+    if(!response.ok){
+      const errText = await response.text();
+      throw new Error(`API 錯誤 ${response.status}: ${errText}`);
+    }
+
+    const data = await response.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '(API 沒有回應)';
+
+    renderCommentaryResult(text);
+
+  } catch(err){
+    clearInterval(progressInterval);
+    resultPane.innerHTML = `<div style="padding:20px;color:#dc2626;font-size:12.5px;">
+      <strong>❌ 分析失敗</strong><br><br>
+      ${escapeHtml(err.message || '未知錯誤')}<br><br>
+      <span style="color:#64748b;font-size:11.5px;">請檢查 API Key 與網路連線。</span>
+    </div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<span>🔬</span><span>重新分析</span>';
+  }
+}
+
+function renderCommentaryResult(text){
+  const resultPane = el('aiCommentaryResult');
+  window._aiLastCommentaryRaw = text;
+
+  // Parse the markdown-like structure (### sections)
+  const sections = text.split(/^###\s+/m).filter(s => s.trim());
+
+  let html = `<div class="ai-commentary-toolbar">
+    <button onclick="copyCommentary()">📋 複製</button>
+    <button onclick="clearCommentary()">🗑 清除</button>
+  </div>`;
+
+  for(const section of sections){
+    const lines = section.split('\n');
+    const title = lines[0].trim();
+    const content = lines.slice(1).join('\n').trim();
+
+    // Process bold markdown
+    const processedContent = escapeHtml(content).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+    html += `<div class="ai-comm-section">
+      <h3>${escapeHtml(title)}</h3>
+      <div class="ai-comm-content">${processedContent}</div>
+    </div>`;
+  }
+
+  html += `<div style="margin-top:14px;padding:9px 12px;background:#fef3c7;border-radius:7px;border-left:3px solid #f59e0b;font-size:10.5px;color:#78350f;line-height:1.5;">
+    <strong>⚠️</strong> AI 點評僅供參考,所有臨床決策應以最新指引與專業判斷為準。
+  </div>`;
+
+  resultPane.innerHTML = html;
+}
+
+function copyCommentary(){
+  const text = window._aiLastCommentaryRaw || '';
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓ 已複製';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  }).catch(() => alert('無法複製到剪貼簿'));
+}
+
+function clearCommentary(){
+  el('aiCommentaryResult').classList.remove('show');
+  el('aiCommentaryResult').innerHTML = '';
+  window._aiLastCommentaryRaw = '';
+  // Reset button
+  const btn = el('aiCommentaryBtn');
+  if(btn){
+    btn.innerHTML = '<span>🔬</span><span>AI 分析差異</span>';
+  }
 }
 
 function aiAddRecommendedToCompare(trialIds){
