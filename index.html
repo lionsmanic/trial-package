@@ -40,6 +40,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-ai:hover{box-shadow:0 4px 16px rgba(16,185,129,0.45);}
 .header-btn-mol{background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(124,58,237,0.3);}
 .header-btn-mol:hover{box-shadow:0 4px 16px rgba(124,58,237,0.45);}
+.header-btn-checklist{background:linear-gradient(135deg,#0891b2,#0e7490);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(8,145,178,0.3);}
+.header-btn-checklist:hover{box-shadow:0 4px 16px rgba(8,145,178,0.45);}
 @media(max-width:640px){
   .hide-on-mobile{display:none;}
   .header-actions{gap:6px;}
@@ -366,6 +368,82 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .mol-takeaway{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #f59e0b;border-radius:11px;padding:13px 16px;font-size:13px;line-height:1.65;color:#78350f;margin-top:18px;}
 .mol-takeaway strong{color:#78350f;}
 
+/* ===== ✅ 臨床檢測 Checklist Modal ===== */
+.checklist-modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.88);z-index:560;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.checklist-modal-bg.open{display:flex;}
+.checklist-modal-content{background:white;max-width:1000px;width:100%;max-height:92vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
+.checklist-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.checklist-close:hover{background:white;transform:scale(1.05);}
+
+.checklist-header{background:linear-gradient(135deg,#0e7490,#0891b2);color:white;padding:22px 26px 0;flex-shrink:0;}
+.checklist-title-wrap{display:flex;align-items:center;gap:14px;padding-right:50px;margin-bottom:18px;}
+.checklist-icon{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.checklist-title{font-size:18px;font-weight:800;letter-spacing:.02em;}
+.checklist-subtitle{font-size:11.5px;color:rgba(255,255,255,0.7);font-family:"JetBrains Mono",monospace;margin-top:3px;line-height:1.4;}
+.checklist-tabs{display:flex;gap:6px;}
+.checklist-tab{padding:11px 20px;background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.65);font-size:13px;font-weight:700;cursor:pointer;border-radius:9px 9px 0 0;font-family:inherit;transition:all 0.15s;}
+.checklist-tab:hover{background:rgba(255,255,255,0.16);color:white;}
+.checklist-tab.active{background:white;color:#0e7490;font-weight:800;}
+
+.checklist-body{padding:20px 24px;overflow-y:auto;flex:1;background:#f8fafc;}
+
+.checklist-header-info{margin-bottom:14px;}
+.checklist-header-info h3{font-size:18px;font-weight:800;color:#0e7490;margin:0 0 4px;}
+.checklist-desc{font-size:12.5px;color:#475569;line-height:1.5;}
+
+.checklist-toolbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;}
+.cl-toolbar-btn{padding:7px 13px;border-radius:8px;border:1.5px solid #cbd5e1;background:white;color:#475569;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+.cl-toolbar-btn:hover{background:#f1f5f9;}
+.cl-toolbar-btn.cl-reset:hover{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+.cl-toolbar-btn.cl-checkall:hover{background:#f0fdf4;color:#16a34a;border-color:#86efac;}
+
+.checklist-section{margin-bottom:18px;}
+.checklist-section-title{font-size:13px;font-weight:800;color:#0e7490;margin:0 0 9px;padding:7px 11px;background:#cffafe;border-radius:8px;border-left:4px solid #0891b2;}
+
+.checklist-items{display:flex;flex-direction:column;gap:8px;}
+.checklist-item{display:flex;gap:11px;padding:11px 12px;background:white;border:1.5px solid #e2e8f0;border-radius:10px;transition:all 0.15s;}
+.checklist-item.checked{background:#f0fdf4;border-color:#86efac;}
+.checklist-item.skipped{background:#f8fafc;border-color:#cbd5e1;opacity:0.65;}
+
+.cl-item-controls{display:flex;flex-direction:column;gap:4px;flex-shrink:0;}
+.cl-check, .cl-na{width:32px;height:32px;border-radius:8px;border:1.5px solid #cbd5e1;background:white;color:#94a3b8;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:all 0.15s;}
+.cl-check:hover{background:#f0fdf4;border-color:#86efac;color:#16a34a;}
+.cl-check.on{background:#16a34a;border-color:#15803d;color:white;}
+.cl-na:hover{background:#fef2f2;border-color:#fca5a5;color:#94a3b8;}
+.cl-na.on{background:#64748b;border-color:#475569;color:white;}
+
+.cl-item-content{flex:1;min-width:0;}
+.cl-item-name{font-size:13.5px;font-weight:800;color:#0c1f3d;margin-bottom:6px;line-height:1.4;}
+.checklist-item.checked .cl-item-name{color:#15803d;}
+.cl-item-rows{display:flex;flex-direction:column;gap:3px;font-size:11.5px;line-height:1.5;color:#475569;margin-bottom:7px;}
+.cl-row{display:flex;gap:7px;}
+.cl-row-label{font-size:9.5px;font-weight:800;color:#0e7490;font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:0.05em;flex-shrink:0;width:48px;padding-top:1px;}
+.cl-link-btn{font-size:10.5px;color:#7c3aed;background:transparent;border:1px solid #c4b5fd;border-radius:6px;padding:4px 9px;cursor:pointer;font-weight:700;font-family:inherit;}
+.cl-link-btn:hover{background:#faf5ff;}
+
+.checklist-summary{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding:11px 14px;background:white;border-radius:10px;border:1px solid #e2e8f0;font-size:12px;}
+.cl-summary-stat{padding:5px 11px;border-radius:6px;font-weight:800;}
+.cl-summary-stat.done{background:#f0fdf4;color:#15803d;}
+.cl-summary-stat.skipped{background:#f1f5f9;color:#64748b;}
+.cl-summary-stat.pending{background:#fef3c7;color:#92400e;}
+.cl-summary-stat.total{background:#cffafe;color:#0e7490;margin-left:auto;}
+
+@media(max-width:640px){
+  .checklist-modal-bg{padding:0;}
+  .checklist-modal-content{max-height:100vh;border-radius:0;}
+  .checklist-header{padding:16px 16px 0;}
+  .checklist-title-wrap{padding-right:42px;margin-bottom:12px;}
+  .checklist-title{font-size:15px;}
+  .checklist-subtitle{font-size:10.5px;}
+  .checklist-icon{width:38px;height:38px;font-size:20px;}
+  .checklist-tab{padding:8px 12px;font-size:11.5px;}
+  .checklist-body{padding:14px;}
+  .cl-item-name{font-size:12.5px;}
+  .cl-item-rows{font-size:11px;}
+  .cl-row-label{width:42px;font-size:9px;}
+  .cl-toolbar-btn{font-size:11px;padding:6px 10px;}
+}
+
 /* ===== 📇 考試速記卡 (Exam Card) ===== */
 .mol-exam-card{
   background:linear-gradient(135deg,#fffbeb,#fef3c7);
@@ -665,6 +743,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .mol-special-btn.staging{background:linear-gradient(135deg,#fce7f3,#fbcfe8);color:#831843;}
 .mol-special-btn.staging:hover{border-color:#ec4899;transform:translateX(2px);}
 .mol-special-btn.staging.active{background:linear-gradient(135deg,#9d174d,#831843);color:white;border-color:#9d174d;}
+.mol-special-btn.checklist-shortcut{background:linear-gradient(135deg,#cffafe,#a5f3fc);color:#0e7490;}
+.mol-special-btn.checklist-shortcut:hover{border-color:#0891b2;transform:translateX(2px);}
 
 /* Workflow steps */
 .mol-workflow-steps{display:flex;flex-direction:column;gap:11px;margin:14px 0;}
@@ -1210,6 +1290,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="header-btn header-btn-mol" onclick="openMolPedia()" title="開啟分子分型百科">
         <span>🧬</span><span>分子分型</span>
       </button>
+      <button class="header-btn header-btn-checklist" onclick="openChecklist()" title="開啟臨床檢測 Checklist">
+        <span>✅</span><span class="hide-on-mobile">Checklist</span>
+      </button>
       <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
         <span>🤖</span><span>AI 治療路徑</span>
       </button>
@@ -1498,6 +1581,29 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div class="mol-pedia-list" id="molList"></div>
       <div class="mol-pedia-detail" id="molDetail"></div>
     </div>
+  </div>
+</div>
+
+<!-- ===== ✅ 臨床檢測 Checklist Modal ===== -->
+<div class="checklist-modal-bg" id="checklistModal" onclick="if(event.target.id==='checklistModal')closeChecklist()">
+  <div class="checklist-modal-content">
+    <button class="checklist-close" onclick="closeChecklist()">✕</button>
+    <div class="checklist-header">
+      <div class="checklist-title-wrap">
+        <div class="checklist-icon">✅</div>
+        <div>
+          <div class="checklist-title">臨床檢測 Checklist</div>
+          <div class="checklist-subtitle">病人來時快速核對 · 已測 / 待測 / N/A 標記 · 自動記憶各癌別狀態</div>
+        </div>
+      </div>
+      <div class="checklist-tabs">
+        <button class="checklist-tab active" data-cancer="EC" onclick="switchChecklistTab('EC')">🔴 EC</button>
+        <button class="checklist-tab" data-cancer="OC" onclick="switchChecklistTab('OC')">🟣 OC</button>
+        <button class="checklist-tab" data-cancer="CC" onclick="switchChecklistTab('CC')">🟠 CC</button>
+        <button class="checklist-tab" data-cancer="US" onclick="switchChecklistTab('US')">🔵 US</button>
+      </div>
+    </div>
+    <div class="checklist-body" id="checklistBody"></div>
   </div>
 </div>
 
@@ -5985,6 +6091,564 @@ function closeAiPathwayModal(){
 // ============================================================
 // 分子分型百科 (Molecular Subtype Encyclopedia)
 // ============================================================
+// ============================================================
+// ✅ 臨床檢測 Checklist (Clinical Testing Checklist)
+// ============================================================
+const CHECKLISTS = {
+  EC: {
+    title: '🔴 子宮內膜癌 EC 檢測 Checklist',
+    description: '所有 EC 應做基本 4-tier 分子分型 + 依組織型 / 分期加做',
+    sections: [
+      {
+        title: '🔬 基本必做 (所有 EC)',
+        items: [
+          {
+            id: 'ec-pole',
+            name: 'POLE EDM sequencing',
+            when: '所有 EC (Universal screening)',
+            how: 'NGS / Sanger sequencing exon 9-14',
+            why: 'POLEmut → 預後最佳, 可 de-escalation; FIGO 2023 IAm POLEmut',
+            molEntryId: 'POLEm'
+          },
+          {
+            id: 'ec-mmr',
+            name: 'MMR IHC (4 蛋白)',
+            when: '所有 EC (Universal screening) — Lynch 篩檢',
+            how: 'IHC: MLH1, PMS2, MSH2, MSH6',
+            why: 'MMRd → IO 適應; MLH1/PMS2 雙缺失 → 須做 methylation',
+            molEntryId: 'MMRd'
+          },
+          {
+            id: 'ec-p53',
+            name: 'p53 IHC',
+            when: '所有 EC (Universal screening)',
+            how: 'IHC pattern: wildtype / overexpression / null / cytoplasmic',
+            why: 'p53abn → 預後最差; 強化 adjuvant; FIGO 2023 IICm',
+            molEntryId: 'p53abn'
+          },
+          {
+            id: 'ec-er',
+            name: 'ER IHC',
+            when: 'NSMP 患者 (細分 risk)',
+            how: 'IHC: Allred / H-score',
+            why: 'ER+ NSMP → low-risk + hormonal therapy 適應; ER- NSMP 預後較差',
+            molEntryId: 'NSMP-low-risk'
+          },
+        ]
+      },
+      {
+        title: '🔄 條件式追加',
+        items: [
+          {
+            id: 'ec-mlh1-meth',
+            name: 'MLH1 promoter methylation',
+            when: 'MLH1/PMS2 IHC 雙缺失',
+            how: 'PCR 或 pyrosequencing',
+            why: 'Methylated → sporadic (不需 germline); Unmethylated → Lynch 懷疑 → germline',
+            molEntryId: 'MMR-Lynch-Workflow'
+          },
+          {
+            id: 'ec-germline',
+            name: 'Germline panel (Lynch syndrome)',
+            when: 'MLH1 unmethylated / MSH2/MSH6/PMS2 缺失',
+            how: 'Blood NGS panel: MLH1, MSH2, MSH6, PMS2, EPCAM',
+            why: '確認 Lynch syndrome → 大腸鏡 + 家族篩檢 + RRSO 預防',
+            molEntryId: 'MMR-Lynch-Workflow'
+          },
+          {
+            id: 'ec-her2',
+            name: 'HER2 IHC + ISH',
+            when: 'Serous histology / p53abn / advanced disease',
+            how: 'IHC + ISH (FISH/DISH for IHC 2+)',
+            why: 'HER2+ → Trastuzumab combo (Fader); 後線 T-DXd (DESTINY-PanTumor02)',
+            molEntryId: 'HER2-uterine-serous'
+          },
+          {
+            id: 'ec-ngs',
+            name: 'Broad NGS panel',
+            when: 'Recurrent / metastatic EC',
+            how: 'Tumor NGS panel (FoundationOne, MSK-IMPACT, Tempus)',
+            why: '尋找 actionable mutations: PIK3CA, FGFR2, ERBB2, NTRK, BRAF V600E',
+            molEntryId: 'p53abn'
+          },
+          {
+            id: 'ec-ctnnb1',
+            name: 'CTNNB1 exon 3 NGS',
+            when: 'NSMP — 評估 risk stratification',
+            how: 'NGS exon 3 (S33, S37, T41, S45) 或 β-catenin nuclear IHC',
+            why: 'CTNNB1m NSMP → 雖 low-grade 但易早期復發; PORTEC-4a 整合考量',
+            molEntryId: 'CTNNB1'
+          },
+          {
+            id: 'ec-l1cam',
+            name: 'L1CAM IHC',
+            when: 'Stage I-II EC (尤 NSMP / high-grade)',
+            how: 'IHC cut-off ≥10%',
+            why: 'L1CAM+ → distant recurrence 風險升; PORTEC-4a integrated risk',
+            molEntryId: 'L1CAM'
+          },
+        ]
+      }
+    ]
+  },
+  OC: {
+    title: '🟣 卵巢癌 OC 檢測 Checklist',
+    description: '所有 epithelial OC 強制 germline + somatic; 依組織型加做',
+    sections: [
+      {
+        title: '🔬 基本必做 (所有 epithelial OC)',
+        items: [
+          {
+            id: 'oc-germline',
+            name: 'Germline BRCA1/2 panel',
+            when: '所有 epithelial OC (NCCN Cat 1)',
+            how: 'Blood NGS: BRCA1, BRCA2 + RAD51C/D, BRIP1, PALB2, MMR',
+            why: 'BRCAm → PARPi 強烈獲益 (SOLO-1); 家族篩檢; PGT-M 適應',
+            molEntryId: 'BRCAm'
+          },
+          {
+            id: 'oc-somatic',
+            name: 'Somatic BRCA1/2 (tumor)',
+            when: 'Germline 陰性的所有 OC',
+            how: 'Tumor FFPE NGS',
+            why: '~7% germline-neg 患者有 sBRCA → 仍適 PARPi',
+            molEntryId: 'BRCAm'
+          },
+          {
+            id: 'oc-hrd',
+            name: 'HRD / GIS test',
+            when: 'BRCAwt 患者 (一線維持決策)',
+            how: 'Myriad myChoice CDx (GIS≥42) 或 FoundationOne CDx (LOH≥16%)',
+            why: 'HRD+ → PAOLA-1 (Olap+Bev); HRD- → Bev only',
+            molEntryId: 'HRD-pos'
+          },
+        ]
+      },
+      {
+        title: '🔄 復發 / 進階階段加做',
+        items: [
+          {
+            id: 'oc-fra',
+            name: 'FRα IHC',
+            when: 'Platinum-resistant OC (PROC)',
+            how: 'Ventana FOLR1 IHC (PS2+ ≥75% 為 high)',
+            why: 'FRα high → Mirvetuximab Soravtansine (MIRASOL, OS HR 0.67)',
+            molEntryId: 'HRD-neg'
+          },
+          {
+            id: 'oc-her2',
+            name: 'HER2 IHC + ISH',
+            when: 'Mucinous / clear cell / recurrent OC',
+            how: 'IHC + ISH for IHC 2+',
+            why: 'HER2+ Mucinous → Trastuzumab combo; HER2+ general → T-DXd',
+            molEntryId: 'Mucinous-OC'
+          },
+          {
+            id: 'oc-ccne1',
+            name: 'CCNE1 amplification',
+            when: 'HRD-negative 患者',
+            how: 'FISH (CCNE1:CEP19 ≥2.0) 或 NGS-based',
+            why: 'CCNE1 amp → PARPi 強抗藥; 不啟動 PARPi 維持',
+            molEntryId: 'CCNE1'
+          },
+          {
+            id: 'oc-msi',
+            name: 'MSI / MMR IHC',
+            when: 'Endometrioid / clear cell / unusual histology',
+            how: 'MMR IHC 4 蛋白 或 MSI PCR / NGS',
+            why: 'MSI-H → Pembro tumor-agnostic; Endometrioid OC ~15-20% Lynch risk',
+            molEntryId: 'Endometrioid-OC'
+          },
+          {
+            id: 'oc-reversion',
+            name: 'BRCA reversion (ctDNA NGS)',
+            when: 'PARPi 使用後復發',
+            how: 'ctDNA NGS (Guardant360, FoundationOne Liquid)',
+            why: 'BRCA reversion → 不再 rechallenge PARPi; 改用 ADC / IO / 試驗',
+            molEntryId: 'BRCA-reversion'
+          },
+        ]
+      },
+      {
+        title: '🧬 特殊組織型',
+        items: [
+          {
+            id: 'oc-lgsc',
+            name: 'KRAS / BRAF / NRAS NGS',
+            when: 'Low-Grade Serous Carcinoma (LGSC)',
+            how: 'NGS panel (RAS-MAPK)',
+            why: 'KRAS/BRAFm → MEK inhibitor (Trametinib, GOG-281)',
+            molEntryId: 'LGSC'
+          },
+          {
+            id: 'oc-occc',
+            name: 'ARID1A / PIK3CA / PD-L1',
+            when: 'Ovarian Clear Cell Carcinoma (OCCC)',
+            how: 'NGS panel + PD-L1 IHC',
+            why: 'ARID1A+PIK3CA m 高頻; PD-L1+ → IO; 本院 DOVE 試驗',
+            molEntryId: 'OCCC'
+          },
+          {
+            id: 'oc-mucinous',
+            name: '【強制】排除 GI 轉移',
+            when: 'Mucinous OC',
+            how: '胃鏡 + 大腸鏡 + CDX-2/CK7/CK20 IHC',
+            why: '80% 卵巢黏液癌實為 GI 轉移! 必先排除',
+            molEntryId: 'Mucinous-OC'
+          },
+        ]
+      }
+    ]
+  },
+  CC: {
+    title: '🟠 子宮頸癌 CC 檢測 Checklist',
+    description: '所有 R/M CC 強制 PD-L1; 腺癌加做 HER2; WHO 2020 分類強制 p16+HPV',
+    sections: [
+      {
+        title: '🔬 基本必做',
+        items: [
+          {
+            id: 'cc-p16',
+            name: 'p16 IHC (block-positive)',
+            when: '所有 CC (病理常規)',
+            how: 'IHC: block-positive (diffuse strong nuclear+cytoplasmic) → HPV-driven',
+            why: 'WHO 2020 區分 HPV-associated vs HPV-independent 之關鍵',
+            molEntryId: 'HPV16'
+          },
+          {
+            id: 'cc-hpv',
+            name: 'HPV genotyping',
+            when: '所有 CC + AIS',
+            how: 'Roche Cobas HPV (區分 16/18/其他) 或 NGS-based',
+            why: 'HPV16/18 為主要 driver; HPV-negative → 考慮 HPV-independent',
+            molEntryId: 'HPV18'
+          },
+          {
+            id: 'cc-pdl1',
+            name: 'PD-L1 CPS',
+            when: '所有 R/M CC (1L IO 適應決策)',
+            how: 'Dako 22C3 IHC (FDA Companion Dx)',
+            why: 'CPS≥1 → KEYNOTE-826 (Pembro+chemo±Bev); 健保已給付',
+            molEntryId: 'PD-L1-CPS'
+          },
+        ]
+      },
+      {
+        title: '🔄 條件式追加',
+        items: [
+          {
+            id: 'cc-her2',
+            name: 'HER2 IHC + ISH',
+            when: '【強制】所有 cervical adenocarcinoma + gastric-type',
+            how: 'IHC + ISH (IHC 2+ 加做)',
+            why: 'HER2+ → T-DXd (DESTINY-PanTumor02 ORR ~50%)',
+            molEntryId: 'HER2-cervical'
+          },
+          {
+            id: 'cc-gastric',
+            name: 'HIK1083 + MUC6 + STK11 germline',
+            when: 'HPV-negative adenocarcinoma 懷疑 gastric-type',
+            how: 'IHC: HIK1083, MUC6 (gastric markers); germline NGS for STK11',
+            why: 'Gastric-type → 預後最差 + Peutz-Jeghers (~10%) 篩檢',
+            molEntryId: 'HPV-independent-gastric'
+          },
+          {
+            id: 'cc-msi-tmb',
+            name: 'MSI / TMB / NTRK / RET / BRAF',
+            when: 'Recurrent / 罕見組織型 / 標準耗盡',
+            how: 'Broad NGS panel + pan-Trk IHC screening',
+            why: 'Tumor-agnostic actionable: MSI/TMB → Pembro; NTRK → Larotrectinib',
+            molEntryId: 'Tumor-agnostic-CC'
+          },
+          {
+            id: 'cc-trop2',
+            name: 'TROP2 IHC',
+            when: '本院 TroFuse-036 試驗匹配',
+            how: 'TROP2 IHC',
+            why: 'PD-L1+ + TROP2+ → 本院 TroFuse-036 (湯雲心主持)',
+            molEntryId: 'TROP2'
+          },
+          {
+            id: 'cc-ctdna',
+            name: 'HPV ctDNA (research)',
+            when: 'CCRT 後 MRD 監測 (試驗 setting)',
+            how: 'Plasma ddPCR / NGS-based',
+            why: 'Persistent ctDNA → 復發 high risk; 早於影像 3-6 個月',
+            molEntryId: 'HPV-ctDNA'
+          },
+        ]
+      }
+    ]
+  },
+  US: {
+    title: '🔵 子宮肉瘤 US 檢測 Checklist',
+    description: '所有 US 應 ER/PR + sarcoma fusion panel; 依形態加做特定 fusion / IHC',
+    sections: [
+      {
+        title: '🔬 基本必做',
+        items: [
+          {
+            id: 'us-erpr',
+            name: 'ER / PR IHC',
+            when: '所有 US (尤其 LMS, ESS)',
+            how: 'IHC: Allred / H-score (cut-off ≥10%)',
+            why: 'ER+ LMS → Letrozole (10-20% ORR); LG-ESS → Hormonal 為標準',
+            molEntryId: 'uLMS-hormonal'
+          },
+          {
+            id: 'us-fusion-panel',
+            name: 'Sarcoma fusion NGS panel',
+            when: '所有 US (rare 但 actionable)',
+            how: 'NGS RNA-based fusion panel',
+            why: '涵蓋 NTRK, ALK, ROS1, JAZF1, YWHAE, BCOR fusion',
+            molEntryId: 'NTRK-uterine-sarcoma'
+          },
+        ]
+      },
+      {
+        title: '🔄 依形態 / 亞型追加',
+        items: [
+          {
+            id: 'us-jazf1',
+            name: 'JAZF1-SUZ12 FISH',
+            when: '懷疑 LG-ESS (low-grade endometrial stromal sarcoma)',
+            how: 'FISH break-apart probe',
+            why: '確認 LG-ESS → Hormonal therapy (Letrozole) 為標準',
+            molEntryId: 'LG-ESS'
+          },
+          {
+            id: 'us-ywhae',
+            name: 'YWHAE-NUTM2 FISH + Cyclin D1 IHC',
+            when: '懷疑 HG-ESS YWHAE type',
+            how: 'FISH + IHC (cyclin D1 strong nuclear)',
+            why: '確認 HG-ESS YWHAE → CDK4/6 inhibitor 試驗',
+            molEntryId: 'HG-ESS-YWHAE'
+          },
+          {
+            id: 'us-bcor',
+            name: 'BCOR IHC + ZC3H7B-BCOR FISH',
+            when: 'Myxoid 形態子宮肉瘤 (鑑別 myxoid LMS)',
+            how: 'IHC: BCOR strong nuclear; FISH for fusion; NGS for BCOR ITD',
+            why: '【關鍵】HG-ESS BCOR 可 mimic myxoid LMS; 鑑別困難',
+            molEntryId: 'HG-ESS-BCOR'
+          },
+          {
+            id: 'us-ntrk',
+            name: 'pan-Trk IHC + NTRK FISH/NGS',
+            when: '所有 sarcoma (rare 但 high-impact)',
+            how: 'pan-Trk IHC (screening) → NGS RNA-based confirm',
+            why: 'NTRK fusion → Larotrectinib/Entrectinib pan-tumor (ORR ~75%)',
+            molEntryId: 'NTRK-uterine-sarcoma'
+          },
+          {
+            id: 'us-alk',
+            name: 'ALK IHC + FISH',
+            when: '懷疑 IMT (Inflammatory Myofibroblastic Tumor)',
+            how: 'IHC: ALK granular cytoplasmic; FISH break-apart',
+            why: 'ALK+ IMT → Crizotinib/Lorlatinib (FDA 2019 IMT)',
+            molEntryId: 'IMT-ALK'
+          },
+          {
+            id: 'us-pecoma',
+            name: 'HMB-45 + Melan-A + TSC1/TSC2 NGS',
+            when: '懷疑 PEComa (epithelioid 形態 + 透明胞質)',
+            how: 'IHC: HMB-45, Melan-A, Cathepsin K; NGS TSC1/TSC2',
+            why: 'PEComa → Nab-Sirolimus (FDA 2021 malignant); 排除 TSC syndrome',
+            molEntryId: 'PEComa'
+          },
+          {
+            id: 'us-stk11',
+            name: 'TSC germline (Tuberous Sclerosis)',
+            when: 'PEComa 確診 + 懷疑 TSC syndrome',
+            how: 'Blood NGS: TSC1, TSC2',
+            why: '~20% 為 germline; 神經 / 腎 / 肺 LAM 監測 + 家族篩檢',
+            molEntryId: 'PEComa'
+          },
+          {
+            id: 'us-tp53-rb1',
+            name: 'TP53 / RB1 / ATRX NGS',
+            when: 'LMS (區別 leiomyoma + STUMP)',
+            how: 'Tumor NGS panel',
+            why: 'LMS 高頻 (vs leiomyoma 為 MED12 mut)',
+            molEntryId: 'LMS'
+          },
+          {
+            id: 'us-adenosarcoma',
+            name: '評估 Sarcomatous Overgrowth (SO)',
+            when: 'Adenosarcoma 患者 (病理報告必含)',
+            how: '病理: 評估 pure sarcoma 比例 (>25% 為 SO+)',
+            why: '【核心考點】SO+ → 預後變差, 治療升級為 high-grade sarcoma 思維',
+            molEntryId: 'Adenosarcoma'
+          },
+        ]
+      }
+    ]
+  }
+};
+
+let currentChecklistTab = 'EC';
+const CHECKLIST_STORAGE_KEY = 'gyne_navigator_checklist_state';
+
+function getChecklistState(){
+  try {
+    return JSON.parse(localStorage.getItem(CHECKLIST_STORAGE_KEY) || '{}');
+  } catch(e){
+    return {};
+  }
+}
+
+function setChecklistState(state){
+  try {
+    localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(state));
+  } catch(e){
+    console.warn('localStorage failed:', e);
+  }
+}
+
+function openChecklist(){
+  el('checklistModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  switchChecklistTab(currentChecklistTab);
+}
+
+function closeChecklist(){
+  el('checklistModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchChecklistTab(cancer){
+  currentChecklistTab = cancer;
+  document.querySelectorAll('.checklist-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.cancer === cancer);
+  });
+  renderChecklist();
+}
+
+function renderChecklist(){
+  const data = CHECKLISTS[currentChecklistTab];
+  const state = getChecklistState();
+  const cancerState = state[currentChecklistTab] || {};
+
+  let html = `
+    <div class="checklist-header-info">
+      <h3>${escapeHtml(data.title)}</h3>
+      <div class="checklist-desc">${escapeHtml(data.description)}</div>
+    </div>
+    <div class="checklist-toolbar">
+      <button onclick="resetChecklist()" class="cl-toolbar-btn cl-reset">🔄 清除全部</button>
+      <button onclick="markAllChecklist(true)" class="cl-toolbar-btn cl-checkall">✓ 全部勾選</button>
+    </div>
+  `;
+
+  data.sections.forEach(section => {
+    html += `<div class="checklist-section">
+      <h4 class="checklist-section-title">${escapeHtml(section.title)}</h4>
+      <div class="checklist-items">`;
+
+    section.items.forEach(item => {
+      const checked = cancerState[item.id] === 'done';
+      const skipped = cancerState[item.id] === 'na';
+      html += `
+        <div class="checklist-item ${checked ? 'checked' : ''} ${skipped ? 'skipped' : ''}">
+          <div class="cl-item-controls">
+            <button class="cl-check ${checked ? 'on' : ''}" onclick="toggleChecklistItem('${item.id}', 'done')" title="標記為已測">
+              ${checked ? '✓' : '○'}
+            </button>
+            <button class="cl-na ${skipped ? 'on' : ''}" onclick="toggleChecklistItem('${item.id}', 'na')" title="標記為不適用 N/A">
+              ${skipped ? '⊘' : '–'}
+            </button>
+          </div>
+          <div class="cl-item-content">
+            <div class="cl-item-name">${escapeHtml(item.name)}</div>
+            <div class="cl-item-rows">
+              <div class="cl-row"><span class="cl-row-label">何時做</span>${escapeHtml(item.when)}</div>
+              <div class="cl-row"><span class="cl-row-label">怎麼做</span>${escapeHtml(item.how)}</div>
+              <div class="cl-row"><span class="cl-row-label">為什麼</span>${escapeHtml(item.why)}</div>
+            </div>
+            ${item.molEntryId ? `<button class="cl-link-btn" onclick="jumpToMolEntry('${currentChecklistTab}', '${item.molEntryId}')">🧬 看完整分子分型 →</button>` : ''}
+          </div>
+        </div>
+      `;
+    });
+
+    html += '</div></div>';
+  });
+
+  // Summary
+  const total = data.sections.reduce((s, sec) => s + sec.items.length, 0);
+  const done = Object.keys(cancerState).filter(k => cancerState[k] === 'done').length;
+  const na = Object.keys(cancerState).filter(k => cancerState[k] === 'na').length;
+  const pending = total - done - na;
+
+  html += `
+    <div class="checklist-summary">
+      <div class="cl-summary-stat done">✓ 已測: ${done}</div>
+      <div class="cl-summary-stat skipped">⊘ N/A: ${na}</div>
+      <div class="cl-summary-stat pending">○ 待測: ${pending}</div>
+      <div class="cl-summary-stat total">總計: ${total}</div>
+    </div>
+  `;
+
+  el('checklistBody').innerHTML = html;
+}
+
+function toggleChecklistItem(itemId, mode){
+  const state = getChecklistState();
+  if(!state[currentChecklistTab]) state[currentChecklistTab] = {};
+
+  // Toggle: click same → uncheck; click different → switch
+  if(state[currentChecklistTab][itemId] === mode){
+    delete state[currentChecklistTab][itemId];
+  } else {
+    state[currentChecklistTab][itemId] = mode;
+  }
+
+  setChecklistState(state);
+  renderChecklist();
+}
+
+function resetChecklist(){
+  if(!confirm(`確定要清除「${currentChecklistTab}」的所有勾選嗎?`)) return;
+  const state = getChecklistState();
+  delete state[currentChecklistTab];
+  setChecklistState(state);
+  renderChecklist();
+}
+
+function markAllChecklist(checked){
+  const data = CHECKLISTS[currentChecklistTab];
+  const state = getChecklistState();
+  if(!state[currentChecklistTab]) state[currentChecklistTab] = {};
+
+  data.sections.forEach(sec => {
+    sec.items.forEach(item => {
+      if(checked){
+        state[currentChecklistTab][item.id] = 'done';
+      } else {
+        delete state[currentChecklistTab][item.id];
+      }
+    });
+  });
+
+  setChecklistState(state);
+  renderChecklist();
+}
+
+function jumpToMolEntry(cancer, entryId){
+  closeChecklist();
+  setTimeout(() => {
+    openMolPedia();
+    setTimeout(() => {
+      switchMolTab(cancer);
+      setTimeout(() => {
+        const data = MOL_PEDIA[cancer];
+        const idx = data.entries.findIndex(e => e.id === entryId);
+        if(idx >= 0) selectMolEntry(idx);
+      }, 50);
+    }, 100);
+  }, 100);
+}
+
 const EXAM_CARDS = {
   'POLEm': {
     definition: 'POLE exonuclease domain pathogenic mutation (exon 9-14, e.g. P286R, V411L)',
@@ -8226,6 +8890,9 @@ function renderMolList(){
     </div>
     <button class="flashcard-mode-btn" onclick="openFlashcardMode('${currentMolTab}')">
       📇 ${currentMolTab} 考試模式 (翻牌記憶)
+    </button>
+    <button class="mol-special-btn checklist-shortcut" onclick="closeMolPedia(); setTimeout(() => { openChecklist(); switchChecklistTab('${currentMolTab}'); }, 100);">
+      ✅ ${currentMolTab} 檢測 Checklist (病人來時用)
     </button>
     ${data.workflow ? `
       <button class="mol-special-btn workflow" onclick="showMolSpecial('workflow')">
