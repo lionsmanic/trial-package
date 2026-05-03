@@ -44,6 +44,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-checklist:hover{box-shadow:0 4px 16px rgba(8,145,178,0.45);}
 .header-btn-pathway{background:linear-gradient(135deg,#ea580c,#c2410c);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(234,88,12,0.3);}
 .header-btn-pathway:hover{box-shadow:0 4px 16px rgba(234,88,12,0.45);}
+.header-btn-match{background:linear-gradient(135deg,#db2777,#be185d);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(219,39,119,0.3);}
+.header-btn-match:hover{box-shadow:0 4px 16px rgba(219,39,119,0.45);}
 @media(max-width:640px){
   .hide-on-mobile{display:none;}
   .header-actions{gap:6px;}
@@ -393,6 +395,106 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   border-color:#16a34a;
   transform:translateY(-1px);
   box-shadow:0 6px 16px rgba(22,163,74,0.25);
+}
+
+/* ===== 🎯 試驗匹配引擎 Modal ===== */
+.trial-match-modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.88);z-index:567;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.trial-match-modal-bg.open{display:flex;}
+.trial-match-modal-content{background:white;max-width:1100px;width:100%;max-height:94vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
+.trial-match-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.trial-match-close:hover{background:white;transform:scale(1.05);}
+
+.trial-match-header{background:linear-gradient(135deg,#be185d,#9d174d);color:white;padding:22px 26px;flex-shrink:0;}
+.trial-match-title-wrap{display:flex;align-items:center;gap:14px;padding-right:50px;}
+.trial-match-icon{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.trial-match-title{font-size:18px;font-weight:800;letter-spacing:.02em;}
+.trial-match-subtitle{font-size:11.5px;color:rgba(255,255,255,0.75);font-family:"JetBrains Mono",monospace;margin-top:3px;line-height:1.4;}
+
+.trial-match-body{padding:20px 24px;overflow-y:auto;flex:1;background:#fafaf9;}
+
+.match-section{margin-bottom:20px;background:white;border-radius:12px;padding:16px 18px;border:1px solid #e2e8f0;}
+.match-section h4{font-size:14px;font-weight:800;color:#9d174d;margin:0 0 12px;display:flex;align-items:center;gap:6px;}
+
+.match-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:11px;}
+.match-field{display:flex;flex-direction:column;gap:5px;}
+.match-field label{font-size:11.5px;font-weight:700;color:#475569;font-family:"JetBrains Mono",monospace;letter-spacing:0.02em;}
+.match-field select{padding:8px 11px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:13px;background:white;color:#0c1f3d;font-family:inherit;cursor:pointer;}
+.match-field select:focus{outline:none;border-color:#db2777;}
+.match-field select:disabled{background:#f1f5f9;color:#94a3b8;cursor:not-allowed;}
+
+.match-checkbox-group{display:flex;flex-wrap:wrap;gap:7px;}
+.match-mol-empty{color:#94a3b8;font-size:12px;padding:10px;background:#f1f5f9;border-radius:8px;font-style:italic;}
+.match-checkbox{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;background:white;border:1.5px solid #e2e8f0;border-radius:8px;cursor:pointer;font-size:11.5px;font-weight:700;color:#475569;transition:all 0.15s;}
+.match-checkbox:hover{border-color:#db2777;}
+.match-checkbox.checked{background:linear-gradient(135deg,#fce7f3,#fbcfe8);border-color:#db2777;color:#831843;}
+.match-checkbox input{margin:0;cursor:pointer;}
+
+.match-actions{display:flex;gap:10px;margin-top:16px;}
+.match-actions button{flex:1;padding:13px 18px;border-radius:11px;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit;border:none;letter-spacing:0.02em;}
+.match-btn-reset{background:#f1f5f9;color:#475569;border:1.5px solid #cbd5e1;}
+.match-btn-reset:hover{background:#e2e8f0;}
+.match-btn-go{background:linear-gradient(135deg,#db2777,#9d174d);color:white;}
+.match-btn-go:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(219,39,119,0.35);}
+
+/* Match Results */
+.match-summary{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 14px;padding:14px 16px;background:white;border-radius:11px;border:1px solid #e2e8f0;}
+.match-summary-stat{padding:7px 14px;border-radius:8px;font-weight:800;font-size:13px;}
+.match-summary-stat.good{background:#f0fdf4;color:#15803d;}
+.match-summary-stat.warn{background:#fef3c7;color:#92400e;}
+.match-summary-stat.bad{background:#fef2f2;color:#dc2626;}
+.match-summary-stat.info{background:#eff6ff;color:#1e40af;margin-left:auto;}
+
+.match-disclaimer{padding:10px 14px;background:#fef9c3;border-left:4px solid #fbbf24;border-radius:0 9px 9px 0;font-size:11.5px;color:#78350f;line-height:1.55;margin-bottom:18px;}
+
+.match-result-section{margin-bottom:18px;}
+.mrs-title{font-size:14px;font-weight:800;margin:0 0 10px;padding:8px 13px;border-radius:8px;}
+.mrs-title.good{background:#dcfce7;color:#15803d;}
+.mrs-title.warn{background:#fef3c7;color:#92400e;}
+
+.match-result-item{background:white;border:2px solid #e2e8f0;border-radius:11px;padding:14px 16px;margin-bottom:9px;transition:all 0.15s;}
+.match-result-item:hover{transform:translateX(2px);box-shadow:0 4px 12px rgba(0,0,0,0.06);}
+.match-result-item.match{border-color:#86efac;background:linear-gradient(to right,#f0fdf4,white 30%);}
+.match-result-item.partial{border-color:#fbbf24;background:linear-gradient(to right,#fef9c3,white 30%);}
+
+.mri-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+.mri-title{font-size:14px;font-weight:800;color:#0c1f3d;flex:1;min-width:200px;}
+.mri-score{font-size:14px;font-weight:800;font-family:"JetBrains Mono",monospace;color:#db2777;}
+.match-badge{padding:3px 10px;border-radius:50px;font-size:11px;font-weight:800;}
+.match-badge.match-good{background:#16a34a;color:white;}
+.match-badge.match-partial{background:#f59e0b;color:white;}
+.match-badge.match-bad{background:#dc2626;color:white;}
+
+.mri-tagline{font-size:12px;color:#475569;line-height:1.5;margin-bottom:7px;}
+.mri-rule-note{font-size:11.5px;color:#581c87;background:#faf5ff;padding:6px 10px;border-radius:6px;margin-bottom:6px;line-height:1.5;}
+.mri-warnings{font-size:11.5px;color:#92400e;background:#fef3c7;padding:6px 10px;border-radius:6px;margin-bottom:6px;line-height:1.5;}
+.mri-reasons{font-size:11.5px;color:#7f1d1d;background:#fee2e2;padding:6px 10px;border-radius:6px;margin-bottom:6px;line-height:1.5;}
+
+.mri-actions{margin-top:8px;}
+.mri-detail-btn{padding:6px 12px;background:#0c1f3d;color:white;border:none;border-radius:7px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+.mri-detail-btn:hover{background:#1e293b;}
+
+.match-no-result{text-align:center;padding:40px 20px;background:white;border-radius:11px;border:1px solid #e2e8f0;}
+
+.match-excluded-details{margin-top:14px;background:white;border:1px solid #e2e8f0;border-radius:9px;padding:11px 14px;}
+.match-excluded-details summary{cursor:pointer;font-weight:700;color:#475569;font-size:12.5px;}
+.match-excluded-details summary:hover{color:#0c1f3d;}
+.match-excluded-item{padding:7px 0;border-bottom:1px solid #f1f5f9;font-size:11.5px;color:#475569;line-height:1.5;}
+.match-excluded-item:last-child{border-bottom:none;}
+
+@media(max-width:640px){
+  .trial-match-modal-bg{padding:0;}
+  .trial-match-modal-content{max-height:100vh;border-radius:0;}
+  .trial-match-header{padding:16px 16px;}
+  .trial-match-title-wrap{padding-right:42px;}
+  .trial-match-title{font-size:15px;}
+  .trial-match-subtitle{font-size:10.5px;}
+  .trial-match-icon{width:38px;height:38px;font-size:20px;}
+  .trial-match-body{padding:14px;}
+  .match-section{padding:12px 13px;}
+  .match-grid{grid-template-columns:1fr;}
+  .match-checkbox{font-size:11px;padding:5px 9px;}
+  .mri-header{gap:7px;}
+  .mri-title{font-size:13px;}
 }
 
 /* ===== 🗺️ 治療路徑流程圖 Modal ===== */
@@ -1484,6 +1586,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="header-btn header-btn-pathway" onclick="openPathway()" title="開啟治療路徑流程圖">
         <span>🗺️</span><span class="hide-on-mobile">治療路徑</span>
       </button>
+      <button class="header-btn header-btn-match" onclick="openTrialMatch()" title="開啟試驗匹配引擎">
+        <span>🎯</span><span class="hide-on-mobile">試驗匹配</span>
+      </button>
       <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
         <span>🤖</span><span>AI 治療路徑</span>
       </button>
@@ -1771,6 +1876,26 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     <div class="mol-pedia-body">
       <div class="mol-pedia-list" id="molList"></div>
       <div class="mol-pedia-detail" id="molDetail"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 🎯 試驗匹配引擎 Modal ===== -->
+<div class="trial-match-modal-bg" id="trialMatchModal" onclick="if(event.target.id==='trialMatchModal')closeTrialMatch()">
+  <div class="trial-match-modal-content">
+    <button class="trial-match-close" onclick="closeTrialMatch()">✕</button>
+    <div class="trial-match-header">
+      <div class="trial-match-title-wrap">
+        <div class="trial-match-icon">🎯</div>
+        <div>
+          <div class="trial-match-title">試驗匹配引擎</div>
+          <div class="trial-match-subtitle">輸入病人條件 · 規則引擎自動比對 · 結果分為完全/部分/不符</div>
+        </div>
+      </div>
+    </div>
+    <div class="trial-match-body">
+      <div id="trialMatchInputs"></div>
+      <div id="trialMatchResults"></div>
     </div>
   </div>
 </div>
@@ -7302,6 +7427,791 @@ const PATHWAYS = {
     ],
   },
 };
+
+
+// ============================================================
+// 🎯 試驗匹配引擎 (Trial Matching Engine)
+// ============================================================
+// 設計原則: 規則引擎為 ~30 個重要試驗建立結構化條件
+// 其他試驗仍可透過 AI 治療路徑查詢
+//
+// 條件結構:
+//   cancer: ['EC'|'OC'|'CC'|'US']
+//   stages: ['I','II','III','IV','recurrent','newly_diagnosed','advanced']
+//   line: 'adjuvant'|'1L'|'1L-maintenance'|'PSOC'|'PROC'|'2L+'|'recurrent'|'pre_invasive'
+//   histo: ['HGSC','LGSC','OCCC','endometrioid','mucinous','SCC','AdenoCa','LMS','ESS',...]
+//   molecular: { required: [...], excluded: [...] }
+//   prior: { required: [...], excluded: [...] }  // 前治療要求
+//   ecog: [0, 1] | [0, 1, 2]
+//   age?: { min, max }
+//   notes?: string
+
+const TRIAL_RULES = {
+  // ========== EC ==========
+  'gy018': {
+    cancer: ['EC'],
+    stages: ['III', 'IV', 'recurrent'],
+    line: '1L',
+    histo: ['endometrioid', 'serous', 'clear_cell'], // 不允許 carcinosarcoma!
+    molecular: { required: [], any: ['MMRd', 'pMMR'] },
+    prior: { excluded: ['prior_IO'] },
+    ecog: [0, 1],
+    notes: 'GY018: 不允許 carcinosarcoma; pembrolizumab + chemo'
+  },
+  'ruby-p1': {
+    cancer: ['EC'],
+    stages: ['III', 'IV', 'recurrent'],
+    line: '1L',
+    histo: ['endometrioid', 'serous', 'carcinosarcoma', 'clear_cell', 'mixed'],
+    molecular: { required: [], any: ['MMRd', 'pMMR'] },
+    prior: { excluded: ['prior_IO'] },
+    ecog: [0, 1],
+    notes: 'RUBY P1: 允許 carcinosarcoma; dostarlimab + chemo'
+  },
+  'duo-e': {
+    cancer: ['EC'],
+    stages: ['III', 'IV', 'recurrent'],
+    line: '1L',
+    histo: ['endometrioid', 'serous', 'carcinosarcoma'],
+    molecular: { required: [], any: ['MMRd', 'pMMR', 'HRRm', 'p53abn'] },
+    prior: { excluded: ['prior_IO', 'prior_PARPi'] },
+    ecog: [0, 1],
+    notes: 'DUO-E: pMMR+HRRm/p53m 為 Arm 3 最佳族群'
+  },
+  'keynote-c93': {
+    cancer: ['EC'],
+    stages: ['III', 'IV', 'recurrent'],
+    line: '1L',
+    histo: ['endometrioid', 'serous', 'carcinosarcoma'],
+    molecular: { required: ['MMRd'] },
+    prior: { excluded: ['prior_IO'] },
+    ecog: [0, 1],
+    notes: 'KEYNOTE-C93: MMRd 限定, Pembro 單藥 vs 化療'
+  },
+  'garnet': {
+    cancer: ['EC'],
+    stages: ['recurrent'],
+    line: '2L+',
+    molecular: { required: ['MMRd'] },
+    prior: { required: ['prior_platinum'] },
+    ecog: [0, 1],
+    notes: 'GARNET: MMRd 後線單藥 IO'
+  },
+  'destiny-pantumor02': {
+    cancer: ['EC', 'OC', 'CC'],
+    stages: ['recurrent'],
+    line: '2L+',
+    molecular: { required: ['HER2_pos'] },
+    prior: { required: ['prior_chemo'] },
+    ecog: [0, 1],
+    notes: 'T-DXd: HER2 IHC 3+ (or 2+/ISH amp+) 任何 advanced solid tumor'
+  },
+  'rainbo-program': {
+    cancer: ['EC'],
+    stages: ['I', 'II'],
+    line: 'adjuvant',
+    molecular: { required: [], any: ['POLEm', 'MMRd', 'p53abn', 'NSMP-low-risk', 'NSMP-high-risk'] },
+    prior: { excluded: [] },
+    ecog: [0, 1],
+    notes: 'RAINBO: 4 arms 對應 4-tier 分子分型 adjuvant'
+  },
+  'portec-4a': {
+    cancer: ['EC'],
+    stages: ['I', 'II'],
+    line: 'adjuvant',
+    histo: ['endometrioid'],
+    molecular: { required: [] },
+    prior: { excluded: [] },
+    ecog: [0, 1],
+    notes: 'PORTEC-4a: integrated risk model (POLE+p53+CTNNB1+L1CAM)'
+  },
+
+  // ========== OC ==========
+  'solo-1': {
+    cancer: ['OC'],
+    stages: ['III', 'IV'],
+    line: '1L-maintenance',
+    histo: ['HGSC', 'endometrioid'],
+    molecular: { required: ['BRCAm'] },
+    prior: { required: ['platinum_response_CR_PR'], excluded: ['prior_PARPi', 'prior_Bev'] },
+    ecog: [0, 1],
+    notes: 'SOLO-1: BRCAm 一線維持, NCCN Cat 1; 24m olaparib'
+  },
+  'paola-1': {
+    cancer: ['OC'],
+    stages: ['III', 'IV'],
+    line: '1L-maintenance',
+    histo: ['HGSC', 'endometrioid'],
+    molecular: { required: [], any: ['BRCAm', 'HRD_pos'] },
+    prior: { required: ['platinum_response_CR_PR', 'prior_Bev'], excluded: ['prior_PARPi'] },
+    ecog: [0, 1],
+    notes: 'PAOLA-1: BRCAm + HRD+ 都獲益; 已用 Bev 維持'
+  },
+  'prima': {
+    cancer: ['OC'],
+    stages: ['III', 'IV'],
+    line: '1L-maintenance',
+    histo: ['HGSC', 'endometrioid'],
+    molecular: { required: [] },
+    prior: { required: ['platinum_response_CR_PR'], excluded: ['prior_PARPi'] },
+    ecog: [0, 1],
+    notes: 'PRIMA: 全人群均可, BRCAm/HRD+ 獲益最佳; 不限 Bev'
+  },
+  'solo2': {
+    cancer: ['OC'],
+    stages: ['recurrent'],
+    line: 'PSOC-maintenance',
+    histo: ['HGSC', 'endometrioid'],
+    molecular: { required: ['BRCAm'] },
+    prior: { required: ['platinum_sensitive_relapse', 'prior_2_platinum_lines'], excluded: ['prior_PARPi'] },
+    ecog: [0, 1],
+    notes: 'SOLO2: BRCAm PSOC 維持'
+  },
+  'duo-o': {
+    cancer: ['OC'],
+    stages: ['III', 'IV'],
+    line: '1L',
+    histo: ['HGSC', 'endometrioid'],
+    molecular: { required: [], any: ['HRD_pos', 'HRD_neg'] }, // BRCAwt
+    prior: { excluded: ['prior_PARPi', 'BRCAm'] }, // 限 non-BRCAm
+    ecog: [0, 1],
+    notes: 'DUO-O: 限 non-BRCAm; 三藥維持 (Durva+Olap+Bev)'
+  },
+  'mirasol': {
+    cancer: ['OC'],
+    stages: ['recurrent'],
+    line: 'PROC',
+    histo: ['HGSC', 'endometrioid', 'OCCC'],
+    molecular: { required: ['FRalpha_high'] },
+    prior: { required: ['platinum_resistant'] },
+    ecog: [0, 1],
+    notes: 'MIRASOL: PROC + FRα high (≥75%); Mirvetuximab'
+  },
+  'keynote-b96': {
+    cancer: ['OC'],
+    stages: ['recurrent'],
+    line: 'PROC',
+    histo: ['HGSC', 'endometrioid'],
+    molecular: { required: [] },
+    prior: { required: ['platinum_resistant', 'prior_Bev_eligible'] },
+    ecog: [0, 1],
+    notes: 'KEYNOTE-B96: PROC 不限 biomarker; Pembro+pacli±Bev'
+  },
+  'gog-281': {
+    cancer: ['OC'],
+    stages: ['recurrent'],
+    line: '2L+',
+    histo: ['LGSC'],
+    molecular: { required: [], any: ['KRAS', 'BRAF', 'NRAS'] },
+    prior: { excluded: [] },
+    ecog: [0, 1],
+    notes: 'GOG-281: LGSC + RAS-MAPK; Trametinib'
+  },
+  'dove': {
+    cancer: ['OC'],
+    stages: ['recurrent'],
+    line: '2L+',
+    histo: ['OCCC'],
+    molecular: { required: [] },
+    prior: { required: ['prior_platinum'] },
+    ecog: [0, 1],
+    notes: 'DOVE 本院招募中: OCCC ≥50% clear cell; Dostar±Bev'
+  },
+  'trofuse-021': {
+    cancer: ['OC'],
+    stages: ['recurrent'],
+    line: 'PROC',
+    histo: ['HGSC'],
+    molecular: { required: ['HRD_neg'] },
+    prior: { required: ['platinum_resistant'] },
+    ecog: [0, 1],
+    notes: '本院 TroFuse-021: HRP PROC; sac-TMT'
+  },
+  'destiny-ovarian01': {
+    cancer: ['OC'],
+    stages: ['recurrent'],
+    line: 'PROC',
+    histo: ['HGSC'],
+    molecular: { required: ['HER2_pos', 'HRD_neg'] },
+    prior: { required: ['platinum_resistant'] },
+    ecog: [0, 1],
+    notes: '本院 DESTINY-Ovarian01: HRP + HER2+; T-DXd+Bev'
+  },
+
+  // ========== CC ==========
+  'keynote-826': {
+    cancer: ['CC'],
+    stages: ['IVB', 'recurrent'],
+    line: '1L',
+    histo: ['SCC', 'AdenoCa', 'adenosquamous'],
+    molecular: { required: ['PD-L1_CPS_pos'] },
+    prior: { excluded: ['prior_IO', 'prior_systemic_for_RM'] },
+    ecog: [0, 1],
+    notes: 'KEYNOTE-826: CPS≥1; Pembro+chemo±Bev; 健保已給付'
+  },
+  'beatcc': {
+    cancer: ['CC'],
+    stages: ['IVB', 'recurrent'],
+    line: '1L',
+    histo: ['SCC', 'AdenoCa', 'adenosquamous'],
+    molecular: { required: [] },
+    prior: { excluded: ['prior_IO', 'prior_systemic_for_RM'] },
+    ecog: [0, 1],
+    notes: 'BEATcc: 不限 CPS; Atezo+chemo+Bev'
+  },
+  'keynote-a18': {
+    cancer: ['CC'],
+    stages: ['III', 'IVA'],
+    line: 'CCRT-concurrent',
+    histo: ['SCC', 'AdenoCa', 'adenosquamous'],
+    molecular: { required: [] },
+    prior: { excluded: ['prior_IO'] },
+    ecog: [0, 1],
+    notes: 'KEYNOTE-A18: LACC + CCRT + Pembro'
+  },
+  'pvx4': {
+    cancer: ['CC'],
+    stages: ['pre_invasive'],
+    line: 'pre_invasive',
+    histo: ['CIN2/3'],
+    molecular: { required: ['HPV16_pos'] },
+    prior: { excluded: ['prior_LEEP_for_current_lesion'] },
+    ecog: [0, 1],
+    notes: '本院 PVX4: HPV16+ CIN2/3 治療性 DNA 疫苗'
+  },
+  'trofuse-036': {
+    cancer: ['CC'],
+    stages: ['IVB', 'recurrent'],
+    line: '1L-maintenance',
+    histo: ['SCC', 'AdenoCa'],
+    molecular: { required: ['PD-L1_CPS_pos', 'TROP2_pos'] },
+    prior: { required: ['prior_1L_chemo_response'] },
+    ecog: [0, 1],
+    notes: '本院 TroFuse-036: PD-L1+ + TROP2+ R/M CC 1L 維持'
+  },
+
+  // ========== US ==========
+  'gog-0277': {
+    cancer: ['US'],
+    stages: ['I'],
+    line: 'adjuvant',
+    histo: ['LMS'],
+    molecular: { required: [] },
+    prior: { required: ['post_surgery'], excluded: ['prior_chemo'] },
+    ecog: [0, 1],
+    notes: 'GOG-0277: Stage I LMS 術後 adjuvant'
+  },
+  'palette': {
+    cancer: ['US'],
+    stages: ['recurrent'],
+    line: '2L+',
+    histo: ['LMS'],
+    molecular: { required: [] },
+    prior: { required: ['prior_chemo'] },
+    ecog: [0, 1],
+    notes: 'PALETTE: Pazopanib for advanced sarcoma'
+  },
+  'lms-04': {
+    cancer: ['US'],
+    stages: ['recurrent'],
+    line: '1L',
+    histo: ['LMS'],
+    molecular: { required: [] },
+    prior: { excluded: ['prior_chemo'] },
+    ecog: [0, 1],
+    notes: 'LMS-04: Doxo+Trabectedin first-line'
+  },
+  'paragon': {
+    cancer: ['US'],
+    stages: ['recurrent'],
+    line: '2L+',
+    histo: ['LG-ESS'],
+    molecular: { required: ['ER_pos'] },
+    prior: { excluded: [] },
+    ecog: [0, 1],
+    notes: 'PARAGON: ER+ ESS Anastrozole'
+  },
+  'ntrk-basket': {
+    cancer: ['EC', 'OC', 'CC', 'US'],
+    stages: ['recurrent'],
+    line: '2L+',
+    molecular: { required: ['NTRK_fusion'] },
+    prior: { required: ['prior_standard'] },
+    ecog: [0, 1, 2],
+    notes: 'NTRK basket: Larotrectinib/Entrectinib pan-tumor'
+  },
+};
+
+// ====== Patient Input State ======
+const matchPatient = {
+  cancer: '',
+  stage: '',
+  line: '',
+  histo: '',
+  molecular: [],
+  priorTherapy: [],
+  ecog: '',
+};
+
+// ====== Available options ======
+const MATCH_OPTIONS = {
+  cancers: [
+    { v: 'EC', label: '🔴 子宮內膜癌 EC' },
+    { v: 'OC', label: '🟣 卵巢癌 OC' },
+    { v: 'CC', label: '🟠 子宮頸癌 CC' },
+    { v: 'US', label: '🔵 子宮肉瘤 US' },
+  ],
+  stages: {
+    EC: [
+      { v: 'I', label: 'Stage I' },
+      { v: 'II', label: 'Stage II' },
+      { v: 'III', label: 'Stage III' },
+      { v: 'IV', label: 'Stage IV' },
+      { v: 'recurrent', label: '復發' },
+    ],
+    OC: [
+      { v: 'I', label: 'Stage I' },
+      { v: 'II', label: 'Stage II' },
+      { v: 'III', label: 'Stage III' },
+      { v: 'IV', label: 'Stage IV' },
+      { v: 'recurrent', label: '復發' },
+    ],
+    CC: [
+      { v: 'pre_invasive', label: 'CIN2/3 (pre-invasive)' },
+      { v: 'I', label: 'Stage I' },
+      { v: 'II', label: 'Stage II' },
+      { v: 'III', label: 'Stage III' },
+      { v: 'IVA', label: 'Stage IVA' },
+      { v: 'IVB', label: 'Stage IVB' },
+      { v: 'recurrent', label: '復發' },
+    ],
+    US: [
+      { v: 'I', label: 'Stage I' },
+      { v: 'II', label: 'Stage II' },
+      { v: 'III', label: 'Stage III' },
+      { v: 'IV', label: 'Stage IV' },
+      { v: 'recurrent', label: '復發' },
+    ],
+  },
+  lines: {
+    EC: [
+      { v: 'adjuvant', label: '術後 adjuvant' },
+      { v: '1L', label: '一線 (advanced/recurrent)' },
+      { v: '2L+', label: '二線以上' },
+    ],
+    OC: [
+      { v: '1L', label: '一線' },
+      { v: '1L-maintenance', label: '一線維持' },
+      { v: 'PSOC', label: 'PSOC (鉑敏感復發)' },
+      { v: 'PSOC-maintenance', label: 'PSOC 維持' },
+      { v: 'PROC', label: 'PROC (鉑抗藥復發)' },
+      { v: '2L+', label: '其他二線以上' },
+    ],
+    CC: [
+      { v: 'pre_invasive', label: 'CIN2/3 (pre-invasive)' },
+      { v: 'CCRT-concurrent', label: 'LACC CCRT' },
+      { v: '1L', label: '一線 R/M' },
+      { v: '1L-maintenance', label: '一線維持 R/M' },
+      { v: '2L+', label: '二線以上' },
+    ],
+    US: [
+      { v: 'adjuvant', label: '術後 adjuvant' },
+      { v: '1L', label: '一線' },
+      { v: '2L+', label: '二線以上' },
+    ],
+  },
+  histos: {
+    EC: [
+      { v: 'endometrioid', label: 'Endometrioid' },
+      { v: 'serous', label: 'Serous' },
+      { v: 'carcinosarcoma', label: 'Carcinosarcoma' },
+      { v: 'clear_cell', label: 'Clear cell' },
+      { v: 'mixed', label: 'Mixed' },
+    ],
+    OC: [
+      { v: 'HGSC', label: 'HGSC' },
+      { v: 'LGSC', label: 'LGSC' },
+      { v: 'OCCC', label: 'OCCC (Clear cell)' },
+      { v: 'endometrioid', label: 'Endometrioid' },
+      { v: 'mucinous', label: 'Mucinous' },
+      { v: 'carcinosarcoma', label: 'Carcinosarcoma' },
+    ],
+    CC: [
+      { v: 'SCC', label: 'SCC (鱗癌)' },
+      { v: 'AdenoCa', label: '腺癌 AdenoCa' },
+      { v: 'adenosquamous', label: '腺鱗癌' },
+      { v: 'CIN2/3', label: 'CIN2/3' },
+    ],
+    US: [
+      { v: 'LMS', label: 'LMS' },
+      { v: 'LG-ESS', label: 'LG-ESS' },
+      { v: 'HG-ESS', label: 'HG-ESS' },
+      { v: 'PEComa', label: 'PEComa' },
+      { v: 'IMT', label: 'IMT' },
+      { v: 'adenosarcoma', label: 'Adenosarcoma' },
+    ],
+  },
+  molecular: {
+    EC: ['POLEm', 'MMRd', 'pMMR', 'p53abn', 'NSMP-low-risk', 'NSMP-high-risk', 'HER2_pos', 'HRRm', 'CTNNB1', 'L1CAM_pos'],
+    OC: ['BRCAm', 'HRD_pos', 'HRD_neg', 'HRRm', 'CCNE1_amp', 'HER2_pos', 'FRalpha_high', 'KRAS', 'BRAF', 'NRAS', 'NTRK_fusion'],
+    CC: ['HPV16_pos', 'HPV18_pos', 'HPV_negative', 'PD-L1_CPS_pos', 'HER2_pos', 'TROP2_pos', 'MSI_H', 'NTRK_fusion'],
+    US: ['ER_pos', 'NTRK_fusion', 'ALK_fusion', 'TSC1_or_2', 'JAZF1-SUZ12', 'YWHAE-NUTM2', 'BCOR_fusion'],
+  },
+  priorTherapy: [
+    { v: 'prior_chemo', label: '已用過化療' },
+    { v: 'prior_platinum', label: '已用過鉑類' },
+    { v: 'platinum_response_CR_PR', label: '鉑類 CR/PR' },
+    { v: 'platinum_sensitive_relapse', label: '鉑敏感復發 (>6個月)' },
+    { v: 'platinum_resistant', label: '鉑抗藥 (<6個月)' },
+    { v: 'prior_IO', label: '已用過 IO (PD-1/PD-L1)' },
+    { v: 'prior_PARPi', label: '已用過 PARPi' },
+    { v: 'prior_Bev', label: '已用過 Bev (1L)' },
+    { v: 'prior_Bev_eligible', label: 'Bev 適合' },
+    { v: 'prior_2_platinum_lines', label: '已用過 ≥2 線含鉑' },
+    { v: 'prior_systemic_for_RM', label: 'R/M 已用全身治療' },
+    { v: 'prior_LEEP_for_current_lesion', label: '當前病灶已 LEEP' },
+    { v: 'post_surgery', label: '已手術' },
+    { v: 'prior_1L_chemo_response', label: '一線化療反應' },
+    { v: 'prior_standard', label: '已用過標準治療' },
+  ],
+  ecog: [
+    { v: '0-1', label: 'ECOG 0-1' },
+    { v: '0-2', label: 'ECOG 0-2' },
+  ],
+};
+
+function openTrialMatch(){
+  el('trialMatchModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Reset state if first open
+  if(!matchPatient.cancer) renderMatchInputs();
+}
+
+function closeTrialMatch(){
+  el('trialMatchModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function resetMatchPatient(){
+  matchPatient.cancer = '';
+  matchPatient.stage = '';
+  matchPatient.line = '';
+  matchPatient.histo = '';
+  matchPatient.molecular = [];
+  matchPatient.priorTherapy = [];
+  matchPatient.ecog = '';
+  renderMatchInputs();
+}
+
+function renderMatchInputs(){
+  const cancer = matchPatient.cancer;
+
+  let stagesHtml = '<select disabled><option>請先選癌別</option></select>';
+  let linesHtml = '<select disabled><option>請先選癌別</option></select>';
+  let histoHtml = '<select disabled><option>請先選癌別</option></select>';
+  let molHtml = '<div class="match-mol-empty">請先選癌別</div>';
+
+  if(cancer){
+    stagesHtml = `<select onchange="matchPatient.stage = this.value;">
+      <option value="">— 選擇 —</option>
+      ${MATCH_OPTIONS.stages[cancer].map(s =>
+        `<option value="${s.v}" ${matchPatient.stage === s.v ? 'selected' : ''}>${escapeHtml(s.label)}</option>`
+      ).join('')}
+    </select>`;
+    linesHtml = `<select onchange="matchPatient.line = this.value;">
+      <option value="">— 選擇 —</option>
+      ${MATCH_OPTIONS.lines[cancer].map(l =>
+        `<option value="${l.v}" ${matchPatient.line === l.v ? 'selected' : ''}>${escapeHtml(l.label)}</option>`
+      ).join('')}
+    </select>`;
+    histoHtml = `<select onchange="matchPatient.histo = this.value;">
+      <option value="">— 選擇 —</option>
+      ${MATCH_OPTIONS.histos[cancer].map(h =>
+        `<option value="${h.v}" ${matchPatient.histo === h.v ? 'selected' : ''}>${escapeHtml(h.label)}</option>`
+      ).join('')}
+    </select>`;
+    molHtml = MATCH_OPTIONS.molecular[cancer].map(m => {
+      const checked = matchPatient.molecular.includes(m);
+      return `<label class="match-checkbox ${checked ? 'checked' : ''}">
+        <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleMatchMol('${m}')"/>
+        <span>${escapeHtml(m)}</span>
+      </label>`;
+    }).join('');
+  }
+
+  const cancerHtml = `<select onchange="matchPatient.cancer = this.value; matchPatient.stage=''; matchPatient.line=''; matchPatient.histo=''; matchPatient.molecular=[]; renderMatchInputs();">
+    <option value="">— 選擇癌別 —</option>
+    ${MATCH_OPTIONS.cancers.map(c =>
+      `<option value="${c.v}" ${matchPatient.cancer === c.v ? 'selected' : ''}>${escapeHtml(c.label)}</option>`
+    ).join('')}
+  </select>`;
+
+  const ecogHtml = `<select onchange="matchPatient.ecog = this.value;">
+    <option value="">— 選擇 —</option>
+    ${MATCH_OPTIONS.ecog.map(e =>
+      `<option value="${e.v}" ${matchPatient.ecog === e.v ? 'selected' : ''}>${escapeHtml(e.label)}</option>`
+    ).join('')}
+  </select>`;
+
+  const priorHtml = MATCH_OPTIONS.priorTherapy.map(p => {
+    const checked = matchPatient.priorTherapy.includes(p.v);
+    return `<label class="match-checkbox ${checked ? 'checked' : ''}">
+      <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleMatchPrior('${p.v}')"/>
+      <span>${escapeHtml(p.label)}</span>
+    </label>`;
+  }).join('');
+
+  el('trialMatchInputs').innerHTML = `
+    <div class="match-section">
+      <h4>📌 STEP 1 · 病人基本條件</h4>
+      <div class="match-grid">
+        <div class="match-field"><label>癌別 *</label>${cancerHtml}</div>
+        <div class="match-field"><label>分期 *</label>${stagesHtml}</div>
+        <div class="match-field"><label>治療線 *</label>${linesHtml}</div>
+        <div class="match-field"><label>組織型</label>${histoHtml}</div>
+        <div class="match-field"><label>ECOG</label>${ecogHtml}</div>
+      </div>
+    </div>
+    <div class="match-section">
+      <h4>🧬 STEP 2 · 分子標記 (多選)</h4>
+      <div class="match-checkbox-group">${molHtml}</div>
+    </div>
+    <div class="match-section">
+      <h4>💊 STEP 3 · 治療歷史 (多選)</h4>
+      <div class="match-checkbox-group">${priorHtml}</div>
+    </div>
+    <div class="match-actions">
+      <button class="match-btn-reset" onclick="resetMatchPatient()">🔄 重新填寫</button>
+      <button class="match-btn-go" onclick="runTrialMatch()">🎯 開始比對 119 試驗</button>
+    </div>
+  `;
+}
+
+function toggleMatchMol(m){
+  const idx = matchPatient.molecular.indexOf(m);
+  if(idx >= 0) matchPatient.molecular.splice(idx, 1);
+  else matchPatient.molecular.push(m);
+  renderMatchInputs();
+}
+
+function toggleMatchPrior(p){
+  const idx = matchPatient.priorTherapy.indexOf(p);
+  if(idx >= 0) matchPatient.priorTherapy.splice(idx, 1);
+  else matchPatient.priorTherapy.push(p);
+  renderMatchInputs();
+}
+
+// ============ Match Engine Core ============
+function evaluateTrial(trialId, rule, patient){
+  const reasons = []; // 不符 reasons
+  const warnings = []; // 警告 (部分符合)
+  let score = 100; // 100 = perfect, 0 = excluded
+
+  // 1. Cancer match (hard)
+  if(rule.cancer && !rule.cancer.includes(patient.cancer)){
+    return { score: 0, status: 'excluded', reasons: [`癌別不符 (試驗限 ${rule.cancer.join('/')})`], warnings: [] };
+  }
+
+  // 2. Stage match
+  if(rule.stages && patient.stage){
+    if(!rule.stages.includes(patient.stage)){
+      return { score: 0, status: 'excluded', reasons: [`分期不符 (試驗限 ${rule.stages.join('/')})`], warnings: [] };
+    }
+  } else if(rule.stages && !patient.stage){
+    warnings.push('未指定分期 — 請確認');
+    score -= 10;
+  }
+
+  // 3. Line match
+  if(rule.line && patient.line){
+    if(rule.line !== patient.line){
+      return { score: 0, status: 'excluded', reasons: [`治療線不符 (試驗限 ${rule.line}, 您選 ${patient.line})`], warnings: [] };
+    }
+  } else if(rule.line && !patient.line){
+    warnings.push('未指定治療線 — 請確認');
+    score -= 10;
+  }
+
+  // 4. Histology match
+  if(rule.histo && rule.histo.length && patient.histo){
+    if(!rule.histo.includes(patient.histo)){
+      return { score: 0, status: 'excluded', reasons: [`組織型不符 (試驗限 ${rule.histo.join('/')})`], warnings: [] };
+    }
+  } else if(rule.histo && !patient.histo){
+    warnings.push('未指定組織型 — 可能影響符合度');
+    score -= 5;
+  }
+
+  // 5. Molecular: required
+  if(rule.molecular){
+    if(rule.molecular.required && rule.molecular.required.length){
+      const missing = rule.molecular.required.filter(m => !patient.molecular.includes(m));
+      if(missing.length){
+        // Check if it's because patient hasn't tested or doesn't have
+        return { score: 0, status: 'excluded', reasons: [`缺少必要分子標記: ${missing.join(', ')}`], warnings: [] };
+      }
+    }
+    // Molecular: any (at least one of these required)
+    if(rule.molecular.any && rule.molecular.any.length){
+      const hasAny = rule.molecular.any.some(m => patient.molecular.includes(m));
+      if(!hasAny){
+        return { score: 0, status: 'excluded', reasons: [`分子標記不符: 試驗需 ${rule.molecular.any.join(' 或 ')} 任一`], warnings: [] };
+      }
+    }
+  }
+
+  // 6. Prior therapy: required
+  if(rule.prior){
+    if(rule.prior.required && rule.prior.required.length){
+      const missingPrior = rule.prior.required.filter(p => !patient.priorTherapy.includes(p));
+      if(missingPrior.length){
+        warnings.push(`需治療歷史: ${missingPrior.join(', ')}`);
+        score -= 15;
+      }
+    }
+    // Prior therapy: excluded
+    if(rule.prior.excluded && rule.prior.excluded.length){
+      const violatedExcl = rule.prior.excluded.filter(p => patient.priorTherapy.includes(p));
+      if(violatedExcl.length){
+        return { score: 0, status: 'excluded', reasons: [`違反排除條件: ${violatedExcl.join(', ')}`], warnings: [] };
+      }
+    }
+  }
+
+  // 7. ECOG
+  if(rule.ecog && patient.ecog){
+    const trialMaxEcog = Math.max(...rule.ecog);
+    const patientMaxEcog = patient.ecog === '0-1' ? 1 : 2;
+    if(patientMaxEcog > trialMaxEcog){
+      warnings.push(`ECOG 較高 (試驗 ECOG ${rule.ecog.join('-')} 限定)`);
+      score -= 5;
+    }
+  }
+
+  const status = score >= 80 ? 'match' : (score >= 50 ? 'partial' : 'partial');
+  return { score, status, reasons: [], warnings };
+}
+
+function runTrialMatch(){
+  // Validate required
+  if(!matchPatient.cancer || !matchPatient.stage || !matchPatient.line){
+    alert('請至少填寫: 癌別 + 分期 + 治療線');
+    return;
+  }
+
+  const results = { match: [], partial: [], excluded: [] };
+
+  // Iterate all trials with rules
+  Object.keys(TRIAL_RULES).forEach(tid => {
+    const rule = TRIAL_RULES[tid];
+    const trial = TRIALS.find(t => t.id === tid);
+    if(!trial) return;
+
+    const evalResult = evaluateTrial(tid, rule, matchPatient);
+
+    if(evalResult.status === 'match'){
+      results.match.push({ trial, rule, eval: evalResult });
+    } else if(evalResult.status === 'partial'){
+      results.partial.push({ trial, rule, eval: evalResult });
+    } else {
+      results.excluded.push({ trial, rule, eval: evalResult });
+    }
+  });
+
+  // Sort by score
+  results.match.sort((a, b) => b.eval.score - a.eval.score);
+  results.partial.sort((a, b) => b.eval.score - a.eval.score);
+
+  renderMatchResults(results);
+}
+
+function renderMatchResults(results){
+  const renderTrialItem = (item, status) => {
+    const t = item.trial;
+    const e = item.eval;
+    const statusEmoji = t.status === 'ongoing' ? '📍' : '📚';
+    const siteIndicator = t.siteInfo ? '🏥' : '';
+    const statusBadge = status === 'match' ? '<span class="match-badge match-good">✓ 完全符合</span>' :
+                        status === 'partial' ? '<span class="match-badge match-partial">⚠️ 部分符合</span>' :
+                        '<span class="match-badge match-bad">❌ 不符</span>';
+
+    return `
+      <div class="match-result-item ${status}">
+        <div class="mri-header">
+          <div class="mri-title">${statusEmoji} ${siteIndicator} ${escapeHtml(t.name)}</div>
+          ${statusBadge}
+          <div class="mri-score">${e.score}%</div>
+        </div>
+        <div class="mri-tagline">${escapeHtml(t.tagline || '')}</div>
+        ${item.rule.notes ? `<div class="mri-rule-note">📋 ${escapeHtml(item.rule.notes)}</div>` : ''}
+        ${e.warnings.length ? `<div class="mri-warnings">⚠️ ${e.warnings.map(w => escapeHtml(w)).join(' · ')}</div>` : ''}
+        ${e.reasons.length ? `<div class="mri-reasons">❌ ${e.reasons.map(r => escapeHtml(r)).join(' · ')}</div>` : ''}
+        <div class="mri-actions">
+          <button class="mri-detail-btn" onclick="closeTrialMatch(); setTimeout(() => showDetail('${t.id}'), 100);">看完整試驗詳情 →</button>
+        </div>
+      </div>
+    `;
+  };
+
+  const totalRules = Object.keys(TRIAL_RULES).length;
+  const totalTrials = TRIALS.length;
+
+  el('trialMatchResults').innerHTML = `
+    <div class="match-summary">
+      <div class="match-summary-stat good">✓ 完全符合: ${results.match.length}</div>
+      <div class="match-summary-stat warn">⚠️ 部分符合: ${results.partial.length}</div>
+      <div class="match-summary-stat bad">❌ 不符: ${results.excluded.length}</div>
+      <div class="match-summary-stat info">📊 已建規則 ${totalRules} / 全部 ${totalTrials} 試驗</div>
+    </div>
+    <div class="match-disclaimer">
+      💡 比對結果為輔助工具, 實際試驗納入請以最新 protocol 與本院 PI 確認。${totalRules} 個試驗已建立規則, 其餘可至試驗瀏覽器查詢。
+    </div>
+
+    ${results.match.length ? `
+      <div class="match-result-section">
+        <h4 class="mrs-title good">✓ 完全符合 (${results.match.length})</h4>
+        ${results.match.map(item => renderTrialItem(item, 'match')).join('')}
+      </div>
+    ` : ''}
+
+    ${results.partial.length ? `
+      <div class="match-result-section">
+        <h4 class="mrs-title warn">⚠️ 部分符合 — 需確認額外條件 (${results.partial.length})</h4>
+        ${results.partial.map(item => renderTrialItem(item, 'partial')).join('')}
+      </div>
+    ` : ''}
+
+    ${results.match.length === 0 && results.partial.length === 0 ? `
+      <div class="match-no-result">
+        <div style="font-size:46px;">😕</div>
+        <div style="font-size:16px;font-weight:800;color:#0c1f3d;margin:10px 0;">尚未找到符合的試驗</div>
+        <div style="font-size:13px;color:#64748b;line-height:1.6;">
+          這可能是因為:<br>
+          • 病人條件特殊 (試驗匹配限 ${totalRules} 個重要試驗)<br>
+          • 嘗試: 試驗瀏覽器手動篩選 / 🤖 AI 治療路徑分析 / 🌳 臨床下一步互動樹
+        </div>
+      </div>
+    ` : ''}
+
+    ${results.excluded.length ? `
+      <details class="match-excluded-details">
+        <summary>📕 不符試驗 (${results.excluded.length}) — 點擊展開原因</summary>
+        ${results.excluded.slice(0, 10).map(item => `
+          <div class="match-excluded-item">
+            <strong>${escapeHtml(item.trial.name)}</strong>: ${item.eval.reasons.join('; ')}
+          </div>
+        `).join('')}
+        ${results.excluded.length > 10 ? `<div style="padding:10px;color:#64748b;font-size:11.5px;">... 還有 ${results.excluded.length - 10} 個</div>` : ''}
+      </details>
+    ` : ''}
+  `;
+
+  // Scroll to results
+  setTimeout(() => {
+    el('trialMatchResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
 
 
 // ============================================================
