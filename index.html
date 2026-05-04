@@ -7156,6 +7156,51 @@ const CHECKLISTS = {
             molEntryId: 'Mucinous-OC'
           },
         ]
+      },
+      {
+        title: '📊 臨床 Surrogate Markers (HRD/BRCA 替代指標)',
+        items: [
+          {
+            id: 'oc-ca125',
+            name: 'CA-125 trajectory + GCIG criteria',
+            when: '所有 epithelial OC (除 mucinous)',
+            how: 'Baseline → 每化療 cycle → PARPi 維持期 Q4-12 週 → 復發追蹤 Q3m',
+            why: 'GCIG response 取代 RECIST; nadir 深度與下降速度 → BRCA/HRD 反應指標; KELIM 母體',
+            molEntryId: 'CA125-trajectory'
+          },
+          {
+            id: 'oc-kelim',
+            name: 'KELIM score (CA-125 數學模型)',
+            when: '化療期間有 ≥3 個 CA-125 數據點 (尤 NACT 患者)',
+            how: '線上計算器 (biomarker-kinetics.org) 免費; 輸入 CA-125 + 時間',
+            why: 'KELIM ≥1 → 預測 PARPi 反應佳 (functional HRD surrogate); PAOLA-1/SOLO-1 post-hoc 強相關',
+            molEntryId: 'KELIM-score'
+          },
+          {
+            id: 'oc-pfi',
+            name: 'PFI 計算 (鉑敏感性分類)',
+            when: '所有復發 OC (決定二線是否 rechallenge platinum)',
+            how: '純臨床定義: 最後 platinum 結束日期 → 復發確認日期; 4 種分類 (<1m/1-6m/6-12m/>12m)',
+            why: 'PFI >12m → BRCA/HRD+ 富集; PFI <6m → CCNE1/HRD- 富集; 治療決策核心指標',
+            molEntryId: 'PFI-platinum-sensitivity'
+          },
+          {
+            id: 'oc-he4-roma',
+            name: 'HE4 + ROMA score (CA-125 補強)',
+            when: 'Adnexal mass 鑑別; CA-125 偽陽性疑慮 (endometriosis, PID, 育齡婦女)',
+            how: 'Serum HE4 + CA-125 → ROMA 公式; 停經前 ≥7.4% / 停經後 ≥25.3% → high risk',
+            why: 'HE4 在 endometriosis/PID 不升 → specificity 較高; 補強 CA-125, 主要用於鑑別',
+            molEntryId: 'HE4-ROMA'
+          },
+          {
+            id: 'oc-ashkenazi',
+            name: 'Ashkenazi founder mutation (族群篩檢)',
+            when: 'Ashkenazi 猶太裔家族史; 或 OC + 強烈家族史 (第一線篩檢)',
+            how: 'Targeted PCR for 3 founder mutations: 185delAG (BRCA1), 5382insC (BRCA1), 6174delT (BRCA2)',
+            why: '~2.5% Ashkenazi 帶因 (vs 一般 0.25%); cost-effective 第一線; 陰性後再考慮全長 NGS; 台灣無 founder effect',
+            molEntryId: 'BRCAm'
+          },
+        ]
       }
     ]
   },
@@ -9237,9 +9282,25 @@ const NEXTSTEP_TREES = {
       'treatment-stage': {
         question: 'Step: 治療階段?',
         options: [
-          { label: '新診斷, 一線完成 carbo/pacli (CR/PR)', color: 'green', leadsTo: '1L-maintenance' },
-          { label: 'PSOC (鉑敏感復發)', color: 'orange', leadsTo: 'psoc' },
+          { label: '新診斷, 一線完成 carbo/pacli (CR/PR)', color: 'green', leadsTo: 'surrogate-check' },
+          { label: 'PSOC (鉑敏感復發)', color: 'orange', leadsTo: 'pfi-classify' },
           { label: 'PROC (鉑抗藥復發)', color: 'red', leadsTo: 'proc' },
+        ],
+      },
+      'surrogate-check': {
+        question: 'Surrogate markers 評估 (有助維持治療決策)',
+        options: [
+          { label: 'KELIM ≥1 + 化療反應極佳 (CA-125 normalize 快)', color: 'green', leadsTo: '1L-maintenance' },
+          { label: 'KELIM <1 或 CA-125 反應普通', color: 'orange', leadsTo: '1L-maintenance' },
+          { label: '未計算 KELIM (跳過 → 直接看 Bev 適合性)', color: 'gray', leadsTo: '1L-maintenance' },
+        ],
+      },
+      'pfi-classify': {
+        question: 'PFI (Platinum-Free Interval) 多久?',
+        options: [
+          { label: 'PFI >12m (Fully sensitive — BRCA/HRD+ 富集區間)', color: 'green', leadsTo: 'psoc' },
+          { label: 'PFI 6-12m (Partially sensitive)', color: 'blue', leadsTo: 'psoc' },
+          { label: 'PFI <6m → 應重分類為 PROC', color: 'red', leadsTo: 'proc' },
         ],
       },
       '1L-maintenance': {
@@ -9467,6 +9528,7 @@ const NEXTSTEP_TREES = {
           'BRCAm 為 PARPi 強烈獲益族群',
           '見 BRCAm 互動樹 (按上方分子分型 BRCAm entry)',
           '一線維持: SOLO-1 / PAOLA-1',
+          '【Surrogate 強化】CA-125 nadir 深 + KELIM ≥1 + PFI 預期 >12m → 強化 BRCAm 預期',
         ],
       },
       'brcawt-hrd': {
@@ -9733,6 +9795,186 @@ const NEXTSTEP_TREES = {
       },
     },
   },
+
+  'PFI-platinum-sensitivity': {
+    title: '🔬 復發 OC — PFI 鉑敏感性決策互動樹',
+    rootStep: 'pfi-input',
+    steps: {
+      'pfi-input': {
+        question: 'Step 1: 計算 PFI (最後 platinum 結束 → 復發確認)',
+        options: [
+          { label: 'PFI <1 個月 (Refractory — 鉑類無反應)', color: 'red', leadsTo: 'refractory' },
+          { label: 'PFI 1-6 個月 (Resistant / PROC)', color: 'red', leadsTo: 'proc-stage' },
+          { label: 'PFI 6-12 個月 (Partially sensitive)', color: 'orange', leadsTo: 'partial-stage' },
+          { label: 'PFI >12 個月 (Fully sensitive / PSOC)', color: 'green', leadsTo: 'psoc-stage' },
+        ],
+      },
+      'refractory': {
+        conclusion: '⚠️ Platinum-Refractory — 預後最差',
+        recommendations: [
+          '【臨床特徵】PFI <1 個月 = 化療中即進展',
+          '【生物學】CCNE1 amp / HRD- 高度富集',
+          '【治療策略】不再用 platinum',
+          '【首選試驗】臨床試驗為主 (unmet need)',
+          '【Bridge therapy】single-agent (gemcitabine, doxil, weekly paclitaxel)',
+          '【生物標記快速檢查】FRα IHC, HER2, MSI/TMB, NTRK',
+          '【預後溝通】中位 OS <12 個月; 緩和醫療早期介入',
+          '【家屬討論】Goals of care, advance directive',
+        ],
+      },
+      'proc-stage': {
+        question: 'PROC — 加做生物標記了嗎?',
+        options: [
+          { label: 'FRα IHC + HER2 + CCNE1 + ctDNA 都做了', color: 'green', leadsTo: 'proc-biomarker' },
+          { label: '尚未做 → 立即送', color: 'orange', leadsTo: 'order-biomarkers' },
+        ],
+      },
+      'order-biomarkers': {
+        conclusion: '⚙️ 立即安排 PROC 生物標記 panel',
+        recommendations: [
+          '【FRα IHC】Ventana FOLR1-2.1 CDx → MIRASOL 適應',
+          '【HER2 IHC + ISH】→ DESTINY-Ovarian01 (本院招募中)',
+          '【CCNE1 FISH】→ WEE1/ATR/CDK2i 試驗',
+          '【ctDNA NGS】找抗藥機制 + tumor-agnostic target',
+          '【broad NGS】HER2, MSI/TMB, NTRK, RET, BRAF',
+          '結果後回到 Step 2',
+        ],
+      },
+      'proc-biomarker': {
+        question: 'PROC 治療策略 — biomarker positive?',
+        options: [
+          { label: 'FRα high (≥75% PS2+)', color: 'green', leadsTo: 'mirvet' },
+          { label: 'HER2+ (IHC 3+ 或 ISH amp+)', color: 'green', leadsTo: 'her2-proc' },
+          { label: 'CCNE1 amp+', color: 'orange', leadsTo: 'ccne1-proc' },
+          { label: 'BRCA reversion+ (PARPi 失敗後)', color: 'red', leadsTo: 'reversion-proc' },
+          { label: '全部 negative', color: 'gray', leadsTo: 'standard-proc' },
+        ],
+      },
+      'mirvet': {
+        conclusion: '🎯 FRα high PROC — Mirvetuximab Soravtansine',
+        recommendations: [
+          '【藥物】Mirvetuximab Soravtansine 6 mg/kg Q3W',
+          '【證據】MIRASOL trial: ORR 42.3%, OS HR 0.67',
+          '【健保】台灣尚未給付, 自費約 NT$20-30 萬/月',
+          '【副作用】角膜病變 (Keratopathy) — eye drops 預防 + 眼科追蹤',
+          '【監測】Q3W LVEF + 視力 + 周邊神經病變',
+          '【FDA approval】2022 加速核准 + 2024 fully approved',
+        ],
+      },
+      'her2-proc': {
+        conclusion: '🎯 HER2+ PROC — T-DXd 或試驗',
+        recommendations: [
+          '【首選】Trastuzumab Deruxtecan (T-DXd) — DESTINY-PanTumor02 ORR ~50%',
+          '【本院試驗】DESTINY-Ovarian01: T-DXd + Bev (HRP + HER2+)',
+          '【監測】Baseline LVEF + ILD risk (interstitial lung disease)',
+          '【副作用】噁心嘔吐, 骨髓抑制, ILD risk 必須注意',
+          '【健保】台灣尚未給付 OC 適應症',
+        ],
+      },
+      'ccne1-proc': {
+        conclusion: '🎯 CCNE1 amp PROC — 合成致死試驗',
+        recommendations: [
+          '【機制】CCNE1 amp → replication stress → 需 ATR/WEE1 維持存活',
+          '【WEE1i】Adavosertib + chemo / Adavosertib + PARPi 試驗',
+          '【ATRi】Ceralasertib + chemo / Ceralasertib + PARPi (CAPRI)',
+          '【CDK2i】早期試驗 (有資格時轉介)',
+          '【避免】PARPi 維持 (CCNE1 amp 強抗藥)',
+          '【標準】Bev only 維持; single-agent chemo',
+          '【建議】優先轉介臨床試驗中心',
+        ],
+      },
+      'reversion-proc': {
+        conclusion: '⚠️ BRCA reversion PROC — 不再 PARPi',
+        recommendations: [
+          '【機制】二次突變恢復 BRCA reading frame → PARPi 失效',
+          '【cross-resistance】常 cross-resistant 至 platinum',
+          '【替代】FRα+ → Mirvetuximab; HER2+ → T-DXd',
+          '【替代】KEYNOTE-B96: Pembro + weekly Pacli',
+          '【替代】ROSELLA: Relacorilant + nab-Pacli (不需 biomarker)',
+          '【避免】PARPi 單藥或 combo (reversion 後不再有效)',
+        ],
+      },
+      'standard-proc': {
+        conclusion: '🎯 PROC biomarker negative — 標準 + 試驗',
+        recommendations: [
+          '【標準】single-agent: Doxil (PLD), weekly paclitaxel, gemcitabine, topotecan',
+          '【+Bev】GOG-218 / OCEANS / AURELIA — 加 Bev 提升 PFS',
+          '【ROSELLA】Relacorilant + nab-Pacli (FDA 2024) — 不需 biomarker',
+          '【KEYNOTE-B96】Pembro + weekly pacli ± Bev — 第一個 IO+chemo PROC OS+',
+          '【臨床試驗】broad NGS panel for tumor-agnostic targets',
+          '【緩和】早期介入',
+        ],
+      },
+      'partial-stage': {
+        conclusion: '🎯 Partially sensitive (PFI 6-12m) — 個別化',
+        recommendations: [
+          '【決策原則】整合 PFI + biomarker + 病人狀況',
+          '【傾向 PSOC】CA-125 反應佳 + KELIM ≥1 → rechallenge platinum',
+          '【傾向 PROC】CA-125 反應差 + KELIM <1 → 改 single-agent + targeted',
+          '【選項 1】Carbo-based (carbo-doxil ICON4-ICON7) + PARPi 維持',
+          '【選項 2】Bev + chemo (GOG-213, OCEANS) + Bev 維持',
+          '【選項 3】Mirvetuximab if FRα+ (跨 PFI 適應)',
+          '【現代觀點】Platinum sensitivity 為連續性, 應整合多因子',
+        ],
+      },
+      'psoc-stage': {
+        question: 'PSOC — BRCA / HRD 狀態?',
+        options: [
+          { label: 'BRCAm (germline 或 somatic)', color: 'red', leadsTo: 'psoc-brcam' },
+          { label: 'BRCAwt + HRD+', color: 'orange', leadsTo: 'psoc-hrdpos' },
+          { label: 'BRCAwt + HRD-', color: 'gray', leadsTo: 'psoc-hrdneg' },
+          { label: '尚未測 → 立即送', color: 'gray', leadsTo: 'order-psoc-test' },
+        ],
+      },
+      'order-psoc-test': {
+        conclusion: '⚙️ PSOC 必做檢測',
+        recommendations: [
+          '【germline BRCA】若未做必做 (NCCN Cat 1)',
+          '【somatic BRCA】補做 (~7% germline-neg 有 sBRCA)',
+          '【HRD】GIS (Myriad), LOH (FoundationOne)',
+          '【CCNE1】HRD- 患者強制加做',
+          '【BRCA reversion test】若曾用 PARPi → ctDNA NGS',
+          '結果後回到分支',
+        ],
+      },
+      'psoc-brcam': {
+        conclusion: '🎯 BRCAm PSOC — Re-platinum + PARPi 維持',
+        recommendations: [
+          '【一線】Carbo-based 二線 (carbo-doxil, carbo-gem, carbo-pacli)',
+          '【完成 CR/PR 後維持】SOLO2 (Olaparib) — BRCAm NCCN Cat 1',
+          '【替代維持】NOVA (Niraparib), ARIEL3 (Rucaparib — 部分撤回)',
+          '【若一線已用 PARPi】rechallenge 仍可 (re-platinum sensitive)',
+          '【健保】Olaparib PSOC BRCAm 給付',
+        ],
+      },
+      'psoc-hrdpos': {
+        conclusion: '🎯 BRCAwt + HRD+ PSOC — 二線 + 維持',
+        recommendations: [
+          '【一線】Carbo-based + Bev (OCEANS / GOG-213)',
+          '【維持選項】Niraparib (NOVA HRD+ HR 0.38)',
+          '【維持選項】Rucaparib (ARIEL3 LOH-high)',
+          '【若 KELIM ≥1】反應預期佳, 積極考慮維持',
+        ],
+      },
+      'psoc-hrdneg': {
+        conclusion: '🎯 BRCAwt + HRD- PSOC — Bev only',
+        recommendations: [
+          '【一線】Carbo-based + Bev (OCEANS)',
+          '【維持】Bev only (PARPi 反應差)',
+          '【加做 CCNE1 amp】預測 PARPi 抗藥, 找試驗',
+          '【若 PFI 6-12m + KELIM <1】考慮 PROC pathway 思維'
+        ],
+      },
+      'proc': {
+        conclusion: '🎯 跳到 PROC 流程 — 見上方 PROC 分支',
+        recommendations: [
+          'PROC stage → 見 Step 2 (PROC — 加做生物標記)',
+          '優先做 FRα + HER2 + CCNE1 + ctDNA',
+        ],
+      },
+    },
+  },
+
 };
 
 
@@ -9755,6 +9997,10 @@ const ENTRY_PRIORITIES = {
   'HER2-uterine-serous': 'mid',
   'HRRm': 'mid',
   'CCNE1': 'mid',
+  'CA125-trajectory': 'mid',
+  'KELIM-score': 'mid',
+  'PFI-platinum-sensitivity': 'mid',
+  'HE4-ROMA': 'low',
   'OCCC': 'mid',
   'LGSC': 'mid',
   'Endometrioid-OC': 'mid',
@@ -10014,19 +10260,24 @@ const STUDY_PLANS = {
         { type: 'flashcard', target: 'EC', label: '🃏 EC 翻牌再過 (鞏固)', estTime: 30 },
         { type: 'review', target: 'EC', label: '回顧本週弱點', estTime: 30 },
       ]},
-      { day: 3, title: 'Week 3: OC 核心 (BRCA / HRD)', focusCancer: 'OC', tasks: [
+      { day: 3, title: 'Week 3: OC 核心 (BRCA / HRD + Surrogate)', focusCancer: 'OC', tasks: [
         { type: 'read-workflow', target: 'OC', label: '新診斷 OC 5 步驟檢測流程', estTime: 15 },
         { type: 'read-staging', target: 'OC', label: 'ADC Target 7 種對照表', estTime: 20 },
-        { type: 'read-entry', target: 'BRCAm', label: 'BRCAm 完整 (germline + somatic)', estTime: 40 },
+        { type: 'read-entry', target: 'BRCAm', label: 'BRCAm 完整 (含 Ashkenazi founder)', estTime: 40 },
         { type: 'read-entry', target: 'HRD-pos', label: 'HRD+ (Myriad CDx)', estTime: 35 },
         { type: 'read-entry', target: 'HRD-neg', label: 'HRD- (含 CCNE1 連結)', estTime: 35 },
         { type: 'read-entry', target: 'HRRm', label: 'HRRm (non-BRCA)', estTime: 25 },
-        { type: 'tree', target: 'BRCAm', label: '🌳 BRCAm 互動樹 (含 PROC)', estTime: 30 },
+        { type: 'read-entry', target: 'CA125-trajectory', label: 'CA-125 trajectory + GCIG criteria', estTime: 25 },
+        { type: 'read-entry', target: 'KELIM-score', label: 'KELIM score (HRD functional surrogate)', estTime: 25 },
+        { type: 'tree', target: 'BRCAm', label: '🌳 BRCAm 互動樹 (含 surrogate + PROC)', estTime: 35 },
         { type: 'tree', target: 'HRD-pos', label: '🌳 HRD-pos 互動樹', estTime: 25 },
       ]},
-      { day: 4, title: 'Week 4: OC 進階 (CCNE1 / PARPi 抗藥)', focusCancer: 'OC', tasks: [
+      { day: 4, title: 'Week 4: OC 進階 (CCNE1 / PARPi 抗藥 / PFI)', focusCancer: 'OC', tasks: [
         { type: 'read-entry', target: 'CCNE1', label: 'CCNE1 (HRD 互斥 + 合成致死)', estTime: 35 },
         { type: 'read-entry', target: 'BRCA-reversion', label: 'PARPi 5 大抗藥機制', estTime: 40 },
+        { type: 'read-entry', target: 'PFI-platinum-sensitivity', label: 'PFI 鉑敏感性分類 (4 類)', estTime: 25 },
+        { type: 'read-entry', target: 'HE4-ROMA', label: 'HE4 + ROMA (CA-125 補強)', estTime: 20 },
+        { type: 'tree', target: 'PFI-platinum-sensitivity', label: '🌳 PFI 互動樹 (PROC/PSOC 決策)', estTime: 30 },
         { type: 'read-entry', target: 'HGSC', label: 'HGSC (TP53 + STIC)', estTime: 30 },
         { type: 'read-entry', target: 'OCCC', label: 'OCCC (本院 DOVE)', estTime: 30 },
         { type: 'read-entry', target: 'LGSC', label: 'LGSC (KRAS/BRAF + MEK)', estTime: 25 },
@@ -10872,7 +11123,7 @@ const MOL_PEDIA = {
       {
         id: 'BRCAm',
         name: 'BRCA1/2 突變 (gBRCA + sBRCA)',
-        frequency: '~22% (germline ~15% + somatic ~7%)',
+        frequency: '~22% (germline ~15% + somatic ~7%); 台灣 OC ~10-15% germline',
         prognosis: '⭐⭐⭐⭐ 較佳預後; 鉑類強反應, PARPi 強烈獲益',
         exam: [
           'germline BRCA: 家族遺傳, autosomal dominant, 50% offspring',
@@ -10882,6 +11133,21 @@ const MOL_PEDIA = {
           'BRCA1m: lifetime OC risk ~40-44%; BRCA2m: ~12-23%',
           'OC 中 ~80% BRCAm 為 HGSC',
           'Synthetic lethality: BRCA loss + PARPi → DSB 累積 → cell death',
+          '',
+          '【關鍵考點 — Ashkenazi Founder Mutations】(高頻考點):',
+          '  • BRCA1: c.68_69delAG (185delAG) + c.5266dupC (5382insC)',
+          '  • BRCA2: c.5946delT (6174delT)',
+          '  • Ashkenazi 猶太人帶因率 ~2.5% (vs 一般人 ~0.25%)',
+          '  • 此族群可先做 founder panel (cheaper) 再考慮全長 NGS',
+          '【台灣常見 BRCA mutation】:',
+          '  • BRCA1: 多種 (無單一 founder), c.181T>G, c.3329delT 較常見',
+          '  • BRCA2: 同樣 heterogeneous',
+          '  • 台灣未檢出明顯 founder effect, NGS panel 為標準',
+          '',
+          '【臨床 Surrogate 提示】:',
+          '  • CA-125 nadir 較深 + KELIM ≥1 → BRCAm 機率高',
+          '  • PFI >12m → BRCAm 富集',
+          '  • Family history (breast/ovarian/pancreatic/prostate) → germline 警示',
         ],
         testing: [
           '【germline】Blood / saliva → NGS panel (BRCA1, BRCA2, BRIP1, RAD51C, RAD51D, PALB2, MMR, TP53)',
@@ -10890,6 +11156,7 @@ const MOL_PEDIA = {
           'germline 陰性: 加做 somatic BRCA (~7% germline-neg 患者有 sBRCA)',
           'Variant classification: ACMG 5 類 (Pathogenic/Likely path/VUS/Likely benign/Benign)',
           'BRCA reversion testing: 復發後考慮 (ctDNA NGS)',
+          '【Ashkenazi 患者】可先做 3 個 founder mutation panel (185delAG, 5382insC, 6174delT) 為 cost-effective',
         ],
         clinical: [
           '【一線維持】SOLO-1 (Olaparib) 24 個月 — BRCAm 標準, 7 年 OS HR 0.55',
@@ -10910,7 +11177,7 @@ const MOL_PEDIA = {
         ],
         mechanism: 'BRCA1/2 失活 → DSB 修復缺陷 → synthetic lethality with PARPi → 細胞死亡',
         linkedTrials: ['solo-1', 'paola-1', 'prima', 'solo2', 'nova', 'ariel3', 'duo-o'],
-        keyTakeaway: 'BRCAm 為 PARPi 強烈獲益族群; SOLO-1 BRCAm 一線維持 NCCN Cat 1; 所有 epithelial OC 應做 germline + somatic'
+        keyTakeaway: 'BRCAm 為 PARPi 強烈獲益族群; SOLO-1 BRCAm 一線維持 NCCN Cat 1; 所有 epithelial OC 應做 germline + somatic; Ashkenazi 三大 founder (185delAG, 5382insC, 6174delT); 台灣無 founder effect → NGS 為標準'
       },
       {
         id: 'HRD-pos',
@@ -11121,6 +11388,210 @@ const MOL_PEDIA = {
         linkedTrials: [],
         keyTakeaway: 'PARPi 抗藥 5 大機制 — 1.BRCA reversion → ADC/IO; 2.RAD51 recovery → PARPi+ATRi; 3.CCNE1 amp → WEE1/ATR/CDK2i; 4.fork stab → ATRi; 5.efflux → 換類; ctDNA NGS 為診斷關鍵'
       },
+
+      // ========== 臨床 Surrogate Markers (HRD/BRCA 替代指標) ==========
+      {
+        id: 'CA125-trajectory',
+        name: 'CA-125 trajectory + GCIG criteria (臨床 surrogate)',
+        frequency: '所有 HGSC 適用 (>90% 表現升高)',
+        prognosis: '⭐⭐⭐⭐⭐ 高臨床價值, 0 成本',
+        exam: [
+          '【背景】CA-125 (MUC16) 為 OC 第一線 tumor marker; ~90% epithelial OC 升高',
+          '【正常值】<35 U/mL; 後續以個人 trajectory 為主, 而非絕對值',
+          '【關鍵考點 — GCIG CA-125 Response (取代 RECIST)】:',
+          '  • GCIG response: baseline ≥2× ULN → 下降 ≥50% 持續 ≥28 天',
+          '  • GCIG progression: 從 nadir 上升 ≥2× (確認需 2 次)',
+          '  • GCIG progression-free survival 為試驗常用終點',
+          '【化療反應評估】:',
+          '  • Nadir 時機: 通常 cycle 4-6 達最低點',
+          '  • Half-life 法: CA-125 half-life ~5-7 天 (反應佳)',
+          '  • >20 天 half-life → 預後較差',
+          '【BRCA/HRD surrogate 角色】:',
+          '  • BRCAm 患者 CA-125 下降較快 (符合 platinum sensitivity)',
+          '  • CA-125 trajectory → KELIM score 模型化 → HRD 替代評估',
+          '【局限性】:',
+          '  • Mucinous OC 多 normal CA-125 (改用 CEA, CA 19-9)',
+          '  • Endometriosis, PID, pregnancy 也升高 (false positive)',
+          '  • 黏液型 / clear cell 表現較不一致',
+        ],
+        testing: [
+          '【標準時程】Baseline → 每次 chemo cycle 前 → 維持期 Q3m → 之後 Q3-6m',
+          '【方法】化學發光免疫分析 (CLIA), 各院標準化',
+          '【建議搭配】HE4 (補強敏感度) → 計算 ROMA score',
+          '【注意】非黏液性 OC 才建議; mucinous 用 CEA/CA 19-9',
+          '【追蹤頻率】PARPi 維持期: 每 4-12 週 1 次 (依試驗 protocol)',
+          '【台灣健保】CA-125 為健保給付項目 (OC 追蹤 必測)',
+        ],
+        clinical: [
+          '【一線化療反應評估】每 cycle 前測, 看下降幅度與速度',
+          '【維持治療基線】PARPi/Bev 啟動前 baseline 必測',
+          '【復發監測】持續上升 → 影像確認',
+          '【GCIG 標準】用於試驗 endpoint 與 publication',
+          '【預後分層】BRCAm 患者 CA-125 normalize 較快 → 與 PARPi 反應一致',
+          '【KELIM modeling 的母體】CA-125 ≥3 個時間點即可建模',
+        ],
+        nextStep: [
+          '【新診斷】記錄 baseline CA-125 + 計畫每 cycle 監測',
+          '【化療中】使用 KELIM score 計算器評估反應',
+          '【後續】CA-125 + 影像 + 臨床症狀 三合一評估',
+          '【若 GCIG progression】影像確認 + 重新規劃治療',
+          '【臨床試驗】GCIG criteria 為標準 endpoint',
+        ],
+        mechanism: 'CA-125 (MUC16) 為 mucin 家族大分子 → 卵巢上皮癌脫落入血 → 反映腫瘤負荷; trajectory (下降速度 + nadir + 反彈) 比絕對值更具預測價值',
+        linkedTrials: [],
+        keyTakeaway: 'CA-125 trajectory 是最重要的「臨床 surrogate」— 0 成本, 每次回診測; GCIG criteria 取代 RECIST; 下降快 → BRCA/HRD+ 可能高; 為 KELIM score 計算母體'
+      },
+
+      {
+        id: 'KELIM-score',
+        name: 'KELIM score (HRD/PARPi 反應數學模型)',
+        frequency: '所有有 ≥3 個 CA-125 數據點的 HGSC',
+        prognosis: '⭐⭐⭐⭐ 中度價值, 預測 PARPi 反應',
+        exam: [
+          '【全名】CA-125 ELImination rate constant K',
+          '【發明】Olivier Colomban (Lyon, 法國) ~2019, GINECO 推廣',
+          '【概念】用化療期間 ≥3 次 CA-125 數據點, 數學模型計算「腫瘤對化療反應速度」',
+          '【計算方式】online calculator (kelim.com) 免費 — 輸入 CA-125 值與時間, 自動產出 score',
+          '【切點】KELIM ≥1.0 → 反應佳 (favorable); KELIM <1.0 → 反應差 (unfavorable)',
+          '【關鍵考點 — HRD/BRCA surrogate】:',
+          '  • KELIM ≥1 與 BRCAm + HRD+ 高度相關',
+          '  • KELIM ≥1 預測 PARPi 反應佳 (PFS HR ~0.5)',
+          '  • KELIM 為「functional」surrogate, 不需基因檢測',
+          '【臨床用途】:',
+          '  • PAOLA-1 post-hoc: KELIM≥1 → Olap+Bev 獲益',
+          '  • SOLO-1 post-hoc: KELIM 預測 long-term remission',
+          '  • PRIMA post-hoc: KELIM 與 PFS 強相關',
+          '【優勢】不需 tissue, 不需 NGS, 全球可用, 0 額外成本',
+          '【限制】需 ≥3 個 CA-125 數據點, mucinous OC 不適用',
+        ],
+        testing: [
+          '【數據需求】化療期間 ≥3 個 CA-125 時間點 (建議 cycle 0/1/3 或更多)',
+          '【計算工具】https://www.biomarker-kinetics.org/CA-125-neo (免費線上)',
+          '【替代】法國 GINECO group 提供的 R Shiny app',
+          '【臨床流程】化療中收 CA-125 → cycle 4 後計算 → 預測 maintenance 反應',
+          '【何時建模】Neoadjuvant 治療尤其有用 (NACT 後計算)',
+          '【非適用】Adjuvant 完成後才追蹤的患者 (數據不足)',
+        ],
+        clinical: [
+          '【一線維持決策輔助】KELIM ≥1 → PARPi+Bev 獲益最大',
+          '【KELIM <1 + HRD-】可能 PARPi 維持效果有限, 考慮 Bev only',
+          '【與 HRD test 互補】可同時測, 互相驗證',
+          '【post-hoc 分析】常用於試驗 retrospective analysis',
+          '【台灣現況】尚非常規臨床決策工具, 多 research/post-hoc',
+          '【未來方向】與 NGS-based HRD 比較 head-to-head 研究進行中',
+        ],
+        nextStep: [
+          '【NACT 患者】cycle 0/1/3/5 收 CA-125 → 計算 KELIM',
+          '【一線化療中】至少 cycle 0/3/6 數據點',
+          '【KELIM ≥1】PARPi 維持積極考慮 (即使 HRD-)',
+          '【KELIM <1】考慮 Bev only 或臨床試驗',
+          '【整合】KELIM + BRCA + HRD 三者結合最佳',
+        ],
+        mechanism: 'CA-125 elimination rate (K) 反映腫瘤對化療的反應速度 → 反應快 = 化療敏感 = 通常 platinum-sensitive = 通常 HRD+/BRCAm = 通常 PARPi 反應佳; 為 functional surrogate',
+        linkedTrials: ['paola-1', 'prima', 'solo-1'],
+        keyTakeaway: 'KELIM score = CA-125 數學模型 → 預測 HRD/PARPi 反應; ≥1 為 favorable; 0 成本 functional surrogate; PAOLA-1/SOLO-1 post-hoc 強相關; 未來重要工具'
+      },
+
+      {
+        id: 'HE4-ROMA',
+        name: 'HE4 + ROMA score (CA-125 補強)',
+        frequency: '所有 OC 適用 (尤 CA-125 偽陽性疑慮時)',
+        prognosis: '⭐⭐⭐ 中度臨床價值, 鑑別診斷用',
+        exam: [
+          '【HE4 = Human Epididymis Protein 4 (WFDC2)】',
+          '【ROMA = Risk of Ovarian Malignancy Algorithm】',
+          '【公式 — 停經前】PI = -12.0 + 2.38×ln(HE4) + 0.0626×ln(CA125)',
+          '【公式 — 停經後】PI = -8.09 + 1.04×ln(HE4) + 0.732×ln(CA125)',
+          '【ROMA = exp(PI) / (1 + exp(PI)) × 10】',
+          '【切點】停經前 ≥7.4% / 停經後 ≥25.3% → high risk',
+          '【關鍵考點】:',
+          '  • HE4 在 endometriosis / pregnancy / PID 不會升高 (vs CA-125)',
+          '  • → HE4 + CA-125 雙測 → 提高 specificity (尤其育齡婦女)',
+          '  • 適合 adnexal mass 良性 vs 惡性鑑別',
+          '【BRCA/HRD 角色】間接 — 主要為 OC 鑑別, 不直接預測 HRD',
+          '【FDA approval】Fujirebio HE4 for OC (2008); ROMA (2011)',
+          '【台灣】部分醫學中心可測, 多自費',
+          '【局限性】Mucinous OC 多 negative; Renal failure 升高 (HE4 經腎排出)',
+        ],
+        testing: [
+          '【方法】CLIA / ELISA',
+          '【樣本】血清',
+          '【建議時機】Adnexal mass 鑑別, CA-125 偽陽性疑慮時',
+          '【台灣】非常規, 部分醫學中心提供',
+          '【注意】Renal failure 患者 HE4 升高 (假性), 需校正',
+          '【追蹤】非標準, 多 baseline 一次 + 必要時重測',
+        ],
+        clinical: [
+          '【主要用途】Adnexal mass 鑑別良性 vs 惡性 (preoperative)',
+          '【次要用途】CA-125 偽陽性 (endometriosis, PID) 時補強',
+          '【監測】可作為 CA-125 補充指標, 但非標準',
+          '【鑑別】mucinous 多 negative; clear cell 多 positive; serous 多 high',
+          '【優勢】Specificity 較高, 育齡婦女 false positive 少',
+          '【共識】ESGO/NCCN: 不取代 CA-125, 為補充工具',
+        ],
+        nextStep: [
+          '【Adnexal mass】CA-125 + HE4 + ROMA 三者整合 → 決定手術積極度',
+          '【CA-125 偽陽性疑慮】加 HE4 提升 specificity',
+          '【已確診 OC】CA-125 為主, HE4 偶爾補強',
+          '【腎功能不全】HE4 解讀要小心 (assay 校正)',
+        ],
+        mechanism: 'HE4 為 epididymis protein 4 → OC 上皮表現 + 卵管表現 → 與 CA-125 表現互補 (CA-125 受 endometriosis/PID 干擾, HE4 較少); ROMA 為 logistic regression model 整合兩者',
+        linkedTrials: [],
+        keyTakeaway: 'HE4 + ROMA = CA-125 補強工具; specificity 較高, 育齡婦女 false positive 少; 主要用於 adnexal mass 鑑別; 非 BRCA/HRD 直接 surrogate'
+      },
+
+      {
+        id: 'PFI-platinum-sensitivity',
+        name: 'Platinum-Free Interval (PFI) — 鉑敏感性分類',
+        frequency: '所有 advanced OC 在治療規劃中均用',
+        prognosis: '⭐⭐⭐⭐⭐ 治療決策核心指標',
+        exam: [
+          '【定義】最後一次 platinum-based chemotherapy 結束 → 復發/進展之間的時間',
+          '【經典分類 (傳統 Markman 1991)】:',
+          '  • PFI <1 個月 → Platinum-refractory (鉑類無反應)',
+          '  • PFI 1-6 個月 → Platinum-resistant / PROC',
+          '  • PFI 6-12 個月 → Partially platinum-sensitive',
+          '  • PFI >12 個月 → Platinum-sensitive / PSOC (fully)',
+          '【現代修正 (CCNE 2018+)】:',
+          '  • Platinum sensitivity 為連續性 spectrum, 非二元',
+          '  • 應整合: PFI + 反應率 + 病人狀況 + biomarkers',
+          '  • CPS criteria: 不再單以 6m 切點決定',
+          '【關鍵考點 — HRD surrogate 角色】:',
+          '  • PFI >12m → BRCAm/HRD+ 富集 (~50-60% 為 BRCAm)',
+          '  • PFI <6m → CCNE1 amp / HRD- 富集',
+          '  • PFI 6-12m → 介於兩者',
+          '  • → 可作為 BRCA test 結果出來前的「臨床判斷」',
+          '【治療決策含意】:',
+          '  • PSOC: rechallenge platinum + PARPi 維持 (SOLO2/NOVA/ARIEL3)',
+          '  • PROC: 不再用 platinum, 改 single-agent + targeted (Mirvetuximab, IO)',
+          '【新指標】Treatment-Free Interval (TFI) 取代 PFI 為更廣義概念',
+        ],
+        testing: [
+          '【無需檢測】純臨床定義, 看治療紀錄',
+          '【記錄要點】最後一次 platinum 結束日期 + 復發確認日期',
+          '【何時計算】每次復發評估都要計算 PFI',
+          '【陷阱】Platinum 維持中復發 → PFI = 0; 不算 PSOC/PROC 標準',
+        ],
+        clinical: [
+          '【一線完成後復發】PFI 計算決定 platinum rechallenge 與否',
+          '【PSOC (PFI >6m)】Carbo-based 二線 + Bev/PARPi 維持',
+          '【PROC (PFI <6m)】單藥 + 標靶 (Mirvetuximab, IO+chemo)',
+          '【Refractory (PFI <1m)】預後最差, 試驗 + 緩和為主',
+          '【Partial sensitive (6-12m)】個別化, 看 biomarkers',
+          '【PARPi 維持影響】PARPi-treated 患者 PFI 計算需排除 PARPi 期',
+        ],
+        nextStep: [
+          '【復發確認】影像 + CA-125 + 病人症狀',
+          '【計算 PFI】最後 platinum 結束 → 復發 (月數)',
+          '【依 PFI 分類】決定二線策略',
+          '【加做 biomarker】FRα (PROC), HRD reassess (PSOC), CCNE1 (PROC)',
+          '【臨床試驗】PROC 強烈考慮試驗 (unmet need)',
+        ],
+        mechanism: 'Platinum sensitivity 反映 DNA 修復能力; HRD+/BRCAm 腫瘤對 platinum cross-link 修復能力差 → 反應好 → PFI 長; HRD-/CCNE1 amp 腫瘤修復能力強 → 反應差 → PFI 短; 故 PFI 為功能性 HRD surrogate',
+        linkedTrials: ['solo2', 'mirasol', 'keynote-b96'],
+        keyTakeaway: 'PFI = 鉑敏感性核心指標, 4 種分類 (<1m/1-6m/6-12m/>12m); PFI >12m → BRCAm/HRD+ 富集; 為臨床 functional HRD surrogate; 決定二線是否 rechallenge platinum'
+      },
+
       {
         id: 'CCNE1',
         name: 'CCNE1 amplification',
