@@ -1133,6 +1133,12 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .mnem-idx-body{padding:18px 24px 24px;overflow-y:auto;flex:1;}
 .mnem-idx-search{width:100%;padding:11px 15px;border:2px solid #c7d2fe;border-radius:10px;font-size:14px;font-family:inherit;outline:none;margin-bottom:16px;background:white;color:#1e1b4b;transition:border-color 0.15s;}
 .mnem-idx-search:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,0.15);}
+.mnem-idx-mode-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.mnem-idx-mode-btn{padding:9px 16px;border-radius:10px;border:2px solid #6366f1;background:white;color:#4338ca;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:all 0.18s;box-shadow:0 2px 6px rgba(99,102,241,0.12);}
+.mnem-idx-mode-btn:hover{background:#eef2ff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(99,102,241,0.25);}
+.mnem-idx-mode-btn.core-active{background:linear-gradient(135deg,#fbbf24,#f59e0b);border-color:transparent;color:white;box-shadow:0 4px 14px rgba(245,158,11,0.4);}
+.mnem-idx-mode-btn.core-active:hover{background:linear-gradient(135deg,#f59e0b,#d97706);}
+.mnem-idx-mode-hint{font-size:11.5px;color:#6b7280;font-weight:600;font-style:italic;flex:1;}
 .mnem-idx-cancer-tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;border-bottom:2px solid #e0e7ff;padding-bottom:12px;}
 .mnem-idx-cancer-tab{padding:8px 16px;border-radius:8px;border:2px solid #c7d2fe;background:white;color:#4f46e5;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.15s;}
 .mnem-idx-cancer-tab:hover{background:#eef2ff;}
@@ -1151,6 +1157,9 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .mnem-idx-card-mnemonic .mn-feat{color:#0e7490;font-weight:700;}
 .mnem-idx-card-arrow{flex:0 0 auto;color:#a5b4fc;font-size:16px;font-weight:800;}
 .mnem-idx-card:hover .mnem-idx-card-arrow{color:#8b5cf6;transform:translateX(3px);}
+.mnem-idx-card.is-core{border-color:#fbbf24;background:linear-gradient(90deg,#fffbeb,white);}
+.mnem-idx-card.is-core:hover{border-color:#f59e0b;box-shadow:0 4px 14px rgba(245,158,11,0.25);background:linear-gradient(90deg,#fef3c7,white);}
+.mnem-idx-star{display:inline-block;margin-right:6px;color:#f59e0b;font-size:13px;}
 .mnem-idx-empty{padding:40px 20px;text-align:center;color:#6b7280;font-size:13px;}
 .mnem-idx-stats{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap;}
 .mnem-idx-stat{padding:10px 14px;background:white;border:1.5px solid #e0e7ff;border-radius:9px;flex:1;min-width:100px;text-align:center;}
@@ -2610,6 +2619,13 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     </div>
     <div class="mnem-idx-body">
       <input type="text" class="mnem-idx-search" id="mnemIdxSearch" placeholder="🔍 搜尋: 試驗名 / 藥物 / 關鍵字 (e.g., 'Pembro', 'BRCAm', 'PARPi', '維持')..." oninput="filterMnemonicIndex()">
+      <div class="mnem-idx-mode-row">
+        <button class="mnem-idx-mode-btn" id="mnemIdxCoreBtn" onclick="toggleMnemonicIndexCoreMode()">
+          <span id="mnemIdxCoreBtnIcon">📚</span>
+          <span id="mnemIdxCoreBtnLabel">全部試驗 (119)</span>
+        </button>
+        <span class="mnem-idx-mode-hint" id="mnemIdxModeHint">點切換 ⭐ 重點試驗模式 — 考前衝刺精選</span>
+      </div>
       <div class="mnem-idx-cancer-tabs" id="mnemIdxCancerTabs"></div>
       <div id="mnemIdxList"></div>
     </div>
@@ -8853,9 +8869,84 @@ function closeTrialMatch(){
 // ============================================================
 // 🧠 試驗口訣速查表 (Mnemonic Index)
 // ============================================================
+
+// ⭐ 核心試驗 — 婦癌專科考試重點 (~50 個改變實務的關鍵試驗)
+const CORE_TRIALS = new Set([
+  // === EC 一線 / 維持 / Adjuvant (高頻必考) ===
+  'gy018',           // EC 1L IO+chemo NCCN Cat 1 (ITT 雙獲益)
+  'ruby-p1',         // EC 1L IO+chemo (含 carcinosarcoma)
+  'duo-e',           // EC 1L 三 D 配 (Arm 3 三標靶)
+  'attend',          // EC 1L Atezo (dMMR 強, ITT OS 不顯)
+  'keynote-b21',     // EC adjuvant Pembro (DFS 不顯, 高頻負試驗)
+  'siendo',          // EC 維持 Selinexor (TP53wt 翻盤, 易錯!)
+  'ruby-p2',         // EC pMMR 雙標靶維持
+  'duo-e-maint',     // EC 維持 (DUO-E Arm 3 maint)
+  'rainbo-program',  // EC 4-tier 個別化 adj
+  'portec-4a',       // EC NSMP 整合分型
+  // === EC 復發 ===
+  'keynote-775',     // EC 後線 Pembro+Lenva 金標準
+  'garnet',          // dMMR ICI 黃金標準 Dostar
+  'destiny-pantumor02', // HER2-ADC pan-tumor
+  'keynote-c93',     // dMMR 去化療
+
+  // === OC 一線 / 化療 / 手術 ===
+  'gog-0218',        // 一線 Bev 基石
+  'icon7',           // 一線 Bev (低劑量)
+  'jgog3016',        // 亞洲 dose-dense (高頻!)
+  'eortc-55971',     // NACT 經典
+  'lion',            // 系統淋巴清掃不做 (高頻!)
+  'van-driel-hipec', // IDS+HIPEC
+  'gog-172',         // IP 化療黃金標準
+  'gog-252',         // IP 不再優 (Bev 時代)
+  // === OC 一線維持 PARPi 7 大金剛 (極高頻) ===
+  'solo-1',          // BRCAm 一線維持金標準
+  'prima',           // 全人群一線維持 (OS NS, 易錯)
+  'paola-1',         // HRD+ 雙藥維持
+  'duo-o',           // 三藥維持 non-BRCAm
+  'athena-mono',     // Ruca 全人群
+  // === OC PSOC 復發 + 維持 ===
+  'desktop-iii',     // 次減積 AGO+
+  'gog-0213',        // PSOC Bev OS+
+  'solo2',           // BRCAm PSOC 維持 OS+
+  'nova',            // PSOC 全人群 PARPi
+  'ariel3',          // PSOC LOH 分流
+  // === OC PROC ===
+  'mirasol',         // PROC FRα 標準 (FDA full)
+  'aurelia',         // PROC Bev+chemo
+  'keynote-b96',     // PROC IO 突破
+  'rosella',         // PROC 新機制
+  // === OC LGSOC ===
+  'gog-281',         // LGSOC MEK 突破 (Trametinib)
+  'ramp-201',        // LGSOC 雙阻斷
+
+  // === CC LACC (高頻必考) ===
+  'keynote-a18',     // LACC 新標準
+  'interlace',       // 誘導化療 → CCRT
+  'calla',           // LACC IO 失敗對比 (高頻!)
+  'outback',         // CCRT 後 adj chemo 失敗
+  'lacc-trial',      // MIS bad (改變範式)
+  'shape-trial',     // 低風險降階 (NEJM 2024)
+  // === CC R/M ===
+  'keynote-826',     // R/M 黃金標準
+  'beatcc',          // R/M 第二支柱
+  'gog-240',         // R/M 第一里程碑
+  'innovatv-301',    // 後線 ADC FDA full
+  'empower-cervical-1', // 後線 IO 單藥
+
+  // === US LMS / UCS / LG-ESS ===
+  'lms-04',          // uLMS 一線新高度
+  'et743-sar-3007',  // LMS 救援 FDA
+  'palette',         // 非脂肪肉瘤二線
+  'eribulin-vs-dacarbazine', // LMS/LPS (FDA LPS only, 易錯)
+  'ntrk-basket',     // 跨癌別 NTRK
+  'gog-0261',        // UCS 新標準 PC
+  'paragon',         // LG-ESS 激素里程碑
+]);
+
 const MNEM_IDX_STATE = {
   activeCancer: 'all', // 'all', 'EC', 'OC', 'CC', 'US'
   searchTerm: '',
+  coreOnly: false,     // ⭐ 重點試驗模式 (only show CORE_TRIALS)
 };
 
 const MNEM_IDX_CANCER_LABELS = {
@@ -8896,10 +8987,12 @@ function closeMnemonicIndex(){
 function renderMnemonicIndexTabs(){
   const tabs = el('mnemIdxCancerTabs');
   if(!tabs) return;
-  // Compute counts
+  // Compute counts (honoring coreOnly mode)
   const counts = {all: 0, EC: 0, OC: 0, CC: 0, US: 0};
   TRIALS.forEach(t => {
     if(TRIAL_MNEMONICS[t.id]){
+      // Skip if coreOnly mode and trial not in CORE_TRIALS
+      if(MNEM_IDX_STATE.coreOnly && !CORE_TRIALS.has(t.id)) return;
       counts.all++;
       if(counts[t.cancer] !== undefined) counts[t.cancer]++;
     }
@@ -8912,6 +9005,28 @@ function renderMnemonicIndexTabs(){
 
 function setMnemonicIndexCancer(cancer){
   MNEM_IDX_STATE.activeCancer = cancer;
+  renderMnemonicIndexTabs();
+  renderMnemonicIndexList();
+}
+
+function toggleMnemonicIndexCoreMode(){
+  MNEM_IDX_STATE.coreOnly = !MNEM_IDX_STATE.coreOnly;
+  // Update button visual
+  const btn = el('mnemIdxCoreBtn');
+  const icon = el('mnemIdxCoreBtnIcon');
+  const label = el('mnemIdxCoreBtnLabel');
+  const hint = el('mnemIdxModeHint');
+  if(MNEM_IDX_STATE.coreOnly){
+    btn.classList.add('core-active');
+    icon.textContent = '⭐';
+    label.textContent = `重點試驗 (${CORE_TRIALS.size})`;
+    hint.textContent = '考前衝刺精選 — 點切換回全部試驗';
+  } else {
+    btn.classList.remove('core-active');
+    icon.textContent = '📚';
+    label.textContent = '全部試驗 (119)';
+    hint.textContent = '點切換 ⭐ 重點試驗模式 — 考前衝刺精選';
+  }
   renderMnemonicIndexTabs();
   renderMnemonicIndexList();
 }
@@ -8955,6 +9070,7 @@ function renderMnemonicIndexList(){
   
   // Build filtered trials with mnemonics
   const trialsWithMnem = TRIALS.filter(t => TRIAL_MNEMONICS[t.id])
+    .filter(t => !MNEM_IDX_STATE.coreOnly || CORE_TRIALS.has(t.id))
     .filter(t => cancerFilter === 'all' || t.cancer === cancerFilter)
     .filter(t => {
       if(!searchTerm) return true;
@@ -8967,7 +9083,10 @@ function renderMnemonicIndexList(){
     });
   
   if(!trialsWithMnem.length){
-    list.innerHTML = `<div class="mnem-idx-empty">❌ 找不到符合的試驗口訣<br><span style="font-size:12px;">嘗試其他關鍵字, 或切換癌別 tab</span></div>`;
+    const emptyMsg = MNEM_IDX_STATE.coreOnly 
+      ? '❌ 在重點試驗中找不到符合的口訣<br><span style="font-size:12px;">嘗試切換回「全部試驗」, 或調整搜尋條件</span>'
+      : '❌ 找不到符合的試驗口訣<br><span style="font-size:12px;">嘗試其他關鍵字, 或切換癌別 tab</span>';
+    list.innerHTML = `<div class="mnem-idx-empty">${emptyMsg}</div>`;
     return;
   }
   
@@ -9021,9 +9140,11 @@ function renderMnemonicIndexList(){
           </div>`;
         trials.forEach(t => {
           const mnem = TRIAL_MNEMONICS[t.id];
-          html += `<div class="mnem-idx-card" onclick="closeMnemonicIndex();showDetail('${t.id}');">
+          const isCore = CORE_TRIALS.has(t.id);
+          const starBadge = (isCore && !MNEM_IDX_STATE.coreOnly) ? '<span class="mnem-idx-star" title="核心試驗 (重點)">⭐</span>' : '';
+          html += `<div class="mnem-idx-card${isCore?' is-core':''}" onclick="closeMnemonicIndex();showDetail('${t.id}');">
             <div class="mnem-idx-card-num">${cardCounter}</div>
-            <div class="mnem-idx-card-mnemonic">${formatMnemIdxText(mnem.main)}</div>
+            <div class="mnem-idx-card-mnemonic">${starBadge}${formatMnemIdxText(mnem.main)}</div>
             <div class="mnem-idx-card-arrow">›</div>
           </div>`;
           cardCounter++;
@@ -9047,9 +9168,11 @@ function renderMnemonicIndexList(){
         </div>`;
       trials.forEach(t => {
         const mnem = TRIAL_MNEMONICS[t.id];
-        html += `<div class="mnem-idx-card" onclick="closeMnemonicIndex();showDetail('${t.id}');">
+        const isCore = CORE_TRIALS.has(t.id);
+        const starBadge = (isCore && !MNEM_IDX_STATE.coreOnly) ? '<span class="mnem-idx-star" title="核心試驗 (重點)">⭐</span>' : '';
+        html += `<div class="mnem-idx-card${isCore?' is-core':''}" onclick="closeMnemonicIndex();showDetail('${t.id}');">
           <div class="mnem-idx-card-num">${cardCounter}</div>
-          <div class="mnem-idx-card-mnemonic">${formatMnemIdxText(mnem.main)}</div>
+          <div class="mnem-idx-card-mnemonic">${starBadge}${formatMnemIdxText(mnem.main)}</div>
           <div class="mnem-idx-card-arrow">›</div>
         </div>`;
         cardCounter++;
