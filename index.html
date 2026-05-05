@@ -12693,6 +12693,80 @@ const TRIAL_MNEMONICS = {
     pitfalls: 'HPV16+ only (其他 HPV 型不適用); 為 CIN 治療性疫苗 (非預防性)',
   },
 
+
+  // ============================================================
+  // ====== CC 復發/轉移 (R/M, R-TX) - 一線 IO+chemo±Bev ======
+  // ============================================================
+
+  'beatcc': {
+    main: '💎 「BEATcc + Atezo+Bev+Chemo, R/M 第二支柱, OS 32.1 vs 22.8, 不依賴 CPS」',
+    breakdown: [
+      { key: 'BEATcc', meaning: 'BEATcc 試驗 (試驗名)' },
+      { key: 'Atezo+Bev+Chemo', meaning: 'Atezolizumab + Bevacizumab + Carbo+Pacli' },
+      { key: 'R/M 第二支柱', meaning: '【特色】一線 R/M CC 第二大選項 (vs KEYNOTE-826)' },
+      { key: '不依賴 CPS', meaning: '【關鍵】不分 PD-L1 CPS 都獲益 (vs KEYNOTE-826 CPS≥1)' },
+    ],
+    keypoint: 'R/M CC 一線 Atezo+Bev+chemo; 不需 PD-L1 篩選',
+    numbers: 'mOS 32.1 vs 22.8m HR 0.68 · PFS HR 0.62 · ORR 84% vs 72%',
+    pitfalls: '【vs KEYNOTE-826】BEATcc 不需 CPS 篩選 (Atezo); KEYNOTE-826 需 CPS≥1 (Pembro)',
+  },
+
+  'gog-240': {
+    main: '💎 「GOG-240 + Chemo+Bev, R/M 第一里程碑, mOS 16.8 vs 13.3」',
+    breakdown: [
+      { key: 'GOG-240', meaning: 'GOG-240 試驗 (試驗名)' },
+      { key: 'Chemo+Bev', meaning: 'Cis(or Topo)+Pacli + Bevacizumab' },
+      { key: 'R/M 里程碑', meaning: '【特色】首個證明 Bev 在 R/M CC 延長 OS' },
+      { key: 'mOS 16.8 vs 13.3', meaning: 'OS HR 0.71; 奠定 R/M CC 一線標準' },
+    ],
+    keypoint: 'R/M CC 第一個 Bev OS+ 試驗; IO 時代之前的金標準',
+    numbers: 'mOS 16.8 vs 13.3m HR 0.71 · ORR 48% vs 36% · Topo/Pacli 不劣於 Cis/Pacli',
+    pitfalls: 'Bev 增加 GI bleeding / fistula 風險; 與 KEYNOTE-826/BEATcc 為前後輩 (Bev → IO+Bev)',
+  },
+
+  // ============================================================
+  // ====== CC 後線 (R-TX, post-platinum/IO) - ADC / IO ======
+  // ============================================================
+
+  'innovatv-301': {
+    main: '💎 「innovaTV 301 + TV (TF-ADC), 後線 OS HR 0.70, FDA 全核准基礎」',
+    breakdown: [
+      { key: 'innovaTV 301', meaning: 'innovaTV 301 試驗 (試驗名)' },
+      { key: 'TV (TF-ADC)', meaning: 'Tisotumab Vedotin (Tissue Factor ADC)' },
+      { key: '後線 OS HR 0.70', meaning: '【特色】首個 R/M CC 後線 ADC OS+' },
+      { key: 'FDA 全核准基礎', meaning: 'FDA full approval 2024 (從加速核准升級)' },
+    ],
+    keypoint: '後線 R/M CC ADC 突破; Tisotumab Vedotin 確立後線 ADC 地位',
+    numbers: 'mOS 11.5 vs 9.5m HR 0.70 · PFS HR 0.67 · ORR 17.8% vs 5.2%',
+    pitfalls: '眼部毒性 (conjunctivitis, keratitis) 必須眼科追蹤; 預防 eye drops',
+  },
+
+  'empower-cervical-1': {
+    main: '💎 「EMPOWER-Cervical 1 + Cemi 單藥, 二線後 OS 12 vs 8.5, 不論組織型」',
+    breakdown: [
+      { key: 'EMPOWER-Cervical 1', meaning: 'EMPOWER-Cervical 1 試驗 (試驗名)' },
+      { key: 'Cemi 單藥', meaning: 'Cemiplimab 單藥 (PD-1)' },
+      { key: '二線後 OS 12 vs 8.5', meaning: '【特色】二線後 IO 單藥 OS 延長' },
+      { key: '不論組織型', meaning: '【關鍵】SCC + adenoCa 都獲益' },
+    ],
+    keypoint: '二線後 R/M CC IO 單藥標準; Cemiplimab 不分組織型',
+    numbers: 'mOS 12.0 vs 8.5m HR 0.69 · ORR 16% vs 6% · mDOR 16.4m',
+    pitfalls: '【實務】二線後 IO 單藥; 一線時應先用 KEYNOTE-826/BEATcc combo',
+  },
+
+  'innovatv-205': {
+    main: '💎 「innovaTV 205 + TV combos, 1L TV+Carbo ORR 54.5%, 多 cohort 探索」',
+    breakdown: [
+      { key: 'innovaTV 205', meaning: 'innovaTV 205 試驗 (試驗名)' },
+      { key: 'TV combos', meaning: 'Tisotumab Vedotin combinations (1L+2L)' },
+      { key: '1L TV+Carbo ORR 54.5%', meaning: '【特色】1L TV+Carbo ORR 54.5% (高反應)' },
+      { key: '多 cohort 探索', meaning: '1L+2L 多種 combo (TV+Pembro, TV+Carbo, 4-drug)' },
+    ],
+    keypoint: 'TV (Tisotumab Vedotin) combo 多臂試驗; 1L + 2L 治療策略奠基',
+    numbers: 'Arm D (1L TV+Carbo) ORR 54.5% mDOR 8.6m mOS 25.5m · Arm E (1L TV+Pembro) ORR 41%',
+    pitfalls: 'Phase 1b/2 多 cohort; 為 phase III combo (與 KEYNOTE-826/BEATcc 對打) 鋪路',
+  },
+
 };
 
 
