@@ -374,6 +374,224 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .mol-takeaway{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #f59e0b;border-radius:11px;padding:13px 16px;font-size:13px;line-height:1.65;color:#78350f;margin-top:18px;}
 .mol-takeaway strong{color:#78350f;}
 
+/* 🧠 Mini mnemonic (精簡版口訣放在考試卡頂部) */
+.ec-mini-mnemonic{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 13px;
+  margin:6px 0 11px;
+  background:linear-gradient(135deg,#fef3c7,#fde68a);
+  border:2px solid #f59e0b;
+  border-radius:10px;
+  box-shadow:0 1px 3px rgba(245,158,11,0.2);
+}
+.ec-mini-mn-label{
+  flex-shrink:0;
+  font-size:10.5px;
+  font-weight:800;
+  color:#78350f;
+  background:white;
+  padding:3px 9px;
+  border-radius:50px;
+  letter-spacing:0.05em;
+  border:1px solid #f59e0b;
+}
+.ec-mini-mn-main{
+  flex:1;
+  font-size:14px;
+  font-weight:800;
+  color:#78350f;
+  letter-spacing:0.05em;
+  line-height:1.4;
+}
+@media(max-width:640px){
+  .ec-mini-mn-main{font-size:12.5px;letter-spacing:0.03em;}
+  .ec-mini-mn-label{font-size:9.5px;}
+}
+
+/* Mol-pedia toolbar (highlight toggle area) */
+.mol-toolbar{
+  display:flex;
+  gap:7px;
+  margin:10px 0;
+  padding:8px 11px;
+  background:#fffbeb;
+  border:1.5px solid #fde68a;
+  border-radius:9px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+/* ===== 🖍️ 螢光標記 (Highlight) ===== */
+.hl-yellow{
+  background:linear-gradient(180deg,transparent 55%,#fef08a 55%,#fde047 100%);
+  font-weight:700;
+  padding:0 1px;
+  border-radius:2px;
+}
+.hl-pink{
+  background:linear-gradient(180deg,transparent 55%,#fbcfe8 55%,#f9a8d4 100%);
+  font-weight:700;
+  padding:0 1px;
+  border-radius:2px;
+  color:#831843;
+}
+.hl-blue{
+  background:linear-gradient(180deg,transparent 50%,#bfdbfe 50%,#93c5fd 100%);
+  font-weight:800;
+  padding:0 2px;
+  border-radius:2px;
+  color:#1e3a8a;
+}
+
+/* Highlight toggle button (in mol-pedia) */
+.highlight-toggle-btn{
+  padding:6px 12px;
+  background:white;
+  border:1.5px solid #fbbf24;
+  color:#92400e;
+  font-size:11.5px;
+  font-weight:800;
+  cursor:pointer;
+  border-radius:8px;
+  font-family:inherit;
+  transition:all 0.15s;
+}
+.highlight-toggle-btn:hover{
+  background:#fef3c7;
+}
+.highlight-toggle-btn.off{
+  background:#f1f5f9;
+  border-color:#cbd5e1;
+  color:#64748b;
+}
+
+/* ===== 🧠 記憶口訣 Card (黑板手寫風格) ===== */
+.mnemonic-card{
+  background:linear-gradient(135deg,#1e293b,#0f172a);
+  background-image:
+    linear-gradient(135deg,#1e293b,#0f172a),
+    repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255,255,255,0.02) 30px, rgba(255,255,255,0.02) 31px);
+  border:3px solid #7c2d12;
+  border-radius:13px;
+  padding:18px 20px;
+  margin:14px 0 18px;
+  position:relative;
+  box-shadow:0 6px 20px rgba(0,0,0,0.4);
+  font-family:"Noto Sans TC",-apple-system,sans-serif;
+}
+.mnemonic-card::before{
+  content:'🧠 學霸記憶卡';
+  position:absolute;
+  top:-12px;
+  left:18px;
+  background:linear-gradient(135deg,#fef3c7,#fbbf24);
+  color:#78350f;
+  padding:3px 12px;
+  border-radius:50px;
+  font-size:10.5px;
+  font-weight:800;
+  letter-spacing:0.05em;
+  border:1px solid #f59e0b;
+  font-family:"Noto Sans TC",sans-serif;
+}
+
+.mnemonic-header{
+  font-size:14px;
+  font-weight:800;
+  color:#fde68a;
+  margin-bottom:14px;
+  letter-spacing:0.03em;
+  padding-bottom:10px;
+  border-bottom:1px dashed rgba(253,230,138,0.3);
+}
+
+.mnemonic-main{
+  font-size:22px;
+  font-weight:800;
+  color:#fbbf24;
+  text-align:center;
+  margin:14px 0 18px;
+  padding:14px;
+  background:rgba(251,191,36,0.08);
+  border:2px dashed #f59e0b;
+  border-radius:10px;
+  letter-spacing:0.1em;
+  text-shadow:0 1px 2px rgba(0,0,0,0.4);
+  line-height:1.4;
+}
+
+.mnemonic-breakdown{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  margin-bottom:14px;
+}
+.mn-row{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  padding:7px 11px;
+  background:rgba(255,255,255,0.05);
+  border-left:3px solid #fbbf24;
+  border-radius:0 8px 8px 0;
+  font-size:13px;
+  line-height:1.6;
+  color:#e2e8f0;
+}
+.mn-key{
+  font-size:14px;
+  font-weight:800;
+  color:#fde68a;
+  flex-shrink:0;
+  min-width:48px;
+  letter-spacing:0.03em;
+}
+.mn-arrow{
+  color:#94a3b8;
+  font-weight:800;
+  flex-shrink:0;
+}
+.mn-meaning{
+  flex:1;
+  color:#cbd5e1;
+}
+
+.mnemonic-extras{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:10px;
+  padding-top:11px;
+  border-top:1px dashed rgba(253,230,138,0.3);
+}
+.mn-extra-row{
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+  font-size:11.5px;
+  color:#cbd5e1;
+  line-height:1.55;
+}
+.mn-extra-row.warn{color:#fca5a5;}
+.mn-extra-row.trials{color:#a5f3fc;}
+.mn-extra-label{
+  flex-shrink:0;
+  font-weight:800;
+  font-family:"JetBrains Mono",monospace;
+  font-size:10.5px;
+  letter-spacing:0.03em;
+}
+
+@media(max-width:640px){
+  .mnemonic-card{padding:14px 14px;margin:11px 0 14px;}
+  .mnemonic-main{font-size:18px;padding:11px;letter-spacing:0.05em;}
+  .mn-row{font-size:12px;padding:6px 9px;gap:7px;}
+  .mn-key{font-size:12.5px;min-width:42px;}
+  .mn-extra-row{font-size:10.5px;}
+}
+
 /* 🌳 Tree button on entry detail */
 .mol-tree-btn{
   display:block;
@@ -10344,6 +10562,647 @@ const STUDY_PLANS = {
 };
 
 
+// ============================================================
+// 🧠 記憶口訣 (Mnemonics) — 12 個必考 entries 完整版
+// ============================================================
+const MNEMONICS = {
+  'POLEm': {
+    title: '🧠 POLEm 記憶口訣',
+    main: '💎 「波超棒, 不化療」',
+    breakdown: [
+      { key: '波', meaning: 'POLE (波浪 = 突變如波浪)' },
+      { key: '超棒', meaning: '預後最佳 (5y OS >95%, 即使 high-grade)' },
+      { key: '不化療', meaning: 'De-escalation = Surgery alone' },
+    ],
+    numbers: 'POLE 頻率 ~7% · 5y OS >95% · FIGO 2023 IAm POLEmut',
+    pitfalls: 'VUS / non-hotspot 不是 pathogenic → 不可降階治療',
+    trials: 'PORTEC-4a · RAINBO program',
+  },
+
+  'MMRd': {
+    title: '🧠 MMRd / dMMR 記憶口訣',
+    main: '💎 「四看二測, 米多反應好」',
+    breakdown: [
+      { key: '四看', meaning: 'IHC 4 蛋白: MLH1 / PMS2 / MSH2 / MSH6' },
+      { key: '二測', meaning: '1. MLH1 methylation (PCR), 2. Germline NGS' },
+      { key: '米多', meaning: 'MMRd = Microsatellite instability 多' },
+      { key: '反應好', meaning: 'IO 高度敏感 (Pembro/Dostar)' },
+    ],
+    numbers: 'EC ~28% · IO ORR 50%+ · GY018/RUBY P1 PFS HR ~0.30',
+    pitfalls: 'MLH1+PMS2 雙缺失才需 methylation; BRAF V600E 在 EC 不適用',
+    trials: 'GY018 · RUBY P1 · GARNET · KEYNOTE-C93',
+  },
+
+  'p53abn': {
+    title: '🧠 p53abn 記憶口訣',
+    main: '💎 「五三最差, 漿液必查 HER2」',
+    breakdown: [
+      { key: '五三', meaning: 'p53 → 想成 53 → 最高風險編號' },
+      { key: '最差', meaning: '5y OS ~50%, 預後最差' },
+      { key: '漿液', meaning: '~85% serous histology' },
+      { key: '必查 HER2', meaning: '所有 advanced p53abn 強制 HER2 IHC + ISH' },
+    ],
+    numbers: 'EC ~15% · 5y OS ~50% · HER2+ 約 30% serous · DUO-E HRD+ HR 0.57',
+    pitfalls: 'IHC 4 patterns: overexpr / null / cytoplasmic / wildtype (非 abn)',
+    trials: 'DUO-E (HRD+ Arm 3) · DESTINY-PanTumor02 (HER2+) · GY018/RUBY',
+  },
+
+  'BRCAm': {
+    title: '🧠 BRCAm 記憶口訣',
+    main: '💎 「單身鎖, 雙打死 (PARP致死)」',
+    breakdown: [
+      { key: '單身鎖', meaning: 'BRCA mut → DSB 修復缺陷 (single-strand)' },
+      { key: '雙打死', meaning: 'PARPi + BRCA loss → synthetic lethality' },
+      { key: '一線首選', meaning: 'SOLO-1 (BRCAm 24 個月 olaparib)' },
+      { key: '猶太三', meaning: 'Ashkenazi 三大: 185delAG, 5382insC, 6174delT' },
+    ],
+    numbers: 'OC ~22% · SOLO-1 7y OS HR 0.55 · BRCA1 lifetime OC ~40% · BRCA2 ~15%',
+    pitfalls: 'germline+ 須家族 cascade; somatic 仍適 PARPi; 父系遺傳常被忽略',
+    trials: 'SOLO-1 · PAOLA-1 · PRIMA · SOLO2 · DUO-O (限 non-BRCAm)',
+  },
+
+  'HRD-pos': {
+    title: '🧠 HRD+ 記憶口訣',
+    main: '💎 「四二為界, 一半好命」',
+    breakdown: [
+      { key: '四二為界', meaning: 'GIS ≥42 為 HRD+ (Myriad CDx)' },
+      { key: '一半好命', meaning: '~50% HGSC 為 HRD+ (含 BRCAm 22%)' },
+      { key: '加 Bev 選 PAOLA', meaning: 'HRD+ + Bev → PAOLA-1' },
+      { key: '不 Bev 選 PRIMA', meaning: 'HRD+ no Bev → PRIMA Niraparib' },
+    ],
+    numbers: 'GIS ≥42 · LOH ≥16% (FoundationOne) · PAOLA-1 HRD+ HR 0.33 · PRIMA HR 0.43',
+    pitfalls: 'HRD+ 含 BRCAm; 但 BRCAm 不需測 HRD; KELIM ≥1 為功能性 surrogate',
+    trials: 'PAOLA-1 · PRIMA · NOVA · ARIEL3',
+  },
+
+  'HRD-neg': {
+    title: '🧠 HRD- (HRP) 記憶口訣',
+    main: '💎 「半數無解, CCNE 主將」',
+    breakdown: [
+      { key: '半數無解', meaning: '~50% HGSC, unmet need 核心族群' },
+      { key: 'CCNE 主將', meaning: 'CCNE1 amp 在 HRD- 中富集 ~25-30%' },
+      { key: '一線 Bev 自飛', meaning: '一線維持只有 Bev (PARPi 反應差)' },
+      { key: '復發看 ADC', meaning: 'PROC: Mirvetuximab/T-DXd/sac-TMT' },
+    ],
+    numbers: 'HGSC ~50% · CCNE1 amp HRD- 中 25-30% · MIRASOL OS HR 0.67',
+    pitfalls: 'HRD- 用 PARPi 維持效益差 (PAOLA-1 HRD- 無顯著 OS+)',
+    trials: 'GOG-218 (Bev) · MIRASOL · KEYNOTE-B96 · TroFuse-021 · DESTINY-Ovarian01',
+  },
+
+  'HGSC': {
+    title: '🧠 HGSC 記憶口訣',
+    main: '💎 「七成漿液, P53 全變」',
+    breakdown: [
+      { key: '七成漿液', meaning: 'HGSC = ~70% epithelial OC' },
+      { key: 'P53 全變', meaning: '~100% TP53 mutation' },
+      { key: 'STIC 起源', meaning: 'STIC (輸卵管 fimbria) 為起源' },
+      { key: '塌實 BRCA', meaning: '所有 HGSC 必做 germline+somatic BRCA' },
+    ],
+    numbers: 'OC 中 ~70% · TP53m ~100% · BRCAm ~22% · HRD+ ~50%',
+    pitfalls: 'TP53wt 應重新分類; LGSC 為 TP53wt + KRAS/BRAF mut',
+    trials: 'SOLO-1 · PAOLA-1 · PRIMA · 所有 HGSC PARPi 試驗',
+  },
+
+  'PD-L1-CPS': {
+    title: '🧠 PD-L1 CPS 記憶口訣',
+    main: '💎 「CPS 不是 TPS, ≥1 給帕梅」',
+    breakdown: [
+      { key: 'CPS 公式', meaning: '(PD-L1+ tumor + immune cells) ÷ total tumor × 100' },
+      { key: '不是 TPS', meaning: 'TPS = 只看 tumor cells (NSCLC 用); CC 用 CPS' },
+      { key: '≥1 給帕梅', meaning: 'CPS ≥1 → KEYNOTE-826 (Pembro+chemo±Bev)' },
+      { key: '<1 用阿特', meaning: 'CPS <1 → BEATcc (Atezo+chemo+Bev)' },
+    ],
+    numbers: 'CPS ≥1 → KEYNOTE-826 OS HR 0.64 · CC R/M ~80% CPS+ · CCRT KEYNOTE-A18 PFS HR 0.70',
+    pitfalls: 'CPS ≠ TPS (常考錯); 22C3 是 FDA companion diagnostic',
+    trials: 'KEYNOTE-826 (1L R/M) · KEYNOTE-A18 (LACC) · BEATcc (CPS<1 替代)',
+  },
+
+  'HPV16': {
+    title: '🧠 HPV16 記憶口訣',
+    main: '💎 「α9 鱗癌主, 七成元兇」',
+    breakdown: [
+      { key: 'α9 種屬', meaning: 'HPV16 屬 alpha-9 species' },
+      { key: '鱗癌主', meaning: '主要造成 squamous cell carcinoma (SCC)' },
+      { key: '七成元兇', meaning: '~50-70% 子宮頸癌由 HPV16 引起' },
+      { key: 'E6 E7 致癌', meaning: 'E6 → p53 降解; E7 → Rb 失活' },
+    ],
+    numbers: 'CC ~50-70% 為 HPV16 · 9-valent vaccine 涵蓋 · CIN3 progression 10-30%',
+    pitfalls: 'HPV-negative 多 → HPV-independent gastric-type 鑑別',
+    trials: 'PVX4 (本院 HPV16+ DNA vaccine for CIN2/3) · 預防 9-valent vaccine',
+  },
+
+  'HPV18': {
+    title: '🧠 HPV18 記憶口訣',
+    main: '💎 「α7 腺癌愛, 二成元兇」',
+    breakdown: [
+      { key: 'α7 種屬', meaning: 'HPV18 屬 alpha-7 species' },
+      { key: '腺癌愛', meaning: '主要造成 adenocarcinoma' },
+      { key: '二成元兇', meaning: '~10-20% 子宮頸癌由 HPV18 引起' },
+      { key: 'AdenoCa 警', meaning: '腺癌看 HPV18 → HER2 testing 強制' },
+    ],
+    numbers: 'CC ~10-20% 為 HPV18 · 9-valent 涵蓋 · adenoCa 中 HPV18 比 SCC 中更常見',
+    pitfalls: 'HPV18+ adenoCa 仍可能 HER2+ → 加做 HER2 IHC + ISH',
+    trials: 'KEYNOTE-826 / BEATcc 涵蓋 · DESTINY-PanTumor02 (HER2+)',
+  },
+
+  'LMS': {
+    title: '🧠 LMS 記憶口訣',
+    main: '💎 「史丹佛三條件, 別碎切」',
+    breakdown: [
+      { key: '史丹佛三', meaning: 'Stanford 3 criteria: 1.atypia, 2.mitosis ≥10/10HPF, 3.coagulative necrosis' },
+      { key: '兩條成 LMS', meaning: '達 ≥2 條 = LMS' },
+      { key: '別碎切', meaning: '【強制】禁 morcellation (碎瘤分散)' },
+      { key: 'ER+ 給來曲', meaning: 'ER+ LMS → Letrozole (advanced)' },
+    ],
+    numbers: 'US ~63% · ER+ ~30-40% · Doxorubicin 一線標準 60-75 mg/m²',
+    pitfalls: 'Myxoid LMS vs HG-ESS BCOR 鑑別困難; STUMP 不確定惡性度',
+    trials: 'GOG-0277 · PALETTE · LMS-04 · TRIDENT (Trabectedin)',
+  },
+
+  'MMR-Lynch-Workflow': {
+    title: '🧠 MMR/Lynch 篩檢流程記憶口訣',
+    main: '💎 「四看 → 一甲 → 二測 → 三防」',
+    breakdown: [
+      { key: '四看 IHC', meaning: 'MLH1, PMS2, MSH2, MSH6 四蛋白' },
+      { key: '一甲 (MLH1)', meaning: 'MLH1+PMS2 雙缺失 → 加做 MLH1 methylation (甲基化)' },
+      { key: '二測 (germline)', meaning: 'Methylated → sporadic; Unmethylated → 送 germline NGS' },
+      { key: '三防', meaning: 'Lynch+ → 1.大腸鏡 Q1-2y, 2.家族 cascade, 3.Aspirin 81mg 預防' },
+    ],
+    numbers: 'EC ~28% MMRd · ~75% MMRd 為 sporadic · ~25% 真 Lynch · Lynch 終生 EC ~40-60%',
+    pitfalls: 'MLH1 methylation 用 PCR 不是 IHC (常考錯); BRAF V600E 在 EC 不適用 (僅 CRC)',
+    trials: 'RUBY P1 · GY018 · KEYNOTE-C93 (MMRd 限定) · GARNET',
+  },
+
+// ====== 🟡 重要 21 個 ======
+
+  'NSMP-low-risk': {
+    title: '🧠 NSMP-low-risk 記憶口訣',
+    main: '💎 「無雌好命, ER陽 NSMP」',
+    breakdown: [
+      { key: '無', meaning: 'NSMP = No Specific Molecular Profile' },
+      { key: '雌', meaning: 'ER+ (雌激素受體陽性)' },
+      { key: '好命', meaning: '預後較佳, fertility-sparing 適用' },
+      { key: 'ER陽', meaning: 'ER+ NSMP → low-risk subset' },
+    ],
+    numbers: 'NSMP 占 EC ~50% · NSMP 中 ~60% 為 ER+ low-risk · 5y OS >85%',
+    pitfalls: 'NSMP 是異質性大族群, 須再分流 (ER+ vs ER-)',
+    trials: 'PORTEC-4a (integrated risk model) · RAINBO NSMP arm',
+  },
+
+  'NSMP-high-risk': {
+    title: '🧠 NSMP-high-risk 記憶口訣',
+    main: '💎 「無雌變壞, 接近 p53」',
+    breakdown: [
+      { key: '無雌', meaning: 'NSMP + ER negative' },
+      { key: '變壞', meaning: '預後接近 p53abn (差)' },
+      { key: '接近 p53', meaning: '同樣需強化 adjuvant + chemo+RT' },
+      { key: 'L1CAM 警', meaning: 'L1CAM+ 為 high-risk 額外指標' },
+    ],
+    numbers: 'NSMP 中 ~40% · 5y OS 接近 p53abn (~50-60%) · L1CAM+ recurrence ↑',
+    pitfalls: 'NSMP 不可一概而論, 須分 ER+/- + L1CAM',
+    trials: 'PORTEC-4a · DUO-E (advanced)',
+  },
+
+  'CTNNB1': {
+    title: '🧠 CTNNB1 記憶口訣',
+    main: '💎 「貝塔陽變, 早復發」',
+    breakdown: [
+      { key: '貝塔', meaning: 'β-catenin (CTNNB1)' },
+      { key: '陽變', meaning: 'Exon 3 mutation (S33, S37, T41, S45)' },
+      { key: '早復發', meaning: '雖 low-grade 但易早期復發' },
+      { key: 'Wnt 路徑', meaning: 'Wnt/β-catenin pathway 活化' },
+    ],
+    numbers: 'NSMP 中 ~20-30% CTNNB1m · 雖 G1 但 5y RFS 較差',
+    pitfalls: 'CTNNB1m NSMP 不要因 low-grade 就掉以輕心',
+    trials: 'PORTEC-4a integrated risk model',
+  },
+
+  'HER2-uterine-serous': {
+    title: '🧠 HER2 子宮漿液癌口訣',
+    main: '💎 「漿三成 HER2, 強治療」',
+    breakdown: [
+      { key: '漿', meaning: 'Uterine serous (漿液癌)' },
+      { key: '三成', meaning: '~30% serous 為 HER2+' },
+      { key: 'HER2', meaning: 'IHC + ISH (採乳癌標準)' },
+      { key: '強治療', meaning: 'Trastuzumab combo (Fader trial)' },
+    ],
+    numbers: 'Serous 中 ~30% HER2+ · IHC 3+ 直接陽性 · Fader 試驗 PFS+',
+    pitfalls: 'IHC 2+ 必須加 ISH; HER2 low (1+) 也可能適 T-DXd',
+    trials: 'Fader (Carbo/Pacli + Trastuzumab) · DESTINY-PanTumor02',
+  },
+
+  'HRRm': {
+    title: '🧠 HRRm (non-BRCA HRR) 口訣',
+    main: '💎 「非 BRCA HRR, 仍考 PARPi」',
+    breakdown: [
+      { key: '非 BRCA', meaning: 'BRCA wildtype' },
+      { key: 'HRR', meaning: '同源重組基因群: ATM/PALB2/BRIP1/RAD51C/RAD51D/CHEK2 等' },
+      { key: '仍考 PARPi', meaning: 'PARPi 仍可考慮 (但效力弱於 BRCA)' },
+      { key: '家族篩檢', meaning: 'germline+ 須 cascade testing' },
+    ],
+    numbers: 'OC ~6-10% HRRm (non-BRCA) · PARPi 反應弱於 BRCAm',
+    pitfalls: '不是所有 HRR 基因都同 PARPi 反應; PALB2 較佳, ATM 較弱',
+    trials: 'PRIMA · PAOLA-1 · 部分 HRR 有適應症',
+  },
+
+  'CCNE1': {
+    title: '🧠 CCNE1 記憶口訣',
+    main: '💎 「CC 與 BRCA 互斥, PARP 抗藥, WEE/ATR 致死」',
+    breakdown: [
+      { key: 'CC 與 BRCA 互斥', meaning: 'CCNE1 amp 與 BRCAm 通常不共存' },
+      { key: 'PARP 抗藥', meaning: 'PARPi 強抗藥標記 (即使 HRD+ 共存)' },
+      { key: 'WEE/ATR 致死', meaning: 'WEE1 / ATR / CDK2 inhibitor 為合成致死' },
+      { key: '富集 HRD-', meaning: 'HRD- 中 ~25-30% 共存 CCNE1' },
+    ],
+    numbers: 'HGSC ~15-20% CCNE1 amp · HRD- 中 ~25-30% · FISH ratio ≥2.0',
+    pitfalls: 'CCNE1 amp 不要啟動 PARPi 維持 (即使 advanced HRD+ 共存)',
+    trials: 'WEE1i (Adavosertib) · ATRi (Ceralasertib) · CDK2i 試驗',
+  },
+
+  'OCCC': {
+    title: '🧠 OCCC 記憶口訣',
+    main: '💎 「Clear ARID1A, 鉑抗 IO 反」',
+    breakdown: [
+      { key: 'Clear', meaning: 'Clear cell carcinoma (透明細胞癌)' },
+      { key: 'ARID1A', meaning: 'ARID1A + PIK3CA mutation 高頻' },
+      { key: '鉑抗', meaning: '鉑類化療反應較差' },
+      { key: 'IO 反', meaning: 'IO (PD-L1+ subset) 反應較佳' },
+    ],
+    numbers: 'OC ~10% · ARID1A m ~50% · PIK3CA m ~33% · 鉑 ORR <30%',
+    pitfalls: 'OCCC 不要當 HGSC 治療; 反應差者考慮 IO 試驗',
+    trials: '本院 DOVE (Dostar±Bev) · NRG-GY019 · IO 試驗',
+  },
+
+  'LGSC': {
+    title: '🧠 LGSC 記憶口訣',
+    main: '💎 「P53 wild, 拉斯壞」',
+    breakdown: [
+      { key: 'P53 wild', meaning: 'TP53 wildtype (vs HGSC ~100% mut)' },
+      { key: '拉斯', meaning: 'KRAS / BRAF / NRAS mutation' },
+      { key: '壞', meaning: 'MEK pathway 為治療標靶' },
+      { key: '荷爾蒙', meaning: 'ER+ → Letrozole 也可用' },
+    ],
+    numbers: 'OC ~5% · KRAS m ~20-30% · BRAF m ~20% · GOG-281 PFS HR 0.48',
+    pitfalls: 'LGSC vs serous borderline 鑑別; 鉑類反應較差',
+    trials: 'GOG-281 (Trametinib) · GOG-3026 (Letrozole+Ribociclib)',
+  },
+
+  'Endometrioid-OC': {
+    title: '🧠 Endometrioid-OC 記憶口訣',
+    main: '💎 「子宮樣, 林奇查」',
+    breakdown: [
+      { key: '子宮樣', meaning: 'Endometrioid (像子宮內膜的卵巢癌)' },
+      { key: '林奇查', meaning: '~15-20% Lynch syndrome → MMR/MSI 必測' },
+      { key: 'ARID1A', meaning: 'ARID1A m ~30%' },
+      { key: '預後好', meaning: '常為早期 + low-grade, 預後較 HGSC 好' },
+    ],
+    numbers: 'OC ~10% · Lynch ~15-20% · 5y OS >70%',
+    pitfalls: '須區分 endometrioid OC vs metastatic from EC',
+    trials: 'Tumor-agnostic IO if MSI-H',
+  },
+
+  'Mucinous-OC': {
+    title: '🧠 Mucinous-OC 記憶口訣',
+    main: '💎 「先排 GI, 八成是轉」',
+    breakdown: [
+      { key: '先排 GI', meaning: '【強制】胃鏡 + 大腸鏡' },
+      { key: '八成', meaning: '~80% 卵巢黏液癌實為 GI 轉移' },
+      { key: 'CDX-2/CK7/CK20', meaning: 'IHC 鑑別: 原發 vs GI 轉移' },
+      { key: 'HER2 加做', meaning: 'HER2+ ~20% → Trastuzumab' },
+    ],
+    numbers: 'OC ~3-5% · ~80% 為 GI metastasis · CA-125 多 normal',
+    pitfalls: 'CA-125 normal 不代表良性; 改測 CEA / CA 19-9',
+    trials: 'KRAS+ 試驗 · HER2+ Trastuzumab combo',
+  },
+
+  'HPV-independent-gastric': {
+    title: '🧠 HPV-indep gastric 記憶口訣',
+    main: '💎 「胃型最差, PJ 篩 STK11」',
+    breakdown: [
+      { key: '胃型', meaning: 'Gastric-type adenocarcinoma' },
+      { key: '最差', meaning: 'CC 中預後最差, HPV-negative' },
+      { key: 'PJ 篩', meaning: 'Peutz-Jeghers syndrome 篩檢' },
+      { key: 'STK11', meaning: 'germline STK11 mutation (~10%)' },
+    ],
+    numbers: 'CC ~10-15% adenoCa · 5y OS <50% · ~10% PJS · HER2 amp ~20%',
+    pitfalls: 'HPV-/p16 patchy → 加 HIK1083+MUC6 確認 gastric 分化',
+    trials: 'HER2+ → T-DXd · MSI-H → Pembro · 試驗為主',
+  },
+
+  'HER2-cervical': {
+    title: '🧠 HER2 子宮頸癌口訣',
+    main: '💎 「腺癌必查, 胃型常陽」',
+    breakdown: [
+      { key: '腺癌', meaning: 'Cervical adenocarcinoma 強制做' },
+      { key: '必查', meaning: 'IHC + ISH (採乳癌標準)' },
+      { key: '胃型', meaning: 'Gastric-type adenoCa ~20% HER2+' },
+      { key: 'T-DXd', meaning: 'HER2+ 後線首選 (DESTINY-PanTumor02)' },
+    ],
+    numbers: 'AdenoCa ~3-5% HER2+ · Gastric-type ~20% · T-DXd ORR ~50%',
+    pitfalls: 'SCC 不需常規 HER2; 採乳癌而非 gastric criteria',
+    trials: 'DESTINY-PanTumor02 (T-DXd pan-tumor)',
+  },
+
+  'CIN23': {
+    title: '🧠 CIN2/3 記憶口訣',
+    main: '💎 「pre侵，標準 LEEP，疫苗試」',
+    breakdown: [
+      { key: 'pre侵', meaning: 'Pre-invasive lesion (尚未侵犯)' },
+      { key: 'LEEP', meaning: 'Loop electrosurgical excision (標準)' },
+      { key: 'AIS 用 conization', meaning: 'Adenocarcinoma in situ → cold knife cone' },
+      { key: '疫苗試', meaning: '本院 PVX4: HPV16+ DNA vaccine 治療性' },
+    ],
+    numbers: 'CIN3 → CC progression 10-30% · LEEP cure ~95% · PVX4 (HPV16+ only)',
+    pitfalls: 'AIS 不適 LEEP, 必須 cone; 邊緣陽性需 re-cone',
+    trials: '本院 PVX4 (賴瓊慧主持)',
+  },
+
+  'Tumor-agnostic-CC': {
+    title: '🧠 Tumor-agnostic CC 口訣',
+    main: '💎 「五星試, MSI/NTRK/RET/BRAF/TMB」',
+    breakdown: [
+      { key: 'MSI-H', meaning: '→ Pembrolizumab pan-tumor' },
+      { key: 'NTRK', meaning: '→ Larotrectinib / Entrectinib' },
+      { key: 'RET', meaning: '→ Selpercatinib' },
+      { key: 'BRAF V600E', meaning: '→ Dabrafenib + Trametinib' },
+      { key: 'TMB-H', meaning: '≥10 muts/Mb → Pembrolizumab' },
+    ],
+    numbers: 'MSI-H 偶見 (<5% CC) · NTRK <1% · RET <2% · TMB-H ~5%',
+    pitfalls: '罕見但 high-impact, 標準耗盡時必查',
+    trials: 'Basket trials · Tumor-agnostic FDA approvals',
+  },
+
+  'LG-ESS': {
+    title: '🧠 LG-ESS 記憶口訣',
+    main: '💎 「J7-S12, ER陽給樂」',
+    breakdown: [
+      { key: 'J7-S12', meaning: 'JAZF1-SUZ12 fusion' },
+      { key: 'ER 陽', meaning: 'ER+ 高頻' },
+      { key: '給樂', meaning: 'Letrozole 為標準 (advanced)' },
+      { key: '低惡度', meaning: 'Low-grade, 預後相對好' },
+    ],
+    numbers: 'US ~5-10% · JAZF1-SUZ12 ~80% · Letrozole ORR ~70%',
+    pitfalls: '不要錯認為 myxoid LMS 或 HG-ESS',
+    trials: 'PARAGON · Letrozole (single-arm 小型試驗)',
+  },
+
+  'HG-ESS-YWHAE': {
+    title: '🧠 HG-ESS YWHAE 口訣',
+    main: '💎 「Y蛋白融合, Cyclin D1 強」',
+    breakdown: [
+      { key: 'Y融合', meaning: 'YWHAE-NUTM2A/B fusion' },
+      { key: 'Cyclin D1 強', meaning: 'IHC: cyclin D1 strong nuclear' },
+      { key: '高惡度', meaning: 'High-grade ESS' },
+      { key: 'CDK4/6 試', meaning: 'Palbociclib 等試驗中' },
+    ],
+    numbers: 'US <5% · Cyclin D1 IHC strong · 預後較 LG-ESS 差',
+    pitfalls: '與 LG-ESS 鑑別困難 → fusion gene 確認',
+    trials: 'Doxorubicin-based · CDK4/6 inhibitor 試驗',
+  },
+
+  'HG-ESS-BCOR': {
+    title: '🧠 HG-ESS BCOR 口訣',
+    main: '💎 「BCOR 像黏液, 鑑別 myxoid LMS」',
+    breakdown: [
+      { key: 'BCOR', meaning: 'ZC3H7B-BCOR fusion 或 BCOR-ITD' },
+      { key: '像黏液', meaning: 'Myxoid 形態 (mimic myxoid LMS)' },
+      { key: 'BCOR IHC', meaning: 'IHC: BCOR strong nuclear' },
+      { key: '鑑別困難', meaning: '【關鍵考點】vs myxoid LMS 形態相似' },
+    ],
+    numbers: 'US 罕見 · Myxoid 形態 · 預後較差',
+    pitfalls: 'Myxoid LMS vs HG-ESS BCOR 鑑別 — 必做 BCOR IHC + FISH',
+    trials: 'Doxorubicin-based · 試驗為主',
+  },
+
+  'NTRK-uterine-sarcoma': {
+    title: '🧠 NTRK 子宮肉瘤口訣',
+    main: '💎 「TRK 罕見, 拉樂七成」',
+    breakdown: [
+      { key: 'TRK', meaning: 'NTRK fusion (NTRK1/2/3)' },
+      { key: '罕見', meaning: '<1% sarcoma 但 high-impact' },
+      { key: '拉樂', meaning: 'Larotrectinib (拉) 或 Entrectinib' },
+      { key: '七成', meaning: 'ORR ~75% pan-tumor' },
+    ],
+    numbers: '<1% sarcoma · Larotrectinib ORR ~75% · pan-Trk IHC screening',
+    pitfalls: 'pan-Trk IHC specificity 不夠; 必須 NGS confirm',
+    trials: 'NTRK basket · FDA tumor-agnostic approval',
+  },
+
+  'CA125-trajectory': {
+    title: '🧠 CA-125 trajectory 口訣',
+    main: '💎 「GCIG 半下八週, 倍升復發」',
+    breakdown: [
+      { key: 'GCIG', meaning: 'GCIG response/progression criteria' },
+      { key: '半下', meaning: '反應: baseline ≥2× ULN → 下降 ≥50%' },
+      { key: '八週', meaning: '持續 ≥28 天 (確認反應)' },
+      { key: '倍升', meaning: '進展: nadir 上升 ≥2× (2 次確認)' },
+    ],
+    numbers: 'GCIG response: ≥50% drop × ≥28 days · Half-life ~5-7 days (好)',
+    pitfalls: 'Mucinous OC CA-125 多 normal; endometriosis 偽陽性',
+    trials: '所有 OC 試驗 endpoint 標準',
+  },
+
+  'KELIM-score': {
+    title: '🧠 KELIM score 口訣',
+    main: '💎 「一為界, ≥1 反應好」',
+    breakdown: [
+      { key: '一為界', meaning: 'KELIM cut-off = 1.0' },
+      { key: '≥1 反應好', meaning: 'KELIM ≥1 → favorable, 預測 PARPi 反應佳' },
+      { key: '<1 反應差', meaning: 'KELIM <1 → unfavorable' },
+      { key: '三點建模', meaning: '需 ≥3 個 CA-125 數據點計算' },
+    ],
+    numbers: 'KELIM ≥1 為 favorable · PAOLA-1 post-hoc 強相關 · 線上免費計算',
+    pitfalls: '需 ≥3 個 CA-125 點; mucinous OC 不適用',
+    trials: 'PAOLA-1/SOLO-1/PRIMA post-hoc validation',
+  },
+
+  'PFI-platinum-sensitivity': {
+    title: '🧠 PFI 鉑敏感性口訣',
+    main: '💎 「一六十二, 四級分」',
+    breakdown: [
+      { key: '一', meaning: 'PFI <1m → Refractory (無反應)' },
+      { key: '六', meaning: 'PFI 1-6m → Resistant (PROC)' },
+      { key: '十二', meaning: 'PFI 6-12m → Partially sensitive' },
+      { key: '十二+', meaning: 'PFI >12m → Fully sensitive (PSOC)' },
+    ],
+    numbers: 'PFI >12m → BRCA/HRD+ 富集; <6m → CCNE1/HRD- 富集',
+    pitfalls: 'Platinum maintenance 中復發 PFI=0, 不算 PSOC/PROC',
+    trials: 'SOLO2 (PSOC BRCAm) · MIRASOL (PROC FRα) · 等',
+  },
+
+// ====== 🟢 進階 12 個 ======
+
+  'L1CAM': {
+    title: '🧠 L1CAM 口訣',
+    main: '💎 「L1 陽十成, 遠處轉復發」',
+    breakdown: [
+      { key: 'L1', meaning: 'L1CAM IHC (cell adhesion molecule)' },
+      { key: '陽十成', meaning: '≥10% 染色為陽性' },
+      { key: '遠處轉', meaning: 'Distant recurrence 風險升' },
+      { key: 'PORTEC-4a', meaning: '整合於 risk model' },
+    ],
+    numbers: 'L1CAM+ ~10% Stage I-II EC · Recurrence risk 2-3 倍',
+    pitfalls: '不獨立分群; 與 4-tier 整合判讀',
+    trials: 'PORTEC-4a integrated risk model',
+  },
+
+  'BRCA-reversion': {
+    title: '🧠 PARPi 抗藥 5 機制口訣',
+    main: '💎 「逆 RAD CC fork 排, 五因抗 PARP」',
+    breakdown: [
+      { key: '逆', meaning: 'BRCA reversion (二次突變恢復) ~30-40%' },
+      { key: 'RAD', meaning: 'RAD51 foci recovery ~10-20%' },
+      { key: 'CC', meaning: 'CCNE1 amp ~15-25%' },
+      { key: 'fork', meaning: 'Replication fork stabilization ~10%' },
+      { key: '排', meaning: 'P-glycoprotein efflux ~5-10%' },
+    ],
+    numbers: '5 機制 + 對應策略 → 個別化精準治療',
+    pitfalls: 'BRCA reversion → 不再 PARPi rechallenge',
+    trials: 'PARPi+ATRi (CAPRI) · WEE1i · ADC · IO',
+  },
+
+  'Carcinosarcoma': {
+    title: '🧠 Carcinosarcoma 口訣',
+    main: '💎 「雙惡, P53 多, RUBY 收」',
+    breakdown: [
+      { key: '雙惡', meaning: '癌肉瘤 (carcinoma + sarcoma 雙成份)' },
+      { key: 'P53 多', meaning: 'TP53 m 高頻' },
+      { key: 'RUBY 收', meaning: 'RUBY P1 允許 carcinosarcoma' },
+      { key: 'GY018 不收', meaning: 'GY018 不允許 carcinosarcoma' },
+    ],
+    numbers: 'EC <5% / OC <5% · 預後最差 · 5y OS <30%',
+    pitfalls: 'GY018 vs RUBY 收案差別 → 試驗匹配重點',
+    trials: 'RUBY P1 (允許) · DUO-E (允許)',
+  },
+
+  'TROP2': {
+    title: '🧠 TROP2 口訣',
+    main: '💎 「2 跨膜, sac 聯合」',
+    breakdown: [
+      { key: '2 跨膜', meaning: 'TROP2 = trophoblast cell-surface 2 (跨膜糖蛋白)' },
+      { key: 'IHC 測', meaning: 'IHC 評分 (各試驗 cut-off 不同)' },
+      { key: 'sac', meaning: 'Sacituzumab Tirumotecan (sac-TMT) ADC' },
+      { key: '聯合 IO', meaning: '本院 TroFuse-036: PD-L1+ + TROP2+' },
+    ],
+    numbers: 'CC 多表現 · sac-TMT TopoI 抑制 ADC',
+    pitfalls: 'TROP2 IHC 標準化未統一',
+    trials: '本院 TroFuse-036 (CC) · TroFuse-021 (OC HRP)',
+  },
+
+  'PIK3CA': {
+    title: '🧠 PIK3CA 口訣',
+    main: '💎 「PI3K-AKT 路, OCCC 高」',
+    breakdown: [
+      { key: 'PI3K-AKT', meaning: 'PIK3CA 啟動 PI3K-AKT-mTOR pathway' },
+      { key: 'OCCC 高', meaning: 'OCCC ~33% PIK3CA m' },
+      { key: 'EC 也常', meaning: 'EC ~50% (高頻)' },
+      { key: 'AKT 抑制', meaning: 'AKT inhibitor 試驗中' },
+    ],
+    numbers: 'EC ~50% · OCCC ~33% · CC ~5-10%',
+    pitfalls: 'PIK3CA m + ARID1A m 共存於 OCCC',
+    trials: 'AKT inhibitor 試驗 · 部分 mTOR inhibitor 試驗',
+  },
+
+  'HPV-ctDNA': {
+    title: '🧠 HPV ctDNA 口訣',
+    main: '💎 「液狀 HPV, 早期警」',
+    breakdown: [
+      { key: '液狀', meaning: '血漿 ctDNA 檢測 HPV DNA' },
+      { key: '早期警', meaning: '早於影像 3-6 個月發現復發' },
+      { key: 'CCRT 後', meaning: 'CCRT 後 MRD 監測 (試驗 setting)' },
+      { key: '研究中', meaning: 'Research tool, 尚非 standard' },
+    ],
+    numbers: 'CCRT 後 persistent ctDNA → 復發風險高',
+    pitfalls: 'Sensitivity/specificity 因平台而異',
+    trials: 'CCRT 後 MRD 試驗 (research)',
+  },
+
+  'IMT-ALK': {
+    title: '🧠 IMT-ALK 口訣',
+    main: '💎 "炎肌纖維, ALK克唑」',
+    breakdown: [
+      { key: '炎肌纖維', meaning: 'Inflammatory myofibroblastic tumor' },
+      { key: 'ALK', meaning: 'ALK fusion ~50-60%' },
+      { key: '克唑', meaning: 'Crizotinib (FDA 2019 IMT)' },
+      { key: 'R0 治癒', meaning: 'R0 resection 為 curative' },
+    ],
+    numbers: 'IMT 罕見 · ALK fusion ~50-60% · Crizotinib FDA 2019',
+    pitfalls: 'ALK negative IMT 也有 (ROS1, RET, NTRK 替代)',
+    trials: 'Crizotinib · Lorlatinib (CNS+)',
+  },
+
+  'PEComa': {
+    title: '🧠 PEComa 口訣',
+    main: '💎 「黑梅L, TSC, 西羅莫」',
+    breakdown: [
+      { key: '黑梅L', meaning: 'IHC: HMB-45 + Melan-A + Cathepsin K' },
+      { key: 'TSC', meaning: 'TSC1/TSC2 mutation; ~20% TSC syndrome germline' },
+      { key: '西羅莫', meaning: 'Nab-Sirolimus (FDA 2021 malignant PEComa)' },
+      { key: 'mTOR', meaning: 'mTOR pathway 為治療標靶' },
+    ],
+    numbers: 'PEComa 罕見 · TSC germline ~20% · Nab-Sirolimus FDA 2021',
+    pitfalls: 'TSC germline 須 cascade testing 與 systemic 監測',
+    trials: 'Nab-Sirolimus · Sirolimus / Everolimus',
+  },
+
+  'Adenosarcoma': {
+    title: '🧠 Adenosarcoma 口訣',
+    main: '💎 「腺肉瘤, SO 變壞」',
+    breakdown: [
+      { key: '腺肉瘤', meaning: '良性腺體 + 惡性間質 (biphasic)' },
+      { key: 'SO', meaning: 'Sarcomatous Overgrowth (>25% pure sarcoma)' },
+      { key: '變壞', meaning: 'SO+ → 預後變差, 治療升級' },
+      { key: '核心考點', meaning: '【高頻考點】SO 評估必須做' },
+    ],
+    numbers: 'US 罕見 · SO+ 預後接近 high-grade sarcoma',
+    pitfalls: '【病理報告必含】Sarcomatous Overgrowth 評估',
+    trials: 'High-grade sarcoma 試驗',
+  },
+
+  'STUMP': {
+    title: '🧠 STUMP 口訣',
+    main: '💎 「不定惡, 嚴密追」',
+    breakdown: [
+      { key: '不定惡', meaning: 'Smooth Muscle Tumor of Uncertain Malignant Potential' },
+      { key: '達不到 LMS', meaning: 'Stanford criteria 達不到 LMS 標準' },
+      { key: '嚴密追', meaning: '長期追蹤, 部分仍會 metastasize' },
+      { key: '不需化療', meaning: '通常 surgery alone' },
+    ],
+    numbers: 'STUMP 罕見 · ~10-15% 仍復發 · 預後不確定',
+    pitfalls: '不要當良性處理; 仍需長期追蹤',
+    trials: 'Sarcoma 試驗 (若復發或 metastasis)',
+  },
+
+  'uLMS-hormonal': {
+    title: '🧠 uLMS hormonal 口訣',
+    main: '💎 「ER 陽給樂, 前更 GnRH」',
+    breakdown: [
+      { key: 'ER 陽', meaning: 'ER+/PR+ uLMS (~30-40%)' },
+      { key: '給樂', meaning: 'Letrozole 2.5mg QD (advanced)' },
+      { key: '前更', meaning: '停經前: GnRH agonist + AI 組合' },
+      { key: '禁雌', meaning: '【禁忌】HRT, tamoxifen' },
+    ],
+    numbers: 'uLMS ~30-40% ER+/PR+ · Letrozole ORR 10-20%',
+    pitfalls: 'Tamoxifen 對 uLMS 為禁忌 (可促進生長)',
+    trials: 'Letrozole + CDK4/6 (Palbociclib) combo 試驗',
+  },
+
+  'HE4-ROMA': {
+    title: '🧠 HE4 + ROMA 口訣',
+    main: '💎 「HE4 補 CA125, 偽陽濾掉」',
+    breakdown: [
+      { key: 'HE4', meaning: 'Human Epididymis Protein 4 (WFDC2)' },
+      { key: '補 CA125', meaning: 'CA-125 偽陽性疑慮時補強' },
+      { key: '偽陽濾掉', meaning: 'Endometriosis/PID/pregnancy 不升 → specificity ↑' },
+      { key: 'ROMA', meaning: 'Risk of Ovarian Malignancy Algorithm 公式' },
+    ],
+    numbers: 'ROMA 停經前 ≥7.4% / 停經後 ≥25.3% → high risk',
+    pitfalls: '腎功能不全 HE4 升高 (假性), 需校正',
+    trials: '主要為 adnexal mass 鑑別工具',
+  }
+};
+
+
 const EXAM_CARDS = {
   'POLEm': {
     definition: 'POLE exonuclease domain pathogenic mutation (exon 9-14, e.g. P286R, V411L)',
@@ -13352,6 +14211,11 @@ function renderMolList(){
       <div class="mol-fw-title">${data.framework}</div>
       <div class="mol-fw-desc">${data.description}</div>
     </div>
+    <div class="mol-toolbar">
+      <button class="highlight-toggle-btn ${highlightEnabled ? '' : 'off'}" onclick="toggleHighlight()" title="切換螢光標記重點">
+        ${highlightEnabled ? '🖍️ 螢光: 開' : '🖍️ 螢光: 關'}
+      </button>
+    </div>
     <button class="flashcard-mode-btn" onclick="openFlashcardMode('${currentMolTab}')">
       📇 ${currentMolTab} 考試模式 (翻牌記憶)
     </button>
@@ -13551,10 +14415,20 @@ function renderExamCard(entryId, card, cancer){
     }
   }
 
+  // 🧠 精簡口訣 (放在考試卡頂部)
+  const mnemonic = MNEMONICS[entryId];
+  const miniMnemonicHtml = mnemonic ? `
+    <div class="ec-mini-mnemonic">
+      <span class="ec-mini-mn-label">🧠 口訣</span>
+      <span class="ec-mini-mn-main">${escapeHtml(mnemonic.main)}</span>
+    </div>
+  ` : '';
+
   return `
     <div class="mol-exam-card">
       <div class="ec-label">📇 考試速記卡 · 30 秒記住</div>
       ${viewSwitcher}
+      ${miniMnemonicHtml}
       <div class="ec-grid">${rowsHtml}</div>
     </div>
   `;
@@ -13580,6 +14454,9 @@ function selectMolEntry(idx){
       🌳 啟動「${escapeHtml(entry.id)}」臨床下一步互動樹 →
     </button>
   ` : '';
+
+  // Build 🧠 記憶口訣 (if available)
+  const mnemonicHtml = renderMnemonic(entry.id);
 
   // Build linked trials section
   let linkedHtml = '';
@@ -13612,12 +14489,12 @@ function selectMolEntry(idx){
   const examHtml = entry.exam ? `
     <div class="mol-detail-section">
       <h4>📚 1. 考試重點 (定義 / 預後 / 治療)</h4>
-      <ul class="mol-bullets">${entry.exam.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+      <ul class="mol-bullets">${entry.exam.map(p => `<li>${applyHighlight(p)}</li>`).join('')}</ul>
     </div>
   ` : (entry.examPoints ? `
     <div class="mol-detail-section">
       <h4>📚 考試重點</h4>
-      <ul class="mol-bullets">${entry.examPoints.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+      <ul class="mol-bullets">${entry.examPoints.map(p => `<li>${applyHighlight(p)}</li>`).join('')}</ul>
     </div>
   ` : '');
 
@@ -13628,28 +14505,28 @@ function selectMolEntry(idx){
   const testingHtml = entry.testing ? `
     <div class="mol-detail-section">
       <h4>🔬 2. 臨床怎麼測 (IHC / NGS / methylation / FISH / ISH / PCR)</h4>
-      <ul class="mol-bullets">${entry.testing.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+      <ul class="mol-bullets">${entry.testing.map(p => `<li>${applyHighlight(p)}</li>`).join('')}</ul>
     </div>
   ` : '';
 
   const clinicalHtml = entry.clinical ? `
     <div class="mol-detail-section">
       <h4>🏥 3. 臨床怎麼用 (手術 / 輔助 / 系統治療 / 試驗)</h4>
-      <ul class="mol-bullets">${entry.clinical.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+      <ul class="mol-bullets">${entry.clinical.map(p => `<li>${applyHighlight(p)}</li>`).join('')}</ul>
     </div>
   ` : '';
 
   const nextStepHtml = entry.nextStep ? `
     <div class="mol-detail-section nextstep">
       <h4>📋 4. 遇到病人下一步 (還缺什麼 / 轉診 / 找試驗)</h4>
-      <ul class="mol-bullets">${entry.nextStep.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+      <ul class="mol-bullets">${entry.nextStep.map(p => `<li>${applyHighlight(p)}</li>`).join('')}</ul>
     </div>
   ` : '';
 
   const mechanismHtml = entry.mechanism ? `
     <div class="mol-detail-section">
       <h4>⚙️ 機制與藥物標靶</h4>
-      <div class="mol-mechanism">${escapeHtml(entry.mechanism)}</div>
+      <div class="mol-mechanism">${applyHighlight(entry.mechanism)}</div>
     </div>
   ` : '';
 
@@ -13663,6 +14540,7 @@ function selectMolEntry(idx){
     </div>
 
     ${examCardHtml}
+    ${mnemonicHtml}
     ${examHtml}
     ${testingHtml}
     ${clinicalHtml}
@@ -14639,6 +15517,122 @@ function renderTrialBlock(trial, lines){
 function escapeHtml(s){
   if(s == null) return '';
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ============================================================
+// 🖍️ 螢光標記 (Highlight) — 自動辨識重點 + 三色螢光
+// ============================================================
+let highlightEnabled = true; // 預設開啟
+
+function toggleHighlight(){
+  highlightEnabled = !highlightEnabled;
+  // Re-render whatever modal is open
+  if(el('molModal') && el('molModal').classList.contains('open')){
+    const data = MOL_PEDIA[currentMolTab];
+    if(!currentMolSpecial && data && data.entries[currentMolEntry]){
+      selectMolEntry(currentMolEntry);
+    }
+  }
+  // Update toggle button label if visible
+  const btns = document.querySelectorAll('.highlight-toggle-btn');
+  btns.forEach(b => {
+    b.innerHTML = highlightEnabled ? '🖍️ 螢光: 開' : '🖍️ 螢光: 關';
+    b.classList.toggle('off', !highlightEnabled);
+  });
+}
+
+function applyHighlight(text){
+  if(!highlightEnabled || !text) return escapeHtml(text);
+  // First escape HTML
+  let result = escapeHtml(text);
+
+  // Patterns to highlight (order matters: longer/more-specific patterns first)
+
+  // 🔵 BLUE highlight — 關鍵考點 / 易錯陷阱 (highest priority)
+  const bluePatterns = [
+    /(【[^】]{1,20}】)/g, // 中括號內 (e.g., 【關鍵考點】, 【強制】)
+    /(\b(?:互斥|mutually exclusive|不可用 IHC|不可用|強制|必須|關鍵考點|高頻考點|核心考點|考點|易錯|陷阱|不適用|常考錯|常被忽略)(?:[^,，。;；]{0,20})?)/g,
+    /(\b(?:NCCN Cat 1|NCCN Category 1|FDA Companion Dx|FDA approval|FDA approved|健保已給付|健保給付|健保部分給付)\b)/g,
+  ];
+
+  // 🟡 YELLOW highlight — 數字 / 百分比 / HR / cut-off
+  const yellowPatterns = [
+    /(\b\d+(?:\.\d+)?[%](?:[\u4e00-\u9fff]|\b))/g, // 數字+%
+    /(\b(?:HR|OS|PFS|ORR)\s*(?:[≥≤<>=]\s*)?\d+(?:\.\d+)?\b)/gi,
+    /(\b(?:5y|10y|3y|2y|1y)\s*(?:OS|PFS|DFS|RFS)\s*[≥≤<>=]?\s*\d+(?:\.\d+)?[%]?)/gi,
+    /(\b(?:GIS|LOH|CPS|TPS)\s*[≥≤<>=]\s*\d+(?:\.\d+)?[%]?)/g,
+    /(\bPFI\s*[<>≥≤]\s*\d+\s*(?:個月|months?|m\b))/g,
+    /(\b\d+(?:\.\d+)?\s*mg\/(?:kg|m²))/g,
+    /(\b\d+\s*(?:cycles?|個月|months?|days?|天))/g,
+    /(\b(?:Stage|stage)\s+I{1,3}V?A?B?[m]?\b)/g,
+  ];
+
+  // 💗 PINK highlight — 藥名 / 試驗名 / 基因名
+  const pinkPatterns = [
+    // 試驗名 (大寫字母組合 + 數字)
+    /(\b(?:KEYNOTE-[A-Z\d]+|GY\d+|RUBY P\d|SOLO-?\d|PAOLA-\d|PRIMA|NOVA|ARIEL\d|MIRASOL|BEATcc|DESTINY-[\w]+|GOG-?\d+|NRG-[\w]+|PORTEC-\d[a-z]?|RAINBO|DUO-[A-Z]|PALETTE|TroFuse-\d+|DOVE|PVX\d|NACT|GARNET|KELIM|CAPRI|PROC|PSOC|ROSELLA|ENGOT-\w+|GeDDiS|LMS-\d+|CCNE\d|CDH\d)\b)/g,
+    // 基因名 (常見婦癌相關)
+    /(\b(?:BRCA[12]?|TP53|POLE|MMR[d]?|MLH1|PMS2|MSH[26]|EPCAM|CTNNB1|CCNE1|HER2|FRα|PIK3CA|KRAS|BRAF|NRAS|NTRK[123]?|ALK|ROS1|RET|JAZF1|YWHAE|BCOR|SUZ12|NUTM2|TSC[12]|STK11|ARID1A|RAD51[CD]?|BRIP1|PALB2|FOLR1|TROP2|CDH6|HPV1[68]|L1CAM|MUC[16]|HE4|HIK1083|VE1|CDK[24])\b)/g,
+    // 藥名
+    /(\b(?:Olaparib|Niraparib|Rucaparib|Pembrolizumab|Pembro|Dostarlimab|Dostar|Bevacizumab|Bev|Atezolizumab|Atezo|Durvalumab|Durva|Trastuzumab|Mirvetuximab|Sacituzumab|sac-TMT|T-DXd|Trastuzumab Deruxtecan|Lenvatinib|Lenva|Letrozole|Anastrozole|Megestrol|Tamoxifen|Carboplatin|Carbo|Paclitaxel|Pacli|Doxorubicin|Doxo|Doxil|Gemcitabine|Cisplatin|Trabectedin|Pazopanib|Eribulin|Regorafenib|Cabozantinib|Larotrectinib|Entrectinib|Crizotinib|Lorlatinib|Sirolimus|Everolimus|Trametinib|Adavosertib|Ceralasertib|Relacorilant|nab-Pacli|nab-Sirolimus|Aspirin|GnRH)\b)/g,
+    // 4-tier 分子分型專名
+    /(\b(?:POLEm|POLEmut|MMRd|dMMR|p53abn|NSMP|HRD\+?|HRD-|HRP|BRCAm|HRRm|HER2\+|HER2-|HRD positive|HRD negative)\b)/g,
+  ];
+
+  // Apply blue first (highest priority — wraps content fully)
+  bluePatterns.forEach(p => {
+    result = result.replace(p, '<span class="hl-blue">$1</span>');
+  });
+
+  // Apply yellow
+  yellowPatterns.forEach(p => {
+    result = result.replace(p, (match, group, offset, full) => {
+      // Don't double-wrap if already inside <span>
+      const before = full.substring(Math.max(0, offset - 30), offset);
+      if(/<span[^>]*$/.test(before)) return match;
+      return `<span class="hl-yellow">${group}</span>`;
+    });
+  });
+
+  // Apply pink (skip if already inside a span)
+  pinkPatterns.forEach(p => {
+    result = result.replace(p, (match, group, offset, full) => {
+      const before = full.substring(Math.max(0, offset - 30), offset);
+      if(/<span[^>]*$/.test(before)) return match;
+      return `<span class="hl-pink">${group}</span>`;
+    });
+  });
+
+  return result;
+}
+
+// ============================================================
+// 🧠 記憶口訣 Render
+// ============================================================
+function renderMnemonic(entryId){
+  const m = MNEMONICS[entryId];
+  if(!m) return '';
+
+  return `
+    <div class="mnemonic-card">
+      <div class="mnemonic-header">${escapeHtml(m.title)}</div>
+      <div class="mnemonic-main">${escapeHtml(m.main)}</div>
+      <div class="mnemonic-breakdown">
+        ${m.breakdown.map(b => `
+          <div class="mn-row">
+            <span class="mn-key">${escapeHtml(b.key)}</span>
+            <span class="mn-arrow">→</span>
+            <span class="mn-meaning">${escapeHtml(b.meaning)}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="mnemonic-extras">
+        <div class="mn-extra-row"><span class="mn-extra-label">📍 數字</span> ${escapeHtml(m.numbers)}</div>
+        <div class="mn-extra-row warn"><span class="mn-extra-label">⚠️ 易錯</span> ${escapeHtml(m.pitfalls)}</div>
+        <div class="mn-extra-row trials"><span class="mn-extra-label">🎯 試驗</span> ${escapeHtml(m.trials)}</div>
+      </div>
+    </div>
+  `;
 }
 
 // Initialize AI config button display
