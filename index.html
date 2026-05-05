@@ -5116,7 +5116,7 @@ const TRIALS = [
   tagline:"LACC 新標準: 36m OS 82.6% vs 74.8% (HR 0.67); FU 41.9m PFS HR 0.72, OS HR 0.73。免疫治療整合入根治 CCRT 場景的里程碑。",
   rationale:"將免疫整合入高風險局部晚期 CCRT — Pembrolizumab 在化放療誘導 ICD 後強化抗腫瘤免疫,並透過維持期延續免疫監視,降低遠端轉移與微小殘餘病灶。",
   regimen:"1:1 randomization, n=1060\n試驗組 (n=529): Pembrolizumab 200mg IV Q3W × 5 cycles concurrent with CCRT → Pembrolizumab 400mg Q6W maintenance × 15 cycles\n對照組 (n=531): Placebo + CCRT → Placebo maintenance × 15 cycles\n\nCCRT 標準方案:\n  Cisplatin 40mg/m² IV weekly × 5-6 cycles\n  EBRT (45-50.4 Gy) + Brachytherapy (HDR/LDR)",
-  inc:["新診斷 high-risk locally advanced cervical cancer","FIGO 2014: Stage IB2-IIB with LN+ 或 Stage III-IVA","ECOG 0-1","計劃接受根治性 CCRT"],
+  inc:["新診斷 high-risk locally advanced cervical cancer","FIGO 2014 Stage IB2-IIB 且 LN+ (≥2 顆 LN 短軸 ≥1.5 cm)","FIGO 2014 Stage III-IVA (任何 LN status)","ECOG 0-1","計劃接受根治性 CCRT","Squamous, adenocarcinoma 或 adenosquamous"],
   exc:["既往系統性治療 / 免疫治療","活動性自體免疫需治療","不可控感染","放療禁忌","CNS 轉移"],
   outcomes:"【First interim PFS, FU 17.9m】24m PFS 67.8% vs 57.3% (HR 0.70, P=0.002)\n【Second interim OS, FU 29.9m】36m OS 82.6% vs 74.8% (HR 0.67, P=0.0040) — 顯著\n【Final analysis FU 41.9m, SGO 2025】PFS HR 0.72; OS HR 0.73 (CI 0.57-0.94)",
 
@@ -5124,7 +5124,7 @@ const TRIALS = [
   hist:"鱗狀細胞癌 ~85% / 腺癌或腺鱗癌 ~15%\nPD-L1 CPS ≥1: ~95%",
   stageDist:"FIGO 2014:\n  • Stage IB2-IIB with LN+: ~24%\n  • Stage III: ~57%\n  • Stage IVA: ~19%\nLN+ 為強制入組之一條件 (Stage IB2-IIB)",
   tech:"【CCRT backbone】\n  Cisplatin 40mg/m² weekly × 5-6 cycles\n  EBRT 45-50.4 Gy in 25-28 fractions\n  Brachytherapy (HDR or LDR) — 必須 (RT 完成 8 週內)\n  Total dose 至 cervix point A ≥85 Gy EQD2\n\n【Pembrolizumab 給藥】\n  Concurrent: 200mg Q3W × 5 cycles (與 CCRT 同步)\n  Maintenance: 400mg Q6W × 15 cycles (~24 個月)\n  Total ~20 doses\n\n關鍵安全性:\n  • G3+ AE: Pembro+CCRT 78% vs CCRT 70%\n  • Diarrhea, nausea (CCRT 主導)\n  • irAE: hypothyroidism ~22% (常見), pneumonitis ~3%\n  • G3+ irAE: 約 6%\n  • 治療相關死亡: 兩組相當",
-  subgroup:"【First interim PFS (Lancet 2024)】\n  • 24m PFS HR 0.70\n  • 持久 PFS 改善\n\n【Second interim OS (ESMO 2024 LBA)】\n  • 36m OS 82.6% vs 74.8% (HR 0.67)\n  • Lancet 2024 同步發表\n  • FDA approved Jan 2024 (LACC FIGO III-IVA)\n\n【Final analysis (SGO 2025, FU 41.9m)】\n  • PFS HR 0.72 (CI 0.59-0.87)\n  • OS HR 0.73 (CI 0.57-0.94)\n  • PFS2 (time to second progression) 顯著改善\n  • 24m / 36m PFS rates: 70.6% / 64.3% (vs 59.7% / 55.6%)\n\n【Histology subgroup】\n  • 鱗狀細胞癌: HR 0.65\n  • 腺癌: HR 0.78\n  • 兩組均見一致獲益\n\n【FIGO subgroup】\n  • Stage IB2-IIB LN+: HR 0.46\n  • Stage III: HR 0.74\n  • Stage IVA: HR 0.66\n\n【PD-L1 CPS subgroup】\n  • CPS ≥1 (~95% 患者): HR 0.66\n  • CPS <1: 數量過少",
+  subgroup:"【First interim PFS (Lancet 2024)】\n  • 24m PFS HR 0.70\n  • 持久 PFS 改善\n\n【Second interim OS (ESMO 2024 LBA)】\n  • 36m OS 82.6% vs 74.8% (HR 0.67)\n  • Lancet 2024 同步發表\n  • FDA approved Jan 2024 (LACC FIGO III-IVA)\n\n【Final analysis (SGO 2025, FU 41.9m)】\n  • PFS HR 0.72 (CI 0.59-0.87)\n  • OS HR 0.73 (CI 0.57-0.94)\n  • PFS2 (time to second progression) 顯著改善\n  • 24m / 36m PFS rates: 70.6% / 64.3% (vs 59.7% / 55.6%)\n\n【Histology subgroup】\n  • 鱗狀細胞癌: HR 0.65\n  • 腺癌: HR 0.78\n  • 兩組均見一致獲益\n\n【FIGO subgroup】\n  • Stage IB2-IIB LN+: HR 0.46\n  • Stage III: HR 0.74\n  • Stage IVA: HR 0.66\n\n【PD-L1 CPS subgroup】\n  • CPS ≥1 (~95% 患者): HR 0.66\n  • CPS <1: 數量過少\n\n【🔄 vs CALLA (高頻考點對比)】\n  • KEYNOTE-A18 納入嚴格: ≥2 顆 LN 短軸 ≥1.5 cm 或 Stage III-IVA\n  • CALLA 納入寬鬆: 任何 N+ 即可, Stage IB2 起收\n  • Placebo arm 24m PFS: KEYNOTE-A18 57% (差) vs CALLA 62.1% (好)\n  • → KEYNOTE-A18 高風險族群 → IO 加成空間大\n  • → CALLA 整體預後較好 → IO 加成空間小\n  • 加上 PD-1 (Pembro) vs PD-L1 (Durva) 機制差異",
   combo:"關鍵設計: Pembro 同步 CCRT + 維持期\n  • 不同於 CALLA (Durva 同步, 也加維持) — CALLA 失敗\n  • 不同於 INTERLACE (誘導化療 → CCRT) — INTERLACE 也成功但機制不同\n\n後續探索:\n  • KEYLYNK-026 (Olaparib + CCRT)\n  • eVOLVE-Cervical (Volrustomig 維持) — 序列免疫\n  • KEYNOTE-826 + KEYNOTE-A18 為 cervical IO 兩大支柱",
   guideline:"NCCN v2.2026 Category 1 for high-risk LACC (FIGO 2014 III-IVA)\nFDA approved Jan 12, 2024 (Stage III-IVA LACC)\nEMA approved Oct 2024\n台灣健保: 已給付 (FIGO III-IVA LACC)",
   nct:"NCT04221945",
@@ -5172,7 +5172,7 @@ const TRIALS = [
   tagline:"陰性結果: LACC 中 CCRT 加入 Durvalumab 並未顯著改善 PFS (HR 0.84, P=0.174)。",
   rationale:"探索 PD-L1 抑制劑與 CCRT 聯用是否產生協同免疫效應。為 KEYNOTE-A18 之前的 IO+CCRT 嘗試,結果失敗 — 引發後續對比 (Pembro vs Durva) 與設計改進。",
   regimen:"1:1 randomization, n=770\n試驗組 (n=385): Durvalumab 1500mg IV Q4W × 24 cycles + CCRT (concurrent + maintenance)\n對照組 (n=385): Placebo + CCRT",
-  inc:["Untreated locally advanced cervical cancer","FIGO 2009: IB2-IVA","接受根治性 CCRT","ECOG 0-1"],
+  inc:["Untreated locally advanced cervical cancer","FIGO 2009 Stage IB2-IIB 且 LN+ (任何 LN+ 即可, 不需 ≥2 顆 / ≥1.5 cm)","FIGO 2009 Stage IIIA-IVA (任何 LN status)","ECOG 0-1","接受根治性 CCRT","Squamous, adenocarcinoma 或 adenosquamous"],
   exc:["既往免疫治療","活動性自體免疫需治療","放療 / 化療禁忌"],
   outcomes:"【ITT PFS】HR 0.84 (CI 0.65-1.08, P=0.174) — 未達顯著\n【24m PFS】65.9% vs 62.1% — 數值上 Durva 略佳但 NS\n【ITT OS】Trend HR 0.78 — 未達顯著\n【G3+ AE】兩組相當",
 
@@ -5180,7 +5180,7 @@ const TRIALS = [
   hist:"鱗狀 ~74% / 腺癌或腺鱗癌 ~26%",
   stageDist:"FIGO 2009 IB2-IVA",
   tech:"Durvalumab 1500mg Q4W (concurrent + maintenance)\nCCRT: Cisplatin 40mg/m² weekly + EBRT/brachy\n\n失敗的可能解釋:\n  • Durvalumab Q4W 給藥頻率較稀疏 (vs Pembro Q3W)\n  • 起始時機較晚 — Durva 第一劑可能在 CCRT 之後\n  • PD-L1 vs PD-1 機制差異可能影響 CCRT 整合\n  • 對照 arm 表現比預期好\n\n關鍵: KEYNOTE-A18 的 Pembro 用 200mg Q3W concurrent + 400mg Q6W maintenance — 設計差異可能是成功關鍵",
-  subgroup:"【ITT PFS】HR 0.84 (NS)\n【FIGO Stage subgroup】\n  • Stage IIIA-IVA: HR 0.62 (探索性,接近顯著)\n  • Stage IB2-II: HR 1.04\n  • 顯示 IO 在較晚期 LACC 較有效 — 與 KEYNOTE-A18 III-IVA 主要族群結果一致\n\n【PD-L1 CPS subgroup】\n  • CPS ≥1: HR 0.71\n  • CPS <1: HR 1.05\n\n【Histology】\n  • 鱗狀: HR 0.79\n  • 腺癌: HR 0.99",
+  subgroup:"【ITT PFS】HR 0.84 (NS)\n【FIGO Stage subgroup】\n  • Stage IIIA-IVA: HR 0.62 (探索性,接近顯著)\n  • Stage IB2-II: HR 1.04\n  • 顯示 IO 在較晚期 LACC 較有效 — 與 KEYNOTE-A18 III-IVA 主要族群結果一致\n\n【PD-L1 CPS subgroup】\n  • CPS ≥1: HR 0.71\n  • CPS <1: HR 1.05\n\n【Histology】\n  • 鱗狀: HR 0.79\n  • 腺癌: HR 0.99\n\n【🔄 vs KEYNOTE-A18 (高頻考點對比)】\n  • CALLA 納入寬鬆: 任何 N+ 即可 (vs KEYNOTE-A18 需 ≥2 顆 LN 短軸 ≥1.5 cm)\n  • Stage IB2-IIB 比例較 KEYNOTE-A18 高\n  • Placebo arm 24m PFS 62.1% (vs KEYNOTE-A18 placebo 57%)\n  • → CALLA 整體族群預後較好 → IO 加成空間小\n  • Stage IIIA-IVA subgroup HR 0.62 (探索性顯著) — 與 KEYNOTE-A18 主要 driver 一致\n  • PD-L1 (Durva) vs PD-1 (Pembro) — 不同機制可能影響",
   combo:"陰性試驗,但提供寶貴設計教訓:\n  • 給藥方案 (frequency, timing) 重要\n  • 對 patient selection (Stage, PD-L1) 應更精準\n\n啟發 KEYNOTE-A18 的成功設計",
   guideline:"未進入指引 (陰性結果)\nDurvalumab 不被推薦於 LACC + CCRT",
   nct:"NCT03830866",
@@ -12505,16 +12505,16 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'keynote-a18': {
-    main: '💎 「KEYNOTE-A18 + Pembro+CCRT, LACC 新標準, OS HR 0.67」',
+    main: '💎 「KEYNOTE-A18 + Pembro+CCRT, 高風險族群, OS HR 0.67」',
     breakdown: [
       { key: 'KEYNOTE-A18', meaning: 'KEYNOTE-A18 試驗 (試驗名)' },
       { key: 'Pembro+CCRT', meaning: 'Pembrolizumab + 同步化放療 (CCRT)' },
-      { key: 'LACC 新標準', meaning: '【特色】首個 IO 整合入 LACC 根治 CCRT 場景' },
+      { key: '高風險族群', meaning: '【關鍵】嚴格納入: ≥2 顆 LN 短軸 ≥1.5 cm, 或 Stage III-IVA' },
       { key: 'OS HR 0.67', meaning: '36m OS 82.6% vs 74.8%; PFS HR 0.72' },
     ],
-    keypoint: 'LACC IO+CCRT 新標準; 全分子分型適用 (不限 PD-L1)',
-    numbers: '36m OS 82.6% vs 74.8% HR 0.67 · PFS HR 0.72 · 41.9m FU OS HR 0.73',
-    pitfalls: '【vs CALLA】KEYNOTE-A18 (Pembro) 成功; CALLA (Durva) 失敗 — 不同 IO 結果不同',
+    keypoint: 'LACC IO+CCRT 新標準; 嚴格高風險族群 (placebo arm 24m PFS 僅 57%)',
+    numbers: '36m OS 82.6% vs 74.8% HR 0.67 · PFS HR 0.72 · 主要 driver 為 Stage III-IVA subgroup',
+    pitfalls: '【vs CALLA 關鍵差異】1. 納入 ≥2 顆 LN 短軸 ≥1.5cm (CALLA 只需 N+); 2. Stage III-IVA 比例較高; 3. PD-1 (Pembro) vs PD-L1 (Durva). KEYNOTE-A18 placebo arm 表現差 (24m PFS 57%) → IO 加成空間大',
   },
 
   'interlace': {
@@ -12531,16 +12531,16 @@ const TRIAL_MNEMONICS = {
   },
 
   'calla': {
-    main: '💎 「CALLA + Durva+CCRT, LACC IO 失敗, PFS HR 0.84 NS」',
+    main: '💎 「CALLA + Durva+CCRT, 寬鬆族群, PFS HR 0.84 NS」',
     breakdown: [
       { key: 'CALLA', meaning: 'CALLA 試驗 (試驗名)' },
       { key: 'Durva+CCRT', meaning: 'Durvalumab + 同步化放療' },
-      { key: 'LACC IO 失敗', meaning: '【負面】未顯著改善 PFS' },
-      { key: 'PFS HR 0.84 NS', meaning: 'PFS HR 0.84, P=0.174 — 主終點未達' },
+      { key: '寬鬆族群', meaning: '【關鍵】納入較寬: 任何 N+ (不需 ≥2 顆/≥1.5cm), Stage IB2 起收' },
+      { key: 'PFS HR 0.84 NS', meaning: '【負面】PFS HR 0.84, P=0.174 — 主終點未達' },
     ],
-    keypoint: '【負面試驗】LACC + Durvalumab 失敗; 與 KEYNOTE-A18 結果相反',
-    numbers: 'PFS HR 0.84 · P=0.174 · 主終點未達',
-    pitfalls: '【高頻考點】CALLA (Durva) NS vs KEYNOTE-A18 (Pembro) +; 不同 IO 在 LACC 表現不同',
+    keypoint: '【負面試驗】LACC + Durvalumab 失敗; 族群風險較 KEYNOTE-A18 低',
+    numbers: 'PFS HR 0.84 · P=0.174 · 24m PFS 65.9% vs 62.1% (placebo arm 較高)',
+    pitfalls: '【vs KEYNOTE-A18 關鍵差異】1. CALLA 任何 N+ 即收 (不需 ≥2 顆/短軸 ≥1.5cm); 2. Stage IB2-IIB 比例高; 3. Placebo arm 24m PFS 62.1% (vs KEYNOTE-A18 placebo 57%) → 整體預後較好, IO 加成空間小; 4. PD-L1 (Durva) vs PD-1 (Pembro)',
   },
 
   'outback': {
@@ -17371,6 +17371,10 @@ function applyHighlight(text){
     /(【[^】]{1,20}】)/g, // 中括號內 (e.g., 【關鍵考點】, 【強制】)
     /(\b(?:互斥|mutually exclusive|不可用 IHC|不可用|強制|必須|關鍵考點|高頻考點|核心考點|考點|易錯|陷阱|不適用|常考錯|常被忽略)(?:[^,，。;；]{0,20})?)/g,
     /(\b(?:NCCN Cat 1|NCCN Category 1|FDA Companion Dx|FDA approval|FDA approved|健保已給付|健保給付|健保部分給付)\b)/g,
+    /(納入(?:嚴格|寬鬆|較廣|較嚴)[^,，。;；]{0,15})/g,
+    /((?:placebo|Placebo)\s*arm[^,，。;；]{0,10})/g,
+    /((?:加成空間)(?:大|小)?)/g,
+    /((?:高風險|低風險)(?:族群|患者)?)/g,
   ];
 
   // 🟡 YELLOW highlight — 數字 / 百分比 / HR / cut-off
@@ -17383,6 +17387,13 @@ function applyHighlight(text){
     /(\b\d+(?:\.\d+)?\s*mg\/(?:kg|m²))/g,
     /(\b\d+\s*(?:cycles?|個月|months?|days?|天))/g,
     /(\b(?:Stage|stage)\s+I{1,3}V?A?B?[m]?\b)/g,
+    // LACC trial inclusion criteria (KEYNOTE-A18 vs CALLA)
+    /(≥\s*\d+\s*顆\s*LN[^,，。;；]{0,15})/g,
+    /(短軸\s*≥\s*\d+(?:\.\d+)?\s*cm)/g,
+    /(任何\s*N[+\-]\s*(?:即可)?)/g,
+    /(任何\s*LN(?:\s*status)?)/g,
+    /(LN[+\-]\s*(?:陽性|陰性)?)/g,
+    /(N[+\-]\s*(?:陽性|陰性)?)/g,
   ];
 
   // 💗 PINK highlight — 藥名 / 試驗名 / 基因名
