@@ -11506,6 +11506,120 @@ const TRIAL_MNEMONICS = {
   },
 
 
+
+  // ============================================================
+  // ====== EC 復發 (R-TX) ======
+  // ============================================================
+
+  'keynote-775': {
+    main: '💎 「KEYNOTE-775 + Pembro+Lenva, 後線標準, 不收肉瘤」',
+    breakdown: [
+      { key: 'KEYNOTE-775', meaning: 'KEYNOTE-775 / Study 309 (試驗名)' },
+      { key: 'Pembro+Lenva', meaning: 'Pembrolizumab + Lenvatinib (PD-1 + multi-kinase)' },
+      { key: '後線標準', meaning: '【特色】2L+ 後線新標準 (post-platinum failed)' },
+      { key: 'pMMR HR 0.60', meaning: 'pMMR PFS HR 0.60, OS HR 0.70 — 主要 cohort' },
+    ],
+    keypoint: 'Post-platinum 後線 EC: Pembro + Lenva vs Doxo/Pacli (雙藥)',
+    numbers: 'pMMR mPFS 6.6 vs 3.8m HR 0.60 · mOS 18.0 vs 12.2m HR 0.70 · ORR 32.4% vs 15.1%',
+    pitfalls: '【vs RUBY/GY018】KEYNOTE-775 為 2L+ 後線, RUBY/GY018 為 1L; 排除 carcinosarcoma',
+  },
+
+  'garnet': {
+    main: '💎 「GARNET + Dostar 單藥, dMMR ICI 黃金, ORR 45.5」',
+    breakdown: [
+      { key: 'GARNET', meaning: 'GARNET 試驗 (試驗名)' },
+      { key: 'Dostar 單藥', meaning: 'Dostarlimab 單藥 (no chemo)' },
+      { key: 'dMMR ICI 黃金', meaning: '【特色】dMMR/MSI-H 後線 IO 單藥金標準' },
+      { key: '24m 緩解 83.7%', meaning: '【關鍵數字】Cohort A1 mDOR 未達到; 24m 緩解機率 83.7%' },
+    ],
+    keypoint: 'Recurrent dMMR EC 後線 IO 單藥; FDA 加速核准 (2021)',
+    numbers: 'dMMR ORR 45.5% (CR 16.1%) · pMMR ORR 15.4% · mDOR 未達到',
+    pitfalls: 'pMMR ORR 低 (<15%); 主要對 MMRd 有效; 為單臂試驗 (cohort A1 vs A2)',
+  },
+
+  'destiny-pantumor02': {
+    main: '💎 「DESTINY-PanTumor02 + T-DXd, EC ORR 57.5%, IHC 3+ 翻倍」',
+    breakdown: [
+      { key: 'DESTINY-PanTumor02', meaning: 'DESTINY-PanTumor02 (試驗名, EC cohort)' },
+      { key: 'T-DXd', meaning: 'Trastuzumab Deruxtecan (HER2-ADC)' },
+      { key: 'EC ORR 57.5%', meaning: '【特色】EC cohort 表現最佳 (vs CC 50% / OC 45%)' },
+      { key: 'IHC 3+ 翻倍', meaning: '【關鍵】IHC 3+ ORR 84.6% (n=13); IHC 2+ ORR 26.5%' },
+    ],
+    keypoint: 'Pan-tumor HER2 IHC 3+ 試驗; EC/OC/CC 都受益 (FDA tumor-agnostic 2024)',
+    numbers: 'EC ORR 57.5% mPFS 11.1m mOS 26.0m · IHC 3+ ORR 84.6% (vs 2+ 26.5%)',
+    pitfalls: 'IHC 3+ vs 2+ 反應差很大; ILD risk 必須監測; 採乳癌 HER2 criteria',
+  },
+
+  'tropics-03': {
+    main: '💎 「TROPiCS-03 + SG, EC ORR 22%, ASCENT-GYN-01 鋪路」',
+    breakdown: [
+      { key: 'TROPiCS-03', meaning: 'TROPiCS-03 (EC cohort, 試驗名)' },
+      { key: 'SG', meaning: 'Sacituzumab Govitecan (TROP2-ADC)' },
+      { key: 'EC ORR 22%', meaning: '【特色】後線 TROP2-ADC 早期 phase II 訊號' },
+      { key: 'ASCENT-GYN-01 鋪路', meaning: '為 ASCENT-GYN-01 phase III 確認試驗鋪路' },
+    ],
+    keypoint: 'Phase II EC 後線: Sacituzumab Govitecan (TROP2-ADC) 早期證據',
+    numbers: 'EC ORR 22% · mDOR 8.8m · mPFS 4.8m · mOS 22.2m',
+    pitfalls: 'TROP2 表現程度與反應率關聯有限 (與 FRα IHC 不同); 為 phase II 訊號',
+  },
+
+  'ascent-gyn-01': {
+    main: '💎 「ASCENT-GYN-01 + SG vs TPC, Phase III 確認, ongoing」',
+    breakdown: [
+      { key: 'ASCENT-GYN-01', meaning: 'ASCENT-GYN-01 (試驗名)' },
+      { key: 'SG vs TPC', meaning: 'Sacituzumab Govitecan vs Treatment of Physician 選擇 (Doxo/Pacli)' },
+      { key: 'Phase III 確認', meaning: '【特色】TROPiCS-03 後續 phase III confirmatory' },
+      { key: 'ongoing', meaning: '招募已停止 (2025-9), 預計 2029 完成' },
+    ],
+    keypoint: '含鉑+IO 後失敗 EC: SG vs TPC; 640 例 phase III',
+    numbers: 'Primary: BICR-PFS, OS · Estimated completion 2029-Jun',
+    pitfalls: '結果尚未公布; SG 在 GI 副作用較強 (vs sac-TMT)',
+  },
+
+  'bluestar': {
+    main: '💎 「BLUESTAR + AZD8205 (B7-H4 ADC), ORR 38.5%, 新標靶突破」',
+    breakdown: [
+      { key: 'BLUESTAR', meaning: 'BLUESTAR 試驗 (試驗名)' },
+      { key: 'AZD8205', meaning: 'AZD8205 / Puxitatug Samrotecan (B7-H4 ADC)' },
+      { key: 'ORR 38.5%', meaning: '【特色】2.4mg/kg cohort ORR 38.5%, mPFS 7.0m' },
+      { key: '新標靶', meaning: 'B7-H4 為新興 EC ADC 標靶 (vs HER2/TROP2/FRα)' },
+    ],
+    keypoint: 'Phase I/II EC dose-expansion: B7-H4 ADC 突破訊號',
+    numbers: '2.4mg/kg ORR 38.5% mPFS 7.0m · 2.0mg/kg ORR 34.6% · 1.6mg/kg ORR ~25%',
+    pitfalls: '早期 phase I/II 訊號; 尚未 phase III; B7-H4 IHC 為 selection 工具',
+  },
+
+  // ============================================================
+  // ====== EC 復發維持 (R-MT) / 復發+維持 (R-TX, R-MT) ======
+  // ============================================================
+
+  'keynote-c93': {
+    main: '💎 「KEYNOTE-C93 + Pembro 單藥, dMMR 去化療, vs chemo」',
+    breakdown: [
+      { key: 'KEYNOTE-C93', meaning: 'KEYNOTE-C93 (試驗名)' },
+      { key: 'Pembro 單藥', meaning: 'Pembrolizumab 單藥 (no chemo)' },
+      { key: 'dMMR 去化療', meaning: '【特色】dMMR 復發 EC 去化療策略' },
+      { key: 'vs chemo', meaning: '【挑戰】直接挑戰化療作為 1L 標準 (head-to-head)' },
+    ],
+    keypoint: 'dMMR 復發 EC: 單藥 Pembro vs 含鉑化療 (head-to-head 設計)',
+    numbers: 'Primary: PFS · 預計 2026-2027 interim · ongoing',
+    pitfalls: 'dMMR-only; 結果出來會改變 dMMR EC 1L 標準; pMMR 不適用',
+  },
+
+  'keynote-867': {
+    main: '💎 「KEYNOTE-867 / KEYLYNK-007 + Pembro+Olap, 二線維持探索」',
+    breakdown: [
+      { key: 'KEYNOTE-867', meaning: 'KEYLYNK-007 / KEYNOTE-867 (試驗名)' },
+      { key: 'Pembro+Olap', meaning: 'Pembrolizumab + Olaparib 雙藥維持' },
+      { key: '二線維持', meaning: '【特色】二線後復發 EC 維持探索' },
+      { key: 'pMMR/p53m/HRRm', meaning: '主要鎖定 pMMR / TP53m / HRRm 族群' },
+    ],
+    keypoint: '二線後復發 EC: Pembro + Olap 雙藥維持探索 (PD-1 + PARPi)',
+    numbers: 'Primary: PFS, ORR · ongoing · EC 為其中一個 cohort',
+    pitfalls: 'EC 為其中 cohort (basket trial); 維持效力觀察中',
+  },
+
+
 };
 
 
