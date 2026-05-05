@@ -11620,6 +11620,452 @@ const TRIAL_MNEMONICS = {
   },
 
 
+
+  // ============================================================
+  // ====== OC 一線 (P-TX) - Bev / 化療 / Surgery 標靶 ======
+  // ============================================================
+
+  'gog-0218': {
+    main: '💎 「GOG-0218 + Bev induction+maint, PFS HR 0.72, ITT OS 不顯」',
+    breakdown: [
+      { key: 'GOG-0218', meaning: 'GOG-0218 試驗 (試驗名)' },
+      { key: 'Bev induction+maint', meaning: 'Bevacizumab 含 induction + maintenance 期' },
+      { key: 'PFS HR 0.72', meaning: '【特色】一線標靶基石; PFS HR 0.717 顯著' },
+      { key: 'ITT OS 不顯', meaning: '【負面】ITT OS NS; Stage IV 探索性 OS 獲益' },
+    ],
+    keypoint: '一線 OC 加 Bev induction+maintenance; 確立 Bev 一線地位',
+    numbers: 'PFS HR 0.717 · ITT OS NS · Stage IV subgroup OS 獲益',
+    pitfalls: 'ITT OS 沒過; 一線 Bev 主要看 PFS 與 high-risk subgroup',
+  },
+
+  'icon7': {
+    main: '💎 「ICON7 + Bev 低劑量, PFS HR 0.81, high-risk OS 強」',
+    breakdown: [
+      { key: 'ICON7', meaning: 'ICON7 試驗 (試驗名)' },
+      { key: 'Bev 低劑量', meaning: '7.5mg/kg 低劑量 (vs GOG-218 15mg/kg)' },
+      { key: 'PFS HR 0.81', meaning: '【特色】整體 PFS 獲益' },
+      { key: 'high-risk OS 強', meaning: 'high-risk subgroup OS HR 0.78, 延長 4.8m' },
+    ],
+    keypoint: '一線 OC 加 Bev (低劑量歐洲版); 確立一線 Bev 地位',
+    numbers: 'PFS HR 0.81 · high-risk OS HR 0.78 (+4.8m)',
+    pitfalls: 'ICON7 為 7.5mg/kg 低劑量; GOG-218 為 15mg/kg 高劑量',
+  },
+
+  'jgog3016': {
+    main: '💎 「JGOG 3016 + Dose-Dense Pacli, mOS 100 vs 62, 西方未複製」',
+    breakdown: [
+      { key: 'JGOG 3016', meaning: '日本 JGOG 3016 試驗 (試驗名)' },
+      { key: 'Dose-Dense Pacli', meaning: 'Weekly Pacli (劑量密集) + Q3W Carbo' },
+      { key: 'mOS 100 vs 62', meaning: '【特色】亞洲族群驚人 OS 延長' },
+      { key: '西方未複製', meaning: '【關鍵】GOG-262/ICON8 西方人群未複製' },
+    ],
+    keypoint: '亞洲族群劑量密集化療突破; mOS 100 vs 62m HR 0.75',
+    numbers: 'mPFS 28 vs 17m · mOS 100 vs 62m HR 0.75 · 亞洲限定',
+    pitfalls: '【高頻考點】JGOG 西方未複製; GOG-262/ICON8 為陰性',
+  },
+
+  'eortc-55971': {
+    main: '💎 「EORTC 55971 + NACT vs PDS, mOS 30 vs 29, NACT 非劣效」',
+    breakdown: [
+      { key: 'EORTC 55971', meaning: 'EORTC 55971 (試驗名)' },
+      { key: 'NACT vs PDS', meaning: 'Neoadjuvant Chemo vs Primary Debulking Surgery' },
+      { key: 'mOS 30 vs 29', meaning: '【特色】NACT 非劣效標竿 (HR 0.98)' },
+      { key: '高負荷適用', meaning: '確立 Stage IIIC/IV 高負荷適用 NACT' },
+    ],
+    keypoint: 'NACT vs PDS 經典頭對頭; 確立 NACT 在高負荷腫瘤地位',
+    numbers: 'mOS 30 vs 29m HR 0.98 (NI 達成) · NACT 並發症少',
+    pitfalls: '不是「NACT 比 PDS 好」, 是「非劣效」; 仍以 PDS 優先 (高品質中心)',
+  },
+
+  'chorus': {
+    main: '💎 「CHORUS + NACT vs PDS, UK 確認, mOS 23.6 vs 22.6」',
+    breakdown: [
+      { key: 'CHORUS', meaning: 'CHORUS (UK confirmatory) 試驗' },
+      { key: 'NACT vs PDS', meaning: 'NACT vs PDS 重複驗證' },
+      { key: 'mOS 23.6 vs 22.6', meaning: '【特色】HR 0.87, NI 達成' },
+      { key: '降併發症', meaning: 'NACT 顯著降低圍術期併發症' },
+    ],
+    keypoint: 'NACT vs PDS UK 確認試驗; 重複 EORTC 55971 結論',
+    numbers: 'mOS 23.6 vs 22.6m HR 0.87 (NI 達成)',
+    pitfalls: '與 EORTC 55971 結論一致; pooled analysis 顯示 Stage IV 受益較大',
+  },
+
+  // ============================================================
+  // ====== OC 一線維持 (P-MT) - PARPi / Bev / ADC ======
+  // ============================================================
+
+  'solo-1': {
+    main: '💎 「SOLO-1 + Olap (BRCAm), 5y PFS 56 vs 14, 7y OS HR 0.55」',
+    breakdown: [
+      { key: 'SOLO-1', meaning: 'SOLO-1 / GOG 3004 (試驗名)' },
+      { key: 'Olap (BRCAm)', meaning: 'Olaparib 300mg bid × 2 年 (BRCAm only)' },
+      { key: '5y PFS 56 vs 14', meaning: '【特色】BRCAm 一線維持金標準' },
+      { key: '7y OS HR 0.55', meaning: '7y OS 67% vs 47% (HR 0.55)' },
+    ],
+    keypoint: 'BRCAm 一線維持金標準; NCCN Cat 1; 7 年長期追蹤確立 OS 獲益',
+    numbers: '5y mPFS 56 vs 14m HR 0.33 · 7y OS HR 0.55 (67% vs 47%)',
+    pitfalls: 'BRCAm 限定; non-BRCAm 看 PRIMA / PAOLA-1 / DUO-O',
+  },
+
+  'prima': {
+    main: '💎 「PRIMA + Nira 全人群, HRD+ HR 0.43, 最終 OS NS」',
+    breakdown: [
+      { key: 'PRIMA', meaning: 'PRIMA 試驗 (試驗名)' },
+      { key: 'Nira 全人群', meaning: 'Niraparib 一線維持 (全 HGSC, 不限 BRCA)' },
+      { key: 'HRD+ HR 0.43', meaning: '【特色】HRD+ PFS HR 0.43; ITT HR 0.62' },
+      { key: '最終 OS NS', meaning: '【負面】最終 OS 無顯著差異 (HR 1.01)' },
+    ],
+    keypoint: '全人群一線維持 (不限 BRCA/HRD); HRD+ 獲益最佳',
+    numbers: 'HRD+ PFS HR 0.43 · ITT PFS HR 0.62 · 最終 OS HR 1.01 (NS)',
+    pitfalls: '【關鍵】OS NS — 不能說 PRIMA 改善 survival; 主要 PFS 獲益',
+  },
+
+  'paola-1': {
+    main: '💎 「PAOLA-1 + Olap+Bev (HRD+), mPFS 37 vs 18, 5y OS 65.5%」',
+    breakdown: [
+      { key: 'PAOLA-1', meaning: 'PAOLA-1 試驗 (試驗名)' },
+      { key: 'Olap+Bev (HRD+)', meaning: 'Olaparib + Bevacizumab 雙藥維持 (HRD+ 才獲益)' },
+      { key: 'mPFS 37 vs 18', meaning: '【特色】HRD+ mPFS 翻倍 (HR 0.33)' },
+      { key: '5y OS 65.5%', meaning: '5y OS 65.5% vs 48.4% HR 0.62' },
+    ],
+    keypoint: 'HRD+ 雙藥維持金標準; ITT 整體 OS NS (subgroup-driven)',
+    numbers: 'HRD+ mPFS 37.2 vs 17.7m HR 0.33 · 5y OS 65.5% vs 48.4% HR 0.62 · ITT OS NS',
+    pitfalls: 'HRD- 無獲益; ITT OS 不顯; 必先測 HRD',
+  },
+
+  'athena-mono': {
+    main: '💎 「ATHENA-MONO + Ruca 全人群, HRD+ HR 0.47, HRD- HR 0.65」',
+    breakdown: [
+      { key: 'ATHENA-MONO', meaning: 'ATHENA-MONO 試驗 (試驗名)' },
+      { key: 'Ruca 全人群', meaning: 'Rucaparib 一線維持 (HRD/HRP 均見獲益)' },
+      { key: 'HRD+ HR 0.47', meaning: '【特色】HRD+ 強; HRD- 也有 (HR 0.65)' },
+      { key: '部分撤回', meaning: '【關鍵】Rucaparib OC 適應症已部分撤回 (FDA 2022 PROC)' },
+    ],
+    keypoint: '全人群一線維持 (HRD/HRP 均見獲益); 但臨床地位下降',
+    numbers: 'HRD+ HR 0.47 · ITT HR 0.52 · HRD- HR 0.65',
+    pitfalls: 'Rucaparib 適應症部分撤回 (商業考量); 臨床 PARPi 首選 Olap/Nira',
+  },
+
+  'duo-o': {
+    main: '💎 「DUO-O + Durva+Bev+Olap (non-BRCAm), HRD+ mPFS 45.1 vs 23.3」',
+    breakdown: [
+      { key: 'DUO-O', meaning: 'DUO-O 試驗 (試驗名)' },
+      { key: 'Durva+Bev+Olap', meaning: 'Durvalumab + Bevacizumab + Olaparib 三藥維持' },
+      { key: 'non-BRCAm', meaning: '【特色】non-BRCAm 限定 (BRCAm 用 SOLO-1)' },
+      { key: 'HRD+ HR 0.46', meaning: 'HRD+ mPFS 45.1 vs 23.3m HR 0.46' },
+    ],
+    keypoint: 'non-BRCAm 三藥維持 (PD-L1+Bev+PARPi); OS 未達顯著',
+    numbers: 'HRD+ mPFS 45.1 vs 23.3m HR 0.46 · ITT 25.1 vs 19.3m HR 0.62 · OS NS',
+    pitfalls: '【限制】non-BRCAm only (BRCAm 用 SOLO-1); OS 未達顯著',
+  },
+
+  'ovario': {
+    main: '💎 「OVARIO + Nira+Bev, mPFS 19.6m, 雙標靶維持」',
+    breakdown: [
+      { key: 'OVARIO', meaning: 'OVARIO 試驗 (試驗名)' },
+      { key: 'Nira+Bev', meaning: 'Niraparib + Bevacizumab 雙標靶維持' },
+      { key: 'mPFS 19.6m', meaning: '【特色】完成 Bev 化療後雙標靶維持探索' },
+      { key: 'mOS 61.1m', meaning: '長期 OS 觀察良好' },
+    ],
+    keypoint: 'PARPi+anti-VEGF 雙標靶維持 (Niraparib+Bev) phase II 訊號',
+    numbers: 'mPFS 19.6m · mOS 61.1m · single-arm phase II',
+    pitfalls: 'Single-arm phase II; 為 RCT (PAOLA-2/PRIMA+Bev) 鋪路',
+  },
+
+  'boost-engot-ov15': {
+    main: '💎 「BOOST/ENGOT-ov15 + Bev 30m vs 15m, HR 0.99, 不延長」',
+    breakdown: [
+      { key: 'BOOST/ENGOT-ov15', meaning: 'BOOST / ENGOT-ov15 (試驗名)' },
+      { key: 'Bev 30m vs 15m', meaning: '【特色】Bev 維持時程比較 (30 個月 vs 15 個月)' },
+      { key: 'HR 0.99', meaning: '【負面】無額外生存獲益 (HR 0.99)' },
+      { key: '不延長', meaning: '【實務】15 個月已足夠, 不需延長到 30 個月' },
+    ],
+    keypoint: 'Bev 維持時程定案: 15 個月已足夠, 不需延長',
+    numbers: 'HR 0.99 · 30m vs 15m 無差異',
+    pitfalls: '【實務改變】不再延長 Bev 維持; 健保只給付 15-22 個月',
+  },
+
+  // ============================================================
+  // ====== OC 手術相關 (P-TX, Surgery) ======
+  // ============================================================
+
+  'lion': {
+    main: '💎 「LION + 系統淋巴清掃, HR 1.06 不改善, 併發症增」',
+    breakdown: [
+      { key: 'LION', meaning: 'LION 試驗 (試驗名)' },
+      { key: '系統淋巴清掃', meaning: 'Systematic lymphadenectomy vs no LND' },
+      { key: 'HR 1.06 不改善', meaning: '【特色】OS HR 1.06; PFS HR 1.11 (均 NS)' },
+      { key: '併發症增', meaning: '【實務】併發症顯著增加, 不建議常規做' },
+    ],
+    keypoint: '【實務改變】Stage III/IV OC 不需常規系統性淋巴清掃',
+    numbers: 'OS HR 1.06 · PFS HR 1.11 · 併發症顯著增加',
+    pitfalls: '【高頻考點】常規 LND 不再做; 只做 bulky/positive nodes',
+  },
+
+  'van-driel-hipec': {
+    main: '💎 「van Driel + HIPEC Cisplatin, HR 0.67, mOS +12m」',
+    breakdown: [
+      { key: 'van Driel', meaning: 'van Driel HIPEC 試驗 (試驗名)' },
+      { key: 'HIPEC Cisplatin', meaning: 'IDS 加 HIPEC (Cisplatin 100mg/m² 90 分鐘)' },
+      { key: 'HR 0.67', meaning: '【特色】OS HR 0.67 顯著' },
+      { key: 'mOS +12m', meaning: 'mOS 延長 12 個月 (45.7 vs 33.9m)' },
+    ],
+    keypoint: 'IDS + HIPEC 改善 OS; Stage III NACT 後 IDS 才有資格',
+    numbers: 'mOS 45.7 vs 33.9m HR 0.67 · IDS-only 適用',
+    pitfalls: '【限定】IDS 才適用 (PDS 不適用); 需高品質中心',
+  },
+
+  'scorpion': {
+    main: '💎 「SCORPION + Fagotti≥8 NACT, 降併發症, OS 不變」',
+    breakdown: [
+      { key: 'SCORPION', meaning: 'SCORPION 試驗 (試驗名)' },
+      { key: 'Fagotti≥8', meaning: '【特色】Fagotti 評分 ≥8 (高負荷腫瘤)' },
+      { key: 'NACT', meaning: 'NACT vs PDS 比較 (高負荷限定)' },
+      { key: '降併發症', meaning: 'NACT 顯著降低圍術期發病率, PFS/OS 不變' },
+    ],
+    keypoint: '高 Fagotti 分數 (≥8) NACT 為合理選擇 (圍術期 safer)',
+    numbers: 'Fagotti ≥8 入組 · 圍術期併發症↓ · PFS/OS NS',
+    pitfalls: 'Fagotti score 為 laparoscopy 評分工具 (PIV)',
+  },
+
+  'jcog0602': {
+    main: '💎 「JCOG0602 + 亞洲 NACT, OS 未達非劣效」',
+    breakdown: [
+      { key: 'JCOG0602', meaning: 'JCOG0602 (亞洲族群) 試驗' },
+      { key: '亞洲 NACT', meaning: 'NACT vs PDS 亞洲族群驗證' },
+      { key: '降手術負擔', meaning: '【特色】縮短手術時間, 減少失血' },
+      { key: 'OS 未達非劣效', meaning: '【關鍵】OS 未達非劣效性 (亞洲族群與 EORTC 不同)' },
+    ],
+    keypoint: 'NACT 亞洲族群驗證; OS 未達非劣效, 但併發症少',
+    numbers: '手術時間↓ · 失血↓ · OS 未達 NI',
+    pitfalls: '【關鍵】亞洲族群 OS 未達 NI; 與 EORTC/CHORUS 結論略不同',
+  },
+
+  'trust': {
+    main: '💎 「TRUST + 高品質 PDS vs NACT, ongoing, 學界期待」',
+    breakdown: [
+      { key: 'TRUST', meaning: 'TRUST 試驗 (試驗名)' },
+      { key: '高品質 PDS', meaning: '【特色】認證高品質中心 PDS vs NACT' },
+      { key: 'vs NACT', meaning: '挑戰 NACT 在高品質中心是否仍非劣效' },
+      { key: 'ongoing', meaning: '【期待】學界期待結果 (可能改變實務)' },
+    ],
+    keypoint: '高品質手術中心 PDS 重新挑戰 NACT (顛覆性試驗設計)',
+    numbers: 'ongoing · 期待 2025+ 結果',
+    pitfalls: '結果尚未出, 但可能逆轉 NACT 在高品質中心的地位',
+  },
+
+  'eortc-chorus-pooled': {
+    main: '💎 「EORTC+CHORUS Pooled + Stage IV NACT, HR 0.76, 高負荷受益」',
+    breakdown: [
+      { key: 'EORTC+CHORUS Pooled', meaning: '兩試驗聯合分析 (試驗名)' },
+      { key: 'Stage IV NACT', meaning: '【特色】Stage IV / 高負荷專用分流' },
+      { key: 'HR 0.76', meaning: 'NACT 顯著生存獲益 HR 0.76' },
+      { key: '精準分流', meaning: 'Stage III + 低負荷 → PDS; Stage IV → NACT' },
+    ],
+    keypoint: 'NACT vs PDS pooled 分析; Stage IV 高負荷腫瘤 NACT 受益',
+    numbers: 'Stage IV NACT HR 0.76 · 早期負荷少 → PDS 仍優',
+    pitfalls: '不是「NACT 永遠好」; 看 stage 與腫瘤負荷',
+  },
+
+  // ============================================================
+  // ====== OC 化療方案 (P-TX, Chemo Schedule) ======
+  // ============================================================
+
+  'gog-262': {
+    main: '💎 「GOG-262 + Weekly Pacli ± Bev, 無 Bev 時 weekly 強, 加 Bev 抵消」',
+    breakdown: [
+      { key: 'GOG-262', meaning: 'GOG-262 試驗 (試驗名)' },
+      { key: 'Weekly Pacli ± Bev', meaning: 'Weekly Pacli vs Q3W ± Bev' },
+      { key: '無 Bev 時 weekly 強', meaning: '【特色】不用 Bev 時 weekly 延長 PFS' },
+      { key: '加 Bev 抵消', meaning: '【負面】併用 Bev 時無額外獲益' },
+    ],
+    keypoint: 'Weekly Pacli 在無 Bev 時有用; 加 Bev 後抵消',
+    numbers: '不 Bev: weekly PFS↑ · 加 Bev: 無差異',
+    pitfalls: 'Weekly Pacli 不是普遍優於 Q3W; 看是否同時用 Bev',
+  },
+
+  'icon8': {
+    main: '💎 「ICON8 + 歐洲 Weekly Pacli, PFS 未延長, 西方陰性」',
+    breakdown: [
+      { key: 'ICON8', meaning: 'ICON8 試驗 (試驗名)' },
+      { key: '歐洲 Weekly Pacli', meaning: '【特色】歐洲大型實證 weekly vs Q3W' },
+      { key: 'PFS 未延長', meaning: '【負面】weekly 未延長 PFS' },
+      { key: '西方陰性', meaning: '【關鍵】西方人群否定 JGOG 3016 結論' },
+    ],
+    keypoint: 'Weekly Pacli 西方驗證失敗; 與 JGOG 3016 結論相反',
+    numbers: 'Weekly PFS 未延長 · 西方人群陰性',
+    pitfalls: '【高頻考點】JGOG 3016 vs ICON8/GOG-262 — 亞洲 vs 西方差異',
+  },
+
+  'mito-7': {
+    main: '💎 「MITO-7 + Weekly Carbo+Pacli 低劑, PFS 不延長, QoL 升」',
+    breakdown: [
+      { key: 'MITO-7', meaning: 'MITO-7 試驗 (試驗名)' },
+      { key: 'Weekly Carbo+Pacli', meaning: '低劑量每週 Carbo+Pacli 組合' },
+      { key: 'PFS 不延長', meaning: '【負面】PFS 未延長' },
+      { key: 'QoL 升', meaning: '【特色】生活品質顯著提升, 毒性低' },
+    ],
+    keypoint: 'Weekly 低劑量組合 — PFS 持平但 QoL 大幅提升',
+    numbers: 'PFS NS · QoL ↑↑ · 毒性 ↓',
+    pitfalls: '老年/虛弱患者選項; 不是 standard for fit patients',
+  },
+
+  // ============================================================
+  // ====== OC IP 化療系列 (P-TX, IP Chemo) ======
+  // ============================================================
+
+  'gog-172': {
+    main: '💎 「GOG-172 + IP Cisplatin/Pacli, mOS 65.6 vs 49.7, +16m」',
+    breakdown: [
+      { key: 'GOG-172', meaning: 'GOG-172 試驗 (試驗名)' },
+      { key: 'IP Cisplatin/Pacli', meaning: '【特色】IP Cisplatin + Pacli (黃金標準)' },
+      { key: 'mOS 65.6 vs 49.7', meaning: '【關鍵】OS 延長達 16 個月' },
+      { key: '殘餘 ≤1cm', meaning: '【限定】Stage III 殘餘病灶 ≤1cm 才適用' },
+    ],
+    keypoint: 'IP 化療黃金標準試驗; +16m OS 延長 (但毒性高)',
+    numbers: 'mOS 65.6 vs 49.7m (+16m) · Stage III 殘餘 ≤1cm',
+    pitfalls: '【實務限制】毒性高難以完成全程; GOG-252 後 IP 地位下降',
+  },
+
+  'swog-8501': {
+    main: '💎 「SWOG-8501/GOG-104 + IP Cisplatin, IP 首個里程碑, HR 0.76」',
+    breakdown: [
+      { key: 'SWOG-8501', meaning: 'SWOG-8501 / GOG-104 (試驗名)' },
+      { key: 'IP Cisplatin', meaning: 'IP Cisplatin vs IV Cisplatin 比較' },
+      { key: 'IP 首個里程碑', meaning: '【特色】IP 化療第一個 OS positive 試驗' },
+      { key: 'HR 0.76', meaning: 'OS HR 0.76 顯著改善' },
+    ],
+    keypoint: 'IP 化療首個里程碑; Stage III 殘餘 <2cm',
+    numbers: 'OS HR 0.76 · Stage III 殘餘 <2cm',
+    pitfalls: '為 GOG-172 鋪路; 但 IP 地位後來下降',
+  },
+
+  'gog-114': {
+    main: '💎 「GOG-114 + IP Cisplatin/Pacli, OS↑ 但毒性顯著」',
+    breakdown: [
+      { key: 'GOG-114', meaning: 'GOG-114 試驗 (試驗名)' },
+      { key: 'IP Cisplatin/Pacli', meaning: 'IP Cisplatin + Pacli 強化方案' },
+      { key: 'OS↑', meaning: '【特色】OS 延長獲益' },
+      { key: '毒性顯著', meaning: '【負面】毒性顯著增加, 完成率低' },
+    ],
+    keypoint: 'IP 強化方案探索; OS 獲益但毒性顯著',
+    numbers: 'OS↑ (顯著) · 毒性 ↑↑↑ · 完成率↓',
+    pitfalls: '臨床難實踐; 為 GOG-172 改良鋪路',
+  },
+
+  'gog-252': {
+    main: '💎 「GOG-252 + IP+Bev vs IV+Bev, IP 不再優, IP 地位下降」',
+    breakdown: [
+      { key: 'GOG-252', meaning: 'GOG-252 試驗 (試驗名)' },
+      { key: 'IP+Bev vs IV+Bev', meaning: '所有組均加 Bev 後 IP vs IV 比較' },
+      { key: 'IP 不再優', meaning: '【負面】IP vs IV 無顯著 PFS 差異' },
+      { key: 'IP 地位下降', meaning: '【實務改變】Bev 時代 IP 地位下降' },
+    ],
+    keypoint: '【實務改變】加 Bev 後 IP 不再優於 IV; IP 化療地位下降',
+    numbers: 'PFS NS · IP 毒性較高',
+    pitfalls: 'IP 化療在 Bev 時代不再首選 (NCCN 建議降級)',
+  },
+
+  'ov21-petroc': {
+    main: '💎 「OV21/PETROC + IP Carboplatin (NACT), 良好耐受」',
+    breakdown: [
+      { key: 'OV21/PETROC', meaning: 'OV21 / PETROC 試驗 (試驗名)' },
+      { key: 'IP Carboplatin', meaning: 'IP Carboplatin (vs IP Cisplatin)' },
+      { key: '良好耐受', meaning: '【特色】Carbo 比 Cisplatin 易耐受' },
+      { key: 'NACT setting', meaning: 'NACT 後 IDS 患者; PFS 趨勢獲益' },
+    ],
+    keypoint: 'IP 藥物改良 (Carbo); NACT-IDS 設定下 PFS 趨勢',
+    numbers: 'IP Carbo 耐受性佳 · NACT-IDS PFS 趨勢',
+    pitfalls: 'IP Carbo 證據較弱; IP 整體在 Bev 時代仍下降',
+  },
+
+  // ============================================================
+  // ====== OC 罕見癌別一線 (P-TX, Rare) ======
+  // ============================================================
+
+  'nrg-gy019': {
+    main: '💎 「NRG-GY019 + Letrozole 單藥 vs chemo, LGSOC 一線去化療」',
+    breakdown: [
+      { key: 'NRG-GY019', meaning: 'NRG-GY019 試驗 (試驗名)' },
+      { key: 'Letrozole 單藥', meaning: '【特色】Letrozole 單藥 vs Chemo→Letrozole' },
+      { key: 'LGSOC', meaning: '低惡度漿液性卵巢癌 (Low-Grade Serous OC)' },
+      { key: '一線去化療', meaning: '挑戰: 新診斷 LGSOC 是否可不用化療' },
+    ],
+    keypoint: 'LGSOC 一線去化療挑戰; ER+ → Letrozole 單藥試驗',
+    numbers: 'ongoing · LGSOC 限定',
+    pitfalls: 'LGSOC vs HGSC 完全不同處理; 一定要區分病理型',
+  },
+
+  'jgog3017': {
+    main: '💎 「JGOG3017/GCIG + Iri/Cis vs TC, OCCC PFS/OS NS」',
+    breakdown: [
+      { key: 'JGOG3017/GCIG', meaning: 'JGOG3017 / GCIG 試驗 (試驗名)' },
+      { key: 'Iri/Cis vs TC', meaning: 'Irinotecan + Cisplatin vs TC (Carbo+Pacli)' },
+      { key: 'OCCC', meaning: '【特色】Ovarian Clear Cell Carcinoma 一線' },
+      { key: 'PFS/OS NS', meaning: '【負面】PFS / OS 無顯著差異 (兩組相當)' },
+    ],
+    keypoint: 'OCCC 一線標準探索; Iri+Cis 與 TC 等效',
+    numbers: 'PFS NS · OS NS · 兩組毒性 profile 不同',
+    pitfalls: 'OCCC 對 platinum 反應較差; Iri+Cis 為 alternative 選項',
+  },
+
+  'meoc-gog0241': {
+    main: '💎 「mEOC/GOG-0241 + Pac-Carbo vs Oxal-Cape, mucinous 提前終止」',
+    breakdown: [
+      { key: 'mEOC/GOG-0241', meaning: 'mEOC / GOG-0241 試驗 (試驗名)' },
+      { key: 'Pac-Carbo vs Oxal-Cape', meaning: 'Carbo+Pacli vs Oxaliplatin+Capecitabine ± Bev' },
+      { key: 'mEOC', meaning: '【特色】Mucinous epithelial ovarian cancer 罕見癌別' },
+      { key: '提前終止', meaning: '【關鍵】收案困難提前終止; GI 方案 OS 趨勢' },
+    ],
+    keypoint: 'Mucinous OC 罕見癌別; 收案太慢提前停止',
+    numbers: '收案不足停止 · GI 方案 OS 趨勢',
+    pitfalls: 'Mucinous OC 多為 GI 轉移 (~80%); 真原發少',
+  },
+
+  // ============================================================
+  // ====== OC 一線維持 - HER2/TROP2 ADC 探索 (P-MT) ======
+  // ============================================================
+
+  'destiny-ovarian01': {
+    main: '💎 「DESTINY-Ovarian01 + T-DXd+Bev (HER2+ HRP), 一線維持新解」',
+    breakdown: [
+      { key: 'DESTINY-Ovarian01', meaning: 'DESTINY-Ovarian01 試驗 (試驗名)' },
+      { key: 'T-DXd+Bev', meaning: 'Trastuzumab Deruxtecan + Bevacizumab' },
+      { key: 'HER2+ HRP', meaning: '【特色】HER2 表現 (IHC 1+/2+/3+) HRP 限定' },
+      { key: '一線維持新解', meaning: 'HRP 族群一線維持 ADC 探索' },
+    ],
+    keypoint: 'HER2-ADC + Bev 一線維持 (HRP, 廣譜 HER2 表現)',
+    numbers: 'ongoing · HER2 IHC 1+/2+/3+ 廣譜 · HRP 限定',
+    pitfalls: 'HRP 才適用; HRD+ 用 PARPi (PRIMA/PAOLA-1)',
+  },
+
+  'trofuse-021': {
+    main: '💎 「TroFuse-021 + sac-TMT ± Bev, HRD- 維持新解」',
+    breakdown: [
+      { key: 'TroFuse-021', meaning: 'TroFuse-021 / MK-2870 (試驗名)' },
+      { key: 'sac-TMT ± Bev', meaning: 'Sacituzumab Tirumotecan (TROP2-ADC) ± Bev' },
+      { key: 'HRD-', meaning: '【特色】HRD- 族群 (PARPi 獲益有限)' },
+      { key: '維持新解', meaning: 'TROP2-ADC 維持治療探索' },
+    ],
+    keypoint: 'HRD- 族群維持新解 (TROP2-ADC); 補 PARPi 不足',
+    numbers: 'ongoing · HRD- 限定',
+    pitfalls: '與 EC trofuse-033 同方向 (TROP2-ADC)',
+  },
+
+  'temsirolimus-tc': {
+    main: '💎 「Temsirolimus+TC, OCCC 維持, 耐受佳但 PFS 不顯」',
+    breakdown: [
+      { key: 'Temsirolimus+TC', meaning: 'TC + Temsirolimus → 維持 (試驗名)' },
+      { key: 'OCCC', meaning: '【特色】OCCC 一線+維持探索' },
+      { key: 'mTOR 抑制', meaning: 'Temsirolimus 為 mTOR inhibitor' },
+      { key: 'PFS 不顯', meaning: '【負面】耐受性良好但未達預期 PFS 延長' },
+    ],
+    keypoint: 'OCCC 維持治療探索 (mTOR inhibitor); PFS 不顯著',
+    numbers: 'PFS 未延長 · 耐受性良好',
+    pitfalls: 'OCCC 為 ARID1A/PIK3CA 高頻; mTOR 為合理但效力弱',
+  },
+
+
 };
 
 
