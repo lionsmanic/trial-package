@@ -12066,6 +12066,439 @@ const TRIAL_MNEMONICS = {
   },
 
 
+
+  // ============================================================
+  // ====== OC 復發 (R-TX) - 手術 ======
+  // ============================================================
+
+  'desktop-iii': {
+    main: '💎 「DESKTOP III + Sec Cytoreduction, AGO Score+, R0 mOS 53.7」',
+    breakdown: [
+      { key: 'DESKTOP III', meaning: 'DESKTOP III 試驗 (試驗名)' },
+      { key: 'Sec Cytoreduction', meaning: 'Secondary cytoreduction surgery (二次減積手術)' },
+      { key: 'AGO Score+', meaning: '【特色】AGO Score+ 才適用 (R0 PDS, ECOG 0, ascites <500mL)' },
+      { key: 'R0 mOS 53.7', meaning: 'R0 切除 mOS 53.7m; 整體 OS HR 0.75' },
+    ],
+    keypoint: '鉑敏復發 (PSOC) 二次減積手術; AGO Score+ 才適用',
+    numbers: 'OS HR 0.75 · R0 mOS 53.7m · AGO Score+ 限定',
+    pitfalls: 'AGO- (R1/R2) 不建議手術; 與 GOG-213 結論 (no benefit) 不同',
+  },
+
+  // ============================================================
+  // ====== OC 鉑敏復發 (PSOC, R-TX) - 化療/標靶 ======
+  // ============================================================
+
+  'calypso': {
+    main: '💎 「CALYPSO + Carbo+PLD, PSOC 去毒標準, 易耐受」',
+    breakdown: [
+      { key: 'CALYPSO', meaning: 'CALYPSO 試驗 (試驗名)' },
+      { key: 'Carbo+PLD', meaning: '【藥物】Carboplatin + Pegylated Liposomal Doxorubicin' },
+      { key: 'PSOC 去毒', meaning: '【特色】鉑敏復發去毒標準 (vs Carbo+Pacli)' },
+      { key: '易耐受', meaning: 'PFS 略優, 耐受性更佳 (毒性 profile 不同)' },
+    ],
+    keypoint: 'PSOC 復發化療: Carbo+PLD 與 Carbo+Pacli 並列標準, PLD 易耐受',
+    numbers: 'PFS 略優 · 較少 alopecia/neuropathy · 較多 PPE',
+    pitfalls: '神經病變顧慮 → 改用 PLD; 手足症候群 (PPE) 為主要副作用',
+  },
+
+  'oceans': {
+    main: '💎 「OCEANS + Chemo+Bev (PSOC), PFS HR 0.48, +4m」',
+    breakdown: [
+      { key: 'OCEANS', meaning: 'OCEANS 試驗 (試驗名)' },
+      { key: 'Chemo+Bev', meaning: 'Carbo+Gem + Bevacizumab + Bev 維持' },
+      { key: 'PSOC PFS HR 0.48', meaning: '【特色】鉑敏復發加 Bev 顯著延長 PFS' },
+      { key: '+4 個月', meaning: 'PFS 延長 4 個月; 但 OS 未改善' },
+    ],
+    keypoint: '鉑敏復發標靶標準: 加 Bev 維持延長 PFS (Carbo+Gem 為基礎)',
+    numbers: 'PFS HR 0.48 · 延長 4m · OS NS',
+    pitfalls: 'OCEANS PFS+ 但 OS NS; GOG-0213 才有 OS+',
+  },
+
+  'gog-0213': {
+    main: '💎 「GOG-0213 + Chemo+Bev (PSOC), OS HR 0.83, +5m mOS」',
+    breakdown: [
+      { key: 'GOG-0213', meaning: 'GOG-0213 試驗 (試驗名)' },
+      { key: 'Chemo+Bev', meaning: 'Carbo+Pacli + Bevacizumab + Bev 維持' },
+      { key: 'PSOC OS HR 0.83', meaning: '【特色】鉑敏復發加 Bev OS 突破' },
+      { key: '+5 個月 mOS', meaning: 'mOS 延長 5 個月 (vs OCEANS 只有 PFS+)' },
+    ],
+    keypoint: '鉑敏復發 OS 突破: Bev 維持帶來 OS 獲益; 確立 Bev 在 PSOC 地位',
+    numbers: 'OS HR 0.83 · mOS +5m · 包含 secondary cytoreduction subgroup',
+    pitfalls: 'GOG-0213 secondary cytoreduction subgroup 為 negative (與 DESKTOP III 結論不同)',
+  },
+
+  'mito16b': {
+    main: '💎 「MITO16B + Bev Beyond Progression, PSOC PFS HR 0.51」',
+    breakdown: [
+      { key: 'MITO16B', meaning: 'MITO16B 試驗 (試驗名)' },
+      { key: 'Bev Beyond Progression', meaning: '【特色】一線用過 Bev 後復發再用 Bev' },
+      { key: 'PSOC PFS HR 0.51', meaning: '跨線 Bev 仍顯著延長 PFS' },
+      { key: '標靶跨線', meaning: '與其他癌別 (CRC) 跨線 Bev 概念一致' },
+    ],
+    keypoint: 'Bev 跨線使用驗證: 一線用過 Bev, 復發時繼續用仍有效',
+    numbers: 'PSOC PFS HR 0.51 · Bev 跨線繼續用',
+    pitfalls: 'Bev 不是「用過一次就無效」; 跨線使用為合理選項',
+  },
+
+  // ============================================================
+  // ====== OC 鉑抗復發 (PROC, R-TX) - ADC/IO/化療 ======
+  // ============================================================
+
+  'mirasol': {
+    main: '💎 「MIRASOL + Mirvet (FRα high PROC), PFS HR 0.65, OS HR 0.67」',
+    breakdown: [
+      { key: 'MIRASOL', meaning: 'MIRASOL 試驗 (試驗名)' },
+      { key: 'Mirvet (FRα high)', meaning: 'Mirvetuximab Soravtansine (FRα ADC)' },
+      { key: 'FRα high PROC', meaning: '【特色】FRα PS2+ ≥75% (Ventana FOLR1-2.1 CDx)' },
+      { key: 'PFS 0.65, OS 0.67', meaning: '改善 PFS (HR 0.65) + OS (HR 0.67); ORR 42.3%' },
+    ],
+    keypoint: 'PROC FRα high 突破: Mirvetuximab 較化療改善 PFS+OS',
+    numbers: 'PFS HR 0.65 · OS HR 0.67 · ORR 42.3% · FDA fully approved 2024',
+    pitfalls: 'FRα 必須做 IHC (Ventana CDx); PS2+ ≥75% 才高表現; 角膜病變需眼科追蹤',
+  },
+
+  'framework-01': {
+    main: '💎 「FRAmework-01 + LY4170156+Bev (FRα ADC), PROC+PSOC 多 cohort」',
+    breakdown: [
+      { key: 'FRAmework-01', meaning: 'FRAmework-01 試驗 (試驗名)' },
+      { key: 'LY4170156', meaning: '【藥物】FRα ADC (vs Mirvetuximab)' },
+      { key: '+Bev', meaning: 'FRα ADC + Bevacizumab 雙標靶' },
+      { key: 'PROC+PSOC 多 cohort', meaning: '【特色】PROC + PSOC 都收, 攻克 unmet need' },
+    ],
+    keypoint: 'FRα ADC 聯用 anti-VEGF; 多 cohort 探索 (PROC + PSOC)',
+    numbers: 'ongoing · FRα 表現族群 · phase II',
+    pitfalls: '與 Mirvetuximab 為平行標靶; LY4170156 為新一代 FRα ADC',
+  },
+
+  'aurelia': {
+    main: '💎 「AURELIA + Bev+non-Plat chemo (PROC), PFS 翻倍, HR 0.48」',
+    breakdown: [
+      { key: 'AURELIA', meaning: 'AURELIA 試驗 (試驗名)' },
+      { key: 'Bev + non-Plat chemo', meaning: 'Bev + 單藥化療 (PLD/Pacli/Topotecan)' },
+      { key: 'PROC PFS 翻倍', meaning: '【特色】首個證明 Bev 在 PROC 翻倍 PFS' },
+      { key: 'HR 0.48', meaning: 'PFS 6.7 vs 3.4m (HR 0.48)' },
+    ],
+    keypoint: '鉑抗復發 (PROC) 基石: Bev 聯用單藥化療 PFS 翻倍',
+    numbers: 'PFS 6.7 vs 3.4m HR 0.48 · ORR 27.3% vs 11.8%',
+    pitfalls: 'Bev 在 PROC 為標準; 但 OS 未顯著改善',
+  },
+
+  'rejoice-ovarian01': {
+    main: '💎 「REJOICE-Ovarian01 + R-DXd (CDH6), PROC ORR 50.5%, 打破化療瓶頸」',
+    breakdown: [
+      { key: 'REJOICE-Ovarian01', meaning: 'REJOICE-Ovarian01 試驗 (試驗名)' },
+      { key: 'R-DXd (CDH6)', meaning: 'Raludotatug Deruxtecan (CDH6-ADC)' },
+      { key: 'PROC ORR 50.5%', meaning: '【特色】Phase II ORR 50.5% (DCR 77.6%)' },
+      { key: '打破瓶頸', meaning: '【關鍵】PROC 化療單藥 ORR 僅 10-15%; ADC 翻 5 倍' },
+    ],
+    keypoint: 'PROC 救星: CDH6-ADC ORR 50.5%; 打破 PROC 化療瓶頸',
+    numbers: 'ORR 50.5% · DCR 77.6% · PROC 化療單藥僅 10-15%',
+    pitfalls: 'CDH6 為新標靶 (不同於 FRα/HER2/TROP2); 為 ENGOT-ov77 鋪路',
+  },
+
+  'engot-ov77': {
+    main: '💎 「ENGOT-ov77/GOG-3096 + R-DXd vs chemo, CDH6-ADC PhII/III」',
+    breakdown: [
+      { key: 'ENGOT-ov77', meaning: 'ENGOT-ov77 / GOG-3096 (試驗名)' },
+      { key: 'R-DXd', meaning: 'Raludotatug Deruxtecan (CDH6-ADC)' },
+      { key: 'vs chemo', meaning: 'PROC 隨機對照: R-DXd vs 標準化療' },
+      { key: 'CDH6-ADC PhII/III', meaning: '【特色】為 CDH6-ADC 在 OC 的關鍵 confirmatory 試驗' },
+    ],
+    keypoint: 'CDH6-ADC confirmatory phase II/III; REJOICE-Ovarian01 後續',
+    numbers: 'ongoing · 招募中 · 預計 2027+ 結果',
+    pitfalls: 'CDH6 為新興標靶; 結果出來會改變 PROC 後線標準',
+  },
+
+  'ninja': {
+    main: '💎 「NINJA + Nivo vs Gem/PLD, PROC IO 失敗, 日本陰性」',
+    breakdown: [
+      { key: 'NINJA', meaning: 'NINJA 試驗 (試驗名)' },
+      { key: 'Nivo vs Gem/PLD', meaning: 'Nivolumab 單藥 vs Gem/PLD' },
+      { key: 'PROC IO 失敗', meaning: '【負面】Nivolumab 不優於化療' },
+      { key: '日本陰性', meaning: '【關鍵】日本族群代表; 確認 IO 單藥在 PROC 無效' },
+    ],
+    keypoint: '【負面試驗】PROC IO 單藥不優於化療; 為 KEYNOTE-B96 (combo) 鋪路',
+    numbers: 'PFS 差 · 耐受性較佳 · OS NS',
+    pitfalls: '【高頻考點】PROC IO 必須 combo (與 chemo); 單藥無效',
+  },
+
+  'keynote-b96': {
+    main: '💎 「KEYNOTE-B96 + Pembro+Pacli±Bev (PROC), 首個 IO OS+ Phase III」',
+    breakdown: [
+      { key: 'KEYNOTE-B96', meaning: 'KEYNOTE-B96 試驗 (試驗名)' },
+      { key: 'Pembro+Pacli±Bev', meaning: 'Pembrolizumab + weekly Pacli ± Bev' },
+      { key: 'PROC IO 突破', meaning: '【特色】首個 PD-1 在 PROC 改善 OS 之 Phase III' },
+      { key: '+4.2 個月 OS', meaning: '全人群 OS 較化療延長 4.2 個月' },
+    ],
+    keypoint: 'PROC 突破: IO+chemo±Bev 改善 OS; 與 NINJA (單藥失敗) 對比',
+    numbers: 'OS +4.2m · 全人群獲益 · Phase III positive',
+    pitfalls: '【關鍵】IO 在 PROC 必須 combo; 單藥 (NINJA) 無效',
+  },
+
+  'rosella': {
+    main: '💎 「ROSELLA + Relacorilant+nab-Pacli (PROC), 醣皮質受體新機制」',
+    breakdown: [
+      { key: 'ROSELLA', meaning: 'ROSELLA 試驗 (試驗名)' },
+      { key: 'Relacorilant', meaning: '【藥物】醣皮質受體拮抗劑 (Glucocorticoid receptor antagonist)' },
+      { key: '+nab-Pacli', meaning: '+ Nab-Paclitaxel' },
+      { key: 'PROC 新機制', meaning: '【特色】首個非 IO/ADC 機制 PROC 突破' },
+    ],
+    keypoint: 'PROC 新機制: GR 拮抗 + nab-Pacli; 不需 biomarker',
+    numbers: 'OS+ · 不需 FRα/HER2/PD-L1 篩選 · FDA 2024',
+    pitfalls: '不需 biomarker selection (vs Mirvetuximab 需 FRα); 適合 biomarker neg PROC',
+  },
+
+  // ============================================================
+  // ====== OC LGSOC 復發 (R-TX) - MEK / CDK ======
+  // ============================================================
+
+  'gog-281': {
+    main: '💎 「GOG-281/LOGS + Trametinib (LGSOC), HR 0.48, ORR 26%」',
+    breakdown: [
+      { key: 'GOG-281/LOGS', meaning: 'GOG-281 / LOGS 試驗 (試驗名)' },
+      { key: 'Trametinib', meaning: 'Trametinib (MEK inhibitor)' },
+      { key: 'LGSOC', meaning: '低惡度漿液性 (Low-Grade Serous OC)' },
+      { key: 'HR 0.48', meaning: '【特色】降低 52% 進展風險; ORR 26%' },
+    ],
+    keypoint: 'LGSOC 標靶重大突破; MEK 抑制劑 vs 化療/賀爾蒙',
+    numbers: 'PFS HR 0.48 · ORR 26% · NEJM 2022',
+    pitfalls: 'LGSOC 對 platinum 反應差; MEK 為標準 (vs HGSC 不適用)',
+  },
+
+  'ramp-201': {
+    main: '💎 「RAMP-201 + Avu+Defac (LGSOC), KRAS+ ORR 55%, 雙阻斷」',
+    breakdown: [
+      { key: 'RAMP-201', meaning: 'RAMP-201 試驗 (試驗名)' },
+      { key: 'Avu+Defac', meaning: 'Avutometinib (MEK) + Defactinib (FAK)' },
+      { key: 'LGSOC 雙阻斷', meaning: '【特色】MEK + FAK 雙重阻斷' },
+      { key: 'KRAS+ ORR 55%', meaning: 'KRAS+ ORR 55%, 全體 ORR 45%' },
+    ],
+    keypoint: 'LGSOC 雙重阻斷新標準; FDA accelerated approval 基礎',
+    numbers: 'KRAS+ ORR 55% · 全體 ORR 45% · FDA accelerated 2025',
+    pitfalls: 'KRAS+ 反應較好; KRASwt 也有效; 為新興 LGSOC 首選',
+  },
+
+  'gog-3026': {
+    main: '💎 「GOG-3026 + Ribo+Letrozole (LGSOC), CDK4/6+AI, ORR 23%」',
+    breakdown: [
+      { key: 'GOG-3026', meaning: 'GOG-3026 試驗 (試驗名)' },
+      { key: 'Ribo+Letrozole', meaning: 'Ribociclib (CDK4/6) + Letrozole (AI)' },
+      { key: 'LGSOC 去化療', meaning: '【特色】CDK4/6 + AI 賀爾蒙組合' },
+      { key: 'mPFS 19.1m', meaning: 'ORR 23%, CBR 79%, mPFS 19.1m' },
+    ],
+    keypoint: 'LGSOC 賀爾蒙+CDK4/6 組合; ER+ LGSOC 適用',
+    numbers: 'ORR 23% · CBR 79% · mPFS 19.1m',
+    pitfalls: 'ER+ LGSOC 才適用; 與 RAMP-201 (MEK+FAK) 為平行選項',
+  },
+
+  'milo': {
+    main: '💎 「MILO/ENGOT-ov11 + Binimetinib (LGSOC), HR 1.21, 早期停止」',
+    breakdown: [
+      { key: 'MILO/ENGOT-ov11', meaning: 'MILO / ENGOT-ov11 試驗 (試驗名)' },
+      { key: 'Binimetinib', meaning: 'Binimetinib (MEK inhibitor)' },
+      { key: 'LGSOC 失敗', meaning: '【負面】Binimetinib vs 化療 早期停止' },
+      { key: 'HR 1.21', meaning: '無效性 (HR > 1) 早期停止' },
+    ],
+    keypoint: '【負面試驗】Binimetinib 在 LGSOC 失敗; 不同 MEK 抑制劑差異',
+    numbers: 'HR 1.21 · 早期停止 · 與 Trametinib 結果不同',
+    pitfalls: '【高頻考點】不同 MEK 抑制劑效力不同 (Trametinib > Binimetinib)',
+  },
+
+  // ============================================================
+  // ====== OC OCCC 復發 (R-TX) - IO / ARID1A ======
+  // ============================================================
+
+  'most-circuit': {
+    main: '💎 「MoST-CIRCUIT + Nivo+Ipi (OCCC), ORR 24%, 雙免疫」',
+    breakdown: [
+      { key: 'MoST-CIRCUIT', meaning: 'MoST-CIRCUIT 試驗 (試驗名)' },
+      { key: 'Nivo+Ipi', meaning: 'Nivolumab + Ipilimumab (PD-1+CTLA-4)' },
+      { key: 'OCCC 難治', meaning: '【特色】難治型 OCCC 雙免疫' },
+      { key: 'ORR 24%', meaning: 'ORR 24%, CBR 52%' },
+    ],
+    keypoint: 'OCCC 雙免疫阻斷; 比單藥 IO 較強 (與 BrUOG-354 一致)',
+    numbers: 'ORR 24% · CBR 52% · OCCC 限定',
+    pitfalls: 'OCCC 多為 ARID1A/PIK3CA m; IO 反應較佳族群',
+  },
+
+  'atari': {
+    main: '💎 「ATARI + Cera±Olap (ARID1A), ATR 抑制, ORR 14%」',
+    breakdown: [
+      { key: 'ATARI', meaning: 'ATARI 試驗 (試驗名)' },
+      { key: 'Cera±Olap', meaning: 'Ceralasertib (ATR inhibitor) ± Olaparib' },
+      { key: 'ARID1A 標靶', meaning: '【特色】ARID1A 突變 OCCC 合成致死' },
+      { key: 'ORR 14%', meaning: 'ORR 14%, CBR 47%' },
+    ],
+    keypoint: 'ARID1A m OCCC 合成致死; ATR 抑制劑為新策略',
+    numbers: 'ORR 14% · CBR 47% · ARID1A m 限定',
+    pitfalls: 'ARID1A m 為 OCCC 主要驅動 (~50%); ATR 為合理標靶',
+  },
+
+  'dove': {
+    main: '💎 「DOVE + Dostar+Bev (OCCC, 本院), 免疫+抗血管」',
+    breakdown: [
+      { key: 'DOVE', meaning: 'DOVE 試驗 (試驗名, 本院主導)' },
+      { key: 'Dostar+Bev', meaning: 'Dostarlimab + Bevacizumab' },
+      { key: 'OCCC', meaning: '【特色】難治 OCCC 免疫 + 抗血管' },
+      { key: '本院主導', meaning: '長庚醫院 GYN-onc 主導試驗' },
+    ],
+    keypoint: '本院 OCCC 試驗: PD-1 + Bev 探索; OCCC 新策略',
+    numbers: 'ongoing · OCCC 限定 · 本院招募',
+    pitfalls: '本院招募中, 詢問 GYN-onc 部門',
+  },
+
+  'gog-254': {
+    main: '💎 「GOG-254 + Sunitinib (OCCC), 多靶點 TKI, ORR 6.7%」',
+    breakdown: [
+      { key: 'GOG-254', meaning: 'GOG-254 試驗 (試驗名)' },
+      { key: 'Sunitinib', meaning: 'Sunitinib (multi-target TKI)' },
+      { key: 'OCCC 救援', meaning: '【特色】OCCC 標靶救援' },
+      { key: 'ORR 6.7%', meaning: 'ORR 6.7%, PFS-6 23.3% (低)' },
+    ],
+    keypoint: 'OCCC 多靶 TKI 探索; 效力較弱',
+    numbers: 'ORR 6.7% · PFS-6 23.3% · 為 OCCC 後線選項',
+    pitfalls: 'TKI 在 OCCC 效力有限; 仍以 IO/化療為主',
+  },
+
+  'bruog-354': {
+    main: '💎 「BrUOG 354 + Nivo vs Nivo+Ipi (OCCC), 雙免疫優於單藥」',
+    breakdown: [
+      { key: 'BrUOG 354', meaning: 'BrUOG 354 試驗 (試驗名)' },
+      { key: 'Nivo vs Nivo+Ipi', meaning: 'Nivolumab 單藥 vs Nivo+Ipi 雙免疫' },
+      { key: 'OCCC 對比', meaning: '【特色】OCCC 兩種 IO 方案直接比較' },
+      { key: '雙免疫優', meaning: '【關鍵】Nivo+Ipi 在 ORR 與 PFS 均優於單藥' },
+    ],
+    keypoint: 'OCCC IO 方案對比; 確立雙免疫優於單藥',
+    numbers: 'Nivo+Ipi ORR 與 PFS 均優於 Nivo 單藥',
+    pitfalls: '【關鍵】OCCC IO 用 Nivo+Ipi 雙免疫; 單藥效力差',
+  },
+
+  // ============================================================
+  // ====== OC mEOC 復發 (R-TX) ======
+  // ============================================================
+
+  'mfolfirinox-bev': {
+    main: '💎 「mFOLFIRINOX+Bev (難治 mEOC), GI-style 三藥, 克服耐藥」',
+    breakdown: [
+      { key: 'mFOLFIRINOX', meaning: 'modified FOLFIRINOX (5-FU+Iri+Oxal+Leuco)' },
+      { key: '+Bev', meaning: '+ Bevacizumab' },
+      { key: 'mEOC 難治', meaning: '【特色】難治 mucinous epithelial OC' },
+      { key: '克服耐藥', meaning: 'GI-style 高強度三藥; 克服傳統耐藥性' },
+    ],
+    keypoint: 'mEOC 難治後線探索: GI-style 三藥 + Bev (~80% mEOC 為 GI 轉移)',
+    numbers: 'phase II 探索 · mEOC 限定',
+    pitfalls: 'mEOC 多為 GI metastasis; 用 GI-style chemo 合理',
+  },
+
+  // ============================================================
+  // ====== OC PSOC 維持 (R-MT) - PARPi 維持族 ======
+  // ============================================================
+
+  'nova': {
+    main: '💎 「NOVA + Nira 全人群維持 (PSOC), gBRCA 0.27, non-gBRCA 0.45」',
+    breakdown: [
+      { key: 'NOVA', meaning: 'NOVA 試驗 (試驗名)' },
+      { key: 'Nira 全人群', meaning: 'Niraparib PSOC 維持 (不限 BRCA)' },
+      { key: 'gBRCA HR 0.27', meaning: '【特色】首個 PSOC 全人群 PARPi 維持' },
+      { key: 'non-gBRCA HR 0.45', meaning: 'non-gBRCA 也有獲益 (vs SOLO2 BRCAm only)' },
+    ],
+    keypoint: 'PSOC 全人群 PARPi 維持; gBRCAm + non-gBRCAm 都有獲益',
+    numbers: 'gBRCAm HR 0.27 · non-gBRCAm HR 0.45 · 全人群 HR 0.45',
+    pitfalls: '【vs SOLO2】NOVA 全人群; SOLO2 BRCAm only',
+  },
+
+  'ariel3': {
+    main: '💎 「ARIEL3 + Ruca 維持 (PSOC), ITT 0.36, BRCAm 0.23, LOH 分流」',
+    breakdown: [
+      { key: 'ARIEL3', meaning: 'ARIEL3 試驗 (試驗名)' },
+      { key: 'Ruca 維持', meaning: 'Rucaparib PSOC 維持' },
+      { key: 'ITT 0.36, BRCA 0.23', meaning: '【特色】ITT HR 0.36; BRCAm HR 0.23; HRD+ HR 0.32' },
+      { key: 'LOH 分流', meaning: 'LOH-high 為 HRD+ marker (FoundationOne)' },
+    ],
+    keypoint: 'PSOC 維持 LOH-high 精準分流; Ruca 已部分撤回 (商業考量)',
+    numbers: 'ITT HR 0.36 · BRCAm HR 0.23 · HRD+ HR 0.32',
+    pitfalls: 'Rucaparib 部分撤回; 臨床仍以 Olap/Nira 為首選',
+  },
+
+  'solo2': {
+    main: '💎 「SOLO2 + Olap 維持 (PSOC BRCAm), PFS HR 0.30, mOS 51.7 vs 38.8」',
+    breakdown: [
+      { key: 'SOLO2', meaning: 'SOLO2 試驗 (試驗名)' },
+      { key: 'Olap 維持 (BRCAm)', meaning: 'Olaparib PSOC 維持 (BRCAm only)' },
+      { key: 'PFS HR 0.30', meaning: 'BRCAm PSOC 維持 PFS 強烈獲益' },
+      { key: '首個 OS+', meaning: '【關鍵】首個 PSOC PARPi OS 獲益 (mOS 51.7 vs 38.8m, HR 0.74)' },
+    ],
+    keypoint: 'BRCAm PSOC 維持 OS 突破; NCCN Cat 1',
+    numbers: 'PFS HR 0.30 · mOS 51.7 vs 38.8m HR 0.74 · 首個 PSOC PARPi OS+',
+    pitfalls: 'BRCAm only (vs NOVA 全人群); OS+ 為其特色',
+  },
+
+  'study-19': {
+    main: '💎 「Study 19 + Olap 維持, PARPi 開山, PFS HR 0.35, 6+ 年用藥」',
+    breakdown: [
+      { key: 'Study 19', meaning: 'Study 19 試驗 (試驗名)' },
+      { key: 'Olap 維持', meaning: 'Olaparib PSOC 維持 (開創性 Phase II)' },
+      { key: 'PARPi 開山', meaning: '【特色】PARPi 維持治療開山之作' },
+      { key: '6+ 年用藥', meaning: '11% 患者用藥超過 6 年 (long-term responder)' },
+    ],
+    keypoint: 'PARPi 維持治療開山之作; 為 SOLO2/NOVA 奠基',
+    numbers: 'PFS HR 0.35 · 11% 患者 6+ 年用藥 · 全人群',
+    pitfalls: 'Phase II 試驗; 為後續 phase III 鋪路',
+  },
+
+  'l-moca': {
+    main: '💎 「L-MOCA + Olap 亞洲 (PSROC), mPFS 16.1m, BRCA2 富集」',
+    breakdown: [
+      { key: 'L-MOCA', meaning: 'L-MOCA 試驗 (試驗名)' },
+      { key: 'Olap 亞洲', meaning: 'Olaparib 亞洲族群驗證 (中國/馬來西亞)' },
+      { key: 'PSROC mPFS 16.1m', meaning: '【特色】PSOC 維持亞洲族群驗證' },
+      { key: 'BRCA2 富集', meaning: '亞洲 BRCA2 富集特性' },
+    ],
+    keypoint: 'PARPi 亞洲族群驗證; 中國/馬來西亞 PSROC',
+    numbers: 'mPFS 16.1m · BRCA2 比例 較西方高',
+    pitfalls: '亞洲族群 BRCA2 較常見 (vs 西方 BRCA1 主); 但治療相同',
+  },
+
+  'nora': {
+    main: '💎 「NORA + Nira 個別化劑量, 中國 PFS HR 0.32, mPFS 18.3m」',
+    breakdown: [
+      { key: 'NORA', meaning: 'NORA 試驗 (試驗名)' },
+      { key: 'Nira 個別化', meaning: 'Niraparib 個別化起始劑量 (依體重/血小板)' },
+      { key: '中國族群', meaning: '【特色】中國族群 PSROC 驗證' },
+      { key: 'PFS HR 0.32', meaning: 'PFS HR 0.32; mPFS 18.3m; OS 持續 follow-up' },
+    ],
+    keypoint: 'Niraparib 中國族群驗證; 個別化劑量降低毒性',
+    numbers: 'PFS HR 0.32 · mPFS 18.3m · 個別化劑量 (200/300mg)',
+    pitfalls: '個別化劑量 (體重 <77kg 或血小板 <150K → 200mg); 降毒性',
+  },
+
+  'opinion': {
+    main: '💎 「OPINION + Olap (non-gBRCAm), PSROC mPFS 9.2m, HRD+ 表現佳」',
+    breakdown: [
+      { key: 'OPINION', meaning: 'OPINION 試驗 (試驗名)' },
+      { key: 'Olap (non-gBRCAm)', meaning: 'Olaparib non-germline-BRCAm PSROC' },
+      { key: 'non-gBRCAm 證據', meaning: '【特色】non-gBRCAm 證據強化 (sBRCA + HRD+)' },
+      { key: 'mPFS 9.2m', meaning: 'mPFS 9.2m, mOS 32.7m; HRD+ 表現較佳' },
+    ],
+    keypoint: 'non-gBRCAm PSROC 維持證據; 補強 SOLO2 (gBRCAm) 之外族群',
+    numbers: 'mPFS 9.2m · mOS 32.7m · HRD+ subgroup 較佳',
+    pitfalls: 'non-gBRCAm 仍可用 PARPi; 但效力弱於 gBRCAm',
+  },
+
+  'trofuse-022': {
+    main: '💎 「TroFuse-022 + sac-TMT±Bev (PSOC 維持), TROP2-ADC 非鉑機制」',
+    breakdown: [
+      { key: 'TroFuse-022', meaning: 'TroFuse-022 / MK-2870 (試驗名)' },
+      { key: 'sac-TMT±Bev', meaning: 'Sacituzumab Tirumotecan (TROP2-ADC) ± Bev' },
+      { key: 'PSOC 維持', meaning: '【特色】鉑敏感復發化療後維持' },
+      { key: '非鉑機制', meaning: 'TROP2 ADC 作為非鉑類機制維持' },
+    ],
+    keypoint: 'PSOC 維持新機制: TROP2-ADC; 補 PARPi/Bev 不足',
+    numbers: 'ongoing · TROP2-ADC 維持探索',
+    pitfalls: '與 OC TroFuse-021 (一線維持) 平行; 此為 PSOC 維持',
+  },
+
+
 };
 
 
