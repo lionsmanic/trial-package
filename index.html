@@ -12499,6 +12499,200 @@ const TRIAL_MNEMONICS = {
   },
 
 
+
+  // ============================================================
+  // ====== CC 一線 LACC (P-TX) - CCRT 整合策略 ======
+  // ============================================================
+
+  'keynote-a18': {
+    main: '💎 「KEYNOTE-A18 + Pembro+CCRT, LACC 新標準, OS HR 0.67」',
+    breakdown: [
+      { key: 'KEYNOTE-A18', meaning: 'KEYNOTE-A18 試驗 (試驗名)' },
+      { key: 'Pembro+CCRT', meaning: 'Pembrolizumab + 同步化放療 (CCRT)' },
+      { key: 'LACC 新標準', meaning: '【特色】首個 IO 整合入 LACC 根治 CCRT 場景' },
+      { key: 'OS HR 0.67', meaning: '36m OS 82.6% vs 74.8%; PFS HR 0.72' },
+    ],
+    keypoint: 'LACC IO+CCRT 新標準; 全分子分型適用 (不限 PD-L1)',
+    numbers: '36m OS 82.6% vs 74.8% HR 0.67 · PFS HR 0.72 · 41.9m FU OS HR 0.73',
+    pitfalls: '【vs CALLA】KEYNOTE-A18 (Pembro) 成功; CALLA (Durva) 失敗 — 不同 IO 結果不同',
+  },
+
+  'interlace': {
+    main: '💎 「INTERLACE + 誘導 Carbo/Pacli x6 → CCRT, 5y OS 80%, 序列改變」',
+    breakdown: [
+      { key: 'INTERLACE', meaning: 'INTERLACE 試驗 (試驗名)' },
+      { key: '誘導 Carbo/Pacli', meaning: 'Induction Carbo+Pacli x6 → CCRT' },
+      { key: '5y OS 80%', meaning: '【特色】5y OS 80% vs 72% (HR 0.60)' },
+      { key: '序列改變', meaning: '治療序列創新: 誘導化療優先, 再做 CCRT' },
+    ],
+    keypoint: 'LACC 誘導化療 → CCRT 創新序列; 5y OS 顯著提升',
+    numbers: '5y OS 80% vs 72% HR 0.60 · PFS+ · 誘導化療為新策略',
+    pitfalls: '誘導化療毒性需注意; 適合年輕/體能好族群',
+  },
+
+  'calla': {
+    main: '💎 「CALLA + Durva+CCRT, LACC IO 失敗, PFS HR 0.84 NS」',
+    breakdown: [
+      { key: 'CALLA', meaning: 'CALLA 試驗 (試驗名)' },
+      { key: 'Durva+CCRT', meaning: 'Durvalumab + 同步化放療' },
+      { key: 'LACC IO 失敗', meaning: '【負面】未顯著改善 PFS' },
+      { key: 'PFS HR 0.84 NS', meaning: 'PFS HR 0.84, P=0.174 — 主終點未達' },
+    ],
+    keypoint: '【負面試驗】LACC + Durvalumab 失敗; 與 KEYNOTE-A18 結果相反',
+    numbers: 'PFS HR 0.84 · P=0.174 · 主終點未達',
+    pitfalls: '【高頻考點】CALLA (Durva) NS vs KEYNOTE-A18 (Pembro) +; 不同 IO 在 LACC 表現不同',
+  },
+
+  'outback': {
+    main: '💎 「OUTBACK + CCRT+輔助化療, 加 chemo 失敗, HR 0.91 NS」',
+    breakdown: [
+      { key: 'OUTBACK', meaning: 'OUTBACK 試驗 (試驗名)' },
+      { key: 'CCRT+輔助化療', meaning: 'CCRT 後追加 4 cycle 輔助化療' },
+      { key: '加 chemo 失敗', meaning: '【負面】5y OS / PFS 未改善' },
+      { key: 'HR 0.91 NS', meaning: '5y OS HR 0.91, NS — 主終點未達' },
+    ],
+    keypoint: '【負面試驗】LACC CCRT 後不需追加 adjuvant chemo',
+    numbers: '5y OS HR 0.91 (NS) · 4 cycle Carbo+Pacli 加成失敗',
+    pitfalls: '【實務改變】CCRT 後不再常規 adjuvant chemo (除非試驗)',
+  },
+
+  // ============================================================
+  // ====== CC NACT 新輔助免疫 (P-TX) ======
+  // ============================================================
+
+  'naci-study': {
+    main: '💎 「NACI + Camre+NACT, LACC pCR 38.6%, 強效新輔免疫」',
+    breakdown: [
+      { key: 'NACI', meaning: 'NACI Study (試驗名)' },
+      { key: 'Camre+NACT', meaning: 'Camrelizumab + Neoadjuvant Chemo (Carbo+Pacli)' },
+      { key: 'LACC pCR 38.6%', meaning: '【特色】pCR 高達 38.6%, ORR 97.7%' },
+      { key: '強效新輔', meaning: '顯著優於傳統 NACT (~10-20% pCR)' },
+    ],
+    keypoint: 'LACC NACT+IO 強化; pCR 翻 2-3 倍 vs 傳統 NACT',
+    numbers: 'pCR 38.6% · ORR 97.7% · 中國試驗 (NEJM Med 2024)',
+    pitfalls: 'Phase II 單臂; 為 phase III 鋪路 (etc Cadonilimab-NACT)',
+  },
+
+  'natic-trial': {
+    main: '💎 「NATIC + Tisle+NACT, LACC pCR 41%, ORR 94.7%」',
+    breakdown: [
+      { key: 'NATIC', meaning: 'NATIC Trial (試驗名)' },
+      { key: 'Tisle+NACT', meaning: 'Tislelizumab + Neoadjuvant Chemo' },
+      { key: 'LACC pCR 41%', meaning: '【特色】pCR 41%, ORR 94.7%' },
+      { key: '術前降階', meaning: '強大術前降階能力, 適 high-risk LACC' },
+    ],
+    keypoint: 'LACC 新輔助免疫; pCR 41% 與 NACI 結果一致 (~40%)',
+    numbers: 'pCR 41% · ORR 94.7% · 中國試驗',
+    pitfalls: '與 NACI 平行驗證; pCR 約在 38-41% 區間',
+  },
+
+  'cadonilimab-nact': {
+    main: '💎 「Cadonilimab + NACT, PD-1/CTLA-4 雙特異性, LACC 領航」',
+    breakdown: [
+      { key: 'Cadonilimab', meaning: 'Cadonilimab (PD-1/CTLA-4 雙特異性抗體)' },
+      { key: '+NACT', meaning: '+ Neoadjuvant Chemo' },
+      { key: 'PD-1/CTLA-4 雙特異', meaning: '【特色】雙特異性抗體 (single molecule)' },
+      { key: 'LACC 領航', meaning: '比單免疫更高臨床獲益潛力' },
+    ],
+    keypoint: 'LACC 雙特異性抗體 NACT; 中國新興 IO 平台',
+    numbers: 'ongoing · 雙特異性 (vs Nivo+Ipi 兩個分子)',
+    pitfalls: 'Cadonilimab 為新興雙特異性; 中國藥廠 (康方生物)',
+  },
+
+  // ============================================================
+  // ====== CC 手術範式 (P-TX) - LACC vs SHAPE ======
+  // ============================================================
+
+  'lacc-trial': {
+    main: '💎 「LACC Trial + Open vs MIS, MIS 復發 HR 3.74, 改變範式」',
+    breakdown: [
+      { key: 'LACC Trial', meaning: 'LACC Trial 試驗 (試驗名)' },
+      { key: 'Open vs MIS', meaning: 'Open RH vs Minimally Invasive RH (腹腔鏡/機械手臂)' },
+      { key: 'MIS 復發 HR 3.74', meaning: '【關鍵】MIS 復發風險高 3.74 倍' },
+      { key: '改變範式', meaning: '【實務改變】3y DFS ↓ 5.9%; 早期 CC 改回開腹' },
+    ],
+    keypoint: '【改變範式】早期 CC 根治性子宮切除應該開腹, 不用 MIS',
+    numbers: 'HR 3.74 復發 · 3y DFS ↓ 5.9% · NEJM 2018',
+    pitfalls: '【高頻考點】MIS RH 在早期 CC 為禁忌; 例外: 試驗或極早期 (Stage IA1)',
+  },
+
+  'shape-trial': {
+    main: '💎 「SHAPE + Simple vs Radical, 低風險降階, 3y 復發一致」',
+    breakdown: [
+      { key: 'SHAPE Trial', meaning: 'SHAPE Trial 試驗 (試驗名)' },
+      { key: 'Simple vs Radical', meaning: 'Simple Hysterectomy vs Radical Hysterectomy' },
+      { key: '低風險降階', meaning: '【特色】低風險族群手術降階' },
+      { key: '3y 復發一致', meaning: '3y 盆腔復發率: 2.52% vs 2.17% (NS)' },
+    ],
+    keypoint: '【降階策略】低風險早期 CC 可用 simple hysterectomy 取代 radical',
+    numbers: '3y 盆腔復發 2.52% vs 2.17% (NS) · 適 IB1, ≤2cm, LVSI- · NEJM 2024',
+    pitfalls: '低風險嚴格定義: IB1, ≤2cm, ≤10mm 侵犯, LVSI-; 不符合不適用',
+  },
+
+  // ============================================================
+  // ====== CC 一線 R/M (P-MT, R-TX) ======
+  // ============================================================
+
+  'keynote-826': {
+    main: '💎 「KEYNOTE-826 + Pembro+Chemo±Bev, R/M 黃金標準, CPS≥1 OS 28.6 vs 16.5」',
+    breakdown: [
+      { key: 'KEYNOTE-826', meaning: 'KEYNOTE-826 試驗 (試驗名)' },
+      { key: 'Pembro+Chemo±Bev', meaning: 'Pembrolizumab + Carbo+Pacli ± Bev' },
+      { key: 'R/M 黃金標準', meaning: '【特色】持續/復發/轉移 (R/M) CC 一線標準' },
+      { key: 'CPS≥1 OS 28.6/16.5', meaning: 'CPS≥1 mOS 28.6m vs 16.5m HR 0.60; ITT OS HR 0.63' },
+    ],
+    keypoint: 'R/M CC 一線 IO+chemo±Bev 黃金標準; CPS≥1 強烈獲益',
+    numbers: 'CPS≥1 mOS 28.6 vs 16.5m HR 0.60 · ITT OS HR 0.63 · NCCN Cat 1',
+    pitfalls: '【關鍵】CPS≥1 為 ~85% R/M CC; 不是 PD-L1 TPS',
+  },
+
+  // ============================================================
+  // ====== CC 一線維持 (P-MT) - 維持探索 ======
+  // ============================================================
+
+  'evolve-cervical': {
+    main: '💎 「eVOLVE-Cervical + Volrust (PD-1/CTLA-4), LACC 輔助維持, 雙特異維持」',
+    breakdown: [
+      { key: 'eVOLVE-Cervical', meaning: 'eVOLVE-Cervical 試驗 (試驗名)' },
+      { key: 'Volrust', meaning: 'Volrustomig (PD-1/CTLA-4 雙特異性抗體)' },
+      { key: 'LACC 輔助維持', meaning: '【特色】CCRT 後高風險 LACC 維持' },
+      { key: '雙特異維持', meaning: 'AstraZeneca 雙特異性抗體 (vs Cadonilimab 中國)' },
+    ],
+    keypoint: 'LACC CCRT 後高風險維持探索; AstraZeneca 雙特異性',
+    numbers: 'ongoing · LACC 高風險族群 · phase III',
+    pitfalls: 'Volrustomig 為 AZ 雙特異性 (vs Cadonilimab 康方); 平行開發',
+  },
+
+  'trofuse-036': {
+    main: '💎 「TroFuse-036 + sac-TMT+Pembro±Bev, PD-L1+ R/M 維持」',
+    breakdown: [
+      { key: 'TroFuse-036', meaning: 'TroFuse-036 試驗 (試驗名)' },
+      { key: 'sac-TMT+Pembro±Bev', meaning: 'sac-TMT (TROP2-ADC) + Pembrolizumab ± Bev' },
+      { key: 'PD-L1+ R/M 維持', meaning: '【特色】PD-L1+ 持續/復發/轉移 CC 維持' },
+      { key: 'TROP2 + IO', meaning: 'CC 一線維持 TROP2-ADC + IO 新策略' },
+    ],
+    keypoint: 'CC 一線維持新策略: TROP2-ADC + IO ± Bev (PD-L1+ 限定)',
+    numbers: 'ongoing · PD-L1+ 限定 · 對照標準 IO/化療',
+    pitfalls: '與 TroFuse-021 (OC), TroFuse-022 (OC PSOC) 平行; 此為 CC',
+  },
+
+  // ============================================================
+  // ====== CC CIN2/3 治療性疫苗 (P-TX, 預防/早期) ======
+  // ============================================================
+
+  'pvx4': {
+    main: '💎 「PVX4 + pBI-4 DNA 疫苗, HPV16+ CIN2/3, 本院, 病理消退」',
+    breakdown: [
+      { key: 'PVX4', meaning: 'PVX4 試驗 (試驗名, 本院主導)' },
+      { key: 'pBI-4 DNA 疫苗', meaning: 'pBI-4 DNA 治療性疫苗 (TriGrid + electroporation)' },
+      { key: 'HPV16+ CIN2/3', meaning: '【特色】HPV16+ CIN2/3 早期病灶' },
+      { key: '本院主導', meaning: '長庚醫院 (賴瓊慧主持)' },
+    ],
+    keypoint: '本院 CIN2/3 治療性疫苗試驗; HPV16+ 限定 (賴瓊慧主持)',
+    numbers: '本院招募中 · HPV16+ CIN2/3 限定 · Primary: ≤CIN1 + HPV16 清除',
+    pitfalls: 'HPV16+ only (其他 HPV 型不適用); 為 CIN 治療性疫苗 (非預防性)',
+  },
+
 };
 
 
