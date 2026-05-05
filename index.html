@@ -48,6 +48,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-pathway:hover{box-shadow:0 4px 16px rgba(234,88,12,0.45);}
 .header-btn-match{background:linear-gradient(135deg,#db2777,#be185d);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(219,39,119,0.3);}
 .header-btn-match:hover{box-shadow:0 4px 16px rgba(219,39,119,0.45);}
+.header-btn-mnemonic{background:linear-gradient(135deg,#8b5cf6,#6366f1);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(139,92,246,0.3);}
+.header-btn-mnemonic:hover{box-shadow:0 4px 16px rgba(139,92,246,0.45);}
 @media(max-width:640px){
   .hide-on-mobile{display:none;}
   .header-actions{gap:6px;}
@@ -1117,6 +1119,53 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   .match-checkbox{font-size:11px;padding:5px 9px;}
   .mri-header{gap:7px;}
   .mri-title{font-size:13px;}
+}
+
+/* ===== 🧠 口訣速查表 Modal ===== */
+.mnem-idx-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.88);z-index:568;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.mnem-idx-bg.open{display:flex;}
+.mnem-idx-content{background:linear-gradient(135deg,#fef3f2 0%,#ffffff 50%,#f0f4ff 100%);max-width:1200px;width:100%;max-height:94vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
+.mnem-idx-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.mnem-idx-close:hover{background:white;transform:scale(1.05);}
+.mnem-idx-header{padding:24px 28px 18px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border-bottom:1px solid rgba(0,0,0,0.05);}
+.mnem-idx-title{font-size:21px;font-weight:900;margin:0 0 6px 0;display:flex;align-items:center;gap:10px;}
+.mnem-idx-subtitle{font-size:13px;opacity:0.95;margin:0;font-weight:500;}
+.mnem-idx-body{padding:18px 24px 24px;overflow-y:auto;flex:1;}
+.mnem-idx-search{width:100%;padding:11px 15px;border:2px solid #c7d2fe;border-radius:10px;font-size:14px;font-family:inherit;outline:none;margin-bottom:16px;background:white;color:#1e1b4b;transition:border-color 0.15s;}
+.mnem-idx-search:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,0.15);}
+.mnem-idx-cancer-tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;border-bottom:2px solid #e0e7ff;padding-bottom:12px;}
+.mnem-idx-cancer-tab{padding:8px 16px;border-radius:8px;border:2px solid #c7d2fe;background:white;color:#4f46e5;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.mnem-idx-cancer-tab:hover{background:#eef2ff;}
+.mnem-idx-cancer-tab.active{background:linear-gradient(135deg,#6366f1,#8b5cf6);border-color:transparent;color:white;box-shadow:0 2px 8px rgba(99,102,241,0.4);}
+.mnem-idx-section{margin-bottom:22px;}
+.mnem-idx-section-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:10px 14px;background:linear-gradient(135deg,#fff7ed,#fef3c7);border-left:4px solid #f59e0b;border-radius:8px;}
+.mnem-idx-section-icon{font-size:20px;}
+.mnem-idx-section-title{font-size:15px;font-weight:900;color:#7c2d12;margin:0;flex:1;}
+.mnem-idx-section-count{font-size:11.5px;background:#f59e0b;color:white;padding:2px 9px;border-radius:11px;font-weight:800;}
+.mnem-idx-card{background:white;border:1.5px solid #e0e7ff;border-radius:10px;padding:11px 14px;margin-bottom:8px;cursor:pointer;transition:all 0.18s;display:flex;align-items:center;gap:12px;font-family:inherit;}
+.mnem-idx-card:hover{border-color:#8b5cf6;box-shadow:0 4px 14px rgba(139,92,246,0.2);transform:translateX(2px);background:linear-gradient(90deg,#faf5ff,white);}
+.mnem-idx-card-num{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.mnem-idx-card-mnemonic{flex:1;font-size:13.5px;color:#1e1b4b;font-weight:600;line-height:1.5;}
+.mnem-idx-card-mnemonic .mn-trial{font-weight:900;color:#4f46e5;}
+.mnem-idx-card-mnemonic .mn-drug{font-weight:800;color:#be185d;}
+.mnem-idx-card-mnemonic .mn-feat{color:#0e7490;font-weight:700;}
+.mnem-idx-card-arrow{flex:0 0 auto;color:#a5b4fc;font-size:16px;font-weight:800;}
+.mnem-idx-card:hover .mnem-idx-card-arrow{color:#8b5cf6;transform:translateX(3px);}
+.mnem-idx-empty{padding:40px 20px;text-align:center;color:#6b7280;font-size:13px;}
+.mnem-idx-stats{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap;}
+.mnem-idx-stat{padding:10px 14px;background:white;border:1.5px solid #e0e7ff;border-radius:9px;flex:1;min-width:100px;text-align:center;}
+.mnem-idx-stat-num{font-size:20px;font-weight:900;color:#6366f1;line-height:1;}
+.mnem-idx-stat-label{font-size:11px;color:#6b7280;font-weight:600;margin-top:3px;}
+@media (max-width:768px){
+  .mnem-idx-bg{padding:0;}
+  .mnem-idx-content{max-height:100vh;border-radius:0;}
+  .mnem-idx-header{padding:18px 22px 14px;}
+  .mnem-idx-title{font-size:17px;}
+  .mnem-idx-subtitle{font-size:12px;}
+  .mnem-idx-body{padding:14px 16px;}
+  .mnem-idx-card{padding:9px 11px;gap:9px;}
+  .mnem-idx-card-mnemonic{font-size:12.5px;}
+  .mnem-idx-cancer-tab{font-size:11.5px;padding:6px 11px;}
 }
 
 /* ===== 🗺️ 治療路徑流程圖 Modal ===== */
@@ -2214,6 +2263,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="header-btn header-btn-match" onclick="openTrialMatch()" title="開啟試驗匹配引擎">
         <span>🎯</span><span class="hide-on-mobile">試驗匹配</span>
       </button>
+      <button class="header-btn header-btn-mnemonic" onclick="openMnemonicIndex()" title="開啟口訣速查表 (按癌別 + status 列出全部 119 個試驗口訣)">
+        <span>🧠</span><span class="hide-on-mobile">口訣速查</span>
+      </button>
       <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
         <span>🤖</span><span>AI 治療路徑</span>
       </button>
@@ -2544,6 +2596,22 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     <div class="trial-match-body">
       <div id="trialMatchInputs"></div>
       <div id="trialMatchResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 🧠 口訣速查表 Modal ===== -->
+<div class="mnem-idx-bg" id="mnemIdxModal" onclick="if(event.target.id==='mnemIdxModal')closeMnemonicIndex()">
+  <div class="mnem-idx-content">
+    <button class="mnem-idx-close" onclick="closeMnemonicIndex()">✕</button>
+    <div class="mnem-idx-header">
+      <h3 class="mnem-idx-title">🧠 試驗口訣速查表</h3>
+      <p class="mnem-idx-subtitle">119 個婦癌試驗口訣 — 按癌別 + 治療階段分層 · 點任一口訣查看完整試驗資訊</p>
+    </div>
+    <div class="mnem-idx-body">
+      <input type="text" class="mnem-idx-search" id="mnemIdxSearch" placeholder="🔍 搜尋: 試驗名 / 藥物 / 關鍵字 (e.g., 'Pembro', 'BRCAm', 'PARPi', '維持')..." oninput="filterMnemonicIndex()">
+      <div class="mnem-idx-cancer-tabs" id="mnemIdxCancerTabs"></div>
+      <div id="mnemIdxList"></div>
     </div>
   </div>
 </div>
@@ -8780,6 +8848,217 @@ function openTrialMatch(){
 function closeTrialMatch(){
   el('trialMatchModal').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// ============================================================
+// 🧠 試驗口訣速查表 (Mnemonic Index)
+// ============================================================
+const MNEM_IDX_STATE = {
+  activeCancer: 'all', // 'all', 'EC', 'OC', 'CC', 'US'
+  searchTerm: '',
+};
+
+const MNEM_IDX_CANCER_LABELS = {
+  'all': '🌐 全部',
+  'EC': '🟣 子宮內膜癌 EC',
+  'OC': '🔵 卵巢癌 OC',
+  'CC': '🟢 子宮頸癌 CC',
+  'US': '🟠 子宮肉瘤 US',
+};
+
+const MNEM_IDX_PHASE_LABELS = {
+  'P-TX': { icon: '🎯', label: '一線治療', order: 1 },
+  'P-MT': { icon: '💎', label: '一線維持', order: 2 },
+  'R-TX': { icon: '🔄', label: '復發治療', order: 3 },
+  'R-MT': { icon: '🌟', label: '復發維持', order: 4 },
+};
+
+// Get sorted phase from a trial's phase array (lowest order = primary phase for grouping)
+function mnemIdxPrimaryPhase(phases){
+  if(!phases || !phases.length) return 'P-TX';
+  const sorted = [...phases].sort((a,b) => 
+    (MNEM_IDX_PHASE_LABELS[a]?.order || 99) - (MNEM_IDX_PHASE_LABELS[b]?.order || 99));
+  return sorted[0];
+}
+
+function openMnemonicIndex(){
+  el('mnemIdxModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderMnemonicIndexTabs();
+  renderMnemonicIndexList();
+}
+
+function closeMnemonicIndex(){
+  el('mnemIdxModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderMnemonicIndexTabs(){
+  const tabs = el('mnemIdxCancerTabs');
+  if(!tabs) return;
+  // Compute counts
+  const counts = {all: 0, EC: 0, OC: 0, CC: 0, US: 0};
+  TRIALS.forEach(t => {
+    if(TRIAL_MNEMONICS[t.id]){
+      counts.all++;
+      if(counts[t.cancer] !== undefined) counts[t.cancer]++;
+    }
+  });
+  tabs.innerHTML = Object.entries(MNEM_IDX_CANCER_LABELS).map(([key, label]) => {
+    const isActive = MNEM_IDX_STATE.activeCancer === key;
+    return `<button class="mnem-idx-cancer-tab ${isActive ? 'active' : ''}" onclick="setMnemonicIndexCancer('${key}')">${label} <span style="opacity:0.7;font-weight:600;font-size:11px;">(${counts[key]||0})</span></button>`;
+  }).join('');
+}
+
+function setMnemonicIndexCancer(cancer){
+  MNEM_IDX_STATE.activeCancer = cancer;
+  renderMnemonicIndexTabs();
+  renderMnemonicIndexList();
+}
+
+function filterMnemonicIndex(){
+  const input = el('mnemIdxSearch');
+  if(!input) return;
+  MNEM_IDX_STATE.searchTerm = input.value.trim().toLowerCase();
+  renderMnemonicIndexList();
+}
+
+// Format mnemonic with colored spans for trial / drug / feature parts
+function formatMnemIdxText(mainStr){
+  // Strip leading 💎 「 and trailing 」
+  let txt = mainStr.replace(/^💎\s*「/, '').replace(/」$/, '');
+  // Split by commas to identify segments
+  // Heuristic: first segment usually contains trial name + (optional + drug); rest are features
+  const parts = txt.split(/[,，]/).map(s => s.trim());
+  if(parts.length < 2) return escapeHtml(txt);
+  // First part: try to split trial name and drug by '+' or ' '
+  const firstPart = parts[0];
+  let formatted = '';
+  if(firstPart.includes('+')){
+    const subParts = firstPart.split('+').map(s => s.trim());
+    formatted = `<span class="mn-trial">${escapeHtml(subParts[0])}</span>` +
+      subParts.slice(1).map(s => ` + <span class="mn-drug">${escapeHtml(s)}</span>`).join('');
+  } else {
+    formatted = `<span class="mn-trial">${escapeHtml(firstPart)}</span>`;
+  }
+  // Remaining parts: feature/highlights
+  const featPart = parts.slice(1).map(p => `<span class="mn-feat">${escapeHtml(p)}</span>`).join(', ');
+  return `💎 「${formatted}, ${featPart}」`;
+}
+
+function renderMnemonicIndexList(){
+  const list = el('mnemIdxList');
+  if(!list) return;
+  
+  const cancerFilter = MNEM_IDX_STATE.activeCancer;
+  const searchTerm = MNEM_IDX_STATE.searchTerm;
+  
+  // Build filtered trials with mnemonics
+  const trialsWithMnem = TRIALS.filter(t => TRIAL_MNEMONICS[t.id])
+    .filter(t => cancerFilter === 'all' || t.cancer === cancerFilter)
+    .filter(t => {
+      if(!searchTerm) return true;
+      const mnem = TRIAL_MNEMONICS[t.id];
+      const haystack = [
+        t.name, t.fullName, t.drug, t.tagline,
+        mnem.main, mnem.keypoint, mnem.numbers, mnem.pitfalls,
+      ].filter(Boolean).join(' ').toLowerCase();
+      return haystack.includes(searchTerm);
+    });
+  
+  if(!trialsWithMnem.length){
+    list.innerHTML = `<div class="mnem-idx-empty">❌ 找不到符合的試驗口訣<br><span style="font-size:12px;">嘗試其他關鍵字, 或切換癌別 tab</span></div>`;
+    return;
+  }
+  
+  // Stats
+  const statsHtml = `<div class="mnem-idx-stats">
+    <div class="mnem-idx-stat"><div class="mnem-idx-stat-num">${trialsWithMnem.length}</div><div class="mnem-idx-stat-label">符合條件試驗</div></div>
+    ${cancerFilter === 'all' ? `<div class="mnem-idx-stat"><div class="mnem-idx-stat-num">${TRIALS.filter(t=>TRIAL_MNEMONICS[t.id]).length}</div><div class="mnem-idx-stat-label">總試驗口訣</div></div>` : ''}
+  </div>`;
+  
+  // Group by cancer (only if 'all') then by primary phase
+  let grouped = {};
+  if(cancerFilter === 'all'){
+    ['EC','OC','CC','US'].forEach(c => grouped[c] = {});
+    trialsWithMnem.forEach(t => {
+      const phase = mnemIdxPrimaryPhase(t.phase);
+      if(!grouped[t.cancer][phase]) grouped[t.cancer][phase] = [];
+      grouped[t.cancer][phase].push(t);
+    });
+  } else {
+    trialsWithMnem.forEach(t => {
+      const phase = mnemIdxPrimaryPhase(t.phase);
+      if(!grouped[phase]) grouped[phase] = [];
+      grouped[phase].push(t);
+    });
+  }
+  
+  let html = statsHtml;
+  let cardCounter = 1;
+  
+  if(cancerFilter === 'all'){
+    Object.keys(grouped).forEach(cancer => {
+      const phasesInCancer = grouped[cancer];
+      if(!Object.keys(phasesInCancer).length) return;
+      const totalInCancer = Object.values(phasesInCancer).reduce((sum,arr) => sum + arr.length, 0);
+      html += `<div class="mnem-idx-section">
+        <div class="mnem-idx-section-header" style="background:linear-gradient(135deg,${cancer==='EC'?'#f3e8ff,#e9d5ff':cancer==='OC'?'#dbeafe,#bfdbfe':cancer==='CC'?'#dcfce7,#bbf7d0':'#fed7aa,#fdba74'});border-left-color:${cancer==='EC'?'#a855f7':cancer==='OC'?'#3b82f6':cancer==='CC'?'#22c55e':'#f97316'};">
+          <span class="mnem-idx-section-icon">${MNEM_IDX_CANCER_LABELS[cancer].split(' ')[0]}</span>
+          <h4 class="mnem-idx-section-title" style="color:${cancer==='EC'?'#581c87':cancer==='OC'?'#1e3a8a':cancer==='CC'?'#14532d':'#7c2d12'};">${MNEM_IDX_CANCER_LABELS[cancer].substring(2)}</h4>
+          <span class="mnem-idx-section-count" style="background:${cancer==='EC'?'#a855f7':cancer==='OC'?'#3b82f6':cancer==='CC'?'#22c55e':'#f97316'};">${totalInCancer}</span>
+        </div>`;
+      // Sort phases by order
+      const sortedPhases = Object.keys(phasesInCancer).sort((a,b) => 
+        (MNEM_IDX_PHASE_LABELS[a]?.order || 99) - (MNEM_IDX_PHASE_LABELS[b]?.order || 99));
+      sortedPhases.forEach(phase => {
+        const phaseInfo = MNEM_IDX_PHASE_LABELS[phase] || {icon:'📋', label:phase};
+        const trials = phasesInCancer[phase];
+        html += `<div style="margin:10px 0 8px 8px;">
+          <div style="font-size:13px;font-weight:800;color:#475569;margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+            <span>${phaseInfo.icon}</span><span>${phaseInfo.label}</span>
+            <span style="background:#e0e7ff;color:#4338ca;padding:1px 7px;border-radius:9px;font-size:10.5px;font-weight:700;">${trials.length}</span>
+          </div>`;
+        trials.forEach(t => {
+          const mnem = TRIAL_MNEMONICS[t.id];
+          html += `<div class="mnem-idx-card" onclick="closeMnemonicIndex();showDetail('${t.id}');">
+            <div class="mnem-idx-card-num">${cardCounter}</div>
+            <div class="mnem-idx-card-mnemonic">${formatMnemIdxText(mnem.main)}</div>
+            <div class="mnem-idx-card-arrow">›</div>
+          </div>`;
+          cardCounter++;
+        });
+        html += `</div>`;
+      });
+      html += `</div>`;
+    });
+  } else {
+    // Single-cancer view: just group by phase
+    const sortedPhases = Object.keys(grouped).sort((a,b) => 
+      (MNEM_IDX_PHASE_LABELS[a]?.order || 99) - (MNEM_IDX_PHASE_LABELS[b]?.order || 99));
+    sortedPhases.forEach(phase => {
+      const phaseInfo = MNEM_IDX_PHASE_LABELS[phase] || {icon:'📋', label:phase};
+      const trials = grouped[phase];
+      html += `<div class="mnem-idx-section">
+        <div class="mnem-idx-section-header">
+          <span class="mnem-idx-section-icon">${phaseInfo.icon}</span>
+          <h4 class="mnem-idx-section-title">${phaseInfo.label}</h4>
+          <span class="mnem-idx-section-count">${trials.length}</span>
+        </div>`;
+      trials.forEach(t => {
+        const mnem = TRIAL_MNEMONICS[t.id];
+        html += `<div class="mnem-idx-card" onclick="closeMnemonicIndex();showDetail('${t.id}');">
+          <div class="mnem-idx-card-num">${cardCounter}</div>
+          <div class="mnem-idx-card-mnemonic">${formatMnemIdxText(mnem.main)}</div>
+          <div class="mnem-idx-card-arrow">›</div>
+        </div>`;
+        cardCounter++;
+      });
+      html += `</div>`;
+    });
+  }
+  
+  list.innerHTML = html;
 }
 
 function resetMatchPatient(){
