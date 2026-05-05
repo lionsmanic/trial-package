@@ -423,6 +423,124 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   flex-wrap:wrap;
 }
 
+/* ===== 🧠 試驗記憶口訣 (Trial Mnemonic) — 藍紫學術風 ===== */
+.trial-mnemonic-card{
+  background:linear-gradient(135deg,#1e1b4b,#312e81);
+  background-image:
+    linear-gradient(135deg,#1e1b4b,#312e81),
+    repeating-linear-gradient(45deg, transparent, transparent 25px, rgba(255,255,255,0.015) 25px, rgba(255,255,255,0.015) 26px);
+  border:2.5px solid #fbbf24;
+  border-radius:13px;
+  padding:16px 18px 14px;
+  margin:14px 0 18px;
+  position:relative;
+  box-shadow:0 6px 20px rgba(30,27,75,0.4);
+  font-family:"Noto Sans TC",-apple-system,sans-serif;
+}
+.trial-mnemonic-card::before{
+  content:'🧠 試驗記憶卡';
+  position:absolute;
+  top:-12px;
+  left:18px;
+  background:linear-gradient(135deg,#fef3c7,#fbbf24);
+  color:#78350f;
+  padding:3px 12px;
+  border-radius:50px;
+  font-size:10.5px;
+  font-weight:800;
+  letter-spacing:0.05em;
+  border:1px solid #f59e0b;
+}
+
+.tmc-label{
+  display:none; /* hidden, replaced by ::before */
+}
+
+.tmc-main{
+  font-size:20px;
+  font-weight:800;
+  color:#fde68a;
+  text-align:center;
+  margin:8px 0 14px;
+  padding:11px;
+  background:rgba(251,191,36,0.1);
+  border:2px dashed #f59e0b;
+  border-radius:10px;
+  letter-spacing:0.08em;
+  text-shadow:0 1px 2px rgba(0,0,0,0.4);
+  line-height:1.4;
+}
+
+.tmc-breakdown{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-bottom:11px;
+}
+.tmc-row{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  padding:6px 11px;
+  background:rgba(255,255,255,0.04);
+  border-left:3px solid #818cf8;
+  border-radius:0 7px 7px 0;
+  font-size:12.5px;
+  line-height:1.55;
+  color:#e0e7ff;
+}
+.tmc-key{
+  font-size:13px;
+  font-weight:800;
+  color:#c7d2fe;
+  flex-shrink:0;
+  min-width:60px;
+  letter-spacing:0.02em;
+}
+.tmc-arrow{
+  color:#818cf8;
+  font-weight:800;
+  flex-shrink:0;
+}
+.tmc-meaning{
+  flex:1;
+  color:#e0e7ff;
+}
+
+.tmc-extras{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  margin-top:8px;
+  padding-top:9px;
+  border-top:1px dashed rgba(199,210,254,0.25);
+}
+.tmc-extra-row{
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+  font-size:11px;
+  color:#c7d2fe;
+  line-height:1.5;
+}
+.tmc-extra-row.keypoint{color:#fde68a;}
+.tmc-extra-row.warn{color:#fca5a5;}
+.tmc-extra-label{
+  flex-shrink:0;
+  font-weight:800;
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.03em;
+}
+
+@media(max-width:640px){
+  .trial-mnemonic-card{padding:14px 14px 12px;margin:11px 0 14px;}
+  .tmc-main{font-size:17px;padding:9px;letter-spacing:0.05em;}
+  .tmc-row{font-size:11.5px;padding:5px 9px;gap:7px;}
+  .tmc-key{font-size:12px;min-width:50px;}
+  .tmc-extra-row{font-size:10.5px;}
+}
+
 /* ===== 🖍️ 螢光標記 (Highlight) ===== */
 .hl-yellow{
   background:linear-gradient(180deg,transparent 55%,#fef08a 55%,#fde047 100%);
@@ -1765,8 +1883,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .m-section{margin-bottom:14px;}
 .m-label{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#475569;margin-bottom:8px;font-family:"JetBrains Mono",monospace;padding-bottom:5px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px;}
 .m-label .icon{font-size:14px;}
-.m-result{background:#fffbeb;border-left:4px solid #f59e0b;padding:13px 15px;border-radius:9px;font-size:13.5px;line-height:1.75;color:var(--ink);}
-.m-rationale{background:#f0f9ff;border-left:4px solid #0ea5e9;padding:13px 15px;border-radius:9px;font-size:13.5px;line-height:1.8;color:var(--ink-soft);}
+.m-result{background:#fffbeb;border-left:4px solid #f59e0b;padding:13px 15px;border-radius:9px;font-size:13.5px;line-height:1.75;color:var(--ink);white-space:pre-line;}
+.m-rationale{background:#f0f9ff;border-left:4px solid #0ea5e9;padding:13px 15px;border-radius:9px;font-size:13.5px;line-height:1.8;color:var(--ink-soft);white-space:pre-line;}
 .m-regimen{background:#f8fafc;border-left:4px solid #64748b;padding:13px 15px;border-radius:9px;font-size:12px;line-height:1.75;font-family:"JetBrains Mono",monospace;white-space:pre-wrap;color:#334155;}
 .m-tech{background:#ecfeff;border-left:4px solid #0891b2;padding:13px 15px;border-radius:9px;font-size:12px;line-height:1.85;font-family:"JetBrains Mono",monospace;white-space:pre-wrap;color:#0c4a6e;}
 .m-subg{background:#fef3c7;border-left:4px solid #d97706;padding:13px 15px;border-radius:9px;font-size:12.5px;line-height:1.85;white-space:pre-wrap;color:#78350f;}
@@ -2548,6 +2666,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     <div id="mGuideBadges"></div>
     <div id="mMolBadges"></div>
     <div id="mCoreConclusion"></div>
+    <div id="mTrialMnemonic"></div>
     <div id="mSiteInfo"></div>
     <div id="mFactGrid"></div>
 
@@ -6644,6 +6763,9 @@ function showDetail(id){
   // Core conclusion (3-line summary for exam + clinical)
   el('mCoreConclusion').innerHTML = renderCoreConclusion(t);
 
+  // 🧠 Trial mnemonic (記憶口訣)
+  el('mTrialMnemonic').innerHTML = renderTrialMnemonic(t.id);
+
   // Site info block (only if trial has siteInfo)
   if(t.siteInfo){
     const s = t.siteInfo;
@@ -6676,9 +6798,9 @@ function showDetail(id){
     </div>
   `;
 
-  el('mResult').textContent = t.outcomes;
-  el('mRat').textContent = t.rationale;
-  el('mReg').textContent = t.regimen;
+  el('mResult').innerHTML = applyHighlight(t.outcomes || '');
+  el('mRat').innerHTML = applyHighlight(t.rationale || '');
+  el('mReg').innerHTML = applyHighlight(t.regimen || '');
 
   showSec('mTechSec', t.tech, 'mTech');
   showSec('mSubgSec', t.subgroup, 'mSubg');
@@ -6686,8 +6808,8 @@ function showDetail(id){
   showSec('mGdSec', t.guideline, 'mGd');
   showSec('mPubSec', t.publication, 'mPub');
 
-  el('mInc').innerHTML = (t.inc||[]).map(i => `<li>${i}</li>`).join('');
-  el('mExc').innerHTML = (t.exc||[]).map(i => `<li>${i}</li>`).join('');
+  el('mInc').innerHTML = (t.inc||[]).map(i => `<li>${applyHighlight(i)}</li>`).join('');
+  el('mExc').innerHTML = (t.exc||[]).map(i => `<li>${applyHighlight(i)}</li>`).join('');
 
   // 🔗 相似試驗交叉比較
   renderSimilarTrials(t);
@@ -6872,7 +6994,7 @@ function addSimilarTopToCompare(currentTid, topTids){
 function showSec(secId, content, contentId){
   if(content){
     el(secId).style.display = 'block';
-    el(contentId).textContent = content;
+    el(contentId).innerHTML = applyHighlight(content);
   } else {
     el(secId).style.display = 'none';
   }
@@ -10737,12 +10859,12 @@ const MNEMONICS = {
 
   'NSMP-low-risk': {
     title: '🧠 NSMP-low-risk 記憶口訣',
-    main: '💎 「無雌好命, ER陽 NSMP」',
+    main: '💎 「ER 陽好命, 賀爾蒙好用」',
     breakdown: [
-      { key: '無', meaning: 'NSMP = No Specific Molecular Profile' },
-      { key: '雌', meaning: 'ER+ (雌激素受體陽性)' },
-      { key: '好命', meaning: '預後較佳, fertility-sparing 適用' },
-      { key: 'ER陽', meaning: 'ER+ NSMP → low-risk subset' },
+      { key: 'ER 陽', meaning: 'ER positive (低惡度子集的標記)' },
+      { key: '好命', meaning: '5y OS >85%, 預後好' },
+      { key: '賀爾蒙好用', meaning: 'Hormonal therapy 適用 (Letrozole/MA/LNG-IUD)' },
+      { key: 'fertility 可', meaning: 'Fertility-sparing 適用 (年輕患者)' },
     ],
     numbers: 'NSMP 占 EC ~50% · NSMP 中 ~60% 為 ER+ low-risk · 5y OS >85%',
     pitfalls: 'NSMP 是異質性大族群, 須再分流 (ER+ vs ER-)',
@@ -10751,12 +10873,12 @@ const MNEMONICS = {
 
   'NSMP-high-risk': {
     title: '🧠 NSMP-high-risk 記憶口訣',
-    main: '💎 「無雌變壞, 接近 p53」',
+    main: '💎 「無分型 ER 陰, 強化同 p53」',
     breakdown: [
-      { key: '無雌', meaning: 'NSMP + ER negative' },
-      { key: '變壞', meaning: '預後接近 p53abn (差)' },
-      { key: '接近 p53', meaning: '同樣需強化 adjuvant + chemo+RT' },
-      { key: 'L1CAM 警', meaning: 'L1CAM+ 為 high-risk 額外指標' },
+      { key: '無分型', meaning: 'NSMP (No Specific Molecular Profile)' },
+      { key: 'ER 陰', meaning: 'ER negative (高惡度標記)' },
+      { key: '強化同 p53', meaning: '治療升級至 chemo + RT, 接近 p53abn 處理' },
+      { key: 'L1CAM 警', meaning: 'L1CAM+ 為額外 high-risk 指標' },
     ],
     numbers: 'NSMP 中 ~40% · 5y OS 接近 p53abn (~50-60%) · L1CAM+ recurrence ↑',
     pitfalls: 'NSMP 不可一概而論, 須分 ER+/- + L1CAM',
@@ -10765,16 +10887,16 @@ const MNEMONICS = {
 
   'CTNNB1': {
     title: '🧠 CTNNB1 記憶口訣',
-    main: '💎 「貝塔陽變, 早復發」',
+    main: '💎 「假 low-grade, 真早復, Wnt 三外顯」',
     breakdown: [
-      { key: '貝塔', meaning: 'β-catenin (CTNNB1)' },
-      { key: '陽變', meaning: 'Exon 3 mutation (S33, S37, T41, S45)' },
-      { key: '早復發', meaning: '雖 low-grade 但易早期復發' },
-      { key: 'Wnt 路徑', meaning: 'Wnt/β-catenin pathway 活化' },
+      { key: '假 low-grade', meaning: '看似低惡度 (G1-2 endometrioid, 多 IB)' },
+      { key: '真早復', meaning: '【反差】實際 5y RFS 較差, 易早期復發' },
+      { key: 'Wnt', meaning: 'β-catenin nuclear → Wnt pathway 活化' },
+      { key: '三外顯', meaning: 'Exon 3 突變熱點: S33 / S37 / T41 / S45' },
     ],
-    numbers: 'NSMP 中 ~20-30% CTNNB1m · 雖 G1 但 5y RFS 較差',
-    pitfalls: 'CTNNB1m NSMP 不要因 low-grade 就掉以輕心',
-    trials: 'PORTEC-4a integrated risk model',
+    numbers: 'NSMP 中 ~20-30% CTNNB1m · 5y RFS 較 wildtype 差 ~20%',
+    pitfalls: '【高頻考點】CTNNB1m 不要因 G1-G2 就掉以輕心; 提升 PORTEC-4a risk',
+    trials: 'PORTEC-4a integrated risk model (CTNNB1 列為 high-risk 因子)',
   },
 
   'HER2-uterine-serous': {
@@ -11201,6 +11323,191 @@ const MNEMONICS = {
     trials: '主要為 adnexal mass 鑑別工具',
   }
 };
+
+// ============================================================
+// 🧠 試驗記憶口訣 (Trial Mnemonics) — 婦癌核心試驗
+// ============================================================
+const TRIAL_MNEMONICS = {
+
+// ========== EC 一線 + 一線維持 完整 13 個試驗口訣 ==========
+
+  // ====== 一線 (P-TX) ======
+  'gy018': {
+    main: '💎 「碳紫帕, 不收癌肉瘤」',
+    breakdown: [
+      { key: '碳', meaning: 'Carboplatin' },
+      { key: '紫', meaning: 'Paclitaxel' },
+      { key: '帕', meaning: 'Pembrolizumab (帕博利珠單抗)' },
+      { key: '不收癌肉瘤', meaning: '【關鍵】排除 carcinosarcoma (vs RUBY P1)' },
+    ],
+    keypoint: 'Stage III-IV 或 recurrent EC 一線; 維持期 Pembro × 14 cycles',
+    numbers: 'MMRd PFS HR 0.30 · pMMR HR 0.54 · NCCN Cat 1 不論 MMR',
+    pitfalls: '【vs RUBY P1】GY018 不收 carcinosarcoma; RUBY P1 收',
+  },
+
+  'ruby-p1': {
+    main: '💎 「碳紫多, 收癌肉瘤」',
+    breakdown: [
+      { key: '碳', meaning: 'Carboplatin' },
+      { key: '紫', meaning: 'Paclitaxel' },
+      { key: '多', meaning: 'Dostarlimab (多塔利單抗)' },
+      { key: '收癌肉瘤', meaning: '【關鍵】允許 carcinosarcoma (vs GY018)' },
+    ],
+    keypoint: 'Stage III-IV 或 first recurrence EC 一線; 維持期 Dostar × 3 年',
+    numbers: 'MMRd PFS HR 0.28 · OS HR 0.32 · 含 carcinosarcoma 也獲益',
+    pitfalls: 'Dostar 維持 3 年 vs GY018 Pembro 維持 ~14 cycles',
+  },
+
+  'duo-e': {
+    main: '💎 「三 D 配三鏢, p53 與 HRR 最佳」',
+    breakdown: [
+      { key: '三 D', meaning: 'Durvalumab + Olaparib + Bevacizumab (Arm 3)' },
+      { key: '配三鏢', meaning: 'Arm 3 = chemo+IO+PARPi+Bev 三標靶' },
+      { key: 'p53m 最佳', meaning: 'p53abn 子群獲益最大' },
+      { key: 'HRRm 最佳', meaning: 'HRR mutation 子群也獲益' },
+    ],
+    keypoint: 'Stage III-IV 或 recurrent EC 一線; 三 arms (chemo / +Durva / +Durva+Olap)',
+    numbers: 'pMMR HRRm/p53m PFS HR 0.57 · pMMR overall PFS HR 0.77',
+    pitfalls: 'Arm 3 才是真正三標靶亮點; Arm 2 (僅 +Durva) 效力較弱',
+  },
+
+  'attend': {
+    main: '💎 「碳紫阿, dMMR 強, 整體弱」',
+    breakdown: [
+      { key: '碳紫', meaning: 'Carboplatin + Paclitaxel' },
+      { key: '阿', meaning: 'Atezolizumab (阿特珠單抗)' },
+      { key: 'dMMR 強', meaning: 'dMMR 子群顯著獲益 (PFS HR 0.36)' },
+      { key: '整體弱', meaning: 'ITT OS HR 0.87 (NS) — 未達顯著' },
+    ],
+    keypoint: 'AtTEnd: 一線 chemo+Atezo; 顯示 dMMR/MMRd 為 IO 主要獲益族群',
+    numbers: 'dMMR PFS HR 0.36 · ITT OS HR 0.87 (NS) · 強化 RUBY/GY018 結論',
+    pitfalls: '【負面試驗】ITT OS 未達顯著; 不如 RUBY/GY018 強; 但 dMMR 仍有用',
+  },
+
+  'keynote-b21': {
+    main: '💎 「B21 高險 adjuvant, 帕加負試驗」',
+    breakdown: [
+      { key: 'B21', meaning: 'KEYNOTE-B21' },
+      { key: '高險 adjuvant', meaning: 'High-risk EC 術後 adjuvant 情境' },
+      { key: '帕加', meaning: '化療 + Pembrolizumab 加成' },
+      { key: '負試驗', meaning: '【負面結果】DFS HR 1.02 (NS), 主終點未達' },
+    ],
+    keypoint: 'High-risk Stage I-IV adjuvant: chemo+RT ± Pembro; DFS 不顯著',
+    numbers: 'DFS HR 1.02 (NS) · 與 advanced/recurrent IO 受益相反',
+    pitfalls: '【高頻考點】adjuvant IO 效力 ≠ advanced IO 效力; 不要混淆設計',
+  },
+
+  // ====== 一線維持 (P-MT) ======
+  'duo-e-maint': {
+    main: '💎 「Durva 維持後段, +Olap 補 pMMR」',
+    breakdown: [
+      { key: 'Durva 維持', meaning: 'Durvalumab 維持期 (post-chemo)' },
+      { key: '後段', meaning: 'DUO-E 試驗的 maintenance phase 子分析' },
+      { key: '+Olap', meaning: 'Arm 3 加 Olaparib 雙標靶維持' },
+      { key: '補 pMMR', meaning: 'pMMR HRRm/p53m 子群獲益最大' },
+    ],
+    keypoint: 'DUO-E 維持期獨立檢視: Arm 3 (Durva+Olap) PFS HR 0.55',
+    numbers: 'Arm 3 PFS HR 0.55 · pMMR 三藥組 (Durva+Olap+chemo) HR 0.55',
+    pitfalls: 'Arm 2 (Durva only) 效力弱; Arm 3 才是亮點',
+  },
+
+  'ruby-p2': {
+    main: '💎 「P2 加米, pMMR 雙標靶」',
+    breakdown: [
+      { key: 'P2', meaning: 'RUBY Part 2 (vs Part 1 為 Dostar 單藥維持)' },
+      { key: '加米', meaning: '加 Niraparib (米 = Nira)' },
+      { key: 'pMMR 雙標', meaning: 'pMMR + 高風險: IO + PARPi 雙標靶維持' },
+      { key: '一四對八', meaning: 'mPFS 14.5 vs 8.3m (HR 0.60)' },
+    ],
+    keypoint: 'pMMR 高風險 EC 一線維持: chemo + Dostar + Niraparib (Part 2)',
+    numbers: 'ITT mPFS 14.5 vs 8.3m HR 0.60 · pMMR 高風險受惠',
+    pitfalls: 'dMMR 不需 P2 (P1 Dostar 已足夠); P2 強化 pMMR',
+  },
+
+  'utola': {
+    main: '💎 「U Olap 全 NS, p53m 才有用」',
+    breakdown: [
+      { key: 'U', meaning: 'UTOLA' },
+      { key: 'Olap', meaning: 'Olaparib 維持' },
+      { key: '全 NS', meaning: '【負面試驗】整體 PFS 未達顯著' },
+      { key: 'p53m 才有用', meaning: '但 p53abn 子群有正面訊號' },
+    ],
+    keypoint: 'EC 一線完成化療後 Olaparib 單藥維持; ITT 未達 PFS',
+    numbers: 'ITT 主終點 NS · p53abn subgroup 正面訊號 (post-hoc)',
+    pitfalls: '【負面試驗】不要錯記為 OC SOLO-1 那麼有效; 在 EC 是 NS',
+  },
+
+  'trofuse-033': {
+    main: '💎 「TROP-奶, pMMR 維持新策」',
+    breakdown: [
+      { key: 'TROP', meaning: 'TROP2-ADC: sac-TMT (Sacituzumab Tirumotecan)' },
+      { key: '奶', meaning: 'sac-TMT (奶 = sac, 諧音記)' },
+      { key: 'pMMR 維持', meaning: 'pMMR 一線維持探索 (補 IO 不足)' },
+      { key: '新策', meaning: 'TROP2-ADC + Pembro 雙標靶維持' },
+    ],
+    keypoint: 'TroFuse-033: pMMR EC 1L 維持新策略 (TROP2-ADC + IO)',
+    numbers: 'Phase III · pMMR 為主要對象 · 試驗 ongoing',
+    pitfalls: '與 mk2870-033 同方向 (TROP2-ADC for pMMR maintenance)',
+  },
+
+  'siendo': {
+    main: '💎 「Si TP53 wild, mPFS 27 對 5」',
+    breakdown: [
+      { key: 'Si', meaning: 'SIENDO (Selinexor)' },
+      { key: 'TP53 wild', meaning: '【關鍵】TP53 wildtype 子群突破' },
+      { key: '27 對 5', meaning: 'mPFS 27.4 vs 5.2 個月 (HR 0.41)' },
+      { key: '反 p53abn', meaning: '與一般「p53abn 強化」反向: 此試驗 wildtype 才有效' },
+    ],
+    keypoint: '一線完成化療後 Selinexor 維持; TP53wt subgroup 27.4m PFS',
+    numbers: 'TP53wt mPFS 27.4 vs 5.2m HR 0.41 · TP53m 無顯著差異',
+    pitfalls: '【高頻考點】TP53 status 完全相反: SIENDO 看 wildtype, 其他看 abnormal',
+  },
+
+  'mk2870-033': {
+    main: '💎 「MK 奶帕, pMMR 維持」',
+    breakdown: [
+      { key: 'MK', meaning: 'MK-2870-033 (Merck 開發代號)' },
+      { key: '奶', meaning: 'sac-TMT (Sacituzumab Tirumotecan, TROP2-ADC)' },
+      { key: '帕', meaning: 'Pembrolizumab' },
+      { key: 'pMMR 維持', meaning: 'pMMR 1L 維持探索' },
+    ],
+    keypoint: 'pMMR 一線維持: TROP2-ADC + Pembro (補 pMMR IO 反應不足)',
+    numbers: 'Phase III · pMMR 為主要對象 · 設計類似 TroFuse-033',
+    pitfalls: '與 TroFuse-033 同方向, 不同藥廠平行試驗',
+  },
+
+  // ====== 一線 (P-TX, Adjuvant) ======
+  'rainbo-program': {
+    main: '💎 「彩虹四桶, 4-tier 各一」',
+    breakdown: [
+      { key: '彩虹', meaning: 'RAINBO program (顏色 like 彩虹)' },
+      { key: '四桶', meaning: '4 個獨立試驗 (對應 4 分子分型)' },
+      { key: 'BLUE', meaning: 'p53abn → chemo + Olaparib maintenance' },
+      { key: 'GREEN', meaning: 'POLEm → de-escalation (no adjuvant)' },
+      { key: 'YELLOW', meaning: 'NSMP-high risk → 個別化 RT' },
+      { key: 'RED', meaning: 'MMRd → de-escalation + IO' },
+    ],
+    keypoint: 'Adjuvant EC 4-arm parallel program; 對應 4-tier 分子分型',
+    numbers: 'TRANSPORTEC 後續 phase III · 4 並行試驗',
+    pitfalls: '台灣未必有 site, 多為國際試驗 (學術重點而非臨床可及)',
+  },
+
+  'portec-4a': {
+    main: '💎 「4a 整合分型, 個別化降階」',
+    breakdown: [
+      { key: '4a', meaning: 'PORTEC-4a (進階版 PORTEC-2)' },
+      { key: '整合分型', meaning: '整合 4-tier + L1CAM + CTNNB1 (integrated risk)' },
+      { key: '個別化', meaning: 'Individualized adjuvant: 觀察 / VBT / chemo+RT' },
+      { key: '降階', meaning: '部分 low-intermediate-risk 可降階治療' },
+    ],
+    keypoint: 'Stage I-II EC: integrated risk model 個別化 adjuvant',
+    numbers: '3 種 risk groups · 降階後 surveillance only 可行',
+    pitfalls: 'POLEm 不論期都降階; CTNNB1m 提升 risk',
+  },
+
+
+};
+
 
 
 const EXAM_CARDS = {
@@ -15630,6 +15937,35 @@ function renderMnemonic(entryId){
         <div class="mn-extra-row"><span class="mn-extra-label">📍 數字</span> ${escapeHtml(m.numbers)}</div>
         <div class="mn-extra-row warn"><span class="mn-extra-label">⚠️ 易錯</span> ${escapeHtml(m.pitfalls)}</div>
         <div class="mn-extra-row trials"><span class="mn-extra-label">🎯 試驗</span> ${escapeHtml(m.trials)}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// 🧠 試驗記憶口訣 Render
+// ============================================================
+function renderTrialMnemonic(trialId){
+  const m = TRIAL_MNEMONICS[trialId];
+  if(!m) return '';
+
+  return `
+    <div class="trial-mnemonic-card">
+      <div class="tmc-label">🧠 試驗記憶口訣</div>
+      <div class="tmc-main">${escapeHtml(m.main)}</div>
+      <div class="tmc-breakdown">
+        ${m.breakdown.map(b => `
+          <div class="tmc-row">
+            <span class="tmc-key">${escapeHtml(b.key)}</span>
+            <span class="tmc-arrow">→</span>
+            <span class="tmc-meaning">${escapeHtml(b.meaning)}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="tmc-extras">
+        ${m.keypoint ? `<div class="tmc-extra-row keypoint"><span class="tmc-extra-label">🎯 重點</span> ${escapeHtml(m.keypoint)}</div>` : ''}
+        ${m.numbers ? `<div class="tmc-extra-row"><span class="tmc-extra-label">📍 數字</span> ${escapeHtml(m.numbers)}</div>` : ''}
+        ${m.pitfalls ? `<div class="tmc-extra-row warn"><span class="tmc-extra-label">⚠️ 易錯</span> ${escapeHtml(m.pitfalls)}</div>` : ''}
       </div>
     </div>
   `;
