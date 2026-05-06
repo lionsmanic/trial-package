@@ -52,10 +52,60 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-mnemonic:hover{box-shadow:0 4px 16px rgba(139,92,246,0.45);}
 .header-btn-cmp{background:linear-gradient(135deg,#0891b2,#0e7490);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(8,145,178,0.3);}
 .header-btn-cmp:hover{box-shadow:0 4px 16px rgba(8,145,178,0.45);}
-@media(max-width:640px){
+/* Hamburger toggle (hidden on desktop) */
+.header-hamburger{display:none;width:40px;height:40px;border-radius:9px;border:1.5px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);color:white;font-size:20px;cursor:pointer;font-family:inherit;align-items:center;justify-content:center;font-weight:900;transition:all 0.15s;flex-shrink:0;}
+.header-hamburger:hover{background:rgba(255,255,255,0.2);}
+.header-hamburger.is-open{background:rgba(255,255,255,0.25);}
+
+/* Tablet: hide all text labels */
+@media(max-width:880px){
   .hide-on-mobile{display:none;}
-  .header-actions{gap:6px;}
-  .header-btn{padding:7px 11px;font-size:11.5px;}
+  .header-actions{gap:5px;}
+  .header-btn{padding:7px 10px;font-size:11.5px;gap:4px;}
+  .header-btn span{font-size:14px;}
+  .logo-sub{display:none;}
+}
+
+/* Mobile: hamburger + drawer */
+@media(max-width:640px){
+  .header-hamburger{display:inline-flex;}
+  .header-actions{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:#1e293b;
+    padding:12px;
+    margin-left:0;
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:8px;
+    border-top:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 6px 20px rgba(0,0,0,0.3);
+    z-index:201;
+  }
+  .header-actions.is-open{display:flex;}
+  .header-actions .header-btn{
+    flex:1 1 calc(33.333% - 6px);
+    min-width:0;
+    padding:11px 8px;
+    font-size:11px;
+    gap:5px;
+    flex-direction:column;
+    text-align:center;
+    line-height:1.25;
+  }
+  .header-actions .header-btn span:first-child{font-size:18px;}
+  .header-actions .header-btn span:not(:first-child){display:inline !important;font-size:10.5px;font-weight:700;}
+  .hide-on-mobile{display:inline !important;}
+  .header-inner{position:relative;}
+  .logo-title{font-size:14px;}
+  .logo-sub{display:none;}
+}
+
+@media(max-width:380px){
+  .header-actions .header-btn{flex:1 1 calc(50% - 4px);}
 }
 
 /* Cancer picker */
@@ -2571,12 +2621,12 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div class="logo-title">婦癌臨床試驗導航系統</div>
       <div class="logo-sub">Gynecologic Oncology Trial Navigator · 2026 Extended</div>
     </div>
-    <div class="header-actions">
+    <div class="header-actions" id="headerActions">
       <button class="header-btn header-btn-config" id="aiConfigBtn" onclick="openAiConfig()" title="設定 Gemini API Key">
         <span>⚙️</span><span class="hide-on-mobile">API Key</span>
       </button>
       <button class="header-btn header-btn-mol" onclick="openMolPedia()" title="開啟分子分型百科">
-        <span>🧬</span><span>分子分型</span>
+        <span>🧬</span><span class="hide-on-mobile">分子分型</span>
       </button>
       <button class="header-btn header-btn-study" onclick="openStudyPlan()" title="開啟讀書計畫 + 考點等級 + 進度追蹤">
         <span>📚</span><span class="hide-on-mobile">讀書計畫</span>
@@ -2597,9 +2647,10 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
         <span>🔬</span><span class="hide-on-mobile">自訂對照</span>
       </button>
       <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
-        <span>🤖</span><span>AI 治療路徑</span>
+        <span>🤖</span><span class="hide-on-mobile">AI 治療路徑</span>
       </button>
     </div>
+    <button class="header-hamburger" id="headerHamburger" onclick="toggleHeaderActions()" aria-label="開啟主選單">☰</button>
   </div>
 </header>
 
@@ -7681,6 +7732,53 @@ function updateAiConfigBtn(){
     btn.title = '設定 Gemini API Key';
   }
 }
+
+// ============================================================
+// 📱 Mobile header drawer toggle
+// ============================================================
+function toggleHeaderActions(){
+  const actions = el('headerActions');
+  const hamb = el('headerHamburger');
+  if(!actions) return;
+  const isOpen = actions.classList.toggle('is-open');
+  if(hamb){
+    hamb.classList.toggle('is-open', isOpen);
+    hamb.textContent = isOpen ? '✕' : '☰';
+    hamb.setAttribute('aria-label', isOpen ? '關閉主選單' : '開啟主選單');
+  }
+}
+
+// Close drawer when any header button is clicked (on mobile)
+document.addEventListener('click', function(e){
+  const target = e.target.closest('.header-actions .header-btn');
+  if(target && window.innerWidth <= 640){
+    const actions = el('headerActions');
+    const hamb = el('headerHamburger');
+    if(actions && actions.classList.contains('is-open')){
+      // Defer so the button's own onclick fires first
+      setTimeout(() => {
+        actions.classList.remove('is-open');
+        if(hamb){
+          hamb.classList.remove('is-open');
+          hamb.textContent = '☰';
+        }
+      }, 50);
+    }
+  }
+});
+
+// Close drawer on resize to desktop
+window.addEventListener('resize', function(){
+  if(window.innerWidth > 640){
+    const actions = el('headerActions');
+    const hamb = el('headerHamburger');
+    if(actions) actions.classList.remove('is-open');
+    if(hamb){
+      hamb.classList.remove('is-open');
+      hamb.textContent = '☰';
+    }
+  }
+});
 
 function openAiConfig(){
   const cfg = getAiConfig();
