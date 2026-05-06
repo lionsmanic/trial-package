@@ -565,6 +565,21 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .km-curve-item.km-negative .km-note{background:#f1f5f9;border-left-color:#94a3b8;color:#334155;}
 
 /* 📐 Shape Analysis */
+.km-shape-summary{margin-top:8px;padding:9px 13px 8px;border-radius:9px;display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.65;flex-wrap:wrap;}
+.km-shape-summary.summary-good{background:linear-gradient(90deg,#d1fae5,#ecfdf5);border-left:4px solid #059669;}
+.km-shape-summary.summary-mid{background:linear-gradient(90deg,#fef9c3,#fefce8);border-left:4px solid #ca8a04;}
+.km-shape-summary.summary-warn{background:linear-gradient(90deg,#fee2e2,#fef2f2);border-left:4px solid #dc2626;}
+.km-shape-summary.summary-note{background:linear-gradient(90deg,#e0e7ff,#eef2ff);border-left:4px solid #4f46e5;}
+.km-shape-summary-label{flex:0 0 auto;font-weight:900;font-size:12px;color:#0c1f3d;background:white;padding:2px 9px;border-radius:6px;letter-spacing:0.04em;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.km-shape-summary-text{flex:1;color:#1e293b;font-weight:600;}
+.km-summary-part{display:inline;padding:1px 2px;border-radius:3px;}
+.km-summary-part.accent-pos{background:#fef3c7;color:#7c2d12;font-weight:800;padding:1px 5px;}
+.km-summary-part.accent-neg{background:#fecaca;color:#7f1d1d;font-weight:800;padding:1px 5px;}
+.km-summary-part.accent-warn{background:#fed7aa;color:#7c2d12;font-weight:800;padding:1px 5px;}
+.km-summary-part.accent-note{background:#dbeafe;color:#1e3a8a;font-weight:800;padding:1px 5px;}
+.km-summary-part.accent-highlight{background:linear-gradient(180deg,transparent 50%,#fde047 50%);color:#0c1f3d;font-weight:900;padding:0 3px;}
+.km-summary-sep{color:#94a3b8;font-weight:900;margin:0 2px;}
+
 .km-shape-analysis{margin-top:8px;background:linear-gradient(135deg,#fef9f3,#fff);border:1px solid #fde68a;border-radius:8px;overflow:hidden;}
 .km-shape-analysis summary{padding:8px 12px;font-size:12px;font-weight:800;color:#7c2d12;cursor:pointer;list-style:none;background:#fef3c7;display:flex;align-items:center;gap:6px;}
 .km-shape-analysis summary::-webkit-details-marker{display:none;}
@@ -587,7 +602,15 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .km-shape-text{flex:1;color:#0c1f3d;font-weight:600;}
 
 /* Compare Modal Shape Compare */
-.km-cmp-shape-compare{margin-top:14px;background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:9px;padding:11px 13px 10px;}
+.km-cmp-summaries{margin-top:14px;padding:12px 13px 10px;background:linear-gradient(135deg,#fefce8,#fff);border:1.5px solid #fde047;border-radius:9px;}
+.km-cmp-summaries-header{font-size:13px;font-weight:900;color:#713f12;margin-bottom:9px;letter-spacing:0.02em;}
+.km-cmp-shape-compare-wrap{margin-top:12px;background:white;border:1.5px solid #cbd5e1;border-radius:9px;overflow:hidden;}
+.km-cmp-shape-compare-summary{padding:8px 13px;font-size:12.5px;font-weight:800;color:#1e293b;cursor:pointer;list-style:none;background:#f1f5f9;display:flex;align-items:center;gap:6px;}
+.km-cmp-shape-compare-summary::-webkit-details-marker{display:none;}
+.km-cmp-shape-compare-summary::before{content:'▶';font-size:9px;transition:transform 0.2s;color:#475569;}
+.km-cmp-shape-compare-wrap[open] .km-cmp-shape-compare-summary::before{transform:rotate(90deg);}
+.km-cmp-shape-compare-summary:hover{background:#e2e8f0;}
+.km-cmp-shape-compare{margin-top:0;background:white;border:none;border-radius:0;padding:11px 13px 10px;}
 .km-cmp-shape-header{font-size:13px;font-weight:900;color:#0c1f3d;margin-bottom:9px;}
 .km-cmp-shape-table{width:100%;border-collapse:collapse;font-size:11.5px;}
 .km-cmp-shape-table th{padding:6px 8px;background:white;font-weight:800;color:#475569;text-align:left;border-bottom:2px solid #cbd5e1;font-size:11px;}
@@ -18978,11 +19001,126 @@ function analyzeCurveShape(curve){
   return result;
 }
 
+// 🎯 生成一句話結論 — 整合 4 個維度的最重要訊號
+// Returns: { headline, level, parts: [{label, accent}] } where parts is for highlight rendering
+function summarizeCurveShape(a, curve){
+  if(!a) return null;
+  const hasCtrl = a.earlySep !== null;
+  const isNeg = curve.negative;
+  
+  const parts = [];
+  let level = 'good';  // good / mid / warn / note (mostly informational)
+  
+  if(isNeg){
+    // Negative trial summary
+    level = 'warn';
+    parts.push({label:'⚠️ 主終點未達顯著'});
+    if(hasCtrl){
+      if(a.lateSep !== null && Math.abs(a.lateSep) < 0.05){
+        parts.push({label:'24m 後兩組曲線重疊'});
+      } else if(a.earlySep !== null && a.earlySep < 0.05){
+        parts.push({label:'早期未分離', accent:'neg'});
+      }
+      if(a.ctrlDropEarly !== null && a.ctrlDropEarly < 0.20){
+        parts.push({label:'對照組預後較好 → IO 加成空間小', accent:'neg'});
+      }
+    }
+    parts.push({label:'須對比正面試驗思考族群差異', accent:'note'});
+    return {parts, level};
+  }
+  
+  // Positive trial — analyze pattern
+  if(!hasCtrl){
+    // Single-arm trial (e.g., GARNET)
+    level = 'mid';
+    parts.push({label:'單臂試驗'});
+    if(a.txPlateau !== null && a.maxFU >= 24){
+      const p = a.txPlateau * 100;
+      if(p > 50) parts.push({label:`${a.maxFU}m 仍 ${p.toFixed(0)}% 維持反應`, accent:'pos'});
+      else if(p > 30) parts.push({label:`${a.maxFU}m 維持 ${p.toFixed(0)}%`, accent:'pos'});
+      else parts.push({label:`${a.maxFU}m 僅 ${p.toFixed(0)}% 維持`, accent:'note'});
+    }
+    parts.push({label:'無對照組, 無法判斷相對 benefit', accent:'note'});
+    return {parts, level};
+  }
+  
+  // === Two-arm positive trial ===
+  // Pattern A: Strong & Persistent (early sep + late sep maintained or expanded)
+  // Pattern B: Late Bloomer (small early sep, big late sep)
+  // Pattern C: Front-loaded (big early sep, narrowing later)
+  // Pattern D: Modest benefit (small consistent gap)
+  
+  const earlyStrong = a.earlySep > 0.15;
+  const earlyMild = a.earlySep > 0.05 && a.earlySep <= 0.15;
+  const earlyWeak = a.earlySep <= 0.05;
+  const lateStrong = a.lateSep !== null && a.lateSep > 0.20;
+  const lateExpand = a.lateSep !== null && a.midSep !== null && a.lateSep > a.midSep * 1.15;
+  const lateNarrow = a.lateSep !== null && a.midSep !== null && a.lateSep < a.midSep * 0.85;
+  const highPlateau = a.txPlateau !== null && a.maxFU >= 24 && a.txPlateau > 0.50;
+  const ctrlSteepDrop = a.ctrlDropEarly !== null && a.ctrlDropEarly > 0.40;
+  const ctrlSlowDrop = a.ctrlDropEarly !== null && a.ctrlDropEarly < 0.20;
+  
+  // Pattern detection
+  if(earlyStrong && lateStrong){
+    level = 'good';
+    parts.push({label:'⚡ 早期快速分離', accent:'pos'});
+    parts.push({label:'24m 仍維持顯著差距', accent:'pos'});
+    if(highPlateau) parts.push({label:`${a.maxFU}m 高位 plateau (${(a.txPlateau*100).toFixed(0)}%)`, accent:'pos'});
+    parts.push({label:'真實 long-term benefit', accent:'highlight'});
+  } else if(earlyWeak && lateStrong){
+    level = 'good';
+    parts.push({label:'🌱 早期重疊, 後期才分離', accent:'note'});
+    parts.push({label:'典型免疫治療延遲反應'});
+    if(highPlateau) parts.push({label:`${a.maxFU}m 高位 plateau`, accent:'pos'});
+    parts.push({label:'長 follow-up 才看出真實效應', accent:'highlight'});
+  } else if(earlyStrong && lateNarrow){
+    level = 'mid';
+    parts.push({label:'⚡ 早期分離強', accent:'pos'});
+    parts.push({label:'⚠️ 後期收斂', accent:'warn'});
+    parts.push({label:'治療效應隨時間衰減 (mPFS+ 但 OS 可能 NS)', accent:'highlight'});
+  } else if(earlyMild && lateExpand){
+    level = 'good';
+    parts.push({label:'📈 差距隨時間擴大', accent:'pos'});
+    parts.push({label:'治療優勢逐步累積'});
+    if(ctrlSteepDrop) parts.push({label:'對照組速降反映族群高 unmet need', accent:'note'});
+  } else if(earlyMild){
+    level = 'mid';
+    parts.push({label:'📊 中度持續分離'});
+    if(ctrlSteepDrop) parts.push({label:'對照組速降 → 高風險族群, IO 加成空間大', accent:'highlight'});
+    else if(ctrlSlowDrop) parts.push({label:'對照組緩降 → 整體預後佳, 加成空間有限', accent:'note'});
+  } else if(earlyWeak){
+    level = 'note';
+    parts.push({label:'📉 兩組早期差距小'});
+    if(a.lateSep !== null && a.lateSep > 0.10) parts.push({label:'後期差距擴大, 但效應有限', accent:'note'});
+    else parts.push({label:'整體效應偏弱, 須看 subgroup', accent:'warn'});
+  }
+  
+  return {parts, level};
+}
+
 function renderShapeAnalysis(curve){
   const a = analyzeCurveShape(curve);
   if(!a || !a.interpretations.length) return '';
   
-  let html = `<details class="km-shape-analysis"><summary>📐 曲線形狀解讀 (${a.interpretations.length} 個觀察)</summary>`;
+  // 🎯 Conclusion (always visible) — one-sentence summary with highlights
+  const summary = summarizeCurveShape(a, curve);
+  let html = '';
+  if(summary && summary.parts.length){
+    const levelClass = `summary-${summary.level}`;
+    html += `<div class="km-shape-summary ${levelClass}">`;
+    html += `<span class="km-shape-summary-label">🎯 結論</span>`;
+    html += `<span class="km-shape-summary-text">`;
+    summary.parts.forEach((p, i) => {
+      const accentClass = p.accent ? `accent-${p.accent}` : '';
+      if(i > 0) html += `<span class="km-summary-sep"> · </span>`;
+      html += `<span class="km-summary-part ${accentClass}">${escapeHtml(p.label)}</span>`;
+    });
+    html += `</span>`;
+    html += `</div>`;
+  }
+  
+  // 📐 Detailed analysis (collapsible)
+  html += `<details class="km-shape-analysis"><summary>📐 詳細解讀 (${a.interpretations.length} 個觀察 + 量化數值)</summary>`;
   html += `<div class="km-shape-grid">`;
   
   // Quick numbers panel
@@ -19247,9 +19385,43 @@ function renderKMCompareChart(){
   // Side-by-side shape analysis comparison
   const a1 = analyzeCurveShape(c1);
   const a2 = analyzeCurveShape(c2);
+  
+  // Show 🎯 Per-trial conclusion summaries first
+  if(a1 || a2){
+    const s1 = a1 ? summarizeCurveShape(a1, c1) : null;
+    const s2 = a2 ? summarizeCurveShape(a2, c2) : null;
+    html += `<div class="km-cmp-summaries">`;
+    html += `<div class="km-cmp-summaries-header">🎯 各試驗結論</div>`;
+    if(s1 && s1.parts.length){
+      const levelClass = `summary-${s1.level}`;
+      html += `<div class="km-shape-summary ${levelClass}" style="margin-top:0;margin-bottom:8px;border-left-width:4px;">
+        <span class="km-shape-summary-label" style="color:${t1Color1};">${escapeHtml(t1Name)}</span>
+        <span class="km-shape-summary-text">`;
+      s1.parts.forEach((p, i) => {
+        const accentClass = p.accent ? `accent-${p.accent}` : '';
+        if(i > 0) html += `<span class="km-summary-sep"> · </span>`;
+        html += `<span class="km-summary-part ${accentClass}">${escapeHtml(p.label)}</span>`;
+      });
+      html += `</span></div>`;
+    }
+    if(s2 && s2.parts.length){
+      const levelClass = `summary-${s2.level}`;
+      html += `<div class="km-shape-summary ${levelClass}" style="margin-top:0;margin-bottom:0;border-left-width:4px;">
+        <span class="km-shape-summary-label" style="color:${t2Color1};">${escapeHtml(t2Name)}</span>
+        <span class="km-shape-summary-text">`;
+      s2.parts.forEach((p, i) => {
+        const accentClass = p.accent ? `accent-${p.accent}` : '';
+        if(i > 0) html += `<span class="km-summary-sep"> · </span>`;
+        html += `<span class="km-summary-part ${accentClass}">${escapeHtml(p.label)}</span>`;
+      });
+      html += `</span></div>`;
+    }
+    html += `</div>`;
+  }
+  
   if(a1 && a2){
+    html += `<details class="km-cmp-shape-compare-wrap"><summary class="km-cmp-shape-compare-summary">📐 詳細數值對比表 (點開展開)</summary>`;
     html += `<div class="km-cmp-shape-compare">`;
-    html += `<div class="km-cmp-shape-header">📐 曲線形狀對比 — 視覺差異定量化</div>`;
     html += `<table class="km-cmp-shape-table">`;
     html += `<thead><tr>
       <th>觀察維度</th>
@@ -19310,6 +19482,7 @@ function renderKMCompareChart(){
     
     html += `</tbody></table>`;
     html += `</div>`;
+    html += `</details>`;
   }
   
   // Notes from both
