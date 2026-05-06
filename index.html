@@ -962,6 +962,85 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .timeline-mnemonic-toggle:hover{background:rgba(255,255,255,0.25);}
 .timeline-mnemonic-toggle.is-active{background:white;color:#0f766e;border-color:white;}
 
+/* Quiz mode toggle */
+.timeline-quiz-toggle{padding:6px 13px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:white;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.timeline-quiz-toggle:hover{background:rgba(255,255,255,0.25);}
+.timeline-quiz-toggle.is-active{background:#fbbf24;color:#7c2d12;border-color:#fbbf24;}
+
+/* Legend toggle */
+.timeline-legend-toggle{padding:6px 13px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:white;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.timeline-legend-toggle:hover{background:rgba(255,255,255,0.25);}
+.timeline-legend-toggle.is-active{background:#a7f3d0;color:#134e4a;border-color:#a7f3d0;}
+
+/* HR Tier pill in hooks */
+.hr-tier-pill{display:inline-block;padding:1px 7px;border-radius:5px;color:white;font-size:9.5px;font-weight:900;margin-right:4px;letter-spacing:0.04em;}
+
+/* 📜 詵學讚 (Verse) — 試驗詳情頁 */
+.tmc-verse{margin-top:10px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1.5px solid #38bdf8;border-left:5px solid #0284c7;border-radius:9px;padding:10px 13px;font-family:"Source Han Serif TC","Noto Serif TC",serif;}
+.tmc-verse-label{font-size:11.5px;font-weight:900;color:#075985;margin-bottom:6px;letter-spacing:0.05em;}
+.tmc-verse-body{font-size:13.5px;font-weight:700;color:#0c4a6e;line-height:1.85;letter-spacing:0.04em;}
+
+/* 📜 詵學讚 (Verse) — Timeline 卡片內版本 */
+.tl-mn-verse{font-size:12.5px;font-weight:700;color:#0c4a6e;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);padding:7px 10px;border-radius:6px;border-left:3px solid #0284c7;line-height:1.75;margin:5px 0 4px;font-family:"Source Han Serif TC","Noto Serif TC",serif;letter-spacing:0.04em;}
+
+/* Quiz mode: hide verse too */
+.tl-mn-card.is-quiz .tl-mn-verse{
+  background:#475569;color:transparent !important;cursor:pointer;
+}
+.tl-mn-card.is-quiz .tl-mn-verse:hover{
+  background:linear-gradient(135deg,#f0f9ff,#e0f2fe);color:#0c4a6e !important;
+}
+
+@media(max-width:640px){
+  .tmc-verse-body{font-size:12.5px;}
+  .tl-mn-verse{font-size:11.5px;}
+}
+
+/* Phonetic mnemonic span */
+.hook-phon{margin-left:4px;font-size:10.5px;color:#7c2d12;background:#fef3c7;padding:1px 6px;border-radius:4px;font-weight:800;cursor:help;}
+
+/* Quiz mode: hide numbers */
+.tl-mn-card.is-quiz .tl-mn-hook .tl-mn-hook-val,
+.tl-mn-card.is-quiz .tl-mn-hook .hook-phon{
+  background:#475569;color:#475569 !important;border-radius:3px;padding:1px 5px;cursor:pointer;transition:all 0.2s;
+}
+.tl-mn-card.is-quiz .tl-mn-hook .tl-mn-hook-val:hover,
+.tl-mn-card.is-quiz .tl-mn-hook .hook-phon:hover{
+  background:#fef3c7;color:#7c2d12 !important;
+}
+.tl-mn-card.is-quiz .tl-mn-main{
+  background:#475569;color:transparent !important;cursor:pointer;border-radius:6px;
+}
+.tl-mn-card.is-quiz .tl-mn-main:hover{
+  background:rgba(255,255,255,0.7);color:#7c2d12 !important;
+}
+.tl-mn-card.is-quiz::before{
+  content:'🎯 點擊灰色區域看答案';display:block;font-size:10.5px;color:#7c2d12;background:#fde68a;padding:3px 9px;border-radius:5px;font-weight:800;margin-bottom:6px;text-align:center;
+}
+
+/* Memory legend block */
+.memory-legend{margin-bottom:18px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fbbf24;border-radius:11px;padding:14px 16px;}
+.ml-section{margin-bottom:14px;}
+.ml-section:last-child{margin-bottom:0;}
+.ml-title{font-weight:900;font-size:13.5px;color:#7c2d12;margin-bottom:7px;letter-spacing:0.02em;}
+.ml-tiers{display:flex;flex-wrap:wrap;gap:5px;}
+.ml-tier{padding:4px 9px;border-radius:6px;color:white;font-size:11px;font-weight:800;letter-spacing:0.03em;}
+.ml-anchors{display:flex;flex-direction:column;gap:5px;}
+.ml-anchor{font-size:11.5px;color:#451a03;background:rgba(255,255,255,0.6);padding:6px 9px;border-radius:6px;line-height:1.6;border-left:3px solid #d97706;font-weight:600;}
+.ml-anchor b{color:#7c2d12;font-weight:900;}
+.ml-phon{display:flex;flex-direction:column;gap:3px;}
+.ml-phon-row{font-size:11.5px;color:#451a03;background:rgba(255,255,255,0.5);padding:4px 9px;border-radius:5px;font-weight:600;}
+.ml-phon-digit{display:inline-block;background:#dc2626;color:white;padding:1px 8px;border-radius:5px;font-weight:900;margin-right:6px;font-family:'JetBrains Mono',monospace;}
+.ml-tip{font-size:11.5px;color:#451a03;line-height:1.7;background:rgba(255,255,255,0.6);padding:8px 11px;border-radius:6px;font-weight:600;}
+.ml-tip b{color:#7c2d12;font-weight:900;}
+
+@media(max-width:640px){
+  .timeline-quiz-toggle, .timeline-legend-toggle{font-size:10.5px;padding:5px 10px;}
+  .memory-legend{padding:11px 12px;}
+  .ml-title{font-size:12.5px;}
+  .ml-anchor, .ml-phon-row, .ml-tip{font-size:10.5px;}
+}
+
 /* Inline mnemonic cards in timeline */
 .timeline-era-mnemonics{display:flex;flex-direction:column;gap:6px;margin:6px 0 4px;}
 .tl-mn-card{padding:9px 11px;background:linear-gradient(135deg,#fffbeb,#fff7ed);border:1.5px solid #fcd34d;border-left:4px solid #f59e0b;border-radius:8px;}
@@ -13483,6 +13562,138 @@ const EXAM_WARNINGS = {
 // 📜 治療演進時間軸 (Treatment Evolution Timeline)
 // ============================================================
 // 結構: cancer → contexts (一線/維持/PSOC/PROC...) → eras (時間段) → trials
+// ============================================================
+// 🎯 數字記憶輔助系統 (Number Mnemonic System)
+// ============================================================
+// 用「諧音 + HR 分級顏色 + 對比錨點」幫助記憶試驗數字
+
+// HR 分級 (Tier System) — 根據效益強度分級
+function getHRTier(hr){
+  const v = parseFloat(hr);
+  if(isNaN(v)) return null;
+  if(v <= 0.30) return { tier:'S', label:'極強 (≤0.30)', color:'#dc2626', emoji:'🔥' };
+  if(v <= 0.45) return { tier:'A', label:'強效 (0.30-0.45)', color:'#ea580c', emoji:'⭐' };
+  if(v <= 0.60) return { tier:'B', label:'中等顯著 (0.45-0.60)', color:'#d97706', emoji:'✅' };
+  if(v <= 0.75) return { tier:'C', label:'輕度顯著 (0.60-0.75)', color:'#65a30d', emoji:'☑' };
+  if(v <= 0.85) return { tier:'D', label:'邊緣 (0.75-0.85)', color:'#0891b2', emoji:'➖' };
+  if(v < 1.00)  return { tier:'E', label:'弱訊號 (0.85-1.0)', color:'#6b7280', emoji:'⚪' };
+  return { tier:'F', label:'失利/翻車 (≥1.0)', color:'#475569', emoji:'❌' };
+}
+
+// 諧音記憶表 — 把數字轉成中文好記
+// HR: 用中文數字
+const HR_MNEMONICS = {
+  '0.27': '二七 (NOVA gBRCA)', '0.28': '二八 (RUBY dMMR)',
+  '0.30': '三零 (GY018 dMMR)', '0.32': '三二 (NORA / L-MOCA)',
+  '0.33': '三三 (PAOLA HRD+ / SOLO-1)', '0.35': '三五 (Study 19)',
+  '0.36': '三六 (AtTEnd dMMR / ARIEL3 ITT)', '0.37': '三七 (PAOLA-1 ITT)',
+  '0.38': '三八 (NOVA non-gBRCA HRD+)', '0.41': '四一 (UTOLA p53m / SIENDO TP53wt / LMS-04)',
+  '0.43': '四三 (PRIMA HRD+)', '0.45': '四五 (NOVA non-gBRCA)',
+  '0.46': '四六 (DUO-O non-BRCAm HRD+)', '0.48': '四八 (AURELIA / GOG-281)',
+  '0.50': '五零 (邊緣強效)',
+  '0.55': '五五 (SOLO-1 7y OS / ET743 LMS)', '0.56': '五六 (PRIMA ITT PFS)',
+  '0.58': '五八 (NOVA HRD-)', '0.60': '六零 (KEYNOTE-826 OS / PRIMA OS / KEYNOTE-775 pMMR)',
+  '0.62': '六二 (PRIMA ITT / PAOLA-1 5y)', '0.65': '六五 (GY018 ITT OS)',
+  '0.67': '六七 (KEYNOTE-A18 OS / van Driel / MIRASOL)',
+  '0.68': '六八 (BEATcc / KEYNOTE-775 OS)',
+  '0.69': '六九 (RUBY ITT / EMPOWER / ROSELLA)',
+  '0.70': '七零 (KEYNOTE-A18 PFS / innovaTV 301 OS)',
+  '0.71': '七一 (PRIMA OS NS / GOG-240 OS)',
+  '0.717':'七一七 (GOG-218 PFS)',
+  '0.73': '七三 (Study 19 OS)', '0.76': '七六 (SWOG-8501 / EORTC-CHORUS Stage IV)',
+  '0.77': '七七 (Eribulin 整體 OS)', '0.78': '七八 (ICON7 high-risk)',
+  '0.83': '八三 (GOG-0213 Bev arm)', '0.84': '八四 (CALLA NS)',
+  '0.87': '八七 (AtTEnd ITT OS NS)', '0.91': '九一 (OUTBACK NS)',
+  '0.99': '九九 (BOOST NS)',
+  '1.01': '一零一 (PRIMA ITT OS 翻盤失敗)', '1.02': '一零二 (KEYNOTE-B21 翻車)',
+  '1.03': '一零三 (NINJA NS)', '1.06': '一零六 (LION NS)',
+  '1.14': '一一四 (GeDDiS NS)', '1.21': '一二一 (MILO 翻車)',
+  '1.29': '一二九 (GOG-0213 手術 arm 翻車)', '3.74':'三七四 (LACC MIS 復發)',
+};
+
+// 月數諧音 — 重要 mPFS / mOS 數字
+const MONTHS_MNEMONICS = {
+  // mPFS
+  '5.6':  '五六', '6.6':  '六六', '7.0':  '七零', '7.2':  '七二',
+  '9.2':  '九二', '11.1': '一一一', '12.0': '一二',
+  '13.0': '一三', '13.5': '一三五', '16.1': '一六一',
+  '18.0': '一八', '18.3': '一八三', '19.6': '一九六',
+  '21.0': '廿一', '22.6': '廿二六', '23.6': '廿三六',
+  '25.5': '廿五五', '26.0': '廿六', '27.4': '廿七四',
+  // mOS
+  '38.8': '卅八八', '46.0': '四六', '49.7': '四九七',
+  '53.7': '五三七', '57.0': '五七',
+  '65.6': '六五六', '100':'破百',
+};
+
+// 📜 試驗詵學讚 (Trial Verses) — 七言/長短句, 押韻, 含具體數字
+const TRIAL_VERSES = {
+  // === EC 一線 IO+chemo ===
+  'gy018':              '🎵 GY018 配 Pembro\n  dMMR 三零強, pMMR 五四\n  「排除肉瘤」莫忘',
+  'ruby-p1':            '🎵 RUBY 配 Dostar 跑\n  dMMR 二八小 (最強), ITT 六九\n  「含癌肉瘤」是亮點',
+  'duo-e':              '🎵 DUO-E 三臂行\n  Arm2 加 Durva 寬, Arm3 加 Olap 才強\n  p53/HRR 拔頭籌',
+  'attend':             '🎵 AtTEnd 配 Atezo (PD-L1)\n  dMMR 三六顯效, ITT OS 八七翻車\n  「PD-L1 路徑唯一」',
+  'siendo':             '🎵 SIENDO 配 Seli (XPO1)\n  TP53wt 翻盤四一 (post-hoc)\n  ITT 失利, 撿一條',
+  'keynote-775':        '🎵 KN-775 + Pembro+Lenva\n  pMMR PFS 六零, OS 七零\n  「排除 carcinosarcoma」',
+  'keynote-158':        '🎵 KN-158 用 Pembro 單藥\n  跨癌開山, EC 四六, CC 一四六\n  「Tumor-agnostic 始祖」',
+  'destiny-pantumor02': '🎵 DESTINY 配 T-DXd 跑\n  EC 五七五, CC 五零, OC 四五\n  「七 cohort 含三大」',
+  'gy019':              '',
+
+  // === OC 一線 ===
+  'gog-0218':           '🎵 GOG-218 加 Bev 試\n  PFS 七一七 (15mg/kg), ITT OS 失利\n  「ICON7 一半劑量」',
+  'icon7':              '🎵 ICON7 試 Bev 半 (7.5mg)\n  high-risk OS 七八, 整體 PFS 加\n  ITT OS 翻車',
+  'jgog3016':           '🎵 JGOG 紫杉每週\n  亞洲 mOS 破百比六二, 西方未複製\n  「族群差異經典」',
+  'eortc-55971':        '🎵 EORTC 55971 換順序\n  NACT vs PDS 三十月一致\n  「NI 達成, 改變實務」',
+  'lion':               '🎵 LION 系統清掃\n  OS 一零六無效, 併發症卻增\n  「macroscopic R0 + sentinel- 才驗證」',
+  'desktop-iii':        '🎵 DESKTOP III 嚴選 (AGO+)\n  R0 mOS 五三七比四六\n  「沒嚴選反更差 — 對比 GOG-213」',
+  'gog-0213':           '🎵 GOG-213 雙議題\n  Bev arm OS 八三 (+5m) 過, 手術 arm 一二九翻\n  「沒嚴選 R0 翻車 — 對比 DESKTOP III」',
+
+  // === OC 一線維持 PARPi (核心對比錨點) ===
+  'solo-1':             '🎵 SOLO-1 用 Olap (BRCAm)\n  mPFS 五六比十三 (HR 三三), 7y OS 五五\n  「PARPi 一線開山」',
+  'paola-1':            '🎵 PAOLA Olap+Bev 雙\n  HRD+ 三七比十七 (HR 三三), 5y OS 六二\n  「HRD 概念定義者」',
+  'prima':              '🎵 PRIMA 全收 Nira 配\n  HRD+ 四三, ITT 六二雙線過\n  OS 一零一翻車',
+  'duo-o':              '🎵 DUO-O 三藥盤\n  Durva+Bev+Olap 跑\n  BRCAm 三七, non-BRCAm HRD+ 四六',
+  'athena-mono':        '🎵 ATHENA-Mono 用 Ruca\n  HRD+ 四七\n  「Mono = 單藥, 非 Combo」',
+
+  // === OC PSOC ===
+  'study-19':           '🎵 Study 19 用 Olap (PSROC)\n  PFS 三五, OS 七三, 開山六年用\n  「Phase II, 不限 BRCA」',
+  'solo2':              '🎵 SOLO2 用 Olap (PSOC BRCAm)\n  mPFS 十九比五 (HR 三零)\n  OS 五一七比三八八',
+  'nova':               '🎵 NOVA 用 Nira 跑\n  gBRCA 二七小, non-gBRCA 四五好\n  「sBRCA 在 non-gBRCA 內」',
+  'ariel3':             '🎵 ARIEL3 用 Ruca 維持\n  BRCAm 二三, ITT 三六\n  「LOH ≥16% 系統」',
+  'l-moca':             '🎵 L-MOCA 用 Olap (亞洲)\n  PSROC PFS 三二, mPFS 一六一\n  「BRCA2 富集」',
+  'nora':               '🎵 NORA 用 Nira (中國)\n  個別化劑量, PFS 三二, mPFS 一八三\n  「東亞 PSOC 標準」',
+
+  // === OC PROC ===
+  'mirasol':            '🎵 MIRASOL 配 Mirvet\n  FRα-high PFS 六五, OS 六七\n  「ADC 突破, 限 FRα ≥75%」',
+  'aurelia':            '🎵 AURELIA 加 Bev (PROC)\n  PFS 四八翻倍, OS NS 翻車\n  「僅 PFS+, OS 失利」',
+
+  // === CC ===
+  'keynote-a18':        '🎵 KN-A18 + Pembro+CCRT\n  高險族 PFS 七零, OS 六七\n  placebo 24m PFS 五七 (對比 CALLA)',
+  'calla':              '🎵 CALLA + Durva+CCRT\n  寬鬆族八四 NS, placebo 六二\n  「寬鬆族失利 — 對比 A18 嚴選」',
+  'lacc-trial':         '🎵 LACC Open vs MIS\n  MIS 復發 三七四 (極端!), 範式翻轉\n  「IA1-IB1 早期適用」',
+  'shape-trial':        '🎵 SHAPE Simple vs Radical\n  3y 復發 二五比二二 (NI 達成)\n  「IB1 ≤2cm + LVSI 陰可降階」',
+  'keynote-826':        '🎵 KN-826 配 Pembro+chemo±Bev\n  CPS≥1 OS 六零, mOS 二八六比一六五\n  「R/M 1L 第一支柱」',
+  'beatcc':             '🎵 BEATcc + Atezo+Bev+chemo\n  ITT 六八, 不需 CPS\n  「R/M 1L 第二支柱」',
+  'gog-240':            '🎵 GOG-240 加 Bev (R/M)\n  mOS 一六八比一三三 (HR 七一)\n  「首個 R/M Bev OS+」',
+  'innovatv-301':       '🎵 innovaTV 301 用 TV (TF-ADC)\n  後線 OS 七零, FDA 全核准\n  「眼毒注意」',
+  'innovatv-205':       '🎵 innovaTV 205 用 TV combos\n  R/M 多 cohort: 1L Carbo 五四五\n  Arm H quad 六五八 (2026 SGO)',
+  'empower-cervical-1': '🎵 EMPOWER-CC-1 用 Cemi 單藥\n  二線 OS 一二比八五 (HR 六九)\n  「不需 CPS 篩選」',
+  'outback':            '🎵 OUTBACK CCRT 後加化療\n  HR 九一 NS\n  「不再常規追加」',
+  'interlace':          '🎵 INTERLACE 誘導 Carbo/Pacli 再 CCRT\n  5y OS 八零, PFS HR 六五\n  「誘導 ≠ adjuvant (對比 OUTBACK)」',
+
+  // === US ===
+  'lms-04':             '🎵 LMS-04 + Dox+Trab\n  uLMS 一線 mPFS 十二比六 (HR 四一)\n  「翻倍, 新標準」',
+  'et743-sar-3007':     '🎵 ET743 用 Trab vs Dacar\n  LMS PFS 五五\n  「24 小時連續輸注」',
+  'palette':            '🎵 PALETTE 用 Pazopanib\n  非脂肪 PFS HR 三一 (mPFS 四六比一六)\n  「排除 LPS」',
+  'gog-0261':           '🎵 GOG-261 用 PC 替 (UCS)\n  mOS 三七比二九, 毒性大降\n  「新 SOC」',
+  'gog-161':            '🎵 GOG-161 + Ifo+Pacli (UCS)\n  PFS 五八比三六, OS 一三五比八四\n  「雙藥勝單藥」',
+  'eribulin-vs-dacarbazine': '🎵 Eribulin vs Dacar\n  整體 七七強, LMS subgroup 失敗\n  「FDA 只核准 LPS, LMS 不能用」',
+  'ntrk-basket':        '🎵 NTRK 籃 Larotrec/Entrec\n  跨癌 ORR 七五, FDA 通用\n  「fusion 不是 mutation」',
+  'paragon':            '🎵 PARAGON 用 Anastrozole\n  LG-ESS ER+/PR+ CBR 七三\n  「HG-ESS 不適用」',
+
+  'mfolfirinox-bev':    '',
+};
+
 const TIMELINE_DATA = {
   'OC': {
     name: '🔵 卵巢癌 (Ovarian Cancer)',
@@ -20464,6 +20675,15 @@ function renderTrialMnemonic(trialId){
     examWarnHtml += `</div></div>`;
   }
 
+  // 📜 詵學讚 (七言記憶詵)
+  let verseHtml = '';
+  if(typeof TRIAL_VERSES !== 'undefined' && TRIAL_VERSES[trialId] && TRIAL_VERSES[trialId].length > 0){
+    verseHtml = `<div class="tmc-verse">
+      <div class="tmc-verse-label">📜 記憶詵</div>
+      <div class="tmc-verse-body">${escapeHtml(TRIAL_VERSES[trialId]).replace(/\n/g, '<br>')}</div>
+    </div>`;
+  }
+
   // 📍 演進定位 (Timeline Locator) — 顯示本試驗在治療演進中的位置
   let locatorHtml = '';
   if(typeof TIMELINE_DATA !== 'undefined'){
@@ -20565,6 +20785,7 @@ function renderTrialMnemonic(trialId){
         ${m.pitfalls ? `<div class="tmc-extra-row warn"><span class="tmc-extra-label">⚠️ 易錯</span> ${escapeHtml(m.pitfalls)}</div>` : ''}
       </div>
       ${examWarnHtml}
+      ${verseHtml}
       ${locatorHtml}
       ${hooksHtml}
       ${xrefHtml}
@@ -21157,7 +21378,7 @@ function closeCustomCompare(){
 // ============================================================
 // 📜 治療演進時間軸
 // ============================================================
-let TIMELINE_STATE = { cancer: 'OC', showMnemonic: false, expandAll: false, openContexts: new Set() };
+let TIMELINE_STATE = { cancer: 'OC', showMnemonic: false, expandAll: false, openContexts: new Set(), quizMode: false, showLegend: false };
 
 function openTimeline(cancer){
   if(cancer && TIMELINE_DATA[cancer]) TIMELINE_STATE.cancer = cancer;
@@ -21180,6 +21401,17 @@ function toggleTimelineMnemonic(){
 function toggleTimelineExpandAll(){
   TIMELINE_STATE.expandAll = !TIMELINE_STATE.expandAll;
   TIMELINE_STATE.openContexts.clear(); // clear individual states
+  renderTimeline();
+}
+function toggleTimelineQuiz(){
+  TIMELINE_STATE.quizMode = !TIMELINE_STATE.quizMode;
+  if(TIMELINE_STATE.quizMode && !TIMELINE_STATE.showMnemonic){
+    TIMELINE_STATE.showMnemonic = true; // Auto-enable mnemonic when entering quiz
+  }
+  renderTimeline();
+}
+function toggleTimelineLegend(){
+  TIMELINE_STATE.showLegend = !TIMELINE_STATE.showLegend;
   renderTimeline();
 }
 function onTimelineContextToggle(detailsEl, key){
@@ -21228,14 +21460,29 @@ function renderTimelineMnemonicCard(tid){
     badge = `<span class="tl-mn-badge tl-mn-badge-${bd.type}">${icon}</span>`;
   }
   
-  // Numbers hooks summary (top 3 most relevant)
+  // Numbers hooks summary with HR tier coloring + 諧音
   let hooksLine = '';
   if(typeof NUMBER_HOOKS !== 'undefined'){
     const trialHooks = Object.entries(NUMBER_HOOKS).filter(([k]) => k.startsWith(tid)).slice(0, 3);
     if(trialHooks.length > 0){
-      hooksLine = trialHooks.map(([k, h]) => 
-        `<span class="tl-mn-hook"><b>${escapeHtml(h.endpoint||'')}</b>·${escapeHtml(h.subgroup||'')} <span class="tl-mn-hook-val">${escapeHtml(h.val)}</span></span>`
-      ).join('');
+      hooksLine = trialHooks.map(([k, h]) => {
+        // Try to extract HR value from h.val
+        const hrMatch = (h.val || '').match(/\b0\.\d{2,3}\b|\b1\.\d{2}\b/);
+        let tierBadge = '';
+        let mnemonicSpan = '';
+        if(hrMatch){
+          const hrVal = hrMatch[0];
+          const tier = getHRTier(hrVal);
+          if(tier){
+            tierBadge = `<span class="hr-tier-pill" style="background:${tier.color};" title="${tier.label}">${tier.emoji}${tier.tier}</span>`;
+          }
+          if(typeof HR_MNEMONICS !== 'undefined' && HR_MNEMONICS[hrVal]){
+            const phon = HR_MNEMONICS[hrVal].split(' ')[0];
+            mnemonicSpan = `<span class="hook-phon" title="諧音記憶: ${HR_MNEMONICS[hrVal]}">「${phon}」</span>`;
+          }
+        }
+        return `<span class="tl-mn-hook">${tierBadge}<b>${escapeHtml(h.endpoint||'')}</b>·${escapeHtml(h.subgroup||'')} <span class="tl-mn-hook-val">${escapeHtml(h.val)}</span>${mnemonicSpan}</span>`;
+      }).join('');
     }
   }
   
@@ -21245,7 +21492,16 @@ function renderTimelineMnemonicCard(tid){
     warnTag = `<span class="tl-mn-warn-ind" title="此試驗有 ${EXAM_WARNINGS[tid].length} 項考試重點警示">⚠️ ${EXAM_WARNINGS[tid].length}</span>`;
   }
   
-  return `<div class="tl-mn-card">
+  // Quiz mode: hide numbers if state.quizMode is true
+  const quizClass = (typeof TIMELINE_STATE !== 'undefined' && TIMELINE_STATE.quizMode) ? 'is-quiz' : '';
+  
+  // 📜 詵學讚 (七言記憶詵)
+  let verseHtml = '';
+  if(typeof TRIAL_VERSES !== 'undefined' && TRIAL_VERSES[tid] && TRIAL_VERSES[tid].length > 0){
+    verseHtml = `<div class="tl-mn-verse">${escapeHtml(TRIAL_VERSES[tid]).replace(/\n/g, '<br>')}</div>`;
+  }
+  
+  return `<div class="tl-mn-card ${quizClass}" data-trial-id="${tid}">
     <div class="tl-mn-header">
       ${badge}
       <span class="tl-mn-name">${escapeHtml(t.name)}</span>
@@ -21253,6 +21509,7 @@ function renderTimelineMnemonicCard(tid){
       <button class="tl-mn-detail-btn" onclick="jumpToTrialFromTimeline('${tid}')" title="跳到試驗詳情">詳情 →</button>
     </div>
     <div class="tl-mn-main">${escapeHtml(m.main)}</div>
+    ${verseHtml}
     ${hooksLine ? `<div class="tl-mn-hooks">${hooksLine}</div>` : ''}
     ${m.keypoint ? `<div class="tl-mn-keypoint">🎯 ${escapeHtml(m.keypoint)}</div>` : ''}
   </div>`;
@@ -21273,6 +21530,12 @@ function renderTimeline(){
     tabsHtml += `<button class="timeline-mnemonic-toggle ${TIMELINE_STATE.showMnemonic?'is-active':''}" onclick="toggleTimelineMnemonic()" title="切換是否顯示每個試驗的口訣">
       📋 ${TIMELINE_STATE.showMnemonic?'隱藏口訣':'顯示口訣'}
     </button>`;
+    tabsHtml += `<button class="timeline-quiz-toggle ${TIMELINE_STATE.quizMode?'is-active':''}" onclick="toggleTimelineQuiz()" title="測驗模式: 把數字遮起來考自己">
+      ${TIMELINE_STATE.quizMode?'👁️ 顯示答案':'🎯 測驗模式'}
+    </button>`;
+    tabsHtml += `<button class="timeline-legend-toggle ${TIMELINE_STATE.showLegend?'is-active':''}" onclick="toggleTimelineLegend()" title="顯示 HR 分級顏色 + 諧音記憶法">
+      ${TIMELINE_STATE.showLegend?'❎ 隱藏圖例':'🎨 記憶圖例'}
+    </button>`;
     tabs.innerHTML = tabsHtml;
   }
   
@@ -21283,6 +21546,57 @@ function renderTimeline(){
   if(!data){ body.innerHTML = '<div style="padding:30px;text-align:center;color:#64748b;">— 無資料 —</div>'; return; }
   
   let html = '';
+  // 🎨 記憶圖例 (HR Tier + 諧音 + 同類試驗對比)
+  if(TIMELINE_STATE.showLegend){
+    html += `<div class="memory-legend">
+      <div class="ml-section">
+        <div class="ml-title">🎨 HR 分級顏色 (一眼判斷效益強度)</div>
+        <div class="ml-tiers">
+          <span class="ml-tier" style="background:#dc2626;">🔥 S 級 ≤0.30 — 極強</span>
+          <span class="ml-tier" style="background:#ea580c;">⭐ A 級 0.30-0.45 — 強效</span>
+          <span class="ml-tier" style="background:#d97706;">✅ B 級 0.45-0.60 — 中等</span>
+          <span class="ml-tier" style="background:#65a30d;">☑ C 級 0.60-0.75 — 輕度</span>
+          <span class="ml-tier" style="background:#0891b2;">➖ D 級 0.75-0.85 — 邊緣</span>
+          <span class="ml-tier" style="background:#6b7280;">⚪ E 級 0.85-1.0 — 弱</span>
+          <span class="ml-tier" style="background:#475569;">❌ F 級 ≥1.0 — 失利</span>
+        </div>
+      </div>
+      <div class="ml-section">
+        <div class="ml-title">🎯 同類試驗 HR 對比錨點 (背一組就懂全部)</div>
+        <div class="ml-anchors">
+          <div class="ml-anchor"><b>OC 一線維持 PARPi:</b> SOLO-1 BRCAm 「三三」(0.33) → PAOLA-1 HRD+「三三」(0.33) → PRIMA HRD+「四三」(0.43) → DUO-O non-BRCAm HRD+「四六」(0.46)</div>
+          <div class="ml-anchor"><b>EC IO+chemo dMMR:</b> RUBY「二八」(0.28) → GY018「三零」(0.30) → AtTEnd「三六」(0.36) — 三大都 S/A 級, 都是強效</div>
+          <div class="ml-anchor"><b>CC R/M IO 兩支柱:</b> KEYNOTE-826「六零」(0.60) ≈ BEATcc「六八」(0.68) — 都中等</div>
+          <div class="ml-anchor"><b>CC LACC IO:</b> A18「六七」OS (0.67) 成功 vs CALLA「八四」(0.84) NS 失利 — 差別在族群嚴選</div>
+          <div class="ml-anchor"><b>翻車三劍客 (HR ≥1.0):</b> PRIMA OS「一零一」 / KN-B21「一零二」 / NINJA「一零三」 / LION「一零六」 / MILO「一二一」 / GOG-213 手術「一二九」 / LACC MIS「三七四」(極端!)</div>
+          <div class="ml-anchor"><b>NS 邊緣三:</b> CALLA「八四」 / OUTBACK「九一」 / BOOST「九九」 — 都剛好沒過 0.05</div>
+        </div>
+      </div>
+      <div class="ml-section">
+        <div class="ml-title">🎵 諧音記憶法 (中文數字直接念)</div>
+        <div class="ml-phon">
+          <div class="ml-phon-row"><span class="ml-phon-digit">二八</span> = 0.28 (RUBY dMMR)</div>
+          <div class="ml-phon-row"><span class="ml-phon-digit">三零</span> = 0.30 (GY018)</div>
+          <div class="ml-phon-row"><span class="ml-phon-digit">三三</span> = 0.33 (SOLO-1 / PAOLA HRD+)</div>
+          <div class="ml-phon-row"><span class="ml-phon-digit">三七四</span> = 3.74 (LACC MIS 復發 — 最戲劇)</div>
+          <div class="ml-phon-row"><span class="ml-phon-digit">四三</span> = 0.43 (PRIMA HRD+) — 注意 PFS+ 但 OS 翻盤</div>
+          <div class="ml-phon-row"><span class="ml-phon-digit">六零</span> = 0.60 (KN-826 / KN-775 pMMR / PRIMA OS)</div>
+          <div class="ml-phon-row"><span class="ml-phon-digit">六七</span> = 0.67 (KN-A18 OS / van Driel HIPEC / MIRASOL)</div>
+          <div class="ml-phon-row"><span class="ml-phon-digit">八四</span> = 0.84 (CALLA NS — 寬鬆族失利)</div>
+          <div class="ml-phon-row"><span class="ml-phon-digit">一零一</span> = 1.01 (PRIMA ITT OS — 翻盤失敗)</div>
+        </div>
+      </div>
+      <div class="ml-section">
+        <div class="ml-title">📚 學習工作流</div>
+        <div class="ml-tip">1️⃣ 先打開 <b>📋 顯示口訣</b> + <b>🎨 記憶圖例</b> → 邊讀邊看顏色分級 + 諧音
+        <br>2️⃣ 重點試驗反覆讀 3-5 次, 邊讀邊用中文諧音念出 (二八、三零、三三...)
+        <br>3️⃣ 切換 <b>🎯 測驗模式</b> → 數字會被遮起來, 試著回憶
+        <br>4️⃣ 卡住時 hover 灰色框 → 看答案 + 諧音
+        <br>5️⃣ 重複到能默念整組 (例如 「OC 一線維持: 三三 → 三三 → 四三 → 四六」)</div>
+      </div>
+    </div>`;
+  }
+  
   data.contexts.forEach((ctx, ci) => {
     // Get total trials count + era count for header
     const eraCount = ctx.eras.length;
