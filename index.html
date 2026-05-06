@@ -50,6 +50,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-match:hover{box-shadow:0 4px 16px rgba(219,39,119,0.45);}
 .header-btn-mnemonic{background:linear-gradient(135deg,#8b5cf6,#6366f1);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(139,92,246,0.3);}
 .header-btn-mnemonic:hover{box-shadow:0 4px 16px rgba(139,92,246,0.45);}
+.header-btn-cmp{background:linear-gradient(135deg,#0891b2,#0e7490);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(8,145,178,0.3);}
+.header-btn-cmp:hover{box-shadow:0 4px 16px rgba(8,145,178,0.45);}
 @media(max-width:640px){
   .hide-on-mobile{display:none;}
   .header-actions{gap:6px;}
@@ -670,6 +672,93 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 
 /* ===== 🔄 KM 曲線疊圖比較 Modal ===== */
 .km-cmp-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.92);z-index:570;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
+
+/* ===== 🔬 自訂對照組 Modal ===== */
+.custom-cmp-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.92);z-index:572;backdrop-filter:blur(8px);align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.custom-cmp-bg.open{display:flex;}
+.custom-cmp-content{background:linear-gradient(135deg,#ecfeff,#ffffff 50%,#f0f9ff);max-width:1200px;width:100%;max-height:96vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
+.custom-cmp-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.custom-cmp-close:hover{background:white;transform:scale(1.05);}
+.custom-cmp-header{padding:22px 28px 16px;background:linear-gradient(135deg,#0891b2,#0e7490);color:white;}
+.custom-cmp-title{font-size:20px;font-weight:900;margin:0 0 5px 0;}
+.custom-cmp-sub{font-size:12.5px;opacity:0.95;margin:0;font-weight:500;}
+.custom-cmp-body{padding:18px 24px 22px;overflow-y:auto;flex:1;}
+
+/* Saved presets bar */
+.cccmp-presets{margin-bottom:16px;padding:11px 13px;background:white;border:1.5px solid #cffafe;border-radius:10px;}
+.cccmp-presets-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;}
+.cccmp-presets-title{font-size:12.5px;font-weight:900;color:#155e75;}
+.cccmp-presets-list{display:flex;gap:6px;flex-wrap:wrap;min-height:30px;}
+.cccmp-preset-chip{padding:5px 10px;border-radius:7px;border:1.5px solid #67e8f9;background:#ecfeff;color:#0e7490;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;transition:all 0.15s;}
+.cccmp-preset-chip:hover{background:#cffafe;border-color:#0891b2;}
+.cccmp-preset-del{font-size:13px;color:#dc2626;cursor:pointer;font-weight:900;padding:0 2px;}
+.cccmp-preset-del:hover{color:#7f1d1d;}
+.cccmp-empty-presets{font-size:11.5px;color:#94a3b8;font-style:italic;}
+
+/* Picker section */
+.cccmp-section{margin-bottom:18px;}
+.cccmp-section-title{font-size:13.5px;font-weight:900;color:#0c1f3d;margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+.cccmp-section-num{display:inline-flex;width:22px;height:22px;border-radius:50%;background:#0891b2;color:white;align-items:center;justify-content:center;font-size:12px;font-weight:900;}
+.cccmp-search{width:100%;padding:9px 13px;border:1.5px solid #c7d2fe;border-radius:9px;font-size:13px;font-family:inherit;outline:none;background:white;color:#1e1b4b;margin-bottom:10px;}
+.cccmp-search:focus{border-color:#0891b2;box-shadow:0 0 0 3px rgba(8,145,178,0.15);}
+.cccmp-cancer-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.cccmp-cancer-pill{padding:5px 11px;border-radius:7px;border:1.5px solid #cbd5e1;background:white;color:#475569;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+.cccmp-cancer-pill.active{background:linear-gradient(135deg,#0891b2,#0e7490);border-color:transparent;color:white;}
+.cccmp-trial-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;max-height:280px;overflow-y:auto;padding:4px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;}
+.cccmp-trial-pick{padding:7px 10px;border-radius:7px;border:1.5px solid #e2e8f0;background:white;cursor:pointer;font-family:inherit;font-size:11.5px;text-align:left;display:flex;flex-direction:column;gap:2px;transition:all 0.12s;}
+.cccmp-trial-pick:hover{border-color:#0891b2;background:#ecfeff;}
+.cccmp-trial-pick.selected{background:linear-gradient(135deg,#cffafe,#a5f3fc);border-color:#0891b2;}
+.cccmp-trial-pick.selected::before{content:'✓ ';color:#0e7490;font-weight:900;}
+.cccmp-trial-pick-name{font-weight:800;color:#0c1f3d;font-size:12px;}
+.cccmp-trial-pick-cancer{font-size:10px;color:#64748b;}
+.cccmp-selected-bar{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:34px;padding:7px 10px;background:#ecfeff;border:1.5px dashed #67e8f9;border-radius:8px;}
+.cccmp-selected-empty{font-size:11.5px;color:#94a3b8;font-style:italic;font-weight:600;}
+.cccmp-selected-chip{padding:4px 9px;border-radius:6px;background:white;border:1.5px solid #0891b2;color:#0c4a6e;font-size:11.5px;font-weight:700;display:inline-flex;align-items:center;gap:5px;}
+.cccmp-selected-x{cursor:pointer;color:#dc2626;font-weight:900;font-size:13px;line-height:1;padding:0 1px;}
+.cccmp-selected-x:hover{color:#7f1d1d;}
+
+/* Field selector */
+.cccmp-fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;}
+.cccmp-field-pick{padding:6px 10px;border-radius:7px;border:1.5px solid #e0e7ff;background:white;cursor:pointer;font-family:inherit;font-size:11.5px;display:flex;align-items:center;gap:6px;transition:all 0.12s;}
+.cccmp-field-pick:hover{background:#eff6ff;border-color:#3b82f6;}
+.cccmp-field-pick.selected{background:linear-gradient(90deg,#dbeafe,#eff6ff);border-color:#3b82f6;color:#1e3a8a;font-weight:700;}
+.cccmp-field-pick input{width:13px;height:13px;cursor:pointer;}
+.cccmp-field-cat{font-size:10px;color:#64748b;background:#f1f5f9;padding:1px 5px;border-radius:4px;font-weight:700;margin-right:5px;}
+
+/* Action buttons */
+.cccmp-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center;}
+.cccmp-btn-primary{padding:9px 18px;border-radius:9px;border:none;background:linear-gradient(135deg,#0891b2,#0e7490);color:white;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 3px 10px rgba(8,145,178,0.3);}
+.cccmp-btn-primary:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(8,145,178,0.45);}
+.cccmp-btn-primary:disabled{background:#cbd5e1;cursor:not-allowed;box-shadow:none;transform:none;}
+.cccmp-btn-secondary{padding:9px 16px;border-radius:9px;border:1.5px solid #cbd5e1;background:white;color:#475569;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+.cccmp-btn-secondary:hover{background:#f1f5f9;border-color:#475569;}
+.cccmp-btn-save{padding:9px 16px;border-radius:9px;border:1.5px solid #f59e0b;background:white;color:#92400e;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;}
+.cccmp-btn-save:hover{background:#fef3c7;}
+
+/* Result table */
+.cccmp-result{margin-top:18px;padding:14px;background:white;border:1.5px solid #0891b2;border-radius:11px;}
+.cccmp-result-header{font-size:14px;font-weight:900;color:#0c1f3d;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.cccmp-result-tbl-wrap{overflow-x:auto;border-radius:9px;border:1px solid #cbd5e1;}
+.cccmp-result-tbl{width:100%;border-collapse:collapse;font-size:11.5px;}
+.cccmp-result-tbl th{padding:9px 11px;background:linear-gradient(180deg,#0e7490,#155e75);color:white;font-weight:800;text-align:left;font-size:11px;letter-spacing:0.02em;border-right:1px solid #155e75;}
+.cccmp-result-tbl th:last-child{border-right:none;}
+.cccmp-result-tbl th.field-trial{position:sticky;left:0;background:linear-gradient(180deg,#0e7490,#155e75);z-index:1;}
+.cccmp-result-tbl td{padding:8px 11px;border-bottom:1px solid #e2e8f0;border-right:1px solid #f1f5f9;font-size:11.5px;line-height:1.5;color:#0c1f3d;vertical-align:top;}
+.cccmp-result-tbl td:last-child{border-right:none;}
+.cccmp-result-tbl tr:nth-child(even) td{background:#f8fafc;}
+.cccmp-result-tbl td.trial-cell{font-weight:900;color:#0c4a6e;font-family:"JetBrains Mono",monospace;background:#ecfeff !important;position:sticky;left:0;z-index:1;border-right:2px solid #0891b2;}
+
+@media(max-width:768px){
+  .custom-cmp-content{padding:0;border-radius:0;max-height:100vh;}
+  .custom-cmp-bg{padding:0;}
+  .custom-cmp-header{padding:18px 20px 14px;}
+  .custom-cmp-title{font-size:17px;}
+  .custom-cmp-body{padding:14px 16px;}
+  .cccmp-trial-grid{grid-template-columns:1fr 1fr;max-height:220px;}
+  .cccmp-fields{grid-template-columns:1fr 1fr;}
+  .cccmp-result-tbl{font-size:10.5px;}
+  .cccmp-result-tbl th,.cccmp-result-tbl td{padding:6px 8px;font-size:10.5px;}
+}
 .km-cmp-bg.open{display:flex;}
 .km-cmp-content{background:linear-gradient(135deg,#fffbeb,#ffffff 50%,#dbeafe);max-width:1100px;width:100%;max-height:94vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);padding:28px 30px 26px;overflow-y:auto;}
 .km-cmp-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
@@ -2479,6 +2568,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="header-btn header-btn-mnemonic" onclick="openMnemonicIndex()" title="開啟口訣速查表 (按癌別 + status 列出全部 119 個試驗口訣)">
         <span>🧠</span><span class="hide-on-mobile">口訣速查</span>
       </button>
+      <button class="header-btn header-btn-cmp" onclick="openCustomCompare()" title="自訂試驗對照組 — 選 2-5 個試驗自動生成對照表">
+        <span>🔬</span><span class="hide-on-mobile">自訂對照</span>
+      </button>
       <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
         <span>🤖</span><span>AI 治療路徑</span>
       </button>
@@ -2838,6 +2930,18 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
   <div class="km-cmp-content">
     <button class="km-cmp-close" onclick="closeKMCompare()">✕</button>
     <div id="kmCmpContent"></div>
+  </div>
+</div>
+
+<!-- ===== 🔬 自訂對照組 Modal ===== -->
+<div class="custom-cmp-bg" id="customCmpModal" onclick="if(event.target.id==='customCmpModal')closeCustomCompare()">
+  <div class="custom-cmp-content">
+    <button class="custom-cmp-close" onclick="closeCustomCompare()">✕</button>
+    <div class="custom-cmp-header">
+      <h3 class="custom-cmp-title">🔬 自訂試驗對照組</h3>
+      <p class="custom-cmp-sub">選 2-5 個試驗 → 自動推薦欄位 (可手動勾選/取消) · 可暫存於本次 session (重新載入清除)</p>
+    </div>
+    <div class="custom-cmp-body" id="customCmpBody"></div>
   </div>
 </div>
 
@@ -12824,6 +12928,133 @@ const TRIAL_CMP_GROUPS = {
     ],
   },
 
+  // ===== OC NACT vs PDS 對照 =====
+  'oc-nact-vs-pds': {
+    title: '🔵 OC NACT vs PDS 對照',
+    trials: ['eortc-55971', 'chorus', 'jcog0602', 'scorpion', 'eortc-chorus-pooled'],
+    columns: [
+      {label: '族群', getter: (t) => ({'eortc-55971':'歐洲 ITT', chorus:'英國 ITT', jcog0602:'亞洲 ITT', scorpion:'Fagotti≥8', 'eortc-chorus-pooled':'Stage IV pooled'})[t.id] || '-'},
+      {label: 'mOS', getter: (t) => ({'eortc-55971':'30 vs 29m', chorus:'23.6 vs 22.6m', jcog0602:'-', scorpion:'-', 'eortc-chorus-pooled':'NACT 受益'})[t.id] || '-'},
+      {label: 'OS HR', getter: (t) => ({'eortc-55971':'0.98 NI', chorus:'0.87 NI', jcog0602:'未達 NI', scorpion:'-', 'eortc-chorus-pooled':'0.76 (Stage IV)'})[t.id] || '-'},
+      {label: '結論', getter: (t) => ({'eortc-55971':'NACT 非劣', chorus:'UK 確認', jcog0602:'亞洲未達', scorpion:'高負荷降併發', 'eortc-chorus-pooled':'高期別受益'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC IP 化療系列 =====
+  'oc-ip-chemo': {
+    title: '🔵 OC IP 化療三大里程碑',
+    trials: ['swog-8501', 'gog-114', 'gog-172', 'gog-252'],
+    columns: [
+      {label: '方案', getter: (t) => ({'swog-8501':'IP Cis', 'gog-114':'IP Cis+Pacli', 'gog-172':'IP Cis+Pacli', 'gog-252':'IP+Bev vs IV+Bev'})[t.id] || '-'},
+      {label: '時代', getter: (t) => ({'swog-8501':'1996', 'gog-114':'2001', 'gog-172':'2006', 'gog-252':'2019'})[t.id] || '-'},
+      {label: 'OS HR', getter: (t) => ({'swog-8501':'0.76', 'gog-114':'顯著', 'gog-172':'+16m', 'gog-252':'IP 不再優'})[t.id] || '-'},
+      {label: '地位', getter: (t) => ({'swog-8501':'首個里程碑', 'gog-114':'毒性大', 'gog-172':'金標準', 'gog-252':'IP 衰退'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC OCCC 對照 =====
+  'oc-occc': {
+    title: '🌊 OC OCCC 對照 (清明細胞癌)',
+    trials: ['most-circuit', 'atari', 'dove', 'gog-254', 'bruog-354', 'jgog3017'],
+    columns: [
+      {label: '方案', getter: (t) => ({'most-circuit':'Nivo+Ipi', atari:'Cera±Olap', dove:'Dostar+Bev', 'gog-254':'Sunitinib', 'bruog-354':'Nivo±Ipi', jgog3017:'Iri/Cis vs TC'})[t.id] || '-'},
+      {label: '機制', getter: (t) => ({'most-circuit':'雙免疫', atari:'ATR+PARP', dove:'IO+抗血管', 'gog-254':'多靶 TKI', 'bruog-354':'單 vs 雙免疫', jgog3017:'非鉑 vs 鉑'})[t.id] || '-'},
+      {label: 'ORR', getter: (t) => ({'most-circuit':'24%', atari:'14%', dove:'進行中', 'gog-254':'6.7%', 'bruog-354':'雙優於單', jgog3017:'兩組相當'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC PARPi 一線 vs PSOC 維持 (跨線比較) =====
+  'oc-parpi-1l-vs-psoc': {
+    title: '💎 PARPi 一線 vs PSOC 維持 BRCAm 對照',
+    trials: ['solo-1', 'solo2', 'study-19'],
+    columns: [
+      {label: '線數', getter: (t) => ({'solo-1':'一線', solo2:'PSOC 維持', 'study-19':'PSOC (II 期)'})[t.id] || '-'},
+      {label: 'BRCAm PFS HR', getter: (t) => ({'solo-1':'0.33', solo2:'0.30', 'study-19':'0.18'})[t.id] || '-'},
+      {label: 'mPFS', getter: (t) => ({'solo-1':'56m vs 13.8m', solo2:'19.1 vs 5.5m', 'study-19':'8.4 vs 4.8m'})[t.id] || '-'},
+      {label: 'OS', getter: (t) => ({'solo-1':'7y HR 0.55 ✅', solo2:'OS HR 0.74', 'study-19':'長尾 6+y'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC PSOC 亞洲 PARPi =====
+  'oc-psoc-asia-parpi': {
+    title: '💎 OC PSOC 亞洲族群 PARPi 對照',
+    trials: ['l-moca', 'nora', 'opinion'],
+    columns: [
+      {label: 'PARPi', getter: (t) => ({'l-moca':'Olap', nora:'Nira (個別化劑量)', opinion:'Olap'})[t.id] || '-'},
+      {label: '族群', getter: (t) => ({'l-moca':'亞洲 PSROC', nora:'中國 PSOC', opinion:'non-gBRCAm PSOC'})[t.id] || '-'},
+      {label: 'PFS HR', getter: (t) => ({'l-moca':'0.32', nora:'0.32', opinion:'-'})[t.id] || '-'},
+      {label: 'mPFS', getter: (t) => ({'l-moca':'16.1m', nora:'18.3m', opinion:'9.2m'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC TROP2/HER2 ADC 維持 =====
+  'oc-adc-maint': {
+    title: '🩷 OC ADC 維持探索',
+    trials: ['destiny-ovarian01', 'trofuse-021', 'trofuse-022'],
+    columns: [
+      {label: 'ADC', getter: (t) => ({'destiny-ovarian01':'T-DXd+Bev', 'trofuse-021':'sac-TMT±Bev', 'trofuse-022':'sac-TMT±Bev'})[t.id] || '-'},
+      {label: '靶點', getter: (t) => ({'destiny-ovarian01':'HER2', 'trofuse-021':'TROP2', 'trofuse-022':'TROP2'})[t.id] || '-'},
+      {label: '族群', getter: (t) => ({'destiny-ovarian01':'HER2+ HRP 一線維持', 'trofuse-021':'HRD- 一線維持', 'trofuse-022':'PSOC 維持'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC PROC ADC 聚焦 =====
+  'oc-proc-adc': {
+    title: '🩷 OC PROC ADC 對照',
+    trials: ['mirasol', 'framework-01', 'rejoice-ovarian01', 'engot-ov77'],
+    columns: [
+      {label: 'ADC', getter: (t) => ({mirasol:'Mirvet', 'framework-01':'LY4170156+Bev', 'rejoice-ovarian01':'R-DXd', 'engot-ov77':'R-DXd'})[t.id] || '-'},
+      {label: '靶點', getter: (t) => ({mirasol:'FRα', 'framework-01':'FRα', 'rejoice-ovarian01':'CDH6', 'engot-ov77':'CDH6'})[t.id] || '-'},
+      {label: 'ORR', getter: (t) => ({mirasol:'42% (PFS+OS)', 'framework-01':'多 cohort 探索', 'rejoice-ovarian01':'50.5%', 'engot-ov77':'III 期 ongoing'})[t.id] || '-'},
+      {label: 'biomarker', getter: (t) => ({mirasol:'FRα PS2+ ≥75%', 'framework-01':'FRα 多區段', 'rejoice-ovarian01':'CDH6+', 'engot-ov77':'CDH6+'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== EC dMMR 去化療策略 =====
+  'ec-dmmr-deescalation': {
+    title: '🟣 EC dMMR 去化療策略對照',
+    trials: ['garnet', 'keynote-c93'],
+    columns: [
+      {label: '方案', getter: (t) => ({garnet:'Dostar 單藥', 'keynote-c93':'Pembro 單藥 vs 含鉑化療'})[t.id] || '-'},
+      {label: '族群', getter: (t) => ({garnet:'dMMR 復發 single-arm', 'keynote-c93':'dMMR 1L RCT'})[t.id] || '-'},
+      {label: '結果', getter: (t) => ({garnet:'ORR 45.5%, DOR 24m 83.7%', 'keynote-c93':'PFS HR 0.30 ✅'})[t.id] || '-'},
+      {label: '地位', getter: (t) => ({garnet:'FDA 加速核准', 'keynote-c93':'挑戰 SOC 化療'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== EC ADC 探索 =====
+  'ec-adc-explore': {
+    title: '🟣 EC ADC 探索對照',
+    trials: ['destiny-pantumor02', 'tropics-03', 'ascent-gyn-01', 'bluestar', 'trofuse-033', 'mk2870-033'],
+    columns: [
+      {label: 'ADC', getter: (t) => ({'destiny-pantumor02':'T-DXd', 'tropics-03':'SG (sac-TMT)', 'ascent-gyn-01':'SG vs TPC', bluestar:'AZD8205', 'trofuse-033':'sac-TMT+Pembro', 'mk2870-033':'sac-TMT+Pembro'})[t.id] || '-'},
+      {label: '靶點', getter: (t) => ({'destiny-pantumor02':'HER2', 'tropics-03':'TROP2', 'ascent-gyn-01':'TROP2', bluestar:'B7-H4', 'trofuse-033':'TROP2', 'mk2870-033':'TROP2'})[t.id] || '-'},
+      {label: 'ORR / 結果', getter: (t) => ({'destiny-pantumor02':'IHC3+ 84.6%, 整體 57.5%', 'tropics-03':'EC ORR 22%', 'ascent-gyn-01':'III 期 ongoing', bluestar:'ORR 38.5%', 'trofuse-033':'pMMR 維持新策', 'mk2870-033':'pMMR 維持探索'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== US LMS 賀爾蒙與 adjuvant =====
+  'us-lms-adj-hormonal': {
+    title: '🟠 US LMS adjuvant + 賀爾蒙對照',
+    trials: ['gog-0277', 'nct07076186', 'uLMS-hormonal'],
+    columns: [
+      {label: '線數', getter: (t) => ({'gog-0277':'adjuvant', 'nct07076186':'adjuvant', 'uLMS-hormonal':'維持/晚期'})[t.id] || '-'},
+      {label: '方案', getter: (t) => ({'gog-0277':'Gem+Doce vs 觀察', 'nct07076186':'Adj Dox+Trab', 'uLMS-hormonal':'Letrozole/AI'})[t.id] || '-'},
+      {label: '結果', getter: (t) => ({'gog-0277':'❌ 提前終止', 'nct07076186':'進行中', 'uLMS-hormonal':'ER+ 受益'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== US UCS 雙臂對照 =====
+  'us-ucs': {
+    title: '🟠 US UCS (癌肉瘤) 對照',
+    trials: ['gog-0261', 'gog-150', 'gog-161'],
+    columns: [
+      {label: '線數', getter: (t) => ({'gog-0261':'1L 進階', 'gog-150':'adjuvant', 'gog-161':'1L 雙藥'})[t.id] || '-'},
+      {label: '方案', getter: (t) => ({'gog-0261':'PC vs Pacli/Ifo', 'gog-150':'AP vs WAI', 'gog-161':'Ifo+Pacli vs Ifo'})[t.id] || '-'},
+      {label: '結果', getter: (t) => ({'gog-0261':'✅ 新 SOC, 毒性降', 'gog-150':'OS NS, chemo 系統控制', 'gog-161':'PFS/OS 翻倍'})[t.id] || '-'},
+    ],
+  },
+
 };
 
 // Map: trial id → list of group ids it belongs to
@@ -19562,6 +19793,382 @@ function openKMCompare(trialId){
 function closeKMCompare(){
   el('kmCmpModal').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// ============================================================
+// 🔬 自訂試驗對照組 (Custom Comparison Builder)
+// ============================================================
+
+const CCCMP_STATE = {
+  selectedTrials: [],     // array of trial IDs (max 5)
+  selectedFields: [],     // array of field IDs
+  cancerFilter: 'all',    // 'all' | 'EC' | 'OC' | 'CC' | 'US'
+  searchTerm: '',
+  userTouchedFields: false,  // true if user manually toggled fields (prevents auto-suggest override)
+};
+
+// All available comparison fields - grouped by category
+const CCCMP_FIELDS = [
+  // === 基本資訊 ===
+  { id: 'cancer', cat: '基本', label: '癌別', getter: (t) => t.cancer || '-' },
+  { id: 'phase', cat: '基本', label: '階段', getter: (t) => Array.isArray(t.phase)?t.phase.join('/'):(t.phase||'-') },
+  { id: 'drug', cat: '基本', label: '主藥物', getter: (t) => t.drug || '-' },
+  { id: 'control', cat: '基本', label: '對照組', getter: (t) => t.control || '-' },
+  { id: 'tagline', cat: '基本', label: 'Tagline', getter: (t) => t.tagline || '-' },
+  { id: 'mainResult', cat: '基本', label: '主要結果', getter: (t) => t.mainResult || '-' },
+  { id: 'study_type', cat: '基本', label: '試驗設計', getter: (t) => t.study_type || t.design || '-' },
+  // === 數據 ===
+  { id: 'mPFS', cat: '數據', label: 'mPFS', getter: (t) => extractMetric(t, ['mPFS', 'PFS']) },
+  { id: 'mOS', cat: '數據', label: 'mOS', getter: (t) => extractMetric(t, ['mOS', 'OS']) },
+  { id: 'PFS_HR', cat: '數據', label: 'PFS HR', getter: (t) => extractHR(t, 'PFS') },
+  { id: 'OS_HR', cat: '數據', label: 'OS HR', getter: (t) => extractHR(t, 'OS') },
+  { id: 'ORR', cat: '數據', label: 'ORR', getter: (t) => extractMetric(t, ['ORR']) },
+  { id: 'pCR', cat: '數據', label: 'pCR', getter: (t) => extractMetric(t, ['pCR']) },
+  { id: 'mDOR', cat: '數據', label: 'mDOR', getter: (t) => extractMetric(t, ['mDOR', 'DOR']) },
+  // === 族群 ===
+  { id: 'molMarkers', cat: '族群', label: '分子標記', getter: (t) => {
+      const tr = TRIAL_RULES && TRIAL_RULES[t.id];
+      if(!tr) return '-';
+      const all = [...(tr.molecular?.required||[]), ...(tr.molecular?.any||[])];
+      return all.length ? all.join('/') : '-';
+    } 
+  },
+  { id: 'stages', cat: '族群', label: '期別', getter: (t) => {
+      const tr = TRIAL_RULES && TRIAL_RULES[t.id];
+      return tr?.stages?.join('/') || '-';
+    } 
+  },
+  { id: 'line', cat: '族群', label: '線數', getter: (t) => (TRIAL_RULES && TRIAL_RULES[t.id]?.line) || '-' },
+  { id: 'histo', cat: '族群', label: '組織型', getter: (t) => {
+      const tr = TRIAL_RULES && TRIAL_RULES[t.id];
+      return tr?.histo?.join('/') || '-';
+    } 
+  },
+  // === 結果 ===
+  { id: 'fda', cat: '結果', label: 'FDA 核准', getter: (t) => t.fda || t.regulatory || '-' },
+  { id: 'nccn', cat: '結果', label: 'NCCN 等級', getter: (t) => t.nccn || '-' },
+  { id: 'mnemonic', cat: '結果', label: '🧠 口訣', getter: (t) => {
+      const m = TRIAL_MNEMONICS[t.id];
+      return m?.main || '-';
+    } 
+  },
+  { id: 'keypoint', cat: '結果', label: '🎯 重點', getter: (t) => {
+      const m = TRIAL_MNEMONICS[t.id];
+      return m?.keypoint || '-';
+    } 
+  },
+  { id: 'numbers', cat: '結果', label: '📍 數字', getter: (t) => {
+      const m = TRIAL_MNEMONICS[t.id];
+      return m?.numbers || '-';
+    } 
+  },
+  { id: 'pitfalls', cat: '結果', label: '⚠️ 易錯', getter: (t) => {
+      const m = TRIAL_MNEMONICS[t.id];
+      return m?.pitfalls || '-';
+    } 
+  },
+];
+
+// Helper: extract metric from numbers / mainResult
+function extractMetric(t, keys){
+  const text = [t.mainResult, t.tagline, (TRIAL_MNEMONICS[t.id]||{}).numbers].filter(Boolean).join(' ');
+  for(const key of keys){
+    // Try patterns: "mPFS X", "mPFS: X", "PFS X.Xm", "X vs Y"
+    const re = new RegExp(`${key}[\\s:]*[~]?([\\w\\d.\\-]+(?:\\s*[vs對比]+\\s*[\\w\\d.\\-]+)?)\\s*(m|月)?`, 'i');
+    const m = text.match(re);
+    if(m) return m[1] + (m[2]||'');
+  }
+  return '-';
+}
+function extractHR(t, endpoint){
+  const text = [t.mainResult, t.tagline, (TRIAL_MNEMONICS[t.id]||{}).numbers, (TRIAL_MNEMONICS[t.id]||{}).keypoint].filter(Boolean).join(' ');
+  // Try: "OS HR X.XX", "PFS HR X.XX", "HR X.XX"
+  const re = new RegExp(`${endpoint}[\\s\\S]{0,30}?HR[\\s:]*([\\d.]+)`, 'i');
+  const m = text.match(re);
+  if(m) return 'HR ' + m[1];
+  // Fallback: just any HR if endpoint not found
+  return '-';
+}
+
+// localStorage for presets
+// Session presets (in-memory, cleared on page reload)
+let CCCMP_SESSION_PRESETS = [];
+function loadCCCMPresets(){
+  return CCCMP_SESSION_PRESETS;
+}
+function saveCCCMPresets(arr){
+  CCCMP_SESSION_PRESETS = arr || [];
+}
+
+function openCustomCompare(preselectedTrials){
+  // Preselected trials override
+  if(Array.isArray(preselectedTrials) && preselectedTrials.length){
+    CCCMP_STATE.selectedTrials = [...preselectedTrials].slice(0, 5);
+    // Auto-apply smart fields if 2+ trials and user hasn't touched
+    if(CCCMP_STATE.selectedTrials.length >= 2 && !CCCMP_STATE.userTouchedFields){
+      applyAutoSuggestFields();
+    }
+  }
+  el('customCmpModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderCustomCompare();
+}
+
+function closeCustomCompare(){
+  el('customCmpModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function setCCCMPCancer(c){
+  CCCMP_STATE.cancerFilter = c;
+  renderCustomCompare();
+}
+function setCCCMPSearch(v){
+  CCCMP_STATE.searchTerm = (v || '').toLowerCase().trim();
+  renderCustomCompare();
+}
+function toggleCCCMPTrial(tid){
+  const i = CCCMP_STATE.selectedTrials.indexOf(tid);
+  const wasBelowTwo = CCCMP_STATE.selectedTrials.length < 2;
+  if(i >= 0){
+    CCCMP_STATE.selectedTrials.splice(i, 1);
+  } else {
+    if(CCCMP_STATE.selectedTrials.length >= 5){
+      alert('最多選 5 個試驗 — 先移除一個再加入新的');
+      return;
+    }
+    CCCMP_STATE.selectedTrials.push(tid);
+  }
+  // 🎯 兩者並存: 第一次達到 2+ 試驗 OR 使用者尚未手動調整時, 自動套用 smart fields
+  if(CCCMP_STATE.selectedTrials.length >= 2 && !CCCMP_STATE.userTouchedFields){
+    applyAutoSuggestFields();
+  }
+  renderCustomCompare();
+}
+function toggleCCCMPField(fid){
+  const i = CCCMP_STATE.selectedFields.indexOf(fid);
+  if(i >= 0) CCCMP_STATE.selectedFields.splice(i, 1);
+  else CCCMP_STATE.selectedFields.push(fid);
+  CCCMP_STATE.userTouchedFields = true;  // 標記使用者已手動調整
+  renderCustomCompare();
+}
+function clearCCCMPTrials(){
+  CCCMP_STATE.selectedTrials = [];
+  CCCMP_STATE.selectedFields = [];
+  CCCMP_STATE.userTouchedFields = false;  // 重置, 下次又會自動套用
+  renderCustomCompare();
+}
+
+// Smart field suggestion based on selected trials (內部使用)
+function applyAutoSuggestFields(){
+  if(CCCMP_STATE.selectedTrials.length < 2) return;
+  const trials = CCCMP_STATE.selectedTrials.map(id => TRIALS.find(t=>t.id===id)).filter(Boolean);
+  const cancers = new Set(trials.map(t=>t.cancer));
+  const sameCancer = cancers.size === 1;
+  const fields = ['cancer','phase','drug','mainResult','mnemonic'];
+  if(!sameCancer) fields.unshift('tagline');
+  if(sameCancer) fields.push('stages', 'line');
+  fields.push('molMarkers', 'keypoint');
+  CCCMP_STATE.selectedFields = [...new Set(fields)];
+}
+
+function autoSuggestCCCMPFields(){
+  // 手動觸發 (按鈕): 強制重新自動套用 smart fields, 並重置使用者調整狀態
+  applyAutoSuggestFields();
+  CCCMP_STATE.userTouchedFields = false;
+  renderCustomCompare();
+}
+
+function saveCCCMPPreset(){
+  if(CCCMP_STATE.selectedTrials.length < 2){
+    alert('需要至少 2 個試驗才能暫存對照組');
+    return;
+  }
+  const name = prompt('為此對照組命名 (本次 session 暫存, 重新載入後清除):\n例如: 「我的 PARPi 對照」', '');
+  if(!name) return;
+  const presets = loadCCCMPresets();
+  presets.push({
+    id: 'preset-' + Date.now(),
+    name: name.trim(),
+    trials: [...CCCMP_STATE.selectedTrials],
+    fields: [...CCCMP_STATE.selectedFields],
+    createdAt: Date.now(),
+  });
+  saveCCCMPresets(presets);
+  renderCustomCompare();
+}
+
+function loadCCCMPPreset(id){
+  const presets = loadCCCMPresets();
+  const p = presets.find(x => x.id === id);
+  if(!p) return;
+  CCCMP_STATE.selectedTrials = [...(p.trials||[])];
+  CCCMP_STATE.selectedFields = [...(p.fields||[])];
+  renderCustomCompare();
+}
+function deleteCCCMPPreset(id, evt){
+  if(evt) evt.stopPropagation();
+  if(!confirm('刪除此對照組?')) return;
+  let presets = loadCCCMPresets();
+  presets = presets.filter(p => p.id !== id);
+  saveCCCMPresets(presets);
+  renderCustomCompare();
+}
+
+function renderCustomCompare(){
+  const body = el('customCmpBody');
+  if(!body) return;
+  let html = '';
+  
+  // === Saved presets (session-only, cleared on reload) ===
+  const presets = loadCCCMPresets();
+  html += `<div class="cccmp-presets">
+    <div class="cccmp-presets-header">
+      <span class="cccmp-presets-title">📑 本次 session 暫存對照組</span>
+      <span style="font-size:10.5px;color:#94a3b8;">${presets.length} 組 · ⚠️ 重新載入頁面後清除</span>
+    </div>
+    <div class="cccmp-presets-list">`;
+  if(presets.length === 0){
+    html += `<span class="cccmp-empty-presets">— 尚未暫存 — 選好試驗+欄位後可點「📑 暫存此組」隨時切換比較</span>`;
+  } else {
+    presets.forEach(p => {
+      const cnt = (p.trials||[]).length;
+      html += `<button class="cccmp-preset-chip" onclick="loadCCCMPPreset('${p.id}')" title="${escapeHtml((p.trials||[]).join(', '))}">
+        📋 ${escapeHtml(p.name)} <span style="opacity:0.7;">(${cnt})</span>
+        <span class="cccmp-preset-del" onclick="deleteCCCMPPreset('${p.id}', event)" title="刪除">✕</span>
+      </button>`;
+    });
+  }
+  html += `</div></div>`;
+  
+  // === Step 1: Pick trials ===
+  html += `<div class="cccmp-section">
+    <div class="cccmp-section-title"><span class="cccmp-section-num">1</span>選擇試驗 (2-5 個)</div>
+    <input type="text" class="cccmp-search" placeholder="🔍 搜尋試驗名 / 藥物 / tagline..." 
+           value="${escapeHtml(CCCMP_STATE.searchTerm)}" 
+           oninput="setCCCMPSearch(this.value)">
+    <div class="cccmp-cancer-pills">`;
+  ['all','EC','OC','CC','US'].forEach(c => {
+    const labels = {all:'全部', EC:'🟣 EC', OC:'🔵 OC', CC:'🟢 CC', US:'🟠 US'};
+    const active = CCCMP_STATE.cancerFilter === c ? 'active' : '';
+    html += `<button class="cccmp-cancer-pill ${active}" onclick="setCCCMPCancer('${c}')">${labels[c]}</button>`;
+  });
+  html += `</div>`;
+  
+  // Trial picker grid
+  html += `<div class="cccmp-trial-grid">`;
+  const filtered = TRIALS.filter(t => {
+    if(CCCMP_STATE.cancerFilter !== 'all' && t.cancer !== CCCMP_STATE.cancerFilter) return false;
+    if(CCCMP_STATE.searchTerm){
+      const hay = [t.name, t.fullName, t.drug, t.tagline].filter(Boolean).join(' ').toLowerCase();
+      return hay.includes(CCCMP_STATE.searchTerm);
+    }
+    return true;
+  });
+  if(filtered.length === 0){
+    html += `<div style="grid-column:1/-1;padding:20px;text-align:center;color:#94a3b8;font-size:12px;">— 找不到符合的試驗 —</div>`;
+  } else {
+    filtered.slice(0, 200).forEach(t => {
+      const isSelected = CCCMP_STATE.selectedTrials.includes(t.id) ? 'selected' : '';
+      html += `<button class="cccmp-trial-pick ${isSelected}" onclick="toggleCCCMPTrial('${t.id}')">
+        <span class="cccmp-trial-pick-name">${escapeHtml(t.name)}</span>
+        <span class="cccmp-trial-pick-cancer">${t.cancer} · ${escapeHtml(t.drug || '-')}</span>
+      </button>`;
+    });
+  }
+  html += `</div>`;
+  
+  // Selected bar
+  html += `<div class="cccmp-selected-bar">`;
+  if(CCCMP_STATE.selectedTrials.length === 0){
+    html += `<span class="cccmp-selected-empty">— 尚未選擇試驗 — 點上方試驗加入</span>`;
+  } else {
+    CCCMP_STATE.selectedTrials.forEach(tid => {
+      const t = TRIALS.find(x=>x.id===tid);
+      const name = t ? t.name : tid;
+      html += `<span class="cccmp-selected-chip">
+        ${escapeHtml(name)}
+        <span class="cccmp-selected-x" onclick="toggleCCCMPTrial('${tid}')" title="移除">✕</span>
+      </span>`;
+    });
+    html += `<button class="cccmp-btn-secondary" style="margin-left:auto;font-size:10.5px;padding:3px 9px;" onclick="clearCCCMPTrials()">🗑️ 全部清除</button>`;
+  }
+  html += `</div></div>`;
+  
+  // === Step 2: Pick fields ===
+  if(CCCMP_STATE.selectedTrials.length >= 2){
+    const fieldsHintText = CCCMP_STATE.userTouchedFields
+      ? `<span style="color:#0891b2;font-weight:700;">🛠️ 您已手動調整欄位</span> · 點 ✨ 重置為智能推薦`
+      : `<span style="color:#16a34a;font-weight:700;">✨ 已自動套用智能推薦欄位</span> · 可勾選 / 取消任意欄位手動調整`;
+    html += `<div class="cccmp-section">
+      <div class="cccmp-section-title">
+        <span class="cccmp-section-num">2</span>選擇要對照的欄位
+        <button class="cccmp-btn-secondary" style="margin-left:auto;font-size:10.5px;padding:4px 10px;" onclick="autoSuggestCCCMPFields()">✨ 重置為智能推薦</button>
+      </div>
+      <div style="font-size:11px;color:#64748b;margin-bottom:9px;font-weight:600;padding:6px 10px;background:#f0f9ff;border-left:3px solid #0891b2;border-radius:5px;">
+        ${fieldsHintText}
+      </div>
+      <div class="cccmp-fields">`;
+    const fieldsByCategory = {};
+    CCCMP_FIELDS.forEach(f => {
+      if(!fieldsByCategory[f.cat]) fieldsByCategory[f.cat] = [];
+      fieldsByCategory[f.cat].push(f);
+    });
+    CCCMP_FIELDS.forEach(f => {
+      const isSelected = CCCMP_STATE.selectedFields.includes(f.id) ? 'selected' : '';
+      html += `<label class="cccmp-field-pick ${isSelected}">
+        <input type="checkbox" ${isSelected?'checked':''} onclick="toggleCCCMPField('${f.id}')">
+        <span class="cccmp-field-cat">${f.cat}</span>
+        <span>${escapeHtml(f.label)}</span>
+      </label>`;
+    });
+    html += `</div>`;
+    
+    // === Step 3: Action buttons ===
+    html += `<div class="cccmp-actions">
+      <span style="font-size:11.5px;color:#475569;font-weight:700;">已選 <b style="color:#0891b2;">${CCCMP_STATE.selectedTrials.length}</b> 試驗 + <b style="color:#0891b2;">${CCCMP_STATE.selectedFields.length}</b> 欄位</span>
+      <button class="cccmp-btn-save" onclick="saveCCCMPPreset()">📑 暫存此組</button>
+    </div>`;
+    html += `</div>`;
+    
+    // === Step 4: Result table ===
+    if(CCCMP_STATE.selectedFields.length > 0){
+      html += `<div class="cccmp-result">
+        <div class="cccmp-result-header">
+          <span>📊 對照表 (${CCCMP_STATE.selectedTrials.length} 試驗 × ${CCCMP_STATE.selectedFields.length} 欄位)</span>
+        </div>
+        <div class="cccmp-result-tbl-wrap">
+        <table class="cccmp-result-tbl">
+          <thead><tr><th class="field-trial">試驗</th>`;
+      CCCMP_STATE.selectedFields.forEach(fid => {
+        const f = CCCMP_FIELDS.find(x => x.id === fid);
+        if(f) html += `<th>${escapeHtml(f.label)}</th>`;
+      });
+      html += `</tr></thead><tbody>`;
+      CCCMP_STATE.selectedTrials.forEach(tid => {
+        const t = TRIALS.find(x => x.id === tid);
+        if(!t) return;
+        html += `<tr><td class="trial-cell">${escapeHtml(t.name)}</td>`;
+        CCCMP_STATE.selectedFields.forEach(fid => {
+          const f = CCCMP_FIELDS.find(x => x.id === fid);
+          if(!f){ html += `<td>-</td>`; return; }
+          let v = '-';
+          try{ v = f.getter(t); } catch(e){ v = '-'; }
+          html += `<td>${escapeHtml(String(v||'-'))}</td>`;
+        });
+        html += `</tr>`;
+      });
+      html += `</tbody></table></div></div>`;
+    }
+  } else {
+    html += `<div style="padding:20px;text-align:center;color:#64748b;font-size:13px;background:#f8fafc;border-radius:9px;border:1px dashed #cbd5e1;">
+      <span style="font-size:24px;display:block;margin-bottom:6px;">📋</span>
+      <b>請先選 2-5 個試驗</b><br>
+      <span style="font-size:11.5px;">選好試驗後會出現欄位選擇器和對照表</span>
+    </div>`;
+  }
+  
+  body.innerHTML = html;
 }
 
 // Render the comparison modal content
