@@ -595,6 +595,15 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   .tmc-extra-row{font-size:10.5px;}
 }
 
+/* 🚀 Pioneer / 🏛️ Milestone 徽章 (inline 嵌在主口訣前) */
+.tmc-inline-badge{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-size:18px;margin-right:8px;vertical-align:middle;cursor:help;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.15);transition:transform 0.15s;line-height:1;}
+.tmc-inline-badge:hover{transform:scale(1.15);}
+.tmc-inline-pioneer{background:linear-gradient(135deg,#dc2626,#7f1d1d);border:1.5px solid #fbbf24;}
+.tmc-inline-milestone{background:linear-gradient(135deg,#d97706,#b45309);border:1.5px solid #fde047;}
+@media(max-width:640px){
+  .tmc-inline-badge{width:26px;height:26px;font-size:15px;margin-right:6px;}
+}
+
 /* 🔗 試驗交叉對照 */
 .tmc-xref-block{margin-top:9px;background:linear-gradient(135deg,#0f172a 60%,#1e293b);border-radius:10px;border:1.5px solid #334155;overflow:hidden;}
 .tmc-xref-summary{padding:9px 13px;font-size:12.5px;font-weight:800;color:#fef3c7;cursor:pointer;list-style:none;background:linear-gradient(90deg,#1e293b,#334155);display:flex;align-items:center;gap:8px;}
@@ -2266,6 +2275,12 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .trial-card:hover{border-color:var(--primary);box-shadow:0 4px 16px rgba(37,99,235,0.18);transform:translateY(-2px);}
 .trial-card.ongoing{border-color:#fcd34d;background:#fffef0;}
 .trial-card.ongoing:hover{border-color:#f59e0b;}
+
+/* 🚀 Pioneer / 🏛️ Milestone 卡片角徽章 */
+.trial-card-badge{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:help;z-index:2;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition:all 0.2s;}
+.trial-card-badge.tcb-pioneer{background:linear-gradient(135deg,#dc2626,#7f1d1d);border:1.5px solid #fbbf24;}
+.trial-card-badge.tcb-milestone{background:linear-gradient(135deg,#d97706,#b45309);border:1.5px solid #fde047;}
+.trial-card-badge:hover{transform:scale(1.15);box-shadow:0 4px 10px rgba(0,0,0,0.3);}
 .trial-card.selected-compare{border-color:#7c3aed;background:#faf5ff;box-shadow:0 0 0 3px rgba(124,58,237,0.18);}
 
 .trial-cb{position:absolute;top:12px;right:12px;width:22px;height:22px;cursor:pointer;accent-color:#7c3aed;display:none;}
@@ -7159,9 +7174,17 @@ function renderCoreConclusion(t){
 function cardHTML(t){
   const isOng = t.status === 'ongoing';
   const isSel = selectedTrials.has(t.id);
+  // 🚀 Pioneer / 🏛️ Milestone corner badge
+  let cornerBadge = '';
+  if(typeof TRIAL_BADGES !== 'undefined' && TRIAL_BADGES[t.id]){
+    const bd = TRIAL_BADGES[t.id];
+    const icon = bd.type === 'pioneer' ? '🚀' : '🏛️';
+    cornerBadge = `<div class="trial-card-badge tcb-${bd.type}" title="${escapeHtml(bd.label + ' — ' + bd.detail)}">${icon}</div>`;
+  }
   return `<div class="trial-card ${isOng?'ongoing':''} ${isSel?'selected-compare':''}" onclick="cardClick(event,'${t.id}')">
     <input type="checkbox" class="trial-cb" ${isSel?'checked':''} onclick="toggleSelect(event,'${t.id}')">
     <div class="trial-status ${t.status}">${statusLabel(t.status)}</div>
+    ${cornerBadge}
     <div class="trial-name">${t.name}</div>
     <div class="trial-drug">${t.drug}</div>
     <div class="trial-tagline">${t.tagline}</div>
@@ -12939,6 +12962,59 @@ const KM_DATA = {
 // ============================================================
 // 每個試驗可屬於多個 group, 顯示同 group 的 key numbers 對照表
 
+// ============================================================
+// 🚀 Pioneer / 🏛️ Milestone 徽章系統
+// ============================================================
+// pioneer: 領域 first-in-class / 範式翻轉的開山試驗
+// milestone: 改變臨床實務的關鍵試驗
+const TRIAL_BADGES = {
+  // === 🚀 Pioneer 開山級 ===
+  'gog-0218':       { type:'pioneer', label:'OC 一線抗血管 開山', detail:'2011 NEJM, Bev 進入 OC 一線維持' },
+  'icon7':         { type:'pioneer', label:'OC Bev 歐洲驗證', detail:'2011 NEJM, 同期確認低劑量有效' },
+  'jgog3016':      { type:'pioneer', label:'亞洲 dose-dense 開山', detail:'2009 Lancet, 亞洲 OS 延 38 月' },
+  'eortc-55971':   { type:'pioneer', label:'OC NACT 開山', detail:'2010 NEJM, 改變手術-化療順序' },
+  'swog-8501':     { type:'pioneer', label:'OC IP 化療開山', detail:'1996 NEJM, 首個 IP 里程碑' },
+  'lacc-trial':    { type:'pioneer', label:'CC LACC 手術範式翻轉', detail:'2018 NEJM, MIS 不再用' },
+  'gog-240':       { type:'pioneer', label:'CC R/M 抗血管開山', detail:'2014 NEJM, Bev 首個 R/M 里程碑' },
+  'keynote-158':   { type:'pioneer', label:'Tumor-agnostic 開山', detail:'2017 FDA, 首個分子定義適應症' },
+  'gy018':         { type:'pioneer', label:'EC dMMR IO+chemo 開山', detail:'2023 NEJM, dMMR 一線里程碑' },
+  'ruby-p1':       { type:'pioneer', label:'EC 含癌肉瘤 IO+chemo 開山', detail:'2023 NEJM, 收 carcinosarcoma' },
+  'solo-1':        { type:'pioneer', label:'OC 一線 PARPi 開山', detail:'2018 NEJM, BRCAm 一線維持' },
+  'study-19':      { type:'pioneer', label:'OC PARPi 維持開山', detail:'2014 Lancet Oncol, 首個 PARPi PSOC' },
+  'shape-trial':   { type:'pioneer', label:'CC 手術降階開山', detail:'2024 NEJM, 低風險 simple hyst' },
+  'keynote-826':   { type:'pioneer', label:'CC R/M IO 開山', detail:'2021 NEJM, 1L CPS≥1 + chemo' },
+  'keynote-a18':   { type:'pioneer', label:'CC LACC IO 開山', detail:'2024 Lancet, 首個 LACC + IO 成功' },
+  'gog-172':       { type:'pioneer', label:'OC IP 黃金里程碑', detail:'2006 NEJM, mOS 65 vs 49m' },
+
+  // === 🏛️ Milestone 重大里程碑 ===
+  'paola-1':       { type:'milestone', label:'HRD 概念定義者', detail:'2019 NEJM, HRD+ 首個一線維持' },
+  'prima':         { type:'milestone', label:'全收族群 PARPi 里程碑', detail:'2019 NEJM, 全人群一線維持' },
+  'duo-e':         { type:'milestone', label:'EC 三標靶整合里程碑', detail:'2023, IO + Chemo + PARPi' },
+  'lms-04':        { type:'milestone', label:'uLMS 一線翻倍里程碑', detail:'2023, mPFS 12 vs 6m' },
+  'beatcc':        { type:'milestone', label:'CC 第二支柱里程碑', detail:'2024 Lancet, 不需 CPS' },
+  'lion':          { type:'milestone', label:'淋巴清掃終結者', detail:'2019 NEJM, 系統清掃無 OS+' },
+  'mirasol':       { type:'milestone', label:'FRα ADC 突破', detail:'2024 NEJM, 首個 PROC ADC OS+' },
+  'solo2':         { type:'milestone', label:'PSOC PARPi 經典', detail:'2017 Lancet Oncol, BRCAm 維持' },
+  'desktop-iii':   { type:'milestone', label:'PSOC 二減手術里程碑', detail:'2021 NEJM, AGO+ R0 受益' },
+  'keynote-775':   { type:'milestone', label:'EC 復發 IO+TKI 里程碑', detail:'2022 NEJM, Pembro+Lenva' },
+  'innovatv-301':  { type:'milestone', label:'CC TF-ADC 里程碑', detail:'2024 NEJM, Tisotumab vedotin' },
+  'destiny-pantumor02': { type:'milestone', label:'HER2 ADC 跨癌里程碑', detail:'2024 FDA tumor-agnostic' },
+  'aurelia':       { type:'milestone', label:'PROC + Bev 經典', detail:'2014 JCO, PFS 翻倍' },
+  'oceans':        { type:'milestone', label:'PSOC + Bev 開山', detail:'2012 JCO, 首個 PSOC 抗血管' },
+  'gog-0213':      { type:'milestone', label:'PSOC + Bev OS 顯著', detail:'2017 Lancet Oncol' },
+  'et743-sar-3007':{ type:'milestone', label:'LMS Trab vs Dacar 里程碑', detail:'2016 JCO, 老藥對決' },
+  'palette':       { type:'milestone', label:'肉瘤 TKI 里程碑', detail:'2012 Lancet, Pazopanib 非脂肪' },
+  'ariel3':        { type:'milestone', label:'PSOC PARPi 全人群分流', detail:'2017 Lancet, LOH 分流' },
+  'nova':          { type:'milestone', label:'PSOC non-gBRCA PARPi', detail:'2016 NEJM, Nira 開山' },
+  'gog-0261':      { type:'milestone', label:'UCS 化療新標準', detail:'2022 Lancet, PC 取代 Pacli/Ifo' },
+  'attend':        { type:'milestone', label:'EC Atezo+chemo', detail:'2023 Lancet Oncol, dMMR 顯效' },
+  'duo-o':         { type:'milestone', label:'OC 一線三藥維持', detail:'2023 Lancet, Durva+Bev+Olap' },
+  'naci-study':    { type:'milestone', label:'LACC 強效新輔免疫', detail:'2024, NACT pCR 38.6%' },
+  'siendo':        { type:'milestone', label:'TP53wt 翻盤里程碑', detail:'2024, post-hoc 強訊號' },
+};
+
+
+
 const TRIAL_CMP_GROUPS = {
 
   // ===== EC 一線 Pembro/Dostar/Atezo (IO+chemo) =====
@@ -13398,7 +13474,7 @@ const TRIAL_MNEMONICS = {
 
   // ====== 一線 (P-TX) ======
   'gy018': {
-    main: '💎 「GY018 配 Pembro, ITT 雙獲益, 排除肉瘤」',
+    main: '💎 「GY018 配 Pembro, dMMR 三零 pMMR 五四, 排除肉瘤」',
     breakdown: [
       { key: 'GY018', meaning: 'GOG-3025 / NRG-GY018 (試驗名)' },
       { key: 'Pembro', meaning: 'Pembrolizumab + chemo (carbo + pacli)' },
@@ -13411,7 +13487,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'ruby-p1': {
-    main: '💎 「RUBY P1 配 Dostar, 維持三年, 收癌肉瘤」',
+    main: '💎 「RUBY P1 配 Dostar, dMMR 二八 ITT 六九, 收癌肉瘤」',
     breakdown: [
       { key: 'RUBY P1', meaning: 'ENGOT-EN6 / RUBY Part 1 (試驗名)' },
       { key: 'Dostar', meaning: 'Dostarlimab + chemo (carbo + pacli)' },
@@ -13424,7 +13500,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'duo-e': {
-    main: '💎 「DUO-E 三臂, Arm3 Durva+Olap, p53/HRR 最強」',
+    main: '💎 「DUO-E 三臂維持, Arm3 pMMR 四六, p53/HRR 拔尖」',
     breakdown: [
       { key: 'DUO-E', meaning: 'AstraZeneca DUO-E 試驗 (試驗名)' },
       { key: '三臂', meaning: 'Arm 1 chemo / Arm 2 +Durva / Arm 3 +Durva+Olap' },
@@ -13437,7 +13513,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'attend': {
-    main: '💎 「AtTEnd 配 Atezo, dMMR 顯效, ITT OS 失利」',
+    main: '💎 「AtTEnd 配 Atezo, dMMR 三六顯效, ITT OS 八七翻車」',
     breakdown: [
       { key: 'AtTEnd', meaning: 'AtTEnd 試驗 (試驗名)' },
       { key: 'Atezo', meaning: 'Atezolizumab + chemo (carbo + pacli)' },
@@ -13450,7 +13526,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'keynote-b21': {
-    main: '💎 「KEYNOTE-B21 adjuvant, Pembro 翻車, DFS 失利」',
+    main: '💎 「KEYNOTE-B21 adjuvant, Pembro+chemo, ITT DFS HR 一零二, 翻車」',
     breakdown: [
       { key: 'B21', meaning: 'KEYNOTE-B21 (試驗名)' },
       { key: 'Pembro adjuvant', meaning: 'Pembrolizumab adjuvant 設計 (chemo+RT ± Pembro)' },
@@ -13464,7 +13540,7 @@ const TRIAL_MNEMONICS = {
 
   // ====== 一線維持 (P-MT) ======
   'duo-e-maint': {
-    main: '💎 「DUO-E 維持期, Arm3 Durva+Olap, p53/HRR 受益」',
+    main: '💎 「DUO-E 維持期, Arm3 Durva+Olap, p53/HRR HR 五五, 拔尖」',
     breakdown: [
       { key: 'DUO-E 維持期', meaning: 'DUO-E 試驗的 maintenance 子分析 (post-chemo)' },
       { key: 'Arm3', meaning: 'Arm 3 = Durvalumab + Olaparib 雙標靶維持' },
@@ -13477,7 +13553,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'ruby-p2': {
-    main: '💎 「RUBY P2 配 Dostar+Nira, pMMR 雙標靶, 補 IO 缺口」',
+    main: '💎 「RUBY P2 配 Dostar+Nira, ITT HR 六零, 補 IO 缺口」',
     breakdown: [
       { key: 'RUBY P2', meaning: 'RUBY Part 2 (vs Part 1 為 Dostar 單藥維持)' },
       { key: 'Dostar+Nira', meaning: '【藥物】Dostarlimab + Niraparib (PD-1 + PARPi)' },
@@ -13490,7 +13566,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'utola': {
-    main: '💎 「UTOLA 用 Olap 維持, ITT 失利, p53m 撿一條」',
+    main: '💎 「UTOLA 用 Olap 維持, ITT 失利, p53m HR 四一 撿一條」',
     breakdown: [
       { key: 'UTOLA', meaning: 'UTOLA 試驗 (Uterine ovarian-like) 試驗名' },
       { key: 'Olap 維持', meaning: 'Olaparib 一線完成化療後單藥維持' },
@@ -13503,7 +13579,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'trofuse-033': {
-    main: '💎 「TroFuse-033 配 sac-TMT+Pembro, pMMR 維持新策」',
+    main: '💎 「TroFuse-033 配 sac-TMT+Pembro, pMMR 維持, 進行中」',
     breakdown: [
       { key: 'TroFuse-033', meaning: 'TroFuse-033 (Merck/Kelun-Biotech 平行 OC TroFuse-021) 試驗名' },
       { key: 'sac-TMT', meaning: '【藥物】Sacituzumab Tirumotecan (TROP2-ADC)' },
@@ -13516,7 +13592,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'siendo': {
-    main: '💎 「SIENDO 配 Seli, TP53 wild 翻盤, mPFS 27 比 5」',
+    main: '💎 「SIENDO 配 Seli, TP53wt 翻盤 二七比五, post-hoc 撿一條」',
     breakdown: [
       { key: 'SIENDO', meaning: 'SIENDO 試驗 (試驗名)' },
       { key: 'Seli', meaning: 'Selinexor (XPO1 inhibitor, 核輸出抑制劑)' },
@@ -13529,7 +13605,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'mk2870-033': {
-    main: '💎 「MK-2870-033 配 sac-TMT+Pembro, pMMR 維持探索」',
+    main: '💎 「MK-2870-033 配 sac-TMT+Pembro, pMMR 維持, 同 TroFuse」',
     breakdown: [
       { key: 'MK-2870-033', meaning: 'Merck 開發代號 (試驗名)' },
       { key: 'sac-TMT', meaning: '【藥物】Sacituzumab Tirumotecan (TROP2-ADC)' },
@@ -13543,7 +13619,7 @@ const TRIAL_MNEMONICS = {
 
   // ====== 一線 (P-TX, Adjuvant) ======
   'rainbo-program': {
-    main: '💎 「RAINBO 彩虹計畫, 四型分桶, 個別化分流」',
+    main: '💎 「RAINBO 彩虹計畫, 四型分桶 (POLE/MMRd/p53/NSMP), 個別化分流」',
     breakdown: [
       { key: 'RAINBO', meaning: 'RAINBO program (彩虹意象, 試驗名)' },
       { key: '彩虹四桶', meaning: '【特色】4 個獨立 phase III 試驗 (對應 4 分子分型)' },
@@ -13577,7 +13653,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'keynote-775': {
-    main: '💎 「KEYNOTE-775 配 Pembro+Lenva, pMMR 後線標準, 排除肉瘤」',
+    main: '💎 「KEYNOTE-775 配 Pembro+Lenva, pMMR 六六比三八, OS 七零」',
     breakdown: [
       { key: 'KEYNOTE-775', meaning: 'KEYNOTE-775 / Study 309 (試驗名)' },
       { key: 'Pembro+Lenva', meaning: 'Pembrolizumab + Lenvatinib (PD-1 + multi-kinase)' },
@@ -13590,7 +13666,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'garnet': {
-    main: '💎 「GARNET 用 Dostar 單藥, dMMR ICI 黃金, ORR 45.5」',
+    main: '💎 「GARNET 用 Dostar 單藥, dMMR ORR 四五五, 24m DOR 八三七」',
     breakdown: [
       { key: 'GARNET', meaning: 'GARNET 試驗 (試驗名)' },
       { key: 'Dostar 單藥', meaning: 'Dostarlimab 單藥 (no chemo)' },
@@ -13603,7 +13679,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'keynote-158': {
-    main: '💎 「KEYNOTE-158 用 Pembro 單藥, dMMR 跨癌開山, EC ORR 46」',
+    main: '💎 「KEYNOTE-158 用 Pembro 單藥, dMMR 跨癌開山, EC 四六 跨癌三三」',
     breakdown: [
       { key: 'KEYNOTE-158', meaning: 'KEYNOTE-158 (basket trial, 試驗名)' },
       { key: 'Pembro 單藥', meaning: 'Pembrolizumab 200mg Q3W (no chemo)' },
@@ -13616,7 +13692,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'destiny-pantumor02': {
-    main: '💎 「DESTINY-PT02 配 T-DXd, HER2 全收, IHC 3+ 翻倍」',
+    main: '💎 「DESTINY-PT02 配 T-DXd, EC 五七五 IHC3+ 八四六, HER2 翻倍」',
     breakdown: [
       { key: 'DESTINY-PanTumor02', meaning: 'DESTINY-PanTumor02 (試驗名, EC cohort)' },
       { key: 'T-DXd', meaning: 'Trastuzumab Deruxtecan (HER2-ADC)' },
@@ -13629,7 +13705,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'tropics-03': {
-    main: '💎 「TROPiCS-03 用 SG, EC ORR 22, 為 ASCENT 鋪路」',
+    main: '💎 「TROPiCS-03 用 SG, EC ORR 二二, 為 ASCENT 鋪路」',
     breakdown: [
       { key: 'TROPiCS-03', meaning: 'TROPiCS-03 (EC cohort, 試驗名)' },
       { key: 'SG', meaning: 'Sacituzumab Govitecan (TROP2-ADC)' },
@@ -13642,7 +13718,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'ascent-gyn-01': {
-    main: '💎 「ASCENT-GYN-01 用 SG, 對打 TPC, Phase III 確認」',
+    main: '💎 「ASCENT-GYN-01 用 SG, 對打 TPC, Phase III 確認 EC」',
     breakdown: [
       { key: 'ASCENT-GYN-01', meaning: 'ASCENT-GYN-01 (試驗名)' },
       { key: 'SG vs TPC', meaning: 'Sacituzumab Govitecan vs Treatment of Physician 選擇 (Doxo/Pacli)' },
@@ -13655,7 +13731,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'bluestar': {
-    main: '💎 「BLUESTAR 用 AZD8205, B7-H4 新標靶, ORR 38.5」',
+    main: '💎 「BLUESTAR 用 AZD8205, B7-H4 新標靶, ORR 三八五」',
     breakdown: [
       { key: 'BLUESTAR', meaning: 'BLUESTAR 試驗 (試驗名)' },
       { key: 'AZD8205', meaning: 'AZD8205 / Puxitatug Samrotecan (B7-H4 ADC)' },
@@ -13672,7 +13748,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'keynote-c93': {
-    main: '💎 「KEYNOTE-C93 用 Pembro 單藥, dMMR 去化療, 挑戰 SOC」',
+    main: '💎 「KEYNOTE-C93 用 Pembro 單藥, dMMR 1L PFS HR 三零, 挑戰 SOC」',
     breakdown: [
       { key: 'KEYNOTE-C93', meaning: 'KEYNOTE-C93 (試驗名)' },
       { key: 'Pembro 單藥', meaning: 'Pembrolizumab 單藥 (no chemo)' },
@@ -13685,7 +13761,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'keynote-867': {
-    main: '💎 「KEYNOTE-867 配 Pembro+Olap, 二線維持探索」',
+    main: '💎 「KEYNOTE-867 配 Pembro+Olap, EC 二線維持, 進行中」',
     breakdown: [
       { key: 'KEYNOTE-867', meaning: 'KEYLYNK-007 / KEYNOTE-867 (試驗名)' },
       { key: 'Pembro+Olap', meaning: 'Pembrolizumab + Olaparib 雙藥維持' },
@@ -13704,7 +13780,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'gog-0218': {
-    main: '💎 「GOG-0218 加 Bev 維持, PFS 顯著, ITT OS 失利」',
+    main: '💎 「GOG-0218 加 Bev 維持, PFS HR 七一七, ITT OS 失利」',
     breakdown: [
       { key: 'GOG-0218', meaning: 'GOG-0218 試驗 (試驗名)' },
       { key: 'Bev induction+maint', meaning: 'Bevacizumab 含 induction + maintenance 期' },
@@ -13717,7 +13793,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'icon7': {
-    main: '💎 「ICON7 加 Bev 低劑量, 高險族 OS 強, 整體 PFS+」',
+    main: '💎 「ICON7 加 Bev 低劑量, high-risk 七八延 4.8m, 整體 PFS+」',
     breakdown: [
       { key: 'ICON7', meaning: 'ICON7 試驗 (試驗名)' },
       { key: 'Bev 低劑量', meaning: '7.5mg/kg 低劑量 (vs GOG-218 15mg/kg)' },
@@ -13730,7 +13806,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'jgog3016': {
-    main: '💎 「JGOG3016 紫杉每週, 亞洲 OS 延 38 月, 西方未複製」',
+    main: '💎 「JGOG3016 紫杉每週, 亞洲 mOS 一百比六二, 西方未複製」',
     breakdown: [
       { key: 'JGOG 3016', meaning: '日本 JGOG 3016 試驗 (試驗名)' },
       { key: 'Dose-Dense Pacli', meaning: 'Weekly Pacli (劑量密集) + Q3W Carbo' },
@@ -13743,7 +13819,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'eortc-55971': {
-    main: '💎 「EORTC 55971 NACT 對 PDS, OS 三十月平手, NACT 非劣」',
+    main: '💎 「EORTC 55971 NACT 對 PDS, OS 平手三十月, NACT 非劣」',
     breakdown: [
       { key: 'EORTC 55971', meaning: 'EORTC 55971 (試驗名)' },
       { key: 'NACT vs PDS', meaning: 'Neoadjuvant Chemo vs Primary Debulking Surgery' },
@@ -13756,7 +13832,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'chorus': {
-    main: '💎 「CHORUS 英版 NACT, vs PDS 非劣, mOS 23.6 比 22.6」',
+    main: '💎 「CHORUS 英版 NACT, mOS 二三六比二二六, NACT 非劣」',
     breakdown: [
       { key: 'CHORUS', meaning: 'CHORUS (UK confirmatory) 試驗' },
       { key: 'NACT vs PDS', meaning: 'NACT vs PDS 重複驗證' },
@@ -13773,7 +13849,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'solo-1': {
-    main: '💎 「SOLO-1 用 Olap, BRCA 五年 mPFS 56, 七年 OS 反轉」',
+    main: '💎 「SOLO-1 用 Olap, BRCAm 五六比十三, 7y OS HR 五五」',
     breakdown: [
       { key: 'SOLO-1', meaning: 'SOLO-1 / GOG 3004 (試驗名)' },
       { key: 'Olap (BRCAm)', meaning: 'Olaparib 300mg bid × 2 年 (BRCAm only)' },
@@ -13786,7 +13862,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'prima': {
-    main: '💎 「PRIMA 用 Nira 全收, HRD+ HR 0.43, ITT OS 翻盤失敗」',
+    main: '💎 「PRIMA 用 Nira 全收, HRD+ 四三 ITT 六二, OS 翻盤一零一失敗」',
     breakdown: [
       { key: 'PRIMA', meaning: 'PRIMA 試驗 (試驗名)' },
       { key: 'Nira 全人群', meaning: 'Niraparib 一線維持 (全 HGSC, 不限 BRCA)' },
@@ -13799,7 +13875,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'paola-1': {
-    main: '💎 「PAOLA-1 用 Olap+Bev, HRD+ mPFS 翻倍, 五年 OS 強」',
+    main: '💎 「PAOLA-1 用 Olap+Bev, HRD+ 三七比十七, 5y OS HR 六二」',
     breakdown: [
       { key: 'PAOLA-1', meaning: 'PAOLA-1 試驗 (試驗名)' },
       { key: 'Olap+Bev (HRD+)', meaning: 'Olaparib + Bevacizumab 雙藥維持 (HRD+ 才獲益)' },
@@ -13812,7 +13888,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'athena-mono': {
-    main: '💎 「ATHENA-MONO 用 Ruca, HRD+ HR 0.47, 適應症已撤」',
+    main: '💎 「ATHENA-Mono 用 Ruca, HRD+ 四七, 全收族但 HRD+ 才強」',
     breakdown: [
       { key: 'ATHENA-MONO', meaning: 'ATHENA-MONO 試驗 (試驗名)' },
       { key: 'Ruca 全人群', meaning: 'Rucaparib 一線維持 (HRD/HRP 均見獲益)' },
@@ -13825,7 +13901,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'duo-o': {
-    main: '💎 「DUO-O 三藥維持, Durva+Bev+Olap, HRD+ 撿大獲益」',
+    main: '💎 「DUO-O 三藥維持, Durva+Bev+Olap, HRD+ 四六 mPFS 四五一」',
     breakdown: [
       { key: 'DUO-O', meaning: 'DUO-O 試驗 (試驗名)' },
       { key: 'Durva+Bev+Olap', meaning: 'Durvalumab + Bevacizumab + Olaparib 三藥維持' },
@@ -13838,7 +13914,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'ovario': {
-    main: '💎 「OVARIO 配 Nira+Bev, 雙標靶維持, mPFS 19.6」',
+    main: '💎 「OVARIO 配 Nira+Bev, 雙標靶維持, mPFS 一九六」',
     breakdown: [
       { key: 'OVARIO', meaning: 'OVARIO 試驗 (試驗名)' },
       { key: 'Nira+Bev', meaning: 'Niraparib + Bevacizumab 雙標靶維持' },
@@ -13851,7 +13927,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'boost-engot-ov15': {
-    main: '💎 「BOOST 試 Bev 30m vs 15m, HR 0.99, 不需延長」',
+    main: '💎 「BOOST 試 Bev 30m vs 15m, HR 九九 NS, 不需延長」',
     breakdown: [
       { key: 'BOOST/ENGOT-ov15', meaning: 'BOOST / ENGOT-ov15 (試驗名)' },
       { key: 'Bev 30m vs 15m', meaning: '【特色】Bev 維持時程比較 (30 個月 vs 15 個月)' },
@@ -13868,7 +13944,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'lion': {
-    main: '💎 「LION 系統淋巴清掃, 不改善 OS, 併發症增多」',
+    main: '💎 「LION 系統淋巴清掃, OS HR 一零六無效, 併發症卻增」',
     breakdown: [
       { key: 'LION', meaning: 'LION 試驗 (試驗名)' },
       { key: '系統淋巴清掃', meaning: 'Systematic lymphadenectomy vs no LND' },
@@ -13881,7 +13957,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'van-driel-hipec': {
-    main: '💎 「van Driel IDS+HIPEC, OS HR 0.67, mOS 加 12 月」',
+    main: '💎 「van Driel IDS+HIPEC, OS HR 六七, mOS 加 12 月」',
     breakdown: [
       { key: 'van Driel', meaning: 'van Driel HIPEC 試驗 (試驗名)' },
       { key: 'HIPEC Cisplatin', meaning: 'IDS 加 HIPEC (Cisplatin 100mg/m² 90 分鐘)' },
@@ -13894,7 +13970,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'scorpion': {
-    main: '💎 「SCORPION Fagotti≥8 NACT, 降併發症, OS 不變」',
+    main: '💎 「SCORPION Fagotti≥8 NACT, 降併發症, OS 平手」',
     breakdown: [
       { key: 'SCORPION', meaning: 'SCORPION 試驗 (試驗名)' },
       { key: 'Fagotti≥8', meaning: '【特色】Fagotti 評分 ≥8 (高負荷腫瘤)' },
@@ -13907,7 +13983,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'jcog0602': {
-    main: '💎 「JCOG0602 亞洲 NACT, OS 未達非劣, 圍術期降」',
+    main: '💎 「JCOG0602 亞洲 NACT, OS NI 未達, 圍術期降」',
     breakdown: [
       { key: 'JCOG0602', meaning: 'JCOG0602 (亞洲族群) 試驗' },
       { key: '亞洲 NACT', meaning: 'NACT vs PDS 亞洲族群驗證' },
@@ -13933,7 +14009,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'eortc-chorus-pooled': {
-    main: '💎 「EORTC+CHORUS Pooled, Stage IV NACT, HR 0.76」',
+    main: '💎 「EORTC+CHORUS Pooled, Stage IV NACT HR 七六, 高負荷受益」',
     breakdown: [
       { key: 'EORTC+CHORUS Pooled', meaning: '兩試驗聯合分析 (試驗名)' },
       { key: 'Stage IV NACT', meaning: '【特色】Stage IV / 高負荷專用分流' },
@@ -13963,7 +14039,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'icon8': {
-    main: '💎 「ICON8 歐洲 Weekly Pacli, PFS 失利, 西方陰性」',
+    main: '💎 「ICON8 歐洲 Weekly Pacli, PFS 持平, 西方陰性」',
     breakdown: [
       { key: 'ICON8', meaning: 'ICON8 試驗 (試驗名)' },
       { key: '歐洲 Weekly Pacli', meaning: '【特色】歐洲大型實證 weekly vs Q3W' },
@@ -13993,7 +14069,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'gog-172': {
-    main: '💎 「GOG-172 用 IP Cis/Pacli, mOS 65.6 比 49.7, 延 16 月」',
+    main: '💎 「GOG-172 用 IP Cis/Pacli, mOS 六五六比四九七, 延 16 月」',
     breakdown: [
       { key: 'GOG-172', meaning: 'GOG-172 試驗 (試驗名)' },
       { key: 'IP Cisplatin/Pacli', meaning: '【特色】IP Cisplatin + Pacli (黃金標準)' },
@@ -14006,7 +14082,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'swog-8501': {
-    main: '💎 「SWOG-8501 用 IP Cis, IP 首個里程碑, OS HR 0.76」',
+    main: '💎 「SWOG-8501 用 IP Cis, OS HR 七六, IP 首個里程碑」',
     breakdown: [
       { key: 'SWOG-8501', meaning: 'SWOG-8501 / GOG-104 (試驗名)' },
       { key: 'IP Cisplatin', meaning: 'IP Cisplatin vs IV Cisplatin 比較' },
@@ -14075,7 +14151,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'jgog3017': {
-    main: '💎 「JGOG3017 用 Iri/Cis vs TC, OCCC 一線, 兩組相當」',
+    main: '💎 「JGOG3017 用 Iri/Cis vs TC, OCCC 兩組相當」',
     breakdown: [
       { key: 'JGOG3017/GCIG', meaning: 'JGOG3017 / GCIG 試驗 (試驗名)' },
       { key: 'Iri/Cis vs TC', meaning: 'Irinotecan + Cisplatin vs TC (Carbo+Pacli)' },
@@ -14088,7 +14164,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'meoc-gog0241': {
-    main: '💎 「mEOC/GOG-0241 mucinous 罕見, 收案不足, 提前終止」',
+    main: '💎 「mEOC/GOG-0241 mucinous, 收案不足, 提前終止」',
     breakdown: [
       { key: 'mEOC/GOG-0241', meaning: 'mEOC / GOG-0241 試驗 (試驗名)' },
       { key: 'Pac-Carbo vs Oxal-Cape', meaning: 'Carbo+Pacli vs Oxaliplatin+Capecitabine ± Bev' },
@@ -14105,7 +14181,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'destiny-ovarian01': {
-    main: '💎 「DESTINY-Ov01 配 T-DXd+Bev, HER2+ HRP, 一線維持新解」',
+    main: '💎 「DESTINY-Ov01 配 T-DXd+Bev, HER2+ HRP 一線, 進行中」',
     breakdown: [
       { key: 'DESTINY-Ovarian01', meaning: 'DESTINY-Ovarian01 試驗 (試驗名)' },
       { key: 'T-DXd+Bev', meaning: 'Trastuzumab Deruxtecan + Bevacizumab' },
@@ -14150,7 +14226,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'desktop-iii': {
-    main: '💎 「DESKTOP III 二次減積, AGO+ 才做, R0 mOS 53.7」',
+    main: '💎 「DESKTOP III 二次減積, AGO+ R0 mOS 五三七比四六」',
     breakdown: [
       { key: 'DESKTOP III', meaning: 'DESKTOP III 試驗 (試驗名)' },
       { key: 'Sec Cytoreduction', meaning: 'Secondary cytoreduction surgery (二次減積手術)' },
@@ -14180,7 +14256,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'oceans': {
-    main: '💎 「OCEANS 加 Bev (PSOC), PFS HR 0.48 顯著, OS 失利」',
+    main: '💎 「OCEANS 加 Bev (PSOC), PFS HR 四八, OS 失利」',
     breakdown: [
       { key: 'OCEANS', meaning: 'OCEANS 試驗 (試驗名)' },
       { key: 'Chemo+Bev', meaning: 'Carbo+Gem + Bevacizumab + Bev 維持' },
@@ -14193,7 +14269,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'gog-0213': {
-    main: '💎 「GOG-0213 加 Bev (PSOC), OS HR 0.83, mOS 加 5 月」',
+    main: '💎 「GOG-0213 加 Bev (PSOC), OS HR 八三, mOS 加 5 月」',
     breakdown: [
       { key: 'GOG-0213', meaning: 'GOG-0213 試驗 (試驗名)' },
       { key: 'Chemo+Bev', meaning: 'Carbo+Pacli + Bevacizumab + Bev 維持' },
@@ -14206,7 +14282,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'mito16b': {
-    main: '💎 「MITO16B Bev 跨線使用, PSOC PFS HR 0.51, 跨線仍有效」',
+    main: '💎 「MITO16B Bev 跨線使用, PSOC PFS HR 五一」',
     breakdown: [
       { key: 'MITO16B', meaning: 'MITO16B 試驗 (試驗名)' },
       { key: 'Bev Beyond Progression', meaning: '【特色】一線用過 Bev 後復發再用 Bev' },
@@ -14223,7 +14299,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'mirasol': {
-    main: '💎 「MIRASOL 用 Mirvet, FRα 高表現, PFS+OS 雙獲益」',
+    main: '💎 「MIRASOL 配 Mirvet, FRα-high PFS 六五 OS 六七, ADC 突破」',
     breakdown: [
       { key: 'MIRASOL', meaning: 'MIRASOL 試驗 (試驗名)' },
       { key: 'Mirvet (FRα high)', meaning: 'Mirvetuximab Soravtansine (FRα ADC)' },
@@ -14249,7 +14325,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'aurelia': {
-    main: '💎 「AURELIA 用 Bev+chemo, PROC PFS 翻倍, HR 0.48」',
+    main: '💎 「AURELIA 加 Bev (PROC), PFS HR 四八延六七比三四」',
     breakdown: [
       { key: 'AURELIA', meaning: 'AURELIA 試驗 (試驗名)' },
       { key: 'Bev + non-Plat chemo', meaning: 'Bev + 單藥化療 (PLD/Pacli/Topotecan)' },
@@ -14262,7 +14338,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'rejoice-ovarian01': {
-    main: '💎 「REJOICE-Ov01 用 R-DXd, CDH6-ADC, PROC ORR 50.5」',
+    main: '💎 「REJOICE-Ov01 用 R-DXd, CDH6-ADC PROC ORR 五零五」',
     breakdown: [
       { key: 'REJOICE-Ovarian01', meaning: 'REJOICE-Ovarian01 試驗 (試驗名)' },
       { key: 'R-DXd (CDH6)', meaning: 'Raludotatug Deruxtecan (CDH6-ADC)' },
@@ -14288,7 +14364,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'ninja': {
-    main: '💎 「NINJA 用 Nivo vs 化療, PROC IO 單藥失利, 日本陰性」',
+    main: '💎 「NINJA 用 Nivo vs 化療, PROC HR 一零三 NS, 日本陰性」',
     breakdown: [
       { key: 'NINJA', meaning: 'NINJA 試驗 (試驗名)' },
       { key: 'Nivo vs Gem/PLD', meaning: 'Nivolumab 單藥 vs Gem/PLD' },
@@ -14301,7 +14377,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'keynote-b96': {
-    main: '💎 「KEYNOTE-B96 用 Pembro+chemo±Bev, PROC OS 突破」',
+    main: '💎 「KEYNOTE-B96 用 Pembro+chemo±Bev, PROC OS HR 七四 加四二」',
     breakdown: [
       { key: 'KEYNOTE-B96', meaning: 'KEYNOTE-B96 試驗 (試驗名)' },
       { key: 'Pembro+Pacli±Bev', meaning: 'Pembrolizumab + weekly Pacli ± Bev' },
@@ -14314,7 +14390,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'rosella': {
-    main: '💎 「ROSELLA 用 Relacorilant+nab-Pacli, GR 拮抗新機制」',
+    main: '💎 「ROSELLA 用 Relacorilant+nab-Pacli, PROC OS HR 六九, GR 拮抗」',
     breakdown: [
       { key: 'ROSELLA', meaning: 'ROSELLA 試驗 (試驗名)' },
       { key: 'Relacorilant', meaning: '【藥物】醣皮質受體拮抗劑 (Glucocorticoid receptor antagonist)' },
@@ -14331,7 +14407,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'gog-281': {
-    main: '💎 「GOG-281 用 Trametinib, LGSOC HR 0.48, ORR 26」',
+    main: '💎 「GOG-281 用 Trametinib, LGSOC PFS HR 四八 ORR 二六」',
     breakdown: [
       { key: 'GOG-281/LOGS', meaning: 'GOG-281 / LOGS 試驗 (試驗名)' },
       { key: 'Trametinib', meaning: 'Trametinib (MEK inhibitor)' },
@@ -14344,7 +14420,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'ramp-201': {
-    main: '💎 「RAMP-201 用 Avu+Defac, MEK+FAK 雙阻斷, KRAS+ ORR 55」',
+    main: '💎 「RAMP-201 用 Avu+Defac, KRAS+ ORR 五五, MEK+FAK 雙阻斷」',
     breakdown: [
       { key: 'RAMP-201', meaning: 'RAMP-201 試驗 (試驗名)' },
       { key: 'Avu+Defac', meaning: 'Avutometinib (MEK) + Defactinib (FAK)' },
@@ -14357,7 +14433,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'gog-3026': {
-    main: '💎 「GOG-3026 配 Ribo+Letrozole, LGSOC CDK4/6+AI, ORR 23」',
+    main: '💎 「GOG-3026 配 Ribo+Letrozole, LGSOC ORR 二三, CDK4/6+AI」',
     breakdown: [
       { key: 'GOG-3026', meaning: 'GOG-3026 試驗 (試驗名)' },
       { key: 'Ribo+Letrozole', meaning: 'Ribociclib (CDK4/6) + Letrozole (AI)' },
@@ -14370,7 +14446,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'milo': {
-    main: '💎 「MILO 用 Binimetinib, LGSOC 試驗失利, 提前停止」',
+    main: '💎 「MILO 用 Binimetinib, LGSOC PFS HR 一二一 翻車, 提前停止」',
     breakdown: [
       { key: 'MILO/ENGOT-ov11', meaning: 'MILO / ENGOT-ov11 試驗 (試驗名)' },
       { key: 'Binimetinib', meaning: 'Binimetinib (MEK inhibitor)' },
@@ -14387,7 +14463,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'most-circuit': {
-    main: '💎 「MoST-CIRCUIT 配 Nivo+Ipi, OCCC 雙免疫, ORR 24」',
+    main: '💎 「MoST-CIRCUIT 配 Nivo+Ipi, OCCC ORR 二四, 雙免疫」',
     breakdown: [
       { key: 'MoST-CIRCUIT', meaning: 'MoST-CIRCUIT 試驗 (試驗名)' },
       { key: 'Nivo+Ipi', meaning: 'Nivolumab + Ipilimumab (PD-1+CTLA-4)' },
@@ -14400,7 +14476,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'atari': {
-    main: '💎 「ATARI 用 Cera±Olap, ARID1A 合成致死, ORR 14」',
+    main: '💎 「ATARI 用 Cera±Olap, ARID1A ORR 一四, 合成致死」',
     breakdown: [
       { key: 'ATARI', meaning: 'ATARI 試驗 (試驗名)' },
       { key: 'Cera±Olap', meaning: 'Ceralasertib (ATR inhibitor) ± Olaparib' },
@@ -14426,7 +14502,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'gog-254': {
-    main: '💎 「GOG-254 用 Sunitinib, OCCC 多靶 TKI, ORR 6.7 偏弱」',
+    main: '💎 「GOG-254 用 Sunitinib, OCCC ORR 六七 偏弱」',
     breakdown: [
       { key: 'GOG-254', meaning: 'GOG-254 試驗 (試驗名)' },
       { key: 'Sunitinib', meaning: 'Sunitinib (multi-target TKI)' },
@@ -14473,7 +14549,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'nova': {
-    main: '💎 「NOVA 用 Nira 全收, gBRCAm 0.27, non-gBRCA 0.45」',
+    main: '💎 「NOVA 用 Nira (PSOC), gBRCAm 二七 non-gBRCA 四五」',
     breakdown: [
       { key: 'NOVA', meaning: 'NOVA 試驗 (試驗名)' },
       { key: 'Nira 全人群', meaning: 'Niraparib PSOC 維持 (不限 BRCA)' },
@@ -14486,7 +14562,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'ariel3': {
-    main: '💎 「ARIEL3 用 Ruca 維持, BRCAm HR 0.23, LOH 高分流」',
+    main: '💎 「ARIEL3 用 Ruca 維持, BRCAm 二三 ITT 三六, LOH 高分流」',
     breakdown: [
       { key: 'ARIEL3', meaning: 'ARIEL3 試驗 (試驗名)' },
       { key: 'Ruca 維持', meaning: 'Rucaparib PSOC 維持' },
@@ -14499,7 +14575,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'solo2': {
-    main: '💎 「SOLO2 用 Olap, BRCAm PSOC 維持, 首個 OS+」',
+    main: '💎 「SOLO2 用 Olap (PSOC), BRCAm 三零 mPFS 十九比五, OS 五一七比三八八」',
     breakdown: [
       { key: 'SOLO2', meaning: 'SOLO2 試驗 (試驗名)' },
       { key: 'Olap 維持 (BRCAm)', meaning: 'Olaparib PSOC 維持 (BRCAm only)' },
@@ -14512,7 +14588,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'study-19': {
-    main: '💎 「Study 19 用 Olap, PARPi 開山, 6+ 年長期用藥」',
+    main: '💎 「Study 19 用 Olap, PSROC PFS HR 三五, PARPi 開山六年」',
     breakdown: [
       { key: 'Study 19', meaning: 'Study 19 試驗 (試驗名)' },
       { key: 'Olap 維持', meaning: 'Olaparib PSOC 維持 (開創性 Phase II)' },
@@ -14525,7 +14601,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'l-moca': {
-    main: '💎 「L-MOCA 用 Olap 亞洲, PSROC mPFS 16.1, BRCA2 富集」',
+    main: '💎 「L-MOCA 用 Olap 亞洲, PSROC PFS HR 三二 mPFS 一六一」',
     breakdown: [
       { key: 'L-MOCA', meaning: 'L-MOCA 試驗 (試驗名)' },
       { key: 'Olap 亞洲', meaning: 'Olaparib 亞洲族群驗證 (中國/馬來西亞)' },
@@ -14538,7 +14614,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'nora': {
-    main: '💎 「NORA 用 Nira 個別化劑, 中國族群, PFS HR 0.32」',
+    main: '💎 「NORA 用 Nira 個別化劑, 中國 PFS HR 三二 mPFS 一八三」',
     breakdown: [
       { key: 'NORA', meaning: 'NORA 試驗 (試驗名)' },
       { key: 'Nira 個別化', meaning: 'Niraparib 個別化起始劑量 (依體重/血小板)' },
@@ -14551,7 +14627,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'opinion': {
-    main: '💎 「OPINION 用 Olap, non-gBRCAm 證據, mPFS 9.2」',
+    main: '💎 「OPINION 用 Olap, non-gBRCAm mPFS 九二, HRD+ 表現佳」',
     breakdown: [
       { key: 'OPINION', meaning: 'OPINION 試驗 (試驗名)' },
       { key: 'Olap (non-gBRCAm)', meaning: 'Olaparib non-germline-BRCAm PSROC' },
@@ -14564,7 +14640,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'trofuse-022': {
-    main: '💎 「TroFuse-022 配 sac-TMT±Bev, PSOC 維持, TROP2-ADC 補位」',
+    main: '💎 「TroFuse-022 配 sac-TMT±Bev, PSOC 維持探索, 進行中」',
     breakdown: [
       { key: 'TroFuse-022', meaning: 'TroFuse-022 / MK-2870 (試驗名)' },
       { key: 'sac-TMT±Bev', meaning: 'Sacituzumab Tirumotecan (TROP2-ADC) ± Bev' },
@@ -14583,7 +14659,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'keynote-a18': {
-    main: '💎 「KEYNOTE-A18 加 Pembro+CCRT, 高風險族, OS HR 0.67」',
+    main: '💎 「KEYNOTE-A18 加 Pembro+CCRT, 高險族 PFS 七零 OS 六七, placebo 五七」',
     breakdown: [
       { key: 'KEYNOTE-A18', meaning: 'KEYNOTE-A18 試驗 (試驗名)' },
       { key: 'Pembro+CCRT', meaning: 'Pembrolizumab + 同步化放療 (CCRT)' },
@@ -14596,7 +14672,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'interlace': {
-    main: '💎 「INTERLACE 誘導 Carbo/Pacli, 再做 CCRT, 5y OS 達 80」',
+    main: '💎 「INTERLACE 誘導 Carbo/Pacli 再 CCRT, 5y OS 八零」',
     breakdown: [
       { key: 'INTERLACE', meaning: 'INTERLACE 試驗 (試驗名)' },
       { key: '誘導 Carbo/Pacli', meaning: 'Induction Carbo+Pacli x6 → CCRT' },
@@ -14609,7 +14685,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'calla': {
-    main: '💎 「CALLA 加 Durva+CCRT, 寬鬆族群, PFS HR 0.84 失利」',
+    main: '💎 「CALLA 加 Durva+CCRT, 寬鬆族 HR 八四 NS, placebo 六二翻車」',
     breakdown: [
       { key: 'CALLA', meaning: 'CALLA 試驗 (試驗名)' },
       { key: 'Durva+CCRT', meaning: 'Durvalumab + 同步化放療' },
@@ -14622,7 +14698,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'outback': {
-    main: '💎 「OUTBACK CCRT 後加化療, HR 0.91 失利, 不再常規」',
+    main: '💎 「OUTBACK CCRT 後加化療, HR 九一 NS, 不再常規」',
     breakdown: [
       { key: 'OUTBACK', meaning: 'OUTBACK 試驗 (試驗名)' },
       { key: 'CCRT+輔助化療', meaning: 'CCRT 後追加 4 cycle 輔助化療' },
@@ -14639,7 +14715,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'naci-study': {
-    main: '💎 「NACI 配 Camre+NACT, LACC pCR 38.6, 強效新輔」',
+    main: '💎 「NACI 配 Camre+NACT, LACC pCR 三八六 ORR 九七七」',
     breakdown: [
       { key: 'NACI', meaning: 'NACI Study (試驗名)' },
       { key: 'Camre+NACT', meaning: 'Camrelizumab + Neoadjuvant Chemo (Carbo+Pacli)' },
@@ -14652,7 +14728,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'natic-trial': {
-    main: '💎 「NATIC 配 Tisle+NACT, LACC pCR 41, ORR 94.7」',
+    main: '💎 「NATIC 配 Tisle+NACT, LACC pCR 四一 ORR 九四七」',
     breakdown: [
       { key: 'NATIC', meaning: 'NATIC Trial (試驗名)' },
       { key: 'Tisle+NACT', meaning: 'Tislelizumab + Neoadjuvant Chemo' },
@@ -14665,7 +14741,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'cadonilimab-nact': {
-    main: '💎 「Cadonilimab+NACT, PD-1/CTLA-4 雙特異性, LACC 領航」',
+    main: '💎 「Cadonilimab+NACT, PD-1/CTLA-4 雙特異, LACC 領航」',
     breakdown: [
       { key: 'Cadonilimab', meaning: 'Cadonilimab (PD-1/CTLA-4 雙特異性抗體)' },
       { key: '+NACT', meaning: '+ Neoadjuvant Chemo' },
@@ -14682,7 +14758,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'lacc-trial': {
-    main: '💎 「LACC Trial 比較 Open vs MIS, MIS 復發 HR 3.74, 範式翻轉」',
+    main: '💎 「LACC Trial 比較 Open vs MIS, MIS 復發 HR 三七四, 範式翻轉」',
     breakdown: [
       { key: 'LACC Trial', meaning: 'LACC Trial 試驗 (試驗名)' },
       { key: 'Open vs MIS', meaning: 'Open RH vs Minimally Invasive RH (腹腔鏡/機械手臂)' },
@@ -14695,7 +14771,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'shape-trial': {
-    main: '💎 「SHAPE 比較 Simple vs Radical, 低風險可降階, NEJM 2024」',
+    main: '💎 「SHAPE 比較 Simple vs Radical, 3y 復發 二五比二二, NI 達成」',
     breakdown: [
       { key: 'SHAPE Trial', meaning: 'SHAPE Trial 試驗 (試驗名)' },
       { key: 'Simple vs Radical', meaning: 'Simple Hysterectomy vs Radical Hysterectomy' },
@@ -14712,7 +14788,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'keynote-826': {
-    main: '💎 「KEYNOTE-826 配 Pembro+chemo±Bev, CPS≥1 OS 28.6 比 16.5」',
+    main: '💎 「KEYNOTE-826 配 Pembro+chemo±Bev, CPS≥1 OS 二八六比一六五, HR 六零」',
     breakdown: [
       { key: 'KEYNOTE-826', meaning: 'KEYNOTE-826 試驗 (試驗名)' },
       { key: 'Pembro+Chemo±Bev', meaning: 'Pembrolizumab + Carbo+Pacli ± Bev' },
@@ -14729,7 +14805,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'evolve-cervical': {
-    main: '💎 「eVOLVE-Cervical 用 Volrust, LACC 雙特異維持」',
+    main: '💎 「eVOLVE-Cervical 用 Volrust, LACC 雙特異維持, 進行中」',
     breakdown: [
       { key: 'eVOLVE-Cervical', meaning: 'eVOLVE-Cervical 試驗 (試驗名)' },
       { key: 'Volrust', meaning: 'Volrustomig (PD-1/CTLA-4 雙特異性抗體)' },
@@ -14777,7 +14853,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'beatcc': {
-    main: '💎 「BEATcc 配 Atezo+Bev+chemo, OS HR 0.68, 不需 CPS」',
+    main: '💎 「BEATcc 配 Atezo+Bev+chemo, ITT mOS 三二一比二二八, HR 六八」',
     breakdown: [
       { key: 'BEATcc', meaning: 'BEATcc 試驗 (試驗名)' },
       { key: 'Atezo+Bev+Chemo', meaning: 'Atezolizumab + Bevacizumab + Carbo+Pacli' },
@@ -14790,7 +14866,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'gog-240': {
-    main: '💎 「GOG-240 加 Bev+chemo, R/M 第一里程碑, mOS 16.8 比 13.3」',
+    main: '💎 「GOG-240 加 Bev (R/M), mOS 一六八比一三三, OS HR 七一」',
     breakdown: [
       { key: 'GOG-240', meaning: 'GOG-240 試驗 (試驗名)' },
       { key: 'Chemo+Bev', meaning: 'Cis(or Topo)+Pacli + Bevacizumab' },
@@ -14807,7 +14883,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'innovatv-301': {
-    main: '💎 「innovaTV 301 用 TV (TF-ADC), 後線 OS HR 0.70, FDA 全核准」',
+    main: '💎 「innovaTV 301 用 TV (TF-ADC), 後線 OS HR 七零, FDA 全核准」',
     breakdown: [
       { key: 'innovaTV 301', meaning: 'innovaTV 301 試驗 (試驗名)' },
       { key: 'TV (TF-ADC)', meaning: 'Tisotumab Vedotin (Tissue Factor ADC)' },
@@ -14820,7 +14896,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'empower-cervical-1': {
-    main: '💎 「EMPOWER-Cervical 1 用 Cemi 單藥, 二線後 OS 12 比 8.5」',
+    main: '💎 「EMPOWER-Cervical-1 用 Cemi 單藥, 二線 OS 一二比八五 HR 六九」',
     breakdown: [
       { key: 'EMPOWER-Cervical 1', meaning: 'EMPOWER-Cervical 1 試驗 (試驗名)' },
       { key: 'Cemi 單藥', meaning: 'Cemiplimab 單藥 (PD-1)' },
@@ -14833,7 +14909,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'innovatv-205': {
-    main: '💎 「innovaTV 205 用 TV combos, 1L TV+Carbo ORR 54.5」',
+    main: '💎 「innovaTV 205 用 TV combos, 1L TV+Carbo ORR 五四五」',
     breakdown: [
       { key: 'innovaTV 205', meaning: 'innovaTV 205 試驗 (試驗名)' },
       { key: 'TV combos', meaning: 'Tisotumab Vedotin combinations (1L+2L)' },
@@ -14864,7 +14940,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'eortc-55874': {
-    main: '💎 「EORTC 55874 加 adjuvant RT, 局部控制, OS 失利」',
+    main: '💎 「EORTC 55874 加 adjuvant RT, 局部控制 OS NS」',
     breakdown: [
       { key: 'EORTC 55874', meaning: 'EORTC 55874 試驗 (試驗名)' },
       { key: 'Adjuvant Pelvic RT', meaning: '輔助骨盆放療' },
@@ -14881,7 +14957,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'eortc-62012': {
-    main: '💎 「EORTC 62012 用 Dox+Ifo vs Dox, ORR 翻倍, OS 失利」',
+    main: '💎 「EORTC 62012 用 Dox+Ifo vs Dox, ORR 二六比一四 OS NS」',
     breakdown: [
       { key: 'EORTC 62012', meaning: 'EORTC 62012 試驗 (試驗名)' },
       { key: 'Dox+Ifo vs Dox', meaning: 'Doxorubicin + Ifosfamide vs Dox 單藥' },
@@ -14894,7 +14970,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'geddis': {
-    main: '💎 「GeDDiS 用 Gem/Doce vs Dox, PFS HR 1.14 失利, Dox 仍金」',
+    main: '💎 「GeDDiS 用 Gem/Doce vs Dox, PFS HR 一一四 NS, Dox 仍金」',
     breakdown: [
       { key: 'GeDDiS', meaning: 'GeDDiS 試驗 (試驗名)' },
       { key: 'Gem/Doce vs Dox', meaning: 'Gem+Doce vs Doxorubicin (1L)' },
@@ -14907,7 +14983,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'lms-04': {
-    main: '💎 「LMS-04 配 Dox+Trab, uLMS 一線新高, mPFS 12 比 6」',
+    main: '💎 「LMS-04 配 Dox+Trab, uLMS 一線 mPFS 十二比六, HR 四一」',
     breakdown: [
       { key: 'LMS-04', meaning: 'LMS-04 試驗 (試驗名)' },
       { key: 'Dox+Trab', meaning: 'Doxorubicin + Trabectedin' },
@@ -14920,7 +14996,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'nct07076186': {
-    main: '💎 「NCT07076186 配 Adj Dox+Trab, 早期 uLMS 強化, 進行中」',
+    main: '💎 「NCT07076186 配 Adj Dox+Trab, 早期 uLMS, 進行中」',
     breakdown: [
       { key: 'NCT07076186', meaning: 'NCT07076186 試驗 (試驗名)' },
       { key: 'Adj Dox+Trab', meaning: 'Adjuvant Doxorubicin + Trabectedin' },
@@ -14937,7 +15013,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'gog-0261': {
-    main: '💎 「GOG-0261 用 PC 取代 Pacli/Ifo, UCS 新標準, 毒性大降」',
+    main: '💎 「GOG-0261 用 PC 取代 Pacli/Ifo, UCS mOS 三七比二九 新 SOC」',
     breakdown: [
       { key: 'GOG-0261', meaning: 'NRG/GOG-0261 試驗 (試驗名)' },
       { key: 'PC vs Pacli/Ifo', meaning: 'Paclitaxel+Carboplatin vs Pacli+Ifosfamide' },
@@ -14950,7 +15026,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'gog-150': {
-    main: '💎 「GOG-150 化療 vs WAI, UCS adjuvant, 化療系統控制勝」',
+    main: '💎 「GOG-150 化療 vs WAI, UCS adjuvant, OS NS 系統勝」',
     breakdown: [
       { key: 'GOG-150', meaning: 'GOG-150 試驗 (試驗名)' },
       { key: 'AP Chemo vs WAI', meaning: 'AP (Adriamycin+Pacli) chemo vs Whole Abdominal Irradiation' },
@@ -14967,7 +15043,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'paragon': {
-    main: '💎 「PARAGON 用 Anastrozole, LG-ESS ER+/PR+, CBR 73」',
+    main: '💎 「PARAGON 用 Anastrozole, LG-ESS ER+/PR+ CBR 七三」',
     breakdown: [
       { key: 'PARAGON', meaning: 'PARAGON 試驗 (試驗名)' },
       { key: 'Anastrozole', meaning: 'Anastrozole (AI 芳香化酶抑制劑)' },
@@ -14980,7 +15056,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'letrozole-ngess': {
-    main: '💎 「Letrozole 用於 LG-ESS, 長期維持探索, 新診斷+晚期」',
+    main: '💎 「Letrozole 用於 LG-ESS, 長期維持探索, 進行中」',
     breakdown: [
       { key: 'Letrozole', meaning: 'Letrozole (AI 芳香化酶抑制劑)' },
       { key: 'NCT05649956', meaning: '試驗註冊號 (試驗名)' },
@@ -14997,7 +15073,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'et743-sar-3007': {
-    main: '💎 「ET743-SAR-3007 用 Trab vs Dacar, LMS 救援標準, HR 0.55」',
+    main: '💎 「ET743-SAR-3007 用 Trab vs Dacar, LMS PFS HR 五五, 救援」',
     breakdown: [
       { key: 'ET743-SAR-3007', meaning: 'ET743-SAR-3007 試驗 (試驗名)' },
       { key: 'Trab vs Dacar', meaning: 'Trabectedin vs Dacarbazine' },
@@ -15010,7 +15086,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'palette': {
-    main: '💎 「PALETTE 用 Pazopanib, 非脂肪肉瘤二線, mPFS 4.6 比 1.6」',
+    main: '💎 「PALETTE 用 Pazopanib, 非脂肪肉瘤 mPFS 四六比一六, HR 三一」',
     breakdown: [
       { key: 'PALETTE', meaning: 'PALETTE 試驗 (試驗名)' },
       { key: 'Pazopanib (TKI)', meaning: 'Pazopanib (multi-target VEGFR/PDGFR/c-Kit TKI)' },
@@ -15023,7 +15099,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'regosarc': {
-    main: '💎 「REGOSARC 用 Regorafenib, LMS subgroup HR 0.46, 整體失利」',
+    main: '💎 「REGOSARC 用 Regorafenib, LMS subgroup PFS HR 四六, 整體失利」',
     breakdown: [
       { key: 'REGOSARC', meaning: 'REGOSARC 試驗 (試驗名)' },
       { key: 'Regorafenib (TKI)', meaning: 'Regorafenib (multi-target TKI)' },
@@ -15036,7 +15112,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'eribulin-vs-dacarbazine': {
-    main: '💎 「Eribulin vs Dacar, LMS subgroup 失敗, FDA 只核准 LPS」',
+    main: '💎 「Eribulin vs Dacar, 整體 OS HR 七七, LMS subgroup 失敗只 LPS」',
     breakdown: [
       { key: 'Eribulin vs Dacar', meaning: 'Eribulin vs Dacarbazine (試驗名)' },
       { key: 'Eribulin', meaning: 'Eribulin (Microtubule inhibitor)' },
@@ -15053,7 +15129,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'ntrk-basket': {
-    main: '💎 「NTRK Basket 用 Larotrec/Entrec, 跨癌別 ORR 75, FDA 通用」',
+    main: '💎 「NTRK Basket 用 Larotrec/Entrec, 跨癌別 ORR 七五, FDA 通用」',
     breakdown: [
       { key: 'NTRK Basket', meaning: 'NTRK Basket Trials (試驗名)' },
       { key: 'Larotrec/Entrec', meaning: 'Larotrectinib / Entrectinib (NTRK 抑制劑)' },
@@ -15066,7 +15142,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'olaparib-tmz': {
-    main: '💎 「Olap+TMZ 配 PARPi+TMZ, uLMS 二線新組合, ORR 27」',
+    main: '💎 「Olap+TMZ 配 PARPi+TMZ, uLMS 二線 ORR 二七 mPFS 六九」',
     breakdown: [
       { key: 'Olap+TMZ', meaning: 'Olaparib + Temozolomide (試驗名)' },
       { key: 'PARPi+TMZ', meaning: 'PARPi (Olaparib) + Alkylating agent (Temozolomide)' },
@@ -15083,7 +15159,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'gog-161': {
-    main: '💎 「GOG-161 用 Ifo+Pacli vs Ifo, UCS 雙藥勝單藥, PFS/OS 翻倍」',
+    main: '💎 「GOG-161 用 Ifo+Pacli vs Ifo, UCS PFS 五八比三六 OS 一三五比八四」',
     breakdown: [
       { key: 'GOG-161', meaning: 'GOG-161 試驗 (試驗名)' },
       { key: 'Ifo+Pacli vs Ifo', meaning: 'Ifosfamide+Paclitaxel vs Ifo 單藥' },
@@ -19612,10 +19688,19 @@ function renderTrialMnemonic(trialId){
     }
   }
 
+  // 🚀 Pioneer / 🏛️ Milestone 徽章 (inline before main mnemonic)
+  let inlineBadge = '';
+  if(typeof TRIAL_BADGES !== 'undefined' && TRIAL_BADGES[trialId]){
+    const bd = TRIAL_BADGES[trialId];
+    const icon = bd.type === 'pioneer' ? '🚀' : '🏛️';
+    const tip = (bd.type === 'pioneer' ? '開山試驗' : '里程碑') + ' — ' + bd.label + ' (' + bd.detail + ')';
+    inlineBadge = `<span class="tmc-inline-badge tmc-inline-${bd.type}" title="${escapeHtml(tip)}">${icon}</span>`;
+  }
+
   return `
     <div class="trial-mnemonic-card">
       <div class="tmc-label">🧠 試驗記憶口訣</div>
-      <div class="tmc-main">${escapeHtml(m.main)}</div>
+      <div class="tmc-main">${inlineBadge}${escapeHtml(m.main)}</div>
       <div class="tmc-breakdown">
         ${m.breakdown.map(b => `
           <div class="tmc-row">
