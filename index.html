@@ -52,6 +52,8 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-mnemonic:hover{box-shadow:0 4px 16px rgba(139,92,246,0.45);}
 .header-btn-cmp{background:linear-gradient(135deg,#0891b2,#0e7490);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(8,145,178,0.3);}
 .header-btn-cmp:hover{box-shadow:0 4px 16px rgba(8,145,178,0.45);}
+.header-btn-timeline{background:linear-gradient(135deg,#0d9488,#0f766e);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(13,148,136,0.3);}
+.header-btn-timeline:hover{box-shadow:0 4px 16px rgba(13,148,136,0.45);}
 /* Hamburger toggle (hidden on desktop) */
 .header-hamburger{display:none;width:40px;height:40px;border-radius:9px;border:1.5px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);color:white;font-size:20px;cursor:pointer;font-family:inherit;align-items:center;justify-content:center;font-weight:900;transition:all 0.15s;flex-shrink:0;}
 .header-hamburger:hover{background:rgba(255,255,255,0.2);}
@@ -604,6 +606,61 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   .tmc-inline-badge{width:26px;height:26px;font-size:15px;margin-right:6px;}
 }
 
+/* ⚠️ 考試重點警示 (螢光黃高亮) */
+.tmc-exam-warns{margin-top:10px;background:linear-gradient(135deg,#fef9c3,#fef3c7);border:2px solid #fbbf24;border-left:6px solid #d97706;border-radius:9px;padding:10px 12px;box-shadow:0 2px 6px rgba(217,119,6,0.15);}
+.tmc-exam-warns-header{font-weight:900;font-size:13px;color:#7c2d12;display:flex;align-items:center;gap:8px;margin-bottom:8px;letter-spacing:0.02em;}
+.tmc-exam-warns-count{font-size:10.5px;background:#d97706;color:white;padding:2px 8px;border-radius:5px;font-weight:800;letter-spacing:0.05em;}
+.tmc-exam-warns-list{display:flex;flex-direction:column;gap:6px;}
+.tmc-exam-warn-row{display:flex;flex-direction:column;gap:2px;padding:7px 10px;background:rgba(255,255,255,0.7);border-radius:6px;border-left:3px solid #f59e0b;}
+.tmc-exam-warn-tag{font-weight:900;font-size:11.5px;color:#7c2d12;letter-spacing:0.02em;}
+.tmc-exam-warn-text{font-size:11.5px;color:#451a03;line-height:1.5;font-weight:600;}
+@media(max-width:640px){
+  .tmc-exam-warns{padding:9px 10px;}
+  .tmc-exam-warns-header{font-size:12px;}
+  .tmc-exam-warn-row{padding:6px 9px;}
+  .tmc-exam-warn-tag{font-size:11px;}
+  .tmc-exam-warn-text{font-size:11px;}
+}
+
+/* 📍 演進定位 (Timeline Locator in trial detail) */
+.tmc-locator-block{margin-top:10px;background:linear-gradient(135deg,#f0fdfa,#ecfeff);border:1.5px solid #5eead4;border-radius:9px;overflow:hidden;}
+.tmc-locator-summary{padding:9px 13px;font-size:12.5px;font-weight:800;color:#134e4a;cursor:pointer;list-style:none;background:linear-gradient(90deg,#ccfbf1,#a7f3d0);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tmc-locator-summary::-webkit-details-marker{display:none;}
+.tmc-locator-summary::before{content:'▶';font-size:9px;transition:transform 0.2s;color:#0d9488;}
+.tmc-locator-block[open] .tmc-locator-summary::before{transform:rotate(90deg);}
+.tmc-locator-summary:hover{background:linear-gradient(90deg,#a7f3d0,#6ee7b7);}
+.tmc-locator-position{margin-left:auto;font-size:11px;background:#0d9488;color:white;padding:2px 9px;border-radius:5px;font-weight:800;}
+
+.tmc-locator-rail{padding:11px 12px 13px;display:flex;flex-direction:column;gap:9px;}
+.tmc-locator-step{display:flex;align-items:flex-start;gap:9px;padding:8px 10px;background:white;border-radius:8px;border:1px solid #ccfbf1;}
+.tmc-locator-step.is-prev{opacity:0.85;}
+.tmc-locator-step.is-current{background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #d97706;box-shadow:0 2px 8px rgba(217,119,6,0.2);}
+.tmc-locator-step.is-empty{background:#f8fafc;color:#94a3b8;font-style:italic;font-size:11px;text-align:center;border:1px dashed #cbd5e1;padding:6px 10px;font-weight:600;}
+.tmc-locator-step-arrow{flex:0 0 auto;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#5eead4;color:#134e4a;font-size:11px;font-weight:900;flex-shrink:0;}
+.tmc-locator-step-arrow.is-current{background:#d97706;color:white;font-size:13px;}
+.tmc-locator-step-content{flex:1;min-width:0;}
+.tmc-locator-step-year{font-size:10.5px;font-weight:800;color:#0d9488;font-family:'JetBrains Mono',monospace;margin-bottom:2px;}
+.tmc-locator-step.is-current .tmc-locator-step-year{color:#7c2d12;}
+.tmc-locator-step-label{font-size:12.5px;font-weight:900;color:#134e4a;line-height:1.4;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.tmc-locator-step.is-current .tmc-locator-step-label{color:#7c2d12;}
+.tmc-locator-here{font-size:9.5px;background:#dc2626;color:white;padding:2px 7px;border-radius:4px;font-weight:900;letter-spacing:0.04em;}
+.tmc-locator-step-trials{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
+.tmc-locator-chip{padding:3px 8px;border-radius:5px;background:white;border:1.5px solid #5eead4;color:#0f766e;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.12s;}
+.tmc-locator-chip:hover{background:#0d9488;color:white;border-color:#0d9488;}
+.tmc-locator-chip.is-current-trial{background:#d97706;color:white;border-color:#d97706;}
+.tmc-locator-step-note{font-size:11px;color:#475569;margin-top:5px;font-weight:600;line-height:1.5;}
+.tmc-locator-jump{margin-top:4px;text-align:center;}
+.tmc-locator-fullbtn{padding:7px 14px;border-radius:8px;border:none;background:linear-gradient(135deg,#0d9488,#0f766e);color:white;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 6px rgba(13,148,136,0.3);}
+.tmc-locator-fullbtn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(13,148,136,0.45);}
+
+@media(max-width:640px){
+  .tmc-locator-summary{font-size:11.5px;padding:8px 11px;}
+  .tmc-locator-position{font-size:10px;padding:1px 7px;}
+  .tmc-locator-step{padding:7px 9px;gap:7px;}
+  .tmc-locator-step-label{font-size:11.5px;}
+  .tmc-locator-chip{font-size:10.5px;padding:2px 7px;}
+}
+
 /* 🔗 試驗交叉對照 */
 .tmc-xref-block{margin-top:9px;background:linear-gradient(135deg,#0f172a 60%,#1e293b);border-radius:10px;border:1.5px solid #334155;overflow:hidden;}
 .tmc-xref-summary{padding:9px 13px;font-size:12.5px;font-weight:800;color:#fef3c7;cursor:pointer;list-style:none;background:linear-gradient(90deg,#1e293b,#334155);display:flex;align-items:center;gap:8px;}
@@ -843,6 +900,62 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   .cccmp-result-tbl{font-size:10.5px;}
   .cccmp-result-tbl th,.cccmp-result-tbl td{padding:6px 8px;font-size:10.5px;}
 }
+
+/* ===== 📜 治療演進時間軸 Modal ===== */
+.timeline-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.92);z-index:572;backdrop-filter:blur(8px);align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.timeline-bg.open{display:flex;}
+.timeline-content{background:linear-gradient(135deg,#f0fdfa,#ffffff 50%,#ecfeff);max-width:1280px;width:100%;max-height:96vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
+.timeline-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#134e4a;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.timeline-close:hover{background:white;transform:scale(1.05);}
+.timeline-header{padding:22px 26px 16px;background:linear-gradient(135deg,#0d9488,#0f766e);color:white;}
+.timeline-title{font-size:20px;font-weight:900;margin:0 0 5px 0;}
+.timeline-sub{font-size:12.5px;opacity:0.95;margin:0 0 12px 0;font-weight:500;}
+.timeline-cancer-tabs{display:flex;gap:6px;flex-wrap:wrap;}
+.timeline-tab{padding:7px 13px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:white;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.timeline-tab:hover{background:rgba(255,255,255,0.2);}
+.timeline-tab.active{background:white;color:#0f766e;border-color:white;}
+.timeline-body{padding:16px 22px 22px;overflow-y:auto;flex:1;}
+
+.timeline-context{margin-bottom:24px;background:white;border:1.5px solid #ccfbf1;border-radius:11px;overflow:hidden;}
+.timeline-context-header{padding:12px 16px;background:linear-gradient(90deg,#ccfbf1,#a7f3d0);color:#134e4a;font-weight:900;font-size:14.5px;display:flex;align-items:center;gap:9px;letter-spacing:0.02em;border-bottom:1px solid #5eead4;}
+.timeline-context-num{width:26px;height:26px;border-radius:50%;background:#0d9488;color:white;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+
+.timeline-eras{display:flex;flex-direction:column;padding:12px 14px;gap:0;position:relative;}
+.timeline-eras::before{content:'';position:absolute;left:65px;top:18px;bottom:18px;width:3px;background:linear-gradient(180deg,#5eead4,#0d9488);border-radius:2px;}
+.timeline-era{display:flex;align-items:flex-start;gap:14px;padding:10px 0;position:relative;z-index:1;}
+.timeline-era-year{flex:0 0 70px;text-align:right;padding-right:6px;font-weight:900;font-size:12.5px;color:#134e4a;font-family:'JetBrains Mono',monospace;line-height:1.3;padding-top:3px;}
+.timeline-era-dot{flex:0 0 12px;width:12px;height:12px;border-radius:50%;background:#0d9488;border:3px solid white;box-shadow:0 0 0 2px #0d9488;margin-top:5px;z-index:2;position:relative;}
+.timeline-era-dot.is-pioneer{background:#dc2626;box-shadow:0 0 0 2px #dc2626;}
+.timeline-era-dot.is-milestone{background:#d97706;box-shadow:0 0 0 2px #d97706;}
+.timeline-era-content{flex:1;padding:7px 12px;background:linear-gradient(135deg,#f0fdfa,#ffffff);border:1px solid #ccfbf1;border-radius:9px;border-left:3.5px solid #0d9488;}
+.timeline-era-content.is-pioneer{border-left-color:#dc2626;background:linear-gradient(135deg,#fef2f2,#ffffff);}
+.timeline-era-content.is-milestone{border-left-color:#d97706;background:linear-gradient(135deg,#fffbeb,#ffffff);}
+.timeline-era-label{font-weight:900;font-size:13px;color:#134e4a;margin-bottom:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.timeline-era-content.is-pioneer .timeline-era-label{color:#7f1d1d;}
+.timeline-era-content.is-milestone .timeline-era-label{color:#7c2d12;}
+.timeline-era-pioneer-tag,.timeline-era-milestone-tag{font-size:9.5px;padding:1px 6px;border-radius:4px;color:white;font-weight:900;letter-spacing:0.05em;}
+.timeline-era-pioneer-tag{background:#dc2626;}
+.timeline-era-milestone-tag{background:#d97706;}
+.timeline-era-trials{display:flex;gap:5px;flex-wrap:wrap;margin:5px 0 4px;}
+.timeline-trial-chip{padding:3px 9px;border-radius:5px;background:white;border:1.5px solid #5eead4;color:#0f766e;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.12s;}
+.timeline-trial-chip:hover{background:#0d9488;color:white;border-color:#0d9488;transform:translateY(-1px);}
+.timeline-era-note{font-size:11.5px;color:#475569;line-height:1.5;font-weight:600;}
+
+@media(max-width:768px){
+  .timeline-content{max-height:100vh;border-radius:0;}
+  .timeline-bg{padding:0;}
+  .timeline-header{padding:18px 18px 14px;}
+  .timeline-title{font-size:17px;}
+  .timeline-body{padding:12px 14px 18px;}
+  .timeline-eras{padding:10px 8px;}
+  .timeline-eras::before{left:48px;}
+  .timeline-era-year{flex:0 0 50px;font-size:11px;}
+  .timeline-era-content{padding:6px 9px;}
+  .timeline-era-label{font-size:12px;}
+  .timeline-era-note{font-size:10.5px;}
+  .timeline-trial-chip{font-size:10.5px;padding:2px 7px;}
+}
+
 .km-cmp-bg.open{display:flex;}
 .km-cmp-content{background:linear-gradient(135deg,#fffbeb,#ffffff 50%,#dbeafe);max-width:1100px;width:100%;max-height:94vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);padding:28px 30px 26px;overflow-y:auto;}
 .km-cmp-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
@@ -2661,6 +2774,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="header-btn header-btn-cmp" onclick="openCustomCompare()" title="自訂試驗對照組 — 選 2-5 個試驗自動生成對照表">
         <span>🔬</span><span class="hide-on-mobile">自訂對照</span>
       </button>
+      <button class="header-btn header-btn-timeline" onclick="openTimeline()" title="治療演進時間軸 — 看癌別×治療關卡的試驗時序定位">
+        <span>📜</span><span class="hide-on-mobile">治療演進</span>
+      </button>
       <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
         <span>🤖</span><span class="hide-on-mobile">AI 治療路徑</span>
       </button>
@@ -3033,6 +3149,19 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <p class="custom-cmp-sub">選 2-5 個試驗 → 自動推薦欄位 (可手動勾選/取消) · 可暫存於本次 session (重新載入清除)</p>
     </div>
     <div class="custom-cmp-body" id="customCmpBody"></div>
+  </div>
+</div>
+
+<!-- ===== 📜 治療演進時間軸 Modal ===== -->
+<div class="timeline-bg" id="timelineModal" onclick="if(event.target.id==='timelineModal')closeTimeline()">
+  <div class="timeline-content">
+    <button class="timeline-close" onclick="closeTimeline()">✕</button>
+    <div class="timeline-header">
+      <h3 class="timeline-title">📜 治療演進時間軸</h3>
+      <p class="timeline-sub">看每個癌別的治療範式演進 · 試驗的歷史定位 · 從化療 → 抗血管 → IO → ADC 的時序</p>
+      <div class="timeline-cancer-tabs" id="timelineCancerTabs"></div>
+    </div>
+    <div class="timeline-body" id="timelineBody"></div>
   </div>
 </div>
 
@@ -13013,6 +13142,407 @@ const TRIAL_BADGES = {
   'siendo':        { type:'milestone', label:'TP53wt 翻盤里程碑', detail:'2024, post-hoc 強訊號' },
 };
 
+// ============================================================
+// ⚠️ 考試重點警示 (Exam-prep Critical Pitfalls)
+// ============================================================
+// 每個試驗最容易搞錯的地方 - 螢光高亮顯示
+const EXAM_WARNINGS = {
+  // === EC ===
+  'gy018': [
+    { tag:'⚠️ 排除碳肉瘤', text:'GY018 不收 carcinosarcoma; RUBY P1 才收 (考試易混)' },
+    { tag:'⚠️ ITT OS 顯著', text:'GY018 是 ITT OS HR 0.65 顯著; 但 PRIMA OS 翻盤失敗 (對比記憶)' },
+  ],
+  'ruby-p1': [
+    { tag:'⚠️ 含癌肉瘤', text:'RUBY P1 含 carcinosarcoma; GY018 不收 (考試常考差異)' },
+    { tag:'⚠️ Dostar Q3W → Q6W', text:'維持期 Q6W (1000mg), 一線 Q3W (500mg) — 不同劑量不同間隔' },
+  ],
+  'duo-e': [
+    { tag:'⚠️ Arm 數讀錯', text:'DUO-E 三臂: Arm1 SOC / Arm2 加 Durva / Arm3 加 Durva+Olap; 注意 Arm3 才是 p53/HRR 拔尖' },
+    { tag:'⚠️ HRR ≠ BRCA', text:'HRR 包含 BRCA + ATM + PALB2 等多基因, 不是只看 BRCA' },
+  ],
+  'attend': [
+    { tag:'⚠️ ITT OS 失利', text:'AtTEnd ITT OS HR 0.87 NS — 與 GY018/RUBY 不同 (易誤以為皆陽性)' },
+    { tag:'⚠️ Atezo ≠ Pembro', text:'Atezo = PD-L1 阻斷; Pembro = PD-1 阻斷 (機制略有不同)' },
+  ],
+  'siendo': [
+    { tag:'⚠️ post-hoc 才陽性', text:'ITT 失利, TP53 wildtype subgroup post-hoc 才有 HR 0.41 (謹慎詮釋)' },
+    { tag:'⚠️ 與 dMMR 反一般預期', text:'TP53wt 反應好 — 與「TP53m 預後差」直覺相反' },
+  ],
+  'keynote-775': [
+    { tag:'⚠️ pMMR 才是適應症', text:'KEYNOTE-775 主指 pMMR 後線; dMMR 用 GARNET/KEYNOTE-158 等單藥' },
+  ],
+  'garnet': [
+    { tag:'⚠️ pMMR 反應差', text:'pMMR ORR 僅 15.4%, dMMR 才 45.5% — 不要把整體當 dMMR' },
+    { tag:'⚠️ 單臂試驗', text:'A1 vs A2 是 cohort 比較, 不是 RCT; 與 RWE/Flatiron 比才得 HR' },
+  ],
+  'keynote-158': [
+    { tag:'⚠️ PD-L1 陰性零反應', text:'CC PD-L1- ORR 0% (n=16); 必須先驗 CPS≥1 才用' },
+    { tag:'⚠️ CC 適應症已被取代', text:'2018 CC 加速核准, 2021 後被 KEYNOTE-826 1L+chemo±Bev 取代為主流' },
+  ],
+  'keynote-c93': [
+    { tag:'⚠️ 限定 dMMR', text:'KEYNOTE-C93 主指 dMMR 一線; 不是所有 EC 一線都可去化療' },
+  ],
+  'keynote-b21': [
+    { tag:'⚠️ adjuvant 不適用', text:'KEYNOTE-B21 (adjuvant Pembro+chemo) DFS HR 1.02 NS 翻車; 早期 EC 不要套用' },
+  ],
+  'destiny-pantumor02': [
+    { tag:'⚠️ IHC 標準', text:'採乳癌 HER2 standard (IHC 3+/2+); 不是 ESMO EC 標準' },
+    { tag:'⚠️ ILD 監測', text:'T-DXd ILD/pneumonitis ~7-12%, 必須基線 CT chest + 持續監測' },
+  ],
+  'utola': [
+    { tag:'⚠️ ITT 失利', text:'UTOLA ITT 失利, 只有 p53m post-hoc HR 0.41; 不是所有 EC 都適用維持' },
+  ],
+
+  // === OC 一線 ===
+  'gog-0218': [
+    { tag:'⚠️ ITT OS 失利', text:'GOG-0218 PFS HR 0.717 但 ITT OS NS — 不要說 OS 顯著' },
+    { tag:'⚠️ Bev 劑量', text:'GOG-0218 用 15mg/kg; ICON7 用 7.5mg/kg (一半劑量)' },
+  ],
+  'icon7': [
+    { tag:'⚠️ 整體 OS NS', text:'整體 ITT OS NS; 只 high-risk subgroup OS HR 0.78 顯著' },
+    { tag:'⚠️ Bev 低劑量', text:'7.5mg/kg vs GOG-0218 15mg/kg; 同期確認低劑量也有效' },
+  ],
+  'jgog3016': [
+    { tag:'⚠️ 西方未複製', text:'JGOG dose-dense 亞洲 mOS 100m 奇蹟, 但 ICON8/MITO-7 西方陰性 (族群差異)' },
+  ],
+  'eortc-55971': [
+    { tag:'⚠️ NACT 非劣 ≠ 較好', text:'NACT vs PDS NI 達成, OS 平手 30 個月; 不是說 NACT 比較好, 是「不差」' },
+  ],
+  'lion': [
+    { tag:'⚠️ 系統淋巴清掃 OS NS', text:'LION 系統淋巴清掃 OS HR 1.06 無效, 卻併發症增 (易誤以為應做)' },
+    { tag:'⚠️ 條件: 已 R0+sentinel-', text:'限「macroscopic complete + 術中 sentinel 陰」才驗證, 不是所有都不做' },
+  ],
+  'desktop-iii': [
+    { tag:'⚠️ AGO+ 才做', text:'DESKTOP III 限 AGO score+ (PFI≥6m + 一般狀況好 + 無腹水); 不能廣泛二次減積' },
+    { tag:'⚠️ 必須 R0', text:'未達 R0 反而 OS 更差; AGO+ 只是 R0 機率高的篩選' },
+  ],
+  'gog-262': [
+    { tag:'⚠️ Bev+weekly 抵消', text:'有 Bev 時 weekly Pacli 不再優於 Q3W; 沒 Bev 時 weekly 才強' },
+  ],
+
+  // === OC 一線維持 PARPi ===
+  'solo-1': [
+    { tag:'⚠️ 限 BRCAm', text:'SOLO-1 限 BRCAm (germline+somatic); 非 BRCA 不適用' },
+    { tag:'⚠️ 7y OS 才顯著', text:'5y OS 邊緣, 7y OS HR 0.55 才更明確 (長期 FU 才出 OS+)' },
+  ],
+  'paola-1': [
+    { tag:'⚠️ HRD+ 含 BRCAm', text:'PAOLA-1 HRD+ 包含 BRCAm; HRD+ 數據不能等同 non-BRCAm 數據' },
+    { tag:'⚠️ HRD- 無效', text:'HRD- 反而 PFS HR ~1.0 NS; 必須先驗 HRD 才用 Olap+Bev' },
+  ],
+  'prima': [
+    { tag:'⚠️ ITT OS 翻盤失敗', text:'PRIMA HRD+ PFS HR 0.43 但 ITT OS HR 1.01 NS; PFS+ ≠ OS+ (高頻考點)' },
+    { tag:'⚠️ 全人群但 HRD+ 才強', text:'PRIMA 全收 (含 HRD-), 但 HRD- subgroup HR ~0.68 弱; 主要受益 HRD+' },
+  ],
+  'duo-o': [
+    { tag:'⚠️ Arm 比對讀錯', text:'DUO-O Arm3 = Bev+Durva+Olap; Arm1 是 SOC; HR 是 Arm3 vs Arm1' },
+    { tag:'⚠️ non-BRCAm HRD+ 才強', text:'BRCAm 用 SOLO-1/PAOLA-1 即可; DUO-O 補的是 non-BRCAm HRD+ 缺口' },
+  ],
+  'athena-mono': [
+    { tag:'⚠️ ATHENA 多 arm', text:'ATHENA-Mono = Ruca 單藥; ATHENA-Combo = Ruca+Nivo (不同 arm)' },
+  ],
+
+  // === OC PSOC 維持 ===
+  'solo2': [
+    { tag:'⚠️ 限 BRCAm', text:'SOLO2 限 PSOC BRCAm (有別於 NOVA 含 non-gBRCA)' },
+  ],
+  'nova': [
+    { tag:'⚠️ gBRCA vs non-gBRCA', text:'NOVA 兩 cohort: gBRCA HR 0.27 / non-gBRCA HR 0.45 — 數值不同' },
+    { tag:'⚠️ HRD+ ≠ non-gBRCA HRD+', text:'NOVA non-gBRCA 中 HRD+ vs HRD- 進一步分流; 不要混淆' },
+  ],
+  'ariel3': [
+    { tag:'⚠️ LOH 高 ≠ HRD+', text:'ARIEL3 用 LOH 分層 (FoundationOne LOH ≥16%), 與後來 GIS HRD score 不同系統' },
+  ],
+
+  // === OC PROC ===
+  'mirasol': [
+    { tag:'⚠️ FRα 高表現才用', text:'MIRASOL 限 FRα PS2+ ≥75%; 不是所有 PROC 適用' },
+    { tag:'⚠️ ICH 篩檢必須', text:'PS2+ ≥75% 是嚴格 IHC 標準; 約 35% PROC 符合' },
+  ],
+  'aurelia': [
+    { tag:'⚠️ OS NS', text:'AURELIA PFS HR 0.48 翻倍, 但 ITT OS NS (僅 PFS+)' },
+  ],
+
+  // === CC LACC ===
+  'keynote-a18': [
+    { tag:'⚠️ 高風險族群嚴格', text:'KEYNOTE-A18 限「≥2 顆 LN ≥1.5cm」高風險; 不是所有 LACC 都適用' },
+    { tag:'⚠️ vs CALLA 對比', text:'A18 嚴格 (placebo 24m PFS 57%) → IO 加成空間大; CALLA 寬鬆 (62.1%) → 失利' },
+  ],
+  'calla': [
+    { tag:'⚠️ 寬鬆族群失敗', text:'CALLA 任何 N+ 寬鬆收, placebo 預後好 → 加 IO 加成小 → 失利' },
+    { tag:'⚠️ Durva ≠ 沒效', text:'CALLA 失利不是 Durva 沒效, 是族群選擇問題 (對比 KEYNOTE-A18 嚴格)' },
+  ],
+  'lacc-trial': [
+    { tag:'⚠️ MIS 復發增加', text:'LACC Trial MIS 復發 HR 3.74 — 顛覆當時普遍認為 MIS 較好的觀念' },
+    { tag:'⚠️ 限 IA1-IB1', text:'限 IA1-IB1 早期; 不能擴大解讀至 IB2+; SHAPE 是另一族群 IB1≤2cm' },
+  ],
+  'shape-trial': [
+    { tag:'⚠️ 低風險才降階', text:'SHAPE 限 IB1 ≤2cm + LVSI 陰; 不是所有 IB1 可降階' },
+    { tag:'⚠️ 與 LACC 不衝突', text:'SHAPE 是 simple vs radical; LACC 是 open vs MIS — 兩個獨立議題' },
+  ],
+  'outback': [
+    { tag:'⚠️ CCRT 後不加 chemo', text:'OUTBACK CCRT 後加 chemo HR 0.91 NS 失利; 不再常規追加' },
+  ],
+  'interlace': [
+    { tag:'⚠️ 誘導 ≠ adjuvant', text:'INTERLACE 誘導 chemo (CCRT 前) 5y OS 80%; 與 OUTBACK adjuvant chemo 完全不同' },
+  ],
+
+  // === CC R/M ===
+  'keynote-826': [
+    { tag:'⚠️ CPS≥1 才用', text:'KEYNOTE-826 CPS≥1 才有 OS HR 0.60; CPS<1 受益小' },
+    { tag:'⚠️ 含 Bev 為彈性', text:'方案是 chemo±Bev (Bev 不強制); 各國保險不同' },
+  ],
+  'beatcc': [
+    { tag:'⚠️ 不需 CPS', text:'BEATcc 用 ITT 不分 CPS; 與 KEYNOTE-826 (CPS≥1) 互補形成兩支柱' },
+  ],
+  'gog-240': [
+    { tag:'⚠️ 第一個 R/M Bev', text:'GOG-240 是首個 R/M 抗血管 OS+; 後續 KEYNOTE-826/BEATcc 加 IO 進一步突破' },
+  ],
+  'innovatv-301': [
+    { tag:'⚠️ TF-ADC 機制特殊', text:'TV (Tisotumab Vedotin) 標靶 Tissue Factor (組織因子), 不是 HER2 也不是 TROP2' },
+    { tag:'⚠️ 眼毒性', text:'TV 特殊毒性: 眼結膜炎 (40-50%), 角膜病變 (必須眼科共同管理)' },
+  ],
+
+  // === US ===
+  'lms-04': [
+    { tag:'⚠️ uLMS 才適用', text:'LMS-04 限 uterine LMS (子宮); 不是所有 sarcoma' },
+  ],
+  'et743-sar-3007': [
+    { tag:'⚠️ Trab 給藥', text:'Trabectedin 中央靜脈 24 小時連續輸注; 不是 push' },
+  ],
+  'palette': [
+    { tag:'⚠️ 排除 LPS', text:'PALETTE 限「非脂肪肉瘤 (non-LPS)」; LPS 反應差' },
+  ],
+  'eribulin-vs-dacarbazine': [
+    { tag:'⚠️ FDA 只 LPS', text:'整體 OS HR 0.77 顯著, 但 LMS subgroup NS → FDA 只核准 LPS, LMS 不能用' },
+    { tag:'⚠️ 易混淆', text:'考試常考: Eribulin 在 LMS subgroup 失敗, 不是「LMS+LPS 整體」結果可推 LMS' },
+  ],
+  'regosarc': [
+    { tag:'⚠️ subgroup 才陽性', text:'REGOSARC 整體 NS, 但 LMS subgroup post-hoc HR 0.46 — subgroup 詮釋謹慎' },
+  ],
+  'gog-0277': [
+    { tag:'⚠️ 提前終止', text:'GOG-0277 高惡 LMS adjuvant Gem+Doce 提前終止 (收案困難); 並非 negative 主因' },
+  ],
+  'gog-0261': [
+    { tag:'⚠️ UCS 用 PC', text:'GOG-0261 用 PC (Carbo+Pacli) 取代 Pacli/Ifo, 毒性大降 + OS 顯著; UCS 新 SOC' },
+  ],
+  'paragon': [
+    { tag:'⚠️ ER+/PR+ 才適用', text:'PARAGON 限 ER+/PR+ LG-ESS; HG-ESS 不適用' },
+  ],
+  'ntrk-basket': [
+    { tag:'⚠️ NTRK fusion 罕見', text:'婦癌中 NTRK fusion <1%; 是 tumor-agnostic 適應症, 不是 NTRK mutation' },
+  ],
+};
+
+// ============================================================
+// 📜 治療演進時間軸 (Treatment Evolution Timeline)
+// ============================================================
+// 結構: cancer → contexts (一線/維持/PSOC/PROC...) → eras (時間段) → trials
+const TIMELINE_DATA = {
+  'OC': {
+    name: '🔵 卵巢癌 (Ovarian Cancer)',
+    contexts: [
+      {
+        name: '一線手術 + 化療',
+        eras: [
+          { year:'1996', label:'IP 化療開山', trials:['swog-8501'], note:'IP Cisplatin 首個 OS+ 里程碑' },
+          { year:'2001', label:'IP 進階', trials:['gog-114'], note:'IP Cis+Pacli, OS 顯著但毒性大' },
+          { year:'2006', label:'IP 黃金', trials:['gog-172'], note:'IP 標準, mOS 65 vs 49m' },
+          { year:'2009', label:'亞洲 Dose-dense', trials:['jgog3016'], note:'Weekly Pacli 亞洲 mOS 100m 奇蹟' },
+          { year:'2010', label:'NACT 範式', trials:['eortc-55971','chorus'], note:'NACT vs PDS NI; 改變手術-化療順序' },
+          { year:'2011', label:'抗血管 + Bev', trials:['gog-0218','icon7'], note:'GOG-218 (15mg/kg) + ICON7 (7.5mg/kg)' },
+          { year:'2014', label:'西方 weekly 失利', trials:['gog-262','icon8','mito-7'], note:'GOG-262 weekly+Bev 抵消; ICON8 西方 NS' },
+          { year:'2018-19', label:'HIPEC + 二減手術', trials:['van-driel-hipec','desktop-iii'], note:'IDS+HIPEC OS 加 12m; DESKTOP III AGO+ R0 mOS 53.7m' },
+          { year:'2019', label:'IP 衰退', trials:['gog-252'], note:'IP+Bev vs IV+Bev — IP 不再優' },
+          { year:'2019', label:'淋巴清掃終結', trials:['lion'], note:'系統清掃 OS HR 1.06 無效' },
+        ],
+      },
+      {
+        name: '一線維持 — PARPi/Bev 演進',
+        eras: [
+          { year:'2014', label:'PARPi 萌芽 (PSOC II 期)', trials:['study-19'], note:'Olap 維持 PSROC, 開山概念' },
+          { year:'2018', label:'BRCAm 一線開山', trials:['solo-1'], note:'Olap BRCAm 一線維持, 5y mPFS 56m' },
+          { year:'2019', label:'HRD 概念定義', trials:['paola-1'], note:'Olap+Bev HRD+ HR 0.33; 引入 HRD 篩選' },
+          { year:'2019', label:'全人群嘗試', trials:['prima'], note:'Nira 全收, ITT PFS+ 但 OS 翻盤失敗' },
+          { year:'2022', label:'三藥維持', trials:['duo-o'], note:'Durva+Bev+Olap, non-BRCAm HRD+ 缺口' },
+          { year:'2023', label:'雙標靶探索', trials:['ovario','athena-mono'], note:'OVARIO Nira+Bev; ATHENA Ruca' },
+          { year:'2024+', label:'ADC 維持', trials:['destiny-ovarian01','trofuse-021'], note:'T-DXd+Bev / sac-TMT±Bev 探索' },
+        ],
+      },
+      {
+        name: 'PSOC (鉑敏感復發) 維持',
+        eras: [
+          { year:'2012', label:'抗血管開山', trials:['oceans'], note:'Bev+Carbo+Gem PFS HR 0.48' },
+          { year:'2014', label:'PARPi 確立', trials:['study-19'], note:'Olap 維持 PSROC PFS HR 0.35' },
+          { year:'2016', label:'non-gBRCA', trials:['nova'], note:'Nira non-gBRCA PFS HR 0.45' },
+          { year:'2017', label:'BRCAm 經典', trials:['solo2','ariel3','gog-0213'], note:'SOLO2 OS+; ARIEL3 LOH 分流; GOG-213 OS HR 0.83' },
+          { year:'2019-21', label:'亞洲版本', trials:['l-moca','nora'], note:'L-MOCA / NORA 中國族群驗證' },
+          { year:'2022', label:'non-gBRCA 補強', trials:['opinion'], note:'Olap non-gBRCAm mPFS 9.2m' },
+          { year:'2023+', label:'ADC 探索', trials:['trofuse-022'], note:'sac-TMT±Bev PSOC 維持' },
+        ],
+      },
+      {
+        name: 'PROC (鉑抗) 後線',
+        eras: [
+          { year:'2014', label:'抗血管時代', trials:['aurelia'], note:'Bev+chemo PFS 翻倍; OS NS' },
+          { year:'2020', label:'IO 單藥失利', trials:['ninja'], note:'Nivo 單藥 PROC OS HR 1.03 NS' },
+          { year:'2024', label:'FRα ADC 突破', trials:['mirasol'], note:'Mirvet FRα-high PFS+OS+ 首個 PROC OS+' },
+          { year:'2024', label:'IO+Chemo+Bev', trials:['keynote-b96'], note:'Pembro+chemo±Bev 突破' },
+          { year:'2024+', label:'GR 拮抗 + CDH6 ADC', trials:['rosella','rejoice-ovarian01','engot-ov77','framework-01'], note:'多新機制競賽' },
+        ],
+      },
+      {
+        name: '罕見癌別 (LGSOC / OCCC / mEOC)',
+        eras: [
+          { year:'2018-22', label:'LGSOC MEK 開山', trials:['gog-281'], note:'Trametinib HR 0.48 ORR 26%' },
+          { year:'2024', label:'LGSOC MEK+FAK', trials:['ramp-201'], note:'Avu+Defac KRAS+ ORR 55%' },
+          { year:'2024', label:'LGSOC 失利對照', trials:['milo','gog-3026','nrg-gy019'], note:'MILO 翻車; GOG-3026 Ribo+Letrozole; NRG-GY019 Letrozole 1L' },
+          { year:'2024+', label:'OCCC 探索', trials:['atari','dove','most-circuit','bruog-354','jgog3017','gog-254'], note:'ARID1A/雙免疫多管齊下' },
+          { year:'2024+', label:'mEOC 救援', trials:['mfolfirinox-bev','meoc-gog0241'], note:'GI 三藥救援; mucinous 收案困難' },
+        ],
+      },
+    ],
+  },
+  'EC': {
+    name: '🟣 子宮內膜癌 (Endometrial Cancer)',
+    contexts: [
+      {
+        name: '分子分型 (TCGA → 4-tier)',
+        eras: [
+          { year:'2013', label:'TCGA 分子分型', trials:[], note:'POLE / MMRd / p53abn / NSMP 四類確立' },
+          { year:'2020+', label:'整合至 PORTEC', trials:['portec-4a','rainbo-program'], note:'PORTEC-4a 整合; RAINBO 分桶' },
+        ],
+      },
+      {
+        name: '一線 IO+chemo (dMMR/pMMR)',
+        eras: [
+          { year:'2017', label:'dMMR 跨癌開山', trials:['keynote-158'], note:'Pembro tumor-agnostic, dMMR EC ORR 46%' },
+          { year:'2021', label:'dMMR 單藥', trials:['garnet'], note:'Dostar A1 ORR 45.5%, FDA accelerated' },
+          { year:'2023', label:'IO+chemo 雙開山', trials:['gy018','ruby-p1'], note:'GY018 排除肉瘤; RUBY P1 含癌肉瘤' },
+          { year:'2023', label:'第三選項', trials:['attend','duo-e'], note:'AtTEnd Atezo (ITT OS NS); DUO-E 三標靶' },
+          { year:'2024+', label:'dMMR 去化療', trials:['keynote-c93'], note:'Pembro 單藥 1L 挑戰 SOC' },
+        ],
+      },
+      {
+        name: '一線維持 (新興)',
+        eras: [
+          { year:'2024', label:'PARPi 補強', trials:['ruby-p2','duo-e-maint','utola'], note:'RUBY P2 雙標靶; DUO-E maint p53/HRR; UTOLA p53m' },
+          { year:'2024', label:'ADC 維持', trials:['trofuse-033','mk2870-033','keynote-867'], note:'sac-TMT+Pembro pMMR 維持探索' },
+        ],
+      },
+      {
+        name: '復發 / 後線',
+        eras: [
+          { year:'2017-21', label:'TKI+IO 早期', trials:['keynote-158'], note:'Pembro 單藥 dMMR' },
+          { year:'2022', label:'pMMR 突破', trials:['keynote-775'], note:'Pembro+Lenva pMMR PFS HR 0.60 OS+' },
+          { year:'2023+', label:'HER2 ADC', trials:['destiny-pantumor02'], note:'T-DXd EC ORR 57.5%; IHC 3+ 84.6%' },
+          { year:'2024', label:'TP53wt 翻盤', trials:['siendo'], note:'Selinexor TP53wt post-hoc 強訊號' },
+          { year:'2024+', label:'B7-H4 / TROP2', trials:['bluestar','tropics-03','ascent-gyn-01'], note:'ADC 多靶點探索' },
+        ],
+      },
+      {
+        name: 'Adjuvant',
+        eras: [
+          { year:'2024', label:'IO adjuvant 失利', trials:['keynote-b21'], note:'Pembro+chemo DFS HR 1.02 NS 翻車' },
+          { year:'2024+', label:'分子分型驅動', trials:['portec-4a','rainbo-program'], note:'依分型決定升/降階' },
+        ],
+      },
+    ],
+  },
+  'CC': {
+    name: '🟢 子宮頸癌 (Cervical Cancer)',
+    contexts: [
+      {
+        name: '手術範式革命',
+        eras: [
+          { year:'2018', label:'MIS 範式翻轉', trials:['lacc-trial'], note:'Open vs MIS, MIS 復發 HR 3.74; 早期不再用 MIS' },
+          { year:'2024', label:'低風險降階', trials:['shape-trial'], note:'Simple vs Radical NI 達成, IB1≤2cm' },
+        ],
+      },
+      {
+        name: 'LACC 局部進展期',
+        eras: [
+          { year:'2014', label:'CCRT 標準', trials:[], note:'Cisplatin-based CCRT 為標準' },
+          { year:'2022', label:'OUTBACK 失利', trials:['outback'], note:'CCRT 後加 chemo HR 0.91 NS — 不再常規' },
+          { year:'2022', label:'INTERLACE 誘導', trials:['interlace'], note:'誘導 chemo + CCRT, 5y OS 80%' },
+          { year:'2022', label:'CALLA 失利', trials:['calla'], note:'寬鬆族 Durva+CCRT HR 0.84 NS' },
+          { year:'2024', label:'A18 IO 開山', trials:['keynote-a18'], note:'高風險族 Pembro+CCRT OS HR 0.67' },
+          { year:'2024+', label:'NACT+IO 探索', trials:['naci-study','natic-trial','cadonilimab-nact','evolve-cervical'], note:'中國平行試驗 pCR 38-41%' },
+        ],
+      },
+      {
+        name: 'R/M 一線兩支柱',
+        eras: [
+          { year:'2014', label:'抗血管開山', trials:['gog-240'], note:'Bev+chemo 首個 R/M OS+' },
+          { year:'2021', label:'IO 第一支柱', trials:['keynote-826'], note:'CPS≥1 Pembro+chemo±Bev OS HR 0.60' },
+          { year:'2024', label:'IO 第二支柱', trials:['beatcc'], note:'BEATcc Atezo+Bev+chemo 不需 CPS' },
+        ],
+      },
+      {
+        name: 'R/M 後線 (2L+)',
+        eras: [
+          { year:'2018', label:'CC PD-L1+ IO 加速', trials:['keynote-158'], note:'Pembro CPS≥1 ORR 14.6% (現已被 826 取代)' },
+          { year:'2021', label:'IO 單藥 (Cemi)', trials:['empower-cervical-1'], note:'Cemi 單藥 OS 12 vs 8.5m HR 0.69' },
+          { year:'2024', label:'TF-ADC', trials:['innovatv-301','innovatv-205'], note:'TV (Tisotumab) OS HR 0.70 FDA full' },
+          { year:'2024+', label:'TROP2-ADC + IO', trials:['trofuse-036'], note:'sac-TMT+Pembro 雙特異' },
+        ],
+      },
+      {
+        name: 'CIN/HPV 預防',
+        eras: [
+          { year:'2024+', label:'本院 DNA 疫苗', trials:['pvx4'], note:'pBI-4 HPV16+ CIN2/3 (Chang Gung)' },
+        ],
+      },
+    ],
+  },
+  'US': {
+    name: '🟠 子宮肉瘤 (Uterine Sarcoma)',
+    contexts: [
+      {
+        name: 'uLMS 一線',
+        eras: [
+          { year:'2013', label:'雙藥對照', trials:['eortc-62012'], note:'Dox+Ifo vs Dox 單藥, ORR 翻倍 OS NS' },
+          { year:'2016', label:'Gem/Doce 對照', trials:['geddis'], note:'GeDDiS Gem/Doce vs Dox HR 1.14 失利' },
+          { year:'2023', label:'Dox+Trab 翻倍', trials:['lms-04'], note:'mPFS 12 vs 6m 新標準' },
+        ],
+      },
+      {
+        name: 'uLMS 後線 / 救援',
+        eras: [
+          { year:'2012', label:'TKI 救援', trials:['palette'], note:'Pazopanib 非脂肪肉瘤 PFS HR 0.31' },
+          { year:'2016', label:'Trab 救援標準', trials:['et743-sar-3007'], note:'Trab vs Dacar PFS HR 0.55' },
+          { year:'2016', label:'Eribulin LMS 失利', trials:['eribulin-vs-dacarbazine'], note:'整體 OS+ 但 LMS NS — 只 LPS 核准' },
+          { year:'2017', label:'TKI 整體失利', trials:['regosarc'], note:'Regorafenib LMS subgroup HR 0.46' },
+          { year:'2024', label:'PARP+TMZ 新組合', trials:['olaparib-tmz'], note:'Olap+TMZ uLMS 二線 ORR 27%' },
+        ],
+      },
+      {
+        name: 'uLMS Adjuvant',
+        eras: [
+          { year:'2018', label:'GOG-0277 提前終止', trials:['gog-0277'], note:'Gem+Doce adj 提前終止 (收案困難)' },
+          { year:'2025+', label:'Adj Dox+Trab 進行', trials:['nct07076186'], note:'早期 uLMS 強化 adjuvant' },
+        ],
+      },
+      {
+        name: 'UCS (癌肉瘤)',
+        eras: [
+          { year:'2007', label:'AP vs WAI', trials:['gog-150'], note:'化療 vs WAI, OS NS — 化療系統控制' },
+          { year:'2012', label:'Ifo+Pacli 雙藥', trials:['gog-161'], note:'PFS/OS 翻倍, 雙藥優於單藥' },
+          { year:'2022', label:'PC 取代', trials:['gog-0261'], note:'PC vs Pacli/Ifo, mOS 37 vs 29m, 毒性大降' },
+        ],
+      },
+      {
+        name: 'ESS / 罕見肉瘤',
+        eras: [
+          { year:'2014', label:'LG-ESS Letrozole', trials:['paragon'], note:'Anastrozole CBR 73%' },
+          { year:'2024+', label:'LG-ESS 維持', trials:['letrozole-ngess'], note:'長期維持探索' },
+          { year:'2018-19', label:'NTRK Tumor-agnostic', trials:['ntrk-basket'], note:'Larotrec/Entrec ORR ~75%' },
+        ],
+      },
+    ],
+  },
+};
+
+
 
 
 const TRIAL_CMP_GROUPS = {
@@ -19697,6 +20227,104 @@ function renderTrialMnemonic(trialId){
     inlineBadge = `<span class="tmc-inline-badge tmc-inline-${bd.type}" title="${escapeHtml(tip)}">${icon}</span>`;
   }
 
+  // ⚠️ 考試重點警示
+  let examWarnHtml = '';
+  if(typeof EXAM_WARNINGS !== 'undefined' && EXAM_WARNINGS[trialId] && EXAM_WARNINGS[trialId].length > 0){
+    const warns = EXAM_WARNINGS[trialId];
+    examWarnHtml = `<div class="tmc-exam-warns">
+      <div class="tmc-exam-warns-header">⚠️ 考試重點警示 <span class="tmc-exam-warns-count">${warns.length} 項</span></div>
+      <div class="tmc-exam-warns-list">`;
+    warns.forEach(w => {
+      examWarnHtml += `<div class="tmc-exam-warn-row">
+        <span class="tmc-exam-warn-tag">${escapeHtml(w.tag)}</span>
+        <span class="tmc-exam-warn-text">${escapeHtml(w.text)}</span>
+      </div>`;
+    });
+    examWarnHtml += `</div></div>`;
+  }
+
+  // 📍 演進定位 (Timeline Locator) — 顯示本試驗在治療演進中的位置
+  let locatorHtml = '';
+  if(typeof TIMELINE_DATA !== 'undefined'){
+    const trialObj = TRIALS.find(t => t.id === trialId);
+    const cancer = trialObj?.cancer;
+    if(cancer && TIMELINE_DATA[cancer]){
+      const cancerData = TIMELINE_DATA[cancer];
+      // Find which context(s) include this trial
+      cancerData.contexts.forEach(ctx => {
+        const eraIndex = ctx.eras.findIndex(e => (e.trials||[]).includes(trialId));
+        if(eraIndex < 0) return;
+        const currentEra = ctx.eras[eraIndex];
+        const prevEra = eraIndex > 0 ? ctx.eras[eraIndex-1] : null;
+        const nextEra = eraIndex < ctx.eras.length-1 ? ctx.eras[eraIndex+1] : null;
+        
+        locatorHtml += `<details class="tmc-locator-block">
+          <summary class="tmc-locator-summary">
+            📍 演進定位: <b>${escapeHtml(cancerData.name.replace(/^[^\s]+\s/,''))} → ${escapeHtml(ctx.name)}</b>
+            <span class="tmc-locator-position">${escapeHtml(currentEra.year)} · ${escapeHtml(currentEra.label)}</span>
+          </summary>
+          <div class="tmc-locator-rail">`;
+        
+        // Previous era
+        if(prevEra){
+          locatorHtml += `<div class="tmc-locator-step is-prev">
+            <div class="tmc-locator-step-arrow">◀</div>
+            <div class="tmc-locator-step-content">
+              <div class="tmc-locator-step-year">${escapeHtml(prevEra.year)}</div>
+              <div class="tmc-locator-step-label">${escapeHtml(prevEra.label)}</div>
+              <div class="tmc-locator-step-trials">`;
+          (prevEra.trials||[]).forEach(tid => {
+            const t = TRIALS.find(x => x.id === tid);
+            if(t) locatorHtml += `<button class="tmc-locator-chip" onclick="showDetail('${tid}')">${escapeHtml(t.name)}</button>`;
+          });
+          locatorHtml += `</div></div></div>`;
+        } else {
+          locatorHtml += `<div class="tmc-locator-step is-empty">— 起點 (此 context 第一個 era) —</div>`;
+        }
+        
+        // Current era (highlighted)
+        locatorHtml += `<div class="tmc-locator-step is-current">
+          <div class="tmc-locator-step-arrow is-current">★</div>
+          <div class="tmc-locator-step-content">
+            <div class="tmc-locator-step-year">${escapeHtml(currentEra.year)}</div>
+            <div class="tmc-locator-step-label">${escapeHtml(currentEra.label)} <span class="tmc-locator-here">您在這裡</span></div>
+            <div class="tmc-locator-step-trials">`;
+        (currentEra.trials||[]).forEach(tid => {
+          const t = TRIALS.find(x => x.id === tid);
+          if(t){
+            const isCurrent = tid === trialId;
+            locatorHtml += `<button class="tmc-locator-chip ${isCurrent?'is-current-trial':''}" onclick="showDetail('${tid}')">${isCurrent?'⭐ ':''}${escapeHtml(t.name)}</button>`;
+          }
+        });
+        locatorHtml += `</div>`;
+        if(currentEra.note){
+          locatorHtml += `<div class="tmc-locator-step-note">${escapeHtml(currentEra.note)}</div>`;
+        }
+        locatorHtml += `</div></div>`;
+        
+        // Next era
+        if(nextEra){
+          locatorHtml += `<div class="tmc-locator-step is-next">
+            <div class="tmc-locator-step-arrow">▶</div>
+            <div class="tmc-locator-step-content">
+              <div class="tmc-locator-step-year">${escapeHtml(nextEra.year)}</div>
+              <div class="tmc-locator-step-label">${escapeHtml(nextEra.label)}</div>
+              <div class="tmc-locator-step-trials">`;
+          (nextEra.trials||[]).forEach(tid => {
+            const t = TRIALS.find(x => x.id === tid);
+            if(t) locatorHtml += `<button class="tmc-locator-chip" onclick="showDetail('${tid}')">${escapeHtml(t.name)}</button>`;
+          });
+          locatorHtml += `</div></div></div>`;
+        } else {
+          locatorHtml += `<div class="tmc-locator-step is-empty">— 終點 (此 context 最新 era) —</div>`;
+        }
+        
+        locatorHtml += `<div class="tmc-locator-jump"><button class="tmc-locator-fullbtn" onclick="openTimeline('${cancer}')">📜 看完整 ${escapeHtml(cancerData.name)} 演進時間軸 →</button></div>`;
+        locatorHtml += `</div></details>`;
+      });
+    }
+  }
+
   return `
     <div class="trial-mnemonic-card">
       <div class="tmc-label">🧠 試驗記憶口訣</div>
@@ -19715,6 +20343,8 @@ function renderTrialMnemonic(trialId){
         ${m.numbers ? `<div class="tmc-extra-row"><span class="tmc-extra-label">📍 數字</span> ${escapeHtml(m.numbers)}</div>` : ''}
         ${m.pitfalls ? `<div class="tmc-extra-row warn"><span class="tmc-extra-label">⚠️ 易錯</span> ${escapeHtml(m.pitfalls)}</div>` : ''}
       </div>
+      ${examWarnHtml}
+      ${locatorHtml}
       ${hooksHtml}
       ${xrefHtml}
     </div>
@@ -20301,6 +20931,97 @@ function openCustomCompare(preselectedTrials){
 function closeCustomCompare(){
   el('customCmpModal').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// ============================================================
+// 📜 治療演進時間軸
+// ============================================================
+let TIMELINE_STATE = { cancer: 'OC' };
+
+function openTimeline(cancer){
+  if(cancer && TIMELINE_DATA[cancer]) TIMELINE_STATE.cancer = cancer;
+  el('timelineModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderTimeline();
+}
+function closeTimeline(){
+  el('timelineModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function setTimelineCancer(c){
+  TIMELINE_STATE.cancer = c;
+  renderTimeline();
+}
+function jumpToTrialFromTimeline(tid){
+  closeTimeline();
+  setTimeout(() => showDetail(tid), 100);
+}
+
+function renderTimeline(){
+  if(typeof TIMELINE_DATA === 'undefined') return;
+  // Tabs
+  const tabs = el('timelineCancerTabs');
+  if(tabs){
+    tabs.innerHTML = Object.entries(TIMELINE_DATA).map(([k, v]) => 
+      `<button class="timeline-tab ${k===TIMELINE_STATE.cancer?'active':''}" onclick="setTimelineCancer('${k}')">${v.name}</button>`
+    ).join('');
+  }
+  
+  // Body
+  const body = el('timelineBody');
+  if(!body) return;
+  const data = TIMELINE_DATA[TIMELINE_STATE.cancer];
+  if(!data){ body.innerHTML = '<div style="padding:30px;text-align:center;color:#64748b;">— 無資料 —</div>'; return; }
+  
+  let html = '';
+  data.contexts.forEach((ctx, ci) => {
+    html += `<div class="timeline-context">
+      <div class="timeline-context-header">
+        <span class="timeline-context-num">${ci+1}</span>
+        ${escapeHtml(ctx.name)}
+      </div>
+      <div class="timeline-eras">`;
+    
+    ctx.eras.forEach(era => {
+      // Detect highest badge among trials in this era
+      let eraType = '';
+      if(era.trials && era.trials.length > 0 && typeof TRIAL_BADGES !== 'undefined'){
+        const badgeTypes = era.trials.map(tid => TRIAL_BADGES[tid]?.type).filter(Boolean);
+        if(badgeTypes.includes('pioneer')) eraType = 'pioneer';
+        else if(badgeTypes.includes('milestone')) eraType = 'milestone';
+      }
+      const dotCls = eraType ? `is-${eraType}` : '';
+      const contentCls = eraType ? `is-${eraType}` : '';
+      const eraTag = eraType === 'pioneer' ? '<span class="timeline-era-pioneer-tag">🚀 開山</span>' :
+                     eraType === 'milestone' ? '<span class="timeline-era-milestone-tag">🏛️ 里程碑</span>' : '';
+      
+      html += `<div class="timeline-era">
+        <div class="timeline-era-year">${escapeHtml(era.year)}</div>
+        <div class="timeline-era-dot ${dotCls}"></div>
+        <div class="timeline-era-content ${contentCls}">
+          <div class="timeline-era-label">${escapeHtml(era.label)}${eraTag}</div>`;
+      
+      if(era.trials && era.trials.length > 0){
+        html += `<div class="timeline-era-trials">`;
+        era.trials.forEach(tid => {
+          const t = TRIALS.find(x => x.id === tid);
+          const name = t ? t.name : tid;
+          html += `<button class="timeline-trial-chip" onclick="jumpToTrialFromTimeline('${tid}')" title="點擊看試驗詳情">${escapeHtml(name)}</button>`;
+        });
+        html += `</div>`;
+      }
+      
+      if(era.note){
+        html += `<div class="timeline-era-note">${escapeHtml(era.note)}</div>`;
+      }
+      
+      html += `</div></div>`;
+    });
+    
+    html += `</div></div>`;
+  });
+  
+  body.innerHTML = html;
 }
 
 function setCCCMPCancer(c){
