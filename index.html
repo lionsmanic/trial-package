@@ -7856,6 +7856,32 @@ function navToDetail(tid){
   setTimeout(() => showDetail(tid), 80);
 }
 
+// Universal helper: navigate from current modal to another modal (modal → modal)
+// callback: function to call after target modal is opened (e.g., select tab/entry)
+function navToModal(targetModalOpenFn, callback){
+  pushNavState();
+  // Close current modal
+  const mid = getOpenModalId();
+  if(mid){
+    const e = el(mid);
+    if(e){
+      e.classList.remove('open');
+      e.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  }
+  setTimeout(() => {
+    if(typeof targetModalOpenFn === 'function'){
+      targetModalOpenFn();
+    } else if(typeof window[targetModalOpenFn] === 'function'){
+      window[targetModalOpenFn]();
+    }
+    if(typeof callback === 'function'){
+      setTimeout(callback, 80);
+    }
+  }, 80);
+}
+
 function closeDetail(ev, force){
   if(force || !ev || ev.target.id === 'detailOverlay'){
     el('detailOverlay').classList.remove('open');
@@ -8182,6 +8208,7 @@ function openAiPathwayModal(){
 function closeAiPathwayModal(){
   el('aiPathwayModal').classList.remove('open');
   document.body.style.overflow = '';
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 // ============================================================
@@ -8663,6 +8690,7 @@ function openChecklist(){
 function closeChecklist(){
   el('checklistModal').classList.remove('open');
   document.body.style.overflow = '';
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 function switchChecklistTab(cancer){
@@ -9694,6 +9722,7 @@ function openTrialMatch(){
 function closeTrialMatch(){
   el('trialMatchModal').classList.remove('open');
   document.body.style.overflow = '';
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 // ============================================================
@@ -9834,6 +9863,7 @@ function openMnemonicIndex(){
 function closeMnemonicIndex(){
   el('mnemIdxModal').classList.remove('open');
   document.body.style.overflow = '';
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 function renderMnemonicIndexTabs(){
@@ -10447,6 +10477,7 @@ function closePathway(){
   el('pathwayModal').classList.remove('open');
   document.body.style.overflow = '';
   currentPathwayNode = null;
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 function switchPathwayTab(cancer){
@@ -10570,7 +10601,7 @@ function renderPathwayDetail(node){
   let molLinkHtml = '';
   if(d.molEntryId){
     molLinkHtml = `
-      <button class="pw-mol-link" onclick="closePathway(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${currentPathwayCancer}'); setTimeout(() => { const data = MOL_PEDIA['${currentPathwayCancer}']; const idx = data.entries.findIndex(e => e.id === '${d.molEntryId}'); if(idx >= 0) selectMolEntry(idx); }, 50); }, 100); }, 100);">
+      <button class="pw-mol-link" onclick="navToModal('openMolPedia', () => { switchMolTab('${currentPathwayCancer}'); setTimeout(() => { const data = MOL_PEDIA['${currentPathwayCancer}']; const idx = data.entries.findIndex(e => e.id === '${d.molEntryId}'); if(idx >= 0) selectMolEntry(idx); }, 50); });">
         🧬 看完整分子分型 (${escapeHtml(d.molEntryId)}) →
       </button>
     `;
@@ -10625,6 +10656,7 @@ function closeNextStepTree(){
   currentTreeEntryId = null;
   currentTreeStepId = null;
   treeHistory = [];
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 function renderTreeStep(){
@@ -18666,6 +18698,7 @@ function openStudyPlan(){
 function closeStudyPlan(){
   el('studyPlanModal').classList.remove('open');
   document.body.style.overflow = '';
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 function switchStudyTab(tab){
@@ -18836,7 +18869,7 @@ function renderStudyPriority(){
             <div class="pec-freq">${escapeHtml(entry.frequency)}</div>
             ${mnemHtml}
             <div class="pec-actions">
-              <button class="pec-btn-read" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancer}'); setTimeout(() => { const idx = MOL_PEDIA['${cancer}'].entries.findIndex(e => e.id === '${entry.id}'); if(idx >= 0) selectMolEntry(idx); }, 50); }, 100); }, 100);">📖 開啟讀</button>
+              <button class="pec-btn-read" onclick="navToModal('openMolPedia', () => { switchMolTab('${cancer}'); setTimeout(() => { const idx = MOL_PEDIA['${cancer}'].entries.findIndex(e => e.id === '${entry.id}'); if(idx >= 0) selectMolEntry(idx); }, 50); });">📖 開啟讀</button>
               <button class="pec-btn-status" onclick="cycleEntryStatus('${entry.id}'); renderStudyPriority();" title="點擊切換: 未讀 → 已讀 → 已掌握">
                 ${statusInfo.label === '未讀' ? '標記已讀' : statusInfo.label === '已讀' ? '標記掌握' : '重置未讀'}
               </button>
@@ -18953,19 +18986,19 @@ function renderStudyPlan(){
 
       let actionBtn = '';
       if(task.type === 'read-entry' && cancerOfTarget){
-        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancerOfTarget}'); setTimeout(() => { const idx = MOL_PEDIA['${cancerOfTarget}'].entries.findIndex(e => e.id === '${task.target}'); if(idx >= 0) selectMolEntry(idx); }, 50); }, 100); }, 100);">前往 →</button>`;
+        actionBtn = `<button class="task-go-btn" onclick="navToModal('openMolPedia', () => { switchMolTab('${cancerOfTarget}'); setTimeout(() => { const idx = MOL_PEDIA['${cancerOfTarget}'].entries.findIndex(e => e.id === '${task.target}'); if(idx >= 0) selectMolEntry(idx); }, 50); });">前往 →</button>`;
       } else if(task.type === 'flashcard' && cancerOfTarget){
-        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openFlashcardMode('${cancerOfTarget}'); }, 200);">開始翻牌 →</button>`;
+        actionBtn = `<button class="task-go-btn" onclick="navToModal(() => openFlashcardMode('${cancerOfTarget}'));">開始翻牌 →</button>`;
       } else if(task.type === 'tree'){
-        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openNextStepTree('${task.target}'); }, 200);">開始互動樹 →</button>`;
+        actionBtn = `<button class="task-go-btn" onclick="navToModal(() => openNextStepTree('${task.target}'));">開始互動樹 →</button>`;
       } else if(task.type === 'pathway' && cancerOfTarget){
-        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openPathway(); setTimeout(() => switchPathwayTab('${cancerOfTarget}'), 100); }, 200);">看流程圖 →</button>`;
+        actionBtn = `<button class="task-go-btn" onclick="navToModal('openPathway', () => switchPathwayTab('${cancerOfTarget}'));">看流程圖 →</button>`;
       } else if(task.type === 'match'){
-        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => openTrialMatch(), 200);">開始匹配 →</button>`;
+        actionBtn = `<button class="task-go-btn" onclick="navToModal('openTrialMatch');">開始匹配 →</button>`;
       } else if(task.type === 'read-workflow' && cancerOfTarget){
-        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancerOfTarget}'); setTimeout(() => showMolSpecial('workflow'), 50); }, 100); }, 100);">看流程 →</button>`;
+        actionBtn = `<button class="task-go-btn" onclick="navToModal('openMolPedia', () => { switchMolTab('${cancerOfTarget}'); setTimeout(() => showMolSpecial('workflow'), 50); });">看流程 →</button>`;
       } else if(task.type === 'read-staging' && cancerOfTarget){
-        actionBtn = `<button class="task-go-btn" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancerOfTarget}'); setTimeout(() => showMolSpecial('staging'), 50); }, 100); }, 100);">看表格 →</button>`;
+        actionBtn = `<button class="task-go-btn" onclick="navToModal('openMolPedia', () => { switchMolTab('${cancerOfTarget}'); setTimeout(() => showMolSpecial('staging'), 50); });">看表格 →</button>`;
       } else {
         actionBtn = '';
       }
@@ -19103,7 +19136,7 @@ function renderStudyProgress(){
             return `<div style="padding:14px;background:#f0fdf4;border-radius:9px;color:#15803d;font-size:13px;">🎉 所有必考 entries 都已讀過! 太棒了!</div>`;
           }
           return weakEntries.map(({ cancer, entry }) => `
-            <div class="weak-item" onclick="closeStudyPlan(); setTimeout(() => { openMolPedia(); setTimeout(() => { switchMolTab('${cancer}'); setTimeout(() => { const idx = MOL_PEDIA['${cancer}'].entries.findIndex(e => e.id === '${entry.id}'); if(idx >= 0) selectMolEntry(idx); }, 50); }, 100); }, 100);">
+            <div class="weak-item" onclick="navToModal('openMolPedia', () => { switchMolTab('${cancer}'); setTimeout(() => { const idx = MOL_PEDIA['${cancer}'].entries.findIndex(e => e.id === '${entry.id}'); if(idx >= 0) selectMolEntry(idx); }, 50); });">
               <span class="weak-tag">🔴 必考</span>
               <span class="weak-cancer">${cancer}</span>
               <span class="weak-name">${escapeHtml(entry.name)}</span>
@@ -19131,6 +19164,7 @@ function openMolPedia(){
 function closeMolPedia(){
   el('molPediaModal').classList.remove('open');
   document.body.style.overflow = '';
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 function switchMolTab(cancer){
@@ -19162,7 +19196,7 @@ function renderMolList(){
     <button class="flashcard-mode-btn" onclick="openFlashcardMode('${currentMolTab}')">
       📇 ${currentMolTab} 考試模式 (翻牌記憶)
     </button>
-    <button class="mol-special-btn checklist-shortcut" onclick="closeMolPedia(); setTimeout(() => { openChecklist(); switchChecklistTab('${currentMolTab}'); }, 100);">
+    <button class="mol-special-btn checklist-shortcut" onclick="navToModal('openChecklist', () => switchChecklistTab('${currentMolTab}'));">
       ✅ ${currentMolTab} 檢測 Checklist (病人來時用)
     </button>
     ${data.workflow ? `
@@ -19539,6 +19573,7 @@ function closeFlashcardMode(){
   el('flashcardOverlay').classList.remove('open');
   document.body.style.overflow = '';
   document.removeEventListener('keydown', flashcardKeyHandler);
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 function flashcardKeyHandler(e){
@@ -21373,6 +21408,7 @@ function openCustomCompare(preselectedTrials){
 function closeCustomCompare(){
   el('customCmpModal').classList.remove('open');
   document.body.style.overflow = '';
+  setTimeout(() => tryRestoreNav(), 50);
 }
 
 // ============================================================
@@ -21389,6 +21425,7 @@ function openTimeline(cancer){
 function closeTimeline(){
   el('timelineModal').classList.remove('open');
   document.body.style.overflow = '';
+  setTimeout(() => tryRestoreNav(), 50);
 }
 function setTimelineCancer(c){
   TIMELINE_STATE.cancer = c;
@@ -21440,9 +21477,8 @@ function toggleTimelineControls(){
   }
 }
 function jumpToTrialFromTimeline(tid){
-  pushNavState();
-  closeTimeline();
-  setTimeout(() => showDetail(tid), 100);
+  // Use navToDetail which handles push + close DOM directly (won't trigger tryRestoreNav)
+  navToDetail(tid);
 }
 
 // Render compact mnemonic card for timeline embed
