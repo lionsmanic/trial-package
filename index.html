@@ -907,7 +907,12 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .timeline-content{background:linear-gradient(135deg,#f0fdfa,#ffffff 50%,#ecfeff);max-width:1280px;width:100%;max-height:96vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);}
 .timeline-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#134e4a;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
 .timeline-close:hover{background:white;transform:scale(1.05);}
-.timeline-header{padding:22px 26px 16px;background:linear-gradient(135deg,#0d9488,#0f766e);color:white;}
+.timeline-header{padding:22px 26px 16px;background:linear-gradient(135deg,#0d9488,#0f766e);color:white;position:relative;transition:all 0.25s;}
+.timeline-header.is-collapsed{padding:0;height:0;overflow:hidden;}
+.timeline-controls-toggle{position:absolute;top:14px;right:60px;padding:5px 11px;border-radius:7px;border:1.5px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:white;font-size:10.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.timeline-controls-toggle:hover{background:rgba(255,255,255,0.28);}
+.timeline-quick-bar{display:none;align-items:center;justify-content:center;padding:10px 16px;background:linear-gradient(90deg,#0d9488,#0f766e);color:white;border:none;cursor:pointer;font-size:12px;font-weight:800;font-family:inherit;transition:background 0.15s;letter-spacing:0.04em;}
+.timeline-quick-bar:hover{background:linear-gradient(90deg,#0f766e,#115e59);}
 .timeline-title{font-size:20px;font-weight:900;margin:0 0 5px 0;}
 .timeline-sub{font-size:12.5px;opacity:0.95;margin:0 0 12px 0;font-weight:500;}
 .timeline-cancer-tabs{display:flex;gap:6px;flex-wrap:wrap;}
@@ -3202,11 +3207,15 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 <div class="timeline-bg" id="timelineModal" onclick="if(event.target.id==='timelineModal')closeTimeline()">
   <div class="timeline-content">
     <button class="timeline-close" onclick="closeTimeline()">✕</button>
-    <div class="timeline-header">
+    <div class="timeline-header" id="timelineHeader">
+      <button class="timeline-controls-toggle" onclick="toggleTimelineControls()" title="收合 / 展開控制列" id="timelineControlsToggleBtn">▲ 收起選項列</button>
       <h3 class="timeline-title">📜 治療演進時間軸</h3>
       <p class="timeline-sub">看每個癌別的治療範式演進 · 試驗的歷史定位 · 從化療 → 抗血管 → IO → ADC 的時序</p>
       <div class="timeline-cancer-tabs" id="timelineCancerTabs"></div>
     </div>
+    <button class="timeline-quick-bar" id="timelineQuickBar" onclick="toggleTimelineControls()" style="display:none" title="展開控制列">
+      <span id="timelineQuickBarText">▼ 顯示選項列</span>
+    </button>
     <div class="timeline-body" id="timelineBody"></div>
   </div>
 </div>
@@ -3636,9 +3645,9 @@ const TRIALS = [
   stageDist:"Stage III (measurable) 或 Stage IV / recurrent (measurable / non-measurable)",
   tech:"Sacituzumab Tirumotecan (sac-TMT, MK-2870):\n  • TROP2-targeted ADC (belotecan-derived payload, DAR ~7.4)\n  • 與 sacituzumab govitecan 不同 payload\n  • IV infusion Q2W\n\nPembrolizumab Q3W 或 Q6W\n\n安全性:\n  • Neutropenia, anemia (sac-TMT)\n  • irAE (Pembro)\n  • 整體 manageable",
   subgroup:"預計亞組: TROP2 expression levels, p53 status, prior radiation, recurrent vs primary advanced\n關鍵問題: ADC 是否在 pMMR (傳統 IO 反應較差) 提供額外獲益",
-  combo:"與既有 pMMR 1L 標準 (RUBY/NRG-GY018: Pembro + 化療 → Pembro 維持) 銜接\n為 pMMR EC 維持期的 ADC 加成測試\n與 TroFuse-005 (post-platinum/IO EC) + 其他 sac-TMT 系列 (OC, CC) 完整布局",
+  combo:"獨特 ADC + ICI 維持組合 — 第一個針對 pMMR EC 維持的新世代 ADC 試驗\n\n與其他 P-MT 試驗的競爭:\n  • RUBY Part 2: PD-1 + PARPi (Dostar+Nira)\n  • DUO-E Arm 3: PD-L1 + PARPi (Durva+Olap)\n  • TroFuse-033: PD-1 + ADC (Pembro+sac-TMT)\n\n填補 PARPi-naive 或 PARPi 不耐受族群的維持選項\n\n屬於 KEYNOTE-868 (一線 Pembro+chemo) 後續延伸試驗 — 為 GY018 標準後的維持新策略",
   guideline:"未進入指引 (招募中)\n預期 2028+ 改變 pMMR EC 維持實務若 positive",
-  nct:"NCT06132958 (TroFuse-005, related); MK-2870-033 specific NCT 待確認",
+  nct:"NCT06132958",
   publication:"Trial-in-progress: ESMO 2024 / SGO 2025 design"
 },
 
@@ -3667,33 +3676,6 @@ const TRIALS = [
   guideline:"NCCN Category 2B for TP53 wild-type advanced EC maintenance\n尚未獲 FDA 完整核准,等待 SIENDO-2\nEMA: orphan designation",
   nct:"NCT03555422",
   publication:"J Clin Oncol 2023 (Vergote et al., 主分析); SGO 2024 TP53 subgroup detailed analysis"
-},
-
-{
-  cancer:"EC",
-  id:"mk2870-033",
-  phase:["P-MT"],
-  status:"ongoing",
-  name:"TroFuse-033 (MK2870-033)",
-  fullName:"TroFuse-033 / GOG-3119 / ENGOT-en29",
-  pharma:"MSD",
-  drug:"Sac-TMT (TROP2-ADC) + Pembrolizumab 維持",
-  tagline:"pMMR 一線維持探索:TROP2-ADC + PD-1,補足 pMMR 免疫單藥反應不足的缺口。",
-  rationale:"標靶 TROP2 ADC (Sacituzumab tirumotecan,新一代 SN-38 載荷) 協同 PD-1。ADC 透過 cytotoxic payload 誘導 ICD 改善微環境,提升 pMMR 患者維持階段應答深度。",
-  regimen:"1:1 randomization, ~700 預計\nArm A: Sac-TMT 5mg/kg IV Q6W + Pembrolizumab 400mg IV Q6W 維持至進展\nArm B (對照): 醫師選擇維持方案 (常為 placebo 或 SoC)",
-  inc:["新診斷 pMMR/MSS EC (IHC 確認)","FIGO III-IV 期","一線 Carbo/Pacli + Pembrolizumab 後達 CR/PR","ECOG 0-1"],
-  exc:["先前系統性 IO 治療 (ICI naive 為入組要求)","組織學為子宮肉瘤 (排除)","活動性自體免疫疾病","ILD/pneumonitis 病史"],
-  outcomes:"【招募中 / Enrolling】試驗 endpoint: Investigator-assessed PFS (primary); OS (key secondary)\n預計 2027-2028 公布 interim analysis",
-
-  enrolled:"預計 ~700 patients (招募中)",
-  hist:"pMMR/MSS EC,排除子宮肉瘤 (與 GY018 一致)",
-  stageDist:"FIGO III-IV 期一線 Carbo/Pacli + Pembrolizumab 完成後 CR/PR\n屬於 KEYNOTE-868 後續延伸試驗",
-  tech:"【ADC】Sac-TMT (sacituzumab tirumotecan, MK-2870)\n  • 新一代 TROP2-targeted ADC\n  • SN-38 載荷 (TOP1 抑制劑)\n  • DAR ~7-8 (高 drug-to-antibody ratio)\n  • 5mg/kg IV Q6W (較 Sacituzumab govitecan QW 更便利)\n\n【ICI】Pembrolizumab 400mg IV Q6W (與 GY018 維持期方案一致)\n\n維持至進展或 35 cycles\n\n注意: ADC class effect — 監控間質性肺病 (ILD), 中性球減少, 腹瀉",
-  subgroup:"招募中,尚無亞組分析\n預先指定 subgroup:\n  • TROP2 expression level (IHC H-score)\n  • TP53 mutation status\n  • PD-L1 CPS\n  • Histology (子宮內膜樣 vs serous vs other)",
-  combo:"獨特 ADC + ICI 維持組合 — 第一個針對 pMMR EC 維持的新世代 ADC 試驗\n\n與其他 P-MT 試驗的競爭:\n  • RUBY Part 2: PD-1 + PARPi\n  • DUO-E Arm 3: PD-L1 + PARPi\n  • TroFuse-033: PD-1 + ADC\n\n填補 PARPi-naive 或 PARPi 不耐受族群的維持選項",
-  guideline:"未進入指引 (尚招募中)",
-  nct:"NCT06132958",
-  publication:"Trial-in-progress: SGO 2025; ESMO 2025 trial design poster"
 },
 
 // ========== R-TX (復發治療) ==========
@@ -3916,28 +3898,27 @@ const TRIALS = [
 {
   cancer:"EC",
   id:"keynote-867",
-  phase:["R-MT"],
-  status:"ongoing",
-  name:"KEYLYNK-007 / KEYNOTE-867",
-  fullName:"KEYLYNK-007 (NCT04380636 探索性, EC 後線維持)",
+  phase:["R-TX"],
+  status:"published",
+  name:"KEYLYNK-007",
+  fullName:"KEYLYNK-007 / KEYNOTE-867 (NCT04123366, tumor-agnostic HRRm/HRD+ Phase 2)",
   pharma:"MSD / AstraZeneca",
-  drug:"Pembrolizumab + Olaparib 維持探索",
-  tagline:"二線後復發 EC 探索: Pembro + Olaparib 雙藥維持。pMMR / TP53m / HRRm 族群。",
-  rationale:"DUO-E Arm 3 已驗證 PD-L1+PARPi 在一線維持的價值。KEYLYNK-007 / 相關 II 期試驗探索 PD-1+PARPi 在二線後復發 EC 的維持治療空間,特別針對 pMMR/TP53m 高風險族群。",
-  regimen:"探索性 Phase II 設計\n各 cohort 不同治療線:\n  • Arm 1: Pembrolizumab 200mg Q3W + Olaparib 300mg bid 至進展\n  • Arm 2: Pembrolizumab 單藥 (對照)",
-  inc:["復發/持續 EC, 先前 1-2 線治療","完成救援治療達 SD/PR","可能受益 PARPi (HRRm 或 TP53m 高風險)"],
-  exc:["既往 PD-(L)1","既往 PARPi","活動性自體免疫","MDS/AML 病史"],
-  outcomes:"【招募中 / 探索性】\nPrimary: PFS, ORR\nEC 為其中一個 cohort",
-
-  enrolled:"探索性 cohort 總計 ~100-150 patients (含 EC subset)",
-  hist:"Recurrent EC 含子宮內膜樣 / serous / mixed\n排除 carcinosarcoma 與 sarcoma",
-  stageDist:"Recurrent / advanced 後線復發",
-  tech:"Pembrolizumab 200mg IV Q3W (≤35 cycles)\nOlaparib 300mg PO bid 至 PD\n\n維持階段持續至進展或不可耐受",
-  subgroup:"招募中,亞組依:\n  • HRR mutation status (BRCA m, ATM, PALB2 等)\n  • TP53 mutation\n  • PD-L1 CPS\n  • Histology",
-  combo:"PD-1 + PARPi 探索性維持\n\n與其他競爭試驗:\n  • DUO-E Arm 3 (1L 維持): PD-L1 + PARPi\n  • RUBY Part 2 (1L 維持): PD-1 + PARPi\n  • KEYLYNK-007 (R-MT): PD-1 + PARPi 探索 2L+",
-  guideline:"未進入指引",
-  nct:"NCT04380636",
-  publication:"Trial-in-progress: SGO 2023 / ESMO 2024"
+  drug:"Pembrolizumab + Olaparib (HRRm/HRD+ tumor-agnostic)",
+  tagline:"⚠️ 跨癌別 (tumor-agnostic) Phase 2 — 限 HRRm/HRD+ 進展期癌症; 婦癌為其中 cohort。BRCAm ORR 27%。",
+  rationale:"探索 PARPi+IO 在已超出 PARPi 核准適應症的 HRRm/HRD+ 進展期癌症中的活性。基於 BRCA/HRR 缺陷產生新抗原 + IO 可能協同的假說 — tumor-agnostic 設計, 不限癌別。",
+  regimen:"Phase 2, single-arm, 跨癌別 basket\n3 cohorts:\n  • Cohort A: BRCAm (n=98)\n  • Cohort B: non-BRCA HRRm (n=130)\n  • Cohort C: non-HRRm HRD+ (n=104)\nPembro 200mg Q3W + Olaparib 300mg bid 至進展或不可耐受",
+  inc:["Advanced/metastatic 實體癌, 已過至少 1 線標準治療進展","HRRm 或 HRD+ (中央 BRCA/HRR genes NGS / GIS≥42)","ECOG 0-1","可量測病灶"],
+  exc:["既往 PD-(L)1 治療","既往 PARPi 治療","BRCA-associated cancers 已有 PARPi 核准適應症 (OC BRCAm 1L/2L+, breast BRCAm) — 排除符合 PARPi 適應症者","活動性自體免疫"],
+  outcomes:"【AACR 2025 報告】\nBRCAm cohort: ORR 27%, mDOR NR\nnon-BRCA HRRm: ORR 12%\nnon-HRRm HRD+: ORR 12%\nGrade ≥3 TRAE: 30%\n婦癌反應 (cohort 內次群): cervical, leiomyosarcoma 等個案有反應",
+  enrolled:"332 patients (3 cohorts 共)\n婦癌相關: 卵巢癌 (BRCAm/HRRm 已過 PARPi)、子宮頸癌、子宮肉瘤等",
+  hist:"跨癌別 (tumor-agnostic):\n  • 乳癌 / 卵巢癌 (PARPi 失敗後) / 胰臟癌 / 攝護腺癌\n  • 子宮頸癌 / 食道鱗癌 / 大腸直腸癌 / 胃食道腺癌\n  • 子宮平滑肌肉瘤 / 其他肉瘤 / 唾腺癌 / 甲狀腺癌\n  • 肺癌 (NSCLC/SCLC) / 膽道癌 / 泌尿上皮癌\n\n婦癌部分非主要 cohort, 是其中受益族群之一",
+  stageDist:"Advanced/metastatic, prior treatment lines varied (≥1)",
+  tech:"Pembrolizumab 200mg IV Q3W (≤35 cycles)\nOlaparib 300mg PO bid 至 PD\n\n注意: 因含 PARPi+IO, 需監測 myelosuppression + irAE 雙風險",
+  subgroup:"【AACR 2025 (median FU 13.4/10.4/10.8m)】\n  • BRCAm (n=98): ORR 27%, NR DOR — 強訊號\n  • non-BRCA HRRm (n=130): ORR 12%\n  • non-HRRm HRD+ (n=104): ORR 12%\n\n【婦癌相關亞組反應】\n  • 子宮頸癌: 個案反應\n  • 子宮平滑肌肉瘤 (uLMS): 個案反應 — 為 uLMS 後線新訊號\n  • 卵巢癌 (PARPi 失敗後): 部分反應, 顯示再挑戰可能\n\n婦癌中 NTRK/HER2 跨癌已有適應症, KEYLYNK-007 補 HRR 缺陷跨癌維度",
+  combo:"PD-1 + PARPi 跨癌別探索 (tumor-agnostic basket)\n\n與其他婦癌 PARPi+IO 試驗:\n  • DUO-E Arm 3 (EC 1L 維持): PD-L1 + PARPi\n  • RUBY Part 2 (EC 1L 維持): PD-1 + PARPi\n  • TroFuse-033 (EC 1L 維持): PD-1 + ADC\n  • KEYLYNK-007 (tumor-agnostic, R/M): PD-1 + PARPi\n\n為超出 PARPi 核准適應症的 HRRm/HRD+ 後線提供新選項",
+  guideline:"未進入指引 (Phase 2 tumor-agnostic exploratory)\n若 BRCAm cohort ORR 27% 持續 → 可能成為 PARPi-naive HRRm 跨癌後線新選項",
+  nct:"NCT04123366",
+  publication:"AACR 2025 Late-Breaking Abstract CT004 (Yap et al.); ESMO 2024 cohort analysis"
 },
 
 // ========== EC P-TX 補完: 分子分型導航試驗 ==========
@@ -13335,6 +13316,12 @@ const EXAM_WARNINGS = {
   'utola': [
     { tag:'⚠️ ITT 失利', text:'UTOLA ITT 失利, 只有 p53m post-hoc HR 0.41; 不是所有 EC 都適用維持' },
   ],
+  'keynote-867': [
+    { tag:'⚠️ 不是 EC 試驗', text:'KEYLYNK-007 是跨癌別 (tumor-agnostic) Phase 2 — 不是 EC-specific; EC 患者只是其中 cohort 內次群' },
+    { tag:'⚠️ 後線非維持', text:'KEYLYNK-007 是 R/M 後線探索 (≥1 線進展); 不是一線維持; 別與 DUO-E/RUBY P2 (1L 維持) 混淆' },
+    { tag:'⚠️ HRRm/HRD+ 限定', text:'限 HRRm 或 HRD+ (中央 NGS); BRCAm ORR 27% / non-BRCA HRRm 12% / non-HRRm HRD 12% — 三 cohort 數值不同' },
+    { tag:'⚠️ 排除有 PARPi 適應症者', text:'OC BRCAm 1L/2L+ 維持已有 PARPi 核准 → 不收進此試驗; 主收 PARPi-naive 跨癌 HRR 缺陷' },
+  ],
 
   // === OC 一線 ===
   'gog-0218': [
@@ -13605,7 +13592,7 @@ const TIMELINE_DATA = {
         name: '一線維持 (新興)',
         eras: [
           { year:'2024', label:'PARPi 補強', trials:['ruby-p2','duo-e-maint','utola'], note:'RUBY P2 雙標靶; DUO-E maint p53/HRR; UTOLA p53m' },
-          { year:'2024', label:'ADC 維持', trials:['trofuse-033','mk2870-033','keynote-867'], note:'sac-TMT+Pembro pMMR 維持探索' },
+          { year:'2024', label:'ADC 維持', trials:['trofuse-033'], note:'sac-TMT+Pembro pMMR 維持探索' },
         ],
       },
       {
@@ -13616,6 +13603,7 @@ const TIMELINE_DATA = {
           { year:'2023+', label:'HER2 ADC', trials:['destiny-pantumor02'], note:'T-DXd EC ORR 57.5%; IHC 3+ 84.6%' },
           { year:'2024', label:'TP53wt 翻盤', trials:['siendo'], note:'Selinexor TP53wt post-hoc 強訊號' },
           { year:'2024+', label:'B7-H4 / TROP2', trials:['bluestar','tropics-03','ascent-gyn-01'], note:'ADC 多靶點探索' },
+          { year:'2025', label:'HRR 缺陷跨癌探索', trials:['keynote-867'], note:'KEYLYNK-007 (Pembro+Olap) tumor-agnostic; BRCAm ORR 27%' },
         ],
       },
       {
@@ -13754,6 +13742,7 @@ const TIMELINE_DATA = {
           { year:'2017', label:'MSI-H/dMMR 跨癌開山', trials:['keynote-158'], note:'Pembro 首個分子定義適應症; 改變 oncology 範式' },
           { year:'2018-19', label:'NTRK fusion 跨癌', trials:['ntrk-basket'], note:'Larotrec/Entrec FDA 通用 ORR ~75%' },
           { year:'2024', label:'HER2 IHC3+ 跨癌', trials:['destiny-pantumor02'], note:'T-DXd 跨癌 ADC; 婦癌 EC/CC/OC 都受益' },
+          { year:'2025', label:'HRRm/HRD+ 跨癌 (PARPi+IO)', trials:['keynote-867'], note:'KEYLYNK-007 Pembro+Olap; BRCAm ORR 27% / non-BRCA HRRm 12%' },
           { year:'2017-23', label:'TMB-H ≥10 跨癌', trials:[], note:'Pembro TMB-H ≥10 muts/Mb (KEYNOTE-158 衍生)' },
           { year:'2020+', label:'其他探索 (RET/BRAF)', trials:[], note:'Selpercatinib (RET); Dab+Tram (BRAF V600E) — 婦癌罕見' },
         ],
@@ -14055,11 +14044,11 @@ const TRIAL_CMP_GROUPS = {
   // ===== EC ADC 探索 =====
   'ec-adc-explore': {
     title: '🟣 EC ADC 探索對照',
-    trials: ['destiny-pantumor02', 'tropics-03', 'ascent-gyn-01', 'bluestar', 'trofuse-033', 'mk2870-033'],
+    trials: ['destiny-pantumor02', 'tropics-03', 'ascent-gyn-01', 'bluestar', 'trofuse-033'],
     columns: [
-      {label: 'ADC', getter: (t) => ({'destiny-pantumor02':'T-DXd', 'tropics-03':'SG (sac-TMT)', 'ascent-gyn-01':'SG vs TPC', bluestar:'AZD8205', 'trofuse-033':'sac-TMT+Pembro', 'mk2870-033':'sac-TMT+Pembro'})[t.id] || '-'},
-      {label: '靶點', getter: (t) => ({'destiny-pantumor02':'HER2', 'tropics-03':'TROP2', 'ascent-gyn-01':'TROP2', bluestar:'B7-H4', 'trofuse-033':'TROP2', 'mk2870-033':'TROP2'})[t.id] || '-'},
-      {label: 'ORR / 結果', getter: (t) => ({'destiny-pantumor02':'IHC3+ 84.6%, 整體 57.5%', 'tropics-03':'EC ORR 22%', 'ascent-gyn-01':'III 期 ongoing', bluestar:'ORR 38.5%', 'trofuse-033':'pMMR 維持新策', 'mk2870-033':'pMMR 維持探索'})[t.id] || '-'},
+      {label: 'ADC', getter: (t) => ({'destiny-pantumor02':'T-DXd', 'tropics-03':'SG (sac-TMT)', 'ascent-gyn-01':'SG vs TPC', bluestar:'AZD8205', 'trofuse-033':'sac-TMT+Pembro'})[t.id] || '-'},
+      {label: '靶點', getter: (t) => ({'destiny-pantumor02':'HER2', 'tropics-03':'TROP2', 'ascent-gyn-01':'TROP2', bluestar:'B7-H4', 'trofuse-033':'TROP2'})[t.id] || '-'},
+      {label: 'ORR / 結果', getter: (t) => ({'destiny-pantumor02':'IHC3+ 84.6%, 整體 57.5%', 'tropics-03':'EC ORR 22%', 'ascent-gyn-01':'III 期 ongoing', bluestar:'ORR 38.5%', 'trofuse-033':'pMMR 維持新策 (含 MK-2870-033)'})[t.id] || '-'},
     ],
   },
 
@@ -14338,7 +14327,7 @@ const TRIAL_MNEMONICS = {
     ],
     keypoint: 'TroFuse-033: pMMR EC 1L 維持新策略 (TROP2-ADC + IO)',
     numbers: 'Phase III · pMMR 為主要對象 · 試驗 ongoing',
-    pitfalls: '與 mk2870-033 同方向 (TROP2-ADC for pMMR maintenance); 兩試驗平行',
+    pitfalls: 'TroFuse-033 = MK-2870-033 = GOG-3119 = ENGOT-en29 (同一試驗多名稱)',
   },
 
   'siendo': {
@@ -14352,19 +14341,6 @@ const TRIAL_MNEMONICS = {
     keypoint: '一線完成化療後 Selinexor 維持; TP53wt subgroup 27.4m PFS',
     numbers: 'TP53wt mPFS 27.4 vs 5.2m HR 0.41 · TP53m 無顯著差異',
     pitfalls: '【高頻考點】TP53 status 反向: SIENDO 看 wildtype 才有用 (vs 一般 abnormal 強化)',
-  },
-
-  'mk2870-033': {
-    main: '💎 「MK-2870-033 配 sac-TMT+Pembro, pMMR 維持, 同 TroFuse」',
-    breakdown: [
-      { key: 'MK-2870-033', meaning: 'Merck 開發代號 (試驗名)' },
-      { key: 'sac-TMT', meaning: '【藥物】Sacituzumab Tirumotecan (TROP2-ADC)' },
-      { key: '+Pembro', meaning: 'TROP2-ADC + Pembrolizumab 維持' },
-      { key: 'pMMR 維持', meaning: '【特色】pMMR 1L 維持探索, 補 IO 不足' },
-    ],
-    keypoint: 'pMMR 一線維持: TROP2-ADC + Pembro (補 pMMR IO 反應不足)',
-    numbers: 'Phase III · pMMR 為主要對象 · 設計類似 TroFuse-033',
-    pitfalls: '與 TroFuse-033 同方向, 不同藥廠平行試驗 (Merck vs Kelun-Biotech)',
   },
 
   // ====== 一線 (P-TX, Adjuvant) ======
@@ -14511,16 +14487,18 @@ const TRIAL_MNEMONICS = {
   },
 
   'keynote-867': {
-    main: '💎 「KEYNOTE-867 配 Pembro+Olap, EC 二線維持, 進行中」',
+    main: '💎 「KEYLYNK-007 配 Pembro+Olap, 跨癌 HRRm/HRD+ 後線, BRCAm 二七」',
     breakdown: [
-      { key: 'KEYNOTE-867', meaning: 'KEYLYNK-007 / KEYNOTE-867 (試驗名)' },
-      { key: 'Pembro+Olap', meaning: 'Pembrolizumab + Olaparib 雙藥維持' },
-      { key: '二線維持', meaning: '【特色】二線後復發 EC 維持探索' },
-      { key: 'pMMR/p53m/HRRm', meaning: '主要鎖定 pMMR / TP53m / HRRm 族群' },
+      { key: 'KEYLYNK-007', meaning: 'KEYLYNK-007 / KEYNOTE-867 (試驗名)' },
+      { key: 'Pembro+Olap', meaning: 'Pembrolizumab + Olaparib 雙藥' },
+      { key: '跨癌 (basket)', meaning: '【特色】tumor-agnostic Phase 2 — 不限癌別' },
+      { key: 'HRRm/HRD+', meaning: '限 HRRm 或 HRD+ 族群 (3 cohorts)' },
+      { key: 'BRCAm 二七', meaning: 'BRCAm cohort ORR 27% (主要強訊號)' },
+      { key: '後線', meaning: '已過 ≥1 線治療進展 (R/M)' },
     ],
-    keypoint: '二線後復發 EC: Pembro + Olap 雙藥維持探索 (PD-1 + PARPi)',
-    numbers: 'Primary: PFS, ORR · ongoing · EC 為其中一個 cohort',
-    pitfalls: 'EC 為其中 cohort (basket trial); 維持效力觀察中',
+    keypoint: '跨癌別 HRRm/HRD+ 後線探索: Pembro+Olap; BRCAm ORR 27% / 其他 12%',
+    numbers: 'BRCAm 27% · non-BRCA HRRm 12% · non-HRRm HRD 12% · n=332',
+    pitfalls: '【❗易誤】不是 EC-specific, 是跨癌別 basket; EC 患者只是其中一部分; 為「PARPi 失敗後 / 已過適應症」HRR 缺陷後線新選項',
   },
 
 
@@ -21187,6 +21165,23 @@ function onTimelineContextToggle(detailsEl, key){
     TIMELINE_STATE.openContexts.add(key);
   } else {
     TIMELINE_STATE.openContexts.delete(key);
+  }
+}
+function toggleTimelineControls(){
+  const header = el('timelineHeader');
+  const quickBar = el('timelineQuickBar');
+  if(!header || !quickBar) return;
+  const isCollapsed = header.classList.contains('is-collapsed');
+  if(isCollapsed){
+    header.classList.remove('is-collapsed');
+    quickBar.style.display = 'none';
+  } else {
+    header.classList.add('is-collapsed');
+    quickBar.style.display = 'flex';
+    // Show current cancer + brief state in quick bar
+    const cancerName = TIMELINE_DATA[TIMELINE_STATE.cancer]?.name || '';
+    const txt = el('timelineQuickBarText');
+    if(txt) txt.innerHTML = `▼ ${cancerName}  · 點此展開選項`;
   }
 }
 function jumpToTrialFromTimeline(tid){
