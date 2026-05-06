@@ -543,6 +543,96 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   .tmc-extra-row{font-size:10.5px;}
 }
 
+/* ===== 📈 KM 曲線區塊 ===== */
+.km-block{margin:14px 0 18px;padding:16px 16px 14px;background:linear-gradient(135deg,#f8fafc,#fef2f2 60%,#fff);border:1.5px solid #fecaca;border-radius:12px;}
+.km-block-header{font-size:14px;font-weight:900;color:#7c2d12;margin-bottom:12px;display:flex;align-items:center;gap:6px;letter-spacing:0.02em;}
+.km-curve-item{margin-top:14px;padding:11px 12px 10px;background:white;border:1px solid #fed7aa;border-radius:9px;}
+.km-curve-item:first-child{margin-top:0;}
+.km-curve-item.km-negative{border-color:#cbd5e1;background:linear-gradient(180deg,#fff,#f8fafc);}
+.km-curve-meta{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;font-size:11.5px;}
+.km-curve-tag{display:inline-flex;align-items:center;font-weight:900;padding:3px 8px;border-radius:8px;color:white;font-size:10.5px;letter-spacing:0.04em;}
+.km-curve-tag.tag-pfs{background:linear-gradient(135deg,#dc2626,#b91c1c);}
+.km-curve-tag.tag-os{background:linear-gradient(135deg,#7c3aed,#6d28d9);}
+.km-curve-tag.tag-dfs{background:linear-gradient(135deg,#059669,#047857);}
+.km-curve-tag.tag-dor{background:linear-gradient(135deg,#0891b2,#0e7490);}
+.km-subgroup{font-weight:800;color:#0c1f3d;font-size:11.5px;background:#fef3c7;padding:2px 8px;border-radius:6px;}
+.km-summary{font-weight:600;color:#475569;font-size:11px;margin-left:auto;}
+.km-summary .km-pos{color:#059669;font-weight:800;}
+.km-summary .km-neg{color:#dc2626;font-weight:800;}
+.km-svg-wrap{padding:6px 0;}
+.km-svg{display:block;}
+.km-note{margin-top:8px;padding:7px 10px;background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;font-size:11.5px;color:#713f12;font-weight:600;line-height:1.5;}
+.km-curve-item.km-negative .km-note{background:#f1f5f9;border-left-color:#94a3b8;color:#334155;}
+
+/* KM Compare button in trial detail */
+.km-block-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.km-compare-btn{padding:6px 12px;border-radius:8px;border:1.5px solid #fb923c;background:white;color:#c2410c;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.18s;}
+.km-compare-btn:hover{background:linear-gradient(135deg,#fb923c,#f97316);color:white;border-color:transparent;box-shadow:0 3px 10px rgba(251,146,60,0.35);}
+
+/* ===== 🔄 KM 曲線疊圖比較 Modal ===== */
+.km-cmp-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.92);z-index:570;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px 16px;overflow-y:auto;}
+.km-cmp-bg.open{display:flex;}
+.km-cmp-content{background:linear-gradient(135deg,#fffbeb,#ffffff 50%,#dbeafe);max-width:1100px;width:100%;max-height:94vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 80px rgba(0,0,0,0.5);padding:28px 30px 26px;overflow-y:auto;}
+.km-cmp-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#0c1f3d;font-weight:800;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.km-cmp-close:hover{background:white;transform:scale(1.05);}
+.km-cmp-title{font-size:20px;font-weight:900;margin:0 0 4px 0;color:#0c1f3d;}
+.km-cmp-sub{font-size:12.5px;color:#64748b;margin:0 0 20px 0;font-weight:600;}
+.km-cmp-card{background:white;border-radius:11px;border:1.5px solid #e5e7eb;overflow:hidden;}
+.km-cmp-card-header{padding:9px 14px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:13.5px;}
+.km-cmp-card-num{width:24px;height:24px;border-radius:50%;color:white;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.km-cmp-card-trial{flex:1;color:#0c1f3d;font-size:14px;}
+.km-cmp-card-cancer{padding:2px 8px;border-radius:6px;font-size:10.5px;font-weight:900;}
+.km-cmp-card-cancer.cancer-EC{background:#f3e8ff;color:#581c87;}
+.km-cmp-card-cancer.cancer-OC{background:#dbeafe;color:#1e3a8a;}
+.km-cmp-card-cancer.cancer-CC{background:#dcfce7;color:#14532d;}
+.km-cmp-card-cancer.cancer-US{background:#fed7aa;color:#7c2d12;}
+.km-cmp-card-body{padding:12px 14px 14px;}
+.km-cmp-label{display:block;font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;}
+.km-cmp-select{width:100%;padding:8px 11px;border:1.5px solid #cbd5e1;border-radius:7px;font-size:12.5px;font-family:inherit;background:white;color:#0c1f3d;font-weight:600;cursor:pointer;}
+.km-cmp-select:focus{outline:none;border-color:#3b82f6;}
+.km-cmp-vs{text-align:center;font-size:14px;font-weight:900;color:#94a3b8;margin:10px 0;letter-spacing:0.3em;}
+.km-cmp-suggest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;}
+.km-cmp-suggest-btn{padding:9px 11px;border-radius:8px;border:1.5px solid #e0e7ff;background:white;color:#1e293b;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.15s;display:flex;flex-direction:column;gap:4px;}
+.km-cmp-suggest-btn:hover{border-color:#3b82f6;background:#eff6ff;transform:translateY(-1px);box-shadow:0 4px 10px rgba(59,130,246,0.2);}
+.km-cmp-suggest-name{font-weight:800;font-size:12.5px;color:#0c1f3d;}
+.km-cmp-suggest-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.km-cmp-tag{padding:1px 6px;border-radius:5px;font-size:9.5px;font-weight:800;}
+.km-cmp-tag.tag-same-cancer{background:#dcfce7;color:#14532d;}
+.km-cmp-tag.tag-shared-ep{background:#dbeafe;color:#1e3a8a;}
+.km-cmp-change-btn{margin-top:6px;padding:5px 10px;border-radius:6px;border:1px solid #cbd5e1;background:white;color:#475569;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
+.km-cmp-change-btn:hover{background:#f1f5f9;}
+.km-cmp-result{margin-top:24px;background:white;border-radius:12px;border:1.5px solid #cbd5e1;padding:18px 18px 16px;}
+.km-cmp-result-header{font-size:14.5px;font-weight:900;color:#0c1f3d;margin-bottom:14px;}
+.km-cmp-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+.km-cmp-stat-col{padding:11px 13px;background:#f8fafc;border-radius:8px;border:1px solid #e5e7eb;}
+.km-cmp-stat-trial-name{font-size:13px;font-weight:900;margin-bottom:8px;}
+.km-cmp-stat-row{display:flex;justify-content:space-between;font-size:11.5px;padding:3px 0;border-bottom:1px dashed #e5e7eb;}
+.km-cmp-stat-row:last-child{border-bottom:none;}
+.km-cmp-stat-row span{color:#64748b;font-weight:600;}
+.km-cmp-stat-row b{color:#0c1f3d;font-weight:800;}
+.km-cmp-chart-wrap{margin:14px 0;padding:8px;background:#fafbff;border-radius:9px;}
+.km-cmp-notes{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+.km-cmp-note{padding:9px 12px;background:#fef9c3;border-left:4px solid #eab308;border-radius:7px;font-size:12px;color:#0c1f3d;line-height:1.55;font-weight:600;}
+.km-cmp-guide{margin-top:14px;padding:9px 12px;background:#eef2ff;border-radius:8px;font-size:11.5px;color:#3730a3;font-weight:600;line-height:1.5;}
+
+@media(max-width:768px){
+  .km-cmp-content{padding:18px 18px 16px;}
+  .km-cmp-title{font-size:17px;}
+  .km-cmp-stats{grid-template-columns:1fr;gap:8px;}
+  .km-cmp-suggest-grid{grid-template-columns:1fr 1fr;}
+}
+
+@media(max-width:640px){
+  .km-block{padding:11px 11px 10px;margin:11px 0 14px;}
+  .km-block-header{font-size:13px;margin-bottom:9px;}
+  .km-curve-item{padding:9px 9px 8px;}
+  .km-curve-meta{font-size:10.5px;gap:7px;margin-bottom:7px;}
+  .km-summary{margin-left:0;font-size:10.5px;width:100%;}
+  .km-curve-tag{font-size:9.5px;padding:2px 6px;}
+  .km-subgroup{font-size:10.5px;padding:2px 6px;}
+  .km-note{font-size:10.5px;padding:6px 8px;}
+}
+
 /* ===== 🖍️ 螢光標記 (Highlight) ===== */
 .hl-yellow{
   background:linear-gradient(180deg,transparent 55%,#fef08a 55%,#fde047 100%);
@@ -2641,6 +2731,14 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
   </div>
 </div>
 
+<!-- ===== 🔄 KM 曲線疊圖比較 Modal ===== -->
+<div class="km-cmp-bg" id="kmCmpModal" onclick="if(event.target.id==='kmCmpModal')closeKMCompare()">
+  <div class="km-cmp-content">
+    <button class="km-cmp-close" onclick="closeKMCompare()">✕</button>
+    <div id="kmCmpContent"></div>
+  </div>
+</div>
+
 <!-- ===== 🗺️ 治療路徑流程圖 Modal ===== -->
 <div class="pathway-modal-bg" id="pathwayModal" onclick="if(event.target.id==='pathwayModal')closePathway()">
   <div class="pathway-modal-content">
@@ -2760,6 +2858,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
     <div id="mMolBadges"></div>
     <div id="mCoreConclusion"></div>
     <div id="mTrialMnemonic"></div>
+    <div id="mKMBlock"></div>
     <div id="mSiteInfo"></div>
     <div id="mFactGrid"></div>
 
@@ -6858,6 +6957,9 @@ function showDetail(id){
 
   // 🧠 Trial mnemonic (記憶口訣)
   el('mTrialMnemonic').innerHTML = renderTrialMnemonic(t.id);
+
+  // 📈 KM curves (核心試驗有 PFS/OS 視覺化)
+  el('mKMBlock').innerHTML = renderKMBlock(t.id);
 
   // Site info block (only if trial has siteInfo)
   if(t.siteInfo){
@@ -11824,6 +11926,615 @@ const MNEMONICS = {
 // ============================================================
 // 🧠 試驗記憶口訣 (Trial Mnemonics) — 婦癌核心試驗
 // ============================================================
+// ============================================================
+// 📈 KM 曲線資料 (Kaplan-Meier curves data)
+// ============================================================
+// Each trial has 1+ curves (PFS / OS / DFS).
+// Curves are simulated piecewise-linear approximations of published K-M data.
+// Format: { x: [time_months], y: [survival_proportion 0-1] } per arm
+// Plus: median (mPFS/mOS), HR, CI, p-value, milestones
+// ============================================================
+
+const KM_DATA = {
+
+  // ===== EC 一線 =====
+  'gy018': {
+    title: 'GY018: Pembro+Chemo vs Placebo+Chemo',
+    cancer: 'EC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'dMMR',
+        median1: 'NR', median2: 13.1, hr: 0.30, ci: '0.19-0.48', p: '<0.001',
+        arms: [
+          { name: 'Pembro+Chemo', color: '#dc2626', data: [[0,1],[6,0.85],[12,0.75],[18,0.70],[24,0.68],[30,0.65],[36,0.62]] },
+          { name: 'Placebo+Chemo', color: '#475569', data: [[0,1],[6,0.78],[12,0.55],[18,0.40],[24,0.32],[30,0.28],[36,0.25]] },
+        ],
+        note: '【MMRd cohort】HR 0.30, 至 36m PFS 仍維持 ~62% vs 25%',
+      },
+      {
+        endpoint: 'PFS', subgroup: 'pMMR',
+        median1: 13.1, median2: 8.7, hr: 0.54, ci: '0.41-0.71', p: '<0.001',
+        arms: [
+          { name: 'Pembro+Chemo', color: '#dc2626', data: [[0,1],[6,0.78],[12,0.55],[18,0.42],[24,0.35],[30,0.30],[36,0.27]] },
+          { name: 'Placebo+Chemo', color: '#475569', data: [[0,1],[6,0.72],[12,0.40],[18,0.25],[24,0.18],[30,0.14],[36,0.11]] },
+        ],
+        note: '【pMMR cohort】HR 0.54, 仍顯著延長 PFS',
+      },
+    ],
+  },
+
+  'ruby-p1': {
+    title: 'RUBY P1: Dostar+Chemo vs Placebo+Chemo',
+    cancer: 'EC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'dMMR',
+        median1: 'NR', median2: 7.7, hr: 0.28, ci: '0.16-0.50', p: '<0.001',
+        arms: [
+          { name: 'Dostar+Chemo', color: '#0891b2', data: [[0,1],[6,0.85],[12,0.72],[18,0.65],[24,0.62],[30,0.60],[36,0.58]] },
+          { name: 'Placebo+Chemo', color: '#475569', data: [[0,1],[6,0.62],[12,0.40],[18,0.28],[24,0.22],[30,0.18],[36,0.15]] },
+        ],
+        note: '【MMRd cohort】HR 0.28, 36m PFS 58% vs 15%',
+      },
+      {
+        endpoint: 'OS', subgroup: 'ITT (含 carcinosarcoma)',
+        median1: 'NR', median2: 'NR', hr: 0.69, ci: '0.54-0.89', p: '0.002',
+        arms: [
+          { name: 'Dostar+Chemo', color: '#0891b2', data: [[0,1],[6,0.93],[12,0.85],[18,0.78],[24,0.72],[30,0.68],[36,0.62]] },
+          { name: 'Placebo+Chemo', color: '#475569', data: [[0,1],[6,0.90],[12,0.78],[18,0.65],[24,0.55],[30,0.48],[36,0.42]] },
+        ],
+        note: '【ITT OS】HR 0.69, 含 carcinosarcoma 也獲益 (vs GY018 排除)',
+      },
+    ],
+  },
+
+  'duo-e': {
+    title: 'DUO-E: Durva+Olap+Chemo vs Durva+Chemo vs Chemo',
+    cancer: 'EC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'pMMR p53m/HRRm',
+        median1: 'NR', median2: 9.7, hr: 0.46, ci: '0.31-0.67', p: '<0.001',
+        arms: [
+          { name: 'Arm 3: Durva+Olap+Chemo', color: '#7c3aed', data: [[0,1],[6,0.80],[12,0.68],[18,0.58],[24,0.52],[30,0.48],[36,0.45]] },
+          { name: 'Arm 1: Chemo', color: '#475569', data: [[0,1],[6,0.72],[12,0.42],[18,0.28],[24,0.20],[30,0.15],[36,0.12]] },
+        ],
+        note: '【pMMR p53m/HRRm subgroup】Arm 3 三標靶 HR 0.46',
+      },
+    ],
+  },
+
+  // ===== EC 維持 =====
+  'siendo': {
+    title: 'SIENDO: Selinexor maintenance vs Placebo',
+    cancer: 'EC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'TP53 wildtype (post-hoc)',
+        median1: 27.4, median2: 5.2, hr: 0.41, ci: '0.21-0.79', p: '0.005',
+        arms: [
+          { name: 'Selinexor', color: '#059669', data: [[0,1],[6,0.78],[12,0.68],[18,0.62],[24,0.58],[27,0.50],[36,0.42]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[5,0.50],[10,0.30],[15,0.20],[20,0.13],[25,0.10],[30,0.08]] },
+        ],
+        note: '【TP53wt subgroup, 反一般】mPFS 27.4 vs 5.2m, HR 0.41',
+      },
+    ],
+  },
+
+  // ===== EC 復發 =====
+  'keynote-775': {
+    title: 'KEYNOTE-775: Pembro+Lenva vs Doxo/Pacli',
+    cancer: 'EC', primaryEndpoint: 'PFS+OS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'pMMR',
+        median1: 6.6, median2: 3.8, hr: 0.60, ci: '0.50-0.72', p: '<0.001',
+        arms: [
+          { name: 'Pembro+Lenva', color: '#dc2626', data: [[0,1],[3,0.78],[6,0.55],[9,0.42],[12,0.32],[18,0.20],[24,0.13]] },
+          { name: 'Doxo/Pacli', color: '#475569', data: [[0,1],[3,0.62],[6,0.32],[9,0.20],[12,0.13],[18,0.08],[24,0.05]] },
+        ],
+        note: '【pMMR PFS】mPFS 6.6 vs 3.8m, HR 0.60',
+      },
+      {
+        endpoint: 'OS', subgroup: 'pMMR',
+        median1: 18.0, median2: 12.2, hr: 0.70, ci: '0.58-0.83', p: '<0.001',
+        arms: [
+          { name: 'Pembro+Lenva', color: '#dc2626', data: [[0,1],[6,0.85],[12,0.65],[18,0.50],[24,0.38],[30,0.30],[36,0.22]] },
+          { name: 'Doxo/Pacli', color: '#475569', data: [[0,1],[6,0.75],[12,0.50],[18,0.32],[24,0.22],[30,0.15],[36,0.10]] },
+        ],
+        note: '【pMMR OS】mOS 18.0 vs 12.2m, HR 0.70',
+      },
+    ],
+  },
+
+  'garnet': {
+    title: 'GARNET: Dostar 單藥 (single-arm)',
+    cancer: 'EC', primaryEndpoint: 'ORR',
+    curves: [
+      {
+        endpoint: 'DOR', subgroup: 'dMMR/MSI-H',
+        median1: 'NR', median2: null, hr: null, ci: null, p: null,
+        arms: [
+          { name: 'Dostar 單藥', color: '#0891b2', data: [[0,1],[6,0.95],[12,0.92],[18,0.88],[24,0.84],[30,0.80],[36,0.78]] },
+        ],
+        note: '【dMMR DOR】24m 緩解機率 83.7% (single-arm); ORR 45.5%',
+        singleArm: true,
+      },
+    ],
+  },
+
+  // ===== OC 一線 =====
+  'gog-0218': {
+    title: 'GOG-0218: Bev induction+maintenance vs Placebo',
+    cancer: 'OC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'ITT',
+        median1: 14.1, median2: 10.3, hr: 0.717, ci: '0.625-0.824', p: '<0.001',
+        arms: [
+          { name: 'Bev throughout', color: '#dc2626', data: [[0,1],[6,0.88],[12,0.62],[18,0.40],[24,0.28],[30,0.20],[36,0.15]] },
+          { name: 'Chemo only', color: '#475569', data: [[0,1],[6,0.82],[12,0.45],[18,0.25],[24,0.15],[30,0.10],[36,0.07]] },
+        ],
+        note: '【ITT PFS】HR 0.717; 但 ITT OS NS, Stage IV subgroup OS+',
+      },
+    ],
+  },
+
+  // ===== OC 一線維持 PARPi 五大 =====
+  'solo-1': {
+    title: 'SOLO-1: Olap maintenance (BRCAm)',
+    cancer: 'OC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'BRCAm',
+        median1: 56, median2: 13.8, hr: 0.33, ci: '0.25-0.43', p: '<0.001',
+        arms: [
+          { name: 'Olap', color: '#7c3aed', data: [[0,1],[12,0.88],[24,0.74],[36,0.62],[48,0.55],[56,0.50],[60,0.48],[72,0.40]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[12,0.62],[14,0.50],[24,0.30],[36,0.22],[48,0.18],[60,0.14],[72,0.12]] },
+        ],
+        note: '【BRCAm】5y mPFS 56 vs 13.8m, HR 0.33; 7y OS HR 0.55',
+      },
+      {
+        endpoint: 'OS', subgroup: 'BRCAm (7y FU)',
+        median1: 'NR', median2: 75.2, hr: 0.55, ci: '0.40-0.76', p: '0.0004',
+        arms: [
+          { name: 'Olap', color: '#7c3aed', data: [[0,1],[12,0.96],[24,0.92],[36,0.86],[48,0.80],[60,0.76],[72,0.70],[84,0.67]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[12,0.92],[24,0.84],[36,0.74],[48,0.65],[60,0.58],[72,0.52],[84,0.47]] },
+        ],
+        note: '【7y OS】67% vs 47%, HR 0.55, 首個 BRCAm OS+ PARPi',
+      },
+    ],
+  },
+
+  'prima': {
+    title: 'PRIMA: Nira maintenance (全人群)',
+    cancer: 'OC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'HRD+',
+        median1: 21.9, median2: 10.4, hr: 0.43, ci: '0.31-0.59', p: '<0.001',
+        arms: [
+          { name: 'Nira', color: '#7c3aed', data: [[0,1],[6,0.85],[12,0.72],[18,0.58],[22,0.50],[24,0.46],[30,0.38],[36,0.32]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[6,0.72],[10,0.50],[12,0.42],[18,0.25],[24,0.15],[30,0.10],[36,0.08]] },
+        ],
+        note: '【HRD+ PFS】HR 0.43; 但最終 OS HR 1.01 NS (易錯!)',
+      },
+      {
+        endpoint: 'PFS', subgroup: 'ITT',
+        median1: 13.8, median2: 8.2, hr: 0.62, ci: '0.50-0.76', p: '<0.001',
+        arms: [
+          { name: 'Nira', color: '#7c3aed', data: [[0,1],[6,0.78],[12,0.58],[14,0.50],[18,0.42],[24,0.32],[30,0.26],[36,0.22]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[6,0.65],[8,0.50],[12,0.34],[18,0.20],[24,0.13],[30,0.10],[36,0.08]] },
+        ],
+        note: '【ITT PFS】HR 0.62; OS NS — 不能說延長 survival',
+      },
+    ],
+  },
+
+  'paola-1': {
+    title: 'PAOLA-1: Olap+Bev maintenance (HRD+)',
+    cancer: 'OC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'HRD+',
+        median1: 37.2, median2: 17.7, hr: 0.33, ci: '0.25-0.45', p: '<0.001',
+        arms: [
+          { name: 'Olap+Bev', color: '#dc2626', data: [[0,1],[12,0.85],[18,0.72],[24,0.62],[36,0.52],[37,0.50],[48,0.42],[60,0.35]] },
+          { name: 'Placebo+Bev', color: '#475569', data: [[0,1],[12,0.65],[18,0.50],[24,0.38],[36,0.22],[48,0.15],[60,0.12]] },
+        ],
+        note: '【HRD+ PFS】mPFS 37.2 vs 17.7m, HR 0.33',
+      },
+      {
+        endpoint: 'OS', subgroup: 'HRD+ (5y FU)',
+        median1: 75.2, median2: 57.3, hr: 0.62, ci: '0.45-0.85', p: '0.003',
+        arms: [
+          { name: 'Olap+Bev', color: '#dc2626', data: [[0,1],[12,0.94],[24,0.88],[36,0.78],[48,0.72],[60,0.66],[72,0.55]] },
+          { name: 'Placebo+Bev', color: '#475569', data: [[0,1],[12,0.92],[24,0.82],[36,0.68],[48,0.58],[60,0.48],[72,0.40]] },
+        ],
+        note: '【HRD+ 5y OS】65.5% vs 48.4%, HR 0.62',
+      },
+    ],
+  },
+
+  // ===== OC PSOC 維持 =====
+  'solo2': {
+    title: 'SOLO2: Olap maintenance (PSOC BRCAm)',
+    cancer: 'OC', primaryEndpoint: 'PFS+OS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'PSOC BRCAm',
+        median1: 19.1, median2: 5.5, hr: 0.30, ci: '0.22-0.41', p: '<0.001',
+        arms: [
+          { name: 'Olap', color: '#7c3aed', data: [[0,1],[6,0.82],[12,0.62],[18,0.52],[19,0.50],[24,0.38],[36,0.25],[48,0.15]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[5,0.50],[6,0.45],[12,0.20],[18,0.10],[24,0.06],[36,0.04]] },
+        ],
+        note: '【BRCAm PSOC】mPFS 19.1 vs 5.5m, HR 0.30',
+      },
+      {
+        endpoint: 'OS', subgroup: 'PSOC BRCAm',
+        median1: 51.7, median2: 38.8, hr: 0.74, ci: '0.54-1.00', p: '0.054',
+        arms: [
+          { name: 'Olap', color: '#7c3aed', data: [[0,1],[12,0.90],[24,0.78],[36,0.65],[48,0.55],[51,0.50],[60,0.42],[72,0.32]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[12,0.85],[24,0.65],[36,0.52],[38,0.50],[48,0.42],[60,0.35],[72,0.25]] },
+        ],
+        note: '【首個 PSOC PARPi OS+】mOS 51.7 vs 38.8m, HR 0.74',
+      },
+    ],
+  },
+
+  'nova': {
+    title: 'NOVA: Nira maintenance (PSOC, all-comer)',
+    cancer: 'OC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'gBRCAm',
+        median1: 21.0, median2: 5.5, hr: 0.27, ci: '0.17-0.41', p: '<0.001',
+        arms: [
+          { name: 'Nira', color: '#7c3aed', data: [[0,1],[6,0.85],[12,0.65],[18,0.55],[21,0.50],[24,0.42],[36,0.30]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[5,0.50],[6,0.45],[12,0.20],[18,0.12],[24,0.08],[36,0.04]] },
+        ],
+        note: '【gBRCAm】HR 0.27, mPFS 21.0 vs 5.5m',
+      },
+      {
+        endpoint: 'PFS', subgroup: 'non-gBRCAm',
+        median1: 9.3, median2: 3.9, hr: 0.45, ci: '0.34-0.61', p: '<0.001',
+        arms: [
+          { name: 'Nira', color: '#7c3aed', data: [[0,1],[6,0.65],[9,0.50],[12,0.40],[18,0.28],[24,0.20],[36,0.12]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[3,0.55],[4,0.50],[6,0.35],[9,0.22],[12,0.15],[18,0.10],[24,0.05]] },
+        ],
+        note: '【non-gBRCAm 全人群】HR 0.45, 拓展 PSOC 維持族群',
+      },
+    ],
+  },
+
+  // ===== OC PROC =====
+  'mirasol': {
+    title: 'MIRASOL: Mirvet (FRα high) vs chemo',
+    cancer: 'OC', primaryEndpoint: 'PFS+OS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'PROC FRα high',
+        median1: 5.62, median2: 3.98, hr: 0.65, ci: '0.52-0.81', p: '<0.001',
+        arms: [
+          { name: 'Mirvet', color: '#dc2626', data: [[0,1],[3,0.72],[5,0.55],[6,0.42],[9,0.28],[12,0.18],[18,0.10]] },
+          { name: 'Chemo', color: '#475569', data: [[0,1],[3,0.55],[4,0.50],[6,0.30],[9,0.18],[12,0.10],[18,0.05]] },
+        ],
+        note: '【FRα high PROC PFS】HR 0.65',
+      },
+      {
+        endpoint: 'OS', subgroup: 'PROC FRα high',
+        median1: 16.46, median2: 12.75, hr: 0.67, ci: '0.50-0.89', p: '0.005',
+        arms: [
+          { name: 'Mirvet', color: '#dc2626', data: [[0,1],[6,0.85],[12,0.65],[16,0.50],[18,0.42],[24,0.28],[30,0.18]] },
+          { name: 'Chemo', color: '#475569', data: [[0,1],[6,0.78],[12,0.50],[13,0.45],[18,0.32],[24,0.20],[30,0.12]] },
+        ],
+        note: '【FRα high OS】mOS 16.5 vs 12.8m, HR 0.67 (FDA full approval)',
+      },
+    ],
+  },
+
+  // ===== CC LACC =====
+  'keynote-a18': {
+    title: 'KEYNOTE-A18: Pembro+CCRT (高風險)',
+    cancer: 'CC', primaryEndpoint: 'PFS+OS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'ITT (高風險族群)',
+        median1: 'NR', median2: 'NR', hr: 0.70, ci: '0.55-0.89', p: '0.002',
+        arms: [
+          { name: 'Pembro+CCRT', color: '#dc2626', data: [[0,1],[6,0.92],[12,0.82],[18,0.74],[24,0.68],[30,0.65],[36,0.62]] },
+          { name: 'Placebo+CCRT', color: '#475569', data: [[0,1],[6,0.85],[12,0.70],[18,0.62],[24,0.57],[30,0.53],[36,0.50]] },
+        ],
+        note: '【嚴格納入】≥2 顆 LN 短軸 ≥1.5cm 或 Stage III-IVA; placebo arm 24m PFS 僅 57%',
+      },
+      {
+        endpoint: 'OS', subgroup: 'ITT (29.9m FU)',
+        median1: 'NR', median2: 'NR', hr: 0.67, ci: '0.50-0.90', p: '0.0040',
+        arms: [
+          { name: 'Pembro+CCRT', color: '#dc2626', data: [[0,1],[6,0.97],[12,0.93],[18,0.88],[24,0.85],[30,0.83],[36,0.83]] },
+          { name: 'Placebo+CCRT', color: '#475569', data: [[0,1],[6,0.95],[12,0.88],[18,0.81],[24,0.78],[30,0.75],[36,0.75]] },
+        ],
+        note: '【36m OS】82.6% vs 74.8%, HR 0.67',
+      },
+    ],
+  },
+
+  'calla': {
+    title: 'CALLA: Durva+CCRT (寬鬆族群)',
+    cancer: 'CC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'ITT (寬鬆族群)',
+        median1: 'NR', median2: 'NR', hr: 0.84, ci: '0.65-1.08', p: '0.174',
+        arms: [
+          { name: 'Durva+CCRT', color: '#0891b2', data: [[0,1],[6,0.92],[12,0.82],[18,0.75],[24,0.66],[30,0.62],[36,0.58]] },
+          { name: 'Placebo+CCRT', color: '#475569', data: [[0,1],[6,0.90],[12,0.78],[18,0.72],[24,0.62],[30,0.57],[36,0.55]] },
+        ],
+        note: '【寬鬆納入】任何 N+ 即可; placebo arm 24m PFS 62.1% (vs A18 57%); HR 0.84 NS',
+        negative: true,
+      },
+    ],
+  },
+
+  // ===== CC R/M =====
+  'keynote-826': {
+    title: 'KEYNOTE-826: Pembro+Chemo±Bev vs Chemo±Bev',
+    cancer: 'CC', primaryEndpoint: 'PFS+OS',
+    curves: [
+      {
+        endpoint: 'OS', subgroup: 'CPS≥1',
+        median1: 28.6, median2: 16.5, hr: 0.60, ci: '0.49-0.74', p: '<0.001',
+        arms: [
+          { name: 'Pembro+Chemo±Bev', color: '#dc2626', data: [[0,1],[6,0.88],[12,0.78],[18,0.62],[24,0.55],[28,0.50],[36,0.40],[48,0.32]] },
+          { name: 'Chemo±Bev', color: '#475569', data: [[0,1],[6,0.82],[12,0.68],[16,0.50],[18,0.42],[24,0.30],[36,0.20],[48,0.13]] },
+        ],
+        note: '【CPS≥1 OS】mOS 28.6 vs 16.5m, HR 0.60; NCCN Cat 1',
+      },
+      {
+        endpoint: 'OS', subgroup: 'ITT',
+        median1: 26.4, median2: 16.8, hr: 0.63, ci: '0.52-0.77', p: '<0.001',
+        arms: [
+          { name: 'Pembro+Chemo±Bev', color: '#dc2626', data: [[0,1],[6,0.86],[12,0.75],[18,0.60],[24,0.52],[26,0.50],[36,0.38],[48,0.30]] },
+          { name: 'Chemo±Bev', color: '#475569', data: [[0,1],[6,0.80],[12,0.65],[16,0.52],[18,0.45],[24,0.32],[36,0.22],[48,0.15]] },
+        ],
+        note: '【ITT OS】HR 0.63',
+      },
+    ],
+  },
+
+  'beatcc': {
+    title: 'BEATcc: Atezo+Bev+Chemo vs Bev+Chemo',
+    cancer: 'CC', primaryEndpoint: 'PFS+OS',
+    curves: [
+      {
+        endpoint: 'OS', subgroup: 'ITT (不依賴 CPS)',
+        median1: 32.1, median2: 22.8, hr: 0.68, ci: '0.52-0.88', p: '0.003',
+        arms: [
+          { name: 'Atezo+Bev+Chemo', color: '#dc2626', data: [[0,1],[6,0.90],[12,0.80],[18,0.70],[24,0.60],[32,0.50],[36,0.42],[48,0.30]] },
+          { name: 'Bev+Chemo', color: '#475569', data: [[0,1],[6,0.85],[12,0.72],[18,0.55],[22,0.50],[24,0.45],[36,0.28],[48,0.18]] },
+        ],
+        note: '【ITT OS, 不需 CPS 篩選】mOS 32.1 vs 22.8m, HR 0.68',
+      },
+    ],
+  },
+
+  'gog-240': {
+    title: 'GOG-240: Chemo+Bev vs Chemo (R/M 第一里程碑)',
+    cancer: 'CC', primaryEndpoint: 'OS',
+    curves: [
+      {
+        endpoint: 'OS', subgroup: 'ITT (R/M)',
+        median1: 16.8, median2: 13.3, hr: 0.71, ci: '0.54-0.95', p: '0.004',
+        arms: [
+          { name: 'Chemo+Bev', color: '#dc2626', data: [[0,1],[6,0.85],[12,0.65],[16,0.52],[18,0.45],[24,0.28],[30,0.18]] },
+          { name: 'Chemo', color: '#475569', data: [[0,1],[6,0.78],[12,0.55],[13,0.50],[18,0.32],[24,0.20],[30,0.10]] },
+        ],
+        note: '【R/M 第一里程碑】mOS 16.8 vs 13.3m, HR 0.71 (IO 時代之前金標準)',
+      },
+    ],
+  },
+
+  'innovatv-301': {
+    title: 'innovaTV 301: TV vs chemo (後線)',
+    cancer: 'CC', primaryEndpoint: 'OS',
+    curves: [
+      {
+        endpoint: 'OS', subgroup: '2L+ R/M',
+        median1: 11.5, median2: 9.5, hr: 0.70, ci: '0.54-0.89', p: '0.0038',
+        arms: [
+          { name: 'Tisotumab Vedotin', color: '#dc2626', data: [[0,1],[3,0.92],[6,0.78],[9,0.60],[11,0.50],[12,0.45],[18,0.28],[24,0.18]] },
+          { name: 'Chemo', color: '#475569', data: [[0,1],[3,0.85],[6,0.65],[9,0.52],[10,0.48],[12,0.38],[18,0.20],[24,0.10]] },
+        ],
+        note: '【2L+ R/M OS】HR 0.70 (FDA full approval 2024)',
+      },
+    ],
+  },
+
+  // ===== US LMS / UCS =====
+  'lms-04': {
+    title: 'LMS-04: Dox+Trab vs Dox (uLMS 1L)',
+    cancer: 'US', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'uLMS 1L',
+        median1: 12.2, median2: 6.2, hr: 0.41, ci: '0.29-0.58', p: '<0.001',
+        arms: [
+          { name: 'Dox+Trab', color: '#dc2626', data: [[0,1],[3,0.85],[6,0.72],[9,0.62],[12,0.52],[15,0.40],[18,0.30],[24,0.18]] },
+          { name: 'Dox 單藥', color: '#475569', data: [[0,1],[3,0.72],[6,0.50],[9,0.32],[12,0.22],[15,0.15],[18,0.10],[24,0.05]] },
+        ],
+        note: '【uLMS 1L 新標準】mPFS 12.2 vs 6.2m, HR 0.41',
+      },
+    ],
+  },
+
+  'et743-sar-3007': {
+    title: 'ET743-SAR-3007: Trab vs Dacar (LMS 2L+)',
+    cancer: 'US', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'LMS 2L+',
+        median1: 4.2, median2: 1.5, hr: 0.55, ci: '0.44-0.70', p: '<0.001',
+        arms: [
+          { name: 'Trabectedin', color: '#dc2626', data: [[0,1],[2,0.78],[4,0.55],[6,0.38],[9,0.22],[12,0.13],[18,0.06]] },
+          { name: 'Dacarbazine', color: '#475569', data: [[0,1],[1.5,0.50],[3,0.30],[6,0.13],[9,0.08],[12,0.05],[18,0.03]] },
+        ],
+        note: '【LMS 2L+】mPFS 4.2 vs 1.5m, HR 0.55 (FDA approval 2015)',
+      },
+    ],
+  },
+
+  'palette': {
+    title: 'PALETTE: Pazopanib vs Placebo (非脂肪肉瘤)',
+    cancer: 'US', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: '非脂肪肉瘤 2L',
+        median1: 4.6, median2: 1.6, hr: 0.31, ci: '0.24-0.40', p: '<0.001',
+        arms: [
+          { name: 'Pazopanib', color: '#dc2626', data: [[0,1],[2,0.78],[4,0.55],[6,0.38],[9,0.20],[12,0.12],[15,0.05]] },
+          { name: 'Placebo', color: '#475569', data: [[0,1],[1.5,0.50],[3,0.20],[6,0.10],[9,0.05],[12,0.03]] },
+        ],
+        note: '【非脂肪肉瘤 2L】mPFS 4.6 vs 1.6m, HR 0.31; 排除 LPS',
+      },
+    ],
+  },
+
+
+  // ===== 補完核心試驗 (達 30 個) =====
+
+  'duo-o': {
+    title: 'DUO-O: Durva+Bev+Olap vs Durva+Bev vs Bev (non-BRCAm)',
+    cancer: 'OC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'HRD+ non-BRCAm',
+        median1: 45.1, median2: 23.3, hr: 0.46, ci: '0.34-0.63', p: '<0.001',
+        arms: [
+          { name: 'Durva+Bev+Olap', color: '#7c3aed', data: [[0,1],[12,0.85],[24,0.66],[36,0.55],[45,0.50],[48,0.45],[60,0.32]] },
+          { name: 'Bev (control)', color: '#475569', data: [[0,1],[12,0.72],[18,0.58],[23,0.50],[24,0.45],[36,0.30],[48,0.20],[60,0.13]] },
+        ],
+        note: '【HRD+ non-BRCAm】mPFS 45.1 vs 23.3m, HR 0.46; OS 未達顯著',
+      },
+    ],
+  },
+
+  'aurelia': {
+    title: 'AURELIA: Bev+chemo vs Chemo (PROC)',
+    cancer: 'OC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'PROC ITT',
+        median1: 6.7, median2: 3.4, hr: 0.48, ci: '0.38-0.60', p: '<0.001',
+        arms: [
+          { name: 'Bev+chemo', color: '#dc2626', data: [[0,1],[3,0.78],[6,0.55],[7,0.50],[9,0.42],[12,0.28],[18,0.13]] },
+          { name: 'Chemo only', color: '#475569', data: [[0,1],[3,0.55],[3.4,0.50],[6,0.30],[9,0.18],[12,0.10],[18,0.04]] },
+        ],
+        note: '【PROC PFS 翻倍】mPFS 6.7 vs 3.4m, HR 0.48 (PROC 基石)',
+      },
+    ],
+  },
+
+  'keynote-b96': {
+    title: 'KEYNOTE-B96: Pembro+Pacli±Bev vs Pacli±Bev (PROC)',
+    cancer: 'OC', primaryEndpoint: 'OS',
+    curves: [
+      {
+        endpoint: 'OS', subgroup: 'PROC ITT',
+        median1: 17.2, median2: 13.0, hr: 0.74, ci: '0.61-0.89', p: '0.0021',
+        arms: [
+          { name: 'Pembro+Pacli±Bev', color: '#dc2626', data: [[0,1],[6,0.88],[12,0.72],[17,0.50],[18,0.48],[24,0.35],[30,0.25]] },
+          { name: 'Pacli±Bev', color: '#475569', data: [[0,1],[6,0.80],[12,0.55],[13,0.50],[18,0.32],[24,0.22],[30,0.13]] },
+        ],
+        note: '【PROC IO 突破】首個 PD-1 在 PROC 改善 OS Phase III; +4.2m',
+      },
+    ],
+  },
+
+  'rosella': {
+    title: 'ROSELLA: Relacorilant+nab-Pacli vs nab-Pacli (PROC)',
+    cancer: 'OC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'OS', subgroup: 'PROC',
+        median1: 15.97, median2: 11.5, hr: 0.69, ci: '0.52-0.92', p: '0.012',
+        arms: [
+          { name: 'Relacorilant+nab-Pacli', color: '#dc2626', data: [[0,1],[6,0.88],[12,0.72],[15,0.55],[16,0.50],[18,0.42],[24,0.30]] },
+          { name: 'nab-Pacli', color: '#475569', data: [[0,1],[6,0.78],[11,0.52],[12,0.45],[15,0.38],[18,0.28],[24,0.18]] },
+        ],
+        note: '【PROC 新機制 GR 拮抗】無需 biomarker; FDA 2024',
+      },
+    ],
+  },
+
+  'gog-281': {
+    title: 'GOG-281/LOGS: Trametinib vs 化療/賀爾蒙 (LGSOC)',
+    cancer: 'OC', primaryEndpoint: 'PFS',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'LGSOC',
+        median1: 13.0, median2: 7.2, hr: 0.48, ci: '0.36-0.64', p: '<0.001',
+        arms: [
+          { name: 'Trametinib', color: '#dc2626', data: [[0,1],[6,0.78],[12,0.58],[13,0.50],[18,0.40],[24,0.28],[30,0.20]] },
+          { name: 'Standard (chemo/AI)', color: '#475569', data: [[0,1],[3,0.78],[6,0.55],[7,0.50],[12,0.32],[18,0.18],[24,0.10]] },
+        ],
+        note: '【LGSOC 標靶突破】mPFS 13.0 vs 7.2m, HR 0.48; ORR 26%',
+      },
+    ],
+  },
+
+  'destiny-pantumor02': {
+    title: 'DESTINY-PanTumor02: T-DXd HER2+ (EC cohort)',
+    cancer: 'EC', primaryEndpoint: 'ORR',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: 'EC HER2+ (single-arm)',
+        median1: 11.1, median2: null, hr: null, ci: null, p: null,
+        arms: [
+          { name: 'T-DXd', color: '#dc2626', data: [[0,1],[3,0.85],[6,0.72],[9,0.62],[11,0.50],[12,0.45],[18,0.28]] },
+        ],
+        note: '【EC HER2+ ORR 57.5%】IHC 3+ ORR 84.6%! IHC 2+ ORR 26.5%',
+        singleArm: true,
+      },
+    ],
+  },
+
+  'shape-trial': {
+    title: 'SHAPE: Simple vs Radical hysterectomy (低風險早期 CC)',
+    cancer: 'CC', primaryEndpoint: '盆腔復發',
+    curves: [
+      {
+        endpoint: 'PFS', subgroup: '低風險 IB1 ≤2cm',
+        median1: 'NR', median2: 'NR', hr: 0.91, ci: '0.62-1.34', p: 'NI 達成',
+        arms: [
+          { name: 'Simple Hysterectomy', color: '#059669', data: [[0,1],[12,0.97],[24,0.96],[36,0.974],[48,0.96]] },
+          { name: 'Radical Hysterectomy', color: '#475569', data: [[0,1],[12,0.97],[24,0.97],[36,0.978],[48,0.97]] },
+        ],
+        note: '【NI 達成】3y 盆腔復發 2.52% vs 2.17%; 低風險可降階為 simple (NEJM 2024)',
+      },
+    ],
+  },
+
+  'eribulin-vs-dacarbazine': {
+    title: 'Eribulin vs Dacarbazine (LMS+LPS 2L+)',
+    cancer: 'US', primaryEndpoint: 'OS',
+    curves: [
+      {
+        endpoint: 'OS', subgroup: 'LMS+LPS 全人群',
+        median1: 13.5, median2: 11.5, hr: 0.77, ci: '0.62-0.95', p: '0.017',
+        arms: [
+          { name: 'Eribulin', color: '#dc2626', data: [[0,1],[6,0.82],[12,0.55],[13,0.50],[18,0.35],[24,0.22],[30,0.13]] },
+          { name: 'Dacarbazine', color: '#475569', data: [[0,1],[6,0.78],[11,0.52],[12,0.45],[18,0.28],[24,0.15],[30,0.08]] },
+        ],
+        note: '【LMS subgroup NS!】FDA 只核准 LPS 適應症; LMS 仍用 Trabectedin (易錯)',
+      },
+    ],
+  },
+
+
+};
+
+
+
 const TRIAL_MNEMONICS = {
 
 // ========== EC 一線 + 一線維持 完整 13 個試驗口訣 (v2: 名稱+藥物+特色) ==========
@@ -17989,6 +18700,350 @@ function renderTrialMnemonic(trialId){
     </div>
   `;
 }
+
+// ============================================================
+// 📈 KM 曲線渲染 (SVG, lightweight, fully offline)
+// ============================================================
+
+// Render a single KM chart as SVG
+function renderKMChart(curve, opts){
+  opts = opts || {};
+  const W = opts.width || 560;
+  const H = opts.height || 280;
+  const PAD = { top: 24, right: 90, bottom: 42, left: 50 };
+  const plotW = W - PAD.left - PAD.right;
+  const plotH = H - PAD.top - PAD.bottom;
+  
+  // Determine x-axis range from data
+  const allX = curve.arms.flatMap(a => a.data.map(p => p[0]));
+  const xMax = Math.ceil(Math.max(...allX, 12) / 6) * 6;
+  const xMin = 0;
+  const yMin = 0, yMax = 1;
+  
+  const xToPx = x => PAD.left + (x - xMin) / (xMax - xMin) * plotW;
+  const yToPx = y => PAD.top + (1 - (y - yMin) / (yMax - yMin)) * plotH;
+  
+  // Draw grid
+  const xTicks = [];
+  const tickStep = xMax > 36 ? 12 : (xMax > 18 ? 6 : 3);
+  for(let x = 0; x <= xMax; x += tickStep) xTicks.push(x);
+  const yTicks = [0, 0.25, 0.5, 0.75, 1.0];
+  
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" class="km-svg" style="width:100%;height:auto;background:#fefefe;border-radius:8px;">`;
+  
+  // Background
+  svg += `<rect x="${PAD.left}" y="${PAD.top}" width="${plotW}" height="${plotH}" fill="#fafbff" stroke="#e5e7eb" stroke-width="1"/>`;
+  
+  // Y grid lines + labels
+  yTicks.forEach(y => {
+    const py = yToPx(y);
+    svg += `<line x1="${PAD.left}" y1="${py}" x2="${PAD.left+plotW}" y2="${py}" stroke="#e5e7eb" stroke-width="0.7" stroke-dasharray="3,3"/>`;
+    svg += `<text x="${PAD.left-8}" y="${py+4}" text-anchor="end" font-size="10" fill="#64748b" font-weight="600">${(y*100).toFixed(0)}%</text>`;
+  });
+  // X grid lines + labels
+  xTicks.forEach(x => {
+    const px = xToPx(x);
+    svg += `<line x1="${px}" y1="${PAD.top}" x2="${px}" y2="${PAD.top+plotH}" stroke="#e5e7eb" stroke-width="0.5" stroke-dasharray="3,3"/>`;
+    svg += `<text x="${px}" y="${PAD.top+plotH+15}" text-anchor="middle" font-size="10" fill="#64748b" font-weight="600">${x}</text>`;
+  });
+  
+  // Axis labels
+  svg += `<text x="${PAD.left+plotW/2}" y="${H-8}" text-anchor="middle" font-size="11" fill="#475569" font-weight="700">時間 (months)</text>`;
+  svg += `<text x="14" y="${PAD.top+plotH/2}" text-anchor="middle" font-size="11" fill="#475569" font-weight="700" transform="rotate(-90 14 ${PAD.top+plotH/2})">${curve.endpoint || 'Survival'} (%)</text>`;
+  
+  // Median lines (reference)
+  const medians = [
+    { value: curve.median1, color: curve.arms[0]?.color || '#dc2626', label: 'arm1' },
+    curve.arms[1] ? { value: curve.median2, color: curve.arms[1].color, label: 'arm2' } : null,
+  ].filter(m => m && typeof m.value === 'number');
+  
+  // Reference line at 50%
+  svg += `<line x1="${PAD.left}" y1="${yToPx(0.5)}" x2="${PAD.left+plotW}" y2="${yToPx(0.5)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="6,4"/>`;
+  svg += `<text x="${PAD.left+plotW+4}" y="${yToPx(0.5)+4}" font-size="9" fill="#94a3b8" font-weight="700">50% (median)</text>`;
+  
+  // Vertical median markers
+  medians.forEach(m => {
+    if(m.value > xMax) return;
+    const px = xToPx(m.value);
+    svg += `<line x1="${px}" y1="${yToPx(0.5)}" x2="${px}" y2="${PAD.top+plotH}" stroke="${m.color}" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>`;
+    svg += `<circle cx="${px}" cy="${yToPx(0.5)}" r="3" fill="${m.color}"/>`;
+  });
+  
+  // Curves
+  curve.arms.forEach(arm => {
+    // Build step-down path
+    let path = '';
+    arm.data.forEach((p, i) => {
+      const px = xToPx(p[0]);
+      const py = yToPx(p[1]);
+      if(i === 0) path += `M ${px} ${py}`;
+      else {
+        // Step down: horizontal then vertical
+        const prev = arm.data[i-1];
+        const prevPy = yToPx(prev[1]);
+        path += ` L ${px} ${prevPy} L ${px} ${py}`;
+      }
+    });
+    const dashAttr = arm.dash ? ` stroke-dasharray="${arm.dash}"` : '';
+    svg += `<path d="${path}" fill="none" stroke="${arm.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"${dashAttr}/>`;
+  });
+  
+  // Legend (top-right)
+  const legendY = PAD.top + 8;
+  curve.arms.forEach((arm, i) => {
+    const ly = legendY + i * 18;
+    const lx = PAD.left + plotW + 8;
+    svg += `<rect x="${lx}" y="${ly-7}" width="14" height="3" fill="${arm.color}" rx="1"/>`;
+    svg += `<text x="${lx + 18}" y="${ly}" font-size="9.5" fill="#1e293b" font-weight="700">${escapeHtml(arm.name)}</text>`;
+  });
+  
+  svg += `</svg>`;
+  return svg;
+}
+
+// Render full KM block (multiple curves) for a trial
+function renderKMBlock(trialId, opts){
+  const data = (typeof KM_DATA !== 'undefined') && KM_DATA[trialId];
+  if(!data) return '';
+  opts = opts || {};
+  
+  let html = `<div class="km-block">`;
+  html += `<div class="km-block-header">
+    <span>📈 ${escapeHtml(data.title)}</span>
+    <button class="km-compare-btn" onclick="openKMCompare('${trialId}')" title="與另一個試驗的 KM 曲線疊圖比較">🔄 與另一試驗比較</button>
+  </div>`;
+  
+  data.curves.forEach((curve, idx) => {
+    const isPos = !curve.negative;
+    const summaryParts = [];
+    if(curve.median1 != null && curve.median2 != null){
+      summaryParts.push(`m${curve.endpoint} <span class="km-pos">${curve.median1}</span> vs <span class="km-neg">${curve.median2}</span> ${typeof curve.median1 === 'number' ? 'm' : ''}`);
+    }
+    if(curve.hr) summaryParts.push(`HR <span class="km-${isPos?'pos':'neg'}">${curve.hr}</span>${curve.ci ? ` (${escapeHtml(curve.ci)})` : ''}`);
+    if(curve.p) summaryParts.push(`P=<span class="km-${isPos?'pos':'neg'}">${escapeHtml(curve.p)}</span>`);
+    
+    html += `<div class="km-curve-item${curve.negative?' km-negative':''}">`;
+    html += `<div class="km-curve-meta">`;
+    html += `<span class="km-curve-tag tag-${curve.endpoint?.toLowerCase()||'pfs'}">${escapeHtml(curve.endpoint || '')}</span>`;
+    html += `<span class="km-subgroup">${escapeHtml(curve.subgroup || 'ITT')}</span>`;
+    if(summaryParts.length) html += `<span class="km-summary">${summaryParts.join(' · ')}</span>`;
+    html += `</div>`;
+    html += `<div class="km-svg-wrap">${renderKMChart(curve)}</div>`;
+    if(curve.note) html += `<div class="km-note">${applyHighlight(escapeHtml(curve.note))}</div>`;
+    html += `</div>`;
+  });
+  
+  html += `</div>`;
+  return html;
+}
+
+// ============================================================
+// 🔄 KM 曲線疊圖比較 (Two-trial overlay)
+// ============================================================
+
+const KM_CMP_STATE = {
+  t1: null, c1: 0,  // Trial 1 id, curve index
+  t2: null, c2: 0,  // Trial 2 id, curve index
+};
+
+function openKMCompare(trialId){
+  KM_CMP_STATE.t1 = trialId;
+  KM_CMP_STATE.c1 = 0;
+  KM_CMP_STATE.t2 = null;
+  KM_CMP_STATE.c2 = 0;
+  el('kmCmpModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderKMCompareModal();
+}
+
+function closeKMCompare(){
+  el('kmCmpModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Render the comparison modal content
+function renderKMCompareModal(){
+  const t1Data = KM_DATA[KM_CMP_STATE.t1];
+  if(!t1Data){ el('kmCmpContent').innerHTML = '無法載入'; return; }
+  
+  const t1Trial = TRIALS.find(x => x.id === KM_CMP_STATE.t1);
+  const t1Name = t1Trial ? (t1Trial.name || KM_CMP_STATE.t1) : KM_CMP_STATE.t1;
+  
+  // Suggested comparators: same cancer + same endpoint family
+  const t1Cancer = t1Data.cancer;
+  const t1EndpointSet = new Set(t1Data.curves.map(c => c.endpoint));
+  
+  const allCandidates = Object.entries(KM_DATA)
+    .filter(([id]) => id !== KM_CMP_STATE.t1)
+    .map(([id, d]) => ({
+      id, data: d,
+      sameCancer: d.cancer === t1Cancer,
+      hasSharedEndpoint: d.curves.some(c => t1EndpointSet.has(c.endpoint)),
+    }));
+  
+  // Sort: same cancer + shared endpoint first, then same cancer, then rest
+  allCandidates.sort((a, b) => {
+    const score = (x) => (x.sameCancer ? 2 : 0) + (x.hasSharedEndpoint ? 1 : 0);
+    return score(b) - score(a);
+  });
+  
+  let html = `<h3 class="km-cmp-title">🔄 KM 曲線疊圖比較</h3>`;
+  html += `<p class="km-cmp-sub">同圖疊繪兩試驗 KM 曲線, 直接視覺比對</p>`;
+  
+  // Trial 1 (locked, just shows info + curve selector)
+  html += `<div class="km-cmp-card">`;
+  html += `<div class="km-cmp-card-header" style="background:linear-gradient(135deg,#fef3c7,#fed7aa);">
+    <span class="km-cmp-card-num" style="background:#f59e0b;">1</span>
+    <span class="km-cmp-card-trial">${escapeHtml(t1Name)}</span>
+    <span class="km-cmp-card-cancer cancer-${t1Cancer}">${t1Cancer}</span>
+  </div>`;
+  html += `<div class="km-cmp-card-body">`;
+  html += `<label class="km-cmp-label">選擇曲線:</label>`;
+  html += `<select class="km-cmp-select" onchange="KM_CMP_STATE.c1=parseInt(this.value);renderKMCompareModal()">`;
+  t1Data.curves.forEach((c, i) => {
+    const sel = i === KM_CMP_STATE.c1 ? 'selected' : '';
+    html += `<option value="${i}" ${sel}>${escapeHtml(c.endpoint)} - ${escapeHtml(c.subgroup||'ITT')} (HR ${c.hr || 'NR'})</option>`;
+  });
+  html += `</select>`;
+  html += `</div></div>`;
+  
+  // Trial 2 selector
+  html += `<div class="km-cmp-vs">VS</div>`;
+  
+  html += `<div class="km-cmp-card">`;
+  html += `<div class="km-cmp-card-header" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);">
+    <span class="km-cmp-card-num" style="background:#3b82f6;">2</span>
+    <span class="km-cmp-card-trial">`;
+  if(KM_CMP_STATE.t2){
+    const t2Trial = TRIALS.find(x => x.id === KM_CMP_STATE.t2);
+    html += escapeHtml(t2Trial ? t2Trial.name : KM_CMP_STATE.t2);
+  } else {
+    html += '<span style="color:#64748b;font-style:italic;">尚未選擇試驗</span>';
+  }
+  html += `</span>`;
+  if(KM_CMP_STATE.t2 && KM_DATA[KM_CMP_STATE.t2]){
+    html += `<span class="km-cmp-card-cancer cancer-${KM_DATA[KM_CMP_STATE.t2].cancer}">${KM_DATA[KM_CMP_STATE.t2].cancer}</span>`;
+  }
+  html += `</div>`;
+  html += `<div class="km-cmp-card-body">`;
+  if(!KM_CMP_STATE.t2){
+    html += `<label class="km-cmp-label">選擇對比試驗 (建議: 同癌別 + 同 endpoint):</label>`;
+    html += `<div class="km-cmp-suggest-grid">`;
+    allCandidates.slice(0, 16).forEach(cand => {
+      const tags = [];
+      if(cand.sameCancer) tags.push('<span class="km-cmp-tag tag-same-cancer">同癌別</span>');
+      if(cand.hasSharedEndpoint) tags.push('<span class="km-cmp-tag tag-shared-ep">共通 endpoint</span>');
+      const tName = (TRIALS.find(x => x.id === cand.id) || {}).name || cand.id;
+      html += `<button class="km-cmp-suggest-btn" onclick="KM_CMP_STATE.t2='${cand.id}';KM_CMP_STATE.c2=0;renderKMCompareModal()">
+        <div class="km-cmp-suggest-name">${escapeHtml(tName)}</div>
+        <div class="km-cmp-suggest-tags">${tags.join('')}</div>
+      </button>`;
+    });
+    html += `</div>`;
+  } else {
+    const t2Data = KM_DATA[KM_CMP_STATE.t2];
+    html += `<label class="km-cmp-label">選擇曲線:</label>`;
+    html += `<select class="km-cmp-select" onchange="KM_CMP_STATE.c2=parseInt(this.value);renderKMCompareModal()">`;
+    t2Data.curves.forEach((c, i) => {
+      const sel = i === KM_CMP_STATE.c2 ? 'selected' : '';
+      html += `<option value="${i}" ${sel}>${escapeHtml(c.endpoint)} - ${escapeHtml(c.subgroup||'ITT')} (HR ${c.hr || 'NR'})</option>`;
+    });
+    html += `</select>`;
+    html += `<button class="km-cmp-change-btn" onclick="KM_CMP_STATE.t2=null;renderKMCompareModal()">🔁 換另一個</button>`;
+  }
+  html += `</div></div>`;
+  
+  // Render comparison chart if both selected
+  if(KM_CMP_STATE.t2 && KM_DATA[KM_CMP_STATE.t2]){
+    html += renderKMCompareChart();
+  }
+  
+  el('kmCmpContent').innerHTML = html;
+}
+
+function renderKMCompareChart(){
+  const t1Data = KM_DATA[KM_CMP_STATE.t1];
+  const t2Data = KM_DATA[KM_CMP_STATE.t2];
+  const c1 = t1Data.curves[KM_CMP_STATE.c1];
+  const c2 = t2Data.curves[KM_CMP_STATE.c2];
+  if(!c1 || !c2) return '';
+  
+  const t1Trial = TRIALS.find(x => x.id === KM_CMP_STATE.t1);
+  const t2Trial = TRIALS.find(x => x.id === KM_CMP_STATE.t2);
+  const t1Name = t1Trial ? t1Trial.name : KM_CMP_STATE.t1;
+  const t2Name = t2Trial ? t2Trial.name : KM_CMP_STATE.t2;
+  
+  // Build a synthetic combined curve: 4 arms (t1.arm1, t1.arm2, t2.arm1, t2.arm2)
+  // Use distinct color schemes
+  const t1Color1 = '#dc2626';  // red treatment
+  const t1Color2 = '#fca5a5';  // light red control
+  const t2Color1 = '#1d4ed8';  // blue treatment
+  const t2Color2 = '#93c5fd';  // light blue control
+  
+  const combinedArms = [
+    { name: `${t1Name} - ${c1.arms[0].name}`, color: t1Color1, data: c1.arms[0].data, dash: '0' },
+    c1.arms[1] ? { name: `${t1Name} - ${c1.arms[1].name}`, color: t1Color2, data: c1.arms[1].data, dash: '0' } : null,
+    { name: `${t2Name} - ${c2.arms[0].name}`, color: t2Color1, data: c2.arms[0].data, dash: '6,3' },
+    c2.arms[1] ? { name: `${t2Name} - ${c2.arms[1].name}`, color: t2Color2, data: c2.arms[1].data, dash: '6,3' } : null,
+  ].filter(Boolean);
+  
+  const combinedCurve = {
+    endpoint: `${c1.endpoint} vs ${c2.endpoint}`,
+    arms: combinedArms,
+  };
+  
+  let html = `<div class="km-cmp-result">`;
+  html += `<div class="km-cmp-result-header">📊 疊圖比較結果</div>`;
+  
+  // Stats table
+  html += `<div class="km-cmp-stats">`;
+  html += `<div class="km-cmp-stat-col">`;
+  html += `<div class="km-cmp-stat-trial-name" style="color:${t1Color1};">▎${escapeHtml(t1Name)}</div>`;
+  html += `<div class="km-cmp-stat-row"><span>Endpoint:</span><b>${escapeHtml(c1.endpoint)}</b></div>`;
+  html += `<div class="km-cmp-stat-row"><span>Subgroup:</span><b>${escapeHtml(c1.subgroup || 'ITT')}</b></div>`;
+  if(c1.median1 != null && c1.median2 != null){
+    html += `<div class="km-cmp-stat-row"><span>Median:</span><b>${c1.median1} vs ${c1.median2}m</b></div>`;
+  }
+  if(c1.hr) html += `<div class="km-cmp-stat-row"><span>HR:</span><b>${c1.hr}${c1.ci ? ` (${escapeHtml(c1.ci)})` : ''}</b></div>`;
+  if(c1.p) html += `<div class="km-cmp-stat-row"><span>P:</span><b>${escapeHtml(c1.p)}</b></div>`;
+  html += `</div>`;
+  
+  html += `<div class="km-cmp-stat-col">`;
+  html += `<div class="km-cmp-stat-trial-name" style="color:${t2Color1};">▎${escapeHtml(t2Name)}</div>`;
+  html += `<div class="km-cmp-stat-row"><span>Endpoint:</span><b>${escapeHtml(c2.endpoint)}</b></div>`;
+  html += `<div class="km-cmp-stat-row"><span>Subgroup:</span><b>${escapeHtml(c2.subgroup || 'ITT')}</b></div>`;
+  if(c2.median1 != null && c2.median2 != null){
+    html += `<div class="km-cmp-stat-row"><span>Median:</span><b>${c2.median1} vs ${c2.median2}m</b></div>`;
+  }
+  if(c2.hr) html += `<div class="km-cmp-stat-row"><span>HR:</span><b>${c2.hr}${c2.ci ? ` (${escapeHtml(c2.ci)})` : ''}</b></div>`;
+  if(c2.p) html += `<div class="km-cmp-stat-row"><span>P:</span><b>${escapeHtml(c2.p)}</b></div>`;
+  html += `</div>`;
+  html += `</div>`;
+  
+  // Combined chart
+  html += `<div class="km-cmp-chart-wrap">${renderKMChart(combinedCurve, {width: 700, height: 360})}</div>`;
+  
+  // Notes from both
+  if(c1.note || c2.note){
+    html += `<div class="km-cmp-notes">`;
+    if(c1.note) html += `<div class="km-cmp-note" style="border-left-color:${t1Color1};"><b style="color:${t1Color1};">${escapeHtml(t1Name)}:</b> ${applyHighlight(escapeHtml(c1.note))}</div>`;
+    if(c2.note) html += `<div class="km-cmp-note" style="border-left-color:${t2Color1};"><b style="color:${t2Color1};">${escapeHtml(t2Name)}:</b> ${applyHighlight(escapeHtml(c2.note))}</div>`;
+    html += `</div>`;
+  }
+  
+  // Visual reading guide
+  html += `<div class="km-cmp-guide">`;
+  html += `<b>📖 解讀:</b> `;
+  html += `實線 = ${escapeHtml(t1Name)}; 虛線 = ${escapeHtml(t2Name)}; 深色 = 試驗組, 淺色 = 對照組. `;
+  html += `中位數參考點 (50% 線) 落在不同時間點, 可比較兩試驗的進展速度。`;
+  html += `</div>`;
+  
+  html += `</div>`;
+  return html;
+}
+
+
+
 
 // Initialize AI config button display
 updateAiConfigBtn();
