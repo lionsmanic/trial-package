@@ -543,6 +543,44 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   .tmc-extra-row{font-size:10.5px;}
 }
 
+/* 🔗 試驗交叉對照 */
+.tmc-xref-block{margin-top:9px;background:linear-gradient(135deg,#0f172a 60%,#1e293b);border-radius:10px;border:1.5px solid #334155;overflow:hidden;}
+.tmc-xref-summary{padding:9px 13px;font-size:12.5px;font-weight:800;color:#fef3c7;cursor:pointer;list-style:none;background:linear-gradient(90deg,#1e293b,#334155);display:flex;align-items:center;gap:8px;}
+.tmc-xref-summary::-webkit-details-marker{display:none;}
+.tmc-xref-summary::before{content:'▶';font-size:9px;transition:transform 0.2s;color:#fbbf24;}
+.tmc-xref-block[open] .tmc-xref-summary::before{transform:rotate(90deg);}
+.tmc-xref-summary:hover{background:linear-gradient(90deg,#334155,#475569);}
+.tmc-xref-count{font-size:10.5px;background:#fbbf24;color:#451a03;padding:1px 7px;border-radius:6px;font-weight:900;}
+.tmc-xref-tbl-wrap{padding:0;overflow-x:auto;}
+.tmc-xref-tbl{width:100%;border-collapse:collapse;font-size:11.5px;color:#f1f5f9;}
+.tmc-xref-tbl th{padding:7px 10px;background:#1e293b;font-weight:800;color:#fde68a;text-align:left;border-bottom:1.5px solid #334155;font-size:11px;letter-spacing:0.02em;}
+.tmc-xref-tbl td{padding:6px 10px;border-bottom:1px solid #334155;font-size:11px;line-height:1.5;}
+.tmc-xref-tbl tr:last-child td{border-bottom:none;}
+.tmc-xref-tbl tr.is-current td{background:rgba(251,191,36,0.15);font-weight:700;}
+.tmc-xref-tbl tr.is-current td.trial-name-cell{color:#fde68a;}
+.tmc-xref-tbl td.trial-name-cell{color:#bae6fd;font-family:"JetBrains Mono",monospace;}
+.tmc-xref-tbl tr:hover td{background:rgba(255,255,255,0.04);}
+
+/* 🧠 數字記憶法 */
+.tmc-hooks-block{margin-top:9px;background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:10px;border:1.5px solid #4338ca;overflow:hidden;}
+.tmc-hooks-summary{padding:9px 13px;font-size:12.5px;font-weight:800;color:#fde68a;cursor:pointer;list-style:none;background:linear-gradient(90deg,#312e81,#4338ca);display:flex;align-items:center;gap:8px;}
+.tmc-hooks-summary::-webkit-details-marker{display:none;}
+.tmc-hooks-summary::before{content:'▶';font-size:9px;transition:transform 0.2s;color:#fcd34d;}
+.tmc-hooks-block[open] .tmc-hooks-summary::before{transform:rotate(90deg);}
+.tmc-hooks-summary:hover{background:linear-gradient(90deg,#4338ca,#6366f1);}
+.tmc-hooks-list{padding:9px 12px 11px;display:flex;flex-direction:column;gap:5px;}
+.tmc-hook-row{display:flex;align-items:flex-start;gap:9px;padding:6px 9px;background:rgba(255,255,255,0.06);border-radius:7px;font-size:11.5px;}
+.tmc-hook-num{flex:0 0 auto;font-weight:900;color:#fde047;font-family:"JetBrains Mono",monospace;background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:5px;min-width:60px;text-align:center;font-size:11px;}
+.tmc-hook-arrow{flex:0 0 auto;color:#a5b4fc;font-weight:800;}
+.tmc-hook-text{flex:1;color:#e0e7ff;line-height:1.5;font-weight:600;}
+
+@media(max-width:640px){
+  .tmc-xref-tbl{font-size:10.5px;}
+  .tmc-xref-tbl th,.tmc-xref-tbl td{padding:5px 7px;font-size:10px;}
+  .tmc-hook-row{font-size:10.5px;padding:5px 7px;gap:6px;}
+  .tmc-hook-num{font-size:10px;min-width:50px;padding:2px 6px;}
+}
+
 /* ===== 📈 KM 曲線區塊 ===== */
 .km-block{margin:14px 0 18px;padding:16px 16px 14px;background:linear-gradient(135deg,#f8fafc,#fef2f2 60%,#fff);border:1.5px solid #fecaca;border-radius:12px;}
 .km-block-header{font-size:14px;font-weight:900;color:#7c2d12;margin-bottom:12px;display:flex;align-items:center;gap:6px;letter-spacing:0.02em;}
@@ -12599,6 +12637,250 @@ const KM_DATA = {
 
 
 
+
+// ============================================================
+// 🔗 試驗交叉對照組別 (Cross-reference Groups)
+// ============================================================
+// 每個試驗可屬於多個 group, 顯示同 group 的 key numbers 對照表
+
+const TRIAL_CMP_GROUPS = {
+
+  // ===== EC 一線 Pembro/Dostar/Atezo (IO+chemo) =====
+  'ec-1l-io-chemo': {
+    title: '🟣 EC 一線 IO+chemo 對照',
+    trials: ['gy018', 'ruby-p1', 'attend', 'duo-e'],
+    columns: [
+      {label: 'IO 藥物', getter: (t) => t.id==='gy018'?'Pembro':t.id==='ruby-p1'?'Dostar':t.id==='attend'?'Atezo':'Durva'},
+      {label: 'dMMR PFS HR', getter: (t) => ({gy018:'0.30',  'ruby-p1':'0.28', attend:'0.36', 'duo-e':'-'})[t.id] || '-'},
+      {label: 'pMMR PFS HR', getter: (t) => ({gy018:'0.54',  'ruby-p1':'0.76', attend:'0.74', 'duo-e':'0.77'})[t.id] || '-'},
+      {label: 'ITT OS HR', getter: (t) => ({gy018:'0.65',  'ruby-p1':'0.69', attend:'0.87 NS', 'duo-e':'-'})[t.id] || '-'},
+      {label: '收 carcinosarcoma', getter: (t) => ({gy018:'❌', 'ruby-p1':'✅', attend:'✅', 'duo-e':'✅'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== EC 維持 PARPi/IO =====
+  'ec-1l-maint': {
+    title: '💜 EC 一線維持對照',
+    trials: ['duo-e-maint', 'ruby-p2', 'utola', 'siendo'],
+    columns: [
+      {label: '維持藥物', getter: (t) => ({'duo-e-maint':'Durva+Olap','ruby-p2':'Dostar+Nira',utola:'Olap',siendo:'Seli'})[t.id] || '-'},
+      {label: '主終點達成', getter: (t) => ({'duo-e-maint':'✅ HRD+/p53m', 'ruby-p2':'✅ ITT', utola:'❌ ITT NS', siendo:'❌ ITT, ✅ TP53wt'})[t.id] || '-'},
+      {label: '關鍵 HR', getter: (t) => ({'duo-e-maint':'0.55 (pMMR p53/HRR)', 'ruby-p2':'0.60 (ITT)', utola:'NS', siendo:'0.41 (TP53wt)'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC 一線維持 PARPi 七大 =====
+  'oc-1l-maint-parpi': {
+    title: '💎 OC 一線維持 PARPi 對照',
+    trials: ['solo-1', 'prima', 'paola-1', 'duo-o', 'athena-mono'],
+    columns: [
+      {label: 'PARPi', getter: (t) => ({'solo-1':'Olap', prima:'Nira', 'paola-1':'Olap+Bev', 'duo-o':'Durva+Bev+Olap', 'athena-mono':'Ruca'})[t.id] || '-'},
+      {label: '族群', getter: (t) => ({'solo-1':'BRCAm', prima:'全收', 'paola-1':'HRD+', 'duo-o':'non-BRCAm', 'athena-mono':'全收'})[t.id] || '-'},
+      {label: '主分析 PFS HR', getter: (t) => ({'solo-1':'0.33', prima:'0.43 (HRD+)', 'paola-1':'0.33 (HRD+)', 'duo-o':'0.46 (HRD+)', 'athena-mono':'0.47 (HRD+)'})[t.id] || '-'},
+      {label: '長期 OS', getter: (t) => ({'solo-1':'7y HR 0.55', prima:'ITT NS', 'paola-1':'5y HR 0.62 (HRD+)', 'duo-o':'未達', 'athena-mono':'未達'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC PSOC 維持 PARPi =====
+  'oc-psoc-maint-parpi': {
+    title: '💎 OC PSOC 維持 PARPi 對照',
+    trials: ['solo2', 'nova', 'ariel3', 'study-19'],
+    columns: [
+      {label: 'PARPi', getter: (t) => ({'solo2':'Olap', nova:'Nira', ariel3:'Ruca', 'study-19':'Olap (II)'})[t.id] || '-'},
+      {label: 'BRCAm PFS HR', getter: (t) => ({'solo2':'0.30', nova:'0.27', ariel3:'0.23', 'study-19':'0.18'})[t.id] || '-'},
+      {label: '全人群 PFS HR', getter: (t) => ({'solo2':'BRCAm only', nova:'0.45 (non-gBRCA)', ariel3:'0.36 (ITT)', 'study-19':'0.35'})[t.id] || '-'},
+      {label: 'OS 結果', getter: (t) => ({'solo2':'mOS 51.7 vs 38.8 HR 0.74', nova:'OS NS', ariel3:'OS NS', 'study-19':'長尾 6+y'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC 一線 Bev =====
+  'oc-1l-bev': {
+    title: '🔵 OC 一線 Bev 對照',
+    trials: ['gog-0218', 'icon7'],
+    columns: [
+      {label: 'Bev 劑量', getter: (t) => ({'gog-0218':'15 mg/kg', icon7:'7.5 mg/kg'})[t.id] || '-'},
+      {label: 'PFS HR', getter: (t) => ({'gog-0218':'0.717', icon7:'0.81'})[t.id] || '-'},
+      {label: 'ITT OS', getter: (t) => ({'gog-0218':'NS', icon7:'NS'})[t.id] || '-'},
+      {label: '高險 OS', getter: (t) => ({'gog-0218':'Stage IV +', icon7:'high-risk +4.8m HR 0.78'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC PSOC 一線 Bev (chemo+Bev) =====
+  'oc-psoc-bev': {
+    title: '🔵 OC PSOC + Bev 對照',
+    trials: ['oceans', 'gog-0213', 'mito16b'],
+    columns: [
+      {label: '化療基底', getter: (t) => ({oceans:'Carbo+Gem', 'gog-0213':'Carbo+Pacli', mito16b:'前線 Bev 後再用'})[t.id] || '-'},
+      {label: 'PFS HR', getter: (t) => ({oceans:'0.48', 'gog-0213':'0.62', mito16b:'0.51'})[t.id] || '-'},
+      {label: 'OS HR', getter: (t) => ({oceans:'NS', 'gog-0213':'0.83 (+5m)', mito16b:'-'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC PROC 試驗 =====
+  'oc-proc': {
+    title: '🩷 OC PROC 後線對照',
+    trials: ['mirasol', 'aurelia', 'keynote-b96', 'rosella', 'ninja'],
+    columns: [
+      {label: '主藥物', getter: (t) => ({mirasol:'Mirvet (FRα-ADC)', aurelia:'Bev+chemo', 'keynote-b96':'Pembro+Pacli±Bev', rosella:'Relacorilant+nab-P', ninja:'Nivo 單藥'})[t.id] || '-'},
+      {label: 'PFS HR', getter: (t) => ({mirasol:'0.65', aurelia:'0.48', 'keynote-b96':'-', rosella:'0.69 (OS)', ninja:'0.96 NS'})[t.id] || '-'},
+      {label: 'OS HR', getter: (t) => ({mirasol:'0.67', aurelia:'NS', 'keynote-b96':'0.74 (+4.2m)', rosella:'0.69', ninja:'1.03 NS'})[t.id] || '-'},
+      {label: 'biomarker', getter: (t) => ({mirasol:'FRα PS2+ ≥75%', aurelia:'無', 'keynote-b96':'無', rosella:'無', ninja:'無'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== OC LGSOC =====
+  'oc-lgsoc': {
+    title: '💜 OC LGSOC 對照 (MEK 抑制劑差異)',
+    trials: ['gog-281', 'ramp-201', 'milo'],
+    columns: [
+      {label: 'MEK 抑制劑', getter: (t) => ({'gog-281':'Trametinib', 'ramp-201':'Avu+Defac', milo:'Binimetinib'})[t.id] || '-'},
+      {label: 'PFS HR', getter: (t) => ({'gog-281':'0.48', 'ramp-201':'-', milo:'1.21 ❌'})[t.id] || '-'},
+      {label: 'ORR', getter: (t) => ({'gog-281':'26%', 'ramp-201':'45% (KRAS+ 55%)', milo:'<10%'})[t.id] || '-'},
+      {label: '結果', getter: (t) => ({'gog-281':'✅ 成功', 'ramp-201':'✅ FDA accelerated', milo:'❌ 提前停止'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== CC LACC (CCRT 整合 IO) =====
+  'cc-lacc-ccrt-io': {
+    title: '🟢 CC LACC + IO 對照 (KEYNOTE-A18 vs CALLA)',
+    trials: ['keynote-a18', 'calla'],
+    columns: [
+      {label: 'IO 藥物', getter: (t) => ({'keynote-a18':'Pembro (PD-1)', calla:'Durva (PD-L1)'})[t.id] || '-'},
+      {label: 'LN 納入', getter: (t) => ({'keynote-a18':'≥2 顆 ≥1.5cm 嚴格', calla:'任何 N+ 寬鬆'})[t.id] || '-'},
+      {label: 'Placebo arm 24m PFS', getter: (t) => ({'keynote-a18':'57% (差)', calla:'62.1% (好)'})[t.id] || '-'},
+      {label: 'PFS HR', getter: (t) => ({'keynote-a18':'0.70 (P=0.002)', calla:'0.84 (P=0.174 NS)'})[t.id] || '-'},
+      {label: 'OS HR', getter: (t) => ({'keynote-a18':'0.67 ✅', calla:'-'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== CC R/M 兩大支柱 =====
+  'cc-rm-1l': {
+    title: '🟢 CC R/M 一線兩大支柱',
+    trials: ['keynote-826', 'beatcc', 'gog-240'],
+    columns: [
+      {label: '方案', getter: (t) => ({'keynote-826':'Pembro+Chemo±Bev', beatcc:'Atezo+Bev+Chemo', 'gog-240':'Bev+Chemo'})[t.id] || '-'},
+      {label: 'biomarker', getter: (t) => ({'keynote-826':'CPS≥1', beatcc:'不需', 'gog-240':'不需'})[t.id] || '-'},
+      {label: 'mOS', getter: (t) => ({'keynote-826':'28.6 vs 16.5m', beatcc:'32.1 vs 22.8m', 'gog-240':'16.8 vs 13.3m'})[t.id] || '-'},
+      {label: 'OS HR', getter: (t) => ({'keynote-826':'0.60 (CPS≥1)', beatcc:'0.68', 'gog-240':'0.71'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== CC 後線 ADC/IO =====
+  'cc-rm-2l': {
+    title: '🟢 CC 後線 ADC vs IO 單藥對照',
+    trials: ['innovatv-301', 'empower-cervical-1'],
+    columns: [
+      {label: '藥物', getter: (t) => ({'innovatv-301':'Tisotumab Vedotin (TF-ADC)', 'empower-cervical-1':'Cemi (PD-1)'})[t.id] || '-'},
+      {label: '線數', getter: (t) => ({'innovatv-301':'2L+', 'empower-cervical-1':'2L+'})[t.id] || '-'},
+      {label: 'mOS', getter: (t) => ({'innovatv-301':'11.5 vs 9.5m', 'empower-cervical-1':'12.0 vs 8.5m'})[t.id] || '-'},
+      {label: 'OS HR', getter: (t) => ({'innovatv-301':'0.70', 'empower-cervical-1':'0.69'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== CC LACC 手術範式 =====
+  'cc-lacc-surgery': {
+    title: '🔪 CC LACC 手術範式雙變革',
+    trials: ['lacc-trial', 'shape-trial'],
+    columns: [
+      {label: '比較', getter: (t) => ({'lacc-trial':'Open vs MIS', 'shape-trial':'Simple vs Radical'})[t.id] || '-'},
+      {label: '族群', getter: (t) => ({'lacc-trial':'IA1-IB1 早期', 'shape-trial':'IB1 ≤2cm 低風險'})[t.id] || '-'},
+      {label: '結果', getter: (t) => ({'lacc-trial':'MIS 復發 HR 3.74', 'shape-trial':'NI 達成, 3y 復發 2.5% vs 2.2%'})[t.id] || '-'},
+      {label: '範式變革', getter: (t) => ({'lacc-trial':'❌ MIS 不再用', 'shape-trial':'✅ 低風險可降階'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== CC NACT 新輔免疫 =====
+  'cc-lacc-nact-io': {
+    title: '🟢 CC LACC NACT+IO 對照 (中國平行試驗)',
+    trials: ['naci-study', 'natic-trial', 'cadonilimab-nact'],
+    columns: [
+      {label: 'IO', getter: (t) => ({'naci-study':'Camre (PD-1)', 'natic-trial':'Tisle (PD-1)', 'cadonilimab-nact':'Cadonilimab (PD-1/CTLA4)'})[t.id] || '-'},
+      {label: 'pCR', getter: (t) => ({'naci-study':'38.6%', 'natic-trial':'41.0%', 'cadonilimab-nact':'進行中'})[t.id] || '-'},
+      {label: 'ORR', getter: (t) => ({'naci-study':'97.7%', 'natic-trial':'94.7%', 'cadonilimab-nact':'-'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== US LMS 一線 =====
+  'us-lms-1l': {
+    title: '🟠 US LMS 一線對照',
+    trials: ['lms-04', 'eortc-62012', 'geddis'],
+    columns: [
+      {label: '方案', getter: (t) => ({'lms-04':'Dox+Trab', 'eortc-62012':'Dox+Ifo', geddis:'Gem+Doce'})[t.id] || '-'},
+      {label: 'mPFS', getter: (t) => ({'lms-04':'12.2 vs 6.2m ✅', 'eortc-62012':'7.4 vs 4.6m', geddis:'5.5 vs 5.4m'})[t.id] || '-'},
+      {label: '主終點', getter: (t) => ({'lms-04':'✅ HR 0.41', 'eortc-62012':'❌ OS NS', geddis:'❌ HR 1.14'})[t.id] || '-'},
+      {label: '結論', getter: (t) => ({'lms-04':'uLMS 一線新標準', 'eortc-62012':'ORR 翻倍但 OS 失利', geddis:'Gem/Doce 不優於 Dox'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== US LMS 二線 =====
+  'us-lms-2l': {
+    title: '🟠 US LMS 後線對照 (TKI vs cytotoxic)',
+    trials: ['et743-sar-3007', 'palette', 'regosarc', 'eribulin-vs-dacarbazine', 'olaparib-tmz'],
+    columns: [
+      {label: '藥物', getter: (t) => ({'et743-sar-3007':'Trabectedin', palette:'Pazopanib', regosarc:'Regorafenib', 'eribulin-vs-dacarbazine':'Eribulin', 'olaparib-tmz':'Olap+TMZ'})[t.id] || '-'},
+      {label: '機制', getter: (t) => ({'et743-sar-3007':'DNA-binding', palette:'TKI', regosarc:'TKI', 'eribulin-vs-dacarbazine':'Microtubule', 'olaparib-tmz':'PARP+alkyl'})[t.id] || '-'},
+      {label: 'PFS HR', getter: (t) => ({'et743-sar-3007':'0.55 ✅', palette:'0.31 ✅', regosarc:'0.46 (LMS subgroup)', 'eribulin-vs-dacarbazine':'(OS 0.77, LMS NS)', 'olaparib-tmz':'phase II'})[t.id] || '-'},
+      {label: 'FDA', getter: (t) => ({'et743-sar-3007':'✅ LMS', palette:'✅ 非脂肪肉瘤', regosarc:'整體 NS', 'eribulin-vs-dacarbazine':'✅ LPS only', 'olaparib-tmz':'III 期中'})[t.id] || '-'},
+    ],
+  },
+
+};
+
+// Map: trial id → list of group ids it belongs to
+const TRIAL_TO_CMP_GROUPS = {};
+Object.entries(TRIAL_CMP_GROUPS).forEach(([gid, g]) => {
+  g.trials.forEach(tid => {
+    if(!TRIAL_TO_CMP_GROUPS[tid]) TRIAL_TO_CMP_GROUPS[tid] = [];
+    TRIAL_TO_CMP_GROUPS[tid].push(gid);
+  });
+});
+
+
+// ============================================================
+// 🧠 數字記憶法 (Number Mnemonics)
+// ============================================================
+// Map specific numbers/HR values to memorable hooks
+
+const NUMBER_HOOKS = {
+  // Trial-specific number memory hooks
+  'gy018-pfs-dmmr':  { val:'HR 0.30',  hook:'三十而立 — dMMR 三成風險 (七成保留)' },
+  'gy018-pfs-pmmr':  { val:'HR 0.54',  hook:'五五波 (略過半保留風險, 但顯著)' },
+  'ruby-p1-dmmr':    { val:'HR 0.28',  hook:'近三成風險 (略低於 GY018)' },
+  'ruby-p1-os':      { val:'HR 0.69',  hook:'六九, ITT OS 顯著' },
+  'solo-1-pfs':      { val:'HR 0.33',  hook:'三分之一風險 (PARPi 經典)' },
+  'solo-1-pfs-5y':   { val:'56 vs 13.8m', hook:'五十六比十三 (4 倍延長)' },
+  'solo-1-os-7y':    { val:'HR 0.55',  hook:'五五對開 (BRCAm 7年 OS 真延長)' },
+  'paola-1-hrd':     { val:'HR 0.33',  hook:'三分之一 (與 SOLO-1 同等強度)' },
+  'paola-1-pfs':     { val:'37 vs 17.7m', hook:'三十七比十七 (HRD+ 翻倍)' },
+  'prima-hrd':       { val:'HR 0.43',  hook:'四三比 (HRD+, 但 OS 翻盤失敗)' },
+  'prima-itt':       { val:'HR 0.62',  hook:'六二, ITT 顯著但 OS NS' },
+  'keynote-826-cps': { val:'mOS 28.6 vs 16.5m', hook:'二八對一六五 (CPS≥1 強)' },
+  'keynote-826-hr':  { val:'HR 0.60',  hook:'六比四, CPS≥1 顯著' },
+  'beatcc-os':       { val:'mOS 32.1 vs 22.8m', hook:'三二對二二, BEATcc 不需 CPS' },
+  'gog-240-os':      { val:'mOS 16.8 vs 13.3m', hook:'十六八比十三三 (Bev R/M 第一里程碑)' },
+  'mirasol-pfs':     { val:'HR 0.65',  hook:'六五, FRα PROC' },
+  'mirasol-os':      { val:'HR 0.67',  hook:'六七, FDA full approval' },
+  'lms-04-pfs':      { val:'12.2 vs 6.2m', hook:'十二比六 (uLMS 翻倍)' },
+  'lms-04-hr':       { val:'HR 0.41',  hook:'四一, Dox+Trab > Dox' },
+  'keynote-a18-os':  { val:'OS HR 0.67', hook:'六七, 與 MIRASOL 巧合相同 (兩個 PD-1 主導試驗)' },
+  'keynote-a18-pfs': { val:'24m PFS 67.8 vs 57.3', hook:'placebo 五七 (低 → IO 加成空間大)' },
+  'calla-pfs':       { val:'HR 0.84 NS',  hook:'八四 NS (placebo 已六二, 加成小)' },
+  'gog-218-pfs':     { val:'HR 0.717', hook:'七一七 (Bev 一線 PFS+)' },
+  'icon7-os-hr':     { val:'OS HR 0.78', hook:'high-risk 七八, 延 4.8m' },
+  'jgog-os':         { val:'mOS 100 vs 62m', hook:'一百比六二 (亞洲奇蹟, 西方未複製)' },
+  'gog-172-os':      { val:'mOS 65.6 vs 49.7m', hook:'六十五比五十 (IP +16m)' },
+  'lion-pfs-hr':     { val:'OS HR 1.06', hook:'一零六, 系統淋巴清掃無效' },
+  'aurelia-pfs':     { val:'6.7 vs 3.4m', hook:'六七比三四 (PROC 翻倍)' },
+  'aurelia-hr':      { val:'HR 0.48',   hook:'四八, PROC + Bev 強' },
+  'palette-pfs':     { val:'4.6 vs 1.6m', hook:'四六比一六 (Pazopanib 三倍)' },
+  'palette-hr':      { val:'HR 0.31',   hook:'三一, 非脂肪肉瘤 TKI 強' },
+  'et743-pfs':       { val:'HR 0.55',   hook:'五五, Trab vs Dacar 老藥對決' },
+  'gog-281-hr':      { val:'HR 0.48',   hook:'四八, Trametinib LGSOC' },
+  'lacc-mis':        { val:'HR 3.74',   hook:'三點七四倍復發 — MIS 範式翻轉' },
+};
+
+
+
 const TRIAL_MNEMONICS = {
 
 // ========== EC 一線 + 一線維持 完整 13 個試驗口訣 (v2: 名稱+藥物+特色) ==========
@@ -18752,6 +19034,54 @@ function renderTrialMnemonic(trialId){
   const m = TRIAL_MNEMONICS[trialId];
   if(!m) return '';
 
+  // 🔗 Cross-reference groups this trial belongs to
+  const groupIds = (typeof TRIAL_TO_CMP_GROUPS !== 'undefined') ? (TRIAL_TO_CMP_GROUPS[trialId] || []) : [];
+  let xrefHtml = '';
+  groupIds.forEach(gid => {
+    const grp = TRIAL_CMP_GROUPS[gid];
+    if(!grp) return;
+    // Build comparison table
+    const trials = grp.trials.map(tid => TRIALS.find(t => t.id === tid)).filter(Boolean);
+    if(trials.length < 2) return;
+    
+    let tbl = `<details class="tmc-xref-block">
+      <summary class="tmc-xref-summary">${escapeHtml(grp.title)} <span class="tmc-xref-count">(${trials.length} 試驗)</span></summary>
+      <div class="tmc-xref-tbl-wrap">
+      <table class="tmc-xref-tbl">
+      <thead><tr><th>試驗</th>`;
+    grp.columns.forEach(c => { tbl += `<th>${escapeHtml(c.label)}</th>`; });
+    tbl += `</tr></thead><tbody>`;
+    trials.forEach(t => {
+      const isCurrent = t.id === trialId;
+      tbl += `<tr class="${isCurrent?'is-current':''}">`;
+      tbl += `<td class="trial-name-cell">${isCurrent?'⭐ ':''}<b>${escapeHtml(t.name)}</b></td>`;
+      grp.columns.forEach(col => {
+        const v = col.getter(t);
+        tbl += `<td>${escapeHtml(String(v||'-'))}</td>`;
+      });
+      tbl += `</tr>`;
+    });
+    tbl += `</tbody></table></div></details>`;
+    xrefHtml += tbl;
+  });
+
+  // 🧠 Number memory hooks for this trial (filter by trialId prefix)
+  let hooksHtml = '';
+  if(typeof NUMBER_HOOKS !== 'undefined'){
+    const trialHooks = Object.entries(NUMBER_HOOKS).filter(([k]) => k.startsWith(trialId));
+    if(trialHooks.length > 0){
+      hooksHtml = `<details class="tmc-hooks-block"><summary class="tmc-hooks-summary">🧠 數字記憶法 <span class="tmc-xref-count">(${trialHooks.length} 個)</span></summary><div class="tmc-hooks-list">`;
+      trialHooks.forEach(([k, h]) => {
+        hooksHtml += `<div class="tmc-hook-row">
+          <span class="tmc-hook-num">${escapeHtml(h.val)}</span>
+          <span class="tmc-hook-arrow">→</span>
+          <span class="tmc-hook-text">${escapeHtml(h.hook)}</span>
+        </div>`;
+      });
+      hooksHtml += `</div></details>`;
+    }
+  }
+
   return `
     <div class="trial-mnemonic-card">
       <div class="tmc-label">🧠 試驗記憶口訣</div>
@@ -18770,6 +19100,8 @@ function renderTrialMnemonic(trialId){
         ${m.numbers ? `<div class="tmc-extra-row"><span class="tmc-extra-label">📍 數字</span> ${escapeHtml(m.numbers)}</div>` : ''}
         ${m.pitfalls ? `<div class="tmc-extra-row warn"><span class="tmc-extra-label">⚠️ 易錯</span> ${escapeHtml(m.pitfalls)}</div>` : ''}
       </div>
+      ${hooksHtml}
+      ${xrefHtml}
     </div>
   `;
 }
