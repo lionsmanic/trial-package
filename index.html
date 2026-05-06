@@ -3563,6 +3563,32 @@ const TRIALS = [
 
 {
   cancer:"EC",
+  id:"keynote-158",
+  phase:["R-TX"],
+  status:"published",
+  name:"KEYNOTE-158",
+  fullName:"KEYNOTE-158 (Phase II, multi-cohort basket trial)",
+  pharma:"Merck (MSD)",
+  drug:"Pembrolizumab 單藥",
+  tagline:"dMMR 跨癌別 basket trial 開山: EC ORR 46% (Cohort D+K), 跨癌別 ORR 33-34%, FDA 2017 跨癌別 dMMR 加速核准基礎; 2023 升 full approval。CC 子群 ORR 14.6% (CPS≥1) 亦獲 FDA 加速核准 (2018)。",
+  rationale:"MSI-H/dMMR 腫瘤具有極高 TMB 與新抗原負荷, 為 PD-1 阻斷的最佳適應族群。KEYNOTE-158 為跨癌別 (multi-cohort basket) phase II, 納入 27+ 種腫瘤類型, 確立「dMMR 跨癌別」(tumor-agnostic) 為首個生物標記指引的 FDA 適應症典範 — 與組織學脫鉤, 由分子特徵決定治療。同時 cervical cancer cohort 為首個 PD-L1 CPS≥1 適應症 (2018 加速核准)。",
+  regimen:"Phase II 籃式試驗 (multi-cohort, single-arm)\n11 個主 cohort, 27+ 種腫瘤類型\n\n關鍵 Cohort:\n  • Cohort D: MSI-H/dMMR 非結直腸實體癌 (含 EC)\n  • Cohort K: MSI-H 任何實體癌 (排除 CRC)\n  • Cohort E: PD-L1+ 子宮頸癌\n  • Cohort A-J: 各類 PD-L1+ 實體癌\n\n給藥方案:\n  Pembrolizumab 200mg IV Q3W\n  治療最長 35 cycles (~24 個月) 或至 PD / 不可耐受",
+  inc:["不可切除或轉移性實體癌","至少 1 線標準治療後進展或不耐受","可測量病灶 (RECIST v1.1)","ECOG 0-1","可提供腫瘤檢體進行 biomarker 分析","【Cohort D/K】MSI-H (PCR) 或 dMMR (IHC)","【Cohort E】PD-L1 CPS ≥1 (cervical squamous/adeno/adenosquamous)"],
+  exc:["先前接受 anti-PD-(L)1 治療","活動性自體免疫疾病需治療","活動性 CNS 轉移","活動性肝炎 B/C","免疫缺失或長期類固醇","2 年內其他活動性惡性腫瘤"],
+  outcomes:"【MSI-H/dMMR 全人群 (Cohort D+K, n=233)】ORR 34.3% (CR 10.3%, PR 24.0%); mDOR 未達到; 24m+ DOR 維持 77.6%; mPFS 4.1m; mOS 23.5m\n\n【EC cohort (n=90, 來自 Cohort D 11 + Cohort K 79)】ORR 46% (CR 12%, PR 33%); mDOR 未達 (FU 16m); FDA approval 2022\n\n【PD-L1+ Cervical cohort (n=82-98)】ORR 14.3-17.1%; CR 5%; DCR 30.6%; mDOR 未達; mPFS 2.1m; mOS 11.0m → FDA accelerated approval 2018\n\n【跨癌別 MSI-H/dMMR 非 CRC (n=380, 全合併)】ORR 33%; DOR 1.9+ ~ 63.9+ months",
+  enrolled:"全試驗總計: 1100+ patients (跨 27+ 種腫瘤類型)\n\n關鍵子群:\n  • Cohort D (非 CRC MSI-H/dMMR): 233 patients\n  • Cohort K (任何 MSI-H 實體癌, 排除 CRC): 較大規模\n  • EC subset: 90 patients\n  • Cervical PD-L1+ subset: 98 patients (squamous + adeno + adenosquamous)\n  • 與 KEYNOTE-164 (CRC) 合併分析\n\n資料截止: 多次 interim, 最新 2023 (full approval)",
+  hist:"【EC cohort (n=90)】\n  • 子宮內膜樣腺癌 ~80%\n  • 漿液腺癌 ~10%\n  • 其他 (包含癌肉瘤等) ~10%\n\n【Cervical cohort (n=98)】\n  • Squamous cell carcinoma (~80%)\n  • Adenocarcinoma (~15%)\n  • Adenosquamous (~5%)\n\n【MSI-H/dMMR 跨癌別 (n=380 非 CRC)】涵蓋:\n  胃癌 / 小腸癌 / 腦腫瘤 / 卵巢 / 膽道 / 胰臟 / 肉瘤 / 乳癌 / 子宮頸癌 / 神經內分泌 / 攝護腺 / 腎上腺 / 間皮瘤 / 甲狀腺 / SCLC / 膀胱 / 唾液腺 / 腎細胞 / 肛門 / 頭頸部鱗癌 / 鼻咽 / 後腹腔 / 睪丸 / 陰道 / 外陰 / 闌尾腺癌 / 肝細胞癌 / unknown primary",
+  stageDist:"不可切除 / 轉移性疾病為主\n95% 為 Stage IV / metastatic\n預治療線數: 中位 1-2 線 (48% ≥2 線)\n\nEC cohort 預治療: 含鉑化療後進展為主",
+  tech:"【生物標記檢測】MSI-H/dMMR 雙軌檢測 (FDA-approved tests):\n  • PCR (Promega MSI Analysis System): 5 微衛星位點, 2+ 不穩 = MSI-H\n  • IHC (4 蛋白): MLH1/PMS2/MSH2/MSH6 任一缺失 = dMMR\n  • 雙陽性一致率 >95%\n\n【Cervical PD-L1 檢測】Dako 22C3 IHC, CPS ≥1 為陽性\n  CPS = (PD-L1+ 腫瘤細胞 + 淋巴細胞 + 巨噬細胞) / 總腫瘤細胞 × 100\n\n【ICI 給藥】Pembrolizumab 200mg fixed-dose IV Q3W, 最長 35 cycles\n\n【安全性】(整體 KEYNOTE-158)\n  • TRAE 任何級別: 65.3-71%\n  • G3-4 TRAE: 12.2-15%\n  • 免疫相關 AE: 甲狀腺低下 (10%), 大腸炎 (3-4%), 肺炎 (2-3%)\n  • 治療相關死亡 <1%\n\n【響應持久性】\n  • 24m DOR 維持率 77.6% (跨癌別)\n  • DOR 範圍: 1.9+ 月 ~ 63.9+ 月 (>5 年)\n  • 2023 升 full approval 即根據此持久性數據",
+  subgroup:"【EC cohort (n=90), pivotal for FDA EC approval 2022】\n  • ORR 46% (CR 12% + PR 33%)\n  • mDOR 未達 (median FU 16m)\n  • 含 1 線 (n=38) 與 ≥2 線 (n=41) 預治療: ORR 相似\n  • 直接導致 FDA 2022 EC 適應症\n\n【Cervical PD-L1+ cohort (n=82-98)】\n  • ORR 14.3-17.1% (CPS≥1)\n  • PD-L1- (n=16): ORR 0%\n  • mDOR 未達\n  • 7/14 響應者 ≥24m 持續\n  • 2018 FDA accelerated approval (cervical 2L+, CPS≥1)\n  • 後被 KEYNOTE-826 (1L+chemo±Bev) 取代\n\n【MSI-H/dMMR 跨癌別 (n=233, Cohort D+K)】\n  • 全人群 ORR 34.3%\n  • EC 46%, gastric 45.8%, small bowel 42.1%, neuroendocrine 30.0%\n  • 其他: 卵巢 ~33%, 子宮頸 ~14%, 肝細胞癌 ~14%\n\n【按預治療線數】\n  • 1L: ORR 41.6% (highest)\n  • 2L: ORR 31.7%\n  • ≥3L: ORR 35.4%\n\n【Tumor-agnostic 意義】\n  • 首個生物標記指引的 FDA 跨癌別適應症 (2017)\n  • 改變 oncology 範式: 由組織學 → 分子特徵\n  • 啟動 NTRK / RET / TMB-high / TF-ADC 等後續 tumor-agnostic 申請",
+  combo:"無聯用 — Pembrolizumab monotherapy\n\n後續衍生與整合:\n  • EC 1L: KEYNOTE-868/NRG-GY018 (Pembro+chemo)\n  • EC 2L+: KEYNOTE-775 (Pembro+Lenvatinib)\n  • CC 1L: KEYNOTE-826 (Pembro+chemo±Bev)\n  • CC LACC: KEYNOTE-A18 (Pembro+CCRT)\n  • dMMR 一線: KEYNOTE-C93/GY020 (challenge SOC chemo)",
+  guideline:"【FDA】\n  2017-May: 首個跨癌別 (tumor-agnostic) MSI-H/dMMR 適應症 (accelerated)\n  2018-Jun: 子宮頸癌 PD-L1 CPS≥1 (2L+, accelerated)\n  2022-Mar: 子宮內膜癌 dMMR/MSI-H 復發 (accelerated)\n  2023-Mar: 跨癌別 MSI-H/dMMR 升 full approval\n\n【NCCN】\n  EC: Category 1 for dMMR recurrent (Pembro 為 preferred 單藥 ICI)\n  CC: Category 2A for PD-L1+ 2L+ (但已大多被 KEYNOTE-826 1L 方案取代)\n\n【EMA】2017 跨癌別核准, 2022 EC 適應症\n【台灣食藥署】已核准跨癌別 MSI-H/dMMR + EC + CC PD-L1+",
+  nct:"NCT02628067",
+  publication:"NEJM 2017 Le et al. (跨癌別 MSI-H 初步); JCO 2019 Chung et al. (cervical cancer cohort); JCO 2022 O'Malley et al. (EC cohort, FU 16m); Marabelle et al. JCO 2020 (跨癌別 non-CRC); 2023 FDA full approval (KEYNOTE-158+164+051 合併)"
+},
+
+{
+  cancer:"EC",
   id:"destiny-pantumor02",
   phase:["R-TX"],
   status:"published",
@@ -8911,6 +8937,15 @@ const TRIAL_RULES = {
     ecog: [0, 1],
     notes: 'GARNET: MMRd 後線單藥 IO'
   },
+  'keynote-158': {
+    cancer: ['EC', 'CC', 'tumor-agnostic'],
+    stages: ['recurrent', 'metastatic'],
+    line: '2L+',
+    molecular: { any: ['MMRd', 'MSI-H', 'PD-L1-CPS'] },
+    prior: { required: ['prior_systemic'] },
+    ecog: [0, 1],
+    notes: 'KEYNOTE-158: 跨癌別 basket trial; dMMR/MSI-H 跨癌核准 (2017 → 2023 full); EC dMMR (2022); CC PD-L1+ CPS≥1 (2018, 後被 KEYNOTE-826 取代)'
+  },
   'destiny-pantumor02': {
     cancer: ['EC', 'OC', 'CC'],
     stages: ['recurrent'],
@@ -9316,7 +9351,7 @@ const CURATED_CORE_TRIALS = new Set([
   'gy018', 'ruby-p1', 'duo-e', 'attend', 'keynote-b21',
   'siendo', 'ruby-p2', 'duo-e-maint', 'rainbo-program', 'portec-4a',
   // === EC 復發 ===
-  'keynote-775', 'garnet', 'destiny-pantumor02', 'keynote-c93',
+  'keynote-775', 'garnet', 'keynote-158', 'destiny-pantumor02', 'keynote-c93',
 
   // === OC 一線 / 化療 / 手術 ===
   'gog-0218', 'icon7', 'jgog3016', 'eortc-55971',
@@ -11640,7 +11675,7 @@ const MNEMONICS = {
     ],
     numbers: 'EC ~28% · IO ORR 50%+ · GY018/RUBY P1 PFS HR ~0.30',
     pitfalls: 'MLH1+PMS2 雙缺失才需 methylation; BRAF V600E 在 EC 不適用',
-    trials: 'GY018 · RUBY P1 · GARNET · KEYNOTE-C93',
+    trials: 'GY018 · RUBY P1 · GARNET · KEYNOTE-158 · KEYNOTE-C93',
   },
 
   'p53abn': {
@@ -11724,7 +11759,7 @@ const MNEMONICS = {
     ],
     numbers: 'CPS ≥1 → KEYNOTE-826 OS HR 0.64 · CC R/M ~80% CPS+ · CCRT KEYNOTE-A18 PFS HR 0.70',
     pitfalls: 'CPS ≠ TPS (常考錯); 22C3 是 FDA companion diagnostic',
-    trials: 'KEYNOTE-826 (1L R/M) · KEYNOTE-A18 (LACC) · BEATcc (CPS<1 替代)',
+    trials: 'KEYNOTE-826 (1L R/M) · KEYNOTE-A18 (LACC) · BEATcc (CPS<1 替代) · KEYNOTE-158 (2L+ 開山)',
   },
 
   'HPV16': {
@@ -11979,7 +12014,7 @@ const MNEMONICS = {
     ],
     numbers: 'MSI-H 偶見 (<5% CC) · NTRK <1% · RET <2% · TMB-H ~5%',
     pitfalls: '罕見但 high-impact, 標準耗盡時必查',
-    trials: 'Basket trials · Tumor-agnostic FDA approvals',
+    trials: 'KEYNOTE-158 (MSI-H 跨癌開山) · NTRK Basket · DESTINY-PanTumor02 (HER2)',
   },
 
   'LG-ESS': {
@@ -12387,6 +12422,40 @@ const KM_DATA = {
           { name: 'Dostar 單藥', color: '#0891b2', data: [[0,1],[6,0.95],[12,0.92],[18,0.88],[24,0.84],[30,0.80],[36,0.78]] },
         ],
         note: '【dMMR DOR】24m 緩解機率 83.7% (single-arm); ORR 45.5%',
+        singleArm: true,
+      },
+    ],
+  },
+
+  'keynote-158': {
+    title: 'KEYNOTE-158: Pembro 單藥 (basket trial, single-arm)',
+    cancer: 'EC', primaryEndpoint: 'ORR',
+    curves: [
+      {
+        endpoint: 'DOR', subgroup: 'EC dMMR (Cohort D+K, n=90)',
+        median1: 'NR', median2: null, hr: null, ci: null, p: null,
+        arms: [
+          { name: 'Pembro 單藥 (EC dMMR)', color: '#dc2626', data: [[0,1],[6,0.95],[12,0.90],[18,0.86],[24,0.82],[30,0.78],[36,0.75],[48,0.72]] },
+        ],
+        note: '【EC dMMR DOR】ORR 46%, 24m+ DOR 維持高 — FDA EC 適應症 (2022)',
+        singleArm: true,
+      },
+      {
+        endpoint: 'DOR', subgroup: 'MSI-H/dMMR 跨癌別 (n=233)',
+        median1: 'NR', median2: null, hr: null, ci: null, p: null,
+        arms: [
+          { name: 'Pembro 單藥 (MSI-H 跨癌)', color: '#7c3aed', data: [[0,1],[6,0.92],[12,0.86],[18,0.82],[24,0.78],[36,0.72],[48,0.68]] },
+        ],
+        note: '【跨癌別 DOR】ORR 33-34%, 24m+ DOR 維持 77.6% — Tumor-agnostic 範式翻轉 (2017)',
+        singleArm: true,
+      },
+      {
+        endpoint: 'OS', subgroup: 'CC PD-L1+ (CPS≥1, n=98)',
+        median1: 11.0, median2: null, hr: null, ci: null, p: null,
+        arms: [
+          { name: 'Pembro 單藥 (CC PD-L1+)', color: '#059669', data: [[0,1],[3,0.85],[6,0.70],[9,0.55],[11,0.50],[12,0.48],[18,0.32],[24,0.20]] },
+        ],
+        note: '【CC CPS≥1 OS】ORR 14.6%, mOS 11m — 已被 KEYNOTE-826 (1L+chemo±Bev) 取代',
         singleArm: true,
       },
     ],
@@ -13136,12 +13205,24 @@ const TRIAL_CMP_GROUPS = {
   // ===== EC dMMR 去化療策略 =====
   'ec-dmmr-deescalation': {
     title: '🟣 EC dMMR 去化療策略對照',
-    trials: ['garnet', 'keynote-c93'],
+    trials: ['keynote-158', 'garnet', 'keynote-c93'],
     columns: [
-      {label: '方案', getter: (t) => ({garnet:'Dostar 單藥', 'keynote-c93':'Pembro 單藥 vs 含鉑化療'})[t.id] || '-'},
-      {label: '族群', getter: (t) => ({garnet:'dMMR 復發 single-arm', 'keynote-c93':'dMMR 1L RCT'})[t.id] || '-'},
-      {label: '結果', getter: (t) => ({garnet:'ORR 45.5%, DOR 24m 83.7%', 'keynote-c93':'PFS HR 0.30 ✅'})[t.id] || '-'},
-      {label: '地位', getter: (t) => ({garnet:'FDA 加速核准', 'keynote-c93':'挑戰 SOC 化療'})[t.id] || '-'},
+      {label: '方案', getter: (t) => ({'keynote-158':'Pembro 單藥 (2L+)', garnet:'Dostar 單藥 (2L+)', 'keynote-c93':'Pembro 單藥 vs 含鉑化療 (1L)'})[t.id] || '-'},
+      {label: '族群', getter: (t) => ({'keynote-158':'dMMR 跨癌 basket', garnet:'dMMR 復發 single-arm', 'keynote-c93':'dMMR 1L RCT'})[t.id] || '-'},
+      {label: '結果', getter: (t) => ({'keynote-158':'EC ORR 46% / 跨癌 ORR 33-34%', garnet:'ORR 45.5%, DOR 24m 83.7%', 'keynote-c93':'PFS HR 0.30 ✅'})[t.id] || '-'},
+      {label: '地位', getter: (t) => ({'keynote-158':'Tumor-agnostic 開山 (2017→2023 full)', garnet:'FDA 加速核准 (2021→2023 full)', 'keynote-c93':'挑戰 SOC 化療'})[t.id] || '-'},
+    ],
+  },
+
+  // ===== Tumor-agnostic 跨癌別試驗 =====
+  'tumor-agnostic': {
+    title: '🌐 Tumor-agnostic 跨癌別試驗 (生物標記指引)',
+    trials: ['keynote-158', 'destiny-pantumor02', 'ntrk-basket'],
+    columns: [
+      {label: 'Biomarker', getter: (t) => ({'keynote-158':'MSI-H/dMMR + PD-L1+', 'destiny-pantumor02':'HER2 IHC 3+/2+', 'ntrk-basket':'NTRK fusion'})[t.id] || '-'},
+      {label: '藥物', getter: (t) => ({'keynote-158':'Pembrolizumab', 'destiny-pantumor02':'T-DXd (HER2-ADC)', 'ntrk-basket':'Larotrectinib / Entrectinib'})[t.id] || '-'},
+      {label: '主要 ORR', getter: (t) => ({'keynote-158':'33-34% (跨癌 dMMR), EC 46%', 'destiny-pantumor02':'37.1% 整體, IHC3+ 51.4%', 'ntrk-basket':'~75% 跨癌'})[t.id] || '-'},
+      {label: 'FDA 核准', getter: (t) => ({'keynote-158':'2017 加速 → 2023 full', 'destiny-pantumor02':'2024 IHC 3+ tumor-agnostic', 'ntrk-basket':'2018-2019 加速核准'})[t.id] || '-'},
     ],
   },
 
@@ -13220,6 +13301,13 @@ const NUMBER_HOOKS = {
   'keynote-775-os-pmmr':  { val:'HR 0.70', endpoint:'OS',  subgroup:'pMMR', hook:'七零, pMMR OS+18m vs 12m' },
   'garnet-orr-dmmr':      { val:'ORR 45.5%', endpoint:'ORR', subgroup:'dMMR (single-arm)', hook:'四五五, dMMR ICI 黃金' },
   'garnet-dor-dmmr':      { val:'24m DOR 83.7%', endpoint:'DOR', subgroup:'dMMR (single-arm)', hook:'八三七, 反應極持久' },
+  'keynote-158-orr-ec':       { val:'ORR 46%', endpoint:'ORR', subgroup:'EC dMMR (Cohort D+K, n=90)', hook:'四六, EC dMMR 後線 Pembro 反應率' },
+  'keynote-158-cr-ec':        { val:'CR 12% + PR 33%', endpoint:'ORR', subgroup:'EC dMMR (n=90)', hook:'CR 一二 PR 三三, EC 完全緩解率高' },
+  'keynote-158-orr-pancancer': { val:'ORR 33-34%', endpoint:'ORR', subgroup:'MSI-H/dMMR 跨癌別 (n=233-380)', hook:'三三跨癌別, basket trial 平均反應率' },
+  'keynote-158-dor-pancancer': { val:'24m+ DOR 77.6%', endpoint:'DOR', subgroup:'MSI-H/dMMR 跨癌別', hook:'七七六, 24m 仍有反應 — 持久性極佳' },
+  'keynote-158-orr-cc':       { val:'ORR 14.3-17.1%', endpoint:'ORR', subgroup:'CC PD-L1+ CPS≥1 (n=82-98)', hook:'CC 十四到十七, CPS≥1 才有反應' },
+  'keynote-158-orr-cc-neg':   { val:'PD-L1- ORR 0%', endpoint:'ORR', subgroup:'CC PD-L1- (CPS<1)', hook:'⚠️ PD-L1 陰性零反應 — biomarker 高度依賴', warn:true },
+  'keynote-158-os-cc':        { val:'mOS 11.0m', endpoint:'OS', subgroup:'CC PD-L1+ ITT', hook:'CC 十一月, 已被 KEYNOTE-826 1L 取代' },
   'destiny-pt02-orr':     { val:'ORR 57.5% (整體) / 84.6% (IHC3+)', endpoint:'ORR', subgroup:'EC HER2+ (single-arm)', hook:'整體五七五 IHC3+ 八四六, 翻倍受益' },
 
   // === OC 一線 ===
@@ -13512,6 +13600,19 @@ const TRIAL_MNEMONICS = {
     keypoint: 'Recurrent dMMR EC 後線 IO 單藥; FDA 加速核准 (2021)',
     numbers: 'dMMR ORR 45.5% (CR 16.1%) · pMMR ORR 15.4% · mDOR 未達到',
     pitfalls: 'pMMR ORR 低 (<15%); 主要對 MMRd 有效; 為單臂試驗 (cohort A1 vs A2)',
+  },
+
+  'keynote-158': {
+    main: '💎 「KEYNOTE-158 用 Pembro 單藥, dMMR 跨癌開山, EC ORR 46」',
+    breakdown: [
+      { key: 'KEYNOTE-158', meaning: 'KEYNOTE-158 (basket trial, 試驗名)' },
+      { key: 'Pembro 單藥', meaning: 'Pembrolizumab 200mg Q3W (no chemo)' },
+      { key: 'dMMR 跨癌開山', meaning: '【特色】首個 tumor-agnostic FDA 適應症 (2017), 由分子定義適應症' },
+      { key: 'EC ORR 46', meaning: '【關鍵數字】EC cohort ORR 46% (CR 12% + PR 33%, n=90)' },
+    ],
+    keypoint: 'Tumor-agnostic dMMR/MSI-H 範式翻轉 — 不問組織學, 看分子; 跨 27+ 癌種; 同時催生 CC PD-L1+ 後線適應症',
+    numbers: 'EC dMMR ORR 46% · 跨癌別 ORR 33-34% · CC CPS≥1 ORR 14.6% · 24m+ DOR 維持 77.6%',
+    pitfalls: 'PD-L1- CC 完全無反應 (ORR 0%); pre-treated 設定 (≥1L); 為單臂籃式試驗; CC 適應症已被 KEYNOTE-826 1L 取代',
   },
 
   'destiny-pantumor02': {
