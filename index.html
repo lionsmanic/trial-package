@@ -972,6 +972,10 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .timeline-legend-toggle:hover{background:rgba(255,255,255,0.25);}
 .timeline-legend-toggle.is-active{background:#a7f3d0;color:#134e4a;border-color:#a7f3d0;}
 
+/* Toolbar quiz action button (全顯 / 全隱) */
+.timeline-quiz-action{padding:6px 11px;border-radius:8px;border:1.5px solid #fbbf24;background:#fef3c7;color:#7c2d12;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.timeline-quiz-action:hover{background:#fde68a;transform:translateY(-1px);}
+
 /* HR Tier pill in hooks */
 .hr-tier-pill{display:inline-block;padding:1px 7px;border-radius:5px;color:white;font-size:9.5px;font-weight:900;margin-right:4px;letter-spacing:0.04em;}
 
@@ -983,12 +987,21 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 /* 📜 詵學讚 (Verse) — Timeline 卡片內版本 */
 .tl-mn-verse{font-size:12.5px;font-weight:700;color:#0c4a6e;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);padding:7px 10px;border-radius:6px;border-left:3px solid #0284c7;line-height:1.75;margin:5px 0 4px;font-family:"Source Han Serif TC","Noto Serif TC",serif;letter-spacing:0.04em;}
 
-/* Quiz mode: hide verse too */
+/* === Quiz mode: click-to-toggle reveal === */
+/* Default state: hidden (gray) */
 .tl-mn-card.is-quiz .tl-mn-verse{
-  background:#475569;color:transparent !important;cursor:pointer;
+  background:#475569 !important;color:transparent !important;cursor:pointer;border-left-color:#475569 !important;transition:all 0.2s;user-select:none;
 }
+/* Hover preview (subtle, non-permanent) */
 .tl-mn-card.is-quiz .tl-mn-verse:hover{
-  background:linear-gradient(135deg,#f0f9ff,#e0f2fe);color:#0c4a6e !important;
+  background:#64748b !important;
+}
+/* Revealed (after click) */
+.tl-mn-card.is-quiz .tl-mn-verse.is-revealed{
+  background:linear-gradient(135deg,#f0f9ff,#e0f2fe) !important;color:#0c4a6e !important;border-left-color:#0284c7 !important;
+}
+.tl-mn-card.is-quiz .tl-mn-verse.is-revealed:hover{
+  background:linear-gradient(135deg,#e0f2fe,#bae6fd) !important;
 }
 
 @media(max-width:640px){
@@ -999,24 +1012,53 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 /* Phonetic mnemonic span */
 .hook-phon{margin-left:4px;font-size:10.5px;color:#7c2d12;background:#fef3c7;padding:1px 6px;border-radius:4px;font-weight:800;cursor:help;}
 
-/* Quiz mode: hide numbers */
+/* Quiz mode hooks: click-to-toggle */
 .tl-mn-card.is-quiz .tl-mn-hook .tl-mn-hook-val,
 .tl-mn-card.is-quiz .tl-mn-hook .hook-phon{
-  background:#475569;color:#475569 !important;border-radius:3px;padding:1px 5px;cursor:pointer;transition:all 0.2s;
+  background:#475569 !important;color:#475569 !important;border-radius:3px;padding:1px 5px;cursor:pointer;transition:all 0.2s;user-select:none;
 }
 .tl-mn-card.is-quiz .tl-mn-hook .tl-mn-hook-val:hover,
 .tl-mn-card.is-quiz .tl-mn-hook .hook-phon:hover{
-  background:#fef3c7;color:#7c2d12 !important;
+  background:#64748b !important;
 }
+.tl-mn-card.is-quiz .tl-mn-hook .tl-mn-hook-val.is-revealed{
+  background:#fef3c7 !important;color:#7c2d12 !important;
+}
+.tl-mn-card.is-quiz .tl-mn-hook .hook-phon.is-revealed{
+  background:#fef3c7 !important;color:#7c2d12 !important;
+}
+
+/* Quiz mode main: click-to-toggle */
 .tl-mn-card.is-quiz .tl-mn-main{
-  background:#475569;color:transparent !important;cursor:pointer;border-radius:6px;
+  background:#475569 !important;color:transparent !important;cursor:pointer;border-radius:6px;transition:all 0.2s;user-select:none;
 }
 .tl-mn-card.is-quiz .tl-mn-main:hover{
-  background:rgba(255,255,255,0.7);color:#7c2d12 !important;
+  background:#64748b !important;
 }
+.tl-mn-card.is-quiz .tl-mn-main.is-revealed{
+  background:transparent !important;color:#0c1f3d !important;
+}
+
+/* Quiz mode keypoint: click-to-toggle */
+.tl-mn-card.is-quiz .tl-mn-keypoint{
+  background:#475569 !important;color:transparent !important;cursor:pointer;border-radius:6px;transition:all 0.2s;user-select:none;
+}
+.tl-mn-card.is-quiz .tl-mn-keypoint:hover{
+  background:#64748b !important;
+}
+.tl-mn-card.is-quiz .tl-mn-keypoint.is-revealed{
+  background:#f0fdf4 !important;color:#15803d !important;
+}
+
+/* Quiz hint banner with reveal-all button */
 .tl-mn-card.is-quiz::before{
-  content:'🎯 點擊灰色區域看答案';display:block;font-size:10.5px;color:#7c2d12;background:#fde68a;padding:3px 9px;border-radius:5px;font-weight:800;margin-bottom:6px;text-align:center;
+  content:'🎯 點擊灰色區域 → 切換顯示/隱藏';display:block;font-size:10.5px;color:#7c2d12;background:#fde68a;padding:3px 9px;border-radius:5px;font-weight:800;margin-bottom:6px;text-align:center;
 }
+
+/* Per-card reveal-all button (small, top-right) */
+.tl-mn-quiz-actions{display:flex;gap:5px;justify-content:center;margin-bottom:6px;flex-wrap:wrap;}
+.tl-mn-quiz-actions button{padding:3px 9px;background:white;border:1.5px solid #fbbf24;color:#7c2d12;border-radius:5px;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.tl-mn-quiz-actions button:hover{background:#fef3c7;}
 
 /* Memory legend block */
 .memory-legend{margin-bottom:18px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fbbf24;border-radius:11px;padding:14px 16px;}
@@ -21514,10 +21556,10 @@ function renderTimelineMnemonicCard(tid){
           }
           if(typeof HR_MNEMONICS !== 'undefined' && HR_MNEMONICS[hrVal]){
             const phon = HR_MNEMONICS[hrVal].split(' ')[0];
-            mnemonicSpan = `<span class="hook-phon" title="諧音記憶: ${HR_MNEMONICS[hrVal]}">「${phon}」</span>`;
+            mnemonicSpan = `<span class="hook-phon" onclick="toggleQuizReveal(this, event)" title="諧音記憶: ${HR_MNEMONICS[hrVal]}">「${phon}」</span>`;
           }
         }
-        return `<span class="tl-mn-hook">${tierBadge}<b>${escapeHtml(h.endpoint||'')}</b>·${escapeHtml(h.subgroup||'')} <span class="tl-mn-hook-val">${escapeHtml(h.val)}</span>${mnemonicSpan}</span>`;
+        return `<span class="tl-mn-hook">${tierBadge}<b>${escapeHtml(h.endpoint||'')}</b>·${escapeHtml(h.subgroup||'')} <span class="tl-mn-hook-val" onclick="toggleQuizReveal(this, event)">${escapeHtml(h.val)}</span>${mnemonicSpan}</span>`;
       }).join('');
     }
   }
@@ -21534,21 +21576,67 @@ function renderTimelineMnemonicCard(tid){
   // 📜 詵學讚 (七言記憶詵)
   let verseHtml = '';
   if(typeof TRIAL_VERSES !== 'undefined' && TRIAL_VERSES[tid] && TRIAL_VERSES[tid].length > 0){
-    verseHtml = `<div class="tl-mn-verse">${escapeHtml(TRIAL_VERSES[tid]).replace(/\n/g, '<br>')}</div>`;
+    verseHtml = `<div class="tl-mn-verse" onclick="toggleQuizReveal(this, event)">${escapeHtml(TRIAL_VERSES[tid]).replace(/\n/g, '<br>')}</div>`;
   }
   
+  // Quiz mode per-card actions
+  const quizActions = quizClass ? 
+    `<div class="tl-mn-quiz-actions">
+      <button onclick="revealAllInCard('${tid}', true)" title="全部顯示">👁️ 全部顯示</button>
+      <button onclick="revealAllInCard('${tid}', false)" title="全部隱藏">🙈 全部隱藏</button>
+    </div>` : '';
+  
   return `<div class="tl-mn-card ${quizClass}" data-trial-id="${tid}">
+    ${quizActions}
     <div class="tl-mn-header">
       ${badge}
       <span class="tl-mn-name">${escapeHtml(t.name)}</span>
       ${warnTag}
       <button class="tl-mn-detail-btn" onclick="jumpToTrialFromTimeline('${tid}')" title="跳到試驗詳情">詳情 →</button>
     </div>
-    <div class="tl-mn-main">${escapeHtml(m.main)}</div>
+    <div class="tl-mn-main" onclick="toggleQuizReveal(this, event)">${escapeHtml(m.main)}</div>
     ${verseHtml}
     ${hooksLine ? `<div class="tl-mn-hooks">${hooksLine}</div>` : ''}
-    ${m.keypoint ? `<div class="tl-mn-keypoint">🎯 ${escapeHtml(m.keypoint)}</div>` : ''}
+    ${m.keypoint ? `<div class="tl-mn-keypoint" onclick="toggleQuizReveal(this, event)">🎯 ${escapeHtml(m.keypoint)}</div>` : ''}
   </div>`;
+}
+
+// Toggle reveal/hide for an element in quiz mode
+function toggleQuizReveal(elm, event){
+  // Only toggle if parent card is in quiz mode
+  const card = elm.closest('.tl-mn-card');
+  if(!card || !card.classList.contains('is-quiz')) return;
+  if(event) event.stopPropagation();
+  elm.classList.toggle('is-revealed');
+}
+
+// Reveal or hide all elements within a single card
+function revealAllInCard(tid, reveal){
+  const card = document.querySelector(`.tl-mn-card[data-trial-id="${tid}"]`);
+  if(!card || !card.classList.contains('is-quiz')) return;
+  const elms = card.querySelectorAll('.tl-mn-main, .tl-mn-verse, .tl-mn-keypoint, .tl-mn-hook-val, .hook-phon');
+  elms.forEach(elm => {
+    if(reveal){
+      elm.classList.add('is-revealed');
+    } else {
+      elm.classList.remove('is-revealed');
+    }
+  });
+}
+
+// Reveal or hide ALL cards in timeline (across all eras/contexts)
+function revealAllInTimeline(reveal){
+  const cards = document.querySelectorAll('.tl-mn-card.is-quiz');
+  cards.forEach(card => {
+    const elms = card.querySelectorAll('.tl-mn-main, .tl-mn-verse, .tl-mn-keypoint, .tl-mn-hook-val, .hook-phon');
+    elms.forEach(elm => {
+      if(reveal){
+        elm.classList.add('is-revealed');
+      } else {
+        elm.classList.remove('is-revealed');
+      }
+    });
+  });
 }
 
 function renderTimeline(){
@@ -21566,9 +21654,13 @@ function renderTimeline(){
     tabsHtml += `<button class="timeline-mnemonic-toggle ${TIMELINE_STATE.showMnemonic?'is-active':''}" onclick="toggleTimelineMnemonic()" title="切換是否顯示每個試驗的口訣">
       📋 ${TIMELINE_STATE.showMnemonic?'隱藏口訣':'顯示口訣'}
     </button>`;
-    tabsHtml += `<button class="timeline-quiz-toggle ${TIMELINE_STATE.quizMode?'is-active':''}" onclick="toggleTimelineQuiz()" title="測驗模式: 把數字遮起來考自己">
-      ${TIMELINE_STATE.quizMode?'👁️ 顯示答案':'🎯 測驗模式'}
+    tabsHtml += `<button class="timeline-quiz-toggle ${TIMELINE_STATE.quizMode?'is-active':''}" onclick="toggleTimelineQuiz()" title="${TIMELINE_STATE.quizMode?'退出測驗模式':'測驗模式: 把數字遮起來, 點擊切換顯示/隱藏'}">
+      ${TIMELINE_STATE.quizMode?'❎ 退出測驗':'🎯 測驗模式'}
     </button>`;
+    if(TIMELINE_STATE.quizMode){
+      tabsHtml += `<button class="timeline-quiz-action" onclick="revealAllInTimeline(true)" title="顯示時間軸所有答案">👁️ 全顯</button>`;
+      tabsHtml += `<button class="timeline-quiz-action" onclick="revealAllInTimeline(false)" title="隱藏時間軸所有答案">🙈 全隱</button>`;
+    }
     tabsHtml += `<button class="timeline-legend-toggle ${TIMELINE_STATE.showLegend?'is-active':''}" onclick="toggleTimelineLegend()" title="顯示 HR 分級顏色 + 諧音記憶法">
       ${TIMELINE_STATE.showLegend?'❎ 隱藏圖例':'🎨 記憶圖例'}
     </button>`;
