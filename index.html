@@ -3768,7 +3768,7 @@ const TRIALS = [
   fullName:"DESTINY-PanTumor02 / DS8201-A-U105 (Endometrial cohort)",
   pharma:"AstraZeneca / Daiichi Sankyo",
   drug:"Trastuzumab Deruxtecan (T-DXd)",
-  tagline:"HER2 表現 EC ORR 57.5%; IHC 3+ ORR 84.6% (n=13)。HER2 ADC 後線突破。",
+  tagline:"⚠️ 跨癌別 (7 cohort): EC ORR 57.5% / CC 50.0% / OC 45.0%; 整體 IHC 3+ 51.4%。HER2 ADC 後線突破。",
   rationale:"HER2 在 EC 表現率約 17-30% (以 serous 與 carcinosarcoma 最高)。T-DXd 為新世代 HER2-ADC,搭載 DXd (Topo-I 抑制劑) 與 cleavable linker,具強旁觀者效應 (bystander effect),克服 HER2 表現異質性。",
   regimen:"單臂 Phase II 籃式試驗 (7 cohort: 子宮內膜 / 子宮頸 / 卵巢 / 膀胱 / 膽道 / 胰臟 / 其他)\n\nT-DXd 5.4mg/kg IV Q3W 直至 PD / 不可耐受",
   inc:["HER2 表現 (IHC 3+/2+) 進展 EC, 經 local 或 central testing","≥1 線先前系統性治療","或無其他標準治療選項","ECOG 0-1"],
@@ -6259,30 +6259,30 @@ const TRIALS = [
 
 {
   cancer:"CC",
-  subcat:"2L-ADC",
+  subcat:"R/M-1L+2L",
   id:"innovatv-205",
-  phase:["R-TX"],
+  phase:["R-TX","R-TX-1L"],
   status:"published",
   name:"innovaTV 205",
   fullName:"innovaTV 205 / ENGOT-cx8 / GOG-3024",
   pharma:"Genmab / Pfizer",
-  drug:"Tisotumab Vedotin combinations (1L+2L)",
-  tagline:"TV combo 多 cohort 探索: 1L TV+Carbo ORR 54.5%; 1L TV+Pembro ORR 41%; 為 1L 與 2L 治療策略奠基。",
-  rationale:"在 innovaTV 204 (TV 單藥) 與 innovaTV 301 (TV vs 化療 Phase III) 之外, 探索 TV 與其他標準藥物 (carboplatin, pembrolizumab, bevacizumab) 的多種組合方案。為 1L 與 2L cervical cancer 提供更廣泛數據。",
-  regimen:"Phase 1b/2 多 cohort dose-expansion, n=139\nArm D (1L): TV 2.0mg/kg + Carboplatin AUC5 Q3W (n=33)\nArm E (1L): TV + Pembrolizumab 200mg Q3W (n=33)\nArm F (2L+): TV + Pembrolizumab Q3W (n=35)\nArm H (1L): TV + Carboplatin + Pembrolizumab ± Bev (n=38)",
-  inc:["Recurrent / metastatic squamous cell carcinoma, adenocarcinoma, 或 adenosquamous cervical cancer","1L 或 2L+ setting","ECOG 0-1","可測量病灶"],
+  drug:"Tisotumab Vedotin (TV) combos: TV+Carbo / TV+Pembro / TV+Carbo+Pembro±Bev",
+  tagline:"⚠️ R/M cervical (含 1L 與 2L+) — 不是 primary treatment。多 cohort TV combos: 1L Arm D 54.5% / 1L Arm H quad 65.8%。",
+  rationale:"在 innovaTV 204 (TV 單藥) 與 innovaTV 301 (TV vs 化療 Phase III) 之外, 探索 TV 與其他標準藥物 (carboplatin, pembrolizumab, bevacizumab) 的多種組合方案。雖然不是 primary treatment, 但收 1L recurrent/metastatic (=已在初次手術/放化療後復發, 系統治療「第一線」), 也含 2L+。",
+  regimen:"Phase 1b/2 多 cohort dose-expansion, 多 arm 共 ~177 patients\n【1L (R/M 第一線系統治療)】\n  • Arm D: TV 2.0mg/kg + Carboplatin AUC5 Q3W (n=33)\n  • Arm E: TV + Pembrolizumab 200mg Q3W (n=33)\n  • Arm H: TV + Carboplatin + Pembrolizumab ± Bevacizumab (quad/triplet, n=38)\n【2L+ (R/M 第二線後)】\n  • Arm F: TV + Pembrolizumab Q3W (n=35)\n【其他】Arm A (TV+Bev), Arm G (TV mono)",
+  inc:["Recurrent / metastatic squamous cell carcinoma, adenocarcinoma, 或 adenosquamous cervical cancer","R/M 1L (未接受過 R/M 系統治療) 或 2L+ (已 ≥1 線 R/M 系統治療)","ECOG 0-1","可測量病灶"],
   exc:["先前 TV","活動性 ocular surface disease","Grade 2+ peripheral neuropathy","活動性出血"],
-  outcomes:"【Arm D (1L TV+Carbo) ORR】54.5% (CR 15.2%, PR 39.4%); mDOR 8.6m, mPFS 6.9m, mOS 25.5m\n【Arm E (1L TV+Pembro) ORR】41%; 持久反應\n【Arm F (2L+ TV+Pembro) ORR】~35%\n【Arm H (1L 4-drug combo)】持續更新\n【5-year FU 公布 (Gynecol Oncol 2026)】",
+  outcomes:"⚠️ 注意分線解讀:\n【Arm D (1L TV+Carbo, n=33)】ORR 54.5% (CR 15.2%, PR 39.4%); mDOR 8.6m, mPFS 6.9m, mOS 25.5m\n【Arm E (1L TV+Pembro, n=33)】ORR 41%, 持久反應\n【Arm F (2L+ TV+Pembro, n=35)】ORR 35-57% (依先前治療)\n【Arm H (1L TV+Carbo+Pembro±Bev, n=38, 2026 SGO)】ORR 65.8% (CR 18.4%, PR 47.4%); DCR 92.1%\n【5-year FU 公布 (Gynecol Oncol 2026)】",
 
-  enrolled:"139 patients enrolled across 4 dose-expansion arms\n國際多中心\n2018-2024 enrollment",
-  hist:"Recurrent/metastatic SCC + adenocarcinoma + adenosquamous\nMixed 1L + 2L+ population",
-  stageDist:"1L (Arms D, E, H): 67 patients\n2L+ (Arm F): 35 patients",
-  tech:"Tisotumab Vedotin 2.0mg/kg Q3W (與 innovaTV 204/301 相同 dose)\n各 combo:\n  • + Carbo AUC5 Q3W (1L)\n  • + Pembro 200mg Q3W (1L 或 2L+)\n  • + Carbo + Pembro ± Bev (1L 全方案)\n\n安全性:\n  • Combo arms G3+ AE 較單藥高\n  • Ocular AE (TV class effect): 結膜炎, 角膜病變\n  • 強制眼科共照\n  • 與其他 IO/化療 AE 並存可控",
-  subgroup:"【1L cohorts (Arms D, E, H)】\n  • TV+Carbo ORR 54.5% — 高 ORR\n  • TV+Pembro ORR 41% — non-chemo combo 選項\n  • TV+Carbo+Pembro ± Bev — 高密度 4-drug regimen\n\n【2L+ cohort (Arm F)】\n  • TV+Pembro ORR ~35% — 較 IO 單藥更高\n\n【Histology subgroup】SCC + adeno 一致獲益\n【PD-L1 status】持續分析中",
-  combo:"與 innovaTV 204 (TV 單藥 Phase II) + innovaTV 301 (TV vs 化療 Phase III) 形成完整 TV 開發系列:\n  • 204: 證明單藥活性\n  • 301: 確認 OS 改善 (FDA 完整核准)\n  • 205: 探索 combo 拓展應用\n\n後續延伸:\n  • innovaTV 207 (1L 完整 Phase III)\n  • TV + 其他 ADC 探索",
-  guideline:"NCCN v2.2026 Category 2A: TV combo regimens 為探索性選項\nFDA approval 主要基於 innovaTV 301 (單藥), TV combo 持續探索\n台灣: TV 已核准, combo 為 off-label\n\n注意: 您聽到的「innovaTV 208」可能是 innovaTV 205 的擴展或混淆 — innovaTV 208 不為現有正式名稱",
+  enrolled:"~177 patients enrolled across multiple dose-expansion arms\n國際多中心 (NCT03786081)\n2018-2024 enrollment",
+  hist:"Recurrent/metastatic SCC + adenocarcinoma + adenosquamous\nMixed R/M 1L + 2L+ population (但都是 recurrent/metastatic, 非 primary curative)",
+  stageDist:"R/M 1L (尚未接受 R/M 系統治療): Arms D, E, H — 約 104 patients\nR/M 2L+ (已過 ≥1 線 R/M 治療): Arm F — 35 patients\n\n⚠️ 易混淆: 「1L」是指 R/M setting 第一線系統治療, 不是 primary curative-intent treatment (LACC/early-stage 不收)",
+  tech:"Tisotumab Vedotin 2.0mg/kg Q3W (與 innovaTV 204/301 相同 dose)\n各 combo:\n  • TV + Carbo AUC5 Q3W (Arm D, 1L)\n  • TV + Pembro 200mg Q3W (Arms E/F, 1L 或 2L+)\n  • TV + Carbo + Pembro ± Bev (Arm H, 1L quad/triplet)\n\n安全性:\n  • Combo arms G3+ AE 較單藥高 (Arm H 最高)\n  • Ocular AE (TV class effect): 結膜炎 ~40-50%, 角膜病變\n  • 強制眼科共照 + 預防性類固醇眼藥水 + 冷敷眼罩\n  • 周邊神經病變: G3+ ~5-7%",
+  subgroup:"【R/M 1L cohorts】\n  • Arm D TV+Carbo ORR 54.5%\n  • Arm E TV+Pembro ORR 41% — non-chemo combo 選項\n  • Arm H quad TV+Carbo+Pembro±Bev ORR 65.8% — 最高 ORR (2026 SGO)\n\n【R/M 2L+ cohort】\n  • Arm F TV+Pembro ORR ~35-57% (依先前 IO/Bev 暴露)\n  • prior bev/IO subgroup ORR 57% (confirmed 35%)\n\n【Histology subgroup】SCC ≈ adeno; PD-L1 持續分析",
+  combo:"與 innovaTV 204 (TV 單藥 Phase II) + innovaTV 301 (TV vs 化療 Phase III) 形成完整 TV 開發系列:\n  • 204: 證明單藥活性 (FDA 加速核准)\n  • 301: 確認 OS 改善 (FDA 完整核准 2024)\n  • 205: 探索 combo 拓展應用 (Phase 1b/2)\n\n與當前 R/M 1L SOC 對比:\n  • SOC 1L: KEYNOTE-826 (Pembro+chemo±Bev) / BEATcc (Atezo+Bev+chemo)\n  • innovaTV 205 Arm D/E/H: 探索能否再加 TV (chemo-sparing 或 4-drug 強化)\n\n後續: innovaTV 207 (1L Phase III 確認)",
+  guideline:"NCCN v2.2026 Category 2A: TV combo regimens 為探索性選項\nFDA approval 主要基於 innovaTV 301 (單藥), TV combo 持續探索\n台灣: TV 已核准, combo 為 off-label\n\n⚠️ 易混淆: innovaTV 204 / 205 / 207 / 301 易混 — 編號分別為「TV 單藥 II 期」/「TV combo II 期」/「TV combo III 期 (進行中)」/「TV vs chemo III 期 (FDA full)」",
   nct:"NCT03786081",
-  publication:"Gynecol Oncol 2026 (Van Nieuwenhuysen et al., 5-year FU); ESMO 2024 / SGO 2025 updates"
+  publication:"Gynecol Oncol 2026 (Van Nieuwenhuysen et al., 5-year FU); SGO 2026 (Van Gorp et al., Arm H first disclosure); JCO 2023 (Vergote et al., 主分析)"
 },
 
 // ============================================================
@@ -13342,10 +13342,6 @@ const EXAM_WARNINGS = {
     { tag:'⚠️ 系統淋巴清掃 OS NS', text:'LION 系統淋巴清掃 OS HR 1.06 無效, 卻併發症增 (易誤以為應做)' },
     { tag:'⚠️ 條件: 已 R0+sentinel-', text:'限「macroscopic complete + 術中 sentinel 陰」才驗證, 不是所有都不做' },
   ],
-  'desktop-iii': [
-    { tag:'⚠️ AGO+ 才做', text:'DESKTOP III 限 AGO score+ (PFI≥6m + 一般狀況好 + 無腹水); 不能廣泛二次減積' },
-    { tag:'⚠️ 必須 R0', text:'未達 R0 反而 OS 更差; AGO+ 只是 R0 機率高的篩選' },
-  ],
   'gog-262': [
     { tag:'⚠️ Bev+weekly 抵消', text:'有 Bev 時 weekly Pacli 不再優於 Q3W; 沒 Bev 時 weekly 才強' },
   ],
@@ -13356,14 +13352,17 @@ const EXAM_WARNINGS = {
     { tag:'⚠️ 7y OS 才顯著', text:'5y OS 邊緣, 7y OS HR 0.55 才更明確 (長期 FU 才出 OS+)' },
   ],
   'paola-1': [
+    { tag:'⚠️ HRD = Myriad GIS ≥42', text:'PAOLA-1 HRD+ 定義: Myriad myChoice CDx 基因組不穩定分數 (GIS) ≥42 或 BRCAm (與 PRIMA/DUO-O 統一系統)' },
     { tag:'⚠️ HRD+ 含 BRCAm', text:'PAOLA-1 HRD+ 包含 BRCAm; HRD+ 數據不能等同 non-BRCAm 數據' },
     { tag:'⚠️ HRD- 無效', text:'HRD- 反而 PFS HR ~1.0 NS; 必須先驗 HRD 才用 Olap+Bev' },
   ],
   'prima': [
+    { tag:'⚠️ HRD = Myriad GIS ≥42', text:'PRIMA HRD+ 定義: Myriad myChoice CDx GIS ≥42 或 BRCAm (與 PAOLA-1/DUO-O 同系統)' },
     { tag:'⚠️ ITT OS 翻盤失敗', text:'PRIMA HRD+ PFS HR 0.43 但 ITT OS HR 1.01 NS; PFS+ ≠ OS+ (高頻考點)' },
     { tag:'⚠️ 全人群但 HRD+ 才強', text:'PRIMA 全收 (含 HRD-), 但 HRD- subgroup HR ~0.68 弱; 主要受益 HRD+' },
   ],
   'duo-o': [
+    { tag:'⚠️ HRD = Myriad GIS ≥42', text:'DUO-O HRD+ 定義: Myriad myChoice CDx GIS ≥42 或 BRCAm (與 PAOLA-1/PRIMA 同系統)' },
     { tag:'⚠️ Arm 比對讀錯', text:'DUO-O Arm3 = Bev+Durva+Olap; Arm1 是 SOC; HR 是 Arm3 vs Arm1' },
     { tag:'⚠️ non-BRCAm HRD+ 才強', text:'BRCAm 用 SOLO-1/PAOLA-1 即可; DUO-O 補的是 non-BRCAm HRD+ 缺口' },
   ],
@@ -13376,11 +13375,13 @@ const EXAM_WARNINGS = {
     { tag:'⚠️ 限 BRCAm', text:'SOLO2 限 PSOC BRCAm (有別於 NOVA 含 non-gBRCA)' },
   ],
   'nova': [
-    { tag:'⚠️ gBRCA vs non-gBRCA', text:'NOVA 兩 cohort: gBRCA HR 0.27 / non-gBRCA HR 0.45 — 數值不同' },
-    { tag:'⚠️ HRD+ ≠ non-gBRCA HRD+', text:'NOVA non-gBRCA 中 HRD+ vs HRD- 進一步分流; 不要混淆' },
+    { tag:'⚠️ gBRCA = germline BRCA', text:'NOVA gBRCA cohort = germline BRCA mutation (生殖細胞 BRCA, 用 Myriad BRACAnalysis 驗); 不是「somatic+germline 都算」' },
+    { tag:'⚠️ non-gBRCA 仍可能有 BRCA', text:'NOVA non-gBRCA cohort = 沒 germline BRCA — 但仍可能含 somatic BRCA mutation (約 47/350); 不是「沒 BRCA mutation」' },
+    { tag:'⚠️ 三組數值不同', text:'gBRCA HR 0.27 / non-gBRCA 整體 HR 0.45 / non-gBRCA HRD+ HR 0.38 / non-gBRCA HRD+ 含 sBRCA HR 0.27 (與 gBRCA 同)' },
+    { tag:'⚠️ HRD+ 仍受益', text:'non-gBRCA cohort 中 HRD- 也有 HR 0.58 顯著, 全 cohort 都受益; 但 BRCA/HRD+ 子群效益更強' },
   ],
   'ariel3': [
-    { tag:'⚠️ LOH 高 ≠ HRD+', text:'ARIEL3 用 LOH 分層 (FoundationOne LOH ≥16%), 與後來 GIS HRD score 不同系統' },
+    { tag:'⚠️ LOH 高 ≠ HRD+', text:'ARIEL3 用 LOH 分層 (FoundationOne LOH ≥16%), 與後來 Myriad GIS≥42 HRD score 不同系統 (PAOLA-1/PRIMA/DUO-O 用 GIS)' },
   ],
 
   // === OC PROC ===
@@ -13390,6 +13391,16 @@ const EXAM_WARNINGS = {
   ],
   'aurelia': [
     { tag:'⚠️ OS NS', text:'AURELIA PFS HR 0.48 翻倍, 但 ITT OS NS (僅 PFS+)' },
+  ],
+  'gog-0213': [
+    { tag:'⚠️ 手術 arm 翻車', text:'GOG-0213 secondary cytoreduction OS HR 1.29 NS — 手術沒嚴選反而失敗' },
+    { tag:'⚠️ 與 DESKTOP III 對比', text:'GOG-0213 沒嚴選 → 手術 arm 失敗; DESKTOP III 限 AGO+ → R0 mOS 53.7m 顯著 — 「選對人才能做」' },
+    { tag:'⚠️ Bev arm 仍陽性', text:'試驗有兩個議題: Bev arm OS HR 0.83 陽性 (確立 PSOC + Bev); 手術 arm 失敗 (不要混淆兩個結果)' },
+  ],
+  'desktop-iii': [
+    { tag:'⚠️ AGO+ 才做', text:'DESKTOP III 限 AGO score+ (PFI≥6m + 一般狀況好 + 無腹水); 不能廣泛二次減積' },
+    { tag:'⚠️ 必須 R0', text:'未達 R0 反而 OS 更差; AGO+ 只是 R0 機率高的篩選' },
+    { tag:'⚠️ 對比 GOG-0213', text:'DESKTOP III 嚴選 (AGO+) 成功 vs GOG-0213 沒嚴選翻車; 同樣是「二減手術」結論完全相反 — 篩選決定成敗' },
   ],
 
   // === CC LACC ===
@@ -13430,6 +13441,11 @@ const EXAM_WARNINGS = {
   'innovatv-301': [
     { tag:'⚠️ TF-ADC 機制特殊', text:'TV (Tisotumab Vedotin) 標靶 Tissue Factor (組織因子), 不是 HER2 也不是 TROP2' },
     { tag:'⚠️ 眼毒性', text:'TV 特殊毒性: 眼結膜炎 (40-50%), 角膜病變 (必須眼科共同管理)' },
+  ],
+  'innovatv-205': [
+    { tag:'⚠️ R/M 不是 primary', text:'innovaTV 205 收 recurrent/metastatic CC; 不是 primary treatment / 不收 LACC / 不收早期; 「1L」指 R/M 第一線系統治療' },
+    { tag:'⚠️ 多 arm 數值不同', text:'Arm D (1L TV+Carbo) 54.5% / Arm E (1L TV+Pembro) 41% / Arm F (2L+ TV+Pembro) 35-57% / Arm H (1L quad) 65.8% — 引用前先確認 arm' },
+    { tag:'⚠️ 試驗編號易混', text:'innovaTV 204 (TV 單藥 II 期) / 205 (combo II 期) / 207 (combo III 期 ongoing) / 301 (TV vs chemo III 期 FDA full)' },
   ],
 
   // === US ===
@@ -13515,9 +13531,10 @@ const TIMELINE_DATA = {
         eras: [
           { year:'2014', label:'抗血管時代', trials:['aurelia'], note:'Bev+chemo PFS 翻倍; OS NS' },
           { year:'2020', label:'IO 單藥失利', trials:['ninja'], note:'Nivo 單藥 PROC OS HR 1.03 NS' },
-          { year:'2024', label:'FRα ADC 突破', trials:['mirasol'], note:'Mirvet FRα-high PFS+OS+ 首個 PROC OS+' },
+          { year:'2024', label:'FRα ADC 突破 (Mirvetuximab)', trials:['mirasol'], note:'Mirvet FRα-high PFS+OS+ 首個 PROC OS+' },
           { year:'2024', label:'IO+Chemo+Bev', trials:['keynote-b96'], note:'Pembro+chemo±Bev 突破' },
-          { year:'2024+', label:'GR 拮抗 + CDH6 ADC', trials:['rosella','rejoice-ovarian01','engot-ov77','framework-01'], note:'多新機制競賽' },
+          { year:'2024+', label:'下一代 FRα ADC (GOG-3133)', trials:['framework-01'], note:'FRAMEwork-01 / LY4170156 (sofetabart mipitecan); FDA BTD; PROC mono + PSOC+Bev (Phase III)' },
+          { year:'2024+', label:'CDH6 ADC + GR 拮抗', trials:['rosella','rejoice-ovarian01','engot-ov77'], note:'ROSELLA (Relacorilant GR 拮抗) / R-DXd (CDH6) 多新機制競賽' },
         ],
       },
       {
@@ -13545,12 +13562,12 @@ const TIMELINE_DATA = {
       {
         name: '🧬 HRD 概念演進 (PARPi 篩選)',
         eras: [
-          { year:'2014', label:'PARPi 萌芽 (無分子篩選)', trials:['study-19'], note:'Olap PSROC, 早期未篩 BRCA' },
-          { year:'2016', label:'gBRCA + non-gBRCA 分流', trials:['nova'], note:'NOVA gBRCA HR 0.27 / non-gBRCA HR 0.45' },
-          { year:'2017', label:'LOH 分流 (FoundationOne)', trials:['ariel3'], note:'ARIEL3 LOH ≥16% 高分流, BRCAm HR 0.23 / ITT HR 0.36' },
+          { year:'2014', label:'PARPi 萌芽 (無分子篩選)', trials:['study-19'], note:'Olap PSROC, 早期未篩 BRCA; 全人群驗證 PARPi 概念' },
+          { year:'2016', label:'gBRCA cohort 系統 (NOVA)', trials:['nova'], note:'NOVA: Myriad BRACAnalysis germline+; gBRCAm HR 0.27 / non-gBRCA HR 0.45 (含 sBRCA)' },
+          { year:'2017', label:'LOH 分流 (FoundationOne)', trials:['ariel3'], note:'ARIEL3: FoundationOne LOH ≥16% — 與 Myriad GIS 不同系統' },
           { year:'2018', label:'BRCAm 一線確立', trials:['solo-1'], note:'SOLO-1 BRCAm 一線 HR 0.33; PARPi 範式翻轉' },
-          { year:'2019', label:'GIS≥42 HRD score 確立', trials:['paola-1','prima'], note:'Myriad GIS≥42 為 HRD+ 標準; PAOLA-1 HRD+ HR 0.33' },
-          { year:'2022', label:'non-BRCAm HRD+ 補強', trials:['duo-o'], note:'DUO-O 三藥維持; non-BRCAm HRD+ HR 0.46' },
+          { year:'2019', label:'Myriad GIS≥42 系統確立 (HRD+)', trials:['paola-1','prima'], note:'PAOLA-1/PRIMA 都採 Myriad myChoice CDx GIS≥42 或 BRCAm = HRD+ 標準系統' },
+          { year:'2022', label:'non-BRCAm HRD+ 補強 (GIS)', trials:['duo-o'], note:'DUO-O 三藥維持; 同 GIS≥42 系統; non-BRCAm HRD+ HR 0.46' },
           { year:'2023+', label:'KELIM 功能性篩選', trials:[], note:'KELIM ≥1 為化療敏感 surrogate, 與 HRD 互補' },
         ],
       },
@@ -14418,16 +14435,18 @@ const TRIAL_MNEMONICS = {
   },
 
   'destiny-pantumor02': {
-    main: '💎 「DESTINY-PT02 配 T-DXd, EC 五七五 IHC3+ 八四六, HER2 翻倍」',
+    main: '💎 「DESTINY-PT02 配 T-DXd, 7 cohort 含 EC/CC/OC, IHC3+ 整體 五一」',
     breakdown: [
-      { key: 'DESTINY-PanTumor02', meaning: 'DESTINY-PanTumor02 (試驗名, EC cohort)' },
+      { key: 'DESTINY-PanTumor02', meaning: 'DESTINY-PanTumor02 (試驗名, 7 cohort tumor-agnostic basket)' },
       { key: 'T-DXd', meaning: 'Trastuzumab Deruxtecan (HER2-ADC)' },
-      { key: 'EC ORR 57.5%', meaning: '【特色】EC cohort 表現最佳 (vs CC 50% / OC 45%)' },
-      { key: 'IHC 3+ 翻倍', meaning: '【關鍵】IHC 3+ ORR 84.6% (n=13); IHC 2+ ORR 26.5%' },
+      { key: '7 cohort', meaning: '【關鍵】Endometrial / Cervical / Ovarian / Bladder / Biliary / Pancreatic / Other' },
+      { key: '婦癌排名', meaning: 'EC 57.5% > CC 50.0% > OC 45.0% (婦癌三大都受益)' },
+      { key: 'IHC 3+ 整體', meaning: 'All-cohort IHC 3+ (n=111) ORR 51.4% mDOR 14.2m' },
+      { key: 'EC IHC 3+', meaning: 'EC IHC 3+ (n=13) ORR 84.6% — small N 但極高反應' },
     ],
-    keypoint: 'Pan-tumor HER2 IHC 3+ 試驗; EC/OC/CC 都受益 (FDA tumor-agnostic 2024)',
-    numbers: 'EC ORR 57.5% mPFS 11.1m mOS 26.0m · IHC 3+ ORR 84.6% (vs 2+ 26.5%)',
-    pitfalls: 'IHC 3+ vs 2+ 反應差很大; ILD risk 必須監測; 採乳癌 HER2 criteria',
+    keypoint: 'Pan-tumor HER2 IHC 3+ 試驗; 婦癌三大 (EC/CC/OC) 都受益 (FDA tumor-agnostic 2024)',
+    numbers: 'EC 57.5% / CC 50.0% / OC 45.0% · IHC 3+ 全試驗 51.4% / EC IHC 3+ 84.6% (n=13)',
+    pitfalls: '【常考】婦癌中 CC 也有 cohort (50% ORR), 不只 EC; IHC 3+ vs 2+ 反應差很大; ILD risk 監測必須',
   },
 
   'tropics-03': {
@@ -14997,16 +15016,17 @@ const TRIAL_MNEMONICS = {
   },
 
   'gog-0213': {
-    main: '💎 「GOG-0213 加 Bev (PSOC), OS HR 八三, mOS 加 5 月」',
+    main: '💎 「GOG-0213 加 Bev (PSOC) 含手術臂, Bev OS 八三, 手術沒嚴選翻車」',
     breakdown: [
-      { key: 'GOG-0213', meaning: 'GOG-0213 試驗 (試驗名)' },
-      { key: 'Chemo+Bev', meaning: 'Carbo+Pacli + Bevacizumab + Bev 維持' },
-      { key: 'PSOC OS HR 0.83', meaning: '【特色】鉑敏復發加 Bev OS 突破' },
-      { key: '+5 個月 mOS', meaning: 'mOS 延長 5 個月 (vs OCEANS 只有 PFS+)' },
+      { key: 'GOG-0213', meaning: 'GOG-0213 試驗 (二臂設計: 化療±Bev + 手術 vs 不手術)' },
+      { key: 'Chemo+Bev', meaning: 'Arm 1 主分析: Carbo+Pacli ± Bevacizumab' },
+      { key: 'Bev OS HR 0.83', meaning: '【陽性】Bev 加成 OS 顯著 (mOS +5m)' },
+      { key: '手術臂翻車', meaning: '【關鍵陰性】Arm 2 secondary cytoreduction OS HR 1.29 (NS) — 手術反而沒幫助' },
+      { key: '沒嚴選', meaning: '【原因】沒做嚴格 selection (vs DESKTOP III 限 AGO+); R0 比例低 → 手術臂失敗' },
     ],
-    keypoint: '鉑敏復發 OS 突破: Bev 維持帶來 OS 獲益; 確立 Bev 在 PSOC 地位',
-    numbers: 'OS HR 0.83 · mOS +5m · 包含 secondary cytoreduction subgroup',
-    pitfalls: 'GOG-0213 secondary cytoreduction subgroup 為 negative (與 DESKTOP III 結論不同)',
+    keypoint: 'PSOC 雙議題: (1) Bev 加 chemo OS+ 確立 (2) 但 secondary cytoreduction 沒嚴選翻車',
+    numbers: 'Bev arm OS HR 0.83 mOS +5m · 手術 arm OS HR 1.29 (NS) · R0 比例低',
+    pitfalls: '【高頻考點】GOG-0213 手術 arm 翻車原因: 沒嚴選 (含未達 R0 患者); 與 DESKTOP III (AGO+ R0 mOS+12m) 對比 — 「選對人才能做手術」',
   },
 
   'mito16b': {
@@ -15319,13 +15339,14 @@ const TRIAL_MNEMONICS = {
     main: '💎 「Study 19 用 Olap, PSROC PFS HR 三五, PARPi 開山六年」',
     breakdown: [
       { key: 'Study 19', meaning: 'Study 19 試驗 (試驗名)' },
-      { key: 'Olap 維持', meaning: 'Olaparib PSOC 維持 (開創性 Phase II)' },
-      { key: 'PARPi 開山', meaning: '【特色】PARPi 維持治療開山之作' },
+      { key: 'Olap 維持', meaning: 'Olaparib PSROC 維持 (Platinum-Sensitive Recurrent OC; 開創性 Phase II)' },
+      { key: 'PARPi 開山', meaning: '【特色】PARPi 維持治療開山之作 (NCT00753545; ≥2 線含鉑後 CR/PR)' },
       { key: '6+ 年用藥', meaning: '11% 患者用藥超過 6 年 (long-term responder)' },
+      { key: '不限 BRCA', meaning: 'OS HR 0.73 (P=0.02) 不限 BRCA 狀態 — 但 BRCAm 受益最大' },
     ],
-    keypoint: 'PARPi 維持治療開山之作; 為 SOLO2/NOVA 奠基',
-    numbers: 'PFS HR 0.35 · 11% 患者 6+ 年用藥 · 全人群',
-    pitfalls: 'Phase II 試驗; 為後續 phase III 鋪路',
+    keypoint: 'PARPi 維持治療開山之作 (PSROC, recurrent); 為 SOLO2/NOVA 奠基',
+    numbers: 'PFS HR 0.35 · OS HR 0.73 (P=0.02) · 11% 患者 6+ 年用藥 · 全人群',
+    pitfalls: '【關鍵】Study 19 是 PSROC (Platinum-Sensitive Recurrent OC, 已復發 ≥2 線後), 不是 newly diagnosed; 是 Phase II 不是 III',
   },
 
   'l-moca': {
@@ -15637,16 +15658,18 @@ const TRIAL_MNEMONICS = {
   },
 
   'innovatv-205': {
-    main: '💎 「innovaTV 205 用 TV combos, 1L TV+Carbo ORR 五四五」',
+    main: '💎 「innovaTV 205 用 TV combos, R/M 多 cohort, 1L Carbo 五四五 / quad 六五八」',
     breakdown: [
-      { key: 'innovaTV 205', meaning: 'innovaTV 205 試驗 (試驗名)' },
-      { key: 'TV combos', meaning: 'Tisotumab Vedotin combinations (1L+2L)' },
-      { key: '1L TV+Carbo ORR 54.5%', meaning: '【特色】1L TV+Carbo ORR 54.5% (高反應)' },
-      { key: '多 cohort 探索', meaning: '1L+2L 多種 combo (TV+Pembro, TV+Carbo, 4-drug)' },
+      { key: 'innovaTV 205', meaning: 'innovaTV 205 / ENGOT-cx8 / GOG-3024 (試驗名)' },
+      { key: 'TV combos', meaning: 'Tisotumab Vedotin (TF-ADC) + 多種 combo' },
+      { key: 'R/M', meaning: '【關鍵】recurrent/metastatic CC, 不是 primary treatment' },
+      { key: '1L+2L 多 cohort', meaning: 'R/M 1L (Arm D/E/H) + R/M 2L+ (Arm F)' },
+      { key: 'Arm D 五四五', meaning: '1L TV+Carbo ORR 54.5% (Arm D)' },
+      { key: 'Arm H 六五八', meaning: '1L TV+Carbo+Pembro±Bev quad ORR 65.8% (2026 SGO)' },
     ],
-    keypoint: 'TV (Tisotumab Vedotin) combo 多臂試驗; 1L + 2L 治療策略奠基',
-    numbers: 'Arm D (1L TV+Carbo) ORR 54.5% mDOR 8.6m mOS 25.5m · Arm E (1L TV+Pembro) ORR 41%',
-    pitfalls: 'Phase 1b/2 多 cohort; 為 phase III combo (與 KEYNOTE-826/BEATcc 對打) 鋪路',
+    keypoint: 'R/M 多 arm Phase 1b/2; 1L 三種 combo 探索 (含 quad triplet); 為 Phase III 鋪路',
+    numbers: 'Arm D 54.5% / Arm E 41% / Arm H 65.8% / Arm F 35-57%',
+    pitfalls: '【高頻易錯】「1L」是 R/M 第一線系統治療, 不是 primary curative; 不收 LACC/early-stage; 各 arm ORR 數值不同 (Arm H quad 最高)',
   },
 
 
