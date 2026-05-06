@@ -916,9 +916,21 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .timeline-tab.active{background:white;color:#0f766e;border-color:white;}
 .timeline-body{padding:16px 22px 22px;overflow-y:auto;flex:1;}
 
-.timeline-context{margin-bottom:24px;background:white;border:1.5px solid #ccfbf1;border-radius:11px;overflow:hidden;}
-.timeline-context-header{padding:12px 16px;background:linear-gradient(90deg,#ccfbf1,#a7f3d0);color:#134e4a;font-weight:900;font-size:14.5px;display:flex;align-items:center;gap:9px;letter-spacing:0.02em;border-bottom:1px solid #5eead4;}
+.timeline-context{margin-bottom:16px;background:white;border:1.5px solid #ccfbf1;border-radius:11px;overflow:hidden;}
+.timeline-context-header{padding:12px 16px;background:linear-gradient(90deg,#ccfbf1,#a7f3d0);color:#134e4a;font-weight:900;font-size:14.5px;display:flex;align-items:center;gap:9px;letter-spacing:0.02em;cursor:pointer;list-style:none;transition:background 0.15s;}
+.timeline-context-header::-webkit-details-marker{display:none;}
+.timeline-context-header:hover{background:linear-gradient(90deg,#a7f3d0,#6ee7b7);}
+.timeline-context[open] .timeline-context-header{border-bottom:1px solid #5eead4;}
 .timeline-context-num{width:26px;height:26px;border-radius:50%;background:#0d9488;color:white;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.timeline-context-title{flex:1;}
+.timeline-context-meta{font-size:11px;background:rgba(15,118,110,0.18);color:#134e4a;padding:3px 9px;border-radius:5px;font-weight:700;letter-spacing:0.02em;flex-shrink:0;}
+.timeline-context-arrow{font-size:11px;color:#0d9488;transition:transform 0.2s;flex-shrink:0;}
+.timeline-context[open] .timeline-context-arrow{transform:rotate(180deg);}
+
+/* Expand-all toggle button */
+.timeline-expand-toggle{margin-left:auto;padding:6px 13px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:white;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.timeline-expand-toggle:hover{background:rgba(255,255,255,0.25);}
+.timeline-expand-toggle.is-active{background:#fbbf24;color:#7c2d12;border-color:#fbbf24;}
 
 .timeline-eras{display:flex;flex-direction:column;padding:12px 14px;gap:0;position:relative;}
 .timeline-eras::before{content:'';position:absolute;left:65px;top:18px;bottom:18px;width:3px;background:linear-gradient(180deg,#5eead4,#0d9488);border-radius:2px;}
@@ -941,7 +953,7 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .timeline-trial-chip:hover{background:#0d9488;color:white;border-color:#0d9488;transform:translateY(-1px);}
 
 /* Toggle button for mnemonic display */
-.timeline-mnemonic-toggle{margin-left:auto;padding:6px 13px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:white;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.timeline-mnemonic-toggle{padding:6px 13px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:white;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
 .timeline-mnemonic-toggle:hover{background:rgba(255,255,255,0.25);}
 .timeline-mnemonic-toggle.is-active{background:white;color:#0f766e;border-color:white;}
 
@@ -964,7 +976,10 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .tl-mn-keypoint{font-size:11px;color:#475569;line-height:1.5;font-weight:600;font-style:italic;}
 
 @media(max-width:640px){
-  .timeline-mnemonic-toggle{font-size:10.5px;padding:5px 10px;width:100%;margin-left:0;margin-top:4px;}
+  .timeline-mnemonic-toggle{font-size:10.5px;padding:5px 10px;}
+  .timeline-expand-toggle{font-size:10.5px;padding:5px 10px;margin-left:0;}
+  .timeline-context-header{font-size:13px;padding:10px 12px;}
+  .timeline-context-meta{font-size:10px;padding:2px 7px;}
   .tl-mn-card{padding:8px 9px;}
   .tl-mn-main{font-size:12px;padding:5px 8px;}
   .tl-mn-hook{font-size:9.5px;}
@@ -7686,10 +7701,107 @@ function showSec(secId, content, contentId){
   }
 }
 
+// ============================================================
+// 🧭 Modal Navigation History (跨 modal 跳轉時保留位置)
+// ============================================================
+const NAV_STACK = [];
+const NAV_MODAL_REGISTRY = {
+  // modal id → { open fn name, body selector for scroll, extra state restore }
+  'mnemIdxModal':       { open: 'openMnemonicIndex', body: '.mnem-idx-content' },
+  'molPediaModal':      { open: 'openMolPedia',      body: '.mol-pedia-content' },
+  'checklistModal':     { open: 'openChecklist',     body: '.checklist-content' },
+  'trialMatchModal':    { open: 'openTrialMatch',    body: '.trial-match-content' },
+  'timelineModal':      { open: 'openTimeline',      body: '.timeline-content' },
+  'pathwayModal':       { open: 'openPathway',       body: '.pathway-modal-content' },
+  'studyPlanModal':     { open: 'openStudyPlan',     body: '.study-plan-content' },
+  'customCmpModal':     { open: 'openCustomCompare', body: '.custom-cmp-content' },
+  'aiPathwayModal':     { open: 'openAiPathwayModal', body: '.ai-pathway-modal-content' },
+};
+
+function getOpenModalId(){
+  // Find a currently open registered modal
+  for(const mid of Object.keys(NAV_MODAL_REGISTRY)){
+    const e = el(mid);
+    if(e && (e.classList.contains('open') || e.classList.contains('show'))) return mid;
+  }
+  return null;
+}
+
+function pushNavState(){
+  // Capture current open modal + scroll position before jumping to a trial detail
+  const mid = getOpenModalId();
+  if(!mid) return;
+  const reg = NAV_MODAL_REGISTRY[mid];
+  if(!reg) return;
+  const modalEl = el(mid);
+  const bodyEl = modalEl ? modalEl.querySelector(reg.body) : null;
+  const scrollTop = bodyEl ? bodyEl.scrollTop : 0;
+  // Optional state for some modals
+  let extra = null;
+  if(mid === 'timelineModal' && typeof TIMELINE_STATE !== 'undefined'){
+    extra = { cancer: TIMELINE_STATE.cancer, showMnemonic: TIMELINE_STATE.showMnemonic };
+  }
+  NAV_STACK.push({ mid, scrollTop, extra });
+}
+
+function tryRestoreNav(){
+  if(NAV_STACK.length === 0) return false;
+  const state = NAV_STACK.pop();
+  const reg = NAV_MODAL_REGISTRY[state.mid];
+  if(!reg) return false;
+  // Restore extra state
+  if(state.mid === 'timelineModal' && state.extra && typeof TIMELINE_STATE !== 'undefined'){
+    TIMELINE_STATE.cancer = state.extra.cancer;
+    TIMELINE_STATE.showMnemonic = state.extra.showMnemonic;
+  }
+  // Re-open modal
+  if(typeof window[reg.open] === 'function'){
+    window[reg.open]();
+  } else {
+    // Fallback: just add open class
+    const e = el(state.mid);
+    if(e){
+      e.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  // Restore scroll position
+  setTimeout(() => {
+    const modalEl = el(state.mid);
+    const bodyEl = modalEl ? modalEl.querySelector(reg.body) : null;
+    if(bodyEl){
+      bodyEl.scrollTop = state.scrollTop;
+    }
+  }, 60);
+  return true;
+}
+
+function clearNavStack(){
+  NAV_STACK.length = 0;
+}
+
+// Universal helper: push current modal state, close all open modals, then show trial detail
+function navToDetail(tid){
+  pushNavState();
+  // Close any open registered modal
+  const mid = getOpenModalId();
+  if(mid){
+    const e = el(mid);
+    if(e){
+      e.classList.remove('open');
+      e.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  }
+  setTimeout(() => showDetail(tid), 80);
+}
+
 function closeDetail(ev, force){
   if(force || !ev || ev.target.id === 'detailOverlay'){
     el('detailOverlay').classList.remove('open');
     document.body.style.overflow = '';
+    // 🧭 Try to restore the modal user came from
+    setTimeout(() => tryRestoreNav(), 50);
   }
 }
 
@@ -9879,8 +9991,8 @@ function renderMnemonicIndexList(){
           html += `<div class="${cardClasses.join(' ')}">
             <button class="${favBtnClass}" onclick="event.stopPropagation();toggleMyFavorite('${t.id}');" title="${favBtnTitle}">${favBtnIcon}</button>
             <div class="mnem-idx-card-num">${cardCounter}</div>
-            <div class="mnem-idx-card-mnemonic" onclick="closeMnemonicIndex();showDetail('${t.id}');" style="cursor:pointer;">${starBadge}${formatMnemIdxText(mnem.main)}</div>
-            <div class="mnem-idx-card-arrow" onclick="closeMnemonicIndex();showDetail('${t.id}');" style="cursor:pointer;">›</div>
+            <div class="mnem-idx-card-mnemonic" onclick="navToDetail('${t.id}');" style="cursor:pointer;">${starBadge}${formatMnemIdxText(mnem.main)}</div>
+            <div class="mnem-idx-card-arrow" onclick="navToDetail('${t.id}');" style="cursor:pointer;">›</div>
           </div>`;
           cardCounter++;
         });
@@ -9916,8 +10028,8 @@ function renderMnemonicIndexList(){
         html += `<div class="${cardClasses.join(' ')}">
           <button class="${favBtnClass}" onclick="event.stopPropagation();toggleMyFavorite('${t.id}');" title="${favBtnTitle}">${favBtnIcon}</button>
           <div class="mnem-idx-card-num">${cardCounter}</div>
-          <div class="mnem-idx-card-mnemonic" onclick="closeMnemonicIndex();showDetail('${t.id}');" style="cursor:pointer;">${starBadge}${formatMnemIdxText(mnem.main)}</div>
-          <div class="mnem-idx-card-arrow" onclick="closeMnemonicIndex();showDetail('${t.id}');" style="cursor:pointer;">›</div>
+          <div class="mnem-idx-card-mnemonic" onclick="navToDetail('${t.id}');" style="cursor:pointer;">${starBadge}${formatMnemIdxText(mnem.main)}</div>
+          <div class="mnem-idx-card-arrow" onclick="navToDetail('${t.id}');" style="cursor:pointer;">›</div>
         </div>`;
         cardCounter++;
       });
@@ -10183,7 +10295,7 @@ function renderMatchResults(results){
         ${e.warnings.length ? `<div class="mri-warnings">⚠️ ${e.warnings.map(w => escapeHtml(w)).join(' · ')}</div>` : ''}
         ${e.reasons.length ? `<div class="mri-reasons">❌ ${e.reasons.map(r => escapeHtml(r)).join(' · ')}</div>` : ''}
         <div class="mri-actions">
-          <button class="mri-detail-btn" onclick="closeTrialMatch(); setTimeout(() => showDetail('${t.id}'), 100);">看完整試驗詳情 →</button>
+          <button class="mri-detail-btn" onclick="navToDetail('${t.id}');">看完整試驗詳情 →</button>
         </div>
       </div>
     `;
@@ -10385,7 +10497,7 @@ function renderPathwayDetail(node){
       if(!t) return '';
       const statusEmoji = t.status === 'ongoing' ? '📍' : '📚';
       const siteIndicator = t.siteInfo ? '🏥' : '';
-      return `<button class="pw-trial-chip" onclick="closePathway(); setTimeout(() => showDetail('${t.id}'), 100);">${statusEmoji} ${siteIndicator} ${escapeHtml(t.name)}</button>`;
+      return `<button class="pw-trial-chip" onclick="navToDetail('${t.id}');">${statusEmoji} ${siteIndicator} ${escapeHtml(t.name)}</button>`;
     }).filter(Boolean).join('');
     trialsHtml = chips ? `
       <div class="pw-section">
@@ -19085,7 +19197,7 @@ function selectMolEntry(idx){
       if(!t) return '';
       const statusEmoji = t.status === 'ongoing' ? '📍' : '📚';
       const siteIndicator = t.siteInfo ? '🏥' : '';
-      return `<button class="mol-trial-chip" onclick="closeMolPedia(); setTimeout(() => showDetail('${t.id}'), 100);">
+      return `<button class="mol-trial-chip" onclick="navToDetail('${t.id}');">
         ${statusEmoji} ${siteIndicator} ${escapeHtml(t.name)}
       </button>`;
     }).filter(Boolean).join('');
@@ -20127,7 +20239,7 @@ function processAiContent(text){
 
 function renderTrialBlock(trial, lines){
   const desc = lines.join('\n').trim();
-  return `<div class="ai-trial-suggestion" onclick="showDetail('${trial.id}')">
+  return `<div class="ai-trial-suggestion" onclick="navToDetail('${trial.id}')">
     <div class="t-name">📍 ${escapeHtml(trial.name)} <span style="font-size:11px;font-weight:600;color:#10b981;">${trial.cancer} ${trial.phase.join('+')}</span></div>
     <div class="t-rationale">${escapeHtml(desc)}</div>
   </div>`;
@@ -21044,7 +21156,7 @@ function closeCustomCompare(){
 // ============================================================
 // 📜 治療演進時間軸
 // ============================================================
-let TIMELINE_STATE = { cancer: 'OC', showMnemonic: false };
+let TIMELINE_STATE = { cancer: 'OC', showMnemonic: false, expandAll: false, openContexts: new Set() };
 
 function openTimeline(cancer){
   if(cancer && TIMELINE_DATA[cancer]) TIMELINE_STATE.cancer = cancer;
@@ -21064,7 +21176,21 @@ function toggleTimelineMnemonic(){
   TIMELINE_STATE.showMnemonic = !TIMELINE_STATE.showMnemonic;
   renderTimeline();
 }
+function toggleTimelineExpandAll(){
+  TIMELINE_STATE.expandAll = !TIMELINE_STATE.expandAll;
+  TIMELINE_STATE.openContexts.clear(); // clear individual states
+  renderTimeline();
+}
+function onTimelineContextToggle(detailsEl, key){
+  // Track individual open/close states
+  if(detailsEl.open){
+    TIMELINE_STATE.openContexts.add(key);
+  } else {
+    TIMELINE_STATE.openContexts.delete(key);
+  }
+}
 function jumpToTrialFromTimeline(tid){
+  pushNavState();
   closeTimeline();
   setTimeout(() => showDetail(tid), 100);
 }
@@ -21122,7 +21248,10 @@ function renderTimeline(){
     let tabsHtml = Object.entries(TIMELINE_DATA).map(([k, v]) => 
       `<button class="timeline-tab ${k===TIMELINE_STATE.cancer?'active':''}" onclick="setTimelineCancer('${k}')">${v.name}</button>`
     ).join('');
-    // Add mnemonic toggle on right
+    // Add expand-all toggle + mnemonic toggle on right
+    tabsHtml += `<button class="timeline-expand-toggle ${TIMELINE_STATE.expandAll?'is-active':''}" onclick="toggleTimelineExpandAll()" title="一鍵全部展開/收合所有 context">
+      ${TIMELINE_STATE.expandAll?'📕 全部收合':'📖 全部展開'}
+    </button>`;
     tabsHtml += `<button class="timeline-mnemonic-toggle ${TIMELINE_STATE.showMnemonic?'is-active':''}" onclick="toggleTimelineMnemonic()" title="切換是否顯示每個試驗的口訣">
       📋 ${TIMELINE_STATE.showMnemonic?'隱藏口訣':'顯示口訣'}
     </button>`;
@@ -21137,11 +21266,18 @@ function renderTimeline(){
   
   let html = '';
   data.contexts.forEach((ctx, ci) => {
-    html += `<div class="timeline-context">
-      <div class="timeline-context-header">
+    // Get total trials count + era count for header
+    const eraCount = ctx.eras.length;
+    const trialCount = new Set(ctx.eras.flatMap(e => e.trials || [])).size;
+    // Default open state (controlled by TIMELINE_STATE.expandAll)
+    const isOpen = TIMELINE_STATE.expandAll || TIMELINE_STATE.openContexts.has(`${TIMELINE_STATE.cancer}:${ci}`);
+    html += `<details class="timeline-context" ${isOpen?'open':''} ontoggle="onTimelineContextToggle(this, '${TIMELINE_STATE.cancer}:${ci}')">
+      <summary class="timeline-context-header">
         <span class="timeline-context-num">${ci+1}</span>
-        ${escapeHtml(ctx.name)}
-      </div>
+        <span class="timeline-context-title">${escapeHtml(ctx.name)}</span>
+        <span class="timeline-context-meta">${eraCount} era · ${trialCount} 個試驗</span>
+        <span class="timeline-context-arrow">▼</span>
+      </summary>
       <div class="timeline-eras">`;
     
     ctx.eras.forEach(era => {
@@ -21195,7 +21331,7 @@ function renderTimeline(){
       html += `</div></div>`;
     });
     
-    html += `</div></div>`;
+    html += `</div></details>`;
   });
   
   body.innerHTML = html;
