@@ -939,6 +939,37 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .timeline-era-trials{display:flex;gap:5px;flex-wrap:wrap;margin:5px 0 4px;}
 .timeline-trial-chip{padding:3px 9px;border-radius:5px;background:white;border:1.5px solid #5eead4;color:#0f766e;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.12s;}
 .timeline-trial-chip:hover{background:#0d9488;color:white;border-color:#0d9488;transform:translateY(-1px);}
+
+/* Toggle button for mnemonic display */
+.timeline-mnemonic-toggle{margin-left:auto;padding:6px 13px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:white;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.timeline-mnemonic-toggle:hover{background:rgba(255,255,255,0.25);}
+.timeline-mnemonic-toggle.is-active{background:white;color:#0f766e;border-color:white;}
+
+/* Inline mnemonic cards in timeline */
+.timeline-era-mnemonics{display:flex;flex-direction:column;gap:6px;margin:6px 0 4px;}
+.tl-mn-card{padding:9px 11px;background:linear-gradient(135deg,#fffbeb,#fff7ed);border:1.5px solid #fcd34d;border-left:4px solid #f59e0b;border-radius:8px;}
+.tl-mn-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px;}
+.tl-mn-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:13px;flex-shrink:0;}
+.tl-mn-badge-pioneer{background:linear-gradient(135deg,#dc2626,#7f1d1d);}
+.tl-mn-badge-milestone{background:linear-gradient(135deg,#d97706,#b45309);}
+.tl-mn-name{font-weight:900;font-size:13px;color:#7c2d12;font-family:'JetBrains Mono',monospace;}
+.tl-mn-warn-ind{font-size:10.5px;background:#dc2626;color:white;padding:2px 7px;border-radius:5px;font-weight:800;cursor:help;}
+.tl-mn-detail-btn{margin-left:auto;padding:3px 9px;border-radius:5px;border:1.5px solid #0d9488;background:white;color:#0f766e;font-size:10.5px;font-weight:800;cursor:pointer;font-family:inherit;}
+.tl-mn-detail-btn:hover{background:#0d9488;color:white;}
+.tl-mn-main{font-size:13px;font-weight:800;color:#7c2d12;line-height:1.5;letter-spacing:0.02em;background:rgba(255,255,255,0.7);padding:6px 9px;border-radius:6px;margin-bottom:5px;}
+.tl-mn-hooks{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px;}
+.tl-mn-hook{font-size:10.5px;background:rgba(217,119,6,0.15);color:#7c2d12;padding:2px 7px;border-radius:5px;font-weight:700;border:1px solid #fcd34d;}
+.tl-mn-hook b{color:#dc2626;font-weight:900;margin-right:3px;}
+.tl-mn-hook-val{color:#7c2d12;font-family:'JetBrains Mono',monospace;font-weight:800;margin-left:3px;}
+.tl-mn-keypoint{font-size:11px;color:#475569;line-height:1.5;font-weight:600;font-style:italic;}
+
+@media(max-width:640px){
+  .timeline-mnemonic-toggle{font-size:10.5px;padding:5px 10px;width:100%;margin-left:0;margin-top:4px;}
+  .tl-mn-card{padding:8px 9px;}
+  .tl-mn-main{font-size:12px;padding:5px 8px;}
+  .tl-mn-hook{font-size:9.5px;}
+  .tl-mn-detail-btn{font-size:10px;padding:2px 7px;}
+}
 .timeline-era-note{font-size:11.5px;color:#475569;line-height:1.5;font-weight:600;}
 
 @media(max-width:768px){
@@ -13400,6 +13431,41 @@ const TIMELINE_DATA = {
           { year:'2024+', label:'mEOC 救援', trials:['mfolfirinox-bev','meoc-gog0241'], note:'GI 三藥救援; mucinous 收案困難' },
         ],
       },
+      {
+        name: '🩸 Bev 跨線使用 (專輯)',
+        eras: [
+          { year:'2011', label:'一線 Bev 開山', trials:['gog-0218','icon7'], note:'GOG-0218 (15mg/kg) + ICON7 (7.5mg/kg) — 兩劑量同步驗證' },
+          { year:'2012', label:'PSOC Bev 開山', trials:['oceans'], note:'OCEANS Bev+Carbo+Gem PFS HR 0.48; OS NS' },
+          { year:'2014', label:'PROC Bev 抗血管', trials:['aurelia'], note:'AURELIA Bev+chemo PFS 翻倍 HR 0.48' },
+          { year:'2017', label:'PSOC OS+ 確認', trials:['gog-0213'], note:'GOG-0213 Bev (PSOC) OS HR 0.83 mOS+5m' },
+          { year:'2018', label:'Bev Beyond Progression', trials:['mito16b'], note:'MITO16B 跨線使用 PFS HR 0.51 — Bev 即使前線用過仍有效' },
+          { year:'2018', label:'BOOST 維持時長', trials:['boost-engot-ov15'], note:'30m vs 15m HR 0.99 NS — 不需延長' },
+          { year:'2024', label:'Bev+IO 整合', trials:['keynote-b96'], note:'Pembro+chemo±Bev PROC OS 突破' },
+        ],
+      },
+      {
+        name: '🧬 HRD 概念演進 (PARPi 篩選)',
+        eras: [
+          { year:'2014', label:'PARPi 萌芽 (無分子篩選)', trials:['study-19'], note:'Olap PSROC, 早期未篩 BRCA' },
+          { year:'2016', label:'gBRCA + non-gBRCA 分流', trials:['nova'], note:'NOVA gBRCA HR 0.27 / non-gBRCA HR 0.45' },
+          { year:'2017', label:'LOH 分流 (FoundationOne)', trials:['ariel3'], note:'ARIEL3 LOH ≥16% 高分流, BRCAm HR 0.23 / ITT HR 0.36' },
+          { year:'2018', label:'BRCAm 一線確立', trials:['solo-1'], note:'SOLO-1 BRCAm 一線 HR 0.33; PARPi 範式翻轉' },
+          { year:'2019', label:'GIS≥42 HRD score 確立', trials:['paola-1','prima'], note:'Myriad GIS≥42 為 HRD+ 標準; PAOLA-1 HRD+ HR 0.33' },
+          { year:'2022', label:'non-BRCAm HRD+ 補強', trials:['duo-o'], note:'DUO-O 三藥維持; non-BRCAm HRD+ HR 0.46' },
+          { year:'2023+', label:'KELIM 功能性篩選', trials:[], note:'KELIM ≥1 為化療敏感 surrogate, 與 HRD 互補' },
+        ],
+      },
+      {
+        name: '🔪 二次減積手術 (Secondary Cytoreduction)',
+        eras: [
+          { year:'2007-19', label:'GOG-213 PSOC 手術', trials:['gog-0213'], note:'手術 + chemo+Bev (PSOC); 但手術組未得 OS+' },
+          { year:'2021', label:'AGO+ R0 受益', trials:['desktop-iii'], note:'DESKTOP III AGO+ 才做 — R0 mOS 53.7 vs 46m' },
+          { year:'2018', label:'HIPEC 整合', trials:['van-driel-hipec'], note:'IDS+HIPEC OS HR 0.67 mOS+12m' },
+          { year:'2019', label:'淋巴清掃終結', trials:['lion'], note:'LION 系統清掃 OS 1.06 NS — 只清 bulky LN' },
+          { year:'進行中', label:'TRUST PDS 高品質', trials:['trust'], note:'高品質 PDS vs NACT 結果待出' },
+          { year:'進行中', label:'SCORPION/JCOG NACT 條件', trials:['scorpion','jcog0602','eortc-chorus-pooled'], note:'高負荷 (Stage IV / Fagotti≥8) 受益最大' },
+        ],
+      },
     ],
   },
   'EC': {
@@ -13415,11 +13481,12 @@ const TIMELINE_DATA = {
       {
         name: '一線 IO+chemo (dMMR/pMMR)',
         eras: [
-          { year:'2017', label:'dMMR 跨癌開山', trials:['keynote-158'], note:'Pembro tumor-agnostic, dMMR EC ORR 46%' },
-          { year:'2021', label:'dMMR 單藥', trials:['garnet'], note:'Dostar A1 ORR 45.5%, FDA accelerated' },
-          { year:'2023', label:'IO+chemo 雙開山', trials:['gy018','ruby-p1'], note:'GY018 排除肉瘤; RUBY P1 含癌肉瘤' },
-          { year:'2023', label:'第三選項', trials:['attend','duo-e'], note:'AtTEnd Atezo (ITT OS NS); DUO-E 三標靶' },
-          { year:'2024+', label:'dMMR 去化療', trials:['keynote-c93'], note:'Pembro 單藥 1L 挑戰 SOC' },
+          { year:'2017', label:'dMMR 跨癌開山 (basket)', trials:['keynote-158'], note:'Pembro tumor-agnostic, dMMR EC ORR 46% — 首個分子定義適應症' },
+          { year:'2021', label:'dMMR 單藥確立 (FDA加速)', trials:['garnet'], note:'Dostar A1 ORR 45.5%, FDA accelerated approval' },
+          { year:'2023', label:'IO+chemo 雙開山 (NEJM 同期)', trials:['gy018','ruby-p1'], note:'GY018 排除肉瘤 / RUBY P1 含癌肉瘤 — 雙範式確立' },
+          { year:'2023', label:'PD-L1 路徑 (Atezo)', trials:['attend'], note:'唯一用 PD-L1 阻斷; dMMR 顯效但 ITT OS NS — 與 GY018/RUBY 對比' },
+          { year:'2023', label:'三標靶整合 (Durva+Olap+chemo)', trials:['duo-e'], note:'DUO-E 三臂; Arm3 加 Olap 在 p53/HRR 拔尖' },
+          { year:'2024+', label:'dMMR 去化療嘗試', trials:['keynote-c93'], note:'Pembro 單藥 1L 挑戰 SOC chemo' },
         ],
       },
       {
@@ -13444,6 +13511,17 @@ const TIMELINE_DATA = {
         eras: [
           { year:'2024', label:'IO adjuvant 失利', trials:['keynote-b21'], note:'Pembro+chemo DFS HR 1.02 NS 翻車' },
           { year:'2024+', label:'分子分型驅動', trials:['portec-4a','rainbo-program'], note:'依分型決定升/降階' },
+        ],
+      },
+      {
+        name: '🌟 4-tier 各分型治療策略',
+        eras: [
+          { year:'POLEm', label:'波超棒 — 不化療不放療', trials:['rainbo-program','portec-4a'], note:'POLE 突變 5y OS >95%; FIGO 2023 直降 IA — 降階治療' },
+          { year:'MMRd', label:'米多反應好 — IO 黃金', trials:['gy018','ruby-p1','garnet','keynote-158','keynote-c93'], note:'dMMR ORR 45-50%; PFS HR ~0.30; 一線 IO+chemo / 後線 IO 單藥' },
+          { year:'p53abn', label:'五三變異最差 — 強化治療', trials:['duo-e','duo-e-maint','utola','destiny-pantumor02'], note:'p53/HRR 雙打; 漿液必查 HER2; 維持期加 Olap 拔尖' },
+          { year:'NSMP-low', label:'NSMP-low ER+ — 賀爾蒙', trials:['rainbo-program'], note:'ER 陽好命, 賀爾蒙好用, 預後接近 POLE' },
+          { year:'NSMP-high', label:'NSMP-high ER- — 等同 p53', trials:['rainbo-program','siendo'], note:'NSMP-high 強化等同 p53; SIENDO TP53wt 翻盤' },
+          { year:'CTNNB1', label:'假 low-grade 真早復', trials:['portec-4a','rainbo-program'], note:'Wnt 三外顯; G1-G2 也 PORTEC 升風險' },
         ],
       },
     ],
@@ -13492,6 +13570,26 @@ const TIMELINE_DATA = {
           { year:'2024+', label:'本院 DNA 疫苗', trials:['pvx4'], note:'pBI-4 HPV16+ CIN2/3 (Chang Gung)' },
         ],
       },
+      {
+        name: '🎯 CC IO 整體演進 (跨情境)',
+        eras: [
+          { year:'2018', label:'IO 萌芽 — basket', trials:['keynote-158'], note:'Pembro CC PD-L1+ ORR 14.6% — FDA 加速 (後被取代)' },
+          { year:'2021', label:'R/M 1L 突破', trials:['keynote-826'], note:'Pembro+chemo±Bev CPS≥1 OS HR 0.60 — 取代 KN-158 後線地位' },
+          { year:'2021', label:'IO 單藥 (2L+)', trials:['empower-cervical-1'], note:'Cemi 單藥 OS HR 0.69 — 不需 PD-L1 篩選' },
+          { year:'2024', label:'R/M 1L 第二支柱', trials:['beatcc'], note:'BEATcc Atezo+Bev+chemo 不需 CPS — 互補 KN-826' },
+          { year:'2024', label:'LACC IO 開山', trials:['keynote-a18'], note:'高風險族 Pembro+CCRT OS HR 0.67' },
+          { year:'2024+', label:'NACT+IO + 雙特異', trials:['naci-study','natic-trial','cadonilimab-nact','evolve-cervical'], note:'PD-1/CTLA-4 雙特異性新策略' },
+          { year:'2024+', label:'IO+ADC 整合', trials:['trofuse-036'], note:'sac-TMT+Pembro±Bev — 化療之外的整合' },
+        ],
+      },
+      {
+        name: '🩷 CC ADC 演進',
+        eras: [
+          { year:'2024', label:'TF-ADC 確立', trials:['innovatv-301'], note:'Tisotumab Vedotin OS HR 0.70 — 後線新標準, FDA full' },
+          { year:'2024+', label:'TF-ADC 1L 探索', trials:['innovatv-205'], note:'TV+Carbo 1L ORR 54.5% — phase II' },
+          { year:'2024+', label:'TROP2-ADC 整合 IO', trials:['trofuse-036'], note:'sac-TMT+Pembro±Bev R/M 維持 — TROP2 進入 CC' },
+        ],
+      },
     ],
   },
   'US': {
@@ -13536,6 +13634,16 @@ const TIMELINE_DATA = {
           { year:'2014', label:'LG-ESS Letrozole', trials:['paragon'], note:'Anastrozole CBR 73%' },
           { year:'2024+', label:'LG-ESS 維持', trials:['letrozole-ngess'], note:'長期維持探索' },
           { year:'2018-19', label:'NTRK Tumor-agnostic', trials:['ntrk-basket'], note:'Larotrec/Entrec ORR ~75%' },
+        ],
+      },
+      {
+        name: '🌐 跨癌別 Tumor-agnostic 適應症',
+        eras: [
+          { year:'2017', label:'MSI-H/dMMR 跨癌開山', trials:['keynote-158'], note:'Pembro 首個分子定義適應症; 改變 oncology 範式' },
+          { year:'2018-19', label:'NTRK fusion 跨癌', trials:['ntrk-basket'], note:'Larotrec/Entrec FDA 通用 ORR ~75%' },
+          { year:'2024', label:'HER2 IHC3+ 跨癌', trials:['destiny-pantumor02'], note:'T-DXd 跨癌 ADC; 婦癌 EC/CC/OC 都受益' },
+          { year:'2017-23', label:'TMB-H ≥10 跨癌', trials:[], note:'Pembro TMB-H ≥10 muts/Mb (KEYNOTE-158 衍生)' },
+          { year:'2020+', label:'其他探索 (RET/BRAF)', trials:[], note:'Selpercatinib (RET); Dab+Tram (BRAF V600E) — 婦癌罕見' },
         ],
       },
     ],
@@ -20936,7 +21044,7 @@ function closeCustomCompare(){
 // ============================================================
 // 📜 治療演進時間軸
 // ============================================================
-let TIMELINE_STATE = { cancer: 'OC' };
+let TIMELINE_STATE = { cancer: 'OC', showMnemonic: false };
 
 function openTimeline(cancer){
   if(cancer && TIMELINE_DATA[cancer]) TIMELINE_STATE.cancer = cancer;
@@ -20952,9 +21060,58 @@ function setTimelineCancer(c){
   TIMELINE_STATE.cancer = c;
   renderTimeline();
 }
+function toggleTimelineMnemonic(){
+  TIMELINE_STATE.showMnemonic = !TIMELINE_STATE.showMnemonic;
+  renderTimeline();
+}
 function jumpToTrialFromTimeline(tid){
   closeTimeline();
   setTimeout(() => showDetail(tid), 100);
+}
+
+// Render compact mnemonic card for timeline embed
+function renderTimelineMnemonicCard(tid){
+  const m = TRIAL_MNEMONICS[tid];
+  if(!m) return '';
+  const t = TRIALS.find(x => x.id === tid);
+  if(!t) return '';
+  
+  // Pioneer/Milestone badge
+  let badge = '';
+  if(typeof TRIAL_BADGES !== 'undefined' && TRIAL_BADGES[tid]){
+    const bd = TRIAL_BADGES[tid];
+    const icon = bd.type === 'pioneer' ? '🚀' : '🏛️';
+    badge = `<span class="tl-mn-badge tl-mn-badge-${bd.type}">${icon}</span>`;
+  }
+  
+  // Numbers hooks summary (top 3 most relevant)
+  let hooksLine = '';
+  if(typeof NUMBER_HOOKS !== 'undefined'){
+    const trialHooks = Object.entries(NUMBER_HOOKS).filter(([k]) => k.startsWith(tid)).slice(0, 3);
+    if(trialHooks.length > 0){
+      hooksLine = trialHooks.map(([k, h]) => 
+        `<span class="tl-mn-hook"><b>${escapeHtml(h.endpoint||'')}</b>·${escapeHtml(h.subgroup||'')} <span class="tl-mn-hook-val">${escapeHtml(h.val)}</span></span>`
+      ).join('');
+    }
+  }
+  
+  // Exam warnings indicator
+  let warnTag = '';
+  if(typeof EXAM_WARNINGS !== 'undefined' && EXAM_WARNINGS[tid]){
+    warnTag = `<span class="tl-mn-warn-ind" title="此試驗有 ${EXAM_WARNINGS[tid].length} 項考試重點警示">⚠️ ${EXAM_WARNINGS[tid].length}</span>`;
+  }
+  
+  return `<div class="tl-mn-card">
+    <div class="tl-mn-header">
+      ${badge}
+      <span class="tl-mn-name">${escapeHtml(t.name)}</span>
+      ${warnTag}
+      <button class="tl-mn-detail-btn" onclick="jumpToTrialFromTimeline('${tid}')" title="跳到試驗詳情">詳情 →</button>
+    </div>
+    <div class="tl-mn-main">${escapeHtml(m.main)}</div>
+    ${hooksLine ? `<div class="tl-mn-hooks">${hooksLine}</div>` : ''}
+    ${m.keypoint ? `<div class="tl-mn-keypoint">🎯 ${escapeHtml(m.keypoint)}</div>` : ''}
+  </div>`;
 }
 
 function renderTimeline(){
@@ -20962,9 +21119,14 @@ function renderTimeline(){
   // Tabs
   const tabs = el('timelineCancerTabs');
   if(tabs){
-    tabs.innerHTML = Object.entries(TIMELINE_DATA).map(([k, v]) => 
+    let tabsHtml = Object.entries(TIMELINE_DATA).map(([k, v]) => 
       `<button class="timeline-tab ${k===TIMELINE_STATE.cancer?'active':''}" onclick="setTimelineCancer('${k}')">${v.name}</button>`
     ).join('');
+    // Add mnemonic toggle on right
+    tabsHtml += `<button class="timeline-mnemonic-toggle ${TIMELINE_STATE.showMnemonic?'is-active':''}" onclick="toggleTimelineMnemonic()" title="切換是否顯示每個試驗的口訣">
+      📋 ${TIMELINE_STATE.showMnemonic?'隱藏口訣':'顯示口訣'}
+    </button>`;
+    tabs.innerHTML = tabsHtml;
   }
   
   // Body
@@ -21002,13 +21164,28 @@ function renderTimeline(){
           <div class="timeline-era-label">${escapeHtml(era.label)}${eraTag}</div>`;
       
       if(era.trials && era.trials.length > 0){
-        html += `<div class="timeline-era-trials">`;
-        era.trials.forEach(tid => {
-          const t = TRIALS.find(x => x.id === tid);
-          const name = t ? t.name : tid;
-          html += `<button class="timeline-trial-chip" onclick="jumpToTrialFromTimeline('${tid}')" title="點擊看試驗詳情">${escapeHtml(name)}</button>`;
-        });
-        html += `</div>`;
+        if(TIMELINE_STATE.showMnemonic){
+          // Show full mnemonic cards inline
+          html += `<div class="timeline-era-mnemonics">`;
+          era.trials.forEach(tid => {
+            html += renderTimelineMnemonicCard(tid);
+          });
+          html += `</div>`;
+        } else {
+          // Compact chips
+          html += `<div class="timeline-era-trials">`;
+          era.trials.forEach(tid => {
+            const t = TRIALS.find(x => x.id === tid);
+            const name = t ? t.name : tid;
+            // Add badge icon if exists
+            let badgeIcon = '';
+            if(typeof TRIAL_BADGES !== 'undefined' && TRIAL_BADGES[tid]){
+              badgeIcon = TRIAL_BADGES[tid].type === 'pioneer' ? '🚀 ' : '🏛️ ';
+            }
+            html += `<button class="timeline-trial-chip" onclick="jumpToTrialFromTimeline('${tid}')" title="點擊看試驗詳情">${badgeIcon}${escapeHtml(name)}</button>`;
+          });
+          html += `</div>`;
+        }
       }
       
       if(era.note){
