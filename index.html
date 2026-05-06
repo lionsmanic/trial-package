@@ -571,10 +571,26 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .tmc-hooks-block[open] .tmc-hooks-summary::before{transform:rotate(90deg);}
 .tmc-hooks-summary:hover{background:linear-gradient(90deg,#4338ca,#6366f1);}
 .tmc-hooks-list{padding:9px 12px 11px;display:flex;flex-direction:column;gap:5px;}
-.tmc-hook-row{display:flex;align-items:flex-start;gap:9px;padding:6px 9px;background:rgba(255,255,255,0.06);border-radius:7px;font-size:11.5px;}
+.tmc-hook-row{display:flex;flex-direction:column;gap:5px;padding:7px 9px;background:rgba(255,255,255,0.06);border-radius:7px;font-size:11.5px;}
+.tmc-hook-row.is-warn{background:rgba(220,38,38,0.18);border:1px solid rgba(248,113,113,0.4);}
+.tmc-hook-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
+.tmc-hook-ep{font-weight:900;font-size:9.5px;padding:1.5px 7px;border-radius:5px;color:white;letter-spacing:0.04em;}
+.tmc-hook-ep.ep-pfs{background:linear-gradient(135deg,#dc2626,#b91c1c);}
+.tmc-hook-ep.ep-os{background:linear-gradient(135deg,#7c3aed,#6d28d9);}
+.tmc-hook-ep.ep-dfs{background:linear-gradient(135deg,#059669,#047857);}
+.tmc-hook-ep.ep-dor{background:linear-gradient(135deg,#0891b2,#0e7490);}
+.tmc-hook-ep.ep-orr{background:linear-gradient(135deg,#ea580c,#c2410c);}
+.tmc-hook-ep.ep-pcr{background:linear-gradient(135deg,#db2777,#be185d);}
+.tmc-hook-ep.ep-hr{background:linear-gradient(135deg,#475569,#334155);}
+.tmc-hook-ep.ep-復發{background:linear-gradient(135deg,#dc2626,#7f1d1d);}
+.tmc-hook-ep.ep-其他{background:linear-gradient(135deg,#64748b,#475569);}
+.tmc-hook-sg{font-weight:800;font-size:10.5px;padding:1.5px 8px;border-radius:5px;background:rgba(253,224,71,0.2);color:#fde047;border:1px solid rgba(253,224,71,0.4);}
+.tmc-hook-body{display:flex;align-items:flex-start;gap:9px;}
 .tmc-hook-num{flex:0 0 auto;font-weight:900;color:#fde047;font-family:"JetBrains Mono",monospace;background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:5px;min-width:60px;text-align:center;font-size:11px;}
 .tmc-hook-arrow{flex:0 0 auto;color:#a5b4fc;font-weight:800;}
 .tmc-hook-text{flex:1;color:#e0e7ff;line-height:1.5;font-weight:600;}
+.tmc-hook-row.is-warn .tmc-hook-text{color:#fecaca;}
+.tmc-hook-row.is-warn .tmc-hook-num{color:#fecaca;background:rgba(220,38,38,0.3);}
 
 @media(max-width:640px){
   .tmc-xref-tbl{font-size:10.5px;}
@@ -694,6 +710,15 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .cccmp-preset-del{font-size:13px;color:#dc2626;cursor:pointer;font-weight:900;padding:0 2px;}
 .cccmp-preset-del:hover{color:#7f1d1d;}
 .cccmp-empty-presets{font-size:11.5px;color:#94a3b8;font-style:italic;}
+
+.cccmp-rules-detail{margin-top:7px;font-size:10.5px;}
+.cccmp-rules-detail summary{cursor:pointer;list-style:none;color:#0891b2;font-weight:700;display:inline-flex;align-items:center;gap:5px;padding:1px 0;}
+.cccmp-rules-detail summary::-webkit-details-marker{display:none;}
+.cccmp-rules-detail summary::before{content:'▶';font-size:8px;transition:transform 0.2s;}
+.cccmp-rules-detail[open] summary::before{transform:rotate(90deg);}
+.cccmp-rules-list{margin:6px 0 0 0;padding:0 0 0 8px;list-style:none;display:flex;flex-direction:column;gap:4px;}
+.cccmp-rules-list li{padding:5px 9px;background:white;border:1px solid #cffafe;border-left:3px solid #0891b2;border-radius:6px;font-size:11px;color:#0c4a6e;font-weight:600;line-height:1.5;}
+.cccmp-rules-list li b{color:#0891b2;margin-right:6px;}
 
 /* Picker section */
 .cccmp-section{margin-bottom:18px;}
@@ -13073,41 +13098,110 @@ Object.entries(TRIAL_CMP_GROUPS).forEach(([gid, g]) => {
 // Map specific numbers/HR values to memorable hooks
 
 const NUMBER_HOOKS = {
-  // Trial-specific number memory hooks
-  'gy018-pfs-dmmr':  { val:'HR 0.30',  hook:'三十而立 — dMMR 三成風險 (七成保留)' },
-  'gy018-pfs-pmmr':  { val:'HR 0.54',  hook:'五五波 (略過半保留風險, 但顯著)' },
-  'ruby-p1-dmmr':    { val:'HR 0.28',  hook:'近三成風險 (略低於 GY018)' },
-  'ruby-p1-os':      { val:'HR 0.69',  hook:'六九, ITT OS 顯著' },
-  'solo-1-pfs':      { val:'HR 0.33',  hook:'三分之一風險 (PARPi 經典)' },
-  'solo-1-pfs-5y':   { val:'56 vs 13.8m', hook:'五十六比十三 (4 倍延長)' },
-  'solo-1-os-7y':    { val:'HR 0.55',  hook:'五五對開 (BRCAm 7年 OS 真延長)' },
-  'paola-1-hrd':     { val:'HR 0.33',  hook:'三分之一 (與 SOLO-1 同等強度)' },
-  'paola-1-pfs':     { val:'37 vs 17.7m', hook:'三十七比十七 (HRD+ 翻倍)' },
-  'prima-hrd':       { val:'HR 0.43',  hook:'四三比 (HRD+, 但 OS 翻盤失敗)' },
-  'prima-itt':       { val:'HR 0.62',  hook:'六二, ITT 顯著但 OS NS' },
-  'keynote-826-cps': { val:'mOS 28.6 vs 16.5m', hook:'二八對一六五 (CPS≥1 強)' },
-  'keynote-826-hr':  { val:'HR 0.60',  hook:'六比四, CPS≥1 顯著' },
-  'beatcc-os':       { val:'mOS 32.1 vs 22.8m', hook:'三二對二二, BEATcc 不需 CPS' },
-  'gog-240-os':      { val:'mOS 16.8 vs 13.3m', hook:'十六八比十三三 (Bev R/M 第一里程碑)' },
-  'mirasol-pfs':     { val:'HR 0.65',  hook:'六五, FRα PROC' },
-  'mirasol-os':      { val:'HR 0.67',  hook:'六七, FDA full approval' },
-  'lms-04-pfs':      { val:'12.2 vs 6.2m', hook:'十二比六 (uLMS 翻倍)' },
-  'lms-04-hr':       { val:'HR 0.41',  hook:'四一, Dox+Trab > Dox' },
-  'keynote-a18-os':  { val:'OS HR 0.67', hook:'六七, 與 MIRASOL 巧合相同 (兩個 PD-1 主導試驗)' },
-  'keynote-a18-pfs': { val:'24m PFS 67.8 vs 57.3', hook:'placebo 五七 (低 → IO 加成空間大)' },
-  'calla-pfs':       { val:'HR 0.84 NS',  hook:'八四 NS (placebo 已六二, 加成小)' },
-  'gog-218-pfs':     { val:'HR 0.717', hook:'七一七 (Bev 一線 PFS+)' },
-  'icon7-os-hr':     { val:'OS HR 0.78', hook:'high-risk 七八, 延 4.8m' },
-  'jgog-os':         { val:'mOS 100 vs 62m', hook:'一百比六二 (亞洲奇蹟, 西方未複製)' },
-  'gog-172-os':      { val:'mOS 65.6 vs 49.7m', hook:'六十五比五十 (IP +16m)' },
-  'lion-pfs-hr':     { val:'OS HR 1.06', hook:'一零六, 系統淋巴清掃無效' },
-  'aurelia-pfs':     { val:'6.7 vs 3.4m', hook:'六七比三四 (PROC 翻倍)' },
-  'aurelia-hr':      { val:'HR 0.48',   hook:'四八, PROC + Bev 強' },
-  'palette-pfs':     { val:'4.6 vs 1.6m', hook:'四六比一六 (Pazopanib 三倍)' },
-  'palette-hr':      { val:'HR 0.31',   hook:'三一, 非脂肪肉瘤 TKI 強' },
-  'et743-pfs':       { val:'HR 0.55',   hook:'五五, Trab vs Dacar 老藥對決' },
-  'gog-281-hr':      { val:'HR 0.48',   hook:'四八, Trametinib LGSOC' },
-  'lacc-mis':        { val:'HR 3.74',   hook:'三點七四倍復發 — MIS 範式翻轉' },
+  // Format: { val, endpoint, subgroup, hook, [warn] }
+  // endpoint: 'PFS' | 'OS' | 'DFS' | 'DOR' | 'pCR' | 'ORR' | 'HR' | '其他'
+  // subgroup: 'ITT' | 'BRCAm' | 'HRD+' | 'dMMR' | 'pMMR' | 'CPS≥1' 等等
+
+  // === EC 一線 IO+chemo ===
+  'gy018-pfs-dmmr':  { val:'HR 0.30',     endpoint:'PFS', subgroup:'dMMR', hook:'三十而立 — dMMR 三成風險 (七成保留)' },
+  'gy018-pfs-pmmr':  { val:'HR 0.54',     endpoint:'PFS', subgroup:'pMMR', hook:'五五波 (略過半保留風險, 但顯著)' },
+  'gy018-os-itt':    { val:'HR 0.65',     endpoint:'OS',  subgroup:'ITT',  hook:'六五, ITT OS 顯著 (35% 死亡風險降)' },
+  'ruby-p1-dmmr':    { val:'HR 0.28',     endpoint:'PFS', subgroup:'dMMR', hook:'近三成風險 (略低於 GY018 dMMR)' },
+  'ruby-p1-os-itt':  { val:'HR 0.69',     endpoint:'OS',  subgroup:'ITT',  hook:'六九, ITT OS 顯著 (含癌肉瘤)' },
+  'duo-e-pfs':       { val:'HR 0.46',     endpoint:'PFS', subgroup:'pMMR p53m/HRRm', hook:'四六, Arm3 三標靶 pMMR 拔尖' },
+  'attend-pfs-dmmr': { val:'HR 0.36',     endpoint:'PFS', subgroup:'dMMR', hook:'三六, AtTEnd dMMR 顯效' },
+  'attend-os-itt':   { val:'HR 0.87 NS',  endpoint:'OS',  subgroup:'ITT',  hook:'八七 NS — ITT OS 失利 (與 GY018/RUBY 不同)', warn:true },
+  'keynote-b21-dfs': { val:'HR 1.02 NS',  endpoint:'DFS', subgroup:'ITT',  hook:'一零二 NS — adjuvant Pembro 翻車', warn:true },
+
+  // === EC 維持 ===
+  'siendo-pfs-tp53wt': { val:'mPFS 27.4 vs 5.2m', endpoint:'PFS', subgroup:'TP53 wildtype (post-hoc)', hook:'二十七比五 (TP53wt 翻盤, 反一般預期)' },
+  'siendo-hr-tp53wt':  { val:'HR 0.41',     endpoint:'PFS', subgroup:'TP53 wildtype (post-hoc)', hook:'四一, TP53wt subgroup 撿到一條' },
+
+  // === EC 復發 ===
+  'keynote-775-pfs-pmmr': { val:'mPFS 6.6 vs 3.8m', endpoint:'PFS', subgroup:'pMMR', hook:'六六比三八, Pembro+Lenva 翻倍' },
+  'keynote-775-os-pmmr':  { val:'HR 0.70', endpoint:'OS',  subgroup:'pMMR', hook:'七零, pMMR OS+18m vs 12m' },
+  'garnet-orr-dmmr':      { val:'ORR 45.5%', endpoint:'ORR', subgroup:'dMMR (single-arm)', hook:'四五五, dMMR ICI 黃金' },
+  'garnet-dor-dmmr':      { val:'24m DOR 83.7%', endpoint:'DOR', subgroup:'dMMR (single-arm)', hook:'八三七, 反應極持久' },
+  'destiny-pt02-orr':     { val:'ORR 57.5% (整體) / 84.6% (IHC3+)', endpoint:'ORR', subgroup:'EC HER2+ (single-arm)', hook:'整體五七五 IHC3+ 八四六, 翻倍受益' },
+
+  // === OC 一線 ===
+  'gog-218-pfs-itt':      { val:'HR 0.717', endpoint:'PFS', subgroup:'ITT', hook:'七一七 (Bev 一線 PFS+, OS NS)' },
+  'icon7-os-highrisk':    { val:'OS HR 0.78', endpoint:'OS', subgroup:'high-risk subgroup', hook:'high-risk 七八 (延 4.8m, ITT OS NS)' },
+  'jgog-os-asia':         { val:'mOS 100.5 vs 62m', endpoint:'OS', subgroup:'ITT (亞洲族群)', hook:'一百比六二 — 亞洲奇蹟, 西方未複製' },
+  'gog-172-os-ip':        { val:'mOS 65.6 vs 49.7m', endpoint:'OS', subgroup:'ITT (Stage III, R≤1cm)', hook:'六五比五 (IP +16m, IP 黃金)' },
+
+  // === OC 一線維持 PARPi ===
+  'solo-1-pfs-brca':      { val:'HR 0.33', endpoint:'PFS', subgroup:'BRCAm', hook:'三分之一風險 (PARPi 經典)' },
+  'solo-1-pfs-5y-brca':   { val:'5y mPFS 56 vs 13.8m', endpoint:'PFS', subgroup:'BRCAm (5y FU)', hook:'五十六比十三 (4 倍延長)' },
+  'solo-1-os-7y-brca':    { val:'7y OS HR 0.55', endpoint:'OS', subgroup:'BRCAm (7y FU)', hook:'五五對開 — BRCAm 真延長 OS' },
+  'paola-1-pfs-hrd':      { val:'HR 0.33', endpoint:'PFS', subgroup:'HRD+', hook:'三分之一 (與 SOLO-1 同等強度!)' },
+  'paola-1-pfs-m-hrd':    { val:'mPFS 37.2 vs 17.7m', endpoint:'PFS', subgroup:'HRD+', hook:'三七比十七 (HRD+ 翻倍)' },
+  'paola-1-os-5y-hrd':    { val:'5y OS HR 0.62', endpoint:'OS', subgroup:'HRD+ (5y FU)', hook:'六二, HRD+ 5y OS+ 17%' },
+  'prima-pfs-hrd':        { val:'HR 0.43', endpoint:'PFS', subgroup:'HRD+', hook:'四三比 (HRD+ 強)' },
+  'prima-pfs-itt':        { val:'HR 0.62', endpoint:'PFS', subgroup:'ITT', hook:'六二 (ITT PFS+)' },
+  'prima-os-hrd':         { val:'OS HR 0.95 NS', endpoint:'OS', subgroup:'HRD+', hook:'⚠️ OS 翻盤失敗 — HRD+ PFS 顯著但 OS NS', warn:true },
+  'prima-os-itt':         { val:'OS HR 1.01 NS', endpoint:'OS', subgroup:'ITT', hook:'⚠️ ITT OS 完全平 (一零一)', warn:true },
+  'duo-o-pfs-hrd':        { val:'HR 0.46', endpoint:'PFS', subgroup:'HRD+ non-BRCAm', hook:'四六, 三藥維持 non-BRCAm 撿大獲益' },
+  'duo-o-pfs-m-hrd':      { val:'mPFS 45.1 vs 23.3m', endpoint:'PFS', subgroup:'HRD+ non-BRCAm', hook:'四五一比二三 (3 藥延 22m)' },
+  'athena-mono-pfs-hrd':  { val:'HR 0.47', endpoint:'PFS', subgroup:'HRD+', hook:'四七, Ruca 全人群但 HRD+ 才強' },
+
+  // === OC 手術 ===
+  'lion-os-hr':           { val:'OS HR 1.06', endpoint:'OS', subgroup:'ITT (advanced OC, R0)', hook:'一零六, 系統淋巴清掃無效, 併發症卻增', warn:true },
+  'desktop-iii-os-r0':    { val:'mOS 53.7 vs 46m', endpoint:'OS', subgroup:'AGO+ R0 subgroup', hook:'五三七比四六 (R0 才受益)' },
+  'van-driel-hipec-os':   { val:'OS HR 0.67', endpoint:'OS', subgroup:'IDS+HIPEC ITT', hook:'六七, mOS 加 12m, HIPEC 經典' },
+
+  // === OC PSOC 維持 PARPi ===
+  'solo2-pfs-brca':       { val:'HR 0.30', endpoint:'PFS', subgroup:'BRCAm PSOC', hook:'三零, PSOC BRCAm 維持經典' },
+  'solo2-pfs-m-brca':     { val:'mPFS 19.1 vs 5.5m', endpoint:'PFS', subgroup:'BRCAm PSOC', hook:'十九比五 (4 倍延長)' },
+  'solo2-os-brca':        { val:'mOS 51.7 vs 38.8m', endpoint:'OS', subgroup:'BRCAm PSOC', hook:'五一七比三八八 (首個 PARPi OS+)' },
+  'nova-pfs-gbrca':       { val:'HR 0.27', endpoint:'PFS', subgroup:'gBRCAm', hook:'二七, gBRCAm 強' },
+  'nova-pfs-non-gbrca':   { val:'HR 0.45', endpoint:'PFS', subgroup:'non-gBRCAm', hook:'四五, non-gBRCAm 仍受益' },
+  'ariel3-pfs-brca':      { val:'HR 0.23', endpoint:'PFS', subgroup:'BRCAm PSOC', hook:'二三, BRCAm 最強 PARPi PSOC' },
+  'ariel3-pfs-itt':       { val:'HR 0.36', endpoint:'PFS', subgroup:'ITT', hook:'三六, ITT 也顯著 (LOH 高分流)' },
+  'study-19-pfs':         { val:'HR 0.35', endpoint:'PFS', subgroup:'ITT (PSROC)', hook:'三五, PARPi 開山, 6+y 長尾' },
+
+  // === OC PROC ===
+  'mirasol-pfs-fra':      { val:'HR 0.65', endpoint:'PFS', subgroup:'FRα-high PROC', hook:'六五, FRα 高表現' },
+  'mirasol-os-fra':       { val:'HR 0.67', endpoint:'OS', subgroup:'FRα-high PROC', hook:'六七, FDA full approval' },
+  'aurelia-pfs-itt':      { val:'mPFS 6.7 vs 3.4m', endpoint:'PFS', subgroup:'PROC ITT', hook:'六七比三四 (PROC 翻倍)' },
+  'aurelia-hr-itt':       { val:'HR 0.48', endpoint:'PFS', subgroup:'PROC ITT', hook:'四八, PROC + Bev 強' },
+  'keynote-b96-os-itt':   { val:'OS HR 0.74', endpoint:'OS', subgroup:'PROC ITT', hook:'七四 (+4.2m, 首個 PD-1 PROC OS+)' },
+  'rosella-os-itt':       { val:'OS HR 0.69', endpoint:'OS', subgroup:'PROC ITT', hook:'六九, GR 拮抗新機制' },
+
+  // === OC LGSOC ===
+  'gog-281-pfs-lgsoc':    { val:'HR 0.48', endpoint:'PFS', subgroup:'LGSOC', hook:'四八, Trametinib LGSOC 強' },
+  'gog-281-orr-lgsoc':    { val:'ORR 26%', endpoint:'ORR', subgroup:'LGSOC', hook:'二六, vs 對照 6%' },
+  'milo-pfs':             { val:'PFS HR 1.21 NS', endpoint:'PFS', subgroup:'LGSOC ITT', hook:'⚠️ Bini 翻車 — LGSOC 試驗提前停止', warn:true },
+
+  // === CC LACC ===
+  'keynote-a18-pfs-itt':  { val:'PFS HR 0.70', endpoint:'PFS', subgroup:'ITT (≥2 顆 LN ≥1.5cm 高風險)', hook:'七零, 嚴格族群 PFS 顯著' },
+  'keynote-a18-os-itt':   { val:'OS HR 0.67', endpoint:'OS', subgroup:'ITT (高風險)', hook:'六七, 與 MIRASOL 巧合相同' },
+  'keynote-a18-placebo':  { val:'24m PFS 57%', endpoint:'PFS', subgroup:'Placebo arm 24m (高風險)', hook:'placebo 五七 — 預後差 → IO 加成空間大' },
+  'calla-pfs-itt':        { val:'PFS HR 0.84 NS', endpoint:'PFS', subgroup:'ITT (寬鬆任何 N+)', hook:'⚠️ 八四 NS — Durva+CCRT 失利', warn:true },
+  'calla-placebo':        { val:'24m PFS 62.1%', endpoint:'PFS', subgroup:'Placebo arm 24m (寬鬆)', hook:'placebo 六二 — 寬鬆族 IO 加成空間小' },
+  'lacc-mis':             { val:'復發 HR 3.74', endpoint:'復發', subgroup:'IA1-IB1 早期 MIS vs Open', hook:'三點七四倍復發 — MIS 範式翻轉', warn:true },
+  'shape-recur':          { val:'3y 復發 2.5% vs 2.2%', endpoint:'PFS', subgroup:'IB1 ≤2cm 低風險 NI 達成', hook:'NI 達成, 低風險可降階' },
+
+  // === CC R/M ===
+  'keynote-826-os-cps':   { val:'mOS 28.6 vs 16.5m', endpoint:'OS', subgroup:'CPS≥1', hook:'二八六比一六五 (CPS≥1 強)' },
+  'keynote-826-hr-cps':   { val:'OS HR 0.60', endpoint:'OS', subgroup:'CPS≥1', hook:'六比四, CPS≥1 顯著' },
+  'keynote-826-hr-itt':   { val:'OS HR 0.63', endpoint:'OS', subgroup:'ITT', hook:'六三, ITT 也顯著' },
+  'beatcc-os-itt':        { val:'mOS 32.1 vs 22.8m', endpoint:'OS', subgroup:'ITT (不需 CPS)', hook:'三二一比二二八 (BEATcc 不需 CPS)' },
+  'beatcc-hr-itt':        { val:'OS HR 0.68', endpoint:'OS', subgroup:'ITT', hook:'六八, 第二支柱' },
+  'gog-240-os-itt':       { val:'mOS 16.8 vs 13.3m', endpoint:'OS', subgroup:'R/M ITT', hook:'十六八比十三三 (Bev R/M 第一里程碑)' },
+  'innovatv-301-os':      { val:'OS HR 0.70', endpoint:'OS', subgroup:'2L+ R/M ITT', hook:'七零, TF-ADC FDA full' },
+  'empower-cervical-os':  { val:'mOS 12.0 vs 8.5m', endpoint:'OS', subgroup:'2L+ R/M ITT', hook:'十二比八五, Cemi 單藥' },
+
+  // === US LMS ===
+  'lms-04-pfs':           { val:'mPFS 12.2 vs 6.2m', endpoint:'PFS', subgroup:'uLMS 1L', hook:'十二比六 (uLMS 翻倍)' },
+  'lms-04-hr':            { val:'PFS HR 0.41', endpoint:'PFS', subgroup:'uLMS 1L', hook:'四一, Dox+Trab > Dox 單藥' },
+  'et743-pfs':            { val:'PFS HR 0.55', endpoint:'PFS', subgroup:'LMS 2L+', hook:'五五, Trab vs Dacar 老藥對決' },
+  'palette-pfs':          { val:'mPFS 4.6 vs 1.6m', endpoint:'PFS', subgroup:'非脂肪肉瘤 2L', hook:'四六比一六 (Pazopanib 三倍)' },
+  'palette-hr':           { val:'PFS HR 0.31', endpoint:'PFS', subgroup:'非脂肪肉瘤 2L', hook:'三一, 排除 LPS' },
+  'eribulin-os-all':      { val:'OS HR 0.77', endpoint:'OS', subgroup:'LMS+LPS 整體', hook:'七七, 整體看似有效, 但 LMS subgroup NS', warn:true },
+  'eribulin-lms-ns':      { val:'LMS subgroup NS', endpoint:'OS', subgroup:'LMS subgroup', hook:'⚠️ LMS 失敗 — FDA 只核准 LPS 適應症', warn:true },
+  'regosarc-lms':         { val:'PFS HR 0.46', endpoint:'PFS', subgroup:'LMS subgroup (post-hoc)', hook:'四六, LMS subgroup 才有效, 整體 NS' },
+  'gog-261-os':           { val:'mOS 37 vs 29m', endpoint:'OS', subgroup:'UCS 1L 進階', hook:'三七比二九 (UCS 新 SOC, 毒性大降)' },
 };
 
 
@@ -19303,10 +19397,16 @@ function renderTrialMnemonic(trialId){
     if(trialHooks.length > 0){
       hooksHtml = `<details class="tmc-hooks-block"><summary class="tmc-hooks-summary">🧠 數字記憶法 <span class="tmc-xref-count">(${trialHooks.length} 個)</span></summary><div class="tmc-hooks-list">`;
       trialHooks.forEach(([k, h]) => {
-        hooksHtml += `<div class="tmc-hook-row">
-          <span class="tmc-hook-num">${escapeHtml(h.val)}</span>
-          <span class="tmc-hook-arrow">→</span>
-          <span class="tmc-hook-text">${escapeHtml(h.hook)}</span>
+        const epTag = h.endpoint ? `<span class="tmc-hook-ep ep-${(h.endpoint||'').toLowerCase()}">${escapeHtml(h.endpoint)}</span>` : '';
+        const sgTag = h.subgroup ? `<span class="tmc-hook-sg">${escapeHtml(h.subgroup)}</span>` : '';
+        const warnCls = h.warn ? ' is-warn' : '';
+        hooksHtml += `<div class="tmc-hook-row${warnCls}">
+          <div class="tmc-hook-tags">${epTag}${sgTag}</div>
+          <div class="tmc-hook-body">
+            <span class="tmc-hook-num">${escapeHtml(h.val)}</span>
+            <span class="tmc-hook-arrow">→</span>
+            <span class="tmc-hook-text">${escapeHtml(h.hook)}</span>
+          </div>
         </div>`;
       });
       hooksHtml += `</div></details>`;
@@ -19960,16 +20060,214 @@ function clearCCCMPTrials(){
 }
 
 // Smart field suggestion based on selected trials (內部使用)
+// 推薦規則:
+// 1. 同癌別 → 加期別/線數 (基礎人口比較)
+// 2. 跨癌別 → 加 tagline + 主藥物 (區分試驗定位)
+// 3. 同藥物 → 加數據 (mPFS/mOS/HR) 直接比強度
+// 4. 同分子標記/族群 → 加分子標記 + 期別
+// 5. 同階段 (P-TX/P-MT/R-TX/R-MT) → 加 mPFS/mOS, 比同類強弱
+// 6. 都有 KM 數據 → 加 PFS HR, OS HR
+// 7. 跨線 (1L vs PSOC) → 加線數, 但不加期別 (期別常重疊)
+// 8. 包含 negative 試驗 → 加易錯/警示, 強調對比
+// 9. 含 NCCN Cat1 + 非 Cat1 → 加 NCCN
+// 10. 同分子分型 (BRCAm 一群) → 加分子標記 + mPFS
 function applyAutoSuggestFields(){
   if(CCCMP_STATE.selectedTrials.length < 2) return;
   const trials = CCCMP_STATE.selectedTrials.map(id => TRIALS.find(t=>t.id===id)).filter(Boolean);
+  if(trials.length < 2) return;
+  
+  // Analyze the trial set
   const cancers = new Set(trials.map(t=>t.cancer));
   const sameCancer = cancers.size === 1;
-  const fields = ['cancer','phase','drug','mainResult','mnemonic'];
-  if(!sameCancer) fields.unshift('tagline');
-  if(sameCancer) fields.push('stages', 'line');
-  fields.push('molMarkers', 'keypoint');
-  CCCMP_STATE.selectedFields = [...new Set(fields)];
+  
+  const drugs = new Set(trials.map(t=>(t.drug||'').toLowerCase().replace(/[^a-z]/g,' ').split(/\s+/).filter(Boolean)).flat());
+  const phases = new Set(trials.map(t=>Array.isArray(t.phase)?t.phase[0]:t.phase).filter(Boolean));
+  const samePhase = phases.size === 1;
+  
+  // Check shared drugs (any common drug name)
+  const drugLists = trials.map(t => (t.drug||'').toLowerCase().split(/[+,\/\s]+/).filter(Boolean));
+  const commonDrugs = drugLists.reduce((acc, list) => {
+    if(!acc) return new Set(list);
+    return new Set([...acc].filter(x => list.includes(x)));
+  }, null);
+  const hasSharedDrug = commonDrugs && commonDrugs.size > 0;
+  
+  // Check biomarker overlap (via TRIAL_RULES)
+  const allMarkers = trials.map(t => {
+    const tr = (typeof TRIAL_RULES !== 'undefined') ? TRIAL_RULES[t.id] : null;
+    if(!tr) return [];
+    return [...(tr.molecular?.required||[]), ...(tr.molecular?.any||[])];
+  });
+  const hasMarker = allMarkers.some(m => m.length > 0);
+  const sharedMarker = allMarkers.length > 0 && allMarkers.reduce((acc, m) => {
+    if(!acc) return new Set(m);
+    return new Set([...acc].filter(x => m.includes(x)));
+  }, null);
+  const hasSharedMarker = sharedMarker && sharedMarker.size > 0;
+  
+  // Check if any trial has KM data
+  const hasKM = trials.some(t => typeof KM_DATA !== 'undefined' && KM_DATA[t.id]);
+  const allHaveKM = trials.every(t => typeof KM_DATA !== 'undefined' && KM_DATA[t.id]);
+  
+  // Check if any negative or warn trials (rough heuristic from tagline / mainResult)
+  const hasNegative = trials.some(t => {
+    const text = [(t.tagline||''), (t.mainResult||'')].join(' ').toLowerCase();
+    return /失利|失敗|未達|ns\b|negative|翻車|提前終止|交叉|未複製/.test(text);
+  });
+  
+  // Check NCCN level mix
+  const nccnLevels = new Set(trials.map(t => t.nccn || ''));
+  const mixedNccn = nccnLevels.size > 1 && trials.some(t => t.nccn);
+  
+  // Check shared lines (1L / PSOC / PROC etc.)
+  const lines = new Set(trials.map(t => {
+    const tr = (typeof TRIAL_RULES !== 'undefined') ? TRIAL_RULES[t.id] : null;
+    return tr?.line;
+  }).filter(Boolean));
+  const sameLine = lines.size === 1;
+  
+  // === Build field set based on rules ===
+  const fields = new Set();
+  
+  // Always include
+  fields.add('drug');
+  fields.add('mainResult');
+  fields.add('mnemonic');
+  
+  // Rule 1: same cancer → 期別/線數
+  if(sameCancer){
+    fields.add('stages');
+    fields.add('line');
+  } else {
+    // Rule 2: 跨癌別 → tagline 區分 + cancer
+    fields.add('cancer');
+    fields.add('tagline');
+  }
+  
+  // Rule 3: 同藥物 → 加數據 (HR / mPFS) 比強度
+  if(hasSharedDrug){
+    fields.add('PFS_HR');
+    fields.add('mPFS');
+  }
+  
+  // Rule 4: 有分子標記 → 加分子標記
+  if(hasMarker){
+    fields.add('molMarkers');
+  }
+  
+  // Rule 5: 同階段 → 加 mPFS/mOS 比同類強弱
+  if(samePhase){
+    fields.add('mPFS');
+    fields.add('mOS');
+    fields.add('phase');
+  } else {
+    fields.add('phase');
+  }
+  
+  // Rule 6: 都有 KM → 加 PFS HR / OS HR
+  if(allHaveKM){
+    fields.add('PFS_HR');
+    fields.add('OS_HR');
+  }
+  
+  // Rule 7: 跨線 (PSOC vs 1L) → 線數差異關鍵
+  if(!sameLine){
+    fields.add('line');
+  }
+  
+  // Rule 8: 含 negative → 加 ⚠️ 易錯
+  if(hasNegative){
+    fields.add('pitfalls');
+  }
+  
+  // Rule 9: NCCN 等級不一 → 加 NCCN
+  if(mixedNccn){
+    fields.add('nccn');
+  }
+  
+  // Rule 10: 同分子標記 → 加 keypoint (深入比較)
+  if(hasSharedMarker){
+    fields.add('molMarkers');
+    fields.add('keypoint');
+  } else {
+    fields.add('keypoint');
+  }
+  
+  // Always at the end
+  CCCMP_STATE.selectedFields = [...fields];
+}
+
+// 解釋目前套用了哪些規則 (用於 UI 顯示)
+function describeAutoRules(selectedTrialIds){
+  if(selectedTrialIds.length < 2) return [];
+  const trials = selectedTrialIds.map(id => TRIALS.find(t=>t.id===id)).filter(Boolean);
+  if(trials.length < 2) return [];
+  
+  const rules = [];
+  
+  const cancers = new Set(trials.map(t=>t.cancer));
+  if(cancers.size === 1){
+    rules.push({tag:'🎯 同癌別', text:`${[...cancers][0]} → 加期別 / 線數`});
+  } else {
+    rules.push({tag:'🌐 跨癌別', text:`${[...cancers].join(' / ')} → 加 Tagline 區分試驗定位`});
+  }
+  
+  const drugLists = trials.map(t => (t.drug||'').toLowerCase().split(/[+,\/\s]+/).filter(Boolean));
+  const commonDrugs = drugLists.reduce((acc, list) => {
+    if(!acc) return new Set(list);
+    return new Set([...acc].filter(x => list.includes(x)));
+  }, null);
+  if(commonDrugs && commonDrugs.size > 0){
+    rules.push({tag:'💊 同藥物', text:`共用 ${[...commonDrugs].join(', ')} → 加 PFS HR / mPFS 直接比強度`});
+  }
+  
+  const phases = new Set(trials.map(t=>Array.isArray(t.phase)?t.phase[0]:t.phase).filter(Boolean));
+  if(phases.size === 1){
+    rules.push({tag:'🎬 同階段', text:`${[...phases][0]} → 加 mPFS / mOS 比同類強弱`});
+  }
+  
+  const allHaveKM = typeof KM_DATA !== 'undefined' && trials.every(t => KM_DATA[t.id]);
+  if(allHaveKM){
+    rules.push({tag:'📈 都有 KM', text:'加 PFS HR / OS HR (可定量比較)'});
+  }
+  
+  const allMarkers = trials.map(t => {
+    const tr = (typeof TRIAL_RULES !== 'undefined') ? TRIAL_RULES[t.id] : null;
+    if(!tr) return [];
+    return [...(tr.molecular?.required||[]), ...(tr.molecular?.any||[])];
+  });
+  const sharedMarker = allMarkers.length > 0 && allMarkers.reduce((acc, m) => {
+    if(!acc) return new Set(m);
+    return new Set([...acc].filter(x => m.includes(x)));
+  }, null);
+  if(sharedMarker && sharedMarker.size > 0){
+    rules.push({tag:'🧬 同分子標記', text:`${[...sharedMarker].join(', ')} → 加分子標記 + Keypoint`});
+  } else if(allMarkers.some(m => m.length > 0)){
+    rules.push({tag:'🧬 含分子標記', text:'部分試驗有 biomarker 篩選 → 加分子標記欄'});
+  }
+  
+  const lines = new Set(trials.map(t => {
+    const tr = (typeof TRIAL_RULES !== 'undefined') ? TRIAL_RULES[t.id] : null;
+    return tr?.line;
+  }).filter(Boolean));
+  if(lines.size > 1){
+    rules.push({tag:'🔢 跨線', text:`${[...lines].join(' / ')} → 加線數 (跨期治療差異)`});
+  }
+  
+  const hasNegative = trials.some(t => {
+    const text = [(t.tagline||''), (t.mainResult||'')].join(' ').toLowerCase();
+    return /失利|失敗|未達|ns\b|negative|翻車|提前終止|未複製/.test(text);
+  });
+  if(hasNegative){
+    rules.push({tag:'⚠️ 含 negative', text:'有試驗主終點失利 → 加 ⚠️ 易錯欄位 (對比學習)'});
+  }
+  
+  const nccnLevels = new Set(trials.map(t => t.nccn || ''));
+  if(nccnLevels.size > 1 && trials.some(t => t.nccn)){
+    rules.push({tag:'🏆 NCCN 等級不一', text:`${[...nccnLevels].filter(Boolean).join(' / ')} → 加 NCCN 欄`});
+  }
+  
+  return rules;
 }
 
 function autoSuggestCCCMPFields(){
@@ -20097,6 +20395,18 @@ function renderCustomCompare(){
   
   // === Step 2: Pick fields ===
   if(CCCMP_STATE.selectedTrials.length >= 2){
+    // Build rule explanation if auto mode
+    let rulesText = '';
+    if(!CCCMP_STATE.userTouchedFields){
+      const rules = describeAutoRules(CCCMP_STATE.selectedTrials);
+      if(rules.length > 0){
+        rulesText = `<details class="cccmp-rules-detail"><summary>📐 套用了 ${rules.length} 條規則 (點開看明細)</summary><ul class="cccmp-rules-list">`;
+        rules.forEach(r => {
+          rulesText += `<li><b>${escapeHtml(r.tag)}</b> — ${escapeHtml(r.text)}</li>`;
+        });
+        rulesText += `</ul></details>`;
+      }
+    }
     const fieldsHintText = CCCMP_STATE.userTouchedFields
       ? `<span style="color:#0891b2;font-weight:700;">🛠️ 您已手動調整欄位</span> · 點 ✨ 重置為智能推薦`
       : `<span style="color:#16a34a;font-weight:700;">✨ 已自動套用智能推薦欄位</span> · 可勾選 / 取消任意欄位手動調整`;
@@ -20107,6 +20417,7 @@ function renderCustomCompare(){
       </div>
       <div style="font-size:11px;color:#64748b;margin-bottom:9px;font-weight:600;padding:6px 10px;background:#f0f9ff;border-left:3px solid #0891b2;border-radius:5px;">
         ${fieldsHintText}
+        ${rulesText}
       </div>
       <div class="cccmp-fields">`;
     const fieldsByCategory = {};
