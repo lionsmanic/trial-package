@@ -4098,9 +4098,36 @@ const TRIALS = [
   tech:"RT 48.6 Gy in 27 fx ± brachy boost\n化療 Cis 50mg/m² + Carbo AUC5 / Pacli 175mg/m² q3w 4 cycles",
   subgroup:"【p53abn】chemoRT 受益最大 (RFS 5y 59 vs 36%) — 強化 p53abn 化療必要性\n【POLEm】兩組都 100% — de-escalation 機會\n【serous】chemoRT 顯著改善",
   combo:"歷史 chemoRT 突破; 啟發 RAINBO p53abn-RED (再加 PARPi 維持); GY018/RUBY 後 IO 進入 p53abn 治療",
-  guideline:"NCCN 高風險 EC adjuvant 標準之一: chemoRT (PORTEC-3 regimen)\nGOG-258 採另一 regimen (4 cycles chemo then RT) — 兩規 PORTEC-3 較優\n台灣 BNHI 給付 chemoRT for 高風險 EC",
+  guideline:"NCCN 高風險 EC adjuvant 標準之一: chemoRT (PORTEC-3 regimen)\n⚠️ 注意 vs GOG-258: 兩試驗回答不同問題 — PORTEC-3 (chemoRT vs RT alone) 在「高風險 EC」確立 chemoRT 加成; GOG-258 (chemoRT vs chemo alone) 在「進階期 Stage III/IVA」顯示加 RT 沒幫助 (5y RFS 59 vs 58%, OS NS)\n台灣 BNHI 給付 chemoRT for 高風險 EC",
   nct:"-",
   publication:"Lancet Oncol 2018 (de Boer et al., 主結果); Lancet Oncol 2019 (5y FU); Lancet Oncol 2023 (分子分層 post-hoc)"
+},
+
+{
+  cancer:"EC",
+  subcat:["adjuvant","advanced"],
+  id:"gog-258",
+  phase:["P-TX"],
+  status:"published",
+  name:"GOG-258 / NRG-GOG-258",
+  fullName:"NRG Oncology GOG-258",
+  pharma:"NRG Oncology / NCI",
+  drug:"chemoRT vs chemo alone (Stage III/IVA EC)",
+  tagline:"進階期 EC (Stage III/IVA): 加 RT 沒有改善 RFS/OS, 化療 alone 已足夠 — 改變實務的關鍵試驗。",
+  rationale:"高風險早期 EC 已知需 chemoRT (見 PORTEC-3), 但進階期 (Stage III/IVA) 是否仍需 RT? GOG-258 直接比 chemoRT vs chemo alone, 解決這個臨床困惑。",
+  regimen:"Phase III, 1:1 randomization, n=813\nArm A (chemoRT): RT 45 Gy + Cisplatin 50mg/m² (day 1, 29) → 4 cycles Carbo (AUC 5-6) + Pacli 175mg/m² q3w\nArm B (chemo alone): 6 cycles Carbo (AUC 6) + Pacli 175mg/m² q3w",
+  inc:["FIGO 2009 Stage III 或 IVA EC (任何組織型)","Stage I-IVA serous 或 clear cell EC + 腹腔細胞陽性","完成完整 staging surgery","ECOG 0-1"],
+  exc:["Carcinosarcoma","Recurrent EC","其他活動性惡性腫瘤"],
+  outcomes:"【NEJM 2019 (主要結果, 5y FU)】\nPrimary: 5y RFS chemoRT 59% vs chemo 58% — 沒差異 (HR 0.90, P NS)\n局控復發 (locoregional): chemoRT 2% vs chemo 7% (HR 0.36) ✅ chemoRT 較好\n遠端復發: chemoRT 27% vs chemo 21% (HR 1.35) ❌ chemoRT 反而更多\n\n【SGO 2023 (終局 OS, 112m FU)】\nOS HR 1.05 NS — 任何 subgroup 都沒看到 OS 加成\n所有 subgroup (期別、組織、BMI、residual、年齡) 趨勢都偏向 chemo alone\n\n結論: chemoRT 沒有 RFS / OS 加成; 進階期 EC chemo alone 已足夠",
+  enrolled:"813 patients (2009-2017)\n美國 NRG Oncology 多中心",
+  hist:"Stage III-IVA EC 混合組織型 (~75% 為子宮內膜樣 IIIC1/IIIC2; 含 serous, clear cell)\n排除 carcinosarcoma",
+  stageDist:"Stage IIIC1/IIIC2 為主 (~75%); Stage IIIA, IIIB, IVA, 早期 serous/clear cell 含腹腔陽性也收",
+  tech:"chemoRT arm:\n  • RT 45 Gy in 25 fx volume-directed EBRT (~30% IMRT)\n  • Cisplatin 50mg/m² day 1 + 29 (RT 期間 sensitizer)\n  • Then 4 cycles Carbo AUC 5-6 + Pacli 175mg/m² q3w\n  • ± vaginal brachytherapy boost\n\nChemo alone arm:\n  • 6 cycles Carbo AUC 6 + Pacli 175mg/m² q3w\n\n注意: Cis 在 chemoRT arm 額外 2 doses, 總化療 cycles 不同 (4+2 vs 6); 但累計 platinum 相當",
+  subgroup:"任何 subgroup 都無 OS 改善:\n  • Stage III vs IVA: 無差\n  • 子宮內膜樣 vs serous/clear cell: 無差\n  • Residual disease + vs -: 無差\n  • BMI 高低: 無差\n\nPara-aortic node 復發 chemoRT 顯著降低, 但未轉為 OS 加成",
+  combo:"與 PORTEC-3 形成「進階期 EC 治療 SOC」核心對照:\n  • PORTEC-3 (Lancet Oncol 2018/2019): 高風險 EC chemoRT vs RT alone — chemoRT 加成 (OS HR 0.76)\n  • GOG-258 (NEJM 2019): 進階期 chemoRT vs chemo alone — 加 RT 沒幫助 (RFS HR 0.90 NS)\n\n兩試驗回答「不同問題」, 結論「不衝突」:\n  • 高風險早期 → chemoRT (PORTEC-3)\n  • 真正進階期 → chemo alone (GOG-258)\n\n後續延伸:\n  • GY018 / RUBY P1 (2023): 進階期 EC 加 IO 到化療 alone — 範式翻轉\n  • DUO-E / RUBY P2 (2024): 進階期再加 PARPi 維持\n\n啟發: 「進階期靠系統治療, 不必 RT 強化」",
+  guideline:"NCCN v2.2026 進階期 EC: chemo alone 為標準 (基於 GOG-258); chemoRT 仍可考慮 (個人化選擇, 特別是局控擔憂者)\nESMO 2024: 同意進階期 chemo alone 已足夠\n台灣: BNHI 給付 chemo alone for Stage III/IVA EC",
+  nct:"NCT00942357",
+  publication:"NEJM 2019 (Matei et al., 主要結果); SGO 2023 (final OS, 112m FU)"
 },
 
 {
@@ -13518,8 +13545,14 @@ const EXAM_WARNINGS = {
   'portec-3': [
     { tag:'⚠️ p53abn 受益最大', text:'p53abn subgroup chemoRT 5y RFS 59% vs RT 36% — 啟發 RAINBO p53abn-RED (再加 PARPi 維持)' },
     { tag:'⚠️ POLEm 100%', text:'POLEm 兩組都 100% — 不需化療; 啟發 de-escalation' },
-    { tag:'⚠️ vs GOG-258', text:'PORTEC-3 (chemo+RT 同步) 優於 GOG-258 (4 cycles chemo then RT)' },
+    { tag:'⚠️ vs GOG-258', text:'PORTEC-3 (chemoRT vs RT alone, 高風險 EC) 與 GOG-258 (chemoRT vs chemo alone, Stage III/IVA) 是不同問題! PORTEC-3 確立加化療有用; GOG-258 顯示已用化療再加 RT 沒幫助' },
     { tag:'⚠️ 排除肉瘤', text:'排除 carcinosarcoma' },
+  ],
+  'gog-258': [
+    { tag:'⚠️ 對比 PORTEC-3', text:'GOG-258 vs PORTEC-3 是不同問題! GOG-258 比 chemo alone (進階期 III/IVA → 加 RT 沒用); PORTEC-3 比 RT alone (高風險早期 → 加 chemo 有用); 兩試驗結論不衝突' },
+    { tag:'⚠️ 局控過 vs 遠端輸', text:'chemoRT 局控復發少 (2% vs 7%, HR 0.36) 但遠端復發更多 (27% vs 21%, HR 1.35) — 抵消, 整體無 RFS/OS 加成' },
+    { tag:'⚠️ 終局 OS 確認', text:'112m FU (SGO 2023) OS HR 1.05 任何 subgroup 都無加成 — 進階期 chemo alone 確定足夠' },
+    { tag:'⚠️ 排除肉瘤', text:'GOG-258 排除 carcinosarcoma; recurrent 不收' },
   ],
   'keynote-867': [
     { tag:'⚠️ 不是 EC 試驗', text:'KEYLYNK-007 是跨癌別 (tumor-agnostic) Phase 2 — 不是 EC-specific; EC 患者只是其中 cohort 內次群' },
@@ -13767,6 +13800,7 @@ const TRIAL_VERSES = {
   'portec-1':           '🎵 PORTEC-1 EBRT vs 觀察\n  局控五八比一五五 (15y), OS 無差\n  「中度風險才需 RT」奠基',
   'portec-2':           '🎵 PORTEC-2 VBT 取代 EBRT\n  非劣三四比二四 (10y), 少毒性\n  「高中度風險 = VBT」標準',
   'portec-3':           '🎵 PORTEC-3 chemoRT vs RT\n  高風險 OS 七六, p53abn 五九比三六\n  「POLEm 一百」可降階',
+  'gog-258':            '🎵 GOG-258 進階期 chemoRT vs chemo\n  五九比五八無差, OS 一零五\n  「加 RT 沒用, chemo alone 已足夠」',
 
   // === OC 一線 ===
   'gog-0218':           '🎵 GOG-218 加 Bev 試\n  PFS 七一七 (15mg/kg), ITT OS 失利\n  「ICON7 一半劑量」',
@@ -13934,6 +13968,7 @@ const TIMELINE_DATA = {
           { year:'2000', label:'EBRT vs 觀察 (PORTEC-1)', trials:['portec-1'], note:'PORTEC-1: 中度風險 EBRT 局控翻倍 (5.8% vs 15.5%); OS NS — 確立「中度風險才需 RT」' },
           { year:'2010', label:'VBT 取代 EBRT (PORTEC-2)', trials:['portec-2'], note:'PORTEC-2: 高中度風險 Stage I VBT 非劣於 EBRT (3.4% vs 2.4%); 少毒性 — 範式翻轉' },
           { year:'2018', label:'高風險 chemoRT (PORTEC-3)', trials:['portec-3'], note:'PORTEC-3: 高風險 EC chemoRT vs RT alone, OS HR 0.76; p53abn subgroup 受益最大 (RFS 59 vs 36%)' },
+          { year:'2019', label:'進階期 RT 翻車 (GOG-258)', trials:['gog-258'], note:'GOG-258: Stage III/IVA chemoRT vs chemo alone, RFS 59 vs 58% NS; OS 112m FU HR 1.05 — 進階期不必加 RT' },
           { year:'2024', label:'分子整合風險 (PORTEC-4a)', trials:['portec-4a'], note:'PORTEC-4a: 整合分子 + L1CAM/CTNNB1, ~30% 中度風險免除 RT' },
           { year:'2025+', label:'四桶分子驅動 (RAINBO)', trials:['rainbo-program'], note:'RAINBO 4 並行 phase III (RED/GREEN/ORANGE/BLUE 對應 p53/MMRd/ER+ NSMP/POLE)' },
         ],
@@ -14768,7 +14803,22 @@ const TRIAL_MNEMONICS = {
     ],
     keypoint: '高風險 EC adjuvant: chemoRT 為標準; 分子分層: p53abn 必須加, POLEm 可降階',
     numbers: 'OS HR 0.76 · p53abn RFS 5y 59 vs 36% · POLEm 100% · n=660',
-    pitfalls: '【高頻考點】(1) PORTEC-3 vs GOG-258 兩規範 — PORTEC-3 較優 (2) p53abn 是化療最受益族, 啟發 RAINBO p53abn-RED (3) 排除 carcinosarcoma',
+    pitfalls: '【高頻考點】(1) PORTEC-3 vs GOG-258 回答不同問題: PORTEC-3 比 RT alone (高風險→ chemoRT 加成); GOG-258 比 chemo alone (Stage III/IVA → 加 RT 沒幫助) (2) p53abn 是化療最受益族 (3) 排除 carcinosarcoma',
+  },
+
+  'gog-258': {
+    main: '💎 「GOG-258 進階期 chemoRT vs chemo, 五九比五八無差, 加 RT 沒用」',
+    breakdown: [
+      { key: 'GOG-258', meaning: 'NRG-GOG-258 (NCT00942357)' },
+      { key: 'Stage III/IVA', meaning: '【關鍵】進階期 EC (含 serous/clear cell + 腹腔陽性 早期)' },
+      { key: 'chemoRT vs chemo', meaning: 'chemoRT (Cis+RT, 4cycles CP) vs chemo alone (6cycles CP)' },
+      { key: '五九比五八', meaning: '5y RFS 59% vs 58% — 加 RT 沒用 (HR 0.90 NS)' },
+      { key: 'OS 一零五翻車', meaning: '112m FU OS HR 1.05 NS — 終局也沒差; chemo alone 已足夠' },
+      { key: '局控過 vs 遠端輸', meaning: '局控 chemoRT 較好 (HR 0.36) 但遠端反而更多 (HR 1.35) — 抵消' },
+    ],
+    keypoint: '進階期 EC: chemo alone (6cycles CP) 已足夠, 不需加 RT; 改變實務',
+    numbers: '5y RFS 59% vs 58% HR 0.90 NS · OS 112m FU HR 1.05 NS · n=813',
+    pitfalls: '【高頻易錯】(1) GOG-258 vs PORTEC-3 是不同問題! GOG-258 比 chemo alone (進階期); PORTEC-3 比 RT alone (高風險早期) (2) chemoRT 局控好但遠端輸 — 結果抵消 (3) 排除 carcinosarcoma',
   },
 
   'portec-4a': {
