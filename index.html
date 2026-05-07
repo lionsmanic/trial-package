@@ -4024,6 +4024,87 @@ const TRIALS = [
 
 {
   cancer:"EC",
+  subcat:["adjuvant"],
+  id:"portec-1",
+  phase:["P-TX"],
+  status:"published",
+  name:"PORTEC-1",
+  fullName:"PORTEC-1 (Post-Operative Radiation Therapy in Endometrial Carcinoma)",
+  pharma:"Dutch Gynecologic Oncology Group",
+  drug:"EBRT vs 觀察 (Stage I)",
+  tagline:"早期 EC 全骨盆 EBRT vs 觀察 — 確立「中等風險才需 RT」分流原則; OS 無差異, 但局部控制顯著。",
+  rationale:"早期研究普遍術後 RT, 但毒性大。PORTEC-1 質疑「Stage I 全部都要 RT 嗎?」, 隨機比較 EBRT vs 觀察。",
+  regimen:"Phase III, 1:1 randomization, n=714\nArm A: 全骨盆 EBRT 46 Gy in 23 fx\nArm B: 觀察 (no RT)",
+  inc:["FIGO 1988 Stage IB Grade 2-3 或 IC Grade 1-2","完成子宮全切除術 (TAH-BSO)","無 LN 轉移 (clinical/pathological)"],
+  exc:["Grade 3 + IC (高風險, 排除 — 不適合不放療)","Stage II 以上","非子宮內膜樣組織"],
+  outcomes:"【15y FU (Lancet Oncol 2011)】\n局部復發: EBRT 5.8% vs 觀察 15.5% (P<0.001) ✅ 顯著降低\nOS: 無差異 (因觀察組可救援治療)\n泌尿/腸道副作用 EBRT 較高",
+  enrolled:"714 patients (1990-1997)\n荷蘭多中心",
+  hist:"子宮內膜樣 EC, FIGO 1988",
+  stageDist:"Stage IB Grade 2-3 + IC Grade 1-2 (中度風險)",
+  tech:"全骨盆 EBRT 46 Gy in 23 fractions",
+  subgroup:"【高風險亞組 (>60y, Grade 3, depth >50%)】EBRT 顯著降低復發\n【低風險亞組】觀察組復發率低, EBRT 受益小 → 不必常規 RT",
+  combo:"奠基「中等風險才需 RT」原則; 啟發 PORTEC-2 (VBT vs EBRT) + PORTEC-3 (高風險加化療)",
+  guideline:"歷史試驗, 結論已內化為 NCCN/ESMO 標準: Stage I 中等風險才考慮 RT",
+  nct:"-",
+  publication:"Lancet 2000 (Creutzberg et al., 主結果); Lancet Oncol 2011 (15y FU)"
+},
+
+{
+  cancer:"EC",
+  subcat:["adjuvant"],
+  id:"portec-2",
+  phase:["P-TX"],
+  status:"published",
+  name:"PORTEC-2",
+  fullName:"PORTEC-2",
+  pharma:"Dutch Gynecologic Oncology Group",
+  drug:"VBT vs EBRT (高中度風險 Stage I)",
+  tagline:"中度風險早期 EC: 陰道近接 VBT 非劣於全骨盆 EBRT — 少毒性, 同效果。",
+  rationale:"PORTEC-1 確立中度風險需 RT 後, 問: 「能不能只做 VBT?」(較少毒性)",
+  regimen:"Phase III, 1:1 randomization, n=427\nArm A: 陰道近接 VBT (21 Gy in 3 fx HDR 或等效 LDR)\nArm B: 全骨盆 EBRT 46 Gy in 23 fx",
+  inc:["FIGO 1988 高中度風險 Stage I (>60y + (IC G1-2 / IB G3) 或 IIA G1-2)","完成 TAH-BSO"],
+  exc:["低風險 Stage I","Stage II 以上","非子宮內膜樣"],
+  outcomes:"【10y FU (Lancet Oncol 2018)】\n陰道復發: VBT 3.4% vs EBRT 2.4% — 非劣 ✅\nIsolated pelvic 復發: VBT 0.5% vs EBRT 0.5% — 等效\nOS: 無差異\n副作用: VBT 顯著少 (腸道/泌尿毒性大降)\nQoL: VBT 顯著優",
+  enrolled:"427 patients (2002-2006)",
+  hist:"子宮內膜樣 EC, FIGO 1988",
+  stageDist:"高中度風險 Stage I (>60y + IC G1-2 / IB G3, 或 IIA G1-2)",
+  tech:"VBT: 21 Gy in 3 fx HDR (常見) 或 30 Gy in 6 fx LDR\nEBRT: 46 Gy in 23 fx",
+  subgroup:"【LVSI subgroup】VBT 表現一致, 不需 EBRT",
+  combo:"範式翻轉 — 後來成為高中度風險 Stage I EC adjuvant SOC; 啟發 PORTEC-4a (分子整合 vs 臨床)",
+  guideline:"NCCN/ESMO/ESGO 標準: 高中度風險 Stage I EC adjuvant = VBT",
+  nct:"-",
+  publication:"Lancet 2010 (Nout et al., 主結果); Lancet Oncol 2018 (10y FU)"
+},
+
+{
+  cancer:"EC",
+  subcat:["adjuvant","high-risk"],
+  id:"portec-3",
+  phase:["P-TX"],
+  status:"published",
+  name:"PORTEC-3",
+  fullName:"PORTEC-3",
+  pharma:"Dutch Gynecologic Oncology Group / NRG / ANZGOG",
+  drug:"chemoRT vs RT alone (高風險 EC)",
+  tagline:"高風險 EC adjuvant: ChemoRT (Cis+RT, then 4 cycles Carbo+Pacli) 比 RT alone OS 改善, p53abn 受益最大。",
+  rationale:"高風險 EC 復發率高, RT alone 不夠。試驗加入化療 (Cis 與 RT 同步, then Carbo/Pacli)。",
+  regimen:"Phase III, 1:1 randomization, n=660\nArm A (chemoRT): RT 48.6 Gy + Cisplatin 50mg/m² (week 1, 4) + 4 cycles Carbo/Pacli q3w\nArm B: RT alone 48.6 Gy in 27 fx",
+  inc:["高風險 EC (Stage IA G3 + LVSI / IB G3 / II / III / serous / clear cell)","完成完整 staging surgery"],
+  exc:["Stage IV","carcinosarcoma","無法手術"],
+  outcomes:"【5y FU (Lancet Oncol 2019)】\nOS: chemoRT 81.4% vs RT 76.1% (HR 0.76, P=0.034) ✅\nFFS (failure-free survival): chemoRT 76.5% vs RT 69.1% (HR 0.71, P=0.022) ✅\n【分子分層 post-hoc (Lancet Oncol 2023)】\n  • p53abn: chemoRT 5y RFS 59% vs RT 36% — 受益最大!\n  • POLEm: 兩組都 100% 5y RFS — 不需化療\n  • MMRd: 兩組差異小\n  • NSMP: 中等受益",
+  enrolled:"660 patients (2006-2013)\n國際多中心 (NL/UK/AU/NZ/Italy)",
+  hist:"高風險 EC: 子宮內膜樣 + serous + clear cell\n排除 carcinosarcoma",
+  stageDist:"Stage IA G3+LVSI / IB G3 / II / III / serous / clear cell",
+  tech:"RT 48.6 Gy in 27 fx ± brachy boost\n化療 Cis 50mg/m² + Carbo AUC5 / Pacli 175mg/m² q3w 4 cycles",
+  subgroup:"【p53abn】chemoRT 受益最大 (RFS 5y 59 vs 36%) — 強化 p53abn 化療必要性\n【POLEm】兩組都 100% — de-escalation 機會\n【serous】chemoRT 顯著改善",
+  combo:"歷史 chemoRT 突破; 啟發 RAINBO p53abn-RED (再加 PARPi 維持); GY018/RUBY 後 IO 進入 p53abn 治療",
+  guideline:"NCCN 高風險 EC adjuvant 標準之一: chemoRT (PORTEC-3 regimen)\nGOG-258 採另一 regimen (4 cycles chemo then RT) — 兩規 PORTEC-3 較優\n台灣 BNHI 給付 chemoRT for 高風險 EC",
+  nct:"-",
+  publication:"Lancet Oncol 2018 (de Boer et al., 主結果); Lancet Oncol 2019 (5y FU); Lancet Oncol 2023 (分子分層 post-hoc)"
+},
+
+{
+  cancer:"EC",
   subcat:["pMMR","p53"],
   id:"portec-4a",
   phase:["P-TX"],
@@ -13420,6 +13501,26 @@ const EXAM_WARNINGS = {
   'utola': [
     { tag:'⚠️ ITT 失利', text:'UTOLA ITT 失利, 只有 p53m post-hoc HR 0.41; 不是所有 EC 都適用維持' },
   ],
+  'rainbo-program': [
+    { tag:'⚠️ 沒有 YELLOW!', text:'RAINBO 四色為 RED (p53abn) / GREEN (MMRd) / ORANGE (NSMP) / BLUE (POLEmut); 沒有 YELLOW!' },
+    { tag:'⚠️ ORANGE 限 ER+', text:'NSMP-ORANGE 限「ER+ NSMP 高風險」, 用荷爾蒙 (Progesterone) 而非 RT 強化; ER- NSMP 不在內仍未解' },
+    { tag:'⚠️ NSMP 仍是大雜燴', text:'NSMP = 「無 POLE/MMR/p53」剩餘, 仍極異質, 需再分 (ER+/ER- · CTNNB1m · L1CAM+ 等); RAINBO ORANGE 只解了 ER+ 高風險 subset' },
+    { tag:'⚠️ GREEN 是去化', text:'MMRd-GREEN 是 chemoRT vs RT alone (de-escalation); 不是「加 IO」' },
+  ],
+  'portec-1': [
+    { tag:'⚠️ 高風險族排除', text:'PORTEC-1 排除 G3+IC; 結論不適用高風險 (高風險研究見 PORTEC-3)' },
+    { tag:'⚠️ OS NS 但局控翻倍', text:'15y OS 兩組相同 (因觀察組可救援), 但局控 EBRT 5.8% vs 觀察 15.5% — 局控顯著降低' },
+  ],
+  'portec-2': [
+    { tag:'⚠️ 範式翻轉', text:'PORTEC-2 確立 VBT 取代 EBRT 為高中度風險 Stage I 標準; 從此高中度風險 = VBT' },
+    { tag:'⚠️ 不適用低/高風險', text:'低風險不需 RT; 高風險仍需 EBRT/chemoRT (PORTEC-3)' },
+  ],
+  'portec-3': [
+    { tag:'⚠️ p53abn 受益最大', text:'p53abn subgroup chemoRT 5y RFS 59% vs RT 36% — 啟發 RAINBO p53abn-RED (再加 PARPi 維持)' },
+    { tag:'⚠️ POLEm 100%', text:'POLEm 兩組都 100% — 不需化療; 啟發 de-escalation' },
+    { tag:'⚠️ vs GOG-258', text:'PORTEC-3 (chemo+RT 同步) 優於 GOG-258 (4 cycles chemo then RT)' },
+    { tag:'⚠️ 排除肉瘤', text:'排除 carcinosarcoma' },
+  ],
   'keynote-867': [
     { tag:'⚠️ 不是 EC 試驗', text:'KEYLYNK-007 是跨癌別 (tumor-agnostic) Phase 2 — 不是 EC-specific; EC 患者只是其中 cohort 內次群' },
     { tag:'⚠️ 後線非維持', text:'KEYLYNK-007 是 R/M 後線探索 (≥1 線進展); 不是一線維持; 別與 DUO-E/RUBY P2 (1L 維持) 混淆' },
@@ -13663,6 +13764,9 @@ const TRIAL_VERSES = {
   'keynote-158':        '🎵 KN-158 用 Pembro 單藥\n  跨癌開山, EC 四六, CC 一四六\n  「Tumor-agnostic 始祖」',
   'destiny-pantumor02': '🎵 DESTINY 配 T-DXd 跑\n  EC 五七五, CC 五零, OC 四五\n  「七 cohort 含三大」',
   'gy019':              '',
+  'portec-1':           '🎵 PORTEC-1 EBRT vs 觀察\n  局控五八比一五五 (15y), OS 無差\n  「中度風險才需 RT」奠基',
+  'portec-2':           '🎵 PORTEC-2 VBT 取代 EBRT\n  非劣三四比二四 (10y), 少毒性\n  「高中度風險 = VBT」標準',
+  'portec-3':           '🎵 PORTEC-3 chemoRT vs RT\n  高風險 OS 七六, p53abn 五九比三六\n  「POLEm 一百」可降階',
 
   // === OC 一線 ===
   'gog-0218':           '🎵 GOG-218 加 Bev 試\n  PFS 七一七 (15mg/kg), ITT OS 失利\n  「ICON7 一半劑量」',
@@ -13741,12 +13845,12 @@ const TIMELINE_DATA = {
       {
         name: '一線維持 — PARPi/Bev 演進',
         eras: [
-          { year:'2014', label:'PARPi 萌芽 (PSOC II 期)', trials:['study-19'], note:'Olap 維持 PSROC, 開山概念' },
           { year:'2018', label:'BRCAm 一線開山', trials:['solo-1'], note:'Olap BRCAm 一線維持, 5y mPFS 56m' },
           { year:'2019', label:'HRD 概念定義', trials:['paola-1'], note:'Olap+Bev HRD+ HR 0.33; 引入 HRD 篩選' },
           { year:'2019', label:'全人群嘗試', trials:['prima'], note:'Nira 全收, ITT PFS+ 但 OS 翻盤失敗' },
           { year:'2022', label:'三藥維持', trials:['duo-o'], note:'Durva+Bev+Olap, non-BRCAm HRD+ 缺口' },
-          { year:'2023', label:'雙標靶探索', trials:['ovario','athena-mono'], note:'OVARIO Nira+Bev; ATHENA Ruca' },
+          { year:'2022', label:'PARPi+Bev 探索', trials:['ovario'], note:'OVARIO Nira+Bev (非 BRCAm/HRD 篩選的 phase II)' },
+          { year:'2022', label:'PARPi 單藥 HRD 全人群', trials:['athena-mono'], note:'ATHENA-Mono Ruca (HRD+ HR 0.47); ATHENA-Combo 雙標靶才是 +Nivo' },
           { year:'2024+', label:'ADC 維持', trials:['destiny-ovarian01','trofuse-021'], note:'T-DXd+Bev / sac-TMT±Bev 探索' },
         ],
       },
@@ -13754,9 +13858,10 @@ const TIMELINE_DATA = {
         name: 'PSOC (鉑敏感復發) 維持',
         eras: [
           { year:'2012', label:'抗血管開山', trials:['oceans'], note:'Bev+Carbo+Gem PFS HR 0.48' },
-          { year:'2014', label:'PARPi 確立', trials:['study-19'], note:'Olap 維持 PSROC PFS HR 0.35' },
-          { year:'2016', label:'non-gBRCA', trials:['nova'], note:'Nira non-gBRCA PFS HR 0.45' },
-          { year:'2017', label:'BRCAm 經典', trials:['solo2','ariel3','gog-0213'], note:'SOLO2 OS+; ARIEL3 LOH 分流; GOG-213 OS HR 0.83' },
+          { year:'2014', label:'PARPi 開山 (PSROC)', trials:['study-19'], note:'Olap 維持 PSROC PFS HR 0.35; Phase II; 不限 BRCA — 為 SOLO2/NOVA 鋪路' },
+          { year:'2016', label:'non-gBRCA 探索', trials:['nova'], note:'Nira non-gBRCA PFS HR 0.45' },
+          { year:'2017', label:'BRCAm PARPi 經典 (PSOC)', trials:['solo2','ariel3'], note:'SOLO2 BRCAm OS+; ARIEL3 LOH 分流' },
+          { year:'2017', label:'抗血管 OS+ (PSOC)', trials:['gog-0213'], note:'GOG-213 Bev arm OS HR 0.83 +5m; 但手術 arm 失敗 (1.29 NS)' },
           { year:'2019-21', label:'亞洲版本', trials:['l-moca','nora'], note:'L-MOCA / NORA 中國族群驗證' },
           { year:'2022', label:'non-gBRCA 補強', trials:['opinion'], note:'Olap non-gBRCAm mPFS 9.2m' },
           { year:'2023+', label:'ADC 探索', trials:['trofuse-022'], note:'sac-TMT±Bev PSOC 維持' },
@@ -13824,10 +13929,21 @@ const TIMELINE_DATA = {
     name: '🟣 子宮內膜癌 (Endometrial Cancer)',
     contexts: [
       {
+        name: 'Adjuvant (術後輔助) — PORTEC 系列演進',
+        eras: [
+          { year:'2000', label:'EBRT vs 觀察 (PORTEC-1)', trials:['portec-1'], note:'PORTEC-1: 中度風險 EBRT 局控翻倍 (5.8% vs 15.5%); OS NS — 確立「中度風險才需 RT」' },
+          { year:'2010', label:'VBT 取代 EBRT (PORTEC-2)', trials:['portec-2'], note:'PORTEC-2: 高中度風險 Stage I VBT 非劣於 EBRT (3.4% vs 2.4%); 少毒性 — 範式翻轉' },
+          { year:'2018', label:'高風險 chemoRT (PORTEC-3)', trials:['portec-3'], note:'PORTEC-3: 高風險 EC chemoRT vs RT alone, OS HR 0.76; p53abn subgroup 受益最大 (RFS 59 vs 36%)' },
+          { year:'2024', label:'分子整合風險 (PORTEC-4a)', trials:['portec-4a'], note:'PORTEC-4a: 整合分子 + L1CAM/CTNNB1, ~30% 中度風險免除 RT' },
+          { year:'2025+', label:'四桶分子驅動 (RAINBO)', trials:['rainbo-program'], note:'RAINBO 4 並行 phase III (RED/GREEN/ORANGE/BLUE 對應 p53/MMRd/ER+ NSMP/POLE)' },
+        ],
+      },
+      {
         name: '分子分型 (TCGA → 4-tier)',
         eras: [
           { year:'2013', label:'TCGA 分子分型', trials:[], note:'POLE / MMRd / p53abn / NSMP 四類確立' },
           { year:'2020+', label:'整合至 PORTEC', trials:['portec-4a','rainbo-program'], note:'PORTEC-4a 整合; RAINBO 分桶' },
+          { year:'NSMP 細分', label:'⚠️ NSMP 是大雜燴', trials:[], note:'NSMP = 「沒有 POLE/MMR/p53」剩下的; 仍極異質! 需再分: ER+/ER- · CTNNB1m · L1CAM+ · TP53wt · 漿液前驅; RAINBO ORANGE 只篩 ER+ 高風險, ER- NSMP 仍未解' },
         ],
       },
       {
@@ -13938,6 +14054,7 @@ const TIMELINE_DATA = {
       {
         name: '🩷 CC ADC 演進',
         eras: [
+          { year:'2023', label:'HER2 ADC 跨癌 (含 CC cohort)', trials:['destiny-pantumor02'], note:'T-DXd CC cohort ORR 50.0% (n=40); 含 7 cohort 跨癌別 basket' },
           { year:'2024', label:'TF-ADC 確立', trials:['innovatv-301'], note:'Tisotumab Vedotin OS HR 0.70 — 後線新標準, FDA full' },
           { year:'2024+', label:'TF-ADC 1L 探索', trials:['innovatv-205'], note:'TV+Carbo 1L ORR 54.5% — phase II' },
           { year:'2024+', label:'TROP2-ADC 整合 IO', trials:['trofuse-036'], note:'sac-TMT+Pembro±Bev R/M 維持 — TROP2 進入 CC' },
@@ -14598,31 +14715,73 @@ const TRIAL_MNEMONICS = {
 
   // ====== 一線 (P-TX, Adjuvant) ======
   'rainbo-program': {
-    main: '💎 「RAINBO 彩虹計畫, 四型分桶 (POLE/MMRd/p53/NSMP), 個別化分流」',
+    main: '💎 「RAINBO 彩虹計畫, 紅綠橙藍四桶, 五五三六六零一四五」',
     breakdown: [
       { key: 'RAINBO', meaning: 'RAINBO program (彩虹意象, 試驗名)' },
-      { key: '彩虹四桶', meaning: '【特色】4 個獨立 phase III 試驗 (對應 4 分子分型)' },
-      { key: 'BLUE = p53abn', meaning: 'p53abn → chemo + Olaparib maintenance' },
-      { key: 'GREEN = POLE', meaning: 'POLEm → de-escalation (no adjuvant)' },
-      { key: 'YELLOW = NSMP-high', meaning: 'NSMP-high risk → 個別化 RT' },
-      { key: 'RED = MMRd', meaning: 'MMRd → de-escalation + IO' },
+      { key: '彩虹四桶', meaning: '【關鍵】4 個獨立 phase III 試驗對應 4 分子分型' },
+      { key: 'RED = p53abn (n=554)', meaning: 'p53abn-RED: chemoRT → Olaparib 維持 2y vs chemoRT alone (HRD biomarker)' },
+      { key: 'GREEN = MMRd (n=316)', meaning: 'MMRd-GREEN: chemoRT vs RT alone (de-escalation; immune phenotype)' },
+      { key: 'ORANGE = NSMP (n=600)', meaning: 'NSMP-ORANGE: 限「ER+ NSMP 高風險」, RT + Progesterone vs chemoRT (荷爾蒙治療)' },
+      { key: 'BLUE = POLEmut (n=145)', meaning: 'POLEmut-BLUE: de-escalation (no adjuvant); 含 lower-risk 120 + higher-risk 25' },
     ],
-    keypoint: 'Adjuvant EC 4-arm parallel program; 對應 4-tier 分子分型',
-    numbers: 'TRANSPORTEC 後續 phase III · 4 並行試驗',
-    pitfalls: '台灣未必有 site, 多為國際試驗 (學術重點而非臨床可及)',
+    keypoint: 'Adjuvant EC 4-arm parallel program; n=1615; 對應 4 分子分型差異化處置',
+    numbers: '4 trials · n=554+316+600+145 ≈ 1615 · 主要結果 2028+',
+    pitfalls: '【高頻易錯】(1) 沒有 YELLOW! 是 RED/GREEN/ORANGE/BLUE 四色 (2) NSMP-ORANGE 限 ER+ 高風險, 用荷爾蒙不是 RT 強化 (3) NSMP 其實是大雜燴, ORANGE 只篩 ER+ subset, ER- NSMP 仍未解 (4) MMRd-GREEN 是 de-escalation (移除 chemo), 不是加 IO',
+  },
+
+  'portec-1': {
+    main: '💎 「PORTEC-1 EBRT vs 觀察, 早期 OS 同 但局控翻倍」',
+    breakdown: [
+      { key: 'PORTEC-1', meaning: 'PORTEC-1 (Post-Operative RT in EC, 1990-1997 經典)' },
+      { key: 'EBRT vs 觀察', meaning: 'Stage I 術後 EBRT 46 Gy vs 觀察' },
+      { key: '局控翻倍', meaning: '15y 局部復發 EBRT 5.8% vs 觀察 15.5% (P<0.001)' },
+      { key: 'OS 無差', meaning: 'OS 兩組相同 (觀察組可救援治療)' },
+      { key: '中度風險才需', meaning: '【關鍵】奠基「中度風險才需 RT」原則' },
+    ],
+    keypoint: 'Stage I EC: 確立中度風險 RT 適應症; 啟發 PORTEC-2 (VBT 取代 EBRT)',
+    numbers: '15y FU · 局控 5.8% vs 15.5% · OS NS · n=714',
+    pitfalls: '高風險 (G3+IC) 排除 — 不適合不放療族不在試驗內; 結論不適用高風險',
+  },
+
+  'portec-2': {
+    main: '💎 「PORTEC-2 VBT vs EBRT, 高中度風險, 非劣同效少毒性」',
+    breakdown: [
+      { key: 'PORTEC-2', meaning: 'PORTEC-2 試驗 (PORTEC-1 後續精修)' },
+      { key: 'VBT vs EBRT', meaning: '陰道近接 21 Gy 3 fx vs 全骨盆 46 Gy 23 fx' },
+      { key: '高中度風險', meaning: '族群: >60y + (IC G1-2 / IB G3) 或 IIA G1-2' },
+      { key: '非劣等效', meaning: '陰道復發 VBT 3.4% vs EBRT 2.4% (NI 達成)' },
+      { key: '少毒性', meaning: 'VBT 顯著少腸道/泌尿副作用; QoL 顯著優' },
+    ],
+    keypoint: '高中度風險 Stage I EC adjuvant: VBT 取代 EBRT 為新標準',
+    numbers: '10y FU · VBT 3.4% vs EBRT 2.4% · OS NS · n=427',
+    pitfalls: '【經典考點】範式翻轉, 從此高中度風險 = VBT (而非 EBRT)',
+  },
+
+  'portec-3': {
+    main: '💎 「PORTEC-3 chemoRT vs RT, 高風險 OS 七六, p53abn 受益最大」',
+    breakdown: [
+      { key: 'PORTEC-3', meaning: 'PORTEC-3 (高風險 EC adjuvant 經典)' },
+      { key: 'chemoRT', meaning: 'RT + Cis 同步 (week 1, 4) + 4 cycles Carbo/Pacli' },
+      { key: 'OS HR 0.76', meaning: '5y OS chemoRT 81.4% vs RT 76.1% (HR 0.76, P=0.034)' },
+      { key: 'p53abn 五九 vs 三六', meaning: 'p53abn subgroup chemoRT 5y RFS 59% vs RT 36% — 受益最大' },
+      { key: 'POLEm 一百', meaning: 'POLEm 兩組都 100% RFS — 不需化療' },
+    ],
+    keypoint: '高風險 EC adjuvant: chemoRT 為標準; 分子分層: p53abn 必須加, POLEm 可降階',
+    numbers: 'OS HR 0.76 · p53abn RFS 5y 59 vs 36% · POLEm 100% · n=660',
+    pitfalls: '【高頻考點】(1) PORTEC-3 vs GOG-258 兩規範 — PORTEC-3 較優 (2) p53abn 是化療最受益族, 啟發 RAINBO p53abn-RED (3) 排除 carcinosarcoma',
   },
 
   'portec-4a': {
-    main: '💎 「PORTEC-4a 整合分型, L1+CTNNB1 加分, 個別化降階」',
+    main: '💎 「PORTEC-4a 整合分型, L1+CTNNB1 加分, 三十趴 免 RT」',
     breakdown: [
       { key: 'PORTEC-4a', meaning: 'PORTEC-4a 試驗 (進階版 PORTEC-2)' },
       { key: '整合分型', meaning: '【特色】4-tier + L1CAM + CTNNB1 → integrated risk' },
       { key: 'L1+CTNNB1', meaning: 'L1CAM IHC + CTNNB1 mutation 為 high-risk 因子' },
-      { key: '個別化降階', meaning: '部分 low-intermediate-risk 可降階治療' },
+      { key: '個別化降階', meaning: '~30% 中度風險 EC 可免除 VBT (de-escalation)' },
     ],
-    keypoint: 'Stage I-II EC: integrated risk model 個別化 adjuvant',
-    numbers: '3 種 risk groups · 降階後 surveillance only 可行',
-    pitfalls: 'POLEm 不論期都降階; CTNNB1m 提升 risk',
+    keypoint: 'Stage I-II EC: integrated risk model 個別化 adjuvant; ~30% 患者免除 RT',
+    numbers: '5y vaginal recurrence 2.1% vs 1.0% (NI 達成) · n=500',
+    pitfalls: 'POLEm 不論期都降階; CTNNB1m 提升 risk; PORTEC 系列 1→2→3→4a 需區分',
   },
 
 
