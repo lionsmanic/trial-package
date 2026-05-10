@@ -13794,8 +13794,8 @@ const MONTHS_MNEMONICS = {
 // 📜 試驗詵學讚 (Trial Verses) — 七言/長短句, 押韻, 含具體數字
 const TRIAL_VERSES = {
   // === EC 一線 IO+chemo ===
-  'gy018':              '🎵 GY018 配 Pembro\n  dMMR 三零強, pMMR 五四\n  「排除肉瘤」莫忘',
-  'ruby-p1':            '🎵 RUBY 配 Dostar 跑\n  dMMR 二八小 (最強), ITT 六九\n  「含癌肉瘤」是亮點',
+  'gy018':              '🎵 GY018 配 Pembro\n  dMMR 三零強, pMMR 五四\n  「很 GY 不收肉」(排除 carcinosarcoma; 維持 14 cycles)',
+  'ruby-p1':            '🎵 RUBY 配 Dostar 跑\n  dMMR 二八小 (最強), ITT 六九\n  「有 Ro 收肉」(收 carcinosarcoma; 維持 3 年)',
   'duo-e':              '🎵 DUO-E 三臂行\n  dMMR 四一 (Arm3≈Arm2), pMMR Arm3 五七\n  「全 pMMR 都受益, 不只 p53/HRR」',
   'attend':             '🎵 AtTEnd 配 Atezo (PD-L1)\n  dMMR 三六顯效, ITT OS 八七翻車\n  「PD-L1 路徑唯一」',
   'siendo':             '🎵 SIENDO 配 Seli (XPO1)\n  TP53wt 翻盤四一 (post-hoc)\n  ITT 失利, 撿一條',
@@ -13807,6 +13807,7 @@ const TRIAL_VERSES = {
   'portec-2':           '🎵 PORTEC-2 VBT 取代 EBRT\n  非劣三四比二四 (10y), 少毒性\n  「高中度風險 = VBT」標準',
   'portec-3':           '🎵 PORTEC-3 chemoRT vs RT\n  高風險 OS 七六, p53abn 五九比三六\n  「POLEm 一百」可降階',
   'gog-258':            '🎵 GOG-258 進階期 chemoRT vs chemo\n  五九比五八無差, OS 一零五\n  「加 RT 沒用, chemo alone 已足夠」',
+  'rainbo-program':     '🎵 彩虹 RAINBO 四桶分\n  紅五三 (p53), 綠錯配 (MMRd), 橙雌正 NSMP, 藍 POLE 觀察\n  「五五四+三一六+六零零+一四五 ≈ 一千六」',
 
   // === OC 一線 ===
   'gog-0218':           '🎵 GOG-218 加 Bev 試\n  PFS 七一七 (15mg/kg), ITT OS 失利\n  「ICON7 一半劑量」',
@@ -13984,7 +13985,7 @@ const TIMELINE_DATA = {
         eras: [
           { year:'2013', label:'TCGA 分子分型', trials:[], note:'POLE / MMRd / p53abn / NSMP 四類確立' },
           { year:'2020+', label:'整合至 PORTEC', trials:['portec-4a','rainbo-program'], note:'PORTEC-4a 整合; RAINBO 分桶' },
-          { year:'NSMP 細分', label:'⚠️ NSMP 是大雜燴, 需再分', trials:['siendo'], note:'NSMP = 無 POLE/MMR/p53 剩下的; 仍極異質! 細分維度: (1) ER+ vs ER- (2) CTNNB1 mutation (3) L1CAM+ (4) 漿液樣前驅 (p53wt 但形態 serous-like). ⚠️ NSMP-high ER- ≠ p53abn — 預後類似但生物學不同, 治療反應也不同 (p53abn 對 chemoRT/PARPi 受益; NSMP-high ER- 仍未解). RAINBO ORANGE 只解了 ER+ 高風險 subset; ER- NSMP 仍是缺口. SIENDO post-hoc 顯示 TP53wt (主要為 NSMP) Selinexor 維持有反應 (HR 0.41) — 暗示 NSMP 內也可能有 actionable subset' },
+          { year:'NSMP 細分', label:'⚠️ NSMP 是大雜燴, 需再分', trials:['siendo'], note:'NSMP 定義 = 「無 POLE + MMR 正常 + p53 IHC 正常」剩下的; 是 4 分型中最後 catch-all bucket. ⚡定義邏輯: 「所有 NSMP 都是 p53wt, 但 p53wt ≠ NSMP」(p53wt 可能是 POLEm/MMRd/NSMP 三者之一, 主要為 NSMP). NSMP 仍極異質! 細分維度: (1) ER+ vs ER- (2) CTNNB1 mutation (3) L1CAM+ (4) 漿液樣前驅. ⚠️ NSMP-high ER- ≠ p53abn — 預後類似但生物學不同; p53abn 對 chemoRT/PARPi 受益 (PORTEC-3/RAINBO RED), NSMP-high ER- 仍未解. RAINBO ORANGE 只解了 ER+ 高風險 subset; ER- NSMP 仍是缺口. 🟢 SIENDO post-hoc 顯示 TP53wt subgroup (主要為 NSMP) 用 Selinexor 維持 HR 0.41 — 暗示 NSMP 內也有 actionable subset' },
         ],
       },
       {
@@ -14028,7 +14029,7 @@ const TIMELINE_DATA = {
         eras: [
           { year:'POLEm', label:'波超棒 — 不化療不放療', trials:['rainbo-program','portec-4a'], note:'POLE 突變 5y OS >95%; FIGO 2023 直降 IA — 降階治療' },
           { year:'MMRd', label:'米多反應好 — IO 黃金', trials:['gy018','ruby-p1','garnet','keynote-158','keynote-c93'], note:'dMMR ORR 45-50%; PFS HR ~0.30; 一線 IO+chemo / 後線 IO 單藥' },
-          { year:'p53abn', label:'五三變異最差 — 強化治療 + HER2 ADC', trials:['duo-e','duo-e-maint','utola','destiny-pantumor02'], note:'p53/HRR 雙打; ⚠️ p53abn 多為 serous EC, 而 serous HER2 IHC3+ 比例 ~30% — 因此 T-DXd (DESTINY-PT02) 在 p53abn/serous 後線特別有應用價值; 維持期加 Olap 拔尖' },
+          { year:'p53abn', label:'五三變異最差 — chemoRT + PARPi + HER2 ADC', trials:['duo-e','duo-e-maint','utola','destiny-pantumor02'], note:'⚡邏輯鏈: p53abn EC → 多為 serous 組織型 → serous HER2 IHC3+ 比例高 (~30%) → T-DXd (DESTINY-PT02) 對 p53abn/serous EC 後線特別有效。同時 p53/HRR 對 PARPi 維持 (DUO-E Arm3 / UTOLA p53m) 受益; 漿液必查 HER2' },
           { year:'NSMP-low', label:'NSMP-low ER+ — 賀爾蒙', trials:['rainbo-program'], note:'ER 陽好命, 賀爾蒙好用, 預後接近 POLE' },
           { year:'NSMP-high', label:'NSMP-high ER- — 等同 p53', trials:['rainbo-program','siendo'], note:'NSMP-high 強化等同 p53; SIENDO TP53wt 翻盤' },
           { year:'CTNNB1', label:'假 low-grade 真早復', trials:['portec-4a','rainbo-program'], note:'Wnt 三外顯; G1-G2 也 PORTEC 升風險' },
@@ -14624,29 +14625,32 @@ const TRIAL_MNEMONICS = {
 
   // ====== 一線 (P-TX) ======
   'gy018': {
-    main: '💎 「GY018 配 Pembro, dMMR 三零 pMMR 五四, 排除肉瘤」',
+    main: '💎 「GY018 配 Pembro, dMMR 三零 pMMR 五四, 很 GY 不收肉」',
     breakdown: [
       { key: 'GY018', meaning: 'GOG-3025 / NRG-GY018 (試驗名)' },
       { key: 'Pembro', meaning: 'Pembrolizumab + chemo (carbo + pacli)' },
       { key: 'ITT 雙獲益', meaning: '【特色】dMMR + pMMR 兩 cohort 都獲益; NCCN Cat 1' },
-      { key: '不收肉瘤', meaning: '【關鍵】排除 carcinosarcoma (vs RUBY P1 收)' },
+      { key: '🚫 排除癌肉瘤', meaning: '【關鍵考點】排除 carcinosarcoma' },
+      { key: '💡 記憶口訣', meaning: '「很 GY 不收肉」— GY018 嚴格挑剔, 不收癌肉瘤 (carcinosarcoma 是上皮+間質混合, 不純)' },
+      { key: '⏱ 維持 14 cycles', meaning: '相對較短 (vs RUBY 3 年)' },
     ],
-    keypoint: 'Stage III-IV 或 recurrent EC 一線; chemo + Pembro × 6 → Pembro 維持 14 cycles',
+    keypoint: 'Stage III-IV 或 recurrent EC 一線; chemo + Pembro × 6 → Pembro 維持 14 cycles; 不收肉瘤',
     numbers: 'MMRd PFS HR 0.30 · pMMR HR 0.54 · NEJM 2023 · NCCN Cat 1',
-    pitfalls: '【vs RUBY P1】GY018 不收 carcinosarcoma; 維持期較短 (~14 cycles vs RUBY 3 年)',
+    pitfalls: '【vs RUBY P1 鏡像對比】「很 GY 不收肉, 維持 14 cycles 短」 vs 「有 Ro 收肉, 維持 3 年長」',
   },
 
   'ruby-p1': {
-    main: '💎 「RUBY P1 配 Dostar, dMMR 二八 ITT 六九, 收癌肉瘤」',
+    main: '💎 「RUBY P1 配 Dostar, dMMR 二八 ITT 六九, 有 Ro 收肉」',
     breakdown: [
       { key: 'RUBY P1', meaning: 'ENGOT-EN6 / RUBY Part 1 (試驗名)' },
       { key: 'Dostar', meaning: 'Dostarlimab + chemo (carbo + pacli)' },
-      { key: '維持 3 年', meaning: '【特色】Dostar 維持期長達 3 年 (vs GY018 ~14 cycles)' },
-      { key: '收肉瘤', meaning: '【關鍵】允許 carcinosarcoma (vs GY018 不收)' },
+      { key: '⏱ 維持 3 年', meaning: '【特色】Dostar 維持期長達 3 年 (vs GY018 14 cycles 短)' },
+      { key: '✅ 收癌肉瘤', meaning: '【關鍵考點】允許 carcinosarcoma 收進來' },
+      { key: '💡 記憶口訣', meaning: '「有 Ro 收肉」— RUBY 字裡有「Ro」(肉), 含癌肉瘤' },
     ],
-    keypoint: 'Stage III-IV 或 first recurrence EC 一線; chemo + Dostar × 6 → Dostar × 3 年',
+    keypoint: 'Stage III-IV 或 first recurrence EC 一線; chemo + Dostar × 6 → Dostar × 3 年; 含癌肉瘤',
     numbers: 'MMRd PFS HR 0.28 · ITT OS HR 0.69 · 含 carcinosarcoma 也獲益',
-    pitfalls: '【vs GY018】RUBY P1 收 carcinosarcoma; Dostar 維持 3 年 (較長)',
+    pitfalls: '【vs GY018 鏡像對比】「有 Ro 收肉, 維持 3 年長」 vs 「很 GY 不收肉, 維持 14 cycles 短」',
   },
 
   'duo-e': {
@@ -14759,18 +14763,18 @@ const TRIAL_MNEMONICS = {
 
   // ====== 一線 (P-TX, Adjuvant) ======
   'rainbo-program': {
-    main: '💎 「RAINBO 彩虹計畫, 紅綠橙藍四桶, 各打各的不同設計」',
+    main: '💎 「彩虹 RAINBO 四桶分: 紅五三, 綠錯配, 橙雌正 NSMP, 藍 POLE 觀察」',
     breakdown: [
-      { key: 'RAINBO', meaning: 'RAINBO program (彩虹意象, 試驗名)' },
-      { key: '彩虹四桶', meaning: '【關鍵】4 個獨立試驗對應 4 分子分型, 但設計各不同' },
-      { key: '🔴 RED p53abn (Phase III, n=554)', meaning: '【收】Stage I-III p53abn EC; 隨機 chemoRT + Olaparib 維持 2y vs chemoRT alone — 加 PARPi superiority' },
-      { key: '🟢 GREEN MMRd (Phase III, n=316)', meaning: '【收】Stage II (含 LVSI) 或 III MMRd EC; 隨機 RT + Durvalumab (concurrent + 1y maint) vs RT alone — 加 IO 強化 (不是去化!)' },
-      { key: '🟠 ORANGE NSMP (Phase III, n=600)', meaning: '【收】ER+ Stage II (含 LVSI) 或 III NSMP EC; 隨機 RT + Progestin 2y vs chemoRT — de-escalation (用荷爾蒙取代化療)' },
-      { key: '🔵 BLUE POLEmut (Phase II, n=145)', meaning: '【收】Stage I-III POLEmut EC; lower-risk 觀察 (n=120); higher-risk RT alone (n≈25) — 安全性 de-escalation' },
+      { key: 'RAINBO', meaning: 'RAINBO program (彩虹意象, 試驗名; n=1615 共 4 試驗)' },
+      { key: '🔴 紅五三 = RED p53abn', meaning: '紅色配「五三 (p53)」變異 (Phase III, n=554, France); chemoRT + Olaparib 維持 2y vs chemoRT alone — 加 PARPi superiority' },
+      { key: '🟢 綠錯配 = GREEN MMRd', meaning: '綠色配「錯配 (mismatch)」修復缺陷 (Phase III, n=316, NL); RT + Durvalumab (concurrent + 1y maint) vs RT alone — 加 IO 強化 (不是去化!)' },
+      { key: '🟠 橙雌正 = ORANGE NSMP+ER+', meaning: '橙色配「雌正 (ER+)」NSMP (Phase III, n=600, UK); RT + Progestin 2y vs chemoRT — de-escalation (用荷爾蒙取代化療)' },
+      { key: '🔵 藍 POLE 觀察 = BLUE POLEmut', meaning: '藍色配「POLE」突變 (Phase II, n=145, Canada); lower-risk 觀察 / higher-risk RT alone — 安全性 de-escalation' },
+      { key: '記憶法', meaning: '紅 = 紅燈最危險 (p53abn 預後最差) · 綠 = 綠燈/MMR 像「綠」字3個d (dMMR) · 橙 = 雌激素橙黃 (ER+) · 藍 = POLE藍 (de-escalation 觀察安全)' },
     ],
-    keypoint: 'Adjuvant EC 4-arm parallel program; n=1615; 對應 4 分子分型差異化處置',
-    numbers: 'RED 554 / GREEN 316 / ORANGE 600 / BLUE 145 ≈ 1615 · 主要結果 2028+',
-    pitfalls: '【高頻易錯】(1) 沒有 YELLOW! 是 RED/GREEN/ORANGE/BLUE 四色 (2) GREEN 是 RT vs RT+Durva (加 IO 強化), 不是 chemoRT vs RT (de-escalation 化療) (3) ORANGE 才是 de-escalation, 限 ER+, 用 RT+Progestin 取代 chemoRT (4) BLUE 是 Phase II, 不是 III (其他三是 III) (5) NSMP-ORANGE 只篩 ER+ subset; ER- NSMP 仍未解 (6) GREEN 收的是 Stage II LVSI+ 或 III, 不是所有 MMRd',
+    keypoint: 'Adjuvant EC 4 並行試驗; 各色對應分子分型 + 各自設計; n≈1615 主要結果 2028+',
+    numbers: '🔴 RED 554 + 🟢 GREEN 316 + 🟠 ORANGE 600 + 🔵 BLUE 145 ≈ 1615 · 三個 Phase III + 一個 Phase II (BLUE)',
+    pitfalls: '【高頻易錯】(1) 沒有 YELLOW! 是 RED/GREEN/ORANGE/BLUE 四色 (2) 🟢 GREEN 是 RT vs RT+Durva (加 IO 強化), 不是 chemoRT vs RT, 也不是 de-escalation chemo (3) 🟠 ORANGE 才是 de-escalation, 限 ER+, 用 RT+Progestin 取代 chemoRT (4) 🔵 BLUE 是 Phase II, 不是 III (其他三是 III) (5) NSMP-ORANGE 只篩 ER+ subset; ER- NSMP 仍未解 (6) GREEN 收的是 Stage II LVSI+ 或 III, 不是所有 MMRd',
   },
 
   'portec-1': {
