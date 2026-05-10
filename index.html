@@ -4001,25 +4001,24 @@ const TRIALS = [
   phase:["P-TX"],
   status:"ongoing",
   name:"RAINBO Program",
-  fullName:"RAINBO Program (RED / GREEN / AMBER / BLUE)",
-  pharma:"ENGOT / GOG / RAINBO Consortium",
+  fullName:"RAINBO Program (RED / GREEN / ORANGE / BLUE)",
+  pharma:"ENGOT / NRG / RAINBO Consortium",
   drug:"分子分型導航輔助治療",
-  tagline:"精準輔助治療新標準: 依四大分子分型 (POLE/MMRd/p53abn/NSMP) 個別化輔助方案,優化術後預後並減少過度治療。",
-  rationale:"PORTEC-3 與 NSGO-RT-EC 已確認分子分型對 EC 預後的決定性影響。RAINBO Program 由四個平行子試驗組成 — 針對每個分子亞型設計專屬輔助治療策略,是現代 EC 精準醫療的代表性大型計畫。",
-  regimen:"四個平行子試驗:\n\n【RED Trial (p53abn)】Stage I-III p53abn EC 完全切除後\n  Arm A: 化放療 (Chemoradiation, Cis 50mg/m² weekly + EBRT 48.6 Gy + Carbo/Pacli x4) → Olaparib 維持 2 年\n  Arm B: 化放療 alone (對照)\n\n【GREEN Trial (NSMP)】Stage II-III NSMP EC + ER+ 完全切除後\n  Arm A: 骨盆 RT (EBRT 48.6 Gy) → Letrozole 2.5mg QD 維持 5 年\n  Arm B: 骨盆 RT alone (對照)\n\n【AMBER Trial (MMRd)】Stage II-III MMRd EC 完全切除後\n  Arm A: 骨盆 RT → Dostarlimab 1000mg Q6W 維持 1 年\n  Arm B: 骨盆 RT alone (對照)\n\n【BLUE Trial (POLE)】Stage I-III POLE-mut EC 完全切除後\n  Arm A: 觀察 (De-escalation)\n  Arm B: 標準輔助治療 (依風險)",
-  inc:["FIGO 2009 Stage I-III EC","術後完成分子分型鑑定 (POLE, MMR IHC, p53 IHC + NGS)","具備中高風險特徵","ECOG 0-1","完整切除"],
-  exc:["先前接受過全身性化療","活動性自體免疫疾病 (AMBER 限制)","Stage IV / 遠端轉移","其他活動性惡性腫瘤"],
-  outcomes:"【招募中】\nRED Trial: Primary RFS, Secondary OS\nGREEN Trial: Primary RFS\nAMBER Trial: Primary RFS\nBLUE Trial: Primary RFS (de-escalation 不劣性)\n預計 2027-2030 陸續公布結果",
-
-  enrolled:"四子試驗合計預計 ~1500-1700 patients\nEU 主導 (ENGOT / RAINBO Consortium)\n美國 NRG 平行合作\n2021-2023 陸續啟動",
-  hist:"涵蓋所有 EC 組織學:\n  • 子宮內膜樣 (大多數 NSMP / MMRd / POLE)\n  • Serous (大多 p53abn)\n  • Carcinosarcoma (在部分子試驗排除)\n  • Clear cell (依分子分型分配)\n關鍵: 分子分型決定 cohort,不是組織學",
-  stageDist:"FIGO 2009 Stage I-III\n各子試驗有不同分期收案範圍:\n  • RED (p53abn): I-III\n  • GREEN (NSMP): II-III + ER+\n  • AMBER (MMRd): II-III\n  • BLUE (POLE): I-III (de-escalation)",
-  tech:"【分子分型 workflow】\n  1. 術後組織取樣\n  2. POLE NGS (exonuclease domain mutations)\n  3. MMR IHC (MLH1, MSH2, MSH6, PMS2)\n  4. p53 IHC (overexpression / null pattern)\n  5. ER IHC (NSMP cohort 篩選)\n  6. 整合分類為 4 大亞型\n\n【關鍵時程】\n  • 術後 8 週內完成分子分型\n  • 12 週內開始輔助治療\n\n【de-escalation 風險溝通】\n  • BLUE Trial 的核心是「省略輔助治療」概念\n  • POLE-mut 5y RFS >95% — 為 de-escalation 提供強烈證據\n  • 但仍需謹慎篩選 (排除合併 p53abn 或 MMRd)",
-  subgroup:"【RED Trial (p53abn) 預期】\n  • PORTEC-3 ad-hoc 顯示 p53abn 化放療獲益最大 (HR ~0.50)\n  • 加 Olaparib 維持有望進一步改善 RFS (HRD-like 機制)\n\n【GREEN Trial (NSMP+ER+) 預期】\n  • NSMP+ER+ 為高風險中相對好預後\n  • Letrozole 提供低毒性長期維持\n  • 啟發 endocrine therapy 在 EC 角色重估\n\n【AMBER Trial (MMRd) 預期】\n  • dMMR 對 IO 高反應已在 advanced setting 確認\n  • 輔助 Dostarlimab 是否能轉化為早期治癒延長?\n\n【BLUE Trial (POLE) 預期】\n  • POLE-mut 5y OS >95% — de-escalation 為合理嘗試\n  • 主要終點: 不劣性 RFS\n  • 若成功將大幅減少輔助治療毒性",
-  combo:"與 PORTEC-3 (歷史輔助化放療標準), PORTEC-4a (分子整合風險導航), TAPER (MMRd 早期觀察) 並列分子精準試驗\n為 EC 全分子亞型分流的代表性大型計畫\n\n後續發展:\n  • RAINBO consortium 規劃整合分析\n  • 啟發 cervical / ovarian 平行分子分型試驗",
+  tagline:"精準輔助治療新標準: 依四大分子分型 (p53abn/MMRd/NSMP/POLEmut) 個別化輔助方案,4 個並行試驗 (3 Phase III + 1 Phase II)。",
+  rationale:"PORTEC-3 ad-hoc 顯示分子分型對輔助治療反應差異大 (p53abn 化療最受益, POLEm 預後極好). RAINBO 4 個平行試驗為每個分子亞型量身打造輔助治療策略 — 是 EC 精準醫療的代表計畫。",
+  regimen:"四個平行子試驗 (NCT05255653 共傘狀):\n\n【🔴 RED Trial — p53abn-RED, Phase III, n=554】\n  收: 侵入性 Stage I-III p53abn EC (手術後完整 staging)\n  Arm A: chemoRT (Cis sensitizer + RT + 4 cycles Carbo/Pacli) + Olaparib 維持 2 年\n  Arm B: chemoRT alone (對照)\n  Primary: 3-year RFS (superiority)\n  Lead: France (Gustave Roussy)\n\n【🟢 GREEN Trial — MMRd-GREEN, Phase III, n=316】\n  收: Stage II (含 LVSI) 或 Stage III MMRd EC\n  Arm A: RT + Durvalumab (concurrent during RT + 1 年 maintenance)\n  Arm B: RT alone (對照)\n  Primary: 3-year RFS (superiority — 加 IO 強化)\n  Lead: Netherlands (Leiden)\n  ⚠️ 注意: GREEN 是 RT + IO 強化, 不是 chemoRT vs RT 也不是 de-escalation chemo!\n\n【🟠 ORANGE Trial — NSMP-ORANGE, Phase III, n=600】\n  收: ER+ Stage II (含 LVSI) 或 Stage III NSMP EC\n  Arm A: RT + Progestin 維持 2 年 (de-escalation 化療)\n  Arm B: chemoRT (對照)\n  Primary: 3-year RFS (non-inferiority of de-escalation)\n  Lead: UK (UCL)\n  ⚠️ 注意: ORANGE 才是 de-escalation, 限 ER+, 用荷爾蒙取代化療\n\n【🔵 BLUE Trial — POLEmut-BLUE, Phase II, n=145】\n  收: Stage I-III POLEmut EC\n  Lower-risk cohort (n=120): 觀察 (no adjuvant)\n  Higher-risk cohort (n≈25): RT alone (de-escalation)\n  Primary: 3-year pelvic recurrence (safety of de-escalation)\n  Lead: Canada (Princess Margaret)\n  ⚠️ 注意: BLUE 是 Phase II, 其他三是 Phase III!",
+  inc:["FIGO 2009 Stage I-III EC (各子試驗分期不同, 見 regimen)","完整 staging surgery, 無遠端轉移","完成 WHO 2020 分子分類 (POLE NGS + MMR IHC + p53 IHC)","ECOG 0-1"],
+  exc:["先前接受過全身性化療","Stage IV / 遠端轉移","其他活動性惡性腫瘤","活動性自體免疫疾病 (GREEN 限制)"],
+  outcomes:"【招募中】\nRED: Primary RFS at 3y, n=554\nGREEN: Primary RFS at 3y, n=316\nORANGE: Primary RFS at 3y, n=600\nBLUE: Primary 3y pelvic recurrence, n=145\n預計 2028+ 陸續公布結果",
+  enrolled:"四子試驗合計預計 ~1615 patients\nEU 主導 (ENGOT / RAINBO Consortium)\n美國 NRG / 加拿大平行合作\n2022-2024 陸續啟動",
+  hist:"涵蓋所有 EC 組織學:\n  • 子宮內膜樣 (大多 NSMP / MMRd / POLE)\n  • Serous (大多 p53abn)\n  • Clear cell (依分子分型分配)\n  • Carcinosarcoma 通常排除\n關鍵: 分子分型決定 cohort, 不是組織學",
+  stageDist:"FIGO 2009 各子試驗分期不同:\n  • 🔴 RED (p53abn): Stage I-III\n  • 🟢 GREEN (MMRd): Stage II 含 LVSI 或 Stage III\n  • 🟠 ORANGE (NSMP+ER+): Stage II 含 LVSI 或 Stage III\n  • 🔵 BLUE (POLEmut): Stage I-III",
+  tech:"【分子分型 workflow】\n  1. 術後組織取樣\n  2. POLE NGS (exonuclease domain mutations)\n  3. MMR IHC (MLH1, MSH2, MSH6, PMS2)\n  4. p53 IHC (overexpression / null pattern; 可疑時 NGS 確認)\n  5. ER IHC (ORANGE cohort 篩選需要)\n  6. 整合分類為 4 大亞型, 分配子試驗\n\n【de-escalation 邏輯】\n  • BLUE: POLE-mut 5y OS >95%, 為 de-escalation 提供強烈證據\n  • ORANGE: ER+ NSMP 化療反應較弱, 用荷爾蒙取代",
+  subgroup:"【🔴 RED 預期】PORTEC-3 ad-hoc 顯示 p53abn chemoRT RFS HR 顯著, 加 Olap 期望進一步改善\n【🟢 GREEN 預期】dMMR IO 反應已在 advanced 確認 (RUBY/GY018), 輔助 Durva 期望延長治癒\n【🟠 ORANGE 預期】NSMP+ER+ 為相對好預後, 期望荷爾蒙非劣於化療\n【🔵 BLUE 預期】POLE-mut 觀察 RFS 高, 不劣性安全",
+  combo:"與 PORTEC-3 (歷史 chemoRT vs RT alone), PORTEC-4a (分子整合風險), TAPER (MMRd 觀察) 並列分子精準試驗\n為 EC 全分子亞型分流的代表性大型計畫",
   guideline:"未進入指引 (招募中)\nNCCN v2.2026 已將分子分型列為 EC 標準病理評估\nPORTEC-3 ad-hoc 為當前實務基準\nTaiwan: 部分中心已開始分子分型常規檢測",
-  nct:"RED: NCT05255653 / GREEN: NCT05255666 / AMBER: NCT05255653 / BLUE: NCT05255653 (RAINBO 群)",
-  publication:"Trial-in-progress: Int J Gynecol Cancer 2023 (RAINBO design); ESMO 2023 / 2024 program updates"
+  nct:"NCT05255653 (RAINBO umbrella; 子試驗各別 NCT 從屬)",
+  publication:"Trial-in-progress: Int J Gynecol Cancer 2023 (RAINBO design, Leary et al.); ESMO 2023 / 2024 program updates"
 },
 
 {
@@ -13493,7 +13492,10 @@ const EXAM_WARNINGS = {
     { tag:'⚠️ Dostar Q3W → Q6W', text:'維持期 Q6W (1000mg), 一線 Q3W (500mg) — 不同劑量不同間隔' },
   ],
   'duo-e': [
-    { tag:'⚠️ Arm 數讀錯', text:'DUO-E 三臂: Arm1 SOC / Arm2 加 Durva / Arm3 加 Durva+Olap; 注意 Arm3 才是 p53/HRR 拔尖' },
+    { tag:'⚠️ Arm 數讀錯', text:'DUO-E 三臂: Arm1 SOC / Arm2 chemoIO+Durva 維持 / Arm3 chemoIO+Durva+Olap 維持' },
+    { tag:'⚠️ Arm3 不只 p53/HRR 受益', text:'【SGO 2025 post-hoc】Arm3 在 pMMR 加成 across all subgroups (PD-L1+/-, TP53m/wt, HRRm/wt, BRCAm/wt, 各組織型, ctDNA+/-); ISN\'T housed in HRR mutation group only' },
+    { tag:'⚠️ dMMR 加 Olap 無額外加成', text:'dMMR Arm2 HR 0.42 / Arm3 HR 0.41 — 兩臂相當; dMMR 加 IO 已足夠, 不需再加 PARPi' },
+    { tag:'⚠️ 主分層按 MMR', text:'試驗主要按 MMR status 分層 (dMMR vs pMMR), 不是按 p53/HRR; subgroup analysis 是 post-hoc' },
     { tag:'⚠️ HRR ≠ BRCA', text:'HRR 包含 BRCA + ATM + PALB2 等多基因, 不是只看 BRCA' },
   ],
   'attend': [
@@ -13530,9 +13532,13 @@ const EXAM_WARNINGS = {
   ],
   'rainbo-program': [
     { tag:'⚠️ 沒有 YELLOW!', text:'RAINBO 四色為 RED (p53abn) / GREEN (MMRd) / ORANGE (NSMP) / BLUE (POLEmut); 沒有 YELLOW!' },
-    { tag:'⚠️ ORANGE 限 ER+', text:'NSMP-ORANGE 限「ER+ NSMP 高風險」, 用荷爾蒙 (Progesterone) 而非 RT 強化; ER- NSMP 不在內仍未解' },
+    { tag:'⚠️ RED 是 PARPi 加成', text:'RED (p53abn): chemoRT + Olaparib 維持 2y vs chemoRT alone — 加 PARPi 強化, Phase III superiority, n=554' },
+    { tag:'⚠️ GREEN 是加 IO, 不是去化!', text:'GREEN (MMRd): RT + Durvalumab (concurrent + 1y maint) vs RT alone — 是「加 IO 強化」 (RT 上加 IO), 不是 chemoRT vs RT 也不是 de-escalation chemo; Phase III, n=316' },
+    { tag:'⚠️ GREEN 收 Stage II LVSI+/III', text:'GREEN 不是所有 MMRd 都收, 只收 Stage II (含 LVSI) 或 Stage III' },
+    { tag:'⚠️ ORANGE 才是 de-escalation', text:'ORANGE (NSMP): RT + Progestin 2y vs chemoRT — 用荷爾蒙取代化療 (de-escalation chemotherapy); 限 ER+ Stage II LVSI+/III, Phase III, n=600' },
+    { tag:'⚠️ ORANGE 限 ER+', text:'NSMP-ORANGE 限 ER+ 高風險 subset; ER- NSMP (預後也差但生物學不同) 不在內仍未解' },
+    { tag:'⚠️ BLUE 是 Phase II', text:'BLUE (POLEmut): Phase II (其他三個是 Phase III!); n=145; lower-risk 觀察 / higher-risk RT alone (de-escalation 安全性)' },
     { tag:'⚠️ NSMP 仍是大雜燴', text:'NSMP = 「無 POLE/MMR/p53」剩餘, 仍極異質, 需再分 (ER+/ER- · CTNNB1m · L1CAM+ 等); RAINBO ORANGE 只解了 ER+ 高風險 subset' },
-    { tag:'⚠️ GREEN 是去化', text:'MMRd-GREEN 是 chemoRT vs RT alone (de-escalation); 不是「加 IO」' },
   ],
   'portec-1': [
     { tag:'⚠️ 高風險族排除', text:'PORTEC-1 排除 G3+IC; 結論不適用高風險 (高風險研究見 PORTEC-3)' },
@@ -13790,7 +13796,7 @@ const TRIAL_VERSES = {
   // === EC 一線 IO+chemo ===
   'gy018':              '🎵 GY018 配 Pembro\n  dMMR 三零強, pMMR 五四\n  「排除肉瘤」莫忘',
   'ruby-p1':            '🎵 RUBY 配 Dostar 跑\n  dMMR 二八小 (最強), ITT 六九\n  「含癌肉瘤」是亮點',
-  'duo-e':              '🎵 DUO-E 三臂行\n  Arm2 加 Durva 寬, Arm3 加 Olap 才強\n  p53/HRR 拔頭籌',
+  'duo-e':              '🎵 DUO-E 三臂行\n  dMMR 四一 (Arm3≈Arm2), pMMR Arm3 五七\n  「全 pMMR 都受益, 不只 p53/HRR」',
   'attend':             '🎵 AtTEnd 配 Atezo (PD-L1)\n  dMMR 三六顯效, ITT OS 八七翻車\n  「PD-L1 路徑唯一」',
   'siendo':             '🎵 SIENDO 配 Seli (XPO1)\n  TP53wt 翻盤四一 (post-hoc)\n  ITT 失利, 撿一條',
   'keynote-775':        '🎵 KN-775 + Pembro+Lenva\n  pMMR PFS 六零, OS 七零\n  「排除 carcinosarcoma」',
@@ -13978,7 +13984,7 @@ const TIMELINE_DATA = {
         eras: [
           { year:'2013', label:'TCGA 分子分型', trials:[], note:'POLE / MMRd / p53abn / NSMP 四類確立' },
           { year:'2020+', label:'整合至 PORTEC', trials:['portec-4a','rainbo-program'], note:'PORTEC-4a 整合; RAINBO 分桶' },
-          { year:'NSMP 細分', label:'⚠️ NSMP 是大雜燴', trials:[], note:'NSMP = 「沒有 POLE/MMR/p53」剩下的; 仍極異質! 需再分: ER+/ER- · CTNNB1m · L1CAM+ · TP53wt · 漿液前驅; RAINBO ORANGE 只篩 ER+ 高風險, ER- NSMP 仍未解' },
+          { year:'NSMP 細分', label:'⚠️ NSMP 是大雜燴, 需再分', trials:['siendo'], note:'NSMP = 無 POLE/MMR/p53 剩下的; 仍極異質! 細分維度: (1) ER+ vs ER- (2) CTNNB1 mutation (3) L1CAM+ (4) 漿液樣前驅 (p53wt 但形態 serous-like). ⚠️ NSMP-high ER- ≠ p53abn — 預後類似但生物學不同, 治療反應也不同 (p53abn 對 chemoRT/PARPi 受益; NSMP-high ER- 仍未解). RAINBO ORANGE 只解了 ER+ 高風險 subset; ER- NSMP 仍是缺口. SIENDO post-hoc 顯示 TP53wt (主要為 NSMP) Selinexor 維持有反應 (HR 0.41) — 暗示 NSMP 內也可能有 actionable subset' },
         ],
       },
       {
@@ -14022,7 +14028,7 @@ const TIMELINE_DATA = {
         eras: [
           { year:'POLEm', label:'波超棒 — 不化療不放療', trials:['rainbo-program','portec-4a'], note:'POLE 突變 5y OS >95%; FIGO 2023 直降 IA — 降階治療' },
           { year:'MMRd', label:'米多反應好 — IO 黃金', trials:['gy018','ruby-p1','garnet','keynote-158','keynote-c93'], note:'dMMR ORR 45-50%; PFS HR ~0.30; 一線 IO+chemo / 後線 IO 單藥' },
-          { year:'p53abn', label:'五三變異最差 — 強化治療', trials:['duo-e','duo-e-maint','utola','destiny-pantumor02'], note:'p53/HRR 雙打; 漿液必查 HER2; 維持期加 Olap 拔尖' },
+          { year:'p53abn', label:'五三變異最差 — 強化治療 + HER2 ADC', trials:['duo-e','duo-e-maint','utola','destiny-pantumor02'], note:'p53/HRR 雙打; ⚠️ p53abn 多為 serous EC, 而 serous HER2 IHC3+ 比例 ~30% — 因此 T-DXd (DESTINY-PT02) 在 p53abn/serous 後線特別有應用價值; 維持期加 Olap 拔尖' },
           { year:'NSMP-low', label:'NSMP-low ER+ — 賀爾蒙', trials:['rainbo-program'], note:'ER 陽好命, 賀爾蒙好用, 預後接近 POLE' },
           { year:'NSMP-high', label:'NSMP-high ER- — 等同 p53', trials:['rainbo-program','siendo'], note:'NSMP-high 強化等同 p53; SIENDO TP53wt 翻盤' },
           { year:'CTNNB1', label:'假 low-grade 真早復', trials:['portec-4a','rainbo-program'], note:'Wnt 三外顯; G1-G2 也 PORTEC 升風險' },
@@ -14644,16 +14650,19 @@ const TRIAL_MNEMONICS = {
   },
 
   'duo-e': {
-    main: '💎 「DUO-E 三臂維持, Arm3 pMMR 四六, p53/HRR 拔尖」',
+    main: '💎 「DUO-E 三臂行, dMMR 四一 / pMMR Arm3 五七, 全 pMMR 都受益」',
     breakdown: [
-      { key: 'DUO-E', meaning: 'AstraZeneca DUO-E 試驗 (試驗名)' },
-      { key: '三臂', meaning: 'Arm 1 chemo / Arm 2 +Durva / Arm 3 +Durva+Olap' },
-      { key: 'Durva+Olap', meaning: 'Durvalumab + Olaparib (PD-L1 + PARPi)' },
-      { key: 'p53/HRR 最佳', meaning: '【特色】Arm 3 在 p53abn / HRRm pMMR 子群獲益最大' },
+      { key: 'DUO-E', meaning: 'AstraZeneca DUO-E (NCT04269200, ENGOT-EN10/GOG-3041)' },
+      { key: '三臂', meaning: 'Arm 1 chemo / Arm 2 +Durva (chemoIO+Durva 維持) / Arm 3 +Durva+Olap (chemoIO+Durva+Olap 維持)' },
+      { key: 'dMMR (n=143)', meaning: 'Arm2 HR 0.42 / Arm3 HR 0.41 — 兩臂相當, IO 已足夠, 加 Olap 沒額外加成' },
+      { key: 'pMMR (n=575) Arm2', meaning: 'pMMR Arm2 (Durva alone) HR 0.77 — 加 IO 弱效' },
+      { key: 'pMMR Arm3 五七', meaning: 'pMMR Arm3 (Durva+Olap) HR 0.57 — 加 Olap 有顯著額外加成' },
+      { key: '⚠️ 全 pMMR 都受益', meaning: '【SGO 2025 post-hoc】Arm3 在 pMMR 整體都受益 (PD-L1+/-, TP53m/wt, HRRm/wt, 各組織型); 不只 p53/HRR' },
+      { key: 'HRRm 子群最強', meaning: 'HRRm subgroup HR 0.45 (CI 0.23-0.87) — 較強, 但 HRRwt 也受益' },
     ],
-    keypoint: 'Stage III-IV 或 recurrent EC 一線; 3 arms (chemo / +Durva / +Durva+Olap)',
-    numbers: 'pMMR HRRm/p53m PFS HR 0.57 · pMMR overall HR 0.77 · Lancet 2023',
-    pitfalls: 'Arm 3 才是真正三標靶亮點; Arm 2 (僅 +Durva) 效力較弱',
+    keypoint: 'Stage III-IV 或 recurrent EC 一線; dMMR 加 IO 即可, pMMR 加 Olap 有額外加成 (全 pMMR 均受益)',
+    numbers: 'dMMR Arm3 HR 0.41 / Arm2 HR 0.42 · pMMR Arm3 HR 0.57 / Arm2 HR 0.77 · pMMR HRRm HR 0.45',
+    pitfalls: '【高頻易錯】(1) Arm3 在 pMMR 加成「不只 p53/HRR」, ALL pMMR subgroups 都受益 (2) dMMR 加 Olap 沒額外加成 (Arm2=Arm3) (3) 主分析按 MMR 分層, 不是按 p53/HRR (4) HRRm/p53m/serous 為「受益深」族, 但全 pMMR 都受益',
   },
 
   'attend': {
@@ -14750,18 +14759,18 @@ const TRIAL_MNEMONICS = {
 
   // ====== 一線 (P-TX, Adjuvant) ======
   'rainbo-program': {
-    main: '💎 「RAINBO 彩虹計畫, 紅綠橙藍四桶, 五五三六六零一四五」',
+    main: '💎 「RAINBO 彩虹計畫, 紅綠橙藍四桶, 各打各的不同設計」',
     breakdown: [
       { key: 'RAINBO', meaning: 'RAINBO program (彩虹意象, 試驗名)' },
-      { key: '彩虹四桶', meaning: '【關鍵】4 個獨立 phase III 試驗對應 4 分子分型' },
-      { key: 'RED = p53abn (n=554)', meaning: 'p53abn-RED: chemoRT → Olaparib 維持 2y vs chemoRT alone (HRD biomarker)' },
-      { key: 'GREEN = MMRd (n=316)', meaning: 'MMRd-GREEN: chemoRT vs RT alone (de-escalation; immune phenotype)' },
-      { key: 'ORANGE = NSMP (n=600)', meaning: 'NSMP-ORANGE: 限「ER+ NSMP 高風險」, RT + Progesterone vs chemoRT (荷爾蒙治療)' },
-      { key: 'BLUE = POLEmut (n=145)', meaning: 'POLEmut-BLUE: de-escalation (no adjuvant); 含 lower-risk 120 + higher-risk 25' },
+      { key: '彩虹四桶', meaning: '【關鍵】4 個獨立試驗對應 4 分子分型, 但設計各不同' },
+      { key: '🔴 RED p53abn (Phase III, n=554)', meaning: '【收】Stage I-III p53abn EC; 隨機 chemoRT + Olaparib 維持 2y vs chemoRT alone — 加 PARPi superiority' },
+      { key: '🟢 GREEN MMRd (Phase III, n=316)', meaning: '【收】Stage II (含 LVSI) 或 III MMRd EC; 隨機 RT + Durvalumab (concurrent + 1y maint) vs RT alone — 加 IO 強化 (不是去化!)' },
+      { key: '🟠 ORANGE NSMP (Phase III, n=600)', meaning: '【收】ER+ Stage II (含 LVSI) 或 III NSMP EC; 隨機 RT + Progestin 2y vs chemoRT — de-escalation (用荷爾蒙取代化療)' },
+      { key: '🔵 BLUE POLEmut (Phase II, n=145)', meaning: '【收】Stage I-III POLEmut EC; lower-risk 觀察 (n=120); higher-risk RT alone (n≈25) — 安全性 de-escalation' },
     ],
     keypoint: 'Adjuvant EC 4-arm parallel program; n=1615; 對應 4 分子分型差異化處置',
-    numbers: '4 trials · n=554+316+600+145 ≈ 1615 · 主要結果 2028+',
-    pitfalls: '【高頻易錯】(1) 沒有 YELLOW! 是 RED/GREEN/ORANGE/BLUE 四色 (2) NSMP-ORANGE 限 ER+ 高風險, 用荷爾蒙不是 RT 強化 (3) NSMP 其實是大雜燴, ORANGE 只篩 ER+ subset, ER- NSMP 仍未解 (4) MMRd-GREEN 是 de-escalation (移除 chemo), 不是加 IO',
+    numbers: 'RED 554 / GREEN 316 / ORANGE 600 / BLUE 145 ≈ 1615 · 主要結果 2028+',
+    pitfalls: '【高頻易錯】(1) 沒有 YELLOW! 是 RED/GREEN/ORANGE/BLUE 四色 (2) GREEN 是 RT vs RT+Durva (加 IO 強化), 不是 chemoRT vs RT (de-escalation 化療) (3) ORANGE 才是 de-escalation, 限 ER+, 用 RT+Progestin 取代 chemoRT (4) BLUE 是 Phase II, 不是 III (其他三是 III) (5) NSMP-ORANGE 只篩 ER+ subset; ER- NSMP 仍未解 (6) GREEN 收的是 Stage II LVSI+ 或 III, 不是所有 MMRd',
   },
 
   'portec-1': {
