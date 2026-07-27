@@ -37,6 +37,112 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn:hover{background:rgba(255,255,255,0.18);transform:translateY(-1px);}
 .header-btn-config.has-key{border-color:#10b981;background:rgba(16,185,129,0.15);color:#6ee7b7;}
 .header-btn-ai{background:linear-gradient(135deg,#10b981,#06b6d4);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(16,185,129,0.3);}
+.header-btn-capture{background:linear-gradient(135deg,#a855f7,#7c3aed);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(168,85,247,0.3);}
+
+/* ============= 🖼 Pathway Overview (照片風格 primary/recurrent 分欄) ============= */
+.pw-overview-wrap{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:16px;padding:20px;margin-bottom:20px;border:2px solid #d8b4fe;}
+.pw-overview-title{font-size:14px;font-weight:900;color:#5b21b6;margin-bottom:14px;letter-spacing:.03em;display:flex;align-items:center;gap:8px;}
+.pw-overview-toggle{background:white;border:1.5px solid #a855f7;color:#7c3aed;font-size:11px;font-weight:800;padding:5px 12px;border-radius:100px;cursor:pointer;margin-left:auto;}
+.pw-overview-toggle:hover{background:#f3e8ff;}
+.pw-overview-flow{overflow-x:auto;padding-bottom:6px;}
+.pw-overview-canvas{display:flex;gap:14px;min-width:800px;align-items:flex-start;}
+.pw-ov-layer{display:flex;flex-direction:column;gap:14px;}
+.pw-ov-layer.cancer-col{flex:0 0 130px;justify-content:center;padding-top:70px;}
+.pw-ov-layer.stage-col{flex:0 0 160px;justify-content:space-around;}
+.pw-ov-layer.header-col{flex:0 0 auto;}
+.pw-ov-cancer{background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:white;font-size:14px;font-weight:900;padding:20px 12px;border-radius:14px;text-align:center;box-shadow:0 4px 14px rgba(59,130,246,0.3);line-height:1.35;}
+.pw-ov-stage{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;font-size:13px;font-weight:800;padding:14px 10px;border-radius:12px;text-align:center;line-height:1.35;min-height:52px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(124,58,237,0.3);}
+.pw-ov-col-title{font-size:13px;font-weight:900;color:white;background:linear-gradient(135deg,#d97706,#b45309);padding:9px 18px;border-radius:11px;text-align:center;margin-bottom:11px;box-shadow:0 3px 10px rgba(217,119,6,0.3);}
+.pw-ov-col-title.recurrent{background:linear-gradient(135deg,#dc2626,#991b1b);box-shadow:0 3px 10px rgba(220,38,38,0.3);}
+.pw-ov-col{display:flex;flex-direction:column;gap:12px;}
+.pw-ov-branch{padding:10px 0;}
+.pw-ov-branch-label{font-size:10.5px;color:#7c3aed;font-weight:800;margin-bottom:4px;padding-left:2px;font-family:"JetBrains Mono",monospace;}
+.pw-ov-trials{display:flex;flex-direction:column;gap:6px;}
+.pw-ov-trial{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;font-size:11.5px;font-weight:800;padding:9px 12px;border-radius:10px;text-align:center;cursor:pointer;transition:all .16s;box-shadow:0 2px 8px rgba(245,158,11,0.2);position:relative;line-height:1.35;border:2px solid transparent;}
+.pw-ov-trial:hover{transform:translateX(2px) scale(1.02);box-shadow:0 4px 14px rgba(245,158,11,0.35);border-color:#f59e0b;}
+.pw-ov-trial.recurrent{background:linear-gradient(135deg,#fee2e2,#fecaca);color:#991b1b;box-shadow:0 2px 8px rgba(220,38,38,0.15);}
+.pw-ov-trial.recurrent:hover{box-shadow:0 4px 14px rgba(220,38,38,0.3);border-color:#dc2626;}
+.pw-ov-trial.starred::before{content:"⭐";position:absolute;left:-5px;top:-7px;font-size:15px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.2));}
+.pw-ov-trial.newly-added{background:linear-gradient(135deg,#f5f3ff,#ede9fe);color:#6d28d9;border-color:#a855f7;}
+.pw-ov-trial.newly-added::after{content:"🆕";position:absolute;right:-4px;top:-6px;font-size:12px;}
+.pw-ov-empty{color:#94a3b8;font-size:11px;text-align:center;padding:12px;font-style:italic;}
+.pw-detailed-toggle{background:white;border:2px solid #a855f7;color:#7c3aed;font-size:13px;font-weight:800;padding:10px 22px;border-radius:11px;cursor:pointer;margin-bottom:16px;display:block;width:auto;margin-left:auto;margin-right:auto;}
+.pw-detailed-toggle:hover{background:#f5f3ff;}
+.pw-detailed-wrap{display:none;}
+.pw-detailed-wrap.open{display:block;}
+
+@media(max-width:640px){
+  .pw-overview-canvas{min-width:auto;flex-direction:column;}
+  .pw-ov-layer{flex:none !important;padding-top:0 !important;}
+  .pw-ov-cancer{padding:14px 12px;font-size:13px;}
+}
+
+/* ============= 📸 試驗速記 Modal ============= */
+.capture-bg{display:none;position:fixed;inset:0;background:rgba(26,26,46,.7);z-index:600;backdrop-filter:blur(4px);align-items:flex-start;justify-content:center;padding:20px 12px;overflow-y:auto;}
+.capture-bg.open{display:flex;}
+.capture-content{background:white;border-radius:20px;max-width:1000px;width:100%;padding:28px;position:relative;box-shadow:0 24px 80px rgba(0,0,0,0.25);margin:auto;}
+.capture-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1.5px solid #e2e8f0;background:white;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#475569;z-index:5;}
+.capture-close:hover{background:#1a202c;color:white;}
+.capture-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-right:44px;}
+.capture-icon{width:48px;height:48px;background:linear-gradient(135deg,#a855f7,#7c3aed);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 3px 12px rgba(168,85,247,0.4);}
+.capture-title{font-size:19px;font-weight:900;color:#1a202c;}
+.capture-subtitle{font-size:12.5px;color:#64748b;margin-top:2px;}
+.capture-info{background:#faf5ff;border:1.5px solid #d8b4fe;border-radius:12px;padding:11px 14px;font-size:12.5px;color:#5b21b6;line-height:1.7;margin-bottom:16px;}
+.capture-toolbar{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+.cap-tb-btn{padding:9px 15px;border-radius:10px;border:2px solid #e2e8f0;background:white;color:#334155;font-size:12.5px;font-weight:800;cursor:pointer;transition:all .18s;display:inline-flex;align-items:center;gap:5px;font-family:inherit;}
+.cap-tb-btn:hover{border-color:#a855f7;color:#7c3aed;}
+.cap-tb-btn.export{border-color:#059669;color:#059669;}
+.cap-tb-btn.export:hover{background:#f0fdf4;}
+.cap-tb-btn.import{border-color:#0891b2;color:#0891b2;}
+.cap-tb-btn.import:hover{background:#f0f9ff;}
+.cap-tb-btn.clear{border-color:#dc2626;color:#dc2626;}
+.cap-tb-btn.clear:hover{background:#fef2f2;}
+.capture-input-card{background:#faf5ff;border-radius:14px;padding:18px;border:1.5px solid #d8b4fe;margin-bottom:16px;}
+.cap-mode-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.cap-mode-tab{padding:8px 15px;border-radius:9px;border:2px solid #e2e8f0;background:white;color:#64748b;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .18s;font-family:inherit;}
+.cap-mode-tab:hover{border-color:#a855f7;color:#7c3aed;}
+.cap-mode-tab.active{background:#a855f7;color:white;border-color:#a855f7;}
+.cap-text-input{width:100%;min-height:130px;border:2px solid #e2e8f0;border-radius:11px;padding:14px;font-family:"Noto Sans TC","Inter",sans-serif;font-size:13.5px;line-height:1.75;color:#1a202c;resize:vertical;background:white;}
+.cap-text-input:focus{outline:none;border-color:#a855f7;box-shadow:0 0 0 3px rgba(168,85,247,0.12);}
+.cap-upload-zone{border:2.5px dashed #c4b5fd;border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:white;}
+.cap-upload-zone:hover{border-color:#a855f7;background:#faf5ff;}
+.cap-upload-zone-icon{font-size:34px;margin-bottom:8px;}
+.cap-upload-zone h4{font-size:14px;color:#5b21b6;font-weight:800;margin-bottom:4px;}
+.cap-upload-zone p{font-size:11.5px;color:#7c3aed;font-family:"JetBrains Mono",monospace;}
+.cap-hidden-file{display:none;}
+.cap-upload-preview{display:none;align-items:center;gap:10px;background:#f0fdf4;padding:9px 13px;border-radius:10px;margin-top:10px;border:1.5px solid #86efac;}
+.cap-upload-preview.show{display:flex;}
+.cap-upload-preview img{max-height:60px;border-radius:6px;}
+.cap-upload-preview span{font-size:11px;color:#059669;font-family:"JetBrains Mono",monospace;font-weight:700;}
+.cap-analyze-btn{width:100%;padding:14px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:white;border:none;border-radius:12px;font-size:14.5px;font-weight:800;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 16px rgba(168,85,247,0.35);margin-top:12px;font-family:inherit;}
+.cap-analyze-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(168,85,247,0.45);}
+.cap-analyze-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.cap-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;}
+.cap-noapi-warn{background:#fef3c7;border:1.5px solid #fbbf24;color:#92400e;padding:11px 14px;border-radius:10px;font-size:12.5px;margin-top:10px;line-height:1.6;}
+.captured-counter{text-align:center;font-size:12px;color:#64748b;font-family:"JetBrains Mono",monospace;margin:14px 0 10px;font-weight:800;}
+.captured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.captured-card{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd;border-radius:13px;padding:13px 14px;box-shadow:0 2px 8px rgba(168,85,247,0.15);position:relative;transition:all .18s;}
+.captured-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(168,85,247,0.25);}
+.captured-card-title{font-size:13px;font-weight:900;color:#5b21b6;line-height:1.4;margin-bottom:6px;padding-right:44px;}
+.captured-card-meta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px;}
+.captured-tag{font-size:9.5px;padding:2px 7px;border-radius:100px;background:white;color:#6d28d9;font-weight:700;border:1px solid #c4b5fd;}
+.captured-desc{font-size:11.5px;color:#4c1d95;line-height:1.6;margin-bottom:8px;background:rgba(255,255,255,0.6);padding:7px 9px;border-radius:8px;max-height:80px;overflow:hidden;}
+.captured-card-actions{display:flex;gap:5px;}
+.cap-action-btn{padding:4px 8px;border-radius:7px;font-size:10.5px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .15s;flex:1;}
+.cap-action-btn.view{background:#7c3aed;color:white;}
+.cap-action-btn.view:hover{background:#6d28d9;}
+.cap-action-btn.edit{background:#0891b2;color:white;}
+.cap-action-btn.edit:hover{background:#0e7490;}
+.cap-action-btn.del{background:#dc2626;color:white;}
+.cap-action-btn.del:hover{background:#b91c1c;}
+.captured-date{position:absolute;top:11px;right:13px;font-size:9px;font-family:"JetBrains Mono",monospace;color:#7c3aed;font-weight:800;opacity:.8;}
+.captured-empty{text-align:center;padding:40px 20px;color:#94a3b8;grid-column:1/-1;}
+.captured-empty h4{font-size:15px;color:#5b21b6;margin-bottom:6px;font-weight:800;}
+.captured-empty p{font-size:12.5px;line-height:1.7;}
+
+/* Show 🆕 badge for captured trials in existing trial chips */
+.trial-chip.newly-captured{border-color:#a855f7 !important;background:linear-gradient(135deg,#f5f3ff,#ede9fe) !important;color:#6d28d9 !important;}
+.trial-chip.newly-captured::before{content:"🆕 ";}
 .header-btn-ai:hover{box-shadow:0 4px 16px rgba(16,185,129,0.45);}
 .header-btn-mol{background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(124,58,237,0.3);}
 .header-btn-mol:hover{box-shadow:0 4px 16px rgba(124,58,237,0.45);}
@@ -2903,6 +3009,9 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="header-btn header-btn-ai" onclick="openAiPathwayModal()" title="開啟 AI 治療路徑分析">
         <span>🤖</span><span class="hide-on-mobile">AI 治療路徑</span>
       </button>
+      <button class="header-btn header-btn-capture" onclick="openCaptureModal()" title="演講中拍照/打字 → Gemini 辨識試驗 → 存本地 (可匯出 JSON)">
+        <span>📸</span><span class="hide-on-mobile">試驗速記</span>
+      </button>
     </div>
     <button class="header-hamburger" id="headerHamburger" onclick="toggleHeaderActions()" aria-label="開啟主選單">☰</button>
   </div>
@@ -3035,6 +3144,77 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div style="padding:24px;text-align:center;color:#94a3b8;font-size:13px;">載入中…</div>
     </div>
   </section>
+</div>
+
+<!-- ===== 📸 試驗速記 Modal ===== -->
+<div class="capture-bg" id="captureModal" onclick="if(event.target.id==='captureModal')closeCaptureModal()">
+  <div class="capture-content">
+    <button class="capture-close" onclick="closeCaptureModal()">✕</button>
+    <div class="capture-header">
+      <div class="capture-icon">📸</div>
+      <div>
+        <div class="capture-title">試驗速記快照 (Quick Capture)</div>
+        <div class="capture-subtitle">聽演講、看投影片時, 快速捕獲新試驗 · 拍照或打字 · Gemini 辨識 · 存本地</div>
+      </div>
+    </div>
+
+    <div class="capture-info">
+      💡 <strong>工作流程:</strong><br>
+      • 📷 <strong>拍照</strong>: 演講中拍投影片 → Gemini 讀取試驗名、藥物、對象、數據<br>
+      • 📝 <strong>打字</strong>: 快速寫下試驗名, Gemini 幫您補完欄位<br>
+      • 💾 <strong>匯出</strong>: 定期匯出 JSON 檔備份 (交給 Claude 轉換成正式格式)<br>
+      • 🆕 這些捕獲試驗會標示 <strong>🆕</strong> 出現在導航區、口訣速查等
+    </div>
+
+    <div class="capture-toolbar">
+      <button class="cap-tb-btn export" onclick="captureExportJSON()">💾 匯出 JSON</button>
+      <button class="cap-tb-btn import" onclick="document.getElementById('captureImportFile').click()">📥 匯入 JSON</button>
+      <input type="file" id="captureImportFile" class="cap-hidden-file" accept=".json" onchange="captureImportJSON(event)">
+      <button class="cap-tb-btn clear" onclick="captureClearAll()">🗑 清空全部</button>
+    </div>
+
+    <div class="capture-input-card">
+      <div class="cap-mode-tabs">
+        <button class="cap-mode-tab active" onclick="capSwitchMode('photo',this)">📷 拍照辨識</button>
+        <button class="cap-mode-tab" onclick="capSwitchMode('text',this)">📝 手動輸入</button>
+      </div>
+
+      <div id="cap-mode-photo">
+        <div class="cap-upload-zone" onclick="document.getElementById('capImgUpload').click()" id="capUploadZone">
+          <div class="cap-upload-zone-icon">📷</div>
+          <h4>點擊或拖曳上傳投影片照片</h4>
+          <p>Gemini AI 將辨識試驗名 · 藥物 · 族群 · 結果</p>
+          <input type="file" id="capImgUpload" accept="image/*" onchange="capHandleImageUpload(event)">
+        </div>
+        <div class="cap-upload-preview" id="capUploadedPreview">
+          <img id="capPreviewImg" src="" alt="preview">
+          <span id="capPreviewName"></span>
+        </div>
+        <textarea class="cap-text-input" id="capImageContext" style="margin-top:10px;min-height:60px;" placeholder="補充說明（選填）：例如 '這是講者提到的 EC 一線新試驗' 、'2024 SGO plenary'…"></textarea>
+      </div>
+
+      <div id="cap-mode-text" style="display:none;">
+        <textarea class="cap-text-input" id="capTextInput" style="min-height:130px;" placeholder="請描述新試驗, 越詳細越好, 例如：&#10;&#10;試驗名: KEYNOTE-B96&#10;藥物: Pembrolizumab + chemo + Bev&#10;癌別: 卵巢癌 PROC&#10;結果: 顯著改善 PFS, HR 0.55&#10;&#10;或直接寫: 「今天聽到 KEYNOTE-B96, PROC + Pembro+chemo+Bev」讓 AI 幫您整理"></textarea>
+      </div>
+
+      <button class="cap-analyze-btn" id="capAnalyzeBtn" onclick="captureAnalyze()">
+        <span id="capBtnIcon">✨</span>
+        <span id="capBtnText">送給 Gemini 辨識並儲存</span>
+      </button>
+
+      <div class="cap-noapi-warn" style="display:none;" id="capNoApiWarn">
+        ⚠️ 尚未設定 Gemini API Key, 請先點右上角 <strong>⚙️ API Key</strong> 按鈕輸入。
+      </div>
+    </div>
+
+    <div class="captured-counter" id="capturedCounter">已捕獲 0 個試驗</div>
+    <div id="capturedGrid" class="captured-grid">
+      <div class="captured-empty">
+        <h4>📭 目前尚無捕獲的試驗</h4>
+        <p>使用上方拍照或打字輸入新試驗<br>資料會存在本裝置的瀏覽器內</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===== AI 患者臨床路徑分析 Modal ===== -->
@@ -7876,6 +8056,7 @@ const NAV_MODAL_REGISTRY = {
   'studyPlanModal':     { open: 'openStudyPlan',     body: '.study-plan-content' },
   'customCmpModal':     { open: 'openCustomCompare', body: '.custom-cmp-content' },
   'aiPathwayModal':     { open: 'openAiPathwayModal', body: '.ai-pathway-modal-content' },
+  'captureModal':       { open: 'openCaptureModal',   body: '.capture-content' },
 };
 
 function getOpenModalId(){
@@ -8224,6 +8405,331 @@ function getAiConfig(){
     model: localStorage.getItem('gyne_gemini_model') || 'gemini-2.5-flash'
   };
 }
+
+// ============================================================
+// 📸 試驗速記 (Quick Capture) — localStorage backed
+// ============================================================
+const CAPTURE_KEY = 'gyne_captured_trials_v1';
+let capImgB64 = null, capImgMime = null;
+
+function openCaptureModal(){
+  const modal = el('captureModal');
+  if(!modal) return;
+  if(typeof pushNavState === 'function') pushNavState();
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderCapturedList();
+}
+function closeCaptureModal(){
+  const modal = el('captureModal');
+  if(!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  if(typeof tryRestoreNav === 'function') setTimeout(() => tryRestoreNav(), 50);
+}
+
+function capSwitchMode(mode, btn){
+  const photo = el('cap-mode-photo');
+  const text = el('cap-mode-text');
+  if(photo) photo.style.display = mode==='photo' ? 'block' : 'none';
+  if(text) text.style.display = mode==='text' ? 'block' : 'none';
+  document.querySelectorAll('.cap-mode-tab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+function capHandleImageUpload(event){
+  const file = event.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    const r = e.target.result;
+    capImgB64 = r.split(',')[1]; capImgMime = file.type;
+    el('capPreviewImg').src = r;
+    el('capPreviewName').textContent = '✅ '+file.name+' ('+(file.size/1024).toFixed(0)+' KB)';
+    el('capUploadedPreview').classList.add('show');
+  };
+  reader.readAsDataURL(file);
+}
+
+// Drag & drop
+function initCaptureDragDrop(){
+  const uz = el('capUploadZone');
+  if(!uz) return;
+  uz.addEventListener('dragover', e=>{e.preventDefault();uz.style.borderColor='#a855f7';});
+  uz.addEventListener('dragleave', ()=>{uz.style.borderColor='';});
+  uz.addEventListener('drop', e=>{
+    e.preventDefault(); uz.style.borderColor='';
+    const file = e.dataTransfer.files[0];
+    if(file){ el('capImgUpload').files = e.dataTransfer.files; capHandleImageUpload({target:{files:[file]}}); }
+  });
+}
+
+async function captureAnalyze(){
+  const cfg = getAiConfig();
+  if(!cfg.apiKey){
+    const warn = el('capNoApiWarn');
+    if(warn){ warn.style.display='block'; setTimeout(()=>{warn.style.display='none';}, 6000); }
+    return;
+  }
+
+  const activeTab = document.querySelector('.cap-mode-tab.active');
+  const isPhoto = activeTab && activeTab.textContent.includes('拍照');
+
+  let userText = '';
+  if(isPhoto){
+    if(!capImgB64){ alert('請先上傳照片。'); return; }
+    userText = (el('capImageContext').value || '').trim() || '請辨識此張投影片上的臨床試驗資訊。';
+  } else {
+    userText = (el('capTextInput').value || '').trim();
+    if(!userText){ alert('請輸入試驗描述。'); return; }
+  }
+
+  const btn = el('capAnalyzeBtn');
+  btn.disabled = true;
+  el('capBtnIcon').innerHTML = '<div class="cap-spinner"></div>';
+  el('capBtnText').textContent = 'Gemini 辨識中…';
+
+  const capturePrompt = `你是婦科腫瘤臨床試驗辨識助手。根據以下輸入 (投影片照片或文字描述), 抽取試驗資訊, 只回傳一個 JSON 物件, 不要有 markdown 標記或其他說明文字。
+
+JSON 格式 (欄位缺失填 "" 或 []):
+{
+  "n": "試驗英文名稱 (例: KEYNOTE-826, NRG-GY018)",
+  "c": "癌別: EC / OC / CC / US (Endometrial=EC, Ovarian=OC, Cervical=CC, Uterine Sarcoma=US)",
+  "p": ["治療階段陣列: P-TX(初治) / P-MT(一線維持) / R-TX(復發) / R-MT(復後維持)"],
+  "s": ["族群 subtype: dMMR / pMMR / HGSC / HRD+ / BRCAm 等"],
+  "ph": "主辦單位或藥廠 (MSD, GSK, Roche 等)",
+  "d": "藥物方案簡短 (例: Pembro+CP)",
+  "pop": "核心結論一句話含 HR/ORR/OS 具體數字",
+  "rat": "科學理據簡短",
+  "reg": "給藥方案詳細",
+  "inc": ["納入標準"],
+  "exc": ["排除標準"],
+  "out": "主要終點數據",
+  "t": "n"
+}
+
+輸入內容: ${userText}`;
+
+  let requestBody;
+  if(isPhoto && capImgB64){
+    requestBody = { contents:[{parts:[{text:capturePrompt}, {inline_data:{mime_type:capImgMime, data:capImgB64}}]}], generationConfig:{ responseMimeType:'application/json', thinkingConfig:{ thinkingBudget:0 } } };
+  } else {
+    requestBody = { contents:[{parts:[{text:capturePrompt}]}], generationConfig:{ responseMimeType:'application/json', thinkingConfig:{ thinkingBudget:0 } } };
+  }
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${cfg.model}:generateContent?key=${cfg.apiKey}`;
+    const res = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(requestBody)});
+    if(!res.ok){ const err = await res.json().catch(()=>({})); throw new Error(err.error?.message||`HTTP ${res.status}`); }
+    const data = await res.json();
+    let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    text = text.replace(/```json\s*/gi,'').replace(/```\s*$/g,'').trim();
+    const parsed = JSON.parse(text);
+
+    parsed.t = 'n';
+    parsed._captured = true;
+    parsed._capturedAt = new Date().toISOString();
+    parsed._id = 'cap_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+    if(!parsed.p) parsed.p = [];
+    if(!parsed.s) parsed.s = [];
+    if(!parsed.inc) parsed.inc = [];
+    if(!parsed.exc) parsed.exc = [];
+    if(!parsed.name) parsed.name = parsed.n || '(未命名)';
+
+    saveCaptured(parsed);
+
+    // Reset input
+    if(isPhoto){
+      capImgB64 = null; capImgMime = null;
+      el('capUploadedPreview').classList.remove('show');
+      el('capImgUpload').value = '';
+      el('capImageContext').value = '';
+    } else {
+      el('capTextInput').value = '';
+    }
+
+    alert('✅ 已辨識並儲存: ' + parsed.n);
+    renderCapturedList();
+    // Refresh other views if open
+    if(typeof renderCurrentGrid === 'function') renderCurrentGrid();
+    if(typeof renderPathway === 'function' && document.getElementById('pathwayModal').classList.contains('open')) renderPathway();
+  } catch(err){
+    alert('❌ 辨識失敗: ' + err.message + '\n\n請確認 API Key 或提供更清晰的圖片/文字描述。');
+  } finally {
+    btn.disabled = false;
+    el('capBtnIcon').textContent = '✨';
+    el('capBtnText').textContent = '送給 Gemini 辨識並儲存';
+  }
+}
+
+function getCapturedTrials(){
+  try{
+    return JSON.parse(localStorage.getItem(CAPTURE_KEY) || '[]');
+  }catch{ return []; }
+}
+
+function saveCaptured(newTrial){
+  const arr = getCapturedTrials();
+  arr.unshift(newTrial);
+  localStorage.setItem(CAPTURE_KEY, JSON.stringify(arr));
+}
+
+function deleteCaptured(id){
+  if(!confirm('確定要刪除此捕獲試驗嗎?')) return;
+  const arr = getCapturedTrials().filter(t => t._id !== id);
+  localStorage.setItem(CAPTURE_KEY, JSON.stringify(arr));
+  renderCapturedList();
+  if(typeof renderCurrentGrid === 'function') renderCurrentGrid();
+}
+
+function editCapturedField(id){
+  const arr = getCapturedTrials();
+  const idx = arr.findIndex(t => t._id === id);
+  if(idx < 0) return;
+  const t = arr[idx];
+  const newName = prompt('編輯試驗名稱:', t.n || t.name || '');
+  if(newName === null) return;
+  t.n = newName; t.name = newName;
+  const newPop = prompt('編輯核心結論:', t.pop || '');
+  if(newPop !== null) t.pop = newPop;
+  arr[idx] = t;
+  localStorage.setItem(CAPTURE_KEY, JSON.stringify(arr));
+  renderCapturedList();
+}
+
+function viewCaptured(id){
+  const arr = getCapturedTrials();
+  const t = arr.find(x => x._id === id);
+  if(!t) return;
+  const info = [
+    '📌 ' + (t.n || t.name),
+    '─────────────────────────',
+    '藥物: ' + (t.d || '-'),
+    '主辦: ' + (t.ph || '-'),
+    '癌別: ' + (t.c || '-'),
+    '階段: ' + ((t.p || []).join(', ') || '-'),
+    '族群: ' + ((t.s || []).join(', ') || '-'),
+    '',
+    '核心結論:',
+    (t.pop || '-'),
+    '',
+    '給藥方案:',
+    (t.reg || '-'),
+    '',
+    '主要終點:',
+    (t.out || '-'),
+  ].join('\n');
+  alert(info);
+}
+
+function renderCapturedList(){
+  const arr = getCapturedTrials();
+  const grid = el('capturedGrid');
+  const counter = el('capturedCounter');
+  if(!grid || !counter) return;
+
+  counter.textContent = `已捕獲 ${arr.length} 個試驗`;
+
+  if(arr.length === 0){
+    grid.innerHTML = `<div class="captured-empty">
+      <h4>📭 目前尚無捕獲的試驗</h4>
+      <p>使用上方拍照或打字輸入新試驗<br>資料會存在本裝置的瀏覽器內</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = arr.map(t => {
+    const dt = t._capturedAt ? new Date(t._capturedAt) : new Date();
+    const dtStr = dt.getFullYear() + '/' + String(dt.getMonth()+1).padStart(2,'0') + '/' + String(dt.getDate()).padStart(2,'0');
+    const cancerEmoji = {'EC':'🔴','OC':'🟣','CC':'🟠','US':'🔵','Endometrial':'🔴','Ovarian':'🟣','Cervical':'🟠','Uterine Sarcoma':'🔵'}[t.c] || '⚪';
+    const stageTags = (t.p || []).map(p => {
+      const label = {'P-TX':'🌿初治','P-MT':'💊維持','R-TX':'🔄復發','R-MT':'🔒復後'}[p] || p;
+      return `<span class="captured-tag">${escapeHtml(label)}</span>`;
+    }).join('');
+    return `<div class="captured-card">
+      <div class="captured-date">${dtStr}</div>
+      <div class="captured-card-title">${cancerEmoji} ${escapeHtml(t.n || t.name || '(未命名)')}</div>
+      <div class="captured-card-meta">
+        <span class="captured-tag">${escapeHtml(t.c || '?')}</span>
+        ${stageTags}
+      </div>
+      <div class="captured-desc">${escapeHtml((t.pop || '(未記錄核心結論)').slice(0, 180))}${(t.pop||'').length > 180 ? '…' : ''}</div>
+      <div class="captured-card-actions">
+        <button class="cap-action-btn view" onclick="viewCaptured('${t._id}')">👁 查看</button>
+        <button class="cap-action-btn edit" onclick="editCapturedField('${t._id}')">✎ 編輯</button>
+        <button class="cap-action-btn del" onclick="deleteCaptured('${t._id}')">🗑 刪除</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function captureExportJSON(){
+  const arr = getCapturedTrials();
+  if(arr.length === 0){ alert('目前沒有捕獲的試驗可匯出。'); return; }
+  const dataStr = JSON.stringify({
+    version: 1,
+    exported_at: new Date().toISOString(),
+    count: arr.length,
+    trials: arr,
+  }, null, 2);
+  const blob = new Blob([dataStr], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dt = new Date();
+  const stamp = dt.getFullYear() + String(dt.getMonth()+1).padStart(2,'0') + String(dt.getDate()).padStart(2,'0') + '_' + String(dt.getHours()).padStart(2,'0') + String(dt.getMinutes()).padStart(2,'0');
+  a.href = url;
+  a.download = `gyne_captured_trials_${stamp}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function captureImportJSON(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      let newTrials = [];
+      if(Array.isArray(parsed)){ newTrials = parsed; }
+      else if(Array.isArray(parsed.trials)){ newTrials = parsed.trials; }
+      else { throw new Error('JSON 格式錯誤 (需陣列或 {trials:[...]})'); }
+
+      const existing = getCapturedTrials();
+      const existingIds = new Set(existing.map(t => t._id));
+      const merged = existing.slice();
+      let added = 0, skipped = 0;
+      newTrials.forEach(t => {
+        if(t._id && existingIds.has(t._id)){ skipped++; return; }
+        if(!t._id) t._id = 'cap_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+        if(!t._capturedAt) t._capturedAt = new Date().toISOString();
+        t._captured = true; t.t = 'n';
+        merged.unshift(t);
+        added++;
+      });
+      localStorage.setItem(CAPTURE_KEY, JSON.stringify(merged));
+      alert(`✅ 匯入完成\n新增: ${added} 個\n跳過 (重複): ${skipped} 個`);
+      renderCapturedList();
+      if(typeof renderCurrentGrid === 'function') renderCurrentGrid();
+    } catch(err){
+      alert('❌ 匯入失敗: ' + err.message);
+    }
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function captureClearAll(){
+  if(!confirm('確定要清空所有捕獲的試驗嗎? (建議先「💾 匯出 JSON」備份!)\n此動作無法還原。')) return;
+  localStorage.removeItem(CAPTURE_KEY);
+  renderCapturedList();
+  if(typeof renderCurrentGrid === 'function') renderCurrentGrid();
+  alert('✅ 已清空');
+}
+
+// Init capture on page load
+document.addEventListener('DOMContentLoaded', function(){
+  initCaptureDragDrop();
+});
 
 function updateAiConfigBtn(){
   const cfg = getAiConfig();
@@ -8917,6 +9423,54 @@ function markAllChecklist(checked){
 // 結構: 節點 + 連線; 用 SVG 繪製
 // node = { id, label, type: 'root'|'branch'|'treatment'|'maintenance', x, y, color, details: { description, treatments, trials, molEntryId } }
 // edge = { from: nodeId, to: nodeId, label?: string }
+
+// ============================================================
+// 🖼 PATHWAY OVERVIEW (照片風格 primary/recurrent 扁平化總覽)
+// 用試驗名字串比對現有 TRIALS 陣列 (若找不到會忽略)
+// ============================================================
+const PATHWAY_OVERVIEW = {
+  EC: {
+    name: "🔴 子宮內膜癌 (Endometrial Cancer)",
+    branches: [
+      {stage: "Adjuvant 高風險", column: "primary", trials: ["PORTEC-3", "GOG-258", "PORTEC-4a", "RAINBO Program"]},
+      {stage: "Advanced 1L (dMMR)", column: "primary", trials: ["NRG-GY018", "RUBY (Part 1)", "AtTEnd"]},
+      {stage: "Advanced 1L (pMMR)", column: "primary", trials: ["NRG-GY018", "RUBY (Part 1)", "DUO-E", "AtTEnd"]},
+      {stage: "1L Maintenance", column: "primary", trials: ["DUO-E Maint", "SIENDO", "TroFuse-033"]},
+      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-775", "GARNET", "ASCENT-GYN-01", "DESTINY-PanTumor02"]},
+    ],
+  },
+  OC: {
+    name: "🟣 卵巢癌 (Ovarian Cancer)",
+    branches: [
+      {stage: "PDS 直接減積", column: "primary", trials: ["EORTC 55971", "CHORUS", "TRUST"]},
+      {stage: "NACT + IDS", column: "primary", trials: ["EORTC 55971", "SCORPION", "JCOG0602", "van Driel HIPEC"]},
+      {stage: "1L Chemo 標準", column: "primary", trials: ["GOG-0218", "ICON7", "GOG-172", "JGOG 3016", "LION"]},
+      {stage: "1L Maintenance", column: "primary", trials: ["SOLO-1", "PAOLA-1", "PRIMA", "DUO-O", "ATHENA-Mono"]},
+      {stage: "PSOC 鉑敏感復發", column: "recurrent", trials: ["DESKTOP III", "OCEANS", "GOG-0213", "Study 19"]},
+      {stage: "PROC 鉑抗復發", column: "recurrent", trials: ["MIRASOL", "AURELIA"]},
+      {stage: "復發維持", column: "recurrent", trials: ["NOVA", "ARIEL3", "SOLO2"]},
+    ],
+  },
+  CC: {
+    name: "🟠 子宮頸癌 (Cervical Cancer)",
+    branches: [
+      {stage: "Early stage 手術", column: "primary", trials: ["LACC Trial", "SHAPE"]},
+      {stage: "Locally advanced (CCRT)", column: "primary", trials: ["INTERLACE", "KEYNOTE-A18", "CALLA"]},
+      {stage: "R/M 一線", column: "primary", trials: ["KEYNOTE-826", "BEATcc", "GOG-240"]},
+      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "EMPOWER-Cervical 1", "innovaTV 301", "GOG-240"]},
+    ],
+  },
+  US: {
+    name: "🔵 子宮肉瘤 (Uterine Sarcoma)",
+    branches: [
+      {stage: "LMS 一線", column: "primary", trials: ["LMS-04"]},
+      {stage: "Carcinosarcoma", column: "primary", trials: ["NRG/GOG-0261", "GOG-161"]},
+      {stage: "LG-ESS 激素", column: "primary", trials: ["PARAGON"]},
+      {stage: "LMS 復發", column: "recurrent", trials: ["ET743-SAR-3007", "PALETTE", "REGOSARC", "Eribulin vs Dacarbazine"]},
+      {stage: "NTRK 融合", column: "recurrent", trials: ["NTRK Basket"]},
+    ],
+  },
+};
 
 const PATHWAYS = {
   EC: {
@@ -10671,9 +11225,155 @@ function renderPathway(){
     </div>`;
 
   el('pathwayBody').innerHTML = `
-    <div class="pathway-svg-container">${svg}</div>
-    <div class="pathway-sidepanel" id="pathwaySidepanel">${sidePanel}</div>
+    ${renderPathwayOverview(currentPathwayCancer)}
+    <button class="pw-detailed-toggle" onclick="togglePathwayDetailed()" id="pwDetailedToggle">🔽 展開節點式深度地圖 (原版本)</button>
+    <div class="pw-detailed-wrap" id="pwDetailedWrap">
+      <div class="pathway-svg-container">${svg}</div>
+      <div class="pathway-sidepanel" id="pathwaySidepanel">${sidePanel}</div>
+    </div>
   `;
+}
+
+// ============================================================
+// 🖼 Render Pathway Overview (照片風格 primary/recurrent 分欄)
+// ============================================================
+function renderPathwayOverview(cancer){
+  const data = PATHWAY_OVERVIEW[cancer];
+  if(!data) return '';
+
+  const primaryBranches = data.branches.filter(b => b.column === 'primary');
+  const recurrentBranches = data.branches.filter(b => b.column === 'recurrent');
+
+  // Build all trials lookup (include captured)
+  const captured = getCapturedTrials();
+  const findTrial = (name) => {
+    // exact or partial match in TRIALS
+    let t = TRIALS.find(x => x.name === name || (x.name && x.name.includes(name)) || (x.fullName && x.fullName.includes(name)));
+    if(!t) t = captured.find(x => x.name === name || (x.name && x.name.includes(name)));
+    return t;
+  };
+
+  const renderTrialBox = (name, isRecurrent) => {
+    const t = findTrial(name);
+    const cls = ['pw-ov-trial'];
+    if(isRecurrent) cls.push('recurrent');
+    if(t){
+      const status = (t.status || t.t || '');
+      // starred = key trials with star field OR marked by NCCN cat 1
+      const isStar = t.star === 1 || t.starred || (t.name && ['SOLO-1','PAOLA-1','PRIMA','SOLO2','GY018','NRG-GY018','RUBY (Part 1)','RUBY','KEYNOTE-826','BEATcc','MIRASOL','GOG-172','GOG-0218','DUO-E','KEYNOTE-A18','INTERLACE','SHAPE','LACC Trial','LMS-04','NRG/GOG-0261','PORTEC-3','DESKTOP III','EORTC 55971','KEYNOTE-775','innovaTV 301','EMPOWER-Cervical 1','PARAGON'].includes(t.name));
+      if(isStar) cls.push('starred');
+      if(t._captured || t.t === 'n') cls.push('newly-added');
+      const trialId = t.id || t.n || t.name;
+      return `<button class="${cls.join(' ')}" onclick="openTrialDetail('${escapeJsAttr(trialId)}')" title="${escapeHtml(t.name || name)}">${escapeHtml(t.name || name)}</button>`;
+    }
+    // Not found in TRIALS - grey box
+    cls.push('recurrent'); // grey style
+    return `<div class="${cls.join(' ')}" style="opacity:.55;cursor:default;" title="試驗名: ${escapeHtml(name)} (資料庫中未找到)">${escapeHtml(name)}</div>`;
+  };
+
+  let html = `<div class="pw-overview-wrap">
+    <div class="pw-overview-title">
+      <span>🖼</span> 治療階段一覽表 (照片風格)
+      <span style="font-size:10.5px;font-weight:700;color:#7c3aed;font-family:'JetBrains Mono',monospace;margin-left:6px;">Primary + Recurrent 分欄總覽</span>
+    </div>
+    <div class="pw-overview-flow">
+      <div class="pw-overview-canvas">
+        <!-- Cancer node -->
+        <div class="pw-ov-layer cancer-col">
+          <div class="pw-ov-cancer">${escapeHtml(data.name)}</div>
+        </div>
+        <!-- Stage nodes -->
+        <div class="pw-ov-layer stage-col">
+          ${primaryBranches.map(b => `<div class="pw-ov-stage">${escapeHtml(b.stage)}</div>`).join('')}
+        </div>
+        <!-- Primary column -->
+        <div class="pw-ov-layer header-col">
+          <div class="pw-ov-col-title">Primary treatment</div>
+          <div class="pw-ov-col">
+            ${primaryBranches.map(b => `
+              <div class="pw-ov-branch">
+                <div class="pw-ov-trials">
+                  ${b.trials.map(name => renderTrialBox(name, false)).join('')}
+                  ${b.trials.length === 0 ? '<div class="pw-ov-empty">—</div>' : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        ${recurrentBranches.length > 0 ? `
+        <!-- Recurrent column -->
+        <div class="pw-ov-layer header-col">
+          <div class="pw-ov-col-title recurrent">Recurrent treatment</div>
+          <div class="pw-ov-col">
+            ${recurrentBranches.map(b => `
+              <div class="pw-ov-branch">
+                <div class="pw-ov-branch-label">${escapeHtml(b.stage)}</div>
+                <div class="pw-ov-trials">
+                  ${b.trials.map(name => renderTrialBox(name, true)).join('')}
+                  ${b.trials.length === 0 ? '<div class="pw-ov-empty">—</div>' : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>` : ''}
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:10px;font-size:10.5px;color:#7c3aed;font-family:'JetBrains Mono',monospace;">
+      ⭐ = 標竿試驗 &nbsp;|&nbsp; 🆕 = 新捕獲試驗 (從速記匯入) &nbsp;|&nbsp; 點方塊查看詳細
+    </div>
+  </div>`;
+
+  return html;
+}
+
+// Helper: escape JS attribute value safely
+function escapeJsAttr(s){
+  return String(s || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+
+// Toggle deep node view
+function togglePathwayDetailed(){
+  const wrap = el('pwDetailedWrap');
+  const btn = el('pwDetailedToggle');
+  if(!wrap || !btn) return;
+  if(wrap.classList.contains('open')){
+    wrap.classList.remove('open');
+    btn.textContent = '🔽 展開節點式深度地圖 (原版本)';
+  } else {
+    wrap.classList.add('open');
+    btn.textContent = '🔼 收起節點式深度地圖';
+  }
+}
+
+// Open trial detail modal — try openTrialDetail or trigger existing detail flow
+function openTrialDetail(trialId){
+  // Try to find in TRIALS by id / name / fullName
+  const captured = getCapturedTrials();
+  let t = TRIALS.find(x => x.id === trialId || x.name === trialId || x.fullName === trialId);
+  if(!t) t = captured.find(x => x.id === trialId || x.name === trialId || x._id === trialId);
+  if(!t){
+    alert('試驗詳情尚未找到 (' + trialId + ')');
+    return;
+  }
+  // Use existing showTrialDetail flow if id exists
+  if(t.id && typeof navToDetail === 'function'){
+    navToDetail(t.id);
+    return;
+  }
+  // Fallback: open a simple info alert (captured trials)
+  const info = [
+    '📌 ' + (t.name || t.n),
+    '',
+    '藥物: ' + (t.d || t.drug || '-'),
+    '主辦: ' + (t.ph || t.pharma || '-'),
+    '癌別: ' + (t.c || t.cancer || '-'),
+    '',
+    '核心結論:',
+    (t.pop || t.tagline || '-'),
+    '',
+    '註: 這是捕獲試驗, 尚未整合至主資料庫。'
+  ].join('\n');
+  alert(info);
 }
 
 function renderPathwayDetail(node){
