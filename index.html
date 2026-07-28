@@ -71,7 +71,10 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .pw-detailed-toggle{background:white;border:2px solid #a855f7;color:#7c3aed;font-size:13px;font-weight:800;padding:10px 22px;border-radius:11px;cursor:pointer;margin-bottom:16px;display:block;width:auto;margin-left:auto;margin-right:auto;font-family:inherit;}
 .pw-detailed-toggle:hover{background:#f5f3ff;}
 .pw-detailed-wrap{display:none;}
-.pw-detailed-wrap.open{display:block;}
+.pw-detailed-wrap.open{display:flex;gap:0;background:white;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;}
+@media(max-width:980px){
+  .pw-detailed-wrap.open{flex-direction:column;}
+}
 
 /* Mobile: stack everything vertically */
 @media(max-width:768px){
@@ -1926,7 +1929,7 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .pathway-tab:hover{background:rgba(255,255,255,0.16);color:white;}
 .pathway-tab.active{background:white;color:#c2410c;font-weight:800;}
 
-.pathway-body{display:flex;flex:1;overflow:hidden;background:#fafaf9;}
+.pathway-body{display:block;flex:1;overflow-y:auto;overflow-x:hidden;background:#fafaf9;padding:16px;}
 
 /* SVG container */
 .pathway-svg-container{flex:1;overflow:auto;padding:18px;background:#fafaf9;display:flex;align-items:flex-start;justify-content:center;}
@@ -1973,7 +1976,6 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 
 @media(max-width:980px){
   .pathway-modal-content{max-height:96vh;}
-  .pathway-body{flex-direction:column;}
   .pathway-svg-container{padding:14px;max-height:55vh;}
   .pathway-sidepanel{width:100%;border-left:none;border-top:1px solid #e2e8f0;max-height:40vh;}
 }
@@ -9446,47 +9448,52 @@ const PATHWAY_OVERVIEW = {
   EC: {
     name: "🔴 子宮內膜癌 (Endometrial Cancer)",
     branches: [
-      // Primary + Recurrent 對應排列
-      {stage: "Adjuvant 高風險", column: "primary", trials: ["PORTEC-3", "GOG-258", "PORTEC-4a", "RAINBO Program"]},
-      {stage: "Advanced 1L (dMMR)", column: "primary", trials: ["NRG-GY018 / KEYNOTE-868", "RUBY (Part 1)", "AtTEnd"]},
-      {stage: "Advanced 1L (pMMR)", column: "primary", trials: ["NRG-GY018 / KEYNOTE-868", "RUBY (Part 1)", "DUO-E", "AtTEnd"]},
-      {stage: "1L Maintenance", column: "primary", trials: ["DUO-E Maint", "SIENDO", "UTOLA", "TroFuse-033"]},
-      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-775 / Study 309", "GARNET", "ASCENT-GYN-01", "DESTINY-PanTumor02 (EC cohort)"]},
+      {stage: "Adjuvant 高風險", column: "primary", trials: ["PORTEC-1", "PORTEC-2", "PORTEC-3", "GOG-258 / NRG-GOG-258", "PORTEC-4a", "RAINBO Program", "KEYNOTE-B21"]},
+      {stage: "Advanced 1L (dMMR)", column: "primary", trials: ["NRG-GY018 / KEYNOTE-868", "RUBY Part 1", "AtTEnd"]},
+      {stage: "Advanced 1L (pMMR)", column: "primary", trials: ["NRG-GY018 / KEYNOTE-868", "RUBY Part 1", "DUO-E", "AtTEnd"]},
+      {stage: "1L Maintenance", column: "primary", trials: ["DUO-E (Maintenance Arms)", "SIENDO", "UTOLA", "TroFuse-033", "RUBY Part 2"]},
+      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-775 / Study 309", "GARNET", "ASCENT-GYN-01", "DESTINY-PanTumor02 (EC cohort)", "BLUESTAR", "TROPiCS-03 (EC cohort)", "KEYLYNK-007"]},
     ],
   },
   OC: {
     name: "🟣 卵巢癌 (Ovarian Cancer)",
     branches: [
-      {stage: "初次減積 PDS", column: "primary", trials: ["EORTC 55971", "CHORUS", "TRUST"]},
+      {stage: "初次減積 PDS", column: "primary", trials: ["EORTC 55971", "CHORUS", "TRUST", "EORTC + CHORUS Pooled"]},
       {stage: "NACT + IDS", column: "primary", trials: ["EORTC 55971", "SCORPION", "JCOG0602", "van Driel HIPEC"]},
-      {stage: "1L Chemo 標準", column: "primary", trials: ["GOG-0218", "ICON7", "BOOST", "GOG-172", "JGOG 3016", "LION"]},
+      {stage: "1L Chemo 標準", column: "primary", trials: ["GOG-0218", "ICON7", "BOOST / ENGOT-ov15", "GOG-172", "GOG-114", "SWOG-8501 / GOG-104", "JGOG 3016", "GOG-262", "ICON8", "MITO-7", "LION", "OV21 / PETROC", "GOG-252"]},
       {stage: "1L Maint (BRCAm)", column: "primary", trials: ["SOLO-1"]},
       {stage: "1L Maint (HRD+)", column: "primary", trials: ["PAOLA-1", "DUO-O"]},
-      {stage: "1L Maint (ITT)", column: "primary", trials: ["PRIMA", "ATHENA-Mono", "DUO-O"]},
-      {stage: "PSOC 復發 (鉑敏感)", column: "recurrent", trials: ["DESKTOP III", "OCEANS", "GOG-0213", "Study 19"]},
-      {stage: "PROC 復發 (鉑抗)", column: "recurrent", trials: ["MIRASOL", "AURELIA", "FRAmework-01"]},
-      {stage: "復發維持 (PARPi)", column: "recurrent", trials: ["NOVA", "ARIEL3", "SOLO2"]},
-      {stage: "低惡性度 LGSOC", column: "recurrent", trials: ["GOG-281 / LOGS", "RAMP-201", "GOG-3026"]},
-      {stage: "透明細胞 OCCC", column: "recurrent", trials: ["MoST-CIRCUIT", "ATARI", "DOVE"]},
+      {stage: "1L Maint (ITT/全人群)", column: "primary", trials: ["PRIMA", "ATHENA-MONO", "DUO-O", "OVARIO"]},
+      {stage: "PSOC 復發 (鉑敏感)", column: "recurrent", trials: ["DESKTOP III", "OCEANS", "GOG-0213", "Study 19", "CALYPSO", "MITO16B"]},
+      {stage: "PROC 復發 (鉑抗)", column: "recurrent", trials: ["MIRASOL", "AURELIA", "FRAmework-01", "REJOICE-Ovarian01", "ROSELLA"]},
+      {stage: "復發維持 (PARPi)", column: "recurrent", trials: ["NOVA", "ARIEL3", "SOLO2", "L-MOCA", "NORA", "OPINION", "NINJA"]},
+      {stage: "低惡性度 LGSOC", column: "recurrent", trials: ["GOG-281 / LOGS", "RAMP-201", "GOG-3026", "MILO / ENGOT-ov11", "NRG-GY019"]},
+      {stage: "透明細胞 OCCC", column: "recurrent", trials: ["JGOG3017 / GCIG", "MoST-CIRCUIT", "ATARI", "DOVE", "GOG-254", "BrUOG 354", "Temsirolimus + TC"]},
+      {stage: "黏液性 mEOC", column: "recurrent", trials: ["mEOC / GOG-0241", "mFOLFIRINOX + Bev"]},
+      {stage: "ADC 維持探索", column: "recurrent", trials: ["DESTINY-Ovarian01", "TroFuse-021", "TroFuse-022"]},
     ],
   },
   CC: {
     name: "🟠 子宮頸癌 (Cervical Cancer)",
     branches: [
-      {stage: "Early stage 手術", column: "primary", trials: ["LACC Trial", "SHAPE Trial (CCTG CX.5)"]},
-      {stage: "Locally advanced CCRT", column: "primary", trials: ["KEYNOTE-A18 (ENGOT-cx11)", "INTERLACE", "CALLA", "OUTBACK (ANZGOG 0902)"]},
-      {stage: "LACC 新輔助 NIC", column: "primary", trials: ["NACI Study", "NATIC Trial", "Cadonilimab+NACT → Surgery"]},
+      {stage: "Early stage 手術", column: "primary", trials: ["LACC Trial", "SHAPE Trial"]},
+      {stage: "Locally advanced CCRT", column: "primary", trials: ["KEYNOTE-A18", "INTERLACE", "CALLA", "OUTBACK"]},
+      {stage: "LACC 新輔助 NIC", column: "primary", trials: ["NACI Study", "NATIC Trial", "Cadonilimab + NACT"]},
       {stage: "R/M 一線", column: "primary", trials: ["KEYNOTE-826", "BEATcc", "GOG-240"]},
-      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "EMPOWER-Cervical 1", "innovaTV 301 (ENGOT-cx12)", "GOG-240"]},
+      {stage: "CCRT 後維持 (探索)", column: "primary", trials: ["eVOLVE-Cervical"]},
+      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "EMPOWER-Cervical 1", "innovaTV 301", "innovaTV 205", "GOG-240", "KEYNOTE-158", "PVX4", "KEYNOTE-C93"]},
+      {stage: "TROP2 ADC 探索", column: "recurrent", trials: ["TroFuse-036"]},
     ],
   },
   US: {
     name: "🔵 子宮肉瘤 (Uterine Sarcoma)",
     branches: [
-      {stage: "LMS 一線 (Leiomyosarcoma)", column: "primary", trials: ["LMS-04 (Phase III)", "GOG-0277", "EORTC 62012", "GeDDiS (Phase III)"]},
-      {stage: "Carcinosarcoma (UCS)", column: "primary", trials: ["NRG/GOG-0261 (Phase III)", "GOG-161 (Phase III)", "GOG-150 (Phase III)"]},
-      {stage: "LG-ESS 激素治療", column: "primary", trials: ["PARAGON (ANZGOG 0903)", "Letrozole (NCT05649956)"]},
-      {stage: "LMS 復發", column: "recurrent", trials: ["ET743-SAR-3007", "PALETTE", "REGOSARC", "Eribulin vs Dacarbazine", "Olaparib + Temozolomide (NCT03880019)"]},
+      {stage: "LMS 一線", column: "primary", trials: ["LMS-04", "GOG-0277", "EORTC 62012", "GeDDiS"]},
+      {stage: "Carcinosarcoma (UCS)", column: "primary", trials: ["NRG/GOG-0261", "GOG-161", "GOG-150", "GOG-108"]},
+      {stage: "LG-ESS 激素治療", column: "primary", trials: ["PARAGON", "Letrozole (NCT05649956)"]},
+      {stage: "早期 RT 輔助", column: "primary", trials: ["EORTC 55874"]},
+      {stage: "術後輔助 (LMS)", column: "primary", trials: ["NCT07076186 (Adjuvant Doxo+Trab)"]},
+      {stage: "LMS 復發", column: "recurrent", trials: ["ET743-SAR-3007", "PALETTE", "REGOSARC", "Eribulin vs Dacarbazine", "Olaparib + Temozolomide"]},
       {stage: "NTRK 融合 (跨癌別)", column: "recurrent", trials: ["NTRK Basket Trials"]},
     ],
   },
@@ -11264,11 +11271,31 @@ function renderPathwayOverview(cancer){
 
   // Build lookup: find trial in TRIALS or captured
   const captured = getCapturedTrials();
+  // Strip parentheses and lowercase for fuzzy match
+  const normalize = (s) => String(s || '').replace(/\s*\([^)]*\)\s*/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
   const findTrial = (name) => {
-    // Try exact name / fullName / partial in TRIALS
+    const nameNorm = normalize(name);
+    // 1. Try exact match on name
     let t = TRIALS.find(x => x.name === name);
-    if(!t) t = TRIALS.find(x => (x.fullName && x.fullName.includes(name)) || (x.name && x.name.includes(name)));
-    if(!t) t = captured.find(x => (x.n === name) || (x.name === name) || (x.n && x.n.includes(name)));
+    if(t) return t;
+    // 2. Try exact match on fullName
+    t = TRIALS.find(x => x.fullName === name);
+    if(t) return t;
+    // 3. Try normalized match (strip parens on both sides)
+    t = TRIALS.find(x => normalize(x.name) === nameNorm);
+    if(t) return t;
+    // 4. Try normalized fullName match
+    t = TRIALS.find(x => normalize(x.fullName) === nameNorm);
+    if(t) return t;
+    // 5. Substring match on normalized name
+    t = TRIALS.find(x => {
+      const xn = normalize(x.name);
+      const xf = normalize(x.fullName);
+      return xn.includes(nameNorm) || nameNorm.includes(xn) || (xf && (xf.includes(nameNorm) || nameNorm.includes(xf)));
+    });
+    if(t) return t;
+    // 6. Captured trials
+    t = captured.find(x => (x.n === name) || (x.name === name) || normalize(x.n || x.name) === nameNorm);
     return t;
   };
 
@@ -11279,7 +11306,7 @@ function renderPathwayOverview(cancer){
 
     if(t){
       // Star: NCCN Cat 1 / 標竿試驗
-      const starList = ['SOLO-1','PAOLA-1','PRIMA','SOLO2','GY018','NRG-GY018','NRG-GY018 / KEYNOTE-868','RUBY','RUBY (Part 1)','KEYNOTE-826','BEATcc','MIRASOL','GOG-172','GOG-0218','DUO-E','KEYNOTE-A18','KEYNOTE-A18 (ENGOT-cx11)','INTERLACE','SHAPE','SHAPE Trial (CCTG CX.5)','LACC Trial','LMS-04','LMS-04 (Phase III)','NRG/GOG-0261','NRG/GOG-0261 (Phase III)','PORTEC-3','DESKTOP III','EORTC 55971','KEYNOTE-775','KEYNOTE-775 / Study 309','innovaTV 301','innovaTV 301 (ENGOT-cx12)','EMPOWER-Cervical 1','PARAGON','PARAGON (ANZGOG 0903)','GOG-258'];
+      const starList = ['SOLO-1','PAOLA-1','PRIMA','SOLO2','NRG-GY018 / KEYNOTE-868','RUBY Part 1','KEYNOTE-826','BEATcc','MIRASOL','GOG-172','GOG-0218','DUO-E','KEYNOTE-A18','INTERLACE','SHAPE Trial','LACC Trial','LMS-04','NRG/GOG-0261','PORTEC-3','DESKTOP III','EORTC 55971','KEYNOTE-775 / Study 309','innovaTV 301','EMPOWER-Cervical 1','PARAGON','GOG-258 / NRG-GOG-258','DUO-O','ATHENA-MONO'];
       const isStar = t.star === 1 || t.starred || starList.includes(t.name) || starList.includes(name);
       if(isStar) cls.push('starred');
       if(t._captured || t.t === 'n') cls.push('newly-added');
