@@ -148,7 +148,23 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 /* Subgroup section - green tone (亞組分析) */
 .compare-section.subgroup-section{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;padding:12px 14px;}
 .compare-section.subgroup-section .compare-section-label{color:#065f46 !important;font-weight:900;}
-.compare-section-content.subgroup-content{color:#14532d;font-weight:500;font-size:12.5px;line-height:1.75;background:transparent;padding:0;}
+.compare-section-content.subgroup-content{color:#14532d;font-weight:500;font-size:12.5px;line-height:1.75;background:transparent;padding:0;white-space:pre-wrap;}
+
+/* Inclusion detail section - blue tone (分期/淋巴結/組織) */
+.compare-section.incdetail-section{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;padding:12px 14px;}
+.compare-section-content.incdetail-content{color:#1e3a8a;font-weight:500;font-size:12px;line-height:1.7;background:transparent;padding:0;white-space:pre-wrap;}
+
+/* Full inclusion section - light green */
+.compare-section.inclusion-section{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1.5px solid #86efac;padding:12px 14px;}
+.compare-section .inc-list{padding-left:16px;margin:0;list-style:none;}
+.compare-section .inc-list li{font-size:11.5px;margin-bottom:6px;line-height:1.6;color:#166534;padding-left:16px;position:relative;}
+.compare-section .inc-list li::before{content:"✓";position:absolute;left:0;color:#16a34a;font-weight:900;}
+.compare-section .exc-list{padding-left:16px;margin:0;list-style:none;}
+.compare-section .exc-list li{font-size:11.5px;margin-bottom:6px;line-height:1.6;color:#991b1b;padding-left:16px;position:relative;}
+.compare-section .exc-list li::before{content:"✕";position:absolute;left:0;color:#dc2626;font-weight:900;}
+
+/* Keyword highlight in inclusion criteria */
+mark.inc-hl{background:#fde68a;color:#78350f;padding:1px 4px;border-radius:4px;font-weight:800;font-size:0.95em;}
 @media(max-width:768px){
   .compare-grid{grid-template-columns:1fr !important;}
   .compare-content{padding:18px;}
@@ -9781,6 +9797,102 @@ const TRIAL_MOTIVATIONS = {
   "NRG-GY017": "IO 在 OC 效果有限 (冷腫瘤)。是否可透過 IO + 其他機制 (RT / TKI / PARPi) 改造微環境? Phase II 探索 IO 在 OC 的新場景。",
   "Avutometinib + Defactinib (PSOC-LG)": "LGSOC PSOC 對 RAMP-201 反應如何? 前線化療已用 — 直接改成標靶維持是否可行?",
   "Avutometinib + Defactinib (PROC-LG)": "LGSOC PROC 沒有標準 (內分泌可能失效)。雙靶點阻斷是否有效? RAMP-201 涵蓋兩族群。",
+
+  // === 補完: EC 其餘 ===
+  "KEYNOTE-B21": "GY018/RUBY 證明 IO 在晚期 EC 有效。那更早期的「術後輔助」加 IO 是否也能降低復發? 結果為陰性 (HR 1.02) — 提醒晚期有效不代表輔助有效。",
+  "RUBY Part 2": "RUBY Part 1 證明 dostar+化療有效, 但 pMMR 效益有限。加入 PARPi (niraparib) 維持能否協同提升 pMMR? Part 2 直接驗證三藥維持價值。",
+  "DUO-E (Maintenance Arms)": "聚焦 DUO-E 的維持階段: 化療後單用 IO 維持 vs IO+PARPi 雙藥維持, 拆解 PARPi 在維持期的獨立貢獻。",
+  "UTOLA": "pMMR EC 缺乏維持標準。HRR/HRD 概念可否移植到 EC? Olaparib 維持能否對特定 EC 亞群有效? 探索 PARPi 在 EC 的定位。",
+  "TroFuse-033": "pMMR EC 一線 IO 反應深度不足。TROP2-ADC (Sac-TMT) 加 IO 維持, 藉 ADC 誘導 ICD 改造冷腫瘤 — 補足 pMMR 維持缺口。",
+  "TROPiCS-03 (EC cohort)": "TROP2 在 EC 高表現。Sac-TMT 在乳癌/肺癌已獲批 — EC cohort 探索泛癌 TROP2-ADC 的後線價值。",
+  "ASCENT-GYN-01": "鉑類+IO 後進展的 EC 缺乏標準後線。TROP2-ADC (SG) 能否填補空窗? 針對後線救援的探索。",
+  "BLUESTAR": "B7-H4 在 EC 高表現且與免疫逃脫相關。B7-H4 ADC 是否為 pMMR/後線新標靶? 探索新一代 ADC 標靶。",
+  "KEYNOTE-C93": "dMMR EC 對 IO 反應好, 但化療仍是一線骨幹。單用 Pembro 取代化療一線是否非劣且更低毒? 探索「去化療」一線可能。",
+  "KEYLYNK-007": "IO+PARPi 在多癌別探索。EC 中 Pembro+Olaparib 維持是否比單 IO 更持久? 探索合成致死 + 免疫協同。",
+  "KEYNOTE-158": "dMMR/MSI-H 為跨癌別 IO 敏感標記。Pembro 在 MSI-H 泛癌 (含 EC/CC) 的 basket — 促成 tissue-agnostic 適應症。",
+
+  // === 補完: OC 一線化療 / 手術 ===
+  "ICON7": "GOG-0218 用高劑量 Bev (15mg/kg)。較低劑量 (7.5mg/kg) 是否同樣有效且更省? 且高風險亞群 (Stage IV/殘餘) 是否 OS 獲益? 驗證劑量與族群。",
+  "JGOG 3016": "傳統 Q3W paclitaxel 骨髓毒性大。改成每週劑量密集 (dose-dense) 給藥能否藉抗血管+減少修復提升療效? 亞洲人群首個 PFS/OS 雙獲益。",
+  "CHORUS": "EORTC 55971 證明 NACT 非劣, 但需英國體系驗證。CHORUS 確認 NACT 減少術後併發症 — 雙 RCT 共同奠定 NACT 標準。",
+  "ATHENA-MONO": "PARPi 一線維持是否應限 HRD+? Rucaparib 全人群維持 (ATHENA-MONO arm) 驗證不篩選的價值, 並為 ATHENA-COMBO (加 IO) 鋪路。",
+  "OVARIO": "PARPi 單用維持已確立。加 Bev (雙重維持) 在全人群是否安全有效? 單臂探索 niraparib+bev 一線維持的可行性。",
+  "BOOST / ENGOT-ov15": "Bev 一線維持標準時長 15 個月, 但更久是否更好? BOOST 直接比 15m vs 30m — 結果無差異, 確立 15m 為標準 (省成本/毒性)。",
+  "LION": "系統性淋巴清掃在臨床陰性 LN 患者是否必要? LION 首次 RCT 證明清掃不改善 OS 反增併發症 — 改變手術範式。",
+  "SCORPION": "如何精準篩選無法 R0 的高負荷患者? SCORPION 用腹腔鏡 Fagotti score ≥8 篩選, 證明高負荷者 NACT 降低併發症且不損 PFS/OS。",
+  "JCOG0602": "NACT 非劣性需亞洲數據。JCOG0602 在日本人群驗證 — NACT 縮短手術時間/減少失血, 達成非劣。",
+  "TRUST": "先前 NACT 試驗手術品質參差。若在高品質手術中心 (要求高 R0 率) 重做 PDS vs NACT, PDS 是否重新勝出? 為 PDS 正名的關鍵試驗。",
+  "EORTC + CHORUS Pooled": "個別 NACT 試驗檢定力有限。合併 EORTC 55971 + CHORUS 資料, 驗證特定亞群 (Stage IV / 高負荷) 是否更適合 NACT。",
+  "GOG-262": "JGOG 3016 的每週 paclitaxel 優勢, 在加入 Bev 的時代是否還存在? GOG-262 發現: 若用 Bev, 每週給藥不再有額外優勢。",
+  "ICON8": "劑量密集化療在歐洲人群是否複製 JGOG 3016 的成功? 三臂 RCT 發現歐洲人群未見 PFS 優勢 — 顯示種族/體質差異。",
+  "MITO-7": "傳統 Q3W 化療毒性大影響生活品質。每週低劑量 (Carbo AUC2 + Pacli 60) 能否維持療效且大幅降毒? PFS 相當但生活品質顯著較佳。",
+  "GOG-172": "Stage III 最佳減積後如何強化局部控制? IV+IP 化療 (腹腔灌注) 是否延長 OS? mOS 65.6m — IP 化療黃金標準的里程碑。",
+  "SWOG-8501 / GOG-104": "IP 化療概念的起源試驗。腹腔內 vs 靜脈 cisplatin, 首次證明 IP 途徑在小殘餘病灶患者的 OS 優勢。",
+  "GOG-114": "如何優化 IP 給藥方案? GOG-114 加入 IV carboplatin 前導 + IP cisplatin, 逐步建構 IP 化療的標準流程。",
+  "GOG-252": "IP 化療優勢在 Bev 時代是否還存在? 加入 Bev 後, IP vs IV 差異縮小 — 顯示 anti-VEGF 可能部分取代 IP 的效果。",
+  "OV21 / PETROC": "NACT 後患者 (非最佳減積) 是否也適合 IP? OV21 探索 IP carboplatin 在 NACT-IDS 族群的角色。",
+
+  // === 補完: OC 復發 / 維持 ===
+  "OCEANS": "鉑敏感復發 (PSOC) 加 Bev 於化療是否延長 PFS? OCEANS 首個證明 Gem/Carbo+Bev 維持顯著延長 PFS (但 OS 未達) 的 PSOC 試驗。",
+  "GOG-0213": "OCEANS 顯示 PFS+ 但 OS 未達。GOG-0213 在 Pacli/Carbo backbone 加 Bev, 首個顯示 PSOC 加 Bev 有 OS 加成的試驗。",
+  "CALYPSO": "PSOC 標準 Carbo/Pacli 神經毒性大。改用 Carbo + PLD (小紅莓微脂體) 能否非劣且更低神經毒/過敏? 提供替代 backbone。",
+  "MITO16B": "一線用過 Bev 的患者復發後, 再用 Bev (跨線延續) 是否仍有效? MITO16B 證明 Bev beyond progression 在 PSOC 仍延長 PFS。",
+  "Study 19": "PSOC 復發後維持治療概念的開山之作。Olaparib 維持 (不限 BRCA) 首次證明 PARPi 在復發維持的 PFS 價值 — 啟動整個 PARPi 維持時代。",
+  "ARIEL3": "如何用生物標記選 PARPi 受益者? ARIEL3 用 LOH (雜合性缺失) 評估 HRD, 分層驗證 rucaparib 維持在 BRCA/HRD/ITT 的梯度效益。",
+  "SOLO2": "PARPi 維持的 PFS 獲益能否轉化為 OS? SOLO2 (BRCAm PSOC) 首個顯示 olaparib 維持 mOS 延長 12.9 個月 — PFS→OS 的關鍵驗證。",
+  "L-MOCA": "olaparib 維持在亞洲/中國人群的療效與安全? L-MOCA 提供亞洲真實世界證據, 驗證跨種族一致性。",
+  "NORA": "niraparib 起始劑量能否個別化 (依體重/血小板) 以降毒? NORA (中國 PSOC) 驗證個別化起始劑量維持療效並降低血液毒性。",
+  "OPINION": "非 BRCA 突變的 PSOC 患者用 olaparib 維持是否受益? OPINION 單臂驗證 non-gBRCA 族群的 PARPi 維持價值。",
+  "NINJA": "PSOC 免疫治療探索。Nivolumab 單藥 vs 化療在鉑敏感復發 — 結果 IO 未優於化療, 提醒 OC 為免疫冷腫瘤。",
+  "FRAmework-01": "MIRASOL 證明 Mirv 單藥有效。加 Bev (增強血管重塑+ADC 滲透) 於 FRα 中/高表現能否進一步提升? 擴大 FRα-ADC 適用族群。",
+  "REJOICE-Ovarian01": "PROC 需要新標靶。CDH6 在 OC 高表現 — CDH6-ADC (R-DXd) 是否為繼 FRα 後的新 ADC 標靶? 探索新一代 payload。",
+  "ROSELLA": "PROC 後線選擇有限。探索新機制 (如 relacorilant + nab-pacli 糖皮質受體調控) 能否逆轉化療耐藥?",
+  "ENGOT-ov77 / GOG-3096": "PROC 標準化療反應差。探索新的 ADC 或標靶組合於鉑抗族群的後線療效。",
+  "GOG-3026": "LGSOC 為激素高度依賴。CDK4/6 抑制劑 + AI (內分泌) 能否強化細胞週期阻斷? 探索 LGSOC 的雙重內分泌/週期阻斷。",
+  "MILO / ENGOT-ov11": "LGSOC MEKi 探索。Binimetinib vs 化療 — 主要終點未達 (與 GOG-281 陽性對比), 提醒 MEKi 選擇與族群的重要性。",
+  "MoST-CIRCUIT": "OCCC (透明細胞) 對化療極抗拒但富含免疫浸潤。IO 雙阻斷 (nivo+ipi) 能否突破? 針對難治 OCCC 的免疫探索。",
+  "ATARI": "ARID1A 突變常見於 OCCC/子宮內膜樣。ATR 抑制劑 + PARPi 在 ARID1A-deficient 是否合成致死? 精準標靶探索。",
+  "DOVE": "OCCC 缺乏標準。IO (durvalumab) + Bev 組合能否改造 OCCC 微環境? 針對透明細胞的抗血管+免疫探索。",
+  "GOG-254": "OCCC 帶 VHL/HIF 通路異常。Sunitinib (多靶 TKI) 針對 OCCC 的血管依賴 — 探索 TKI 在透明細胞的角色。",
+  "BrUOG 354": "OCCC 免疫治療如何優化? Nivo 單藥 vs Nivo+Ipi 雙阻斷比較 — 探索最佳 IO 組合於透明細胞。",
+  "JGOG3017 / GCIG": "OCCC 亞洲盛行率高。Irinotecan+Cisplatin vs 傳統 TC 是否更適合透明細胞? 亞洲主導的 OCCC 一線探索。",
+  "NRG-GY019": "LGSOC 一線是否可去化療? Letrozole (AI) 單用 vs 化療+AI 維持 — 探索一線內分泌治療取代化療的可能。",
+  "DESTINY-Ovarian01": "HER2 在 OC 低表現但 T-DXd 高 DAR 可能於低表現有效。探索 HER2-ADC 在 OC 維持/後線的角色。",
+  "TroFuse-021": "HRD 陰性 OC 缺乏 PARPi 以外的維持。TROP2-ADC (Sac-TMT) ± Bev 於 HRD- 一線維持能否填補缺口?",
+  "TroFuse-022": "PSOC 復發需新維持選項。TROP2-ADC ± Bev 於鉑敏感復發維持的探索。",
+  "Temsirolimus + TC": "OCCC 帶 PI3K/mTOR 通路異常。mTOR 抑制劑加入化療能否針對透明細胞? GOG 探索 mTORi 維持。",
+  "KEYNOTE-B96": "PROC 一線標準有限。Pembro + 化療 ± Bev 於鉑抗族群能否延長 PFS/OS? 探索 IO 在 PROC 的定位。",
+
+  // === 補完: CC 其餘 ===
+  "OUTBACK": "LACC CCRT 後遠端復發仍高。CCRT 後加輔助化療 (adjuvant chemo) 能否清除微轉移改善 OS? 結果為陰性 — 對比 INTERLACE 的「前導」成功, 凸顯時序重要。",
+  "NACI Study": "LACC 新輔助免疫探索。NAC + IO 後手術能否提高病理緩解率 (pCR)? 探索免疫前導於可手術局部晚期的價值。",
+  "NATIC Trial": "類似 NACI, 探索 NAC + 免疫 → 手術的新輔助策略, 追求更高 pCR 與器官保留可能。",
+  "Cadonilimab + NACT": "雙特異性抗體 (PD-1×CTLA-4) 是否比單一 IO 更強? Cadonilimab + NACT 新輔助探索雙靶免疫於局部晚期 CC。",
+  "eVOLVE-Cervical": "LACC CCRT 後缺乏維持標準 (KN-A18 已建立同步+維持)。雙特異性 IO 維持能否進一步降低復發? 探索 CCRT 後維持新選項。",
+  "TroFuse-036": "R/M 宮頸癌後線需新標靶。TROP2 在 CC 高表現 — Sac-TMT ± pembro 於後線 CC 的 TROP2-ADC 探索。",
+  "PVX4": "HPV 為宮頸癌驅動。治療性 HPV 疫苗能否誘導 HPV 特異 T 細胞清除病灶? 探索疫苗於 R/M CC 的免疫治療。",
+  "innovaTV 205": "Tisotumab vedotin (TF-ADC) 單藥後線已證明。innovaTV 205 探索 TF-ADC 與化療/IO 組合於一線的可能, 提前佈局。",
+
+  // === 補完: US 其餘 ===
+  "GOG-0277": "高風險子宮 LMS 術後是否應輔助化療? GOG-0277 (Gem/Doce 輔助 vs 觀察) 探索輔助化療價值 — 因收案不足提前終止, 凸顯罕見癌試驗困境。",
+  "EORTC 62012": "晚期軟組織肉瘤一線: Doxorubicin 單藥 vs Dox+Ifosfamide 雙藥。雙藥提高反應率但未改善 OS 且毒性大 — 確立單藥為多數標準。",
+  "GeDDiS": "軟組織肉瘤一線 Gem/Docetaxel vs Doxorubicin 單藥, 何者更優? GeDDiS 證明 Dox 單藥仍是一線首選 (Gem/Doce 未優於且毒性較高)。",
+  "GOG-150": "UCS (癌肉瘤) 術後: 全腹放療 (WAI) vs 化療 (CIM)? GOG-150 顯示化療趨勢優於放療 — 推動 UCS 以化療為主的輔助方向。",
+  "GOG-161": "UCS 一線: Ifosfamide 單藥 vs Ifo+Paclitaxel? GOG-161 證明加 Paclitaxel 改善 OS — 曾為 UCS 標準 (後被 GOG-261 的 PC 取代)。",
+  "GOG-108": "早期 UCS 化療探索。Ifosfamide 為基礎的組合方案於癌肉瘤的療效與毒性平衡探索。",
+  "EORTC 55874": "早期子宮肉瘤術後放療是否降低局部復發? EORTC 55874 顯示 RT 改善局部控制但不改善 OS — 影響輔助放療決策。",
+  "NCT07076186 (Adjuvant Doxo+Trab)": "LMS-04 證明 Dox+Trab 在晚期有效。將此組合前移至術後輔助能否降低高風險 LMS 復發? 輔助試驗探索。",
+  "Letrozole (NCT05649956)": "LG-ESS 高度 ER/PR 陽性。長期 letrozole 維持能否持久控制且優於觀察? 探索內分泌長期維持的最佳時長。",
+  "ET743-SAR-3007": "晚期 LMS 二線缺乏標準。Trabectedin vs Dacarbazine — 證明 trabectedin 顯著降低進展風險, 確立 LMS 二線標準。",
+  "PALETTE": "非脂肪肉瘤 STS 二線: 多靶 TKI Pazopanib vs 安慰劑。首個證明 TKI 在 STS 延長 PFS 三倍 — 開啟 STS 標靶時代。",
+  "REGOSARC": "STS 後線選擇有限。Regorafenib (多靶 TKI) 於非脂肪肉瘤後線能否延長 PFS? 提供 pazopanib 外的另一 TKI 選項。",
+  "Eribulin vs Dacarbazine": "晚期 LMS/脂肪肉瘤後線。Eribulin (微管抑制劑) 是否優於 Dacarbazine? 於脂肪肉瘤顯示 OS 獲益 (LMS 較不明顯)。",
+  "Olaparib + Temozolomide": "LMS 常帶 HRD 特徵。PARPi + 烷化劑 (TMZ) 合成致死能否於 uLMS 有效? 探索 LMS 的 DNA 修復標靶。",
+  "NTRK Basket Trials": "NTRK 融合為強致癌驅動 (罕見於婦癌肉瘤)。TRK 抑制劑 (larotrectinib) 於 NTRK+ 泛癌 ORR ~75% — tissue-agnostic 精準醫療。",
+
+
+
+
 };
 
 // Compare state for pathway overview
@@ -11923,6 +12035,7 @@ function renderCompareModal(){
     const drug = t.drug || t.d || '-';
     const pharma = t.pharma || t.ph || '-';
     const mech = TRIAL_MECHANISMS[name] || TRIAL_MECHANISMS[t.name] || TRIAL_MECHANISMS[t.fullName] || '-';
+    // Motivation: prefer curated TRIAL_MOTIVATIONS, fallback to rationale field (all trials have it)
     const motivation = TRIAL_MOTIVATIONS[name] || TRIAL_MOTIVATIONS[t.name] || TRIAL_MOTIVATIONS[t.fullName] || '';
     const phaseArr = t.phase || (t.p ? (Array.isArray(t.p) ? t.p : [t.p]) : []);
     const phase = Array.isArray(phaseArr) ? phaseArr.join(', ') : String(phaseArr);
@@ -11933,10 +12046,20 @@ function renderCompareModal(){
     const reg = t.regimen || t.reg || '-';
     const out = t.outcomes || t.out || '';
     const subgroup = t.subgroup || '';
+    const stageDist = t.stageDist || '';
+    const hist = t.hist || '';
+    const enrolled = t.enrolled || '';
     const inc = t.inc || [];
     const exc = t.exc || [];
     const cancerLabel = ({'EC':'🔴 EC','OC':'🟣 OC','CC':'🟠 CC','US':'🔵 US','Endometrial':'🔴 EC','Ovarian':'🟣 OC','Cervical':'🟠 CC','Uterine Sarcoma':'🔵 US'}[t.cancer || t.c]) || (t.cancer || t.c || '-');
     const trialId = t.id || t.n || t.name || id;
+    // Format inclusion with keyword highlighting for LN / stage / surgery
+    const highlightInc = (s) => {
+      let h = escapeHtml(s);
+      // highlight key clinical terms
+      h = h.replace(/(LN\+|淋巴結|Stage\s*[IVX]+[A-C]?[0-9]?|R0|R1|殘餘|residual|débulk|debulk|減積|BRCA[m]?|HRD|dMMR|pMMR|MSI-H|PD-L1|CPS\s*[≥&gt;]*\s*\d+|FRα|HER2|POLE|p53|≥\s*\d+\s*cm|測量病灶|measurable)/g, '<mark class="inc-hl">$1</mark>');
+      return h;
+    };
 
     return `<div class="compare-col">
       <button class="compare-remove" onclick="pwToggleTrialSelection('${escapeJsAttr(trialId)}');renderCompareModal();updateCompareFab();" title="從比較中移除">✕</button>
@@ -11956,7 +12079,7 @@ function renderCompareModal(){
 
       <div class="compare-section motivation-section">
         <div class="compare-section-label" style="color:#7c2d12;">💡 試驗發起動機 / 背景 Unmet Need</div>
-        <div class="compare-section-content motivation-content">${escapeHtml(motivation || '(尚未記錄動機; 見科學理據)')}</div>
+        <div class="compare-section-content motivation-content">${escapeHtml(motivation || rat || '(無)')}</div>
       </div>
 
       <div class="compare-section">
@@ -11974,33 +12097,48 @@ function renderCompareModal(){
         <div class="compare-section-content mono">${escapeHtml(out)}</div>
       </div>` : ''}
 
+      ${enrolled ? `<div class="compare-section">
+        <div class="compare-section-label">👥 收案人數 Enrollment</div>
+        <div class="compare-section-content mono">${escapeHtml(enrolled)}</div>
+      </div>` : ''}
+
+      ${stageDist ? `<div class="compare-section incdetail-section">
+        <div class="compare-section-label" style="color:#1e40af;">📋 分期 / 淋巴結 / 手術分布 Stage & LN Distribution</div>
+        <div class="compare-section-content incdetail-content">${highlightInc(stageDist)}</div>
+      </div>` : ''}
+
+      ${hist ? `<div class="compare-section incdetail-section">
+        <div class="compare-section-label" style="color:#1e40af;">🔬 組織型態 / 分子 Histology & Molecular</div>
+        <div class="compare-section-content incdetail-content">${highlightInc(hist)}</div>
+      </div>` : ''}
+
+      ${inc.length ? `<div class="compare-section inclusion-section">
+        <div class="compare-section-label" style="color:#16a34a;">✅ 完整納入標準 Inclusion Criteria (全部 ${inc.length} 項)</div>
+        <div class="compare-section-content">
+          <ul class="inc-list">${inc.map(i => `<li>${highlightInc(i)}</li>`).join('')}</ul>
+        </div>
+      </div>` : ''}
+
+      ${exc.length ? `<div class="compare-section">
+        <div class="compare-section-label" style="color:#991b1b;">❌ 排除標準 Exclusion (${exc.length} 項)</div>
+        <div class="compare-section-content">
+          <ul class="exc-list">${exc.map(e => `<li>${highlightInc(e)}</li>`).join('')}</ul>
+        </div>
+      </div>` : ''}
+
       ${subgroup ? `<div class="compare-section subgroup-section">
         <div class="compare-section-label" style="color:#065f46;">🔬 亞組 / 分層分析 Subgroup Analysis</div>
         <div class="compare-section-content subgroup-content">${escapeHtml(subgroup)}</div>
       </div>` : ''}
 
       <div class="compare-section">
-        <div class="compare-section-label">💊 給藥方案 Regimen (含 arms)</div>
+        <div class="compare-section-label">💊 給藥方案 Regimen (含各 arm)</div>
         <div class="compare-section-content mono pre">${escapeHtml(reg)}</div>
       </div>
 
-      ${rat ? `<div class="compare-section">
+      ${rat && motivation ? `<div class="compare-section">
         <div class="compare-section-label">🧬 科學理據 Scientific Rationale</div>
         <div class="compare-section-content">${escapeHtml(rat)}</div>
-      </div>` : ''}
-
-      ${inc.length ? `<div class="compare-section">
-        <div class="compare-section-label">✅ 納入標準 Inclusion (前 4 項)</div>
-        <div class="compare-section-content">
-          <ul style="padding-left:16px;margin:0;">${inc.slice(0,4).map(i => `<li style="font-size:11.5px;margin-bottom:3px;">${escapeHtml(i)}</li>`).join('')}</ul>
-        </div>
-      </div>` : ''}
-
-      ${exc.length ? `<div class="compare-section">
-        <div class="compare-section-label" style="color:#991b1b;">❌ 排除標準 Exclusion (前 3 項)</div>
-        <div class="compare-section-content">
-          <ul style="padding-left:16px;margin:0;">${exc.slice(0,3).map(e => `<li style="font-size:11.5px;margin-bottom:3px;color:#7f1d1d;">${escapeHtml(e)}</li>`).join('')}</ul>
-        </div>
       </div>` : ''}
     </div>`;
   }).join('');
