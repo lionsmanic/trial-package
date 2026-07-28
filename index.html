@@ -76,6 +76,75 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
   .pw-detailed-wrap.open{flex-direction:column;}
 }
 
+/* ============= 🎯 試驗機制標籤 + 勾選框 ============= */
+.pw-ov-trial{overflow:visible;padding-top:10px;padding-bottom:10px;position:relative;}
+.pw-ov-trial-name{display:block;font-weight:800;line-height:1.35;}
+.pw-ov-trial-mech{display:block;font-size:10px;font-weight:700;margin-top:5px;opacity:.75;letter-spacing:.01em;font-family:"JetBrains Mono",monospace;line-height:1.35;padding:2px 6px;background:rgba(255,255,255,0.55);border-radius:6px;}
+.pw-ov-trial.missing .pw-ov-trial-mech{background:rgba(226,232,240,0.6);color:#64748b;}
+.pw-ov-trial.recurrent .pw-ov-trial-mech{background:rgba(255,255,255,0.7);color:#7f1d1d;}
+
+/* Move newly-added 🆕 to bottom-right to make room for checkbox at top-right */
+.pw-ov-trial.newly-added::after{top:auto;bottom:-6px;right:-4px;}
+
+/* Checkbox in top-right corner */
+.pw-ov-trial-checkbox{position:absolute;top:-7px;right:-7px;width:22px;height:22px;border-radius:50%;background:white;border:2px solid #cbd5e1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;transition:all .15s;z-index:3;color:#7c3aed;line-height:1;}
+.pw-ov-trial-checkbox:hover{background:#f5f3ff;border-color:#a855f7;transform:scale(1.15);}
+.pw-ov-trial-checkbox.selected{background:#a855f7;border-color:#a855f7;color:white;}
+.pw-ov-trial.selected{outline:3px solid #a855f7;outline-offset:2px;box-shadow:0 0 0 6px rgba(168,85,247,0.15), 0 4px 14px rgba(168,85,247,0.35) !important;}
+.pw-ov-trial.selected .pw-ov-trial-mech{background:rgba(255,255,255,0.85);}
+
+/* Missing trials also can be selected (grey) */
+.pw-ov-trial.missing .pw-ov-trial-checkbox{display:none;}
+
+/* ============= 🔀 Compare FAB (floating action button) ============= */
+.pw-compare-fab{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#a855f7,#7c3aed);color:white;padding:12px 18px;border-radius:100px;box-shadow:0 8px 28px rgba(124,58,237,0.5);font-size:14px;font-weight:800;display:none;gap:12px;align-items:center;z-index:900;font-family:inherit;}
+.pw-compare-fab.show{display:flex;animation:fabIn .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes fabIn{from{transform:translateX(-50%) translateY(20px);opacity:0;}to{transform:translateX(-50%) translateY(0);opacity:1;}}
+.pw-compare-fab-count{background:rgba(255,255,255,0.28);padding:3px 10px;border-radius:100px;font-size:13px;font-weight:900;font-family:"JetBrains Mono",monospace;}
+.pw-compare-fab-clear{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;padding:6px 12px;border-radius:100px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;}
+.pw-compare-fab-clear:hover{background:rgba(255,255,255,0.32);}
+.pw-compare-fab-btn{background:white;color:#7c3aed;border:none;padding:8px 16px;border-radius:100px;font-size:12.5px;font-weight:900;cursor:pointer;font-family:inherit;transition:all .15s;}
+.pw-compare-fab-btn:disabled{opacity:.5;cursor:not-allowed;}
+.pw-compare-fab-btn:hover:not(:disabled){background:#f5f3ff;transform:scale(1.05);}
+@media(max-width:640px){
+  .pw-compare-fab{bottom:18px;padding:10px 14px;font-size:12.5px;gap:9px;}
+  .pw-compare-fab-clear{padding:5px 10px;font-size:10.5px;}
+  .pw-compare-fab-btn{padding:7px 12px;font-size:11.5px;}
+}
+
+/* ============= 🔀 Compare Modal ============= */
+.compare-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.9);z-index:700;backdrop-filter:blur(8px);align-items:flex-start;justify-content:center;padding:20px 12px;overflow-y:auto;}
+.compare-bg.open{display:flex;}
+.compare-content{background:white;border-radius:20px;max-width:1500px;width:100%;padding:26px;position:relative;box-shadow:0 24px 80px rgba(0,0,0,0.4);margin:auto;}
+.compare-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1.5px solid #e2e8f0;background:white;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#475569;z-index:5;}
+.compare-close:hover{background:#1a202c;color:white;}
+.compare-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-right:44px;}
+.compare-icon{width:48px;height:48px;background:linear-gradient(135deg,#a855f7,#7c3aed);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;color:white;box-shadow:0 3px 12px rgba(168,85,247,0.4);}
+.compare-title{font-size:19px;font-weight:900;color:#1a202c;}
+.compare-subtitle{font-size:12.5px;color:#64748b;margin-top:2px;font-family:"JetBrains Mono",monospace;}
+.compare-body{overflow-x:auto;}
+.compare-grid{display:grid;gap:14px;}
+.compare-col{background:linear-gradient(135deg,#faf5ff,#f5f3ff);border:2px solid #d8b4fe;border-radius:14px;padding:14px;min-width:260px;position:relative;}
+.compare-col-missing{background:#f8fafc;border-color:#e2e8f0;}
+.compare-remove{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:white;border:1.5px solid #cbd5e1;cursor:pointer;font-size:12px;font-weight:900;color:#64748b;display:flex;align-items:center;justify-content:center;z-index:2;}
+.compare-remove:hover{background:#fef2f2;border-color:#dc2626;color:#dc2626;}
+.compare-col-header{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;padding:12px 14px;border-radius:11px;margin-bottom:14px;padding-right:36px;}
+.compare-col-title{font-size:14.5px;font-weight:900;line-height:1.35;margin-bottom:8px;}
+.compare-col-meta{display:flex;gap:5px;flex-wrap:wrap;}
+.compare-col-pill{padding:2px 9px;background:rgba(255,255,255,0.25);border-radius:100px;font-size:10.5px;font-family:"JetBrains Mono",monospace;font-weight:700;}
+.compare-section{margin-bottom:12px;background:white;padding:10px 12px;border-radius:10px;border:1px solid #e2e8f0;}
+.compare-section-label{font-size:10px;font-weight:900;color:#7c3aed;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-family:"JetBrains Mono",monospace;}
+.compare-section-content{font-size:12.5px;line-height:1.7;color:#334155;}
+.compare-section-content.result{background:#fffbeb;border-left:3px solid #f59e0b;padding:8px 10px;border-radius:8px;font-weight:600;color:#78350f;}
+.compare-section-content.mono{font-family:"JetBrains Mono",monospace;font-size:11px;}
+.compare-section-content.pre{white-space:pre-wrap;background:#f8fafc;padding:8px 10px;border-radius:8px;border-left:3px solid #64748b;color:#334155;max-height:180px;overflow-y:auto;}
+.compare-mech-badge{display:inline-block;background:linear-gradient(135deg,#a855f7,#7c3aed);color:white;padding:6px 14px;border-radius:100px;font-size:12.5px;font-weight:800;font-family:"JetBrains Mono",monospace;letter-spacing:.02em;box-shadow:0 2px 8px rgba(168,85,247,0.3);}
+@media(max-width:768px){
+  .compare-grid{grid-template-columns:1fr !important;}
+  .compare-content{padding:18px;}
+  .compare-title{font-size:16px;}
+}
+
 /* Mobile: stack everything vertically */
 @media(max-width:768px){
   .pw-ov-header-row{grid-template-columns:1fr;gap:8px;}
@@ -3159,6 +3228,28 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <div style="padding:24px;text-align:center;color:#94a3b8;font-size:13px;">載入中…</div>
     </div>
   </section>
+</div>
+
+<!-- ===== 🔀 Compare Modal (試驗並排比較) ===== -->
+<div class="compare-bg" id="compareModal" onclick="if(event.target.id==='compareModal')closeCompareModal()">
+  <div class="compare-content">
+    <button class="compare-close" onclick="closeCompareModal()">✕</button>
+    <div class="compare-header">
+      <div class="compare-icon">🔀</div>
+      <div>
+        <div class="compare-title">試驗並排比較</div>
+        <div class="compare-subtitle" id="compareSubtitle">Side-by-Side Comparison</div>
+      </div>
+    </div>
+    <div class="compare-body" id="compareBody"></div>
+  </div>
+</div>
+
+<!-- ===== 🔀 Compare FAB (floating action button) ===== -->
+<div class="pw-compare-fab" id="pwCompareFab">
+  <span>已選 <span class="pw-compare-fab-count" id="pwCompareFabCount">0</span> 個</span>
+  <button class="pw-compare-fab-clear" onclick="pwClearCompare()">清空</button>
+  <button class="pw-compare-fab-btn" id="pwCompareFabBtn" onclick="pwOpenCompare()">🔀 開始比較</button>
 </div>
 
 <!-- ===== 📸 試驗速記 Modal ===== -->
@@ -9444,6 +9535,148 @@ function markAllChecklist(checked){
 // 每個 stage 為一 row, 內含 primary + recurrent 兩欄 (若無則空欄)
 // 用試驗名字串比對現有 TRIALS 陣列 (若找不到會顯示為灰色標籤)
 // ============================================================
+// ============================================================
+// 🎯 TRIAL_MECHANISMS — 治療策略速覽標籤
+// 顯示在每個試驗方塊下方 (讓使用者一眼看出試驗的策略類型)
+// ============================================================
+const TRIAL_MECHANISMS = {
+  // === CC ===
+  "LACC Trial": "MIS vs 開腹手術",
+  "SHAPE Trial": "Simple vs Radical",
+  "KEYNOTE-A18": "CCRT + IO",
+  "INTERLACE": "NAC → CCRT",
+  "CALLA": "CCRT + IO ❌",
+  "OUTBACK": "CCRT + 輔助化療 ❌",
+  "NACI Study": "NAC + IO → 手術",
+  "NATIC Trial": "NAC + IO → 手術",
+  "Cadonilimab + NACT": "NAC + 雙特異性 IO",
+  "KEYNOTE-826": "化療 + IO ± Bev",
+  "BEATcc": "化療 + IO + Bev",
+  "GOG-240": "化療 + Bev (經典)",
+  "EMPOWER-Cervical 1": "IO 單藥 (二線)",
+  "innovaTV 301": "TF-ADC (三線)",
+  "innovaTV 205": "TF-ADC + 化療 (1L)",
+  "KEYNOTE-158": "IO Basket (dMMR)",
+  "PVX4": "HPV 疫苗探索",
+  "KEYNOTE-C93": "IO 探索",
+  "KEYNOTE-B96": "IO+化療+Bev 探索",
+  "TroFuse-036": "TROP2-ADC + IO",
+  "eVOLVE-Cervical": "雙特異性 IO 維持",
+
+  // === EC ===
+  "PORTEC-1": "EBRT vs 觀察",
+  "PORTEC-2": "VBT vs EBRT",
+  "PORTEC-3": "chemoRT vs RT alone",
+  "GOG-258 / NRG-GOG-258": "chemoRT vs chemo alone",
+  "PORTEC-4a": "分子整合風險導航",
+  "RAINBO Program": "分子分型 4 桶",
+  "KEYNOTE-B21": "輔助 IO + 化療 ❌",
+  "NRG-GY018 / KEYNOTE-868": "化療 + IO",
+  "RUBY Part 1": "化療 + IO (含肉瘤)",
+  "AtTEnd": "化療 + IO",
+  "DUO-E": "化療 + IO ± PARPi 三臂",
+  "DUO-E (Maintenance Arms)": "IO ± PARPi 維持",
+  "SIENDO": "XPO1i 維持 (TP53wt)",
+  "UTOLA": "PARPi 維持",
+  "TroFuse-033": "TROP2-ADC + IO 維持",
+  "RUBY Part 2": "化療 + IO + PARPi",
+  "KEYNOTE-775 / Study 309": "TKI + IO",
+  "GARNET": "IO 單藥 (dMMR)",
+  "ASCENT-GYN-01": "TROP2-ADC 後線",
+  "DESTINY-PanTumor02 (EC cohort)": "HER2-ADC (T-DXd)",
+  "BLUESTAR": "B7-H4 ADC",
+  "TROPiCS-03 (EC cohort)": "TROP2-ADC",
+  "KEYLYNK-007": "IO + PARPi 維持",
+
+  // === OC — Primary ===
+  "EORTC 55971": "PDS vs NACT (經典)",
+  "CHORUS": "PDS vs NACT (UK)",
+  "TRUST": "PDS vs NACT (高品質)",
+  "EORTC + CHORUS Pooled": "PDS/NACT 綜合",
+  "SCORPION": "PDS vs NACT (Fagotti)",
+  "JCOG0602": "PDS vs NACT (日本)",
+  "van Driel HIPEC": "IDS + HIPEC",
+  "GOG-0218": "化療 + Bev + 維持",
+  "ICON7": "化療 + Bev (低劑量)",
+  "BOOST / ENGOT-ov15": "Bev 15m vs 30m",
+  "GOG-172": "IP Cis/Pacli 經典",
+  "GOG-114": "IP Cis + IV Pacli",
+  "SWOG-8501 / GOG-104": "IP vs IV Cis",
+  "JGOG 3016": "劑量密集 Pacli",
+  "GOG-262": "每週 Pacli ± Bev",
+  "ICON8": "標準 vs 每週",
+  "MITO-7": "每週低劑量",
+  "LION": "LN 清掃 vs 不清掃",
+  "OV21 / PETROC": "IP Carbo vs IV",
+  "GOG-252": "IP vs IV + Bev",
+  "SOLO-1": "PARPi 維持 (BRCAm)",
+  "PAOLA-1": "PARPi + Bev 維持",
+  "PRIMA": "PARPi 全人群維持",
+  "DUO-O": "IO + PARPi + Bev 三藥",
+  "ATHENA-MONO": "PARPi 維持",
+  "OVARIO": "PARPi + Bev 探索",
+
+  // === OC — Recurrent ===
+  "DESKTOP III": "二次減積手術",
+  "OCEANS": "Bev + 化療 (PSOC)",
+  "GOG-0213": "Bev + 化療 OS+",
+  "Study 19": "PARPi 維持 (PSROC 開山)",
+  "CALYPSO": "Carbo + PLD",
+  "MITO16B": "Bev 跨線 (PSOC)",
+  "MIRASOL": "FRα-ADC",
+  "AURELIA": "Bev + 化療 (PROC)",
+  "FRAmework-01": "FRα-ADC + Bev",
+  "REJOICE-Ovarian01": "CDH6-ADC",
+  "ROSELLA": "後線探索",
+  "NOVA": "PARPi 復發維持",
+  "ARIEL3": "PARPi + LOH",
+  "SOLO2": "PARPi OS+ (BRCAm)",
+  "L-MOCA": "PARPi (亞洲)",
+  "NORA": "PARPi (亞洲)",
+  "OPINION": "PARPi non-BRCAm",
+  "NINJA": "IO 探索",
+  "GOG-281 / LOGS": "MEKi (LGSOC)",
+  "RAMP-201": "MEK + FAKi (LGSOC)",
+  "GOG-3026": "CDK4/6 + AI",
+  "MILO / ENGOT-ov11": "MEKi ❌",
+  "NRG-GY019": "AI vs 化療 (LGSOC)",
+  "JGOG3017 / GCIG": "Iri+Cis vs TC (OCCC)",
+  "MoST-CIRCUIT": "IO 雙阻斷 (OCCC)",
+  "ATARI": "ATRi+PARPi (ARID1A)",
+  "DOVE": "IO + Bev (OCCC)",
+  "GOG-254": "Sunitinib (OCCC)",
+  "BrUOG 354": "Nivo vs Nivo+Ipi",
+  "Temsirolimus + TC": "mTORi 維持",
+  "mEOC / GOG-0241": "GI-style 化療",
+  "mFOLFIRINOX + Bev": "GI 化療 + Bev",
+  "DESTINY-Ovarian01": "HER2-ADC 維持",
+  "TroFuse-021": "TROP2-ADC ± Bev (HRD-)",
+  "TroFuse-022": "TROP2-ADC ± Bev (PSOC)",
+
+  // === US ===
+  "LMS-04": "Dox + Trab (一線)",
+  "GOG-0277": "Gem/Doce 輔助",
+  "EORTC 62012": "Dox + Ifo",
+  "GeDDiS": "Gem/Doce vs Dox",
+  "NRG/GOG-0261": "PC vs Pacli/Ifo",
+  "GOG-161": "Pacli + Ifo (UCS)",
+  "GOG-150": "AP 化療 vs WAI",
+  "GOG-108": "Ifo vs Cis",
+  "EORTC 55874": "術後 RT 輔助",
+  "NCT07076186 (Adjuvant Doxo+Trab)": "術後 Dox+Trab",
+  "ET743-SAR-3007": "Trabectedin 救援",
+  "PALETTE": "Pazopanib (TKI)",
+  "REGOSARC": "Regorafenib (TKI)",
+  "Eribulin vs Dacarbazine": "Eribulin (LMS/LPS)",
+  "Olaparib + Temozolomide": "PARPi + TMZ 合成致死",
+  "NTRK Basket Trials": "TRKi (跨癌別)",
+  "PARAGON": "AI (LG-ESS)",
+  "Letrozole (NCT05649956)": "Letrozole 長期維持",
+};
+
+// Compare state for pathway overview
+let compareState = { selected: new Set() };
+
 const PATHWAY_OVERVIEW = {
   EC: {
     name: "🔴 子宮內膜癌 (Endometrial Cancer)",
@@ -11152,12 +11385,14 @@ function openPathway(){
   el('pathwayModal').classList.add('open');
   document.body.style.overflow = 'hidden';
   switchPathwayTab(currentPathwayCancer);
+  if(typeof updateCompareFab === 'function') setTimeout(updateCompareFab, 50);
 }
 
 function closePathway(){
   el('pathwayModal').classList.remove('open');
   document.body.style.overflow = '';
   currentPathwayNode = null;
+  if(typeof updateCompareFab === 'function') updateCompareFab();
   setTimeout(() => tryRestoreNav(), 50);
 }
 
@@ -11168,6 +11403,7 @@ function switchPathwayTab(cancer){
     b.classList.toggle('active', b.dataset.cancer === cancer);
   });
   renderPathway();
+  if(typeof updateCompareFab === 'function') setTimeout(updateCompareFab, 30);
 }
 
 function renderPathway(){
@@ -11304,6 +11540,10 @@ function renderPathwayOverview(cancer){
     const cls = ['pw-ov-trial'];
     if(isRecurrent) cls.push('recurrent');
 
+    // Lookup mechanism label
+    const mech = TRIAL_MECHANISMS[name] || (t && (TRIAL_MECHANISMS[t.name] || TRIAL_MECHANISMS[t.fullName])) || '';
+    const mechHtml = mech ? `<span class="pw-ov-trial-mech">${escapeHtml(mech)}</span>` : '';
+
     if(t){
       // Star: NCCN Cat 1 / 標竿試驗
       const starList = ['SOLO-1','PAOLA-1','PRIMA','SOLO2','NRG-GY018 / KEYNOTE-868','RUBY Part 1','KEYNOTE-826','BEATcc','MIRASOL','GOG-172','GOG-0218','DUO-E','KEYNOTE-A18','INTERLACE','SHAPE Trial','LACC Trial','LMS-04','NRG/GOG-0261','PORTEC-3','DESKTOP III','EORTC 55971','KEYNOTE-775 / Study 309','innovaTV 301','EMPOWER-Cervical 1','PARAGON','GOG-258 / NRG-GOG-258','DUO-O','ATHENA-MONO'];
@@ -11311,11 +11551,22 @@ function renderPathwayOverview(cancer){
       if(isStar) cls.push('starred');
       if(t._captured || t.t === 'n') cls.push('newly-added');
       const trialId = t.id || t.n || t.name || name;
-      return `<button class="${cls.join(' ')}" onclick="openTrialDetail('${escapeJsAttr(trialId)}')" title="${escapeHtml(t.name || t.n || name)}">${escapeHtml(t.name || t.n || name)}</button>`;
+      const isSelected = compareState.selected.has(trialId);
+      if(isSelected) cls.push('selected');
+      const displayName = t.name || t.n || name;
+      const checkboxHtml = `<span class="pw-ov-trial-checkbox ${isSelected?'selected':''}" onclick="event.stopPropagation();pwToggleTrialSelection('${escapeJsAttr(trialId)}')" title="加入比較">${isSelected?'✓':''}</span>`;
+      return `<button class="${cls.join(' ')}" data-trial-id="${escapeJsAttr(trialId)}" onclick="openTrialDetail('${escapeJsAttr(trialId)}')" title="${escapeHtml(displayName)} · ${escapeHtml(mech)}">
+        ${checkboxHtml}
+        <span class="pw-ov-trial-name">${escapeHtml(displayName)}</span>
+        ${mechHtml}
+      </button>`;
     }
     // Not found - grey missing box
     cls.push('missing');
-    return `<div class="${cls.join(' ')}" title="尚未整合至資料庫: ${escapeHtml(name)}">${escapeHtml(name)}</div>`;
+    return `<div class="${cls.join(' ')}" title="尚未整合至資料庫: ${escapeHtml(name)}">
+      <span class="pw-ov-trial-name">${escapeHtml(name)}</span>
+      ${mechHtml}
+    </div>`;
   };
 
   // ==== Auto-inject captured trials into matching branches ====
@@ -11441,6 +11692,199 @@ function renderPathwayOverview(cancer){
 
   return html;
 }
+
+// ============================================================
+// 🔀 Compare Mode — 多試驗並排比較
+// ============================================================
+function pwToggleTrialSelection(trialId){
+  if(compareState.selected.has(trialId)){
+    compareState.selected.delete(trialId);
+  } else {
+    compareState.selected.add(trialId);
+  }
+  const isSelected = compareState.selected.has(trialId);
+  // Update all matching buttons (same trial may appear in multiple rows)
+  document.querySelectorAll('.pw-ov-trial').forEach(btn => {
+    if(btn.getAttribute('data-trial-id') !== trialId) return;
+    btn.classList.toggle('selected', isSelected);
+    const cb = btn.querySelector('.pw-ov-trial-checkbox');
+    if(cb){
+      cb.classList.toggle('selected', isSelected);
+      cb.textContent = isSelected ? '✓' : '';
+    }
+  });
+  updateCompareFab();
+}
+
+function pwClearCompare(){
+  compareState.selected.clear();
+  document.querySelectorAll('.pw-ov-trial.selected').forEach(btn => {
+    btn.classList.remove('selected');
+    const cb = btn.querySelector('.pw-ov-trial-checkbox');
+    if(cb){
+      cb.classList.remove('selected');
+      cb.textContent = '';
+    }
+  });
+  updateCompareFab();
+}
+
+function updateCompareFab(){
+  const fab = el('pwCompareFab');
+  if(!fab) return;
+  const pathwayOpen = el('pathwayModal') && el('pathwayModal').classList.contains('open');
+  const count = compareState.selected.size;
+  if(count >= 1 && pathwayOpen){
+    fab.classList.add('show');
+    const cnt = el('pwCompareFabCount');
+    if(cnt) cnt.textContent = count;
+    const btn = el('pwCompareFabBtn');
+    if(btn) btn.disabled = count < 2;
+  } else {
+    fab.classList.remove('show');
+  }
+}
+
+function pwOpenCompare(){
+  if(compareState.selected.size < 2){
+    alert('請至少選擇 2 個試驗來比較');
+    return;
+  }
+  renderCompareModal();
+  const modal = el('compareModal');
+  if(modal){
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeCompareModal(){
+  const modal = el('compareModal');
+  if(!modal) return;
+  modal.classList.remove('open');
+  // Restore body scroll only if no other modal is open
+  const pathwayOpen = el('pathwayModal') && el('pathwayModal').classList.contains('open');
+  if(!pathwayOpen) document.body.style.overflow = '';
+}
+
+function renderCompareModal(){
+  const trialIds = Array.from(compareState.selected);
+  const captured = getCapturedTrials();
+  const normalize = (s) => String(s || '').replace(/\s*\([^)]*\)\s*/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+
+  const trials = trialIds.map(id => {
+    let t = TRIALS.find(x => x.id === id || x.name === id || x.fullName === id);
+    if(!t){
+      const idNorm = normalize(id);
+      t = TRIALS.find(x => normalize(x.name) === idNorm || normalize(x.fullName) === idNorm);
+    }
+    if(!t){
+      t = captured.find(x => x._id === id || x.n === id || x.name === id);
+    }
+    return {id, t};
+  });
+
+  const subtitle = el('compareSubtitle');
+  if(subtitle) subtitle.textContent = `並排比較 ${trials.length} 個試驗`;
+
+  const found = trials.filter(x => x.t);
+  if(found.length === 0){
+    el('compareBody').innerHTML = '<p style="text-align:center;padding:40px;color:#94a3b8;">找不到選擇的試驗</p>';
+    return;
+  }
+
+  const cols = trials.map(({id, t}) => {
+    if(!t){
+      return `<div class="compare-col compare-col-missing">
+        <div class="compare-col-header" style="background:linear-gradient(135deg,#94a3b8,#64748b);">
+          <div class="compare-col-title">${escapeHtml(id)}</div>
+        </div>
+        <p style="text-align:center;color:#94a3b8;padding:20px;">試驗資料尚未整合</p>
+        <button class="compare-remove" onclick="pwToggleTrialSelection('${escapeJsAttr(id)}');renderCompareModal();">✕ 移除</button>
+      </div>`;
+    }
+
+    const name = t.name || t.n || '(未命名)';
+    const drug = t.drug || t.d || '-';
+    const pharma = t.pharma || t.ph || '-';
+    const mech = TRIAL_MECHANISMS[name] || TRIAL_MECHANISMS[t.name] || TRIAL_MECHANISMS[t.fullName] || '-';
+    const phaseArr = t.phase || (t.p ? (Array.isArray(t.p) ? t.p : [t.p]) : []);
+    const phase = Array.isArray(phaseArr) ? phaseArr.join(', ') : String(phaseArr);
+    const status = t.status || t.t || '-';
+    const statusLabel = status === 'p' ? '📚 已發表' : status === 'o' ? '📍 進行中' : status === 'n' ? '🆕 新捕獲' : status === 'ongoing' ? '📍 進行中' : status === 'published' ? '📚 已發表' : status;
+    const pop = t.tagline || t.pop || '-';
+    const rat = t.rationale || t.rat || '';
+    const reg = t.regimen || t.reg || '-';
+    const out = t.outcomes || t.out || '';
+    const inc = t.inc || [];
+    const cancerLabel = ({'EC':'🔴 EC','OC':'🟣 OC','CC':'🟠 CC','US':'🔵 US','Endometrial':'🔴 EC','Ovarian':'🟣 OC','Cervical':'🟠 CC','Uterine Sarcoma':'🔵 US'}[t.cancer || t.c]) || (t.cancer || t.c || '-');
+    const trialId = t.id || t.n || t.name || id;
+
+    return `<div class="compare-col">
+      <button class="compare-remove" onclick="pwToggleTrialSelection('${escapeJsAttr(trialId)}');renderCompareModal();updateCompareFab();" title="從比較中移除">✕</button>
+
+      <div class="compare-col-header">
+        <div class="compare-col-title">${escapeHtml(name)}</div>
+        <div class="compare-col-meta">
+          <span class="compare-col-pill">${escapeHtml(drug)}</span>
+          <span class="compare-col-pill">${escapeHtml(pharma)}</span>
+        </div>
+        <div class="compare-col-meta" style="margin-top:5px;">
+          <span class="compare-col-pill">${escapeHtml(cancerLabel)}</span>
+          <span class="compare-col-pill">${escapeHtml(phase)}</span>
+          <span class="compare-col-pill">${escapeHtml(statusLabel)}</span>
+        </div>
+      </div>
+
+      <div class="compare-section">
+        <div class="compare-section-label">🎯 治療策略</div>
+        <div class="compare-mech-badge">${escapeHtml(mech)}</div>
+      </div>
+
+      <div class="compare-section">
+        <div class="compare-section-label">📊 核心結論</div>
+        <div class="compare-section-content result">${escapeHtml(pop)}</div>
+      </div>
+
+      ${out ? `<div class="compare-section">
+        <div class="compare-section-label">🎯 主要終點</div>
+        <div class="compare-section-content mono">${escapeHtml(out)}</div>
+      </div>` : ''}
+
+      <div class="compare-section">
+        <div class="compare-section-label">💊 給藥方案</div>
+        <div class="compare-section-content mono pre">${escapeHtml(reg)}</div>
+      </div>
+
+      ${rat ? `<div class="compare-section">
+        <div class="compare-section-label">🧬 科學理據</div>
+        <div class="compare-section-content">${escapeHtml(rat)}</div>
+      </div>` : ''}
+
+      ${inc.length ? `<div class="compare-section">
+        <div class="compare-section-label">✅ 納入標準 (前 4 項)</div>
+        <div class="compare-section-content">
+          <ul style="padding-left:16px;margin:0;">${inc.slice(0,4).map(i => `<li style="font-size:11.5px;margin-bottom:3px;">${escapeHtml(i)}</li>`).join('')}</ul>
+        </div>
+      </div>` : ''}
+    </div>`;
+  }).join('');
+
+  // Grid style based on # of trials
+  const colCount = trials.length;
+  let gridStyle;
+  if(colCount === 2){
+    gridStyle = 'grid-template-columns: 1fr 1fr;';
+  } else if(colCount === 3){
+    gridStyle = 'grid-template-columns: 1fr 1fr 1fr;';
+  } else {
+    gridStyle = 'grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));';
+  }
+
+  el('compareBody').innerHTML = `<div class="compare-grid" style="${gridStyle}">${cols}</div>`;
+}
+
+// ============================================================
 
 // Helper: escape JS attribute value safely
 function escapeJsAttr(s){
