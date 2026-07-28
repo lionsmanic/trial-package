@@ -40,41 +40,54 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .header-btn-capture{background:linear-gradient(135deg,#a855f7,#7c3aed);border-color:transparent;color:white;font-weight:800;box-shadow:0 2px 8px rgba(168,85,247,0.3);}
 
 /* ============= 🖼 Pathway Overview (照片風格 primary/recurrent 分欄) ============= */
-.pw-overview-wrap{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:16px;padding:20px;margin-bottom:20px;border:2px solid #d8b4fe;}
-.pw-overview-title{font-size:14px;font-weight:900;color:#5b21b6;margin-bottom:14px;letter-spacing:.03em;display:flex;align-items:center;gap:8px;}
-.pw-overview-toggle{background:white;border:1.5px solid #a855f7;color:#7c3aed;font-size:11px;font-weight:800;padding:5px 12px;border-radius:100px;cursor:pointer;margin-left:auto;}
-.pw-overview-toggle:hover{background:#f3e8ff;}
-.pw-overview-flow{overflow-x:auto;padding-bottom:6px;}
-.pw-overview-canvas{display:flex;gap:14px;min-width:800px;align-items:flex-start;}
-.pw-ov-layer{display:flex;flex-direction:column;gap:14px;}
-.pw-ov-layer.cancer-col{flex:0 0 130px;justify-content:center;padding-top:70px;}
-.pw-ov-layer.stage-col{flex:0 0 160px;justify-content:space-around;}
-.pw-ov-layer.header-col{flex:0 0 auto;}
-.pw-ov-cancer{background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:white;font-size:14px;font-weight:900;padding:20px 12px;border-radius:14px;text-align:center;box-shadow:0 4px 14px rgba(59,130,246,0.3);line-height:1.35;}
-.pw-ov-stage{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;font-size:13px;font-weight:800;padding:14px 10px;border-radius:12px;text-align:center;line-height:1.35;min-height:52px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(124,58,237,0.3);}
-.pw-ov-col-title{font-size:13px;font-weight:900;color:white;background:linear-gradient(135deg,#d97706,#b45309);padding:9px 18px;border-radius:11px;text-align:center;margin-bottom:11px;box-shadow:0 3px 10px rgba(217,119,6,0.3);}
-.pw-ov-col-title.recurrent{background:linear-gradient(135deg,#dc2626,#991b1b);box-shadow:0 3px 10px rgba(220,38,38,0.3);}
-.pw-ov-col{display:flex;flex-direction:column;gap:12px;}
-.pw-ov-branch{padding:10px 0;}
-.pw-ov-branch-label{font-size:10.5px;color:#7c3aed;font-weight:800;margin-bottom:4px;padding-left:2px;font-family:"JetBrains Mono",monospace;}
-.pw-ov-trials{display:flex;flex-direction:column;gap:6px;}
-.pw-ov-trial{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;font-size:11.5px;font-weight:800;padding:9px 12px;border-radius:10px;text-align:center;cursor:pointer;transition:all .16s;box-shadow:0 2px 8px rgba(245,158,11,0.2);position:relative;line-height:1.35;border:2px solid transparent;}
+.pw-overview-wrap{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:16px;padding:18px;margin-bottom:18px;border:2px solid #d8b4fe;}
+.pw-overview-title{font-size:13.5px;font-weight:900;color:#5b21b6;margin-bottom:12px;letter-spacing:.03em;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.pw-overview-title small{font-size:10.5px;font-weight:700;color:#7c3aed;font-family:"JetBrains Mono",monospace;}
+
+/* Header row: stage(fixed) | Primary title | Recurrent title */
+.pw-ov-header-row{display:grid;grid-template-columns:130px 1fr 1fr;gap:12px;margin-bottom:10px;align-items:center;}
+.pw-ov-cancer-cell{background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:white;font-size:13px;font-weight:900;padding:12px 10px;border-radius:12px;text-align:center;box-shadow:0 4px 12px rgba(59,130,246,0.3);line-height:1.35;}
+.pw-ov-col-title{font-size:13px;font-weight:900;color:white;padding:10px 16px;border-radius:11px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.15);}
+.pw-ov-col-title.primary{background:linear-gradient(135deg,#d97706,#b45309);}
+.pw-ov-col-title.recurrent{background:linear-gradient(135deg,#dc2626,#991b1b);}
+
+/* Each stage row */
+.pw-ov-stage-row{display:grid;grid-template-columns:130px 1fr 1fr;gap:12px;margin-bottom:12px;align-items:stretch;}
+.pw-ov-stage-cell{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;font-size:12.5px;font-weight:800;padding:12px 8px;border-radius:11px;text-align:center;line-height:1.35;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(124,58,237,0.3);min-height:56px;}
+.pw-ov-trials-cell{display:flex;flex-direction:column;gap:6px;min-height:56px;}
+.pw-ov-trials-cell.empty{background:#faf5ff;border:1.5px dashed #d8b4fe;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:11px;font-style:italic;}
+
+.pw-ov-trial{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;font-size:12px;font-weight:800;padding:9px 12px;border-radius:10px;text-align:center;cursor:pointer;transition:all .16s;box-shadow:0 2px 8px rgba(245,158,11,0.2);position:relative;line-height:1.35;border:2px solid transparent;font-family:inherit;width:100%;}
 .pw-ov-trial:hover{transform:translateX(2px) scale(1.02);box-shadow:0 4px 14px rgba(245,158,11,0.35);border-color:#f59e0b;}
 .pw-ov-trial.recurrent{background:linear-gradient(135deg,#fee2e2,#fecaca);color:#991b1b;box-shadow:0 2px 8px rgba(220,38,38,0.15);}
 .pw-ov-trial.recurrent:hover{box-shadow:0 4px 14px rgba(220,38,38,0.3);border-color:#dc2626;}
-.pw-ov-trial.starred::before{content:"⭐";position:absolute;left:-5px;top:-7px;font-size:15px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.2));}
+.pw-ov-trial.starred::before{content:"⭐";position:absolute;left:-5px;top:-7px;font-size:15px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.2));z-index:2;}
 .pw-ov-trial.newly-added{background:linear-gradient(135deg,#f5f3ff,#ede9fe);color:#6d28d9;border-color:#a855f7;}
-.pw-ov-trial.newly-added::after{content:"🆕";position:absolute;right:-4px;top:-6px;font-size:12px;}
-.pw-ov-empty{color:#94a3b8;font-size:11px;text-align:center;padding:12px;font-style:italic;}
-.pw-detailed-toggle{background:white;border:2px solid #a855f7;color:#7c3aed;font-size:13px;font-weight:800;padding:10px 22px;border-radius:11px;cursor:pointer;margin-bottom:16px;display:block;width:auto;margin-left:auto;margin-right:auto;}
+.pw-ov-trial.newly-added::after{content:"🆕";position:absolute;right:-4px;top:-6px;font-size:12px;z-index:2;}
+.pw-ov-trial.missing{opacity:.5;cursor:default;background:#f1f5f9;color:#64748b;}
+.pw-ov-trial.missing:hover{transform:none;box-shadow:0 2px 8px rgba(100,116,139,0.1);border-color:transparent;}
+.pw-ov-empty{color:#a78bfa;font-size:11px;text-align:center;padding:8px;font-style:italic;}
+
+.pw-detailed-toggle{background:white;border:2px solid #a855f7;color:#7c3aed;font-size:13px;font-weight:800;padding:10px 22px;border-radius:11px;cursor:pointer;margin-bottom:16px;display:block;width:auto;margin-left:auto;margin-right:auto;font-family:inherit;}
 .pw-detailed-toggle:hover{background:#f5f3ff;}
 .pw-detailed-wrap{display:none;}
 .pw-detailed-wrap.open{display:block;}
 
-@media(max-width:640px){
-  .pw-overview-canvas{min-width:auto;flex-direction:column;}
-  .pw-ov-layer{flex:none !important;padding-top:0 !important;}
-  .pw-ov-cancer{padding:14px 12px;font-size:13px;}
+/* Mobile: stack everything vertically */
+@media(max-width:768px){
+  .pw-ov-header-row{grid-template-columns:1fr;gap:8px;}
+  .pw-ov-cancer-cell{padding:14px;font-size:14px;}
+  .pw-ov-stage-row{grid-template-columns:1fr;gap:6px;padding:10px;background:white;border-radius:12px;box-shadow:0 2px 8px rgba(124,58,237,0.1);border:1.5px solid #e9d5ff;}
+  .pw-ov-stage-cell{min-height:auto;padding:10px;font-size:13px;}
+  .pw-ov-trials-cell{min-height:auto;}
+  .pw-ov-trials-cell::before{display:block;font-size:10.5px;font-weight:800;color:#7c3aed;padding:4px 6px;letter-spacing:.05em;text-transform:uppercase;font-family:"JetBrains Mono",monospace;margin-bottom:2px;}
+  .pw-ov-trials-cell.primary-cell::before{content:"⬇️ Primary Treatment";}
+  .pw-ov-trials-cell.recurrent-cell::before{content:"⬇️ Recurrent Treatment";}
+  .pw-ov-trials-cell.empty{padding:14px;}
+}
+@media(max-width:480px){
+  .pw-overview-wrap{padding:12px;}
+  .pw-ov-trial{font-size:11.5px;padding:8px 10px;}
 }
 
 /* ============= 📸 試驗速記 Modal ============= */
@@ -9426,48 +9439,55 @@ function markAllChecklist(checked){
 
 // ============================================================
 // 🖼 PATHWAY OVERVIEW (照片風格 primary/recurrent 扁平化總覽)
-// 用試驗名字串比對現有 TRIALS 陣列 (若找不到會忽略)
+// 每個 stage 為一 row, 內含 primary + recurrent 兩欄 (若無則空欄)
+// 用試驗名字串比對現有 TRIALS 陣列 (若找不到會顯示為灰色標籤)
 // ============================================================
 const PATHWAY_OVERVIEW = {
   EC: {
     name: "🔴 子宮內膜癌 (Endometrial Cancer)",
     branches: [
+      // Primary + Recurrent 對應排列
       {stage: "Adjuvant 高風險", column: "primary", trials: ["PORTEC-3", "GOG-258", "PORTEC-4a", "RAINBO Program"]},
-      {stage: "Advanced 1L (dMMR)", column: "primary", trials: ["NRG-GY018", "RUBY (Part 1)", "AtTEnd"]},
-      {stage: "Advanced 1L (pMMR)", column: "primary", trials: ["NRG-GY018", "RUBY (Part 1)", "DUO-E", "AtTEnd"]},
-      {stage: "1L Maintenance", column: "primary", trials: ["DUO-E Maint", "SIENDO", "TroFuse-033"]},
-      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-775", "GARNET", "ASCENT-GYN-01", "DESTINY-PanTumor02"]},
+      {stage: "Advanced 1L (dMMR)", column: "primary", trials: ["NRG-GY018 / KEYNOTE-868", "RUBY (Part 1)", "AtTEnd"]},
+      {stage: "Advanced 1L (pMMR)", column: "primary", trials: ["NRG-GY018 / KEYNOTE-868", "RUBY (Part 1)", "DUO-E", "AtTEnd"]},
+      {stage: "1L Maintenance", column: "primary", trials: ["DUO-E Maint", "SIENDO", "UTOLA", "TroFuse-033"]},
+      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-775 / Study 309", "GARNET", "ASCENT-GYN-01", "DESTINY-PanTumor02 (EC cohort)"]},
     ],
   },
   OC: {
     name: "🟣 卵巢癌 (Ovarian Cancer)",
     branches: [
-      {stage: "PDS 直接減積", column: "primary", trials: ["EORTC 55971", "CHORUS", "TRUST"]},
+      {stage: "初次減積 PDS", column: "primary", trials: ["EORTC 55971", "CHORUS", "TRUST"]},
       {stage: "NACT + IDS", column: "primary", trials: ["EORTC 55971", "SCORPION", "JCOG0602", "van Driel HIPEC"]},
-      {stage: "1L Chemo 標準", column: "primary", trials: ["GOG-0218", "ICON7", "GOG-172", "JGOG 3016", "LION"]},
-      {stage: "1L Maintenance", column: "primary", trials: ["SOLO-1", "PAOLA-1", "PRIMA", "DUO-O", "ATHENA-Mono"]},
-      {stage: "PSOC 鉑敏感復發", column: "recurrent", trials: ["DESKTOP III", "OCEANS", "GOG-0213", "Study 19"]},
-      {stage: "PROC 鉑抗復發", column: "recurrent", trials: ["MIRASOL", "AURELIA"]},
-      {stage: "復發維持", column: "recurrent", trials: ["NOVA", "ARIEL3", "SOLO2"]},
+      {stage: "1L Chemo 標準", column: "primary", trials: ["GOG-0218", "ICON7", "BOOST", "GOG-172", "JGOG 3016", "LION"]},
+      {stage: "1L Maint (BRCAm)", column: "primary", trials: ["SOLO-1"]},
+      {stage: "1L Maint (HRD+)", column: "primary", trials: ["PAOLA-1", "DUO-O"]},
+      {stage: "1L Maint (ITT)", column: "primary", trials: ["PRIMA", "ATHENA-Mono", "DUO-O"]},
+      {stage: "PSOC 復發 (鉑敏感)", column: "recurrent", trials: ["DESKTOP III", "OCEANS", "GOG-0213", "Study 19"]},
+      {stage: "PROC 復發 (鉑抗)", column: "recurrent", trials: ["MIRASOL", "AURELIA", "FRAmework-01"]},
+      {stage: "復發維持 (PARPi)", column: "recurrent", trials: ["NOVA", "ARIEL3", "SOLO2"]},
+      {stage: "低惡性度 LGSOC", column: "recurrent", trials: ["GOG-281 / LOGS", "RAMP-201", "GOG-3026"]},
+      {stage: "透明細胞 OCCC", column: "recurrent", trials: ["MoST-CIRCUIT", "ATARI", "DOVE"]},
     ],
   },
   CC: {
     name: "🟠 子宮頸癌 (Cervical Cancer)",
     branches: [
-      {stage: "Early stage 手術", column: "primary", trials: ["LACC Trial", "SHAPE"]},
-      {stage: "Locally advanced (CCRT)", column: "primary", trials: ["INTERLACE", "KEYNOTE-A18", "CALLA"]},
+      {stage: "Early stage 手術", column: "primary", trials: ["LACC Trial", "SHAPE Trial (CCTG CX.5)"]},
+      {stage: "Locally advanced CCRT", column: "primary", trials: ["KEYNOTE-A18 (ENGOT-cx11)", "INTERLACE", "CALLA", "OUTBACK (ANZGOG 0902)"]},
+      {stage: "LACC 新輔助 NIC", column: "primary", trials: ["NACI Study", "NATIC Trial", "Cadonilimab+NACT → Surgery"]},
       {stage: "R/M 一線", column: "primary", trials: ["KEYNOTE-826", "BEATcc", "GOG-240"]},
-      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "EMPOWER-Cervical 1", "innovaTV 301", "GOG-240"]},
+      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "EMPOWER-Cervical 1", "innovaTV 301 (ENGOT-cx12)", "GOG-240"]},
     ],
   },
   US: {
     name: "🔵 子宮肉瘤 (Uterine Sarcoma)",
     branches: [
-      {stage: "LMS 一線", column: "primary", trials: ["LMS-04"]},
-      {stage: "Carcinosarcoma", column: "primary", trials: ["NRG/GOG-0261", "GOG-161"]},
-      {stage: "LG-ESS 激素", column: "primary", trials: ["PARAGON"]},
-      {stage: "LMS 復發", column: "recurrent", trials: ["ET743-SAR-3007", "PALETTE", "REGOSARC", "Eribulin vs Dacarbazine"]},
-      {stage: "NTRK 融合", column: "recurrent", trials: ["NTRK Basket"]},
+      {stage: "LMS 一線 (Leiomyosarcoma)", column: "primary", trials: ["LMS-04 (Phase III)", "GOG-0277", "EORTC 62012", "GeDDiS (Phase III)"]},
+      {stage: "Carcinosarcoma (UCS)", column: "primary", trials: ["NRG/GOG-0261 (Phase III)", "GOG-161 (Phase III)", "GOG-150 (Phase III)"]},
+      {stage: "LG-ESS 激素治療", column: "primary", trials: ["PARAGON (ANZGOG 0903)", "Letrozole (NCT05649956)"]},
+      {stage: "LMS 復發", column: "recurrent", trials: ["ET743-SAR-3007", "PALETTE", "REGOSARC", "Eribulin vs Dacarbazine", "Olaparib + Temozolomide (NCT03880019)"]},
+      {stage: "NTRK 融合 (跨癌別)", column: "recurrent", trials: ["NTRK Basket Trials"]},
     ],
   },
 };
@@ -11236,20 +11256,19 @@ function renderPathway(){
 
 // ============================================================
 // 🖼 Render Pathway Overview (照片風格 primary/recurrent 分欄)
+// 使用「每 stage 一 row」的 grid layout, 手機自動 stack
 // ============================================================
 function renderPathwayOverview(cancer){
   const data = PATHWAY_OVERVIEW[cancer];
   if(!data) return '';
 
-  const primaryBranches = data.branches.filter(b => b.column === 'primary');
-  const recurrentBranches = data.branches.filter(b => b.column === 'recurrent');
-
-  // Build all trials lookup (include captured)
+  // Build lookup: find trial in TRIALS or captured
   const captured = getCapturedTrials();
   const findTrial = (name) => {
-    // exact or partial match in TRIALS
-    let t = TRIALS.find(x => x.name === name || (x.name && x.name.includes(name)) || (x.fullName && x.fullName.includes(name)));
-    if(!t) t = captured.find(x => x.name === name || (x.name && x.name.includes(name)));
+    // Try exact name / fullName / partial in TRIALS
+    let t = TRIALS.find(x => x.name === name);
+    if(!t) t = TRIALS.find(x => (x.fullName && x.fullName.includes(name)) || (x.name && x.name.includes(name)));
+    if(!t) t = captured.find(x => (x.n === name) || (x.name === name) || (x.n && x.n.includes(name)));
     return t;
   };
 
@@ -11257,69 +11276,139 @@ function renderPathwayOverview(cancer){
     const t = findTrial(name);
     const cls = ['pw-ov-trial'];
     if(isRecurrent) cls.push('recurrent');
+
     if(t){
-      const status = (t.status || t.t || '');
-      // starred = key trials with star field OR marked by NCCN cat 1
-      const isStar = t.star === 1 || t.starred || (t.name && ['SOLO-1','PAOLA-1','PRIMA','SOLO2','GY018','NRG-GY018','RUBY (Part 1)','RUBY','KEYNOTE-826','BEATcc','MIRASOL','GOG-172','GOG-0218','DUO-E','KEYNOTE-A18','INTERLACE','SHAPE','LACC Trial','LMS-04','NRG/GOG-0261','PORTEC-3','DESKTOP III','EORTC 55971','KEYNOTE-775','innovaTV 301','EMPOWER-Cervical 1','PARAGON'].includes(t.name));
+      // Star: NCCN Cat 1 / 標竿試驗
+      const starList = ['SOLO-1','PAOLA-1','PRIMA','SOLO2','GY018','NRG-GY018','NRG-GY018 / KEYNOTE-868','RUBY','RUBY (Part 1)','KEYNOTE-826','BEATcc','MIRASOL','GOG-172','GOG-0218','DUO-E','KEYNOTE-A18','KEYNOTE-A18 (ENGOT-cx11)','INTERLACE','SHAPE','SHAPE Trial (CCTG CX.5)','LACC Trial','LMS-04','LMS-04 (Phase III)','NRG/GOG-0261','NRG/GOG-0261 (Phase III)','PORTEC-3','DESKTOP III','EORTC 55971','KEYNOTE-775','KEYNOTE-775 / Study 309','innovaTV 301','innovaTV 301 (ENGOT-cx12)','EMPOWER-Cervical 1','PARAGON','PARAGON (ANZGOG 0903)','GOG-258'];
+      const isStar = t.star === 1 || t.starred || starList.includes(t.name) || starList.includes(name);
       if(isStar) cls.push('starred');
       if(t._captured || t.t === 'n') cls.push('newly-added');
-      const trialId = t.id || t.n || t.name;
-      return `<button class="${cls.join(' ')}" onclick="openTrialDetail('${escapeJsAttr(trialId)}')" title="${escapeHtml(t.name || name)}">${escapeHtml(t.name || name)}</button>`;
+      const trialId = t.id || t.n || t.name || name;
+      return `<button class="${cls.join(' ')}" onclick="openTrialDetail('${escapeJsAttr(trialId)}')" title="${escapeHtml(t.name || t.n || name)}">${escapeHtml(t.name || t.n || name)}</button>`;
     }
-    // Not found in TRIALS - grey box
-    cls.push('recurrent'); // grey style
-    return `<div class="${cls.join(' ')}" style="opacity:.55;cursor:default;" title="試驗名: ${escapeHtml(name)} (資料庫中未找到)">${escapeHtml(name)}</div>`;
+    // Not found - grey missing box
+    cls.push('missing');
+    return `<div class="${cls.join(' ')}" title="尚未整合至資料庫: ${escapeHtml(name)}">${escapeHtml(name)}</div>`;
   };
 
-  let html = `<div class="pw-overview-wrap">
+  // ==== Auto-inject captured trials into matching branches ====
+  // Match by cancer code (c field) + stage codes (p field: P-TX, P-MT, R-TX, R-MT)
+  const branches = data.branches.map(b => ({...b, trials: [...b.trials]})); // deep copy
+
+  captured.forEach(cap => {
+    if(cap.c !== cancer) return;
+    const stages = cap.p || [];
+    const capName = cap.n || cap.name || '(未命名)';
+    // Skip if already listed
+    const alreadyListed = branches.some(b => b.trials.includes(capName));
+    if(alreadyListed) return;
+
+    // Determine target branches by stage
+    stages.forEach(stg => {
+      let targetBranch = null;
+      if(stg === 'P-TX'){
+        // Primary treatment: prefer first primary branch matching "1L" or "Advanced" or first primary
+        targetBranch = branches.find(b => b.column === 'primary' && (b.stage.includes('1L') || b.stage.includes('Advanced') || b.stage.includes('一線'))) || branches.find(b => b.column === 'primary');
+      } else if(stg === 'P-MT'){
+        targetBranch = branches.find(b => b.column === 'primary' && (b.stage.includes('Maint') || b.stage.includes('維持')));
+        if(!targetBranch){
+          // Create a new maintenance row
+          targetBranch = {stage: '🆕 1L Maintenance (新)', column: 'primary', trials: []};
+          branches.push(targetBranch);
+        }
+      } else if(stg === 'R-TX'){
+        targetBranch = branches.find(b => b.column === 'recurrent' && (b.stage.includes('Recurrent') || b.stage.includes('復發治療')));
+        if(!targetBranch){
+          targetBranch = {stage: '🆕 Recurrent 治療 (新)', column: 'recurrent', trials: []};
+          branches.push(targetBranch);
+        }
+      } else if(stg === 'R-MT'){
+        targetBranch = branches.find(b => b.column === 'recurrent' && (b.stage.includes('復發維持') || b.stage.includes('Maint')));
+        if(!targetBranch){
+          targetBranch = {stage: '🆕 復發維持 (新)', column: 'recurrent', trials: []};
+          branches.push(targetBranch);
+        }
+      }
+      if(targetBranch && !targetBranch.trials.includes(capName)){
+        targetBranch.trials.push(capName);
+      }
+    });
+
+    // If no stage matched, put in a catch-all
+    if(stages.length === 0){
+      let catchAll = branches.find(b => b.stage === '🆕 未分類 (新捕獲)');
+      if(!catchAll){
+        catchAll = {stage: '🆕 未分類 (新捕獲)', column: 'primary', trials: []};
+        branches.push(catchAll);
+      }
+      catchAll.trials.push(capName);
+    }
+  });
+
+  const primaryBranches = branches.filter(b => b.column === 'primary');
+  const recurrentBranches = branches.filter(b => b.column === 'recurrent');
+
+  // Iterate to build row grid
+  const maxRows = Math.max(primaryBranches.length, recurrentBranches.length);
+  let stageRowsHtml = '';
+
+  for(let i = 0; i < maxRows; i++){
+    const pBranch = primaryBranches[i];
+    const rBranch = recurrentBranches[i];
+
+    // Stage cell: prefer primary label, else recurrent
+    let stageLabel = '';
+    if(pBranch){
+      stageLabel = pBranch.stage;
+    } else if(rBranch){
+      stageLabel = rBranch.stage;
+    }
+
+    // Primary trials cell
+    let primaryCell;
+    if(pBranch){
+      primaryCell = `<div class="pw-ov-trials-cell primary-cell">
+        ${pBranch.trials.map(name => renderTrialBox(name, false)).join('')}
+      </div>`;
+    } else {
+      primaryCell = `<div class="pw-ov-trials-cell primary-cell empty">—</div>`;
+    }
+
+    // Recurrent trials cell
+    let recurrentCell;
+    if(rBranch){
+      recurrentCell = `<div class="pw-ov-trials-cell recurrent-cell">
+        ${rBranch.trials.map(name => renderTrialBox(name, true)).join('')}
+      </div>`;
+    } else {
+      recurrentCell = `<div class="pw-ov-trials-cell recurrent-cell empty">—</div>`;
+    }
+
+    stageRowsHtml += `<div class="pw-ov-stage-row">
+      <div class="pw-ov-stage-cell">${escapeHtml(stageLabel)}</div>
+      ${primaryCell}
+      ${recurrentCell}
+    </div>`;
+  }
+
+  const html = `<div class="pw-overview-wrap">
     <div class="pw-overview-title">
       <span>🖼</span> 治療階段一覽表 (照片風格)
-      <span style="font-size:10.5px;font-weight:700;color:#7c3aed;font-family:'JetBrains Mono',monospace;margin-left:6px;">Primary + Recurrent 分欄總覽</span>
+      <small>Primary + Recurrent 分欄總覽</small>
     </div>
-    <div class="pw-overview-flow">
-      <div class="pw-overview-canvas">
-        <!-- Cancer node -->
-        <div class="pw-ov-layer cancer-col">
-          <div class="pw-ov-cancer">${escapeHtml(data.name)}</div>
-        </div>
-        <!-- Stage nodes -->
-        <div class="pw-ov-layer stage-col">
-          ${primaryBranches.map(b => `<div class="pw-ov-stage">${escapeHtml(b.stage)}</div>`).join('')}
-        </div>
-        <!-- Primary column -->
-        <div class="pw-ov-layer header-col">
-          <div class="pw-ov-col-title">Primary treatment</div>
-          <div class="pw-ov-col">
-            ${primaryBranches.map(b => `
-              <div class="pw-ov-branch">
-                <div class="pw-ov-trials">
-                  ${b.trials.map(name => renderTrialBox(name, false)).join('')}
-                  ${b.trials.length === 0 ? '<div class="pw-ov-empty">—</div>' : ''}
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-        ${recurrentBranches.length > 0 ? `
-        <!-- Recurrent column -->
-        <div class="pw-ov-layer header-col">
-          <div class="pw-ov-col-title recurrent">Recurrent treatment</div>
-          <div class="pw-ov-col">
-            ${recurrentBranches.map(b => `
-              <div class="pw-ov-branch">
-                <div class="pw-ov-branch-label">${escapeHtml(b.stage)}</div>
-                <div class="pw-ov-trials">
-                  ${b.trials.map(name => renderTrialBox(name, true)).join('')}
-                  ${b.trials.length === 0 ? '<div class="pw-ov-empty">—</div>' : ''}
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>` : ''}
-      </div>
+
+    <!-- Header row: cancer | Primary title | Recurrent title -->
+    <div class="pw-ov-header-row">
+      <div class="pw-ov-cancer-cell">${escapeHtml(data.name)}</div>
+      <div class="pw-ov-col-title primary">Primary treatment</div>
+      <div class="pw-ov-col-title recurrent">Recurrent treatment</div>
     </div>
-    <div style="text-align:center;margin-top:10px;font-size:10.5px;color:#7c3aed;font-family:'JetBrains Mono',monospace;">
-      ⭐ = 標竿試驗 &nbsp;|&nbsp; 🆕 = 新捕獲試驗 (從速記匯入) &nbsp;|&nbsp; 點方塊查看詳細
+
+    <!-- Stage rows -->
+    ${stageRowsHtml}
+
+    <div style="text-align:center;margin-top:12px;font-size:10.5px;color:#7c3aed;font-family:'JetBrains Mono',monospace;">
+      ⭐ = 標竿試驗 &nbsp;|&nbsp; 🆕 = 新捕獲試驗 &nbsp;|&nbsp; 灰色 = 資料庫未整合 &nbsp;|&nbsp; 點方塊查看詳細
     </div>
   </div>`;
 
