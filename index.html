@@ -139,6 +139,16 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .compare-section-content.mono{font-family:"JetBrains Mono",monospace;font-size:11px;}
 .compare-section-content.pre{white-space:pre-wrap;background:#f8fafc;padding:8px 10px;border-radius:8px;border-left:3px solid #64748b;color:#334155;max-height:180px;overflow-y:auto;}
 .compare-mech-badge{display:inline-block;background:linear-gradient(135deg,#a855f7,#7c3aed);color:white;padding:6px 14px;border-radius:100px;font-size:12.5px;font-weight:800;font-family:"JetBrains Mono",monospace;letter-spacing:.02em;box-shadow:0 2px 8px rgba(168,85,247,0.3);}
+
+/* Motivation section - orange/brown tone (試驗發起動機) */
+.compare-section.motivation-section{background:linear-gradient(135deg,#fff7ed,#fef3c7);border:1.5px solid #fdba74;padding:12px 14px;}
+.compare-section.motivation-section .compare-section-label{color:#7c2d12 !important;font-weight:900;}
+.compare-section-content.motivation-content{color:#78350f;font-weight:500;font-size:12.5px;line-height:1.75;background:transparent;padding:0;}
+
+/* Subgroup section - green tone (亞組分析) */
+.compare-section.subgroup-section{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;padding:12px 14px;}
+.compare-section.subgroup-section .compare-section-label{color:#065f46 !important;font-weight:900;}
+.compare-section-content.subgroup-content{color:#14532d;font-weight:500;font-size:12.5px;line-height:1.75;background:transparent;padding:0;}
 @media(max-width:768px){
   .compare-grid{grid-template-columns:1fr !important;}
   .compare-content{padding:18px;}
@@ -9672,10 +9682,111 @@ const TRIAL_MECHANISMS = {
   "NTRK Basket Trials": "TRKi (跨癌別)",
   "PARAGON": "AI (LG-ESS)",
   "Letrozole (NCT05649956)": "Letrozole 長期維持",
+
+  // === 新增: 使用者筆記提到的 trials ===
+  // TROP2-ADC 跨癌別
+  "TROPION-PanTumor01 (Dato-DXd)": "TROP2-ADC (Dato)",
+  "TROPion-Cervix (SG)": "TROP2-ADC (SG) in CC",
+  "ASCENT-Cervix (SG)": "TROP2-ADC (SG) in CC",
+  // HER2 ADC 三癌別
+  "DESTINY-PanTumor02 (CC cohort)": "HER2-ADC (T-DXd) CC",
+  "DESTINY-PanTumor02 (OC cohort)": "HER2-ADC (T-DXd) OC",
+  // GARNET 卵巢 cohort
+  "GARNET (OC A6 cohort)": "IO 單藥 (dMMR 泛癌)",
+  // RET Fusion Basket
+  "LIBRETTO-001": "RETi Basket (Selper)",
+  // NRG-GY017
+  "NRG-GY017": "IO 探索 (卵巢)",
+  // PRIME (Chinese 1L Nira)
+  "PRIME": "PARPi 維持 (亞洲 1L)",
+  // FORWARD II
+  "FORWARD II": "FRα-ADC + Bev (PROC)",
+  // FOLFIRI-based for mucinous OC
+  "FOLFIRI ± Bev (Mucinous)": "GI 化療 + Bev (mEOC)",
+  // Avutometinib + Defactinib 雙靶點 (LGSOC PSOC/PROC 都在)
+  "Avutometinib + Defactinib (PSOC-LG)": "MEK + FAKi (LGSOC PSOC)",
+  "Avutometinib + Defactinib (PROC-LG)": "MEK + FAKi (LGSOC PROC)",
+};
+
+// ============================================================
+// 🎯 TRIAL_MOTIVATIONS — 各試驗「發起動機 / 背景需求」
+// 這個 field 補足 rationale 說明: 為何要做這個試驗? 前面 unmet need 是什麼?
+// 顯示在 compare modal 最上方 — 讓臨床醫師快速掌握試驗立意
+// ============================================================
+const TRIAL_MOTIVATIONS = {
+  // === CC ===
+  "KEYNOTE-A18": "LACC 標準是根治性 CCRT, 但復發率仍高。前一個 CCRT+IO 試驗 CALLA 為陰性 — KN-A18 探討「時序」關鍵: IO 是否需在 CCRT 期間同步 + 之後維持才能發揮效果。",
+  "INTERLACE": "LACC 的遠端轉移為主要復發模式。若能在 CCRT 前先用短程化療清除微轉移灶, 是否能大幅改善 OS? 這是「治療序列」的探索, 不是加藥。",
+  "CALLA": "假設 PD-L1 阻斷+CCRT 有協同效應。結果為陰性 — 提醒我們免疫時序、族群篩選、CCRT 藥物選擇的重要性 (CALLA 用 Cisplatin+RT, KN-A18 用相同; 但收案族群略有不同)。",
+  "LACC Trial": "MIS 手術原本因較低併發症被廣泛採用。此試驗第一次以隨機證明 MIS 反而復發率更高 — 改變全球早期 CC 手術實務。",
+  "SHAPE Trial": "根治性子宮切除 (Radical Hysterectomy) 併發症高。低風險早期患者是否可用單純切除? 這是 de-escalation 探索。",
+  "KEYNOTE-826": "R/M 宮頸癌一線 chemo+Bev 已是標準 (GOG-240)。IO 能否在此基礎上再加成? 首個證明 chemo+IO±Bev 可延長 OS 的 R/M 試驗。",
+  "BEATcc": "KN-826 加了 IO, 但 IO+chemo+Bev (三軌) 是否更好? BEATcc 直接在 GOG-240 backbone (chemo+Bev) 上加 Atezo, 驗證三藥組合價值。",
+  "GOG-240": "R/M 宮頸癌預後極差, 一線 chemo mOS 僅 12m。加入 Bev 是否能改善? 這是宮頸癌首個系統性 anti-VEGF 的 OS+ 試驗。",
+  "innovaTV 301": "R/M 宮頸癌後線 (2L+) 缺乏標準。組織因子 (TF) 在宮頸癌高表現 — TF-ADC 是否能突破後線瓶頸? 結果為肯定, FDA full approval。",
+  "EMPOWER-Cervical 1": "一線 chemo±Bev 後仍進展的 R/M 缺乏標準。PD-1 單藥能否延長 OS? 不論 PD-L1 表現皆有 OS 加成。",
+
+  // === EC ===
+  "PORTEC-1": "早期 EC 術後常規全骨盆 EBRT, 但毒性大。是否所有 Stage I 都需要? 首個以 RCT 質疑「一體適用」原則, 確立「中度風險才需 RT」。",
+  "PORTEC-2": "確立中度風險需 RT 後的下一問: 「能不能只做 VBT (較少毒性) 而不是全骨盆 EBRT?」如果非劣, 副作用大幅減少。",
+  "PORTEC-3": "高風險 EC 復發率仍高, RT alone 不夠。加化療 (Cis 同步 + Carbo/Pacli) 是否有 OS 加成? 這是高風險 EC 加化療的 pivotal 證據。",
+  "GOG-258 / NRG-GOG-258": "進階期 (III/IVA) EC 已用化療, 額外加放療是否還有幫助? 對照 PORTEC-3 (chemoRT vs RT alone), GOG-258 對照組是 chemo alone — 回答不同問題。",
+  "PORTEC-4a": "傳統臨床病理風險 vs 分子整合風險, 哪個能更精準分流? ~30% 患者可能因分子改分而免除 RT — 減少過度治療。",
+  "RAINBO Program": "TCGA 4-tier 分型如何指導 adjuvant? 4 個平行 phase III/II 試驗對應 4 分型量身打造策略 — 精準醫學代表。",
+  "NRG-GY018 / KEYNOTE-868": "晚期 EC 化療 6 cycles 後仍高復發。IO 併入化療能否延長 PFS? 特別是 dMMR 反應深, pMMR 是否也受益? 兩 cohort 分開分析。",
+  "RUBY Part 1": "與 KN-868 平行的競爭試驗。Dostar (PD-1) 併入 chemo, 且允許 carcinosarcoma (KN-868 排除!)。維持 3 年 (vs KN-868 14 cycles)。",
+  "AtTEnd": "第三個 chemo+IO 試驗, 用 Atezo (PD-L1 阻斷)。ITT OS+ 但主要集中在 dMMR — 提醒 pMMR 效益的異質性。",
+  "DUO-E": "chemoIO 已成標準, 但 pMMR 效果不夠。加 PARPi (Ola) 維持能否協同? 三臂設計拆解 IO 貢獻 vs PARPi 貢獻。SGO 2025: pMMR 加 Olap 加成不限 p53/HRR。",
+  "SIENDO": "維持治療缺乏標準, 尤其對 pMMR。XPO1 抑制劑機制新穎 — ITT 失利但 TP53wt post-hoc HR 0.41 (謹慎詮釋)。",
+  "KEYNOTE-775 / Study 309": "後線 pMMR EC 選擇有限。IO+TKI (Lenva+Pembro) 能否克服 IO 冷腫瘤? 首個證明後線可雙重延長 PFS+OS 的組合。",
+  "GARNET": "MSI-H/dMMR 為高免疫原性亞群。單藥 PD-1 阻斷能否達成持久應答? 促成 FDA 加速批准。",
+  "DESTINY-PanTumor02 (EC cohort)": "HER2 表現在 EC (特別 serous) 常見。T-DXd 極高 DAR + bystander effect 是否克服傳統 HER2 標靶失敗?",
+
+  // === OC ===
+  "GOG-0218": "一線化療後復發率高。加入 Bev + 維持是否有 PFS 加成? 首個大型驗證抗血管維持策略。",
+  "EORTC 55971": "PDS 死亡率高, 尤其對高負荷 Stage IV。先化療再手術是否有效且安全? 首個 NACT 非劣性 RCT — 改變晚期 OC 手術範式。",
+  "van Driel HIPEC": "IDS 手術後仍高復發。腹腔灌注加溫化療 (直接殺傷微病灶) 是否能延長 OS?",
+  "SOLO-1": "BRCAm OC 對鉑類敏感但仍會復發。一線化療反應後給 PARPi 維持能否延長無復發時間? 7 年 OS 67% — 改寫一線 BRCAm 標準。",
+  "PAOLA-1": "非 BRCAm 但 HRD+ 的族群也需要維持策略。Ola+Bev 是否在 HRD+ 有加成? HRD 概念自此定義。",
+  "PRIMA": "維持治療是否應限於 BRCAm/HRD+? Nira 全人群一線維持能否讓不篩選都受益? HRD+ HR 0.43 / ITT HR 0.62 — 但 OS 翻車 (HR 1.01)。",
+  "DUO-O": "IO+PARPi+anti-VEGF 三軌是否協同? Durva+Ola+Bev 三藥維持, HRD+ HR 0.49 但需注意毒性負擔。",
+  "DESKTOP III": "首次鉑敏感復發 (PSOC), 二次手術是否延長 OS? AGO score+ 患者的精選 — 首個證明「二次減積」有 OS 加成的 RCT。",
+  "MIRASOL": "PROC 預後極差, 化療 ORR 僅 10-15%。FRα 高表現亞群用 ADC (Mirvet) 是否翻盤? 首個在 PROC 顯示 OS 延長的 ADC 試驗。",
+  "AURELIA": "PROC 復發極快, 化療 mPFS 3-4m。加 Bev + 單藥化療能否翻倍 PFS? 突破鉑抗藥限制。",
+  "FORWARD II": "MIRASOL 之前的 Phase Ib/II 探索: Mirv 單藥效果有限, 加 Bev (增強血管重塑, 提升 ADC 滲透) 是否更好? 為 MIRASOL 鋪路。",
+  "NOVA": "PSOC 復發後 PARPi 維持能否延長無鉑期? 首個證明「非 BRCA 也能受益」的維持試驗。",
+
+  // === LGSOC ===
+  "GOG-281 / LOGS": "LGSOC 對化療反應差 (與 HGSC 不同), 但常有 MAPK pathway 突變。單藥 MEKi (Trametinib) 能否精準阻斷? 首個 LGSOC 標靶突破 (HR 0.48)。",
+  "RAMP-201": "單藥 MEKi 效果雖有但仍會耐藥。雙重阻斷 MEK+FAK 能否克服? KRAS mut ORR 55% 亮眼, 涵蓋 PSOC + PROC-LG 兩族群。",
+
+  // === Mucinous OC ===
+  "mEOC / GOG-0241": "黏液性 OC 罕見, 常被排除主流試驗。是否應用 GI-style 化療 (Oxal/Cape) 而非婦癌化療 (CP)? 提前終止, 但趨勢支持 GI 方案。",
+  "FOLFIRI ± Bev (Mucinous)": "mFOLFIRINOX 探索基於黏液性 OC 的 GI 遺傳特性。若毒性太高, FOLFIRI (無 Oxal) + Bev 為溫和版嘗試。",
+  "mFOLFIRINOX + Bev": "黏液性 OC 對傳統婦癌 CP 反應差 — 借用胰臟癌經驗, 三藥化療 + 標靶抗血管新生, 嘗試克服耐藥。",
+
+  // === US ===
+  "LMS-04": "晚期 LMS 對 Doxorubicin 單藥反應有限。加 Trabectedin (雙藥) 能否翻倍 PFS? 首個 LMS 的 phase III 組合突破 (mPFS 12.2m vs 6.2m)。",
+  "NRG/GOG-0261": "UCS (癌肉瘤) 傳統用 Ifo 為主但毒性大。PC 方案 (Pacli+Carbo) 是否可取代? 非劣達成, 毒性顯著降低。",
+  "PARAGON": "LG-ESS 對化療反應差, 但 ER/PR 高度陽性。內分泌治療能否為長期控制? CBR 73%, 部分族群 PFS>44m — 去化療策略。",
+
+  // === 新增 unmet-need 為主的 trials ===
+  "TROPION-PanTumor01 (Dato-DXd)": "TROP2 高表現於多癌別 (含 EC, OC, CC)。Dato-DXd 相較 Sac-TMT 是不同 payload 系統 — 是否有跨癌別 unique 反應模式?",
+  "TROPion-Cervix (SG)": "R/M 宮頸癌後線缺乏標準。TROP2 在宮頸癌高表現, SG (Sacituzumab Govitecan) 已在乳癌獲批 — 移植至 CC 是否有效?",
+  "GARNET (OC A6 cohort)": "GARNET 主要收 dMMR EC (A5 cohort), A6 cohort 也含其他 solid tumors 包括 dMMR OC — 少數但有效的族群。",
+  "DESTINY-PanTumor02 (CC cohort)": "HER2 IHC3+ 在 CC 罕見但仍存在 (~3-5%)。CC cohort ORR 50%, 支持跨癌別 HER2-ADC 應用。",
+  "DESTINY-PanTumor02 (OC cohort)": "HER2 表現在 OC 較低 (~5-10% IHC3+), 但 T-DXd 高 DAR 可能在 IHC2+ 也有反應 — 探索標靶 threshold。",
+  "LIBRETTO-001": "RET fusion 極罕見於婦癌 (<1% EC), 但 Selpercatinib ORR ~80% 在 RET+ 泛癌 — 精準醫療 basket 探索, 可能改變罕見亞群命運。",
+  "PRIME": "PRIMA 全人群 OS 翻車後, 中國族群是否有不同? PRIME 針對亞洲人群, 個別化劑量 (依體重/血小板), 探索族群差異與耐受性優化。",
+  "NRG-GY017": "IO 在 OC 效果有限 (冷腫瘤)。是否可透過 IO + 其他機制 (RT / TKI / PARPi) 改造微環境? Phase II 探索 IO 在 OC 的新場景。",
+  "Avutometinib + Defactinib (PSOC-LG)": "LGSOC PSOC 對 RAMP-201 反應如何? 前線化療已用 — 直接改成標靶維持是否可行?",
+  "Avutometinib + Defactinib (PROC-LG)": "LGSOC PROC 沒有標準 (內分泌可能失效)。雙靶點阻斷是否有效? RAMP-201 涵蓋兩族群。",
 };
 
 // Compare state for pathway overview
 let compareState = { selected: new Set() };
+
+
 
 const PATHWAY_OVERVIEW = {
   EC: {
@@ -9686,6 +9797,7 @@ const PATHWAY_OVERVIEW = {
       {stage: "Advanced 1L (pMMR)", column: "primary", trials: ["NRG-GY018 / KEYNOTE-868", "RUBY Part 1", "DUO-E", "AtTEnd"]},
       {stage: "1L Maintenance", column: "primary", trials: ["DUO-E (Maintenance Arms)", "SIENDO", "UTOLA", "TroFuse-033", "RUBY Part 2"]},
       {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-775 / Study 309", "GARNET", "ASCENT-GYN-01", "DESTINY-PanTumor02 (EC cohort)", "BLUESTAR", "TROPiCS-03 (EC cohort)", "KEYLYNK-007"]},
+      {stage: "跨癌別 Basket (EC 相關)", column: "recurrent", trials: ["TROPION-PanTumor01 (Dato-DXd)", "LIBRETTO-001"]},
     ],
   },
   OC: {
@@ -9696,14 +9808,15 @@ const PATHWAY_OVERVIEW = {
       {stage: "1L Chemo 標準", column: "primary", trials: ["GOG-0218", "ICON7", "BOOST / ENGOT-ov15", "GOG-172", "GOG-114", "SWOG-8501 / GOG-104", "JGOG 3016", "GOG-262", "ICON8", "MITO-7", "LION", "OV21 / PETROC", "GOG-252"]},
       {stage: "1L Maint (BRCAm)", column: "primary", trials: ["SOLO-1"]},
       {stage: "1L Maint (HRD+)", column: "primary", trials: ["PAOLA-1", "DUO-O"]},
-      {stage: "1L Maint (ITT/全人群)", column: "primary", trials: ["PRIMA", "ATHENA-MONO", "DUO-O", "OVARIO"]},
+      {stage: "1L Maint (ITT/全人群)", column: "primary", trials: ["PRIMA", "ATHENA-MONO", "DUO-O", "OVARIO", "PRIME"]},
       {stage: "PSOC 復發 (鉑敏感)", column: "recurrent", trials: ["DESKTOP III", "OCEANS", "GOG-0213", "Study 19", "CALYPSO", "MITO16B"]},
-      {stage: "PROC 復發 (鉑抗)", column: "recurrent", trials: ["MIRASOL", "AURELIA", "FRAmework-01", "REJOICE-Ovarian01", "ROSELLA"]},
+      {stage: "PROC 復發 (鉑抗)", column: "recurrent", trials: ["MIRASOL", "AURELIA", "FRAmework-01", "REJOICE-Ovarian01", "ROSELLA", "FORWARD II"]},
       {stage: "復發維持 (PARPi)", column: "recurrent", trials: ["NOVA", "ARIEL3", "SOLO2", "L-MOCA", "NORA", "OPINION", "NINJA"]},
-      {stage: "低惡性度 LGSOC", column: "recurrent", trials: ["GOG-281 / LOGS", "RAMP-201", "GOG-3026", "MILO / ENGOT-ov11", "NRG-GY019"]},
+      {stage: "低惡性度 LGSOC", column: "recurrent", trials: ["GOG-281 / LOGS", "RAMP-201", "Avutometinib + Defactinib (PSOC-LG)", "Avutometinib + Defactinib (PROC-LG)", "GOG-3026", "MILO / ENGOT-ov11", "NRG-GY019"]},
       {stage: "透明細胞 OCCC", column: "recurrent", trials: ["JGOG3017 / GCIG", "MoST-CIRCUIT", "ATARI", "DOVE", "GOG-254", "BrUOG 354", "Temsirolimus + TC"]},
-      {stage: "黏液性 mEOC", column: "recurrent", trials: ["mEOC / GOG-0241", "mFOLFIRINOX + Bev"]},
-      {stage: "ADC 維持探索", column: "recurrent", trials: ["DESTINY-Ovarian01", "TroFuse-021", "TroFuse-022"]},
+      {stage: "黏液性 mEOC", column: "recurrent", trials: ["mEOC / GOG-0241", "mFOLFIRINOX + Bev", "FOLFIRI ± Bev (Mucinous)"]},
+      {stage: "ADC 維持探索", column: "recurrent", trials: ["DESTINY-Ovarian01", "TroFuse-021", "TroFuse-022", "TROPION-PanTumor01 (Dato-DXd)"]},
+      {stage: "跨癌別 Basket (OC 相關)", column: "recurrent", trials: ["GARNET (OC A6 cohort)", "DESTINY-PanTumor02 (OC cohort)", "LIBRETTO-001", "NRG-GY017"]},
     ],
   },
   CC: {
@@ -9715,7 +9828,9 @@ const PATHWAY_OVERVIEW = {
       {stage: "R/M 一線", column: "primary", trials: ["KEYNOTE-826", "BEATcc", "GOG-240"]},
       {stage: "CCRT 後維持 (探索)", column: "primary", trials: ["eVOLVE-Cervical"]},
       {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "EMPOWER-Cervical 1", "innovaTV 301", "innovaTV 205", "GOG-240", "KEYNOTE-158", "PVX4", "KEYNOTE-C93"]},
-      {stage: "TROP2 ADC 探索", column: "recurrent", trials: ["TroFuse-036"]},
+      {stage: "TROP2 ADC 探索", column: "recurrent", trials: ["TroFuse-036", "TROPion-Cervix (SG)", "ASCENT-Cervix (SG)", "TROPION-PanTumor01 (Dato-DXd)"]},
+      {stage: "HER2 ADC (CC)", column: "recurrent", trials: ["DESTINY-PanTumor02 (CC cohort)"]},
+      {stage: "跨癌別 Basket (CC 相關)", column: "recurrent", trials: ["LIBRETTO-001"]},
     ],
   },
   US: {
@@ -9727,7 +9842,7 @@ const PATHWAY_OVERVIEW = {
       {stage: "早期 RT 輔助", column: "primary", trials: ["EORTC 55874"]},
       {stage: "術後輔助 (LMS)", column: "primary", trials: ["NCT07076186 (Adjuvant Doxo+Trab)"]},
       {stage: "LMS 復發", column: "recurrent", trials: ["ET743-SAR-3007", "PALETTE", "REGOSARC", "Eribulin vs Dacarbazine", "Olaparib + Temozolomide"]},
-      {stage: "NTRK 融合 (跨癌別)", column: "recurrent", trials: ["NTRK Basket Trials"]},
+      {stage: "NTRK / RET 融合 (跨癌別)", column: "recurrent", trials: ["NTRK Basket Trials", "LIBRETTO-001"]},
     ],
   },
 };
@@ -11808,6 +11923,7 @@ function renderCompareModal(){
     const drug = t.drug || t.d || '-';
     const pharma = t.pharma || t.ph || '-';
     const mech = TRIAL_MECHANISMS[name] || TRIAL_MECHANISMS[t.name] || TRIAL_MECHANISMS[t.fullName] || '-';
+    const motivation = TRIAL_MOTIVATIONS[name] || TRIAL_MOTIVATIONS[t.name] || TRIAL_MOTIVATIONS[t.fullName] || '';
     const phaseArr = t.phase || (t.p ? (Array.isArray(t.p) ? t.p : [t.p]) : []);
     const phase = Array.isArray(phaseArr) ? phaseArr.join(', ') : String(phaseArr);
     const status = t.status || t.t || '-';
@@ -11816,7 +11932,9 @@ function renderCompareModal(){
     const rat = t.rationale || t.rat || '';
     const reg = t.regimen || t.reg || '-';
     const out = t.outcomes || t.out || '';
+    const subgroup = t.subgroup || '';
     const inc = t.inc || [];
+    const exc = t.exc || [];
     const cancerLabel = ({'EC':'🔴 EC','OC':'🟣 OC','CC':'🟠 CC','US':'🔵 US','Endometrial':'🔴 EC','Ovarian':'🟣 OC','Cervical':'🟠 CC','Uterine Sarcoma':'🔵 US'}[t.cancer || t.c]) || (t.cancer || t.c || '-');
     const trialId = t.id || t.n || t.name || id;
 
@@ -11836,35 +11954,52 @@ function renderCompareModal(){
         </div>
       </div>
 
+      <div class="compare-section motivation-section">
+        <div class="compare-section-label" style="color:#7c2d12;">💡 試驗發起動機 / 背景 Unmet Need</div>
+        <div class="compare-section-content motivation-content">${escapeHtml(motivation || '(尚未記錄動機; 見科學理據)')}</div>
+      </div>
+
       <div class="compare-section">
-        <div class="compare-section-label">🎯 治療策略</div>
+        <div class="compare-section-label">🎯 治療策略 Strategy</div>
         <div class="compare-mech-badge">${escapeHtml(mech)}</div>
       </div>
 
       <div class="compare-section">
-        <div class="compare-section-label">📊 核心結論</div>
+        <div class="compare-section-label">📊 核心結論 Key Result</div>
         <div class="compare-section-content result">${escapeHtml(pop)}</div>
       </div>
 
       ${out ? `<div class="compare-section">
-        <div class="compare-section-label">🎯 主要終點</div>
+        <div class="compare-section-label">🎯 主要終點 Primary Endpoint</div>
         <div class="compare-section-content mono">${escapeHtml(out)}</div>
       </div>` : ''}
 
+      ${subgroup ? `<div class="compare-section subgroup-section">
+        <div class="compare-section-label" style="color:#065f46;">🔬 亞組 / 分層分析 Subgroup Analysis</div>
+        <div class="compare-section-content subgroup-content">${escapeHtml(subgroup)}</div>
+      </div>` : ''}
+
       <div class="compare-section">
-        <div class="compare-section-label">💊 給藥方案</div>
+        <div class="compare-section-label">💊 給藥方案 Regimen (含 arms)</div>
         <div class="compare-section-content mono pre">${escapeHtml(reg)}</div>
       </div>
 
       ${rat ? `<div class="compare-section">
-        <div class="compare-section-label">🧬 科學理據</div>
+        <div class="compare-section-label">🧬 科學理據 Scientific Rationale</div>
         <div class="compare-section-content">${escapeHtml(rat)}</div>
       </div>` : ''}
 
       ${inc.length ? `<div class="compare-section">
-        <div class="compare-section-label">✅ 納入標準 (前 4 項)</div>
+        <div class="compare-section-label">✅ 納入標準 Inclusion (前 4 項)</div>
         <div class="compare-section-content">
           <ul style="padding-left:16px;margin:0;">${inc.slice(0,4).map(i => `<li style="font-size:11.5px;margin-bottom:3px;">${escapeHtml(i)}</li>`).join('')}</ul>
+        </div>
+      </div>` : ''}
+
+      ${exc.length ? `<div class="compare-section">
+        <div class="compare-section-label" style="color:#991b1b;">❌ 排除標準 Exclusion (前 3 項)</div>
+        <div class="compare-section-content">
+          <ul style="padding-left:16px;margin:0;">${exc.slice(0,3).map(e => `<li style="font-size:11.5px;margin-bottom:3px;color:#7f1d1d;">${escapeHtml(e)}</li>`).join('')}</ul>
         </div>
       </div>` : ''}
     </div>`;
