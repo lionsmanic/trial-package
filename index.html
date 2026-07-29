@@ -54,6 +54,19 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .trend-row.flat .trend-txt{color:#a16207;}
 .trend-row.wave .trend-txt{color:#7c3aed;font-weight:700;}
 .trend-note{font-size:11px;color:#0f766e;margin-top:6px;padding-top:6px;border-top:1px dashed #5eead4;font-weight:600;line-height:1.55;}
+/* 次群曲線 */
+.trend-sg-block{margin-top:8px;padding-top:7px;border-top:1px dashed #5eead4;}
+.trend-sg-title{font-size:10.5px;font-weight:900;color:#0f766e;margin-bottom:5px;}
+.trend-sg-row{display:grid;grid-template-columns:auto auto 1fr;gap:6px;align-items:baseline;font-size:11px;margin-bottom:4px;line-height:1.4;}
+.trend-sg-name{font-weight:800;color:#134e4a;font-size:10.5px;}
+.trend-sg-line{font-weight:800;white-space:nowrap;}
+.trend-sg-num{font-size:10px;color:#475569;font-family:'JetBrains Mono',monospace;}
+.trend-sg-row.big .trend-sg-line{color:#15803d;}
+.trend-sg-row.up .trend-sg-line{color:#16a34a;}
+.trend-sg-row.down .trend-sg-line{color:#b91c1c;}
+.trend-sg-row.flat .trend-sg-line{color:#a16207;}
+.trend-sg-row.wave .trend-sg-line{color:#7c3aed;}
+.trend-sg-row.neu .trend-sg-line{color:#64748b;}
 
 /* === Trial lineage timeline === */
 .pw-lineage-wrap{background:linear-gradient(135deg,#fffbeb,#fef9c3);border:2px solid #fcd34d;border-radius:14px;padding:16px 14px;margin-bottom:18px;}
@@ -10106,28 +10119,28 @@ const TRIAL_MECHANISMS = {
 // ============================================================
 const TRIAL_TREND = {
   // === EC ===
-  "RUBY Part 1": {pfs:"↗↗ dMMR 大幅拉開 (HR 0.28); pMMR 小幅拉開", os:"↗ ITT 拉開 (HR 0.69); dMMR OS 明顯拉開", note:"dMMR 是主要獲益族群, 曲線早早分開且愈拉愈大"},
-  "NRG-GY018 / KEYNOTE-868": {pfs:"↗↗ dMMR 巨幅拉開 (HR 0.30, 曲線幾乎不交會); pMMR 穩定拉開 (HR 0.54)", os:"↗ dMMR OS 大幅拉開; pMMR OS 差不多 (HR 0.79 NS)", note:"dMMR 是 home run; pMMR PFS 有益但 OS 未達顯著"},
-  "DUO-E": {pfs:"↗ 三臂階梯拉開: Arm3(加PARPi) > Arm2(加IO) > Arm1", os:"↗ Arm3 vs Arm1 拉開 (HR 0.59)", note:"每加一個藥, 曲線就多拉開一階"},
+  "RUBY Part 1": {pfs:"↗↗ dMMR 大幅拉開 (HR 0.28); pMMR 小幅拉開", os:"↗ ITT 拉開 (HR 0.69); dMMR OS 明顯拉開", note:"dMMR 是主要獲益族群, 曲線早早分開且愈拉愈大", subgroups:[{sg:"dMMR/MSI-H", line:"↗↗ PFS 大幅拉開", num:"24m PFS 61.4% vs 15.7% (HR 0.28)"}, {sg:"MMRp/MSS", line:"↗ PFS 小幅拉開", num:"HR ~0.76, 幅度較小"}, {sg:"ITT OS", line:"↗ 拉開", num:"HR 0.69"}]},
+  "NRG-GY018 / KEYNOTE-868": {pfs:"↗↗ dMMR 巨幅拉開 (HR 0.30, 曲線幾乎不交會); pMMR 穩定拉開 (HR 0.54)", os:"↗ dMMR OS 大幅拉開; pMMR OS 差不多 (HR 0.79 NS)", note:"dMMR 是 home run; pMMR PFS 有益但 OS 未達顯著", subgroups:[{sg:"dMMR", line:"↗↗ PFS 巨幅拉開 (曲線幾乎不交會)", num:"mPFS NR vs 7.6m (HR 0.30); 12m PFS 74% vs 38%"}, {sg:"pMMR", line:"↗ PFS 穩定拉開", num:"mPFS 13.1 vs 8.7m (HR 0.54)"}, {sg:"pMMR OS", line:"≈ 差不多", num:"HR 0.79 NS"}]},
+  "DUO-E": {pfs:"↗ 三臂階梯拉開: Arm3(加PARPi) > Arm2(加IO) > Arm1", os:"↗ Arm3 vs Arm1 拉開 (HR 0.59)", note:"每加一個藥, 曲線就多拉開一階", subgroups:[{sg:"dMMR (Arm2 vs Arm3)", line:"≈ 兩臂差不多 (IO 已足夠)", num:"Arm2 HR 0.41 / Arm3 HR 0.42"}, {sg:"pMMR (Arm3 vs Arm1)", line:"↗ 加 PARPi 明顯拉開", num:"Arm3 HR 0.57 vs Arm2 HR 0.77"}, {sg:"pMMR 分子異質性", line:"↗ 各亞組都拉開 (不限 HRRm)", num:"PD-L1+/TP53mut/serous/ctDNA+ 皆益"}]},
   "AtTEnd": {pfs:"↗↗ dMMR 大幅拉開 (HR 0.36); all-comer 只小拉開 (HR 0.74)", os:"≈ ITT OS 差不多 (HR 0.87 NS)", note:"獲益集中在 dMMR; 整體 OS 未達顯著"},
   "KEYNOTE-775 / Study 309": {pfs:"↗ 拉開 (HR 0.60); pMMR 也拉開", os:"↗ 拉開 (HR 0.62)", note:"後線 IO+TKI, PFS/OS 都穩定拉開"},
   "GARNET": {pfs:"— 單臂試驗無對照 (看 ORR ~45%)", os:"— 單臂 (mDOR 未達)", note:"單臂 basket, 看反應率而非兩組曲線"},
   "PORTEC-3": {pfs:"↗ 高風險/漿液/p53abn 族群 5y FS 拉開", os:"↗ 高風險族群 OS 拉開 (整體邊際)", note:"獲益集中在高風險亞群 (p53abn/漿液/III期)"},
   "GOG-258 / NRG-GOG-258": {pfs:"≈ RFS 差不多 (HR 0.90 NS)", os:"≈ OS 差不多 (HR 1.05 NS)", note:"局控 chemoRT 較好但遠端復發較多, 整體打平"},
   "KEYNOTE-B21": {pfs:"≈ DFS 差不多 (HR 1.02 NS) — 主終點失敗", os:"≈ 差不多", note:"輔助加 IO 無效; 對比晚期有效, 凸顯期別差異"},
-  "SIENDO": {pfs:"≈ ITT 差不多 (HR 0.71 borderline); 〰 TP53wt 後段暴力拉開 (HR 0.41)", os:"— 資料未成熟", note:"ITT 平淡但 TP53wt 亞組 27.4 vs 5.2m 驚人拉開"},
+  "SIENDO": {pfs:"≈ ITT 差不多 (HR 0.71 borderline); 〰 TP53wt 後段暴力拉開 (HR 0.41)", os:"— 資料未成熟", note:"ITT 平淡但 TP53wt 亞組 27.4 vs 5.2m 驚人拉開", subgroups:[{sg:"ITT", line:"≈ 差不多 (borderline)", num:"5.7 vs 3.8m (HR 0.71, p=0.024)"}, {sg:"TP53 wild-type", line:"〰 先合後暴力拉開", num:"27.4 vs 5.2m (HR 0.41) — 5 倍+"}, {sg:"TP53 mutant", line:"≈ 無獲益", num:"HR ~1.0"}]},
   "NIVEC": {pfs:"— 單臂新輔助 (clinical CR 80%)", os:"— 單臂", note:"看 CR 率與器官保留, 非兩組曲線"},
 
   // === OC 一線維持 ===
   "SOLO-1": {pfs:"↗↗ 巨幅拉開且持久 (中位差 3 年+, HR 0.33)", os:"↗ 7 年 OS 拉開 (67% vs 47%)", note:"BRCAm 一線維持經典圖: 曲線早分開, 高原長期不併攏"},
   "PAOLA-1": {pfs:"↗↗ HRD+ 大幅拉開 (HR 0.33); ITT 中等", os:"↗ HRD+ OS 拉開 (5y 明顯)", note:"獲益全在 HRD+; HRD- 幾乎無差"},
-  "PRIMA": {pfs:"↗ HRD+ 大幅拉開 (HR 0.43); ITT 中拉開 (HR 0.62)", os:"≈ OS 翻車 差不多 (HR ~1.0)", note:"PFS 明顯拉開但 OS 沒跟上 — 經典 PFS/OS 脫鉤"},
+  "PRIMA": {pfs:"↗ HRD+ 大幅拉開 (HR 0.43); ITT 中拉開 (HR 0.62)", os:"≈ OS 翻車 差不多 (HR ~1.0)", note:"PFS 明顯拉開但 OS 沒跟上 — 經典 PFS/OS 脫鉤", subgroups:[{sg:"HRD+", line:"↗↗ PFS 大幅拉開", num:"mPFS 21.9 vs 10.4m (HR 0.43)"}, {sg:"HRD-", line:"↗ PFS 小幅拉開", num:"HR ~0.68, 幅度小"}, {sg:"ITT OS", line:"≈ 差不多 (翻車)", num:"HR ~1.0"}]},
   "DUO-O": {pfs:"↗ HRD+ 大幅拉開 (三藥 HR 0.49)", os:"— 資料未成熟", note:"三藥維持 HRD+ 拉開, 但毒性/OS 待觀察"},
   "ATHENA-MONO": {pfs:"↗ HRD+ 拉開 (HR 0.47); ITT 中等 (HR 0.52)", os:"— 資料未成熟", note:"rucaparib 全人群維持, HRD+ 拉最開"},
   "OVARIO": {pfs:"— 單臂 (niraparib+bev)", os:"— 單臂", note:"單臂探索, 無對照曲線"},
 
   // === OC 復發維持 ===
-  "NOVA": {pfs:"↗↗ gBRCA 巨幅拉開 (21 vs 5.5m); non-gBRCA HRD+ 大幅拉開; HRD- 仍拉開", os:"≈ 最終 OS 差不多 (cross-over 稀釋)", note:"biomarker 光譜: BRCA>HRD+>HRD-, 但 OS 因交叉被抹平"},
+  "NOVA": {pfs:"↗↗ gBRCA 巨幅拉開 (21 vs 5.5m); non-gBRCA HRD+ 大幅拉開; HRD- 仍拉開", os:"≈ 最終 OS 差不多 (cross-over 稀釋)", note:"biomarker 光譜: BRCA>HRD+>HRD-, 但 OS 因交叉被抹平", subgroups:[{sg:"gBRCA", line:"↗↗ PFS 巨幅拉開", num:"21.0 vs 5.5m (HR 0.27)"}, {sg:"non-gBRCA HRD+", line:"↗ PFS 大幅拉開", num:"12.9 vs 3.8m (HR 0.38)"}, {sg:"non-gBRCA HRD-", line:"↗ 仍拉開 (幅度小)", num:"HR ~0.58"}]},
   "ARIEL3": {pfs:"↗↗ BRCA 巨幅拉開 (HR 0.23); HRD 大幅; ITT 中等", os:"≈ 最終 OS 差不多 (cross-over)", note:"三層 nested 都拉開, 但 OS 被後續治療稀釋"},
   "SOLO2": {pfs:"↗↗ BRCAm 大幅拉開 (HR 0.30)", os:"↗ OS 拉開 (中位差 12.9 個月)", note:"少數 PFS 拉開「且」OS 也拉開的復發維持"},
   "Study 19": {pfs:"↗ 拉開 (不限 BRCA)", os:"↗ BRCAm OS 拉開", note:"PARPi 維持開山作, PFS 明顯拉開"},
@@ -10140,18 +10153,18 @@ const TRIAL_TREND = {
   "LION": {pfs:"≈ 完全重疊 (25.5 vs 25.5m)", os:"≈ 差不多 (65.5 vs 69.2m, 清掃還略差)", note:"兩組曲線幾乎完全貼合 — 清掃無益反增併發症"},
 
   // === OC 復發手術/PROC ===
-  "DESKTOP III": {pfs:"↗ 拉開 (18.4 vs 14.0m)", os:"↗ 拉開 (完全切除者 60.7m); 不完全切除反更差", note:"只有達 R0 才拉開; 切不乾淨反低於不開刀"},
+  "DESKTOP III": {pfs:"↗ 拉開 (18.4 vs 14.0m)", os:"↗ 拉開 (完全切除者 60.7m); 不完全切除反更差", note:"只有達 R0 才拉開; 切不乾淨反低於不開刀", subgroups:[{sg:"完全切除 R0", line:"↗ OS 明顯拉開", num:"60.7m vs 46.2m (延長 14m+)"}, {sg:"不完全切除 R1/R2", line:"↘ 反而更差", num:"28.8m (比不開刀還低)"}]},
   "GOG-0213": {pfs:"↗ 小幅拉開", os:"↗ 加 Bev OS 拉開 (首個 PSOC OS+)", note:"OS 拉開幅度雖不大但顯著"},
-  "MIRASOL": {pfs:"↗ 拉開 (5.59 vs 3.98m, HR 0.63)", os:"↗ OS 拉開 (16.85 vs 13.34m) — 首個 PROC OS+", note:"高 FRα 選擇族群, PFS/OS 都拉開"},
+  "MIRASOL": {pfs:"↗ 拉開 (5.59 vs 3.98m, HR 0.63)", os:"↗ OS 拉開 (16.85 vs 13.34m) — 首個 PROC OS+", note:"高 FRα 選擇族群, PFS/OS 都拉開", subgroups:[{sg:"高 FRα (全體)", line:"↗ PFS/OS 都拉開", num:"PFS HR 0.63; OS HR 0.67"}, {sg:"先前用過 Bev", line:"↗ 拉開", num:"PFS HR 0.59"}, {sg:"BRCAm", line:"↗ 一致獲益", num:"與整體相當"}]},
   "AURELIA": {pfs:"↗↗ 加 Bev 大幅拉開 (PFS 翻倍)", os:"≈ OS 差不多 (cross-over)", note:"PFS 明顯拉開但 OS 被交叉抹平"},
   "RAMP-201 (Avuto+Defac)": {pfs:"— 單臂 (KRAS-mut ORR 44%)", os:"— 單臂", note:"單臂看 ORR/DOR, KRAS-mut 反應最好"},
 
   // === CC ===
-  "KEYNOTE-A18": {pfs:"↗ 拉開 (HR 0.65-0.70); III-IVA 拉最開", os:"↗ OS 拉開 (36m 82.6% vs 74.8%)", note:"stage III-IVA 亞組拉最開; 早期 node+ 尚未拉開"},
+  "KEYNOTE-A18": {pfs:"↗ 拉開 (HR 0.65-0.70); III-IVA 拉最開", os:"↗ OS 拉開 (36m 82.6% vs 74.8%)", note:"stage III-IVA 亞組拉最開; 早期 node+ 尚未拉開", subgroups:[{sg:"Stage III-IVA", line:"↗ PFS 明顯拉開 (FDA 批准族群)", num:"HR 0.59"}, {sg:"Stage IB2-IIB node+", line:"≈ 尚未拉開 (事件少)", num:"HR 0.92, 事件僅 21%"}, {sg:"≥65 歲", line:"≈ OS 不確定", num:"HR 1.18 (CI 寬)"}]},
   "INTERLACE": {pfs:"↗ 拉開 (5y 73% vs 64%, HR 0.65)", os:"↗ OS 拉開 (5y 80% vs 72%)", note:"前導化療: PFS/OS 都穩定拉開"},
   "CALLA": {pfs:"≈ 差不多 (HR 0.84 NS) — 主終點失敗", os:"≈ 差不多", note:"concurrent PD-L1 兩組併攏 — 促成改探時序"},
   "OUTBACK": {pfs:"≈ 差不多 (無獲益)", os:"≈ 差不多", note:"CCRT 後加化療兩組貼合 — 對比 INTERLACE 前導有效"},
-  "KEYNOTE-826": {pfs:"↗ 拉開; CPS≥1/all/CPS≥10 皆拉開", os:"↗↗ OS 大幅拉開 (28.6 vs 16.5m, HR 0.60)", note:"三個 CPS 族群都拉開, OS 幅度大"},
+  "KEYNOTE-826": {pfs:"↗ 拉開; CPS≥1/all/CPS≥10 皆拉開", os:"↗↗ OS 大幅拉開 (28.6 vs 16.5m, HR 0.60)", note:"三個 CPS 族群都拉開, OS 幅度大", subgroups:[{sg:"CPS ≥1", line:"↗↗ OS 大幅拉開", num:"28.6 vs 16.5m (HR 0.60)"}, {sg:"All-comers", line:"↗ OS 拉開", num:"26.4 vs 16.8m (HR 0.63)"}, {sg:"CPS <1", line:"≈ 樣本小未定論", num:"n~30, 未見獲益"}]},
   "BEATcc": {pfs:"↗ 拉開 (HR 0.62)", os:"↗ OS 拉開 (HR 0.68); 全 CPS 皆益", note:"不論 PD-L1 都拉開 — 與 KN-826 差異點"},
   "GOG-240": {pfs:"↗ 小幅拉開", os:"↗ 加 Bev OS 拉開 (mOS +3.7m); 中/高風險拉最開", os_extra:"", note:"Moore 中/高風險族群拉最開; 低風險幾乎無差"},
   "innovaTV 301": {pfs:"↗ 拉開", os:"↗ OS 拉開 (TF-ADC 後線突破)", note:"後線 ADC, PFS/OS 都拉開"},
@@ -22931,9 +22944,25 @@ function renderTrendBadge(t){
   if(tr.pfs) rows.push(`<div class="trend-row ${pfsCls}"><span class="trend-tag">PFS</span><span class="trend-txt">${escapeHtml(tr.pfs)}</span></div>`);
   if(tr.os) rows.push(`<div class="trend-row ${osCls}"><span class="trend-tag">OS</span><span class="trend-txt">${escapeHtml(tr.os)}</span></div>`);
   const noteHtml = tr.note ? `<div class="trend-note">💡 ${escapeHtml(tr.note)}</div>` : '';
+  // 次群分析的線型速記
+  let sgHtml = '';
+  if(tr.subgroups && tr.subgroups.length){
+    sgHtml = `<div class="trend-sg-block">
+      <div class="trend-sg-title">🔬 各次群曲線</div>
+      ${tr.subgroups.map(s => {
+        const cls = trendIconClass(s.line);
+        return `<div class="trend-sg-row ${cls}">
+          <span class="trend-sg-name">${escapeHtml(s.sg)}</span>
+          <span class="trend-sg-line">${escapeHtml(s.line)}</span>
+          <span class="trend-sg-num">${escapeHtml(s.num)}</span>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
   return `<div class="trend-badge">
-    <div class="trend-badge-title">📈 曲線速記 (兩組拉開程度)</div>
+    <div class="trend-badge-title">📈 曲線速記 (先看拉開程度, 再記數字)</div>
     ${rows.join('')}
+    ${sgHtml}
     ${noteHtml}
   </div>`;
 }
@@ -23235,6 +23264,7 @@ function renderTrialMnemonic(trialId){
       </div>
       <div class="tmc-extras">
         ${m.keypoint ? `<div class="tmc-extra-row keypoint"><span class="tmc-extra-label">🎯 重點</span> ${escapeHtml(m.keypoint)}</div>` : ''}
+        ${(typeof renderTrendBadge === 'function' && TRIALS.find(t=>t.id===trialId)) ? renderTrendBadge(TRIALS.find(t=>t.id===trialId)) : ''}
         ${m.numbers ? `<div class="tmc-extra-row"><span class="tmc-extra-label">📍 數字</span> ${escapeHtml(m.numbers)}</div>` : ''}
         ${m.pitfalls ? `<div class="tmc-extra-row warn"><span class="tmc-extra-label">⚠️ 易錯</span> ${escapeHtml(m.pitfalls)}</div>` : ''}
       </div>
