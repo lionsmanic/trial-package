@@ -78,27 +78,12 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .pw-lnm-rowlabel{font-size:10px;font-weight:800;color:#7c3aed;background:#f3e8ff;border-radius:6px;padding:5px 8px;text-align:left;white-space:nowrap;position:sticky;left:0;z-index:1;}
 .pw-lnm-cell{padding:2px;vertical-align:top;}
 .pw-lnm-empty{color:#e5e7eb;text-align:center;font-size:13px;vertical-align:middle;}
-.pw-lnm-chip{background:var(--bg);border:1.5px solid var(--bd);border-left:4px solid var(--c);border-radius:6px;padding:4px 7px;min-width:72px;margin-bottom:3px;cursor:default;display:flex;align-items:center;justify-content:space-between;gap:4px;}
-.pw-lnm-chip-name{font-size:10.5px;font-weight:800;color:#1f2937;}
-.pw-lnm-chip-flow{font-size:10px;font-weight:900;color:var(--c);}
+.pw-lnm-chip{background:var(--bg);border:1.5px solid var(--bd);border-left:4px solid var(--c);border-radius:6px;padding:5px 8px;min-width:96px;margin-bottom:4px;cursor:pointer;display:flex;flex-direction:column;gap:2px;transition:all .13s;}
+.pw-lnm-chip:hover{box-shadow:0 2px 8px rgba(0,0,0,0.14);transform:translateY(-1px);filter:brightness(1.03);}
+.pw-lnm-chip-name{font-size:10.5px;font-weight:800;color:#1f2937;line-height:1.25;}
+.pw-lnm-chip-foot{font-size:8.5px;font-weight:700;color:var(--c);font-family:'JetBrains Mono',monospace;line-height:1.2;border-top:1px dashed var(--bd);opacity:0.92;padding-top:2px;margin-top:1px;}
 
-/* === Dual view (雙欄連動) === */
-.pw-lnd-wrap{display:flex;gap:12px;}
-.pw-lnd-col{flex:1;min-width:0;}
-.pw-lnd-colhead{font-size:11px;font-weight:900;color:#7c3aed;margin-bottom:8px;text-align:center;background:#f3e8ff;border-radius:6px;padding:4px;}
-.pw-lnd-node{display:flex;gap:7px;align-items:flex-start;margin-bottom:3px;cursor:pointer;padding:5px 6px;border-radius:8px;transition:all .15s;border:1.5px solid transparent;}
-.pw-lnd-node:hover,.pw-lnd-node.hl{background:#fef9c3;border-color:var(--c);}
-.pw-lnd-year{font-size:10.5px;font-weight:900;color:#92400e;font-family:'JetBrains Mono',monospace;min-width:32px;padding-top:1px;}
-.pw-lnd-dot{width:9px;height:9px;border-radius:50%;background:var(--c);margin-top:3px;flex-shrink:0;}
-.pw-lnd-body{display:flex;flex-direction:column;min-width:0;}
-.pw-lnd-name{font-size:11px;font-weight:800;color:#1f2937;}
-.pw-lnd-ev{font-size:9px;color:#6b7280;line-height:1.3;}
-.pw-lnd-stage{margin-bottom:8px;}
-.pw-lnd-stagehead{font-size:10px;font-weight:900;color:#7c3aed;margin-bottom:4px;}
-.pw-lnd-box{display:inline-block;background:var(--bg);border:1.5px solid var(--bd);border-left:4px solid var(--c);border-radius:7px;padding:4px 8px;font-size:10.5px;font-weight:800;color:#1f2937;margin:2px;cursor:pointer;transition:all .15s;}
-.pw-lnd-box small{opacity:.6;font-family:'JetBrains Mono',monospace;font-weight:700;}
-.pw-lnd-box:hover,.pw-lnd-box.hl{box-shadow:0 0 0 2px var(--c);transform:translateY(-1px);}
-@media (max-width:768px){ .pw-lnd-wrap{flex-direction:column;} .pw-lnm-yearhead{min-width:64px;} }
+@media (max-width:768px){ .pw-lnm-yearhead{min-width:64px;} }
 .pw-overview-title{font-size:13.5px;font-weight:900;color:#5b21b6;margin-bottom:12px;letter-spacing:.03em;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .pw-overview-title small{font-size:10.5px;font-weight:700;color:#7c3aed;font-family:"JetBrains Mono",monospace;}
 
@@ -12163,194 +12148,129 @@ function renderPathway(){
 
 // ============================================================
 // 🕐 Render Trial Lineage — 時間線 × 治療階段融合視圖
-// 提供兩種模式: matrix (年份×階段矩陣) / dual (雙欄連動)
+// 矩陣模式: 年份 × 治療階段, 涵蓋全部 TRIALS
 // 由 lineageViewMode 控制, 預設 matrix
 // ============================================================
-let lineageViewMode = 'matrix'; // 'matrix' | 'dual'
-
-function setLineageView(mode){
-  lineageViewMode = mode;
-  const host = document.getElementById('lineageViewHost');
-  if(host){ host.innerHTML = renderLineageInner(currentPathwayCancer); }
-  document.querySelectorAll('.pw-lineage-tab').forEach(b => {
-    b.classList.toggle('active', b.getAttribute('data-mode') === mode);
-  });
-}
-
-// hover/click 連動高亮 (dual view)
-function lineageHl(name, on){
-  document.querySelectorAll('.pw-ln-linked').forEach(e => {
-    if(e.getAttribute('data-ln') === name) e.classList.toggle('hl', on);
-  });
-}
-function lineageClickHl(name){
-  document.querySelectorAll('.pw-ln-linked.hl').forEach(e => e.classList.remove('hl'));
-  lineageHl(name, true);
-}
-
 const LINEAGE_RESULT_COLOR = {
   positive: {bg:'#dcfce7', border:'#16a34a', dot:'#16a34a', label:'陽性'},
   negative: {bg:'#fee2e2', border:'#dc2626', dot:'#dc2626', label:'陰性'},
   neutral:  {bg:'#e0e7ff', border:'#6366f1', dot:'#6366f1', label:'背景'},
 };
 
-// 內層: 依 lineageViewMode 回傳 matrix 或 dual 的 HTML
+// 從 publication 抽取年份 (取最早出現的 4 位數年份)
+function extractTrialYear(t){
+  const src = (t.publication || '') + ' ' + (t.guideline || '');
+  const matches = [...src.matchAll(/(19|20)\d{2}/g)].map(m => parseInt(m[0]));
+  if(matches.length) return String(Math.min(...matches));
+  return '—';
+}
+
+// 依 phase 判定治療階段列 (一個試驗可能跨多列)
+function trialStageRows(t){
+  const phases = t.phase || [];
+  const rows = [];
+  if(phases.includes('P-TX')) rows.push('一線治療');
+  if(phases.includes('P-MT')) rows.push('一線維持');
+  if(phases.some(p => p.startsWith('R-TX'))) rows.push('復發治療');
+  if(phases.includes('R-MT')) rows.push('復發維持');
+  if(!rows.length) rows.push('其他');
+  return rows;
+}
+
+// 判定試驗結果顏色 (從 status / tagline 推測; 預設 neutral)
+function trialResultClass(t){
+  const txt = (t.tagline || '') + (t.outcomes || '');
+  if(/陰性|未達|失敗|no benefit|negative|翻車/.test(txt)) return 'negative';
+  if(/陽性|顯著|改變|OS\+|PFS\+|批准|突破|delayed|延長|改寫/.test(txt)) return 'positive';
+  return 'neutral';
+}
+
+// 開啟試驗細節 (重用既有 openTrialDetail)
+function lineageOpenTrial(trialId){
+  if(typeof openTrialDetail === 'function'){ openTrialDetail(trialId); }
+}
+
+// 矩陣渲染: 全部 TRIALS, 年份 × 治療階段
 function renderLineageInner(cancer){
-  const data = TRIAL_LINEAGE[cancer];
-  if(!data) return '';
   const RC = LINEAGE_RESULT_COLOR;
-  const years = [...new Set(data.nodes.map(n => n.year))].sort();
-  const stages = data.stages || [...new Set(data.nodes.map(n => n.stage))];
+  const STAGE_ORDER = ['一線治療','一線維持','復發治療','復發維持','其他'];
 
-  if(lineageViewMode === 'matrix'){
-    // ===== 矩陣: 橫=年份, 縱=治療階段 =====
-    let head = '<tr><th class="pw-lnm-corner">階段 ＼ 年</th>' +
-      years.map(y => `<th class="pw-lnm-yearhead">${escapeHtml(y)}</th>`).join('') + '</tr>';
-    let rows = '';
-    stages.forEach(s => {
-      let tds = '';
-      years.forEach(y => {
-        const items = data.nodes.filter(n => n.stage === s && n.year === y);
-        if(items.length){
-          tds += '<td class="pw-lnm-cell">' + items.map(n => {
-            const rc = RC[n.result] || RC.neutral;
-            const flow = (n.after ? '↳' : '') + (n.drives ? '→' : '');
-            return `<div class="pw-lnm-chip" style="--c:${rc.dot};--bg:${rc.bg};--bd:${rc.border};"
-              title="${escapeHtml(n.event)}${n.note ? ' — '+escapeHtml(n.note) : ''}">
-              <span class="pw-lnm-chip-name">${escapeHtml(n.name)}</span>
-              ${flow ? `<span class="pw-lnm-chip-flow">${flow}</span>` : ''}
-            </div>`;
-          }).join('') + '</td>';
-        } else {
-          tds += '<td class="pw-lnm-empty">·</td>';
-        }
-      });
-      rows += `<tr><td class="pw-lnm-rowlabel">${escapeHtml(s)}</td>${tds}</tr>`;
+  // 篩選此癌別的試驗
+  const cancerTrials = TRIALS.filter(t => (t.cancer === cancer));
+  if(!cancerTrials.length) return '<div style="padding:12px;color:#9ca3af;font-size:12px;">此癌別暫無試驗資料</div>';
+
+  // 建立 (stage, year) -> [trials]
+  const cellMap = {}; // key: stage||year
+  const yearSet = new Set();
+  cancerTrials.forEach(t => {
+    const yr = extractTrialYear(t);
+    yearSet.add(yr);
+    trialStageRows(t).forEach(stage => {
+      const key = stage + '||' + yr;
+      (cellMap[key] = cellMap[key] || []).push(t);
     });
-    return `<div class="pw-lnm-scroll"><table class="pw-lnm-table">${head}${rows}</table></div>
-      <div class="pw-lineage-legend">
-        <span class="pw-lineage-lg pos">● 陽性</span>
-        <span class="pw-lineage-lg neg">● 陰性</span>
-        <span class="pw-lineage-lg neu">● 背景</span>
-        &nbsp;|&nbsp; ↳ 承接前試驗 &nbsp; → 促成後續 &nbsp;|&nbsp; 滑過方塊看說明
-      </div>`;
-  }
+  });
 
-  // ===== 雙欄: 左時間線 右階段, 點擊連動 =====
-  const sorted = [...data.nodes].sort((a,b) => a.year.localeCompare(b.year));
-  const tlHtml = sorted.map(n => {
-    const rc = RC[n.result] || RC.neutral;
-    return `<div class="pw-lnd-node pw-ln-linked" data-ln="${escapeJsAttr(n.name)}"
-        style="--c:${rc.dot};"
-        onmouseenter="lineageHl('${escapeJsAttr(n.name)}',true)"
-        onmouseleave="lineageHl('${escapeJsAttr(n.name)}',false)"
-        onclick="lineageClickHl('${escapeJsAttr(n.name)}')">
-      <span class="pw-lnd-year">${escapeHtml(n.year)}</span>
-      <span class="pw-lnd-dot"></span>
-      <div class="pw-lnd-body">
-        <span class="pw-lnd-name">${escapeHtml(n.name)}</span>
-        <span class="pw-lnd-ev">${escapeHtml(n.event)}</span>
-      </div>
-    </div>`;
-  }).join('');
+  // 年份排序 (— 放最後)
+  const years = [...yearSet].sort((a,b) => {
+    if(a === '—') return 1; if(b === '—') return -1;
+    return a.localeCompare(b);
+  });
+  // 只顯示有資料的階段列
+  const stages = STAGE_ORDER.filter(s => years.some(y => cellMap[s + '||' + y]));
 
-  const stagesHtml = stages.map(s => {
-    const items = data.nodes.filter(n => n.stage === s).sort((a,b) => a.year.localeCompare(b.year));
-    if(!items.length) return '';
-    return `<div class="pw-lnd-stage">
-      <div class="pw-lnd-stagehead">${escapeHtml(s)}</div>
-      ${items.map(n => {
-        const rc = RC[n.result] || RC.neutral;
-        return `<span class="pw-lnd-box pw-ln-linked" data-ln="${escapeJsAttr(n.name)}"
-          style="--c:${rc.dot};--bg:${rc.bg};--bd:${rc.border};"
-          onmouseenter="lineageHl('${escapeJsAttr(n.name)}',true)"
-          onmouseleave="lineageHl('${escapeJsAttr(n.name)}',false)"
-          onclick="lineageClickHl('${escapeJsAttr(n.name)}')">
-          ${escapeHtml(n.name)} <small>${escapeHtml(n.year)}</small>
-        </span>`;
-      }).join('')}
-    </div>`;
-  }).join('');
+  // footnote 內容: mechanism label
+  const footnote = (t) => {
+    const mech = TRIAL_MECHANISMS[t.name] || TRIAL_MECHANISMS[t.fullName] || '';
+    return mech;
+  };
 
-  return `<div class="pw-lnd-wrap">
-      <div class="pw-lnd-col">
-        <div class="pw-lnd-colhead">🕐 時間線 (依年份)</div>
-        ${tlHtml}
-      </div>
-      <div class="pw-lnd-col">
-        <div class="pw-lnd-colhead">🖼 治療階段</div>
-        ${stagesHtml}
-      </div>
-    </div>
+  let head = '<tr><th class="pw-lnm-corner">階段 ＼ 年</th>' +
+    years.map(y => `<th class="pw-lnm-yearhead">${escapeHtml(y)}</th>`).join('') + '</tr>';
+  let rows = '';
+  stages.forEach(s => {
+    let tds = '';
+    years.forEach(y => {
+      const items = cellMap[s + '||' + y] || [];
+      if(items.length){
+        tds += '<td class="pw-lnm-cell">' + items.map(t => {
+          const rc = RC[trialResultClass(t)] || RC.neutral;
+          const trialId = t.id || t.name;
+          const fn = footnote(t);
+          const isStar = t.star === 1 || t.starred;
+          return `<div class="pw-lnm-chip" style="--c:${rc.dot};--bg:${rc.bg};--bd:${rc.border};"
+            onclick="lineageOpenTrial('${escapeJsAttr(trialId)}')"
+            title="${escapeHtml(t.tagline || t.name)}">
+            <span class="pw-lnm-chip-name">${isStar?'⭐ ':''}${escapeHtml(t.name)}</span>
+            ${fn ? `<span class="pw-lnm-chip-foot">${escapeHtml(fn)}</span>` : ''}
+          </div>`;
+        }).join('') + '</td>';
+      } else {
+        tds += '<td class="pw-lnm-empty">·</td>';
+      }
+    });
+    rows += `<tr><td class="pw-lnm-rowlabel">${escapeHtml(s)}</td>${tds}</tr>`;
+  });
+
+  return `<div class="pw-lnm-scroll"><table class="pw-lnm-table">${head}${rows}</table></div>
     <div class="pw-lineage-legend">
       <span class="pw-lineage-lg pos">● 陽性</span>
       <span class="pw-lineage-lg neg">● 陰性</span>
-      <span class="pw-lineage-lg neu">● 背景</span>
-      &nbsp;|&nbsp; 點/滑任一試驗, 左右兩邊同步高亮
+      <span class="pw-lineage-lg neu">● 背景/中性</span>
+      &nbsp;|&nbsp; ⭐ 標竿 &nbsp;|&nbsp; 方塊下方 = 策略備註 &nbsp;|&nbsp; 點方塊看試驗細節
     </div>`;
 }
 
 function renderTrialLineage(cancer){
   const data = TRIAL_LINEAGE[cancer];
-  if(!data) return '';
+  const title = data ? data.title : '試驗發展時間線';
+  const subtitle = data ? data.subtitle : '';
   return `<div class="pw-lineage-wrap">
     <div class="pw-lineage-title">
-      <span>🕐</span> ${escapeHtml(data.title)}
-      <small>${escapeHtml(data.subtitle)}</small>
-    </div>
-    <div class="pw-lineage-tabs">
-      <button class="pw-lineage-tab ${lineageViewMode==='matrix'?'active':''}" data-mode="matrix" onclick="setLineageView('matrix')">▦ 矩陣 (年份 × 階段)</button>
-      <button class="pw-lineage-tab ${lineageViewMode==='dual'?'active':''}" data-mode="dual" onclick="setLineageView('dual')">⇄ 雙欄連動</button>
+      <span>🕐</span> ${escapeHtml(title)} — 年份 × 治療階段矩陣
+      <small>${escapeHtml(subtitle)}</small>
     </div>
     <div id="lineageViewHost">${renderLineageInner(cancer)}</div>
-  </div>`;
-}
-
-function _unused_old_lineage(cancer){
-  const data = TRIAL_LINEAGE[cancer];
-  if(!data) return '';
-
-  const resultColor = {
-    positive: {bg:'#dcfce7', border:'#16a34a', dot:'#16a34a', label:'陽性'},
-    negative: {bg:'#fee2e2', border:'#dc2626', dot:'#dc2626', label:'陰性'},
-    neutral:  {bg:'#e0e7ff', border:'#6366f1', dot:'#6366f1', label:'中性/背景'},
-  };
-
-  const nodesHtml = data.nodes.map((n, i) => {
-    const rc = resultColor[n.result] || resultColor.neutral;
-    const afterHtml = n.after ? `<div class="pw-lineage-after">↳ ${escapeHtml(n.after)}</div>` : '';
-    const drivesHtml = n.drives ? `<div class="pw-lineage-drives">${escapeHtml(n.drives)}</div>` : '';
-    const noteHtml = n.note ? `<div class="pw-lineage-note">${escapeHtml(n.note)}</div>` : '';
-    return `<div class="pw-lineage-node" style="--node-border:${rc.border};--node-bg:${rc.bg};--node-dot:${rc.dot};">
-      <div class="pw-lineage-year">${escapeHtml(n.year)}</div>
-      <div class="pw-lineage-dot"></div>
-      <div class="pw-lineage-card">
-        <div class="pw-lineage-head">
-          <span class="pw-lineage-name">${escapeHtml(n.name)}</span>
-          <span class="pw-lineage-badge">${rc.label}</span>
-        </div>
-        <div class="pw-lineage-event">${escapeHtml(n.event)}</div>
-        ${noteHtml}
-        ${afterHtml}
-        ${drivesHtml}
-      </div>
-    </div>`;
-  }).join('');
-
-  return `<div class="pw-lineage-wrap">
-    <div class="pw-lineage-title">
-      <span>🕐</span> ${escapeHtml(data.title)}
-      <small>${escapeHtml(data.subtitle)}</small>
-    </div>
-    <div class="pw-lineage-track">
-      ${nodesHtml}
-    </div>
-    <div class="pw-lineage-legend">
-      <span class="pw-lineage-lg pos">● 陽性 (實務改變)</span>
-      <span class="pw-lineage-lg neg">● 陰性 (但有啟示)</span>
-      <span class="pw-lineage-lg neu">● 背景/中性</span>
-      &nbsp;|&nbsp; ↳ = 承接前一試驗動機 &nbsp; → = 促成後續試驗
-    </div>
   </div>`;
 }
 
