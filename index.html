@@ -2615,6 +2615,25 @@ mark.inc-hl{background:#fde68a;color:#78350f;padding:1px 4px;border-radius:4px;f
 .mol-special-btn.staging.active{background:linear-gradient(135deg,#9d174d,#831843);color:white;border-color:#9d174d;}
 .mol-special-btn.checklist-shortcut{background:linear-gradient(135deg,#cffafe,#a5f3fc);color:#0e7490;}
 .mol-special-btn.checklist-shortcut:hover{border-color:#0891b2;transform:translateX(2px);}
+.mol-special-btn.prevalence{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#78350f;}
+.mol-special-btn.prevalence:hover{border-color:#f59e0b;transform:translateX(2px);}
+.mol-special-btn.prevalence.active{background:linear-gradient(135deg,#b45309,#78350f);color:white;border-color:#b45309;}
+
+/* Prevalence blocks */
+.mol-prev-intro{font-size:12.5px;line-height:1.65;color:#475569;background:#f8fafc;border-radius:9px;padding:11px 13px;margin-bottom:14px;border-left:4px solid #f59e0b;}
+.mol-prev-block{margin-bottom:18px;}
+.mol-prev-blocktitle{font-size:14px;font-weight:900;color:#78350f;margin-bottom:9px;}
+.mol-prev-intro2{font-size:12px;line-height:1.6;color:#64748b;margin-bottom:8px;}
+.mol-prev-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:8px;}
+.mol-prev-table th{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#78350f;font-weight:800;padding:7px 9px;text-align:left;border:1px solid #fcd34d;font-size:11.5px;}
+.mol-prev-table td{padding:7px 9px;border:1px solid #fde68a;vertical-align:top;line-height:1.5;}
+.mol-prev-table td code{background:#fef3c7;padding:1px 6px;border-radius:5px;font-weight:800;color:#92400e;font-family:"JetBrains Mono",monospace;font-size:11px;}
+.mol-prev-note-cell{color:#475569;font-size:11.5px;}
+.mol-prev-subnote{font-size:11.5px;line-height:1.6;color:#78350f;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:9px 11px;margin-top:2px;}
+.mol-prev-refs{margin-top:16px;background:#f8fafc;border-radius:9px;padding:12px 14px;border:1px solid #e2e8f0;}
+.mol-prev-refs-title{font-size:12.5px;font-weight:900;color:#334155;margin-bottom:7px;}
+.mol-prev-refs ul{margin:0;padding-left:18px;}
+.mol-prev-refs li{font-size:11px;line-height:1.65;color:#475569;margin-bottom:4px;}
 
 /* Workflow steps */
 .mol-workflow-steps{display:flex;flex-direction:column;gap:11px;margin:14px 0;}
@@ -6595,7 +6614,7 @@ const TRIALS = [
   cancer:"CC",
   subcat:["IO","1L-RM"],
   id:"keynote-826",
-  phase:["P-MT","R-TX"],
+  phase:["P-TX","P-MT","R-TX"],
   status:"published",
   name:"KEYNOTE-826",
   fullName:"KEYNOTE-826",
@@ -6711,7 +6730,7 @@ const TRIALS = [
   cancer:"CC",
   subcat:"1L-RM",
   id:"beatcc",
-  phase:["R-TX"],
+  phase:["P-TX","R-TX"],
   status:"published",
   name:"BEATcc",
   fullName:"BEATcc / ENGOT-Cx10 / GEICO 68-C / JGOG1084 / GOG-3030",
@@ -6739,7 +6758,7 @@ const TRIALS = [
   cancer:"CC",
   subcat:"1L-RM",
   id:"gog-240",
-  phase:["R-TX"],
+  phase:["P-TX","R-TX"],
   status:"published",
   name:"GOG-240",
   fullName:"GOG-240",
@@ -7131,7 +7150,7 @@ const TRIALS = [
   combo:"與 PARAGON (Anastrozole) 並列 LGESS 激素治療\n啟發 LGESS 全面去化療策略",
   guideline:"NCCN v2.2026 推薦:\n  • LGESS 完全切除後考慮輔助 AI 至少 2 年\n  • 復發 LGESS AI 為一線\nESMO 2024 一致\n台灣: 健保已給付",
   nct:"NCT05649956",
-  publication:"Trial-in-progress + retrospective case series (Yoon et al. Gynecol Oncol 2014)"
+  publication:"Trial-in-progress (NCT05649956, 2023 起); 支持證據: retrospective case series (Yoon et al. Gynecol Oncol 2014)"
 },
 
 // ========== US R-TX: Recurrent / Metastatic LMS ==========
@@ -10457,7 +10476,7 @@ const PATHWAY_OVERVIEW = {
       {stage: "LACC 新輔助 NIC", column: "primary", trials: ["NACI Study", "NATIC Trial", "Cadonilimab + NACT"]},
       {stage: "R/M 一線", column: "primary", trials: ["KEYNOTE-826", "BEATcc", "GOG-240"]},
       {stage: "CCRT 後維持 (探索)", column: "primary", trials: ["eVOLVE-Cervical"]},
-      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "EMPOWER-Cervical 1", "innovaTV 301", "innovaTV 205", "GOG-240", "KEYNOTE-158", "PVX4", "KEYNOTE-C93"]},
+      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "GOG-240", "EMPOWER-Cervical 1", "innovaTV 301", "innovaTV 205", "GOG-240", "KEYNOTE-158", "PVX4", "KEYNOTE-C93"]},
       {stage: "TROP2 ADC 探索", column: "recurrent", trials: ["TroFuse-036", "EVER-132-003 (SG in CC)", "TROPION-PanTumor01 (Dato-DXd)"]},
       {stage: "HER2 ADC (CC)", column: "recurrent", trials: ["DESTINY-PanTumor02 (T-DXd)"]},
       {stage: "跨癌別 Basket (CC 相關)", column: "recurrent", trials: ["LIBRETTO-001"]},
@@ -12253,12 +12272,15 @@ const LINEAGE_RESULT_COLOR = {
   neutral:  {bg:'#e0e7ff', border:'#6366f1', dot:'#6366f1', label:'背景'},
 };
 
-// 從 publication 抽取年份 (取最早出現的 4 位數年份)
+// 從 publication 抽取主結果年份 (取第一個出現的年份 = 主分析年份, 通常列在最前)
+// 注意: 不用「最小年份」, 因 publication 常引用更早的次要文獻導致誤判
 function extractTrialYear(t){
-  const src = (t.publication || '') + ' ' + (t.guideline || '');
-  const matches = [...src.matchAll(/(19|20)\d{2}/g)].map(m => parseInt(m[0]));
-  if(matches.length) return String(Math.min(...matches));
-  return '—';
+  const pub = t.publication || '';
+  let m = pub.match(/(19|20)\d{2}/);
+  if(m) return m[0];
+  const g = t.guideline || '';
+  m = g.match(/(19|20)\d{2}/);
+  return m ? m[0] : '—';
 }
 
 // 依 phase 判定治療階段列 (一個試驗可能跨多列)
@@ -18962,6 +18984,51 @@ const MOL_PEDIA = {
         { mol: 'NSMP', stage: '需再分流', impact: 'ER, grade, LVSI 細分; ER+ low-grade vs ER- high-grade 預後差異大' },
       ]
     },
+    prevalence: {
+      title: '📊 EC 分子分型比例、重疊與組織型別分布',
+      intro: 'TCGA 四型的整體比例、彼此重疊 (multiple-classifier)、以及在各組織型別中的分布。四型在概念上「互斥」但實際 3-11% 有重疊, 需用優先序 (POLEmut > MMRd > p53abn) 歸類。',
+      distribution: {
+        title: '① 四型整體比例 (TCGA 2013, n=373)',
+        rows: [
+          { subtype: 'POLEmut (ultramutated)', pct: '~7%', prognosis: '⭐⭐⭐⭐⭐ 最佳', note: '突變負荷最高但預後最好 (矛盾點)' },
+          { subtype: 'MMRd / MSI-H (hypermutated)', pct: '~28%', prognosis: '⭐⭐⭐ 中等', note: 'MLH1 methylation 為主 (~75%)' },
+          { subtype: 'NSMP / CN-low (copy-number low)', pct: '~39%', prognosis: '⭐⭐⭐ 中等', note: '最大族群; 異質性高, 需 ER/grade 再分流' },
+          { subtype: 'p53abn / CN-high (serous-like)', pct: '~26%', prognosis: '⭐ 最差', note: 'TP53 突變; 幾乎所有 serous 屬此' },
+        ],
+        note: '各世界真實世界 cohort 比例略異: POLE 5.5-7.4% / MMRd 20-28% / p53abn 10-14% / NSMP 39-64%'
+      },
+      overlap: {
+        title: '② 重疊 (Multiple-classifier) 比例與歸類',
+        intro: '3-11% 的 EC 同時帶 ≥2 個分型特徵; 依「POLEmut > MMRd > p53abn」優先序歸類。最大宗是 MMRd-p53abn。',
+        rows: [
+          { combo: 'Multiple-classifier 總計', pct: '3-11% (波蘭 1075 例: 6.9%)',route: '依優先序' },
+          { combo: 'MMRd-p53abn (最常見)', pct: '~3.9% (單一 cohort)', route: '→ 歸為 MMRd (預後近 MMRd)' },
+          { combo: 'POLEmut-p53abn', pct: '~0.9%', route: '→ 歸為 POLEmut (預後近 POLEmut)' },
+          { combo: 'POLEmut-MMRd', pct: '~3% (3518 例 cohort)', route: '→ 歸為 POLEmut' },
+          { combo: 'POLEmut-MMRd-p53abn (三重)', pct: '~0.3-0.5%', route: '→ 歸為 POLEmut' },
+        ],
+        note: '關鍵證據 (Kolin/León-Castillo, J Pathol 2020, n=3518): MMRd-p53abn 分子上多群聚於單純 MMRd (20/23); POLEmut-p53abn 群聚於單純 POLEmut (12/13)。且 60% MMRd-p53abn 為 subclonal p53 → TP53 突變是「後天次發事件」, 支持歸為原發分型。Stage I 5y RFS: MMRd-p53abn 92.2% / POLEmut-p53abn 94.1% vs 單純 p53abn 僅 70.8%。'
+      },
+      histology: {
+        title: '③ 各組織型別中的分子分型分布',
+        rows: [
+          { histo: 'Endometrioid (子宮內膜樣)', dist: '四型都有; 但 72% 落在 NSMP 或 p53abn (CN-low/high); POLE/MMRd 較集中於此組織型' },
+          { histo: 'Serous (漿液)', dist: '幾乎全為 p53abn: 97.7-98% 屬 CN-high; POLE/MMRd 極罕見' },
+          { histo: 'Mixed (混合型)', dist: '~75% 屬 CN-high (p53abn)' },
+          { histo: 'Clear cell (透明細胞)', dist: '異質: 多為 p53abn 或 NSMP; 少數 MMRd' },
+          { histo: 'Carcinosarcoma (癌肉瘤)', dist: '大多 p53abn (TP53 突變); 為高度侵襲' },
+          { histo: 'Grade 3 endometrioid', dist: '跨型; 部分 TP53 突變者與 serous (CN-high) 重疊' },
+        ],
+        note: 'Endometrioid 出現在所有分型; Serous 幾乎專屬 p53abn。這是「組織型別 ≠ 分子分型」的核心考點: 高惡度 endometrioid 可能是 p53abn, 也可能是 POLEmut (預後天差地別)。'
+      },
+      refs: [
+        'TCGA (Kandoth et al.), Nature 2013 — 原始四型 (n=373): POLE 7% / MSI 28% / CN-low 39% / CN-high 26%',
+        'León-Castillo et al., J Pathol 2020 (n=3518) — multiple-classifier 分子群聚與歸類邏輯',
+        'Multicenter Poland cohort, Cancers (MDPI) 2025 (n=1075) — multiple-classifier 6.9%, MMRd-p53abn 最多 (3.9%)',
+        'Travaglino/Raffone et al., 各 histotype 中 TCGA 分布 review (PMC8198052)',
+        'ESGO/ESTRO/ESP 2025 guideline + FIGO 2023 molecular staging'
+      ]
+    },
     entries: [
       {
         id: 'POLEm',
@@ -19339,6 +19406,48 @@ const MOL_PEDIA = {
         { mol: 'CDH6', stage: 'Raludotatug Deruxtecan (R-DXd)', impact: 'OC ~65-95% express; REJOICE-Ovarian01 + ENGOT-ov77 (本院招募中)' },
         { mol: 'B7-H4', stage: 'Emerging ADC (alisertib-based)', impact: 'OC + EC; B7-H4 較少 normal tissue; Ph1/2 試驗中' },
         { mol: 'CLDN6', stage: 'Emerging (autologous T-cell therapy 或 ADC)', impact: 'Germ cell tumors + OC; 早期試驗' },
+      ]
+    },
+    prevalence: {
+      title: '📊 黏液性卵巢癌 (MOC) 分子分型與進展連續譜',
+      intro: '黏液性卵巢癌 (mucinous OC, MOC) 與 HGSC 完全不同: 以 KRAS 突變 + HER2 amplification 為特徵, 缺乏 HGSC 的廣泛基因不穩定。發展呈連續譜 (borderline → expansile → infiltrative), KRAS 是早期事件, HER2/TP53 為後期漸增 (見 NEJM Fig 1)。70-80% 診斷於 FIGO I-II 早期。',
+      distribution: {
+        title: '① MOC 關鍵分子變異頻率',
+        rows: [
+          { subtype: 'KRAS mutation', pct: '13-70% (多數研究 ~40-60%)', prognosis: '早期事件', note: 'borderline 即出現; 貫穿整個進展連續譜' },
+          { subtype: 'HER2 amplification / overexpression', pct: '18-35% (台灣 cohort ~33%)', prognosis: '後期漸增', note: 'expansile 型較高; 可考慮 anti-HER2' },
+          { subtype: 'TP53 mutation', pct: '52-64%', prognosis: '後期事件', note: '於 infiltrative / 進展期漸增 (與 HGSC 不同, 非早期驅動)' },
+          { subtype: 'BRAF mutation', pct: '5.4-22.6%', prognosis: '早期', note: '與 KRAS 多互斥' },
+          { subtype: 'KRAS/HER2 皆陰性', pct: '~10%', prognosis: '複雜', note: '可能帶 PIK3CA/TP53 等其他突變' },
+        ],
+        note: '關鍵對比: HGSC 為 TP53 突變 ~100% + 廣泛基因不穩定; MOC 則以 KRAS/HER2 為主, TP53 為後天次發。MOC 對鉑類化療反應差, 晚期預後比 HGSC 更差。'
+      },
+      overlap: {
+        title: '② 生長型態 (expansile vs infiltrative) 對比',
+        intro: '侵犯型態是 MOC 最重要的預後因子。Expansile (膨脹型) 行為近 borderline; Infiltrative (浸潤型) 較具侵襲性。',
+        rows: [
+          { combo: 'Expansile (膨脹型)', pct: '較常見 / 早期', route: '背靠背腺體、無破壞性間質侵犯; 預後較佳, 近 borderline' },
+          { combo: 'Infiltrative (浸潤型)', pct: '較侵襲', route: '破壞性間質侵犯、惡性細胞團; 預後較差, 復發/死亡率高' },
+          { combo: 'HER2 表現', pct: 'expansile > infiltrative', route: 'expansile 型 HER2 過度表現/擴增較常見' },
+          { combo: 'THBS2 / TAGLN 高表現', pct: 'infiltrative 相關', route: '與較短 OS 相關 (HR 1.21-1.25)' },
+        ],
+        note: '分子標記 (KRAS/HER2/TP53) 與預後關聯有限; 生長型態 (expansile vs infiltrative) 才是主要預後決定因子。診斷 MOC 必須先排除 GI 原發轉移 (CK7/CK20、CDX2、SATB2、PAX8)。'
+      },
+      histology: {
+        title: '③ 進展連續譜 (Borderline → Carcinoma, 對應 NEJM Fig 1)',
+        rows: [
+          { histo: 'Borderline mucinous tumor', dist: '囊狀腺體、極少/無間質侵犯; KRAS 突變「已存在」(早期事件)' },
+          { histo: 'Mucinous carcinoma — Expansile', dist: '背靠背腺體、無破壞性侵犯; KRAS+; HER2 漸增' },
+          { histo: 'Mucinous carcinoma — Infiltrative', dist: '惡性細胞團 + 破壞性間質侵犯; KRAS + HER2 + TP53 漸積累' },
+        ],
+        note: 'NEJM Fig 1 核心訊息: KRAS 突變是「早期事件」(borderline 即有); HER2 amplification 與 TP53 突變則在惡性轉化「後期漸增」。這解釋為何 borderline 與 carcinoma 共享 KRAS, 但 carcinoma 才累積 HER2/TP53。'
+      },
+      refs: [
+        'NEJM Fig 1 — Stages in the Progression of Mucinous Ovarian Tumors (KRAS 早期; HER2/TP53 後期漸增)',
+        'Jayson et al., Lancet 2014 — MOC review (KRAS ~100%, HER2 高頻之原始論述)',
+        'Han et al., 台灣 cohort (PMC5192568) — HER2 amp 33.3%, KRAS mut 61.9% (n=21)',
+        'Genetic analysis of infiltrative vs expansile MOC, Diagnostic Pathology 2023 (KRAS 13-70% / TP53 52-64% / BRAF 5.4-22.6%)',
+        'MOC molecular stratification review, Cancers/PMC 2023-2025 (expansile vs infiltrative 預後; 70-80% FIGO I-II)',
       ]
     },
     entries: [
@@ -21606,6 +21715,11 @@ function renderMolList(){
         ${escapeHtml(data.figoStaging.title)}
       </button>
     ` : ''}
+    ${data.prevalence ? `
+      <button class="mol-special-btn prevalence" onclick="showMolSpecial('prevalence')">
+        ${escapeHtml(data.prevalence.title)}
+      </button>
+    ` : ''}
     <div class="mol-entries">
       ${data.entries.map((e, idx) => `
         <button class="mol-entry-btn ${idx === currentMolEntry && !currentMolSpecial ? 'active' : ''}" onclick="selectMolEntry(${idx})">
@@ -21695,6 +21809,75 @@ function showMolSpecial(type){
         💡 <strong>${takeaway}</strong>
       </div>
     `;
+  } else if(type === 'prevalence' && data.prevalence){
+    const p = data.prevalence;
+    let html = `<div class="mol-detail-header"><h3>${escapeHtml(p.title)}</h3></div>`;
+    html += `<div class="mol-prev-intro">${escapeHtml(p.intro)}</div>`;
+
+    // ① 整體比例
+    if(p.distribution){
+      html += `<div class="mol-prev-block">
+        <div class="mol-prev-blocktitle">${escapeHtml(p.distribution.title)}</div>
+        <table class="mol-prev-table">
+          <thead><tr><th>分子亞型</th><th>比例</th><th>預後</th><th>備註</th></tr></thead>
+          <tbody>
+            ${p.distribution.rows.map(r => `<tr>
+              <td><strong>${escapeHtml(r.subtype)}</strong></td>
+              <td><code>${escapeHtml(r.pct)}</code></td>
+              <td>${escapeHtml(r.prognosis)}</td>
+              <td class="mol-prev-note-cell">${escapeHtml(r.note)}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        ${p.distribution.note ? `<div class="mol-prev-subnote">📌 ${escapeHtml(p.distribution.note)}</div>` : ''}
+      </div>`;
+    }
+
+    // ② 重疊
+    if(p.overlap){
+      html += `<div class="mol-prev-block">
+        <div class="mol-prev-blocktitle">${escapeHtml(p.overlap.title)}</div>
+        <div class="mol-prev-intro2">${escapeHtml(p.overlap.intro)}</div>
+        <table class="mol-prev-table">
+          <thead><tr><th>重疊組合</th><th>比例</th><th>歸類</th></tr></thead>
+          <tbody>
+            ${p.overlap.rows.map(r => `<tr>
+              <td><strong>${escapeHtml(r.combo)}</strong></td>
+              <td><code>${escapeHtml(r.pct)}</code></td>
+              <td>${escapeHtml(r.route)}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        ${p.overlap.note ? `<div class="mol-prev-subnote">🔬 ${escapeHtml(p.overlap.note)}</div>` : ''}
+      </div>`;
+    }
+
+    // ③ 組織型別分布
+    if(p.histology){
+      html += `<div class="mol-prev-block">
+        <div class="mol-prev-blocktitle">${escapeHtml(p.histology.title)}</div>
+        <table class="mol-prev-table">
+          <thead><tr><th>組織型別</th><th>分子分型分布</th></tr></thead>
+          <tbody>
+            ${p.histology.rows.map(r => `<tr>
+              <td><strong>${escapeHtml(r.histo)}</strong></td>
+              <td class="mol-prev-note-cell">${escapeHtml(r.dist)}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        ${p.histology.note ? `<div class="mol-prev-subnote">📌 ${escapeHtml(p.histology.note)}</div>` : ''}
+      </div>`;
+    }
+
+    // 論文
+    if(p.refs && p.refs.length){
+      html += `<div class="mol-prev-refs">
+        <div class="mol-prev-refs-title">📚 參考文獻</div>
+        <ul>${p.refs.map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul>
+      </div>`;
+    }
+
+    detail.innerHTML = html;
   }
 }
 
