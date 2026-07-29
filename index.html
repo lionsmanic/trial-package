@@ -63,6 +63,42 @@ body{font-family:"Noto Sans TC","Inter",sans-serif;background:#f0f4f8;color:var(
 .pw-lineage-lg{margin:0 3px;}
 .pw-lineage-lg.pos{color:#16a34a;} .pw-lineage-lg.neg{color:#dc2626;} .pw-lineage-lg.neu{color:#6366f1;}
 @media (max-width:768px){ .pw-lineage-node{min-width:170px;} .pw-lineage-track{padding-bottom:14px;} }
+
+/* === Lineage view tabs === */
+.pw-lineage-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.pw-lineage-tab{font-size:11.5px;font-weight:800;padding:5px 12px;border-radius:100px;border:1.5px solid #fcd34d;background:#fffbeb;color:#92400e;cursor:pointer;transition:all .15s;font-family:inherit;}
+.pw-lineage-tab:hover{background:#fef3c7;}
+.pw-lineage-tab.active{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-color:#d97706;}
+
+/* === Matrix view (年份 × 階段) === */
+.pw-lnm-scroll{overflow-x:auto;padding-bottom:6px;}
+.pw-lnm-table{border-collapse:separate;border-spacing:3px;min-width:max-content;}
+.pw-lnm-corner{font-size:10px;font-weight:900;color:#6b21a8;background:#ede9fe;border-radius:6px;padding:5px 8px;white-space:nowrap;position:sticky;left:0;z-index:2;}
+.pw-lnm-yearhead{font-size:11px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#92400e;background:#fef3c7;border-radius:6px;padding:5px 8px;min-width:76px;}
+.pw-lnm-rowlabel{font-size:10px;font-weight:800;color:#7c3aed;background:#f3e8ff;border-radius:6px;padding:5px 8px;text-align:left;white-space:nowrap;position:sticky;left:0;z-index:1;}
+.pw-lnm-cell{padding:2px;vertical-align:top;}
+.pw-lnm-empty{color:#e5e7eb;text-align:center;font-size:13px;vertical-align:middle;}
+.pw-lnm-chip{background:var(--bg);border:1.5px solid var(--bd);border-left:4px solid var(--c);border-radius:6px;padding:4px 7px;min-width:72px;margin-bottom:3px;cursor:default;display:flex;align-items:center;justify-content:space-between;gap:4px;}
+.pw-lnm-chip-name{font-size:10.5px;font-weight:800;color:#1f2937;}
+.pw-lnm-chip-flow{font-size:10px;font-weight:900;color:var(--c);}
+
+/* === Dual view (雙欄連動) === */
+.pw-lnd-wrap{display:flex;gap:12px;}
+.pw-lnd-col{flex:1;min-width:0;}
+.pw-lnd-colhead{font-size:11px;font-weight:900;color:#7c3aed;margin-bottom:8px;text-align:center;background:#f3e8ff;border-radius:6px;padding:4px;}
+.pw-lnd-node{display:flex;gap:7px;align-items:flex-start;margin-bottom:3px;cursor:pointer;padding:5px 6px;border-radius:8px;transition:all .15s;border:1.5px solid transparent;}
+.pw-lnd-node:hover,.pw-lnd-node.hl{background:#fef9c3;border-color:var(--c);}
+.pw-lnd-year{font-size:10.5px;font-weight:900;color:#92400e;font-family:'JetBrains Mono',monospace;min-width:32px;padding-top:1px;}
+.pw-lnd-dot{width:9px;height:9px;border-radius:50%;background:var(--c);margin-top:3px;flex-shrink:0;}
+.pw-lnd-body{display:flex;flex-direction:column;min-width:0;}
+.pw-lnd-name{font-size:11px;font-weight:800;color:#1f2937;}
+.pw-lnd-ev{font-size:9px;color:#6b7280;line-height:1.3;}
+.pw-lnd-stage{margin-bottom:8px;}
+.pw-lnd-stagehead{font-size:10px;font-weight:900;color:#7c3aed;margin-bottom:4px;}
+.pw-lnd-box{display:inline-block;background:var(--bg);border:1.5px solid var(--bd);border-left:4px solid var(--c);border-radius:7px;padding:4px 8px;font-size:10.5px;font-weight:800;color:#1f2937;margin:2px;cursor:pointer;transition:all .15s;}
+.pw-lnd-box small{opacity:.6;font-family:'JetBrains Mono',monospace;font-weight:700;}
+.pw-lnd-box:hover,.pw-lnd-box.hl{box-shadow:0 0 0 2px var(--c);transform:translateY(-1px);}
+@media (max-width:768px){ .pw-lnd-wrap{flex-direction:column;} .pw-lnm-yearhead{min-width:64px;} }
 .pw-overview-title{font-size:13.5px;font-weight:900;color:#5b21b6;margin-bottom:12px;letter-spacing:.03em;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .pw-overview-title small{font-size:10.5px;font-weight:700;color:#7c3aed;font-family:"JetBrains Mono",monospace;}
 
@@ -10243,55 +10279,59 @@ const TRIAL_LINEAGE = {
   CC: {
     title: "🟠 子宮頸癌 — 試驗發展時間線",
     subtitle: "從 CCRT 標準 → 化療時序探索 → 免疫整合",
+    stages: ["LACC 標準","LACC 前導","LACC 併免疫","LACC 輔助","R/M 一線","R/M 後線"],
     nodes: [
-      {year:"1999", name:"CCRT 確立", event:"5 個 RCT 確立 Cisplatin-based CCRT 為 LACC 標準", result:"positive", note:"但 ~30% 仍復發轉移"},
-      {year:"2014", name:"GOG-240", event:"R/M 宮頸癌加 Bev, 首個 anti-VEGF OS+ 試驗", result:"positive", drives:"啟發後續 R/M 一線加藥"},
-      {year:"2022", name:"OUTBACK", event:"CCRT「後」加輔助化療 — 陰性", result:"negative", note:"純化療後加無效", drives:"→ 促成改試「前導」與「免疫維持」"},
-      {year:"2022", name:"CALLA", event:"CCRT + durvalumab (concurrent PD-L1) — 陰性", result:"negative", note:"時序/族群問題", drives:"→ 引發 IO 時序探索"},
-      {year:"2022", name:"KEYNOTE-826", event:"R/M 一線 chemo+pembro±Bev — 陽性", result:"positive", note:"CPS≥1/all-comer/CPS≥10 皆益"},
-      {year:"2022", name:"NRG-GY017", event:"探索 atezolizumab priming 先於 CCRT 的時序", result:"neutral", note:"機制驗證 (接續 CALLA 失敗)", after:"CALLA + KEYNOTE-A18 後開展, 探究 IO 最佳時序"},
-      {year:"2023", name:"INTERLACE", event:"CCRT「前」加前導化療 — 陽性 (HR 0.65)", result:"positive", note:"與 OUTBACK 對比: 時序決定成敗", after:"回應 OUTBACK 陰性"},
-      {year:"2023", name:"BEATcc", event:"R/M 一線 chemo+atezo+Bev (三軌) — 陽性", result:"positive", note:"PD-L1 全 CPS 皆益", after:"在 GOG-240 backbone + KN-826 基礎上加 IO"},
-      {year:"2024", name:"KEYNOTE-A18", event:"CCRT + pembro 同步「並」維持 — 陽性", result:"positive", note:"IO 時序關鍵 (concurrent+maintenance)", after:"從 CALLA 失敗學到: 需同步+維持"},
+      {year:"1999", name:"CCRT 確立", stage:"LACC 標準", event:"5 個 RCT 確立 Cisplatin-based CCRT 為 LACC 標準", result:"positive", note:"但 ~30% 仍復發轉移"},
+      {year:"2014", name:"GOG-240", stage:"R/M 一線", event:"R/M 宮頸癌加 Bev, 首個 anti-VEGF OS+ 試驗", result:"positive", drives:"啟發後續 R/M 一線加藥"},
+      {year:"2022", name:"OUTBACK", stage:"LACC 輔助", event:"CCRT「後」加輔助化療 — 陰性", result:"negative", note:"純化療後加無效", drives:"→ 促成改試「前導」與「免疫維持」"},
+      {year:"2022", name:"CALLA", stage:"LACC 併免疫", event:"CCRT + durvalumab (concurrent PD-L1) — 陰性", result:"negative", note:"時序/族群問題", drives:"→ 引發 IO 時序探索"},
+      {year:"2022", name:"KEYNOTE-826", stage:"R/M 一線", event:"R/M 一線 chemo+pembro±Bev — 陽性", result:"positive", note:"CPS≥1/all-comer/CPS≥10 皆益"},
+      {year:"2022", name:"NRG-GY017", stage:"LACC 併免疫", event:"探索 atezolizumab priming 先於 CCRT 的時序", result:"neutral", note:"機制驗證 (接續 CALLA 失敗)", after:"CALLA + KEYNOTE-A18 後開展, 探究 IO 最佳時序"},
+      {year:"2023", name:"INTERLACE", stage:"LACC 前導", event:"CCRT「前」加前導化療 — 陽性 (HR 0.65)", result:"positive", note:"與 OUTBACK 對比: 時序決定成敗", after:"回應 OUTBACK 陰性"},
+      {year:"2023", name:"BEATcc", stage:"R/M 一線", event:"R/M 一線 chemo+atezo+Bev (三軌) — 陽性", result:"positive", note:"PD-L1 全 CPS 皆益", after:"在 GOG-240 backbone + KN-826 基礎上加 IO"},
+      {year:"2024", name:"KEYNOTE-A18", stage:"LACC 併免疫", event:"CCRT + pembro 同步「並」維持 — 陽性", result:"positive", note:"IO 時序關鍵 (concurrent+maintenance)", after:"從 CALLA 失敗學到: 需同步+維持"},
     ],
   },
   EC: {
     title: "🔴 子宮內膜癌 — 試驗發展時間線",
     subtitle: "從 TCGA 分子分型 → 化療+IO → PARPi 整合 → 器官保留",
+    stages: ["分子分型","輔助治療","一線 化療+IO","一線 維持","新輔助/器官保留","復發後線"],
     nodes: [
-      {year:"2013", name:"TCGA 分型", event:"EC 分 4 分子亞型 (POLE/dMMR/p53/NSMP)", result:"neutral", note:"奠定精準醫療基礎", drives:"→ 啟發 RAINBO / PORTEC-4a 分子導向"},
-      {year:"2020", name:"GARNET", event:"dostarlimab 於 dMMR EC ORR 42% — 陽性", result:"positive", note:"dMMR IO 敏感確立", drives:"→ 促成化療+IO 一線試驗"},
-      {year:"2023", name:"NRG-GY018", event:"化療+pembro 一線, dMMR/pMMR 雙 cohort — 陽性", result:"positive", note:"要求 measurable disease"},
-      {year:"2023", name:"RUBY", event:"化療+dostarlimab±niraparib, 含癌肉瘤 — 陽性", result:"positive", note:"允許 IIIC1/IIIC2/IV 免 measurable", after:"與 GY018 平行競爭"},
-      {year:"2023", name:"DUO-E", event:"化療+durva±olaparib 三臂 — 陽性", result:"positive", note:"pMMR 加 PARPi 有益", after:"在 chemoIO 上加 PARPi"},
-      {year:"2024", name:"RAINBO", event:"依 TCGA 4 型量身打造輔助 (4 平行試驗)", result:"neutral", note:"分子精準輔助", after:"承接 TCGA 分型 + PORTEC-3/4a"},
-      {year:"2025", name:"NIVEC", event:"可手術 dMMR EC 新輔助 nivolumab, CR 80%", result:"positive", note:"器官保留新方向", after:"呼應 dMMR 直腸癌免手術範式"},
+      {year:"2013", name:"TCGA 分型", stage:"分子分型", event:"EC 分 4 分子亞型 (POLE/dMMR/p53/NSMP)", result:"neutral", note:"奠定精準醫療基礎", drives:"→ 啟發 RAINBO / PORTEC-4a 分子導向"},
+      {year:"2020", name:"GARNET", stage:"復發後線", event:"dostarlimab 於 dMMR EC ORR 42% — 陽性", result:"positive", note:"dMMR IO 敏感確立", drives:"→ 促成化療+IO 一線試驗"},
+      {year:"2023", name:"NRG-GY018", stage:"一線 化療+IO", event:"化療+pembro 一線, dMMR/pMMR 雙 cohort — 陽性", result:"positive", note:"要求 measurable disease"},
+      {year:"2023", name:"RUBY", stage:"一線 化療+IO", event:"化療+dostarlimab±niraparib, 含癌肉瘤 — 陽性", result:"positive", note:"允許 IIIC1/IIIC2/IV 免 measurable", after:"與 GY018 平行競爭"},
+      {year:"2023", name:"DUO-E", stage:"一線 維持", event:"化療+durva±olaparib 三臂 — 陽性", result:"positive", note:"pMMR 加 PARPi 有益", after:"在 chemoIO 上加 PARPi"},
+      {year:"2024", name:"RAINBO", stage:"輔助治療", event:"依 TCGA 4 型量身打造輔助 (4 平行試驗)", result:"neutral", note:"分子精準輔助", after:"承接 TCGA 分型 + PORTEC-3/4a"},
+      {year:"2025", name:"NIVEC", stage:"新輔助/器官保留", event:"可手術 dMMR EC 新輔助 nivolumab, CR 80%", result:"positive", note:"器官保留新方向", after:"呼應 dMMR 直腸癌免手術範式"},
     ],
   },
   OC: {
     title: "🟣 卵巢癌 — 試驗發展時間線",
     subtitle: "從減積手術 → 抗血管 → PARPi 維持 → ADC/標靶",
+    stages: ["手術範式","一線 抗血管","一線 維持","復發 維持","復發 二次手術","復發 ADC/標靶"],
     nodes: [
-      {year:"2010", name:"GOG-0218/ICON7", event:"一線加 Bev 維持 — PFS+", result:"positive", note:"抗血管維持策略"},
-      {year:"2010", name:"EORTC 55971", event:"NACT 非劣於 PDS — 改變手術範式", result:"neutral", note:"高負荷可先化療"},
-      {year:"2016", name:"NOVA", event:"niraparib 復發維持, 全人群 (gBRCA/HRD/all) — 陽性", result:"positive", note:"不需 BRCA 篩選", drives:"→ 帶動一線 PARPi 維持"},
-      {year:"2017", name:"ARIEL3", event:"rucaparib 復發維持, 三層 nested (BRCA/HRD/ITT)", result:"positive", note:"BRCAwt+LOH 也益"},
-      {year:"2018", name:"SOLO-1", event:"olaparib 一線維持 BRCAm — 7y OS 67%", result:"positive", note:"改寫 BRCAm 一線"},
-      {year:"2019", name:"PAOLA-1", event:"olaparib+Bev 一線維持 HRD+ — 陽性", result:"positive", note:"定義 HRD 概念", after:"擴大到非 BRCA HRD+"},
-      {year:"2019", name:"PRIMA", event:"niraparib 一線維持全人群 (富集高風險)", result:"positive", note:"PFS+ 但 OS 翻車", after:"接續 NOVA 至一線"},
-      {year:"2020", name:"DESKTOP III", event:"AGO+ 病人二次減積 — OS+ (首個陽性)", result:"positive", note:"病人選擇是關鍵"},
-      {year:"2023", name:"MIRASOL", event:"mirvetuximab (FRα-ADC) PROC — 首個 PROC OS+", result:"positive", note:"生物標記導向 ADC", after:"為 FRα+ PROC 建標準"},
-      {year:"2025", name:"RAMP-201", event:"avutometinib+defactinib LGSOC KRAS-mut — FDA 批准", result:"positive", note:"雙靶點 MEK+FAK"},
+      {year:"2010", name:"GOG-0218/ICON7", stage:"一線 抗血管", event:"一線加 Bev 維持 — PFS+", result:"positive", note:"抗血管維持策略"},
+      {year:"2010", name:"EORTC 55971", stage:"手術範式", event:"NACT 非劣於 PDS — 改變手術範式", result:"neutral", note:"高負荷可先化療"},
+      {year:"2016", name:"NOVA", stage:"復發 維持", event:"niraparib 復發維持, 全人群 (gBRCA/HRD/all) — 陽性", result:"positive", note:"不需 BRCA 篩選", drives:"→ 帶動一線 PARPi 維持"},
+      {year:"2017", name:"ARIEL3", stage:"復發 維持", event:"rucaparib 復發維持, 三層 nested (BRCA/HRD/ITT)", result:"positive", note:"BRCAwt+LOH 也益"},
+      {year:"2018", name:"SOLO-1", stage:"一線 維持", event:"olaparib 一線維持 BRCAm — 7y OS 67%", result:"positive", note:"改寫 BRCAm 一線"},
+      {year:"2019", name:"PAOLA-1", stage:"一線 維持", event:"olaparib+Bev 一線維持 HRD+ — 陽性", result:"positive", note:"定義 HRD 概念", after:"擴大到非 BRCA HRD+"},
+      {year:"2019", name:"PRIMA", stage:"一線 維持", event:"niraparib 一線維持全人群 (富集高風險)", result:"positive", note:"PFS+ 但 OS 翻車", after:"接續 NOVA 至一線"},
+      {year:"2020", name:"DESKTOP III", stage:"復發 二次手術", event:"AGO+ 病人二次減積 — OS+ (首個陽性)", result:"positive", note:"病人選擇是關鍵"},
+      {year:"2023", name:"MIRASOL", stage:"復發 ADC/標靶", event:"mirvetuximab (FRα-ADC) PROC — 首個 PROC OS+", result:"positive", note:"生物標記導向 ADC", after:"為 FRα+ PROC 建標準"},
+      {year:"2025", name:"RAMP-201", stage:"復發 ADC/標靶", event:"avutometinib+defactinib LGSOC KRAS-mut — FDA 批准", result:"positive", note:"雙靶點 MEK+FAK"},
     ],
   },
   US: {
     title: "🔵 子宮肉瘤 — 試驗發展時間線",
     subtitle: "從單藥化療 → 組合 → 標靶探索",
+    stages: ["UCS 一線","LMS 一線","STS 後線"],
     nodes: [
-      {year:"2007", name:"GOG-0261", event:"UCS 用 PC (Pacli+Carbo) 取代 Ifo-based", result:"positive", note:"非劣且低毒"},
-      {year:"2012", name:"EORTC 62012", event:"晚期 STS: Dox 單藥 vs Dox+Ifo — 雙藥未改善 OS", result:"neutral", note:"確立單藥為主"},
-      {year:"2014", name:"PALETTE", event:"pazopanib (TKI) STS 後線 — PFS+", result:"positive", note:"開啟 STS 標靶時代"},
-      {year:"2016", name:"LMS-04", event:"Dox+Trabectedin 晚期 LMS — mPFS 翻倍", result:"positive", note:"LMS 一線組合突破"},
+      {year:"2007", name:"GOG-0261", stage:"UCS 一線", event:"UCS 用 PC (Pacli+Carbo) 取代 Ifo-based", result:"positive", note:"非劣且低毒"},
+      {year:"2012", name:"EORTC 62012", stage:"LMS 一線", event:"晚期 STS: Dox 單藥 vs Dox+Ifo — 雙藥未改善 OS", result:"neutral", note:"確立單藥為主"},
+      {year:"2014", name:"PALETTE", stage:"STS 後線", event:"pazopanib (TKI) STS 後線 — PFS+", result:"positive", note:"開啟 STS 標靶時代"},
+      {year:"2016", name:"LMS-04", stage:"LMS 一線", event:"Dox+Trabectedin 晚期 LMS — mPFS 翻倍", result:"positive", note:"LMS 一線組合突破"},
     ],
   },
 };
@@ -12122,10 +12162,151 @@ function renderPathway(){
 }
 
 // ============================================================
-// 🖼 Render Pathway Overview (照片風格 primary/recurrent 分欄)
-// 使用「每 stage 一 row」的 grid layout, 手機自動 stack
+// 🕐 Render Trial Lineage — 時間線 × 治療階段融合視圖
+// 提供兩種模式: matrix (年份×階段矩陣) / dual (雙欄連動)
+// 由 lineageViewMode 控制, 預設 matrix
 // ============================================================
+let lineageViewMode = 'matrix'; // 'matrix' | 'dual'
+
+function setLineageView(mode){
+  lineageViewMode = mode;
+  const host = document.getElementById('lineageViewHost');
+  if(host){ host.innerHTML = renderLineageInner(currentPathwayCancer); }
+  document.querySelectorAll('.pw-lineage-tab').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-mode') === mode);
+  });
+}
+
+// hover/click 連動高亮 (dual view)
+function lineageHl(name, on){
+  document.querySelectorAll('.pw-ln-linked').forEach(e => {
+    if(e.getAttribute('data-ln') === name) e.classList.toggle('hl', on);
+  });
+}
+function lineageClickHl(name){
+  document.querySelectorAll('.pw-ln-linked.hl').forEach(e => e.classList.remove('hl'));
+  lineageHl(name, true);
+}
+
+const LINEAGE_RESULT_COLOR = {
+  positive: {bg:'#dcfce7', border:'#16a34a', dot:'#16a34a', label:'陽性'},
+  negative: {bg:'#fee2e2', border:'#dc2626', dot:'#dc2626', label:'陰性'},
+  neutral:  {bg:'#e0e7ff', border:'#6366f1', dot:'#6366f1', label:'背景'},
+};
+
+// 內層: 依 lineageViewMode 回傳 matrix 或 dual 的 HTML
+function renderLineageInner(cancer){
+  const data = TRIAL_LINEAGE[cancer];
+  if(!data) return '';
+  const RC = LINEAGE_RESULT_COLOR;
+  const years = [...new Set(data.nodes.map(n => n.year))].sort();
+  const stages = data.stages || [...new Set(data.nodes.map(n => n.stage))];
+
+  if(lineageViewMode === 'matrix'){
+    // ===== 矩陣: 橫=年份, 縱=治療階段 =====
+    let head = '<tr><th class="pw-lnm-corner">階段 ＼ 年</th>' +
+      years.map(y => `<th class="pw-lnm-yearhead">${escapeHtml(y)}</th>`).join('') + '</tr>';
+    let rows = '';
+    stages.forEach(s => {
+      let tds = '';
+      years.forEach(y => {
+        const items = data.nodes.filter(n => n.stage === s && n.year === y);
+        if(items.length){
+          tds += '<td class="pw-lnm-cell">' + items.map(n => {
+            const rc = RC[n.result] || RC.neutral;
+            const flow = (n.after ? '↳' : '') + (n.drives ? '→' : '');
+            return `<div class="pw-lnm-chip" style="--c:${rc.dot};--bg:${rc.bg};--bd:${rc.border};"
+              title="${escapeHtml(n.event)}${n.note ? ' — '+escapeHtml(n.note) : ''}">
+              <span class="pw-lnm-chip-name">${escapeHtml(n.name)}</span>
+              ${flow ? `<span class="pw-lnm-chip-flow">${flow}</span>` : ''}
+            </div>`;
+          }).join('') + '</td>';
+        } else {
+          tds += '<td class="pw-lnm-empty">·</td>';
+        }
+      });
+      rows += `<tr><td class="pw-lnm-rowlabel">${escapeHtml(s)}</td>${tds}</tr>`;
+    });
+    return `<div class="pw-lnm-scroll"><table class="pw-lnm-table">${head}${rows}</table></div>
+      <div class="pw-lineage-legend">
+        <span class="pw-lineage-lg pos">● 陽性</span>
+        <span class="pw-lineage-lg neg">● 陰性</span>
+        <span class="pw-lineage-lg neu">● 背景</span>
+        &nbsp;|&nbsp; ↳ 承接前試驗 &nbsp; → 促成後續 &nbsp;|&nbsp; 滑過方塊看說明
+      </div>`;
+  }
+
+  // ===== 雙欄: 左時間線 右階段, 點擊連動 =====
+  const sorted = [...data.nodes].sort((a,b) => a.year.localeCompare(b.year));
+  const tlHtml = sorted.map(n => {
+    const rc = RC[n.result] || RC.neutral;
+    return `<div class="pw-lnd-node pw-ln-linked" data-ln="${escapeJsAttr(n.name)}"
+        style="--c:${rc.dot};"
+        onmouseenter="lineageHl('${escapeJsAttr(n.name)}',true)"
+        onmouseleave="lineageHl('${escapeJsAttr(n.name)}',false)"
+        onclick="lineageClickHl('${escapeJsAttr(n.name)}')">
+      <span class="pw-lnd-year">${escapeHtml(n.year)}</span>
+      <span class="pw-lnd-dot"></span>
+      <div class="pw-lnd-body">
+        <span class="pw-lnd-name">${escapeHtml(n.name)}</span>
+        <span class="pw-lnd-ev">${escapeHtml(n.event)}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  const stagesHtml = stages.map(s => {
+    const items = data.nodes.filter(n => n.stage === s).sort((a,b) => a.year.localeCompare(b.year));
+    if(!items.length) return '';
+    return `<div class="pw-lnd-stage">
+      <div class="pw-lnd-stagehead">${escapeHtml(s)}</div>
+      ${items.map(n => {
+        const rc = RC[n.result] || RC.neutral;
+        return `<span class="pw-lnd-box pw-ln-linked" data-ln="${escapeJsAttr(n.name)}"
+          style="--c:${rc.dot};--bg:${rc.bg};--bd:${rc.border};"
+          onmouseenter="lineageHl('${escapeJsAttr(n.name)}',true)"
+          onmouseleave="lineageHl('${escapeJsAttr(n.name)}',false)"
+          onclick="lineageClickHl('${escapeJsAttr(n.name)}')">
+          ${escapeHtml(n.name)} <small>${escapeHtml(n.year)}</small>
+        </span>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+
+  return `<div class="pw-lnd-wrap">
+      <div class="pw-lnd-col">
+        <div class="pw-lnd-colhead">🕐 時間線 (依年份)</div>
+        ${tlHtml}
+      </div>
+      <div class="pw-lnd-col">
+        <div class="pw-lnd-colhead">🖼 治療階段</div>
+        ${stagesHtml}
+      </div>
+    </div>
+    <div class="pw-lineage-legend">
+      <span class="pw-lineage-lg pos">● 陽性</span>
+      <span class="pw-lineage-lg neg">● 陰性</span>
+      <span class="pw-lineage-lg neu">● 背景</span>
+      &nbsp;|&nbsp; 點/滑任一試驗, 左右兩邊同步高亮
+    </div>`;
+}
+
 function renderTrialLineage(cancer){
+  const data = TRIAL_LINEAGE[cancer];
+  if(!data) return '';
+  return `<div class="pw-lineage-wrap">
+    <div class="pw-lineage-title">
+      <span>🕐</span> ${escapeHtml(data.title)}
+      <small>${escapeHtml(data.subtitle)}</small>
+    </div>
+    <div class="pw-lineage-tabs">
+      <button class="pw-lineage-tab ${lineageViewMode==='matrix'?'active':''}" data-mode="matrix" onclick="setLineageView('matrix')">▦ 矩陣 (年份 × 階段)</button>
+      <button class="pw-lineage-tab ${lineageViewMode==='dual'?'active':''}" data-mode="dual" onclick="setLineageView('dual')">⇄ 雙欄連動</button>
+    </div>
+    <div id="lineageViewHost">${renderLineageInner(cancer)}</div>
+  </div>`;
+}
+
+function _unused_old_lineage(cancer){
   const data = TRIAL_LINEAGE[cancer];
   if(!data) return '';
 
