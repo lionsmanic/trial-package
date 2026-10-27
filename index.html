@@ -3168,6 +3168,130 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
   .ai-input-pane{padding:9px;}
 }
 
+
+/* ===== 主頁:治療階段快速跳轉 ===== */
+.stage-section{scroll-margin-top:150px;}
+.stage-quicknav{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.stage-quicknav .qn-label{font-size:11px;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.06em;}
+.stage-quicknav button{border:1px solid #cbd5e1;background:#f8fafc;border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:700;color:#334155;cursor:pointer;white-space:nowrap;}
+.stage-quicknav button:hover{background:#eef2ff;border-color:#6366f1;color:#3730a3;}
+.stage-quicknav button .qn-n{font-family:'JetBrains Mono',monospace;font-size:11px;color:#64748b;margin-left:4px;}
+
+/* ===== 🧭 治療路徑:病程 × 生物標記矩陣 ===== */
+.pg-viewswitch{display:flex;gap:6px;margin:0 0 10px;flex-wrap:wrap;}
+.pg-viewswitch button{border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:6px 13px;font-size:13px;font-weight:700;color:#475569;cursor:pointer;}
+.pg-viewswitch button.active{background:#1e293b;color:#fff;border-color:#1e293b;}
+.pg-viewswitch button:disabled{opacity:.4;cursor:not-allowed;}
+.pg-notice{background:#fffbeb;border:1px solid #fcd34d;color:#92400e;border-radius:8px;padding:8px 12px;font-size:12.5px;margin-bottom:12px;}
+.pg-topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.pg-title{font-size:17px;font-weight:800;color:#1e293b;}
+.pg-filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.pg-flt{border:1px solid #cbd5e1;background:#fff;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:700;color:#475569;cursor:pointer;}
+.pg-flt.active{background:#991b1b;border-color:#991b1b;color:#fff;}
+.pg-flt.list{border-color:#fca5a5;color:#991b1b;}
+.pg-legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:11.5px;}
+.pg-lg{display:inline-flex;align-items:center;gap:4px;font-weight:700;color:#475569;}
+.pg-dot{display:inline-block;width:9px;height:9px;border-radius:2px;flex:none;}
+.pg-dot.std{background:#16a34a;} .pg-dot.cond{background:#2563eb;} .pg-dot.trial{background:#d97706;}
+.pg-dot.gap{background:#fff;border:2px dashed #dc2626;width:7px;height:7px;} .pg-dot.neg{background:#94a3b8;}
+.pg-tests{font-size:12px;color:#4c1d95;margin-left:4px;}
+.pg-tests summary{cursor:pointer;font-weight:800;}
+.pg-tests ul{position:absolute;right:30px;z-index:5;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:8px 12px 8px 26px;margin:4px 0 0;max-width:620px;box-shadow:0 8px 24px rgba(0,0,0,.12);}
+.pg-tests li{margin:3px 0;}
+.pg-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:start;}
+.pg-scroll{overflow-x:auto;border:1px solid #e2e8f0;border-radius:12px;}
+.pg-grid{display:grid;grid-template-columns:30px 92px repeat(var(--pg-cols),minmax(112px,1fr));background:#e2e8f0;gap:1px;}
+.pg-cghead{color:#fff;font-weight:800;font-size:12px;text-align:center;padding:4px;letter-spacing:.04em;}
+.pg-cghead.cg-init{background:#334155;} .pg-cghead.cg-psoc{background:#0e7490;} .pg-cghead.cg-proc{background:#9a3412;}
+.pg-shared-note{font-size:9.5px;color:#64748b;font-weight:700;text-align:right;margin-top:-1px;}
+.pg-left{min-width:0;}
+.pg-grouphead{display:flex;align-items:center;justify-content:center;padding:4px 0;position:sticky;left:0;z-index:2;color:#fff;font-weight:800;font-size:11.5px;letter-spacing:.04em;}
+.pg-grouphead span{writing-mode:vertical-rl;white-space:nowrap;}
+.pg-grouphead.g-hgsc{background:#7c3aed;} .pg-grouphead.g-rare{background:#0f766e;} .pg-grouphead.g-nonepi{background:#475569;} .pg-grouphead.g-pm{background:#0369a1;} .pg-grouphead.g-pmmr{background:#b91c1c;} .pg-grouphead.g-hist{background:#475569;} .pg-grouphead.g-hpv{background:#c2410c;} .pg-grouphead.g-rareh{background:#475569;} .pg-grouphead.g-lms{background:#1d4ed8;} .pg-grouphead.g-ess{background:#15803d;} .pg-grouphead.g-oth{background:#475569;}
+@media (min-width:1201px){
+  .pg-scroll{overflow:visible;}
+  .pg-grid{border-radius:12px;}
+  .pg-cghead{position:sticky;top:-16px;z-index:3;}
+  .pg-colhead{position:sticky;top:15px;z-index:3;}
+  .pg-corner{position:sticky;top:-16px;z-index:3;}
+}
+.pg-mx.shared{justify-content:center;}
+.pg-mx.shared .pg-mx-lines{gap:3px;}
+.pg-agnostic{margin-top:8px;border:1px solid #e2e8f0;border-left:4px solid #2563eb;border-radius:10px;background:#f8fafc;padding:7px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12px;}
+.pg-agnostic b{color:#1e3a8a;font-size:12.5px;}
+.pg-ag-t{color:#334155;font-weight:600;}
+.pg-agnostic .pg-chips{margin-top:0;}
+.pg-cell{background:#fff;padding:6px;min-width:0;}
+.pg-corner{background:#f1f5f9;font-size:10.5px;color:#64748b;font-weight:700;display:flex;align-items:center;}
+.pg-colhead{background:#1e293b;color:#fff;display:flex;flex-direction:column;}
+.pg-colhead b{font-size:12.5px;} .pg-colhead small{font-size:10.5px;opacity:.7;}
+.pg-rowhead{background:#f8fafc;display:flex;flex-direction:column;justify-content:center;position:sticky;left:31px;z-index:1;}
+.pg-rowhead.nogroup{left:0;}
+.pg-rowhead b{font-size:13px;color:#1e293b;} .pg-rowhead small{font-size:10.5px;color:#64748b;line-height:1.3;}
+.pg-mx{border:none;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px;font:inherit;min-height:64px;position:relative;transition:box-shadow .12s, opacity .12s;}
+.pg-mx.empty{background:#fafafa;cursor:default;}
+.pg-mx.top-std{background:#f0fdf4;} .pg-mx.top-cond{background:#eff6ff;} .pg-mx.top-trial{background:#fffbeb;}
+.pg-mx.top-gap{background:#fef2f2;} .pg-mx.top-neg{background:#f8fafc;}
+.pg-mx.has-gap{box-shadow:inset 0 0 0 1.5px #fca5a5;}
+.pg-mx:hover{box-shadow:inset 0 0 0 2px #64748b;}
+.pg-mx.sel{box-shadow:inset 0 0 0 3px #0f172a;}
+.pg-mx.dim{opacity:.22;}
+.pg-strip{display:flex;gap:2px;height:4px;}
+.pg-strip i{flex:1;border-radius:2px;}
+.pg-strip i.std{background:#16a34a;} .pg-strip i.cond{background:#2563eb;} .pg-strip i.trial{background:#d97706;}
+.pg-strip i.gap{background:repeating-linear-gradient(90deg,#dc2626 0 4px,transparent 4px 7px);} .pg-strip i.neg{background:#cbd5e1;}
+.pg-mx-lines{display:flex;flex-direction:column;gap:1px;}
+.pg-mx-line{font-size:11.5px;font-weight:700;color:#1e293b;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;line-height:1.45;}
+.pg-mx-nm{overflow:hidden;text-overflow:ellipsis;min-width:0;}
+.pg-mx-yr{flex:none;margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#64748b;background:rgba(255,255,255,.75);border:1px solid #e2e8f0;border-radius:3px;padding:0 3px;line-height:1.35;text-decoration:none;display:inline-block;}
+.pg-mx-yr.start{color:#b45309;border-color:#fcd34d;background:#fffbeb;}
+.pg-lg .pg-mx-yr{margin-left:0;}
+.pg-seg-yr{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:#475569;background:#fff;border:1px solid #cbd5e1;border-radius:4px;padding:0 4px;white-space:nowrap;}
+.pg-mx-line.neg{color:#94a3b8;} .pg-mx-line.neg .pg-mx-nm{text-decoration:line-through;}
+.pg-mx-line.gap{color:#b91c1c;}
+.pg-mx-more{font-size:10.5px;color:#64748b;}
+.pg-mx-meta{margin-top:auto;display:flex;flex-wrap:wrap;gap:2px 6px;white-space:nowrap;font-size:10.5px;color:#475569;font-family:'JetBrains Mono',monospace;}
+.pg-mx-meta .on{color:#b45309;} .pg-mx-meta .more{color:#64748b;font-weight:700;} .pg-mx-meta .flag{margin-left:auto;}
+.pg-panel{border:1px solid #cbd5e1;border-radius:12px;background:#fff;position:fixed;right:34px;top:170px;bottom:34px;width:400px;z-index:60;box-shadow:-8px 0 32px rgba(15,23,42,.22);display:flex;flex-direction:column;overflow:hidden;animation:pgSlide .18s ease-out;}
+@keyframes pgSlide{from{transform:translateX(24px);opacity:0;}to{transform:none;opacity:1;}}
+.pg-pn-head{display:flex;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid #e2e8f0;background:#f8fafc;}
+.pg-pn-kicker{font-size:11px;color:#64748b;font-weight:700;}
+.pg-pn-title{font-size:15px;font-weight:800;color:#0f172a;}
+.pg-pn-title small{font-size:11.5px;color:#64748b;font-weight:600;}
+.pg-pn-x{border:none;background:#e2e8f0;border-radius:6px;width:26px;height:26px;cursor:pointer;flex:none;}
+.pg-pn-body{padding:10px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;}
+.pg-pn-hint{font-size:11px;color:#94a3b8;padding:6px 12px;border-top:1px solid #f1f5f9;}
+.pg-seg{border-radius:8px;padding:6px 8px;border:1px solid;border-left-width:4px;}
+.pg-seg-t{font-size:12.5px;font-weight:700;line-height:1.4;}
+.pg-ic{margin-right:3px;}
+.pg-gate{display:inline-block;font-size:10.5px;font-weight:800;background:#fff;border:1px solid currentColor;border-radius:4px;padding:0 4px;margin-left:2px;}
+.pg-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
+.pg-chip{text-align:left;border:1px solid rgba(15,23,42,.18);background:#fff;border-radius:6px;padding:2px 6px;font-size:11.5px;font-weight:700;color:#0f172a;cursor:pointer;display:inline-flex;align-items:center;gap:4px;line-height:1.5;}
+.pg-chip:hover{background:#0f172a;color:#fff;}
+.pg-chip:hover .pg-yr{color:#cbd5e1;}
+.pg-yr{white-space:nowrap;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:#64748b;}
+.pg-chip.ongoing .pg-yr{color:#b45309;}
+.pg-idea{font-size:11.5px;color:#991b1b;margin-top:4px;line-height:1.4;}
+.pg-seg.std{background:#ecfdf5;border-color:#16a34a;color:#14532d;}
+.pg-seg.cond{background:#eff6ff;border-color:#2563eb;color:#1e3a8a;}
+.pg-seg.trial{background:#fffbeb;border-color:#d97706;color:#78350f;}
+.pg-seg.neg{background:#f8fafc;border-color:#94a3b8;color:#64748b;}
+.pg-seg.neg .pg-seg-t{text-decoration:line-through;text-decoration-color:#94a3b8;}
+.pg-seg.gap{background:#fef2f2;border-color:#dc2626;border-style:dashed;border-left-style:solid;color:#991b1b;}
+.pg-gap-item{text-align:left;font:inherit;cursor:pointer;background:#fff;border:1px solid #fecaca;border-left:4px solid #dc2626;border-radius:8px;padding:7px 9px;display:flex;flex-direction:column;gap:2px;font-size:12px;}
+.pg-gap-item:hover{background:#fef2f2;}
+.pg-gap-where{font-size:10.5px;font-weight:800;color:#dc2626;font-family:'JetBrains Mono',monospace;}
+.pg-gap-text{color:#1e293b;font-weight:600;}
+.pg-gap-idea{color:#7f1d1d;font-size:11.5px;}
+@media (max-width:900px){
+  .pg-panel{left:0;right:0;bottom:0;top:auto;width:auto;max-height:68vh;border-radius:14px 14px 0 0;animation:none;}
+  .pg-grid{grid-template-columns:24px 74px repeat(var(--pg-cols),112px);}
+  .pg-cghead{text-align:left;padding-left:10px;}
+  .pg-rowhead{left:25px;}
+  .pg-tests ul{position:static;box-shadow:none;}
+  .stage-quicknav button{padding:4px 9px;font-size:12px;}
+  .stage-quicknav .qn-label{display:none;}
+}
 </style>
 </head>
 <body>
@@ -3227,6 +3351,13 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
       <button class="cancer-pick" data-cancer="CC" onclick="selectCancer('CC')">🟠 子宮頸癌 CC</button>
       <button class="cancer-pick" data-cancer="US" onclick="selectCancer('US')">🔵 子宮肉瘤 US</button>
     </div>
+    <div class="stage-quicknav">
+      <span class="qn-label">跳至</span>
+      <button onclick="jumpToStage('sec-ptx')">🌿 第一線治療<span class="qn-n" id="qn-P-TX"></span></button>
+      <button onclick="jumpToStage('sec-pmt')">💊 第一線維持<span class="qn-n" id="qn-P-MT"></span></button>
+      <button onclick="jumpToStage('sec-rtx')">🔄 復發治療<span class="qn-n" id="qn-R-TX"></span></button>
+      <button onclick="jumpToStage('sec-rmt')">🔒 復發維持<span class="qn-n" id="qn-R-MT"></span></button>
+    </div>
   </div>
 </div>
 
@@ -3247,7 +3378,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
   </div>
 
   <!-- P-TX Section -->
-  <section class="stage-section">
+  <section class="stage-section" id="sec-ptx">
     <div class="stage-bar p-tx">
       <span style="font-size:24px;">🌿</span>
       <div>
@@ -3261,7 +3392,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
   </section>
 
   <!-- P-MT Section -->
-  <section class="stage-section">
+  <section class="stage-section" id="sec-pmt">
     <div class="stage-bar p-mt">
       <span style="font-size:24px;">💊</span>
       <div>
@@ -3275,7 +3406,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
   </section>
 
   <!-- R-TX Section -->
-  <section class="stage-section">
+  <section class="stage-section" id="sec-rtx">
     <div class="stage-bar r-tx">
       <span style="font-size:24px;">🔄</span>
       <div>
@@ -3289,7 +3420,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
   </section>
 
   <!-- R-MT Section -->
-  <section class="stage-section">
+  <section class="stage-section" id="sec-rmt">
     <div class="stage-bar r-mt">
       <span style="font-size:24px;">🔒</span>
       <div>
@@ -3707,8 +3838,8 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
         </div>
       </div>
       <div class="pathway-tabs">
-        <button class="pathway-tab active" data-cancer="EC" onclick="switchPathwayTab('EC')">🔴 EC</button>
-        <button class="pathway-tab" data-cancer="OC" onclick="switchPathwayTab('OC')">🟣 OC</button>
+        <button class="pathway-tab" data-cancer="EC" onclick="switchPathwayTab('EC')">🔴 EC</button>
+        <button class="pathway-tab active" data-cancer="OC" onclick="switchPathwayTab('OC')">🟣 OC</button>
         <button class="pathway-tab" data-cancer="CC" onclick="switchPathwayTab('CC')">🟠 CC</button>
         <button class="pathway-tab" data-cancer="US" onclick="switchPathwayTab('US')">🔵 US</button>
       </div>
@@ -4448,6 +4579,438 @@ const TRIALS = [
   guideline:"歷史試驗, 結論已內化為 NCCN/ESMO 標準: Stage I 中等風險才考慮 RT",
   nct:"-",
   publication:"Lancet 2000 (Creutzberg et al., 主結果); Lancet Oncol 2011 (15y FU)"
+},
+
+{
+  cancer:"CC",
+  subcat:"Surgery",
+  id:"gog-92",
+  phase:["P-TX"],
+  status:"published",
+  name:"GOG-92 (Sedlis)",
+  fullName:"GOG-92 — Sedlis criteria trial",
+  pharma:"NCI / GOG",
+  drug:"廣泛子宮切除後 中度風險 → 骨盆 RT vs 觀察",
+  tagline:"術後中度風險 (Sedlis 標準) 早期 CC: 輔助骨盆 RT 降低復發約 4–5 成 (HR 0.54);腺癌 / 腺鱗癌獲益更明顯 — 定義「Sedlis criteria」。",
+  rationale:"廣泛子宮切除後淋巴結陰性、但有 LVSI、深層間質侵犯、腫瘤較大等危險因子者,復發率仍高;驗證輔助 RT 是否降低復發。",
+  regimen:"Phase III, 1:1, n=277\nArm A: 骨盆 RT 46–50.4 Gy\nArm B: 觀察",
+  inc:["FIGO IB,廣泛子宮切除 + 骨盆淋巴結清除,淋巴結陰性","Sedlis 中度風險組合 (LVSI + 深 1/3 間質侵犯 + 任何大小;LVSI + 中 1/3 + ≥2 cm;LVSI + 淺 1/3 + ≥5 cm;無 LVSI + 中/深 1/3 + ≥4 cm)"],
+  exc:["淋巴結陽性、切緣陽性、宮旁侵犯 (高風險 → GOG-109)"],
+  outcomes:"【主分析 (Gynecol Oncol 1999)】\n復發: RT 15% vs 觀察 28% — 復發風險降低 47% ✅\n【長期追蹤 (IJROBP 2006, Rotman et al.)】\n復發風險 HR 0.54 ✅\nOS: 改善趨勢但未達顯著 (HR 0.70)\n腺癌 / 腺鱗癌: 復發降低更顯著 (8.8% vs 44%)",
+  enrolled:"277 patients",
+  hist:"鱗狀細胞癌、腺癌、腺鱗癌",
+  stageDist:"FIGO IB (淋巴結陰性)",
+  tech:"骨盆 EBRT 46–50.4 Gy",
+  subgroup:"腺癌 / 腺鱗癌族群 RT 獲益最大",
+  combo:"與 GOG-109 (高風險 → CCRT) 共同構成術後輔助分流;GOG-263 檢驗中度風險加 Cisplatin",
+  guideline:"NCCN: 術後符合 Sedlis 標準 → 骨盆 EBRT ± 同步 Cisplatin (category 1 for RT)",
+  nct:"-",
+  publication:"Gynecol Oncol 1999 (Sedlis et al., 主分析); IJROBP 2006 (Rotman et al., 長期追蹤)"
+},
+
+{
+  cancer:"CC",
+  subcat:"Surgery",
+  id:"gog-109",
+  phase:["P-TX"],
+  status:"published",
+  name:"GOG-109 (Peters)",
+  fullName:"GOG-109 / SWOG-8797 / RTOG-91-12 (Peters trial)",
+  pharma:"NCI / GOG / SWOG / RTOG",
+  drug:"廣泛子宮切除後 高風險 → RT vs RT + Cisplatin/5-FU",
+  tagline:"術後高風險 (淋巴結+、切緣+、宮旁侵犯) 早期 CC: CCRT 優於單純 RT — 4 年 OS 81% vs 71%、PFS 80% vs 63% — 定義「Peters criteria」。",
+  rationale:"術後高風險因子者單純 RT 後復發率仍高;驗證同步化療是否改善存活 (與 1999 年 LACC CCRT 系列試驗同期)。",
+  regimen:"Phase III, 1:1, n=243 可評估\nArm A: 骨盆 RT 49.3 Gy\nArm B: 同 RT + Cisplatin 70 mg/m² + 5-FU 1000 mg/m²/d × 4 天, q3w × 4 cycles (2 同步 + 2 輔助)",
+  inc:["FIGO IA2、IB、IIA,廣泛子宮切除後","骨盆淋巴結陽性 / 切緣陽性 / 宮旁侵犯 (任一)"],
+  exc:["主動脈旁淋巴結陽性 (另行延伸野)"],
+  outcomes:"【主分析 (JCO 2000)】\n4y OS: CCRT 81% vs RT 71% ✅\n4y PFS: 80% vs 63% ✅\n毒性: CCRT 組 3–4 級血液毒性較多\n【次分析 (Gynecol Oncol 2005)】腫瘤 >2 cm 或 ≥2 顆淋巴結陽性者獲益最大",
+  enrolled:"268 enrolled / 243 evaluable",
+  hist:"鱗狀細胞癌、腺癌、腺鱗癌",
+  stageDist:"FIGO IA2–IIA 術後高風險",
+  tech:"骨盆 EBRT 49.3 Gy;Cisplatin + 5-FU",
+  subgroup:"腫瘤 >2 cm、多顆淋巴結轉移者 CCRT 獲益最明顯",
+  combo:"與 GOG-92 (中度風險 → RT) 構成術後輔助分流;STARS 探討序列化放化療",
+  guideline:"NCCN: 術後符合 Peters 標準 → 骨盆 EBRT + 同步含鉑化療 ± 近接治療 (category 1)",
+  nct:"-",
+  publication:"JCO 2000 (Peters et al., 主分析); Gynecol Oncol 2005 (Monk et al., 次分析)"
+},
+
+{
+  cancer:"CC",
+  subcat:"Surgery",
+  id:"stars",
+  phase:["P-TX"],
+  status:"published",
+  name:"STARS",
+  fullName:"STARS (Sequential vs concurrent chemoradiation)",
+  pharma:"中國多中心 (研究者發起)",
+  drug:"術後輔助 RT vs CCRT vs 序列化放化療 (SCRT: 化療 → RT → 化療)",
+  tagline:"術後具危險因子早期 CC: 序列化放化療 3y DFS 90% vs CCRT 85% vs RT 82% (vs RT HR 0.52;vs CCRT HR 0.65) — 亞洲族群輔助治療新選項。",
+  rationale:"術後同步放化療毒性高且遠端轉移仍常見;探索全劑量化療與 RT 序列給予是否兼顧局部與全身控制。",
+  regimen:"Phase III, 1:1:1, n=1048\nArm A: 骨盆 RT\nArm B: CCRT (weekly Cisplatin)\nArm C: SCRT — Cisplatin + Paclitaxel × 2 → RT → Cisplatin + Paclitaxel × 2",
+  inc:["FIGO IB–IIA,廣泛子宮切除後具病理危險因子 (淋巴結+、宮旁+、LVSI、深層間質侵犯等)"],
+  exc:["切緣陽性需另行處置","遠端轉移"],
+  outcomes:"【主分析 (JAMA Oncol 2021)】\n3y DFS: SCRT 90.0% vs CCRT 85.0% vs RT 82.0%\n  • SCRT vs RT: HR 0.52 (95% CI 0.35–0.76) ✅\n  • SCRT vs CCRT: HR 0.65 (95% CI 0.44–0.96) ✅\n癌症死亡風險 (校正淋巴結): SCRT vs RT HR 0.58;5y 92% vs 88%",
+  enrolled:"1048 patients (RT 350 / CCRT 345 / SCRT 353);中國 8 家醫院",
+  hist:"鱗狀細胞癌、腺癌、腺鱗癌",
+  stageDist:"FIGO IB–IIA 術後",
+  tech:"SCRT 為 化療 2 cycles → RT → 化療 2 cycles",
+  subgroup:"淋巴結陽性等高風險者 SCRT 獲益較明顯",
+  combo:"挑戰 GOG-109 CCRT 標準;尚待非亞洲族群驗證",
+  guideline:"NCCN / ESGO 仍以 CCRT 為高風險標準;STARS 為亞洲族群可考慮的替代方案",
+  nct:"NCT00806117",
+  publication:"JAMA Oncol 2021 (Huang et al., 主分析)"
+},
+
+{
+  cancer:"CC",
+  subcat:"Surgery",
+  id:"senticol",
+  phase:["P-TX"],
+  status:"published",
+  name:"SENTICOL I / II",
+  fullName:"SENTICOL I & SENTICOL II",
+  pharma:"法國 (研究者發起)",
+  drug:"前哨淋巴結 (SLN) 切片 單獨 vs SLN + 骨盆淋巴結清除",
+  tagline:"早期 CC 前哨淋巴結: SENTICOL I 雙側偵測時 NPV 100%;SENTICOL II 單做 SLN 手術併發症 31% vs 52%,且復發與存活無差異 — 支持 SLN 取代系統性清除。",
+  rationale:"系統性骨盆淋巴結清除造成淋巴水腫等長期併發症;多數早期病人淋巴結陰性。驗證 SLN 是否可安全取代。",
+  regimen:"SENTICOL I: 前瞻性驗證 (SLN + 全清除)\nSENTICOL II: 隨機, n=206\n  • SLN 單獨 (n=105)\n  • SLN + 骨盆淋巴結清除 (n=101)",
+  inc:["FIGO IA–IB1 / IIA1,術前影像無淋巴結轉移"],
+  exc:["術前影像懷疑淋巴結轉移","腫瘤 > 4 cm (2009 FIGO IB2)"],
+  outcomes:"【SENTICOL I (JCO 2011)】雙側 SLN 偵測時無偽陰性 (NPV 100%)\n【SENTICOL II (SGO 2017;Eur J Cancer 2021 4 年追蹤)】\n手術併發症: SLN 單獨 31.4% vs 清除 51.5% (P=0.0046) ✅\n下肢淋巴水腫、沉重感顯著減少\n復發 / OS: 無顯著差異",
+  enrolled:"SENTICOL II: 267 enrolled (30 中心) / 206 randomized",
+  hist:"鱗狀細胞癌、腺癌",
+  stageDist:"早期 IA–IB1 / IIA1",
+  tech:"Tc-99m + 藍染料雙重示蹤 (現多用 ICG)",
+  subgroup:"須雙側偵測;單側未偵測者應行該側清除",
+  combo:"與 LACC trial (開腹)、SHAPE (降階) 共同形塑早期 CC 手術;SENTIX 等進一步驗證",
+  guideline:"NCCN / ESGO: 早期 CC 可行 SLN mapping (≤2 cm 偵測率最佳),未偵測側須行淋巴結清除",
+  nct:"-",
+  publication:"JCO 2011 (Lécuru et al., SENTICOL I); Eur J Cancer 2021 (Mathevet et al., SENTICOL II 4 年)"
+},
+
+{
+  cancer:"CC",
+  subcat:"Surgery",
+  id:"concerv",
+  phase:["P-TX"],
+  status:"published",
+  name:"ConCerv",
+  fullName:"ConCerv (Conservative surgery for low-risk early CC)",
+  pharma:"MD Anderson (研究者發起,國際多中心)",
+  drug:"錐狀切除 + 淋巴結評估 (生育保留) 或 單純子宮切除 + 淋巴結評估",
+  tagline:"低風險早期 CC (≤2 cm、間質侵犯 ≤10 mm、無 LVSI): 保守手術 2 年復發約 3.5%、淋巴結轉移約 5% — 支持低風險族群免除廣泛手術。",
+  rationale:"低風險早期 CC 宮旁侵犯率 <1%,廣泛手術可能過度治療;前瞻驗證保守手術安全性。",
+  regimen:"前瞻性單臂, n=100 可評估\n  • 生育保留: 錐切 (切緣陰性) + SLN / 骨盆淋巴結\n  • 不需保留生育: 單純子宮切除 + SLN / 骨盆淋巴結",
+  inc:["FIGO 2009 IA2–IB1,腫瘤 ≤2 cm","鱗癌 (任何 grade) 或 G1–2 一般型腺癌","無 LVSI、間質侵犯 ≤10 mm、錐切切緣陰性"],
+  exc:["高風險組織型","LVSI 陽性"],
+  outcomes:"【IJGC 2021 (Schmeler et al.)】\n淋巴結轉移: 約 5%\n2 年累積復發率: 約 3.5%\n殘餘病灶 (子宮切除標本): 少見",
+  enrolled:"100 evaluable (國際多中心)",
+  hist:"鱗癌、一般型腺癌",
+  stageDist:"IA2–IB1 (≤2 cm)",
+  tech:"錐切 + SLN mapping",
+  subgroup:"生育保留組與子宮切除組結果相近",
+  combo:"與 SHAPE (RCT 證實單純子宮切除非劣) 互補",
+  guideline:"NCCN: 低風險早期 CC 可考慮錐切或單純子宮切除 + 淋巴結評估",
+  nct:"NCT01048853",
+  publication:"IJGC 2021 (Schmeler et al.)"
+},
+
+{
+  cancer:"CC",
+  subcat:"CCRT",
+  id:"embrace-i",
+  phase:["P-TX"],
+  status:"published",
+  name:"EMBRACE-I",
+  fullName:"EMBRACE-I (MRI-guided adaptive brachytherapy)",
+  pharma:"國際多中心 (研究者發起)",
+  drug:"CCRT + MRI 影像導引適應性近接治療 (IGABT)",
+  tagline:"LACC 影像導引近接治療: 5y 局部控制 92%、骨盆控制 87%、OS 74%,嚴重併發症 14.6% — 確立 MRI-IGABT 為根治放療標準。",
+  rationale:"傳統 2D 近接治療劑量無法依腫瘤反應調整;MRI 影像導引可提高腫瘤劑量並保護器官。",
+  regimen:"前瞻性觀察性多中心研究, n=1341\nEBRT 45 Gy ± 同步 Cisplatin → MRI 導引近接治療 (含組織間插針),依 HR-CTV D90 處方",
+  inc:["FIGO IB–IVA LACC,根治性放化療"],
+  exc:["遠端轉移","先前骨盆放療"],
+  outcomes:"【Lancet Oncol 2021 (Pötter et al.)】\n5y 局部控制: 92%\n5y 骨盆控制: 87%\n5y OS: 74%;DFS 68%\n5y 3–5 級併發症累積: 14.6%\nHR-CTV D90 ≥85 Gy 與局部控制顯著相關",
+  enrolled:"1341 patients (疾病反應) / 1251 (併發症),24 中心",
+  hist:"鱗癌、腺癌",
+  stageDist:"FIGO IB–IVA",
+  tech:"MRI-IGABT;HR-CTV D90 ≥85 Gy EQD2",
+  subgroup:"大腫瘤 / 反應差者組織間插針提升控制",
+  combo:"EMBRACE-II 進一步優化;為 KEYNOTE-A18、INTERLACE 等 CCRT 骨架之放療品質基礎",
+  guideline:"NCCN / ESGO / ABS: LACC 根治放療須含影像導引近接治療",
+  nct:"NCT00920920",
+  publication:"Lancet Oncol 2021 (Pötter et al.)"
+},
+
+{
+  cancer:"CC",
+  subcat:"CCRT",
+  id:"eortc-55994",
+  phase:["P-TX"],
+  status:"published",
+  name:"EORTC 55994",
+  fullName:"EORTC 55994",
+  pharma:"EORTC",
+  drug:"新輔助化療 + 手術 vs CCRT (IB2–IIB)",
+  tagline:"陰性結論: IB2–IIB CC 新輔助化療 + 手術 5y OS 72% vs CCRT 76% (HR 0.84, NS);PFS 反而 CCRT 較佳 — CCRT 仍為 LACC 標準。",
+  rationale:"部分地區偏好新輔助化療後手術以避免放療;驗證是否優於 CCRT。",
+  regimen:"Phase III, 1:1, n=626\nArm A: 含鉑新輔助化療 → 廣泛子宮切除\nArm B: CCRT (weekly Cisplatin + EBRT + 近接治療)",
+  inc:["FIGO IB2、IIA2、IIB"],
+  exc:["IIIA 以上","淋巴結大顆轉移"],
+  outcomes:"【JCO 2023 (Kenter et al.)】\n5y OS: NACT-手術 72% vs CCRT 76% (HR 0.84, P=0.24) — 未達優越\n5y PFS: 57.0% vs 65.6% (CCRT 較佳, HR 0.72, P=0.010)\n短期 ≥3 級毒性: 41% vs 23%;長期 ≥3 級: 15% vs 21%",
+  enrolled:"626 patients (NACT 314 / CCRT 312)",
+  hist:"鱗癌為主",
+  stageDist:"FIGO IB2–IIB",
+  tech:"NACT 後約 7 成可行手術,部分仍需術後放療 (雙重治療毒性)",
+  subgroup:"—",
+  combo:"與 Tata Memorial (Gupta) 試驗結論一致:NACT + 手術不優於 CCRT",
+  guideline:"NCCN / ESGO: LACC 標準為 CCRT + 近接治療;NACT + 手術不建議作為常規",
+  nct:"NCT00039338",
+  publication:"JCO 2023 (Kenter et al.)"
+},
+
+{
+  cancer:"CC",
+  subcat:"CCRT",
+  id:"tata-nact",
+  phase:["P-TX"],
+  status:"published",
+  name:"Tata Memorial (Gupta)",
+  fullName:"Tata Memorial NACT-surgery vs CCRT (Gupta et al.)",
+  pharma:"Tata Memorial Centre (研究者發起)",
+  drug:"新輔助化療 (Carbo/Pac × 3) + 廣泛子宮切除 vs CCRT",
+  tagline:"陰性結論: IB2–IIB 鱗癌 NACT + 手術 5y DFS 69.3% vs CCRT 76.7% (HR 1.38),OS 無差異 — CCRT 優於 NACT-手術。",
+  rationale:"印度等資源有限地區放療資源不足,NACT + 手術廣泛使用;前瞻比較其與 CCRT。",
+  regimen:"Phase III, 1:1, n=635\nArm A: Carboplatin + Paclitaxel q3w × 3 → 廣泛子宮切除\nArm B: CCRT (weekly Cisplatin) + 近接治療",
+  inc:["FIGO IB2、IIA、IIB 鱗狀細胞癌"],
+  exc:["非鱗癌","遠端轉移"],
+  outcomes:"【JCO 2018 (Gupta et al.)】\n5y DFS: NACT-手術 69.3% vs CCRT 76.7% (HR 1.38, P=0.038) — CCRT 較佳\n5y OS: 75.4% vs 74.7% (無差異)\nNACT 組約 1/4 術後仍需放療",
+  enrolled:"635 patients",
+  hist:"鱗狀細胞癌",
+  stageDist:"FIGO IB2–IIB",
+  tech:"NACT 3 cycles",
+  subgroup:"IIB 族群 CCRT 優勢較明顯",
+  combo:"與 EORTC 55994 共同確立 CCRT 優於 NACT + 手術",
+  guideline:"NCCN / ESGO: LACC 不建議以 NACT + 手術取代 CCRT",
+  nct:"NCT00193739",
+  publication:"JCO 2018 (Gupta et al.)"
+},
+
+{
+  cancer:"CC",
+  subcat:["1L-RM","IO"],
+  id:"compassion-16",
+  phase:["R-TX"],
+  status:"published",
+  name:"COMPASSION-16",
+  fullName:"COMPASSION-16 (AK104-303)",
+  pharma:"Akeso",
+  drug:"Cadonilimab (PD-1/CTLA-4 雙特異性抗體) + 含鉑化療 ± Bevacizumab vs Placebo + 同化療",
+  tagline:"R/M CC 一線: Cadonilimab 加入化療 ± Bev mPFS 12.7 vs 8.1 個月 (HR 0.62)、OS HR 0.64 — 中國核准;未用 Bev 次群組獲益更大。",
+  rationale:"PD-1/CTLA-4 雙阻斷可能克服 PD-L1 低表現限制;COMPASSION-13 顯示 PD-L1 陰性亦有反應。",
+  regimen:"Phase III, 1:1, n=445\nArm A: Cadonilimab 10 mg/kg + Cisplatin/Carboplatin + Paclitaxel ± Bevacizumab q3w × 6 → 維持至 2 年\nArm B: Placebo + 同化療 ± Bev",
+  inc:["持續、復發或轉移性 CC,未接受全身治療","年齡 18–75 歲, ECOG 0–1"],
+  exc:["先前接受免疫治療"],
+  outcomes:"【Lancet 2024 (Wu et al.)】\nmPFS: 12.7 vs 8.1 個月 (HR 0.62, 95% CI 0.49–0.80) ✅\nmOS: 未達到 vs 22.8 個月 (HR 0.64, 95% CI 0.48–0.86) ✅\n次群組: 未用 Bev PFS HR 0.46 / OS HR 0.50;合併 Bev PFS HR 0.81 / OS HR 0.84",
+  enrolled:"445 patients (中國 59 中心, 2021–2022)",
+  hist:"鱗癌、腺癌、腺鱗癌",
+  stageDist:"持續 / 復發 / 轉移",
+  tech:"雙特異性抗體 q3w",
+  subgroup:"不分 PD-L1 狀態均見獲益 (亞洲族群)",
+  combo:"與 KEYNOTE-826 (Pembro, CPS ≥1)、BEATcc (Atezo + Bev) 並列 R/M 一線 IO 方案;尚無非亞洲族群資料",
+  guideline:"中國 NMPA 核准;NCCN 未納入 (美國未上市)",
+  nct:"NCT04982237",
+  publication:"Lancet 2024 (Wu et al.)"
+},
+
+{
+  cancer:"EC",
+  subcat:["pMMR"],
+  id:"gog-209",
+  phase:["P-TX","R-TX"],
+  status:"published",
+  name:"GOG-209",
+  fullName:"GOG-0209 (NRG Oncology)",
+  pharma:"NCI / GOG",
+  drug:"Carboplatin + Paclitaxel (TC) vs Paclitaxel + Doxorubicin + Cisplatin (TAP)",
+  tagline:"晚期/復發 EC 化療骨架: TC 不劣於 TAP (OS HR 1.00),毒性顯著較低 — 確立 CP 為一線化療標準,也是後續 IO 合併試驗的骨架。",
+  rationale:"GOG-177 確立 TAP 為晚期 EC 標準,但毒性高 (需 G-CSF、神經毒性)。檢驗較易耐受的 TC 是否不劣於 TAP。",
+  regimen:"Phase III 非劣性, 1:1 randomization, n=1381\nArm A (TAP): Doxorubicin 45 mg/m² + Cisplatin 50 mg/m² D1 → Paclitaxel 160 mg/m² D2 + G-CSF, q21d × 7\nArm B (TC): Paclitaxel 175 mg/m² + Carboplatin AUC 6, q21d × 7",
+  inc:["Stage III / IV 或復發 EC (化療 naïve)","可量測或不可量測病灶","可接受先前放療或荷爾蒙治療"],
+  exc:["先前接受細胞毒性化療","癌肉瘤 (另有 GOG-261)"],
+  outcomes:"【主分析 (JCO 2020)】\nOS: TC 37 vs TAP 41 個月 (HR 1.002) — 非劣 ✅\nPFS: 13 vs 14 個月 (HR 1.032)\n毒性: TC 神經毒性、血小板低下、嘔吐、腹瀉較少",
+  enrolled:"1381 patients (2003-2009)",
+  hist:"所有 EC 組織型 (含 serous / clear cell);不含癌肉瘤",
+  stageDist:"Stage III / IV 初治 + 復發 (化療 naïve)",
+  tech:"q21d × 7 cycles",
+  subgroup:"各組織型、分期與先前放療次群組結果一致",
+  combo:"成為 RUBY / NRG-GY018 / AtTEnd / DUO-E 等 IO 合併試驗的化療骨架",
+  guideline:"NCCN / ESMO: Carboplatin + Paclitaxel 為晚期/復發 EC 一線化療標準骨架",
+  nct:"NCT00063999",
+  publication:"JCO 2020 (Miller et al., 主分析)"
+},
+
+{
+  cancer:"EC",
+  subcat:["p53"],
+  id:"fader-her2",
+  phase:["P-TX","R-TX"],
+  status:"published",
+  name:"Fader HER2 USC",
+  fullName:"Fader et al. — CP ± Trastuzumab in HER2+ Uterine Serous Carcinoma",
+  pharma:"Yale / Genentech (研究者發起)",
+  drug:"Carboplatin + Paclitaxel ± Trastuzumab (HER2+ serous)",
+  tagline:"HER2+ 子宮漿液性癌: CP 加 Trastuzumab 改善 PFS (HR 0.44) 與 OS;初治 Stage III–IV 獲益最大 — NCCN 納入 HER2+ serous 一線選項。",
+  rationale:"子宮漿液性癌約 25–30% HER2 過度表現 / 擴增,預後差。借鏡乳癌,驗證抗 HER2 抗體加入一線化療。",
+  regimen:"Randomized Phase II, 1:1, n=61 (58 可評估)\n對照組: Carboplatin AUC 5 + Paclitaxel 175 mg/m² q21d × 6\n試驗組: 同化療 + Trastuzumab (8 mg/kg loading → 6 mg/kg) q21d,持續至進展或毒性",
+  inc:["Stage III–IV 初治 或 復發 子宮漿液性癌 (含混合型 serous 成分)","HER2 IHC 3+ 或 IHC 2+ 且 FISH 擴增","復發者須含鉑治療後無疾病間隔 > 6 個月 (或 chemo-naïve)"],
+  exc:["LVEF 異常 / 嚴重心臟病史","先前 anti-HER2 治療"],
+  outcomes:"【主分析 (JCO 2018)】\nPFS: 8.0 → 12.6 個月 (HR 0.44) ✅\n【更新分析 (Clin Cancer Res 2020)】\n  • 初治 Stage III–IV PFS: 9.3 → 17.7 個月\n  • 復發 PFS: 7.0 → 9.2 個月\n  • 整體 OS 改善 (HR 0.58)\n  • Stage III–IV: 24.4 個月 → 未達到 (HR 0.49)\n  • 復發族群 OS 未達顯著\n心臟毒性: 無顯著增加",
+  enrolled:"61 randomized (58 evaluable)\n美國多中心",
+  hist:"HER2+ 子宮漿液性癌 (USC)",
+  stageDist:"初治 Stage III–IV: 41 人;復發: 17 人",
+  tech:"HER2 判讀: IHC 3+ 或 IHC 2+ 合併 FISH 擴增 (ASCO/CAP 乳癌標準)",
+  subgroup:"初治 Stage III–IV 獲益最大;復發族群 PFS 改善但 OS 未達顯著",
+  combo:"與 DESTINY-PanTumor02 (T-DXd) 共同構成 HER2 導向治療;HER2 亦為 p53abn / serous 必要檢測",
+  guideline:"NCCN: Carboplatin + Paclitaxel + Trastuzumab 為 Stage III–IV 或復發 HER2+ 子宮漿液性癌的一線選項",
+  nct:"NCT01367002",
+  publication:"JCO 2018 (Fader et al., 主分析); Clin Cancer Res 2020 (Fader et al., OS 更新)"
+},
+
+{
+  cancer:"EC",
+  subcat:["pMMR"],
+  id:"gog-3007",
+  phase:["R-TX"],
+  status:"published",
+  name:"GOG-3007",
+  fullName:"GOG-3007 — Everolimus + Letrozole vs MPA/Tamoxifen",
+  pharma:"GOG Foundation / Novartis",
+  drug:"Everolimus + Letrozole vs Medroxyprogesterone / Tamoxifen 交替",
+  tagline:"晚期/復發 EC 荷爾蒙治療: Everolimus + Letrozole mPFS 6.3 vs 3.8 個月;化療 naïve 者 mPFS 可達 21.6 個月 — 支持低惡性度 ER+ 早期使用荷爾蒙合併治療。",
+  rationale:"EC 常見 PI3K/AKT/mTOR 通路異常;mTOR 抑制可克服荷爾蒙抗藥。Phase II 單臂顯示 EL 有活性,進一步與傳統荷爾蒙治療隨機比較。",
+  regimen:"Randomized Phase II (非比較性設計), 1:1, n=74\nArm A: Everolimus 10 mg PO qd + Letrozole 2.5 mg PO qd\nArm B: Medroxyprogesterone acetate 200 mg qd × 3 週 ↔ Tamoxifen 20 mg bid × 3 週 交替",
+  inc:["晚期 (Stage III/IV) 或復發 EC (endometrioid、serous、clear cell 等)","可量測病灶","先前化療 ≤ 1 線 (允許 chemo-naïve)"],
+  exc:["先前接受 mTOR 抑制劑","先前接受 > 1 線化療"],
+  outcomes:"【SGO 2018 / Gynecol Oncol 2022】\nmPFS: EL 6.3 vs MPA/Tam 3.8 個月\nORR: EL 22% vs MPA/Tam 25%\n【化療 naïve 次群組】\n  • EL mPFS 21.6 個月 (先前化療者 3.3 個月)\n  • MPA/Tam mPFS 6.6 個月 (先前化療者 3.2 個月)\n註: 非比較性設計,兩組不做統計比較",
+  enrolled:"74 randomized (EL 37 / MPA-Tam 36 可評估)",
+  hist:"所有 EC 組織型 (以 endometrioid 為主)",
+  stageDist:"晚期或復發,化療 0–1 線",
+  tech:"口服荷爾蒙 / 標靶治療",
+  subgroup:"化療 naïve 與低惡性度者 EL 獲益最明顯",
+  combo:"與 PALEO (Letrozole + Palbociclib) 並列 ER+ 低惡性度 EC 荷爾蒙合併治療",
+  guideline:"NCCN: Everolimus + Letrozole 列為復發 EC 荷爾蒙治療選項 (偏好低惡性度 endometrioid)",
+  nct:"NCT02228681",
+  publication:"SGO 2018 (Slomovitz et al., 主要結果); Gynecol Oncol 2022 (Slomovitz et al.)"
+},
+
+{
+  cancer:"EC",
+  subcat:["pMMR"],
+  id:"paleo",
+  phase:["R-TX"],
+  status:"published",
+  name:"PALEO",
+  fullName:"PALEO / ENGOT-EN3-NSGO",
+  pharma:"NSGO / ENGOT / Pfizer",
+  drug:"Letrozole + Palbociclib vs Letrozole + Placebo",
+  tagline:"ER+ 晚期/復發 endometrioid EC: 加入 CDK4/6 抑制劑 mPFS 8.3 vs 3.1 個月 (HR 0.57);OS 無差異 — CDK4/6i 合併荷爾蒙治療概念驗證。",
+  rationale:"CDK4/6 抑制劑合併芳香環酶抑制劑在 ER+ 乳癌顯著延長 PFS;ER+ endometrioid EC 生物學相近,驗證是否克服荷爾蒙抗藥。",
+  regimen:"Randomized, double-blind, placebo-controlled Phase II, 1:1, n=77\nArm A: Letrozole 2.5 mg qd + Palbociclib 125 mg qd D1–21 q28d\nArm B: Letrozole 2.5 mg qd + Placebo",
+  inc:["ER+ (IHC ≥10%) endometrioid EC","Stage IV 初治 或 先前 ≥1 線系統治療後進展","可量測病灶, ECOG 0–1"],
+  exc:["先前 CDK4/6 抑制劑","非 endometrioid 組織型"],
+  outcomes:"【最終分析 (Gynecol Oncol 2025)】\nmPFS: 8.3 vs 3.1 個月 (HR 0.57, 95% CI 0.32–0.99) ✅\nDCR (26 週): 64% vs 38%\nORR: 9% vs 16% (以穩定疾病為主)\nOS: HR 1.15 (95% CI 0.58–2.26) — 無差異\n2y OS: 49% vs 48%",
+  enrolled:"77 randomized (北歐 / 歐洲 ENGOT 多中心)",
+  hist:"ER+ endometrioid EC",
+  stageDist:"晚期或復發",
+  tech:"ER IHC ≥10% 為入組門檻",
+  subgroup:"疾病控制 (穩定疾病) 為主要獲益型態,反應率不高",
+  combo:"與 GOG-3007 (Everolimus + Letrozole)、GOG-3026 (卵巢 LGSOC: Letrozole + Ribociclib) 同屬荷爾蒙合併標靶策略",
+  guideline:"NCCN: CDK4/6 抑制劑 + Letrozole 列為 ER+ 復發 EC 荷爾蒙治療選項之一",
+  nct:"NCT02730429",
+  publication:"ESMO 2020 (Mirza et al., 主要 PFS); Gynecol Oncol 2025 (Mirza et al., 最終分析)"
+},
+
+{
+  cancer:"EC",
+  subcat:["fertility"],
+  id:"femme",
+  phase:["P-TX"],
+  status:"published",
+  name:"feMMe",
+  fullName:"feMMe / ANZGOG 1301",
+  pharma:"ANZGOG (研究者發起)",
+  drug:"LNG-IUS 單用 vs + 減重介入 vs + Metformin",
+  tagline:"肥胖女性 早期 EC / 非典型增生 保守治療: LNG-IUS 6 個月 pCR 約 6 成 (EC 43%、增生 82%);加 Metformin 或減重未顯著提升 — 支持 LNG-IUS 為生育/子宮保留選項。",
+  rationale:"高劑量口服黃體素副作用多;LNG-IUS 局部高濃度黃體素。肥胖與胰島素阻抗為 EC 危險因子,探索 Metformin 與減重是否加成。",
+  regimen:"Randomized Phase II, 3:3:5 randomization, n=165\nArm 1: LNG-IUS 52 mg 單用\nArm 2: LNG-IUS + 減重介入\nArm 3: LNG-IUS + Metformin 250 mg bid (逐步增量)",
+  inc:["臨床 Stage I G1 endometrioid EC (影像無肌層侵犯) 或 非典型子宮內膜增生","BMI ≥ 30 kg/m²","CA-125 < 30 U/mL"],
+  exc:["G2/3 或高風險組織型","近 12 週內使用黃體素","先前骨盆放療"],
+  outcomes:"【主分析 (SGO 2021 / Gynecol Oncol 2021)】\n6 個月 pCR:\n  • LNG-IUS 單用 61%\n  • + 減重 67%\n  • + Metformin 57% (敏感度分析 62%)\n依診斷: 非典型增生 82% / EC 43%\n結論: 加入 Metformin 或減重未顯著提升 pCR",
+  enrolled:"165 patients (EC 96 / 非典型增生 69);平均 BMI 47.7;43% 停經前",
+  hist:"G1 endometrioid EC / 非典型子宮內膜增生",
+  stageDist:"臨床 Stage IA,無肌層侵犯",
+  tech:"LNG-IUS 52 mg;3、6 個月子宮內膜切片評估",
+  subgroup:"非典型增生反應率遠高於 EC",
+  combo:"生育保留:高劑量 MPA / MA 或 LNG-IUS;分子分型 (dMMR、p53abn) 反應較差,需納入評估",
+  guideline:"NCCN / ESGO: G1 IA 無肌層侵犯者可考慮黃體素 (口服或 LNG-IUS) 生育保留,每 3–6 個月切片追蹤",
+  nct:"ANZGOG 1301 (澳紐臨床試驗登錄 ACTRN)",
+  publication:"SGO 2021 (Janda et al., 主要結果); Gynecol Oncol 2021 (Janda et al.)"
+},
+
+{
+  cancer:"OC",
+  subcat:["HGSC"],
+  id:"icon1-action",
+  phase:["P-TX"],
+  status:"published",
+  name:"ICON1 / ACTION",
+  fullName:"ICON1 + EORTC ACTION (合併分析)",
+  pharma:"MRC / EORTC",
+  drug:"早期 OC 術後輔助含鉑化療 vs 觀察 (延遲至復發再化療)",
+  tagline:"早期上皮性卵巢癌: 輔助含鉑化療改善 OS (5 年 82% vs 74%, HR 0.67);ACTION 顯示獲益集中於未完整分期者 — 奠定早期高風險 OC 輔助化療。",
+  rationale:"早期 OC 術後是否需化療長期未定。兩個平行設計的 Phase III 試驗合併分析以提高檢定力。",
+  regimen:"兩個 Phase III 合併, n=925\nICON1: 含鉑化療 (多為 Carboplatin 單藥) × 6 vs 觀察\nACTION: 含鉑化療 × ≥4 vs 觀察 (要求手術分期品質紀錄)",
+  inc:["早期上皮性卵巢癌 (ICON1: 臨床判斷是否需化療不確定者; ACTION: FIGO IA–IB G2–3、IC–IIA、所有 clear cell)"],
+  exc:["晚期 (Stage III–IV)","非上皮性腫瘤"],
+  outcomes:"【合併分析 (JNCI 2003)】\n5y OS: 82% vs 74% (HR 0.67) ✅\n5y RFS: 76% vs 65% (HR 0.64) ✅\n【ACTION】獲益僅見於未完整分期者;完整分期者化療無顯著 OS 獲益\n【長期追蹤】ICON1 10 年 (JNCI 2007) 獲益持續",
+  enrolled:"925 patients (ICON1 477 / ACTION 448)",
+  hist:"上皮性卵巢癌 (所有組織型)",
+  stageDist:"FIGO I–IIA",
+  tech:"含鉑化療 (Carboplatin 單藥或含鉑組合)",
+  subgroup:"高風險 (G3、clear cell、IC) 與未完整分期者獲益最大",
+  combo:"與 GOG-157 (3 vs 6 cycles) 共同決定早期 OC 輔助化療適應症與療程",
+  guideline:"NCCN: 高惡性度 / IC 以上早期 OC 建議輔助含鉑化療;完整分期之 IA–IB G1 可觀察",
+  nct:"-",
+  publication:"JNCI 2003 (ICON1 Colombo et al.; ACTION Trimbos et al.); JNCI 2007 (ICON1 10y); JNCI 2010 (ACTION 10y)"
+},
+
+{
+  cancer:"OC",
+  subcat:["HGSC"],
+  id:"gog-157",
+  phase:["P-TX"],
+  status:"published",
+  name:"GOG-157",
+  fullName:"GOG-0157",
+  pharma:"NCI / GOG",
+  drug:"Carboplatin + Paclitaxel 3 vs 6 cycles (高風險早期 OC)",
+  tagline:"高風險早期 OC: CP 6 cycles 相較 3 cycles 未顯著降低復發 (HR 0.76),毒性增加;但 serous 次群組 6 cycles 獲益 — 非 serous 可 3 cycles、HGSC 傾向 6 cycles。",
+  rationale:"ICON1/ACTION 確立早期高風險 OC 需輔助化療,但最佳療程未定。",
+  regimen:"Phase III, 1:1, n=457\nArm A: Carboplatin AUC 7.5 + Paclitaxel 175 mg/m² q21d × 3\nArm B: 同方案 × 6",
+  inc:["完整分期之高風險早期 OC: IA–IB G3 或 clear cell、IC、II"],
+  exc:["低風險 IA–IB G1–2","晚期"],
+  outcomes:"【主分析 (Gynecol Oncol 2006)】\n復發風險: 6 vs 3 cycles 降低 24% (HR 0.76) — 未達顯著\nOS: 無差異 (HR 1.02)\n毒性: 6 cycles 神經毒性與骨髓抑制顯著較多\n【次群組 (Gynecol Oncol 2010, Chan et al.)】serous 組織型 6 cycles 顯著降低復發 (HR 0.33)",
+  enrolled:"457 patients",
+  hist:"上皮性卵巢癌 (所有組織型;含 clear cell)",
+  stageDist:"高風險 FIGO I–II",
+  tech:"Carboplatin AUC 7.5 (高於現行 AUC 5–6)",
+  subgroup:"serous 次群組自 6 cycles 獲益;非 serous 無差異",
+  combo:"與 ICON1/ACTION 共同構成早期 OC 輔助化療證據",
+  guideline:"NCCN: 早期高惡性度 serous 建議 CP 6 cycles;其他組織型 3–6 cycles",
+  nct:"-",
+  publication:"Gynecol Oncol 2006 (Bell et al., 主分析); Gynecol Oncol 2010 (Chan et al., 組織型次群組)"
 },
 
 {
@@ -6874,6 +7437,114 @@ const TRIALS = [
 {
   cancer:"US",
   subcat:"LMS",
+  id:"lms-02",
+  phase:["P-TX"],
+  status:"published",
+  name:"LMS-02",
+  fullName:"LMS-02 (French Sarcoma Group)",
+  pharma:"French Sarcoma Group (研究者發起) / PharmaMar",
+  drug:"Doxorubicin + Trabectedin 一線 (單臂)",
+  tagline:"晚期 LMS 一線 Dox + Trab 單臂 Phase II: uLMS ORR 59.6%、mOS 27.5 個月 — 為 LMS-04 隨機試驗奠基。",
+  rationale:"Trabectedin 對 LMS 具活性,與 Doxorubicin 機轉互補;先以單臂試驗評估一線合併的反應率與安全性。",
+  regimen:"Phase II 單臂, n=108 (uLMS 47 / 軟組織 LMS 61)\nDoxorubicin 60 mg/m² + Trabectedin 1.1 mg/m² D1 + Pegfilgrastim D2, q3w × 最多 6 cycles;殘存病灶可手術",
+  inc:["轉移性或無法切除的 uLMS 或軟組織 LMS","未接受化療","ECOG 0–1"],
+  exc:["先前接受 anthracycline 或 trabectedin"],
+  outcomes:"【Lancet Oncol 2015 (Pautier et al.)】\nORR: uLMS 59.6% / 軟組織 LMS 39.3%\n【ASCO 2020 更新 (最終 OS)】\n  • uLMS: mPFS 8.3 個月, mOS 27.5 個月\n  • 軟組織 LMS: mPFS 12.9 個月, mOS 38.7 個月\n  • 全體: mPFS 10.1 個月, mOS 34.4 個月\n毒性: 骨髓抑制為主,須預防性 G-CSF",
+  enrolled:"108 patients (uLMS 47 / ST-LMS 61)",
+  hist:"平滑肌肉瘤 (子宮與軟組織)",
+  stageDist:"轉移性 / 無法切除",
+  tech:"Dox 60 + Trab 1.1 mg/m² q3w + G-CSF",
+  subgroup:"uLMS 反應率高於軟組織 LMS,但 PFS 較短",
+  combo:"直接導向 LMS-04 (Dox + Trab vs Dox,Phase III 陽性)",
+  guideline:"NCCN: Doxorubicin + Trabectedin 為晚期 uLMS 一線偏好方案之一 (依 LMS-04)",
+  nct:"-",
+  publication:"Lancet Oncol 2015 (Pautier et al., 主分析); ASCO 2020 (Pautier et al., 最終 OS)"
+},
+
+{
+  cancer:"US",
+  subcat:"LMS",
+  id:"announce",
+  phase:["P-TX"],
+  status:"published",
+  name:"ANNOUNCE",
+  fullName:"ANNOUNCE (Olaratumab Phase III)",
+  pharma:"Eli Lilly",
+  drug:"Doxorubicin + Olaratumab vs Doxorubicin + Placebo",
+  tagline:"陰性結論: 晚期軟組織肉瘤 Dox 加 Olaratumab (PDGFRα 抗體) 未改善 OS (HR 1.05);LMS 次群組亦無差異 — Olaratumab 撤回核准。",
+  rationale:"Phase Ib/II (JGDG) 顯示 Dox + Olaratumab OS 延長 11.8 個月並獲加速核准;Phase III 確認試驗。",
+  regimen:"Phase III, 1:1, n=509\nArm A: Doxorubicin 75 mg/m² + Olaratumab (C1 20 mg/kg → 15 mg/kg) × 8 cycles → Olaratumab 維持\nArm B: Doxorubicin + Placebo → Placebo 維持",
+  inc:["晚期或轉移性軟組織肉瘤 (含 LMS),未接受 anthracycline","ECOG 0–1"],
+  exc:["先前 anthracycline","GIST、Kaposi 肉瘤等"],
+  outcomes:"【JAMA 2020 (Tap et al.)】\nmOS 全體: 20.4 vs 19.7 個月 (HR 1.05, P=0.69) — 陰性\nLMS 次群組: 21.6 vs 21.9 個月 (HR 0.95) — 無差異\n結果: Olaratumab 2019 年撤回市場",
+  enrolled:"509 patients (Olaratumab 258 / Placebo 251);LMS 約佔 46%",
+  hist:"軟組織肉瘤 (LMS 為最大亞群,含 uLMS)",
+  stageDist:"晚期 / 轉移性",
+  tech:"PDGFRα 單株抗體",
+  subgroup:"LMS 與非 LMS 次群組皆無 OS 獲益",
+  combo:"與 LMS-04 (Dox + Trab 陽性) 對比:僅 Trabectedin 合併在 LMS 證實有效",
+  guideline:"不建議;Olaratumab 已撤回",
+  nct:"NCT02451943",
+  publication:"JAMA 2020 (Tap et al.)"
+},
+
+{
+  cancer:"US",
+  subcat:["PEComa"],
+  id:"ampect",
+  phase:["P-TX","R-TX"],
+  status:"published",
+  name:"AMPECT",
+  fullName:"AMPECT (nab-Sirolimus in malignant PEComa)",
+  pharma:"Aadi Bioscience",
+  drug:"nab-Sirolimus (白蛋白結合型 mTOR 抑制劑)",
+  tagline:"惡性 PEComa: nab-Sirolimus ORR 38.7%、mDOR 39.7 個月;TSC2 突變者 ORR 89% — FDA 核准,為首個 PEComa 適應症藥物 (子宮為常見原發部位)。",
+  rationale:"PEComa 常見 TSC1/TSC2 失活 → mTORC1 活化;nab 劑型提高腫瘤內藥物濃度。",
+  regimen:"Phase II 單臂, n=34 (31 可評估)\nnab-Sirolimus 100 mg/m² IV D1、D8, q21d",
+  inc:["惡性 PEComa,局部晚期無法切除或轉移","未接受 mTOR 抑制劑"],
+  exc:["先前 mTOR 抑制劑治療"],
+  outcomes:"【JCO 2021 (Wagner et al.);CTOS 2022 研究結束分析】\nORR: 38.7% (CR 6.5%)\nmDOR: 39.7 個月\nmPFS: 10.6 個月\nmOS: 53.1 個月\nTSC2 突變: 8/9 (89%) CR/PR",
+  enrolled:"34 treated / 31 evaluable (美國多中心)",
+  hist:"惡性 PEComa (子宮、腹膜後、胃腸等;子宮為常見原發)",
+  stageDist:"局部晚期 / 轉移",
+  tech:"TSC1/2 次世代定序可預測反應",
+  subgroup:"TSC2 突變者反應最佳",
+  combo:"mTOR 抑制劑 (sirolimus / everolimus / temsirolimus) 亦為 off-label 選擇",
+  guideline:"FDA 2021 核准 nab-Sirolimus 用於局部晚期無法切除或轉移性惡性 PEComa;NCCN 偏好方案",
+  nct:"NCT02494570",
+  publication:"JCO 2021 (Wagner et al., 主分析); CTOS 2022 (研究結束分析)"
+},
+
+{
+  cancer:"US",
+  subcat:["IMT","ALK"],
+  id:"create-imt",
+  phase:["P-TX","R-TX"],
+  status:"published",
+  name:"CREATE (IMT cohort)",
+  fullName:"EORTC 90101 CREATE — Crizotinib in ALK+ IMT",
+  pharma:"EORTC / Pfizer",
+  drug:"Crizotinib (ALK 抑制劑)",
+  tagline:"ALK 陽性發炎性肌纖維母細胞瘤 (IMT): Crizotinib ORR 50% (ALK− 14%) — 子宮 IMT (多見於年輕 / 懷孕相關) 依 ALK 選擇標靶治療。",
+  rationale:"約一半 IMT 帶 ALK 重組 (子宮 IMT 比例更高);ALK 抑制劑在 ALK+ 肺癌有效。",
+  regimen:"Phase II 非比較性籃式試驗 (IMT cohort)\nCrizotinib 250 mg PO bid,依中央確認 ALK 狀態分為 ALK+ / ALK− 兩組",
+  inc:["局部晚期或轉移性 IMT,不適合手術 / 放療","中央病理確認"],
+  exc:["先前 ALK 抑制劑"],
+  outcomes:"【Lancet Respir Med 2018 (Schöffski et al.)】\nALK+: ORR 50% (12 人中 2 CR、4 PR)\nALK−: ORR 14.3% (7 人)\n【長期追蹤 (Eur J Cancer 2021)】ALK+ 反應持久",
+  enrolled:"35 收案 / 20 中央確認治療 (歐洲 8 國 13 中心)",
+  hist:"發炎性肌纖維母細胞瘤 (IMT,含子宮原發)",
+  stageDist:"局部晚期 / 轉移",
+  tech:"ALK IHC / FISH / NGS",
+  subgroup:"ALK+ 顯著優於 ALK−",
+  combo:"其他 ALK 抑制劑 (alectinib、ceritinib、lorlatinib) 亦有個案 / 小型系列;ROS1 / NTRK 融合者可用對應抑制劑",
+  guideline:"NCCN (軟組織肉瘤): ALK+ IMT 建議 ALK 抑制劑 (Crizotinib、Ceritinib 等)",
+  nct:"NCT01524926",
+  publication:"Lancet Respir Med 2018 (Schöffski et al.); Eur J Cancer 2021 (長期追蹤)"
+},
+
+{
+  cancer:"US",
+  subcat:"LMS",
   id:"gog-0277",
   phase:["P-TX"],
   status:"published",
@@ -7866,6 +8537,7 @@ function renderCards(){
       : allForPhase.filter(t => matchSubcat(t, activeSc));
 
     el(counts[phase]).textContent = visibleTrials.length + (activeSc !== 'ALL' ? ` / ${allForPhase.length}` : '') + ' trials';
+    const qn = el('qn-'+phase); if(qn) qn.textContent = allForPhase.length;
     el(grids[phase]).innerHTML = visibleTrials.length ? visibleTrials.map(t => cardHTML(t)).join('') : emptyHTML();
   });
 }
@@ -12133,7 +12805,7 @@ function renderMatchResults(results){
 // ============================================================
 // 🗺️ 治療路徑流程圖 (Treatment Pathway Flowchart)
 // ============================================================
-let currentPathwayCancer = 'EC';
+let currentPathwayCancer = 'OC';
 let currentPathwayNode = null;
 
 const NODE_COLORS = {
@@ -12163,6 +12835,7 @@ function closePathway(){
 function switchPathwayTab(cancer){
   currentPathwayCancer = cancer;
   currentPathwayNode = null;
+  if(typeof PG_SEL !== 'undefined'){ PG_SEL = null; PG_GAPS_OPEN = false; }
   document.querySelectorAll('.pathway-tab').forEach(b => {
     b.classList.toggle('active', b.dataset.cancer === cancer);
   });
@@ -12170,10 +12843,10 @@ function switchPathwayTab(cancer){
   if(typeof updateCompareFab === 'function') setTimeout(updateCompareFab, 30);
 }
 
-function renderPathway(){
+function renderPathwayLegacy(){
   const data = PATHWAYS[currentPathwayCancer];
   if(!data){
-    el('pathwayBody').innerHTML = '<p style="padding:20px;color:#dc2626;">此癌別治療路徑圖尚未建立</p>';
+    el('pathwayLegacyBody').innerHTML = '<p style="padding:20px;color:#dc2626;">此癌別治療路徑圖尚未建立</p>';
     return;
   }
 
@@ -12251,7 +12924,7 @@ function renderPathway(){
       </div>
     </div>`;
 
-  el('pathwayBody').innerHTML = `
+  el('pathwayLegacyBody').innerHTML = `
     ${renderPathwayOverview(currentPathwayCancer)}
     <button class="pw-detailed-toggle" onclick="togglePathwayDetailed()" id="pwDetailedToggle">🔽 展開節點式深度地圖 (原版本)</button>
     <div class="pw-detailed-wrap" id="pwDetailedWrap">
@@ -12259,6 +12932,1129 @@ function renderPathway(){
       <div class="pathway-sidepanel" id="pathwaySidepanel">${sidePanel}</div>
     </div>
   `;
+}
+
+
+// ============================================================
+// 🧭 病程 × 生物標記 治療地圖 (Pathway Grid) — 新版預設視圖
+// s: std 標準 / cond 有條件·次選 / trial 進行中試驗 / neg 陰性試驗 / gap 未滿足需求
+// ids: 對應 TRIALS 內 id, 點選可進入個別試驗
+// ============================================================
+const PG_STATUS = {
+  std:  {label:'標準治療', icon:'✅'},
+  cond: {label:'有條件 / 次選', icon:'🔷'},
+  trial:{label:'進行中試驗', icon:'🧪'},
+  neg:  {label:'陰性試驗 (不建議)', icon:'⛔'},
+  gap:  {label:'未滿足需求 · 值得開展試驗', icon:'🚩'},
+};
+
+const PATHWAY_GRID = {
+  US: {
+    title: '子宮肉瘤 · 病程 × 組織型 / 分子標記 治療地圖',
+    subtitle: '橫軸 = 臨床病程 · 縱軸 = 組織型與分子標記 (WHO 2020) · 點選格子看完整治療與試驗',
+    tests: [
+      '病理 (WHO 2020): Desmin / SMA / h-caldesmon (LMS) · CD10 / ER / PR (ESS) · cyclin D1 / BCOR (HG-ESS) · HMB45 / Melan-A (PEComa) · ALK (IMT)',
+      '融合 / 分子: JAZF1-SUZ12 (LG-ESS) · YWHAE-NUTM2 / BCOR-ITD (HG-ESS) · TSC1/2 (PEComa) · ALK (IMT) · NTRK (纖維肉瘤樣)',
+      'uLMS: BRCA2 / HRD 檢測 (PARPi 合併);ER / PR (荷爾蒙治療選擇);復發可加做 MSI / TMB',
+      '術前: MRI (DWI / ADC) + LDH;疑似肉瘤避免未包袋碎切',
+    ],
+    colGroups: [
+      {label:'初始治療', span:5, cls:'cg-init'},
+      {label:'復發 / 轉移', span:3, cls:'cg-proc'},
+    ],
+    columns: [
+      {key:'dx',     label:'術前診斷', sub:'肌瘤 vs 肉瘤'},
+      {key:'surg',   label:'初始手術', sub:'TH ± BSO'},
+      {key:'adj',    label:'早期輔助', sub:'I–II 期'},
+      {key:'adv',    label:'晚期一線', sub:'III–IV / 無法切除'},
+      {key:'mt1',    label:'一線維持', sub:'反應後'},
+      {key:'rlocal', label:'局部 / 寡轉移復發', sub:'轉移切除 / 局部治療'},
+      {key:'r2',     label:'復發二線', sub:'全身治療'},
+      {key:'late',   label:'多線後', sub:'再復發'},
+    ],
+    groups: [
+      {id:'lms', label:'平滑肌肉瘤 uLMS', sub:'最常見;依 HRD / BRCA2 細分',
+        sharedNote:'uLMS 共用',
+        shared:{
+          dx:[
+            {s:'std', t:'術前 MRI (DWI / ADC) + LDH;疑似肉瘤避免未包袋碎切 (morcellation)', k:'MRI + LDH · 避免碎切'},
+            {s:'gap', t:'術前區分 LMS 與肌瘤 (含 HIFU / 消融前) 缺可靠 biomarker', k:'術前鑑別', idea:'MRI radiomics / ctDNA 術前鑑別前瞻研究'},
+          ],
+          surg:[
+            {s:'std', t:'全子宮切除 ± 雙側附件切除 (停經前可考慮保留卵巢);不需常規淋巴結清除', k:'TH ± BSO'},
+            {s:'neg', t:'未包袋碎切 → 腹腔散播、存活較差', k:'碎切 (morcellation)'},
+          ],
+          adj:[
+            {s:'std', t:'完整切除 I 期:觀察為標準', k:'觀察'},
+            {s:'neg', t:'輔助 Gem/Doce → Dox 未改善 (收案困難提前終止)', k:'輔助化療', ids:['gog-0277']},
+            {s:'neg', t:'輔助骨盆 RT 未改善 OS (LMS 局部控制亦無獲益)', k:'輔助 RT', ids:['eortc-55874']},
+            {s:'trial', t:'輔助 Doxorubicin + Trabectedin (Stage IB–II)', k:'輔助 Dox + Trab', ids:['nct07076186']},
+            {s:'gap', t:'早期 uLMS 復發率 > 50% 仍無有效輔助治療', k:'無有效輔助', idea:'高風險早期 uLMS 輔助 Dox + Trab / 分子篩選試驗'},
+          ],
+          adv:[
+            {s:'std', t:'Doxorubicin + Trabectedin → Trabectedin 維持 (mPFS 12.2 vs 6.2 個月,OS 獲益)', k:'Dox + Trab', ids:['lms-02','lms-04']},
+            {s:'std', t:'Doxorubicin 單藥', k:'Dox 單藥', ids:['eortc-62012','geddis']},
+            {s:'cond', t:'Doxorubicin + Ifosfamide (ORR 較高,OS 無差異)', k:'Dox + Ifo', ids:['eortc-62012']},
+            {s:'cond', t:'Gemcitabine + Docetaxel (PFS 與 Dox 相當)', k:'Gem + Doce', ids:['geddis']},
+            {s:'neg', t:'Doxorubicin + Olaratumab 未改善 OS (已撤回)', k:'Dox + Olaratumab', ids:['announce']},
+          ],
+          mt1:[
+            {s:'std', t:'Trabectedin 維持 (LMS-04 方案內)', k:'Trab 維持', ids:['lms-04']},
+            {s:'gap', t:'Dox 單藥後無維持選項', k:'維持選項少', idea:'一線後 PARPi / 標靶維持試驗'},
+          ],
+          rlocal:[
+            {s:'std', t:'可切除孤立轉移 (肺為主) → 轉移切除', k:'轉移切除'},
+            {s:'cond', t:'SBRT / 射頻消融 等局部治療', k:'SBRT / 消融'},
+          ],
+          late:[
+            {s:'cond', t:'未用過的二線藥物輪替;臨床試驗優先', k:'藥物輪替 / 試驗'},
+            {s:'gap', t:'多線後無標準;IO 幾乎無效 (immune-cold)', k:'IO 無效', idea:'新標的 ADC、合成致死組合試驗'},
+          ],
+        }
+      },
+      {id:'ess', label:'子宮內膜基質肉瘤 ESS / UUS', sub:'依惡性度與融合基因分流'},
+      {id:'oth', label:'其他 / 罕見標靶型', sub:'混合型與標靶可治療型'},
+    ],
+    agnostic: {label:'跨癌別標記 (Tumor-agnostic)', t:'標準治療後', gates:'NTRK fusion · MSI-H / TMB-H · RET fusion', ids:['ntrk-basket','keynote-158','libretto-001']},
+    rows: [
+      {
+        id:'lmsall', group:'lms', label:'uLMS', sub:'HRD 陰性 / 未檢測',
+        cells:{
+          r2:[
+            {s:'std', t:'Trabectedin', k:'Trabectedin', ids:['et743-sar-3007']},
+            {s:'std', t:'Pazopanib', k:'Pazopanib', ids:['palette']},
+            {s:'cond', t:'Eribulin', k:'Eribulin', ids:['eribulin-vs-dacarbazine']},
+            {s:'cond', t:'Regorafenib (LMS 次群組獲益)', k:'Regorafenib', ids:['regosarc']},
+            {s:'cond', t:'Olaparib + Temozolomide', k:'Olaparib + TMZ', ids:['olaparib-tmz']},
+            {s:'cond', t:'Gem + Docetaxel / Dacarbazine', k:'Gem-Doce / DTIC'},
+            {s:'cond', t:'芳香環酶抑制劑 (低腫瘤負荷、緩慢進展)', k:'AI 荷爾蒙', g:'ER/PR+'},
+          ],
+        }
+      },
+      {
+        id:'lmshrd', group:'lms', label:'uLMS · HRD', sub:'BRCA2 缺失等 HRR 異常 (~10%)',
+        cells:{
+          r2:[
+            {s:'std', t:'Trabectedin (HRD 者 DNA 修復缺陷可能更敏感)', k:'Trabectedin', ids:['et743-sar-3007']},
+            {s:'cond', t:'Olaparib + Temozolomide (HRD 次群組反應較佳)', k:'Olaparib + TMZ', g:'HRD / BRCA2', ids:['olaparib-tmz']},
+            {s:'cond', t:'PARPi 單藥 (BRCA2 缺失,個案 / 小型系列)', k:'PARPi 單藥', g:'BRCA2'},
+            {s:'std', t:'Pazopanib', k:'Pazopanib', ids:['palette']},
+            {s:'cond', t:'Eribulin', k:'Eribulin', ids:['eribulin-vs-dacarbazine']},
+            {s:'gap', t:'HRD uLMS 的 PARPi 前瞻隨機證據不足', k:'PARPi 證據', idea:'HRD 篩選 uLMS 的 PARPi 隨機試驗'},
+          ],
+        }
+      },
+      {
+        id:'lgess', group:'ess', label:'LG-ESS', sub:'JAZF1 融合 · ER/PR+ · 緩慢',
+        cells:{
+          dx:[{s:'std', t:'CD10 / ER / PR;JAZF1-SUZ12 融合', k:'CD10 · ER/PR'}],
+          surg:[
+            {s:'std', t:'全子宮 + 雙側附件切除 (保留卵巢增加復發)', k:'TH + BSO'},
+            {s:'cond', t:'可見病灶完整切除', k:'完整切除'},
+          ],
+          adj:[
+            {s:'cond', t:'Stage I 可觀察;II–IV 建議輔助荷爾蒙 (AI)', k:'輔助 AI'},
+            {s:'trial', t:'Letrozole 長期輔助 / 維持', k:'Letrozole 長期', ids:['letrozole-ngess']},
+            {s:'neg', t:'避免含雌激素的荷爾蒙補充療法 (HRT)', k:'雌激素 HRT'},
+          ],
+          adv:[
+            {s:'std', t:'芳香環酶抑制劑 (Letrozole / Anastrozole) 或 高劑量黃體素', k:'AI / 黃體素', g:'ER/PR+', ids:['paragon']},
+            {s:'cond', t:'減積手術 (緩慢生長)', k:'減積'},
+          ],
+          mt1:[{s:'trial', t:'Letrozole 長期維持', k:'Letrozole 維持', ids:['letrozole-ngess']}],
+          rlocal:[{s:'std', t:'復發可重複手術切除', k:'再手術'}],
+          r2:[
+            {s:'std', t:'荷爾蒙治療 (換 AI / 黃體素 / GnRH)', k:'換荷爾蒙', ids:['paragon']},
+            {s:'cond', t:'Doxorubicin-based 化療 (荷爾蒙抗藥)', k:'Dox-based'},
+          ],
+          late:[{s:'gap', t:'荷爾蒙抗藥後選項少', k:'荷爾蒙抗藥', idea:'CDK4/6i + AI 試驗'}],
+        }
+      },
+      {
+        id:'hgess', group:'ess', label:'HG-ESS / UUS', sub:'YWHAE · BCOR · 未分化',
+        cells:{
+          dx:[{s:'std', t:'cyclin D1 / BCOR IHC;YWHAE-NUTM2、BCOR 融合 / ITD', k:'cyclin D1 · BCOR'}],
+          surg:[{s:'std', t:'全子宮 + 雙側附件切除', k:'TH + BSO'}],
+          adj:[
+            {s:'cond', t:'輔助 Dox-based 化療 / RT (證據有限)', k:'化療 / RT (有限)'},
+            {s:'gap', t:'高侵襲性但無輔助證據', k:'無輔助證據', idea:'HG-ESS / UUS 國際登錄與輔助試驗'},
+          ],
+          adv:[
+            {s:'std', t:'Doxorubicin ± Ifosfamide', k:'Dox ± Ifo', ids:['eortc-62012']},
+            {s:'cond', t:'Gem + Docetaxel', k:'Gem + Doce', ids:['geddis']},
+          ],
+          r2:[
+            {s:'cond', t:'Pazopanib / 其他肉瘤二線方案', k:'Pazopanib 等', ids:['palette']},
+            {s:'gap', t:'BCOR / YWHAE 融合無標靶藥物', k:'無標靶', idea:'融合基因導向籃式試驗'},
+          ],
+        }
+      },
+      {
+        id:'ucs', group:'oth', label:'癌肉瘤 UCS', sub:'生物學屬高風險 EC',
+        cells:{
+          surg:[{s:'std', t:'完整分期手術 (比照高風險 EC)', k:'完整分期'}],
+          adj:[
+            {s:'std', t:'輔助化療 ± VBT (I 期亦建議;全腹 RT 未優於化療)', k:'化療 ± VBT', ids:['gog-150','gog-0261']},
+          ],
+          adv:[
+            {s:'std', t:'Carboplatin + Paclitaxel (不劣於 Ifo + Pac,毒性較低)', k:'CP', ids:['gog-0261']},
+            {s:'cond', t:'CP + IO (RUBY / AtTEnd 允許癌肉瘤)', k:'CP + IO', ids:['ruby-p1','attend']},
+            {s:'cond', t:'Ifosfamide + Paclitaxel', k:'Ifo + Pac', ids:['gog-161']},
+          ],
+          mt1:[{s:'gap', t:'無專屬維持證據', k:'無證據', idea:'HER2 / TROP2 ADC 維持'}],
+          r2:[
+            {s:'cond', t:'Ifosfamide-based / 未用過化療', k:'Ifosfamide-based', ids:['gog-161']},
+            {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 3+', ids:['destiny-pantumor02']},
+          ],
+          late:[{s:'gap', t:'常被排除於 IO / ADC 試驗', k:'常被排除', idea:'癌肉瘤專屬 ADC 試驗'}],
+        }
+      },
+      {
+        id:'adeno', group:'oth', label:'腺肉瘤', sub:'含肉瘤過度生長 (SO)',
+        cells:{
+          surg:[{s:'std', t:'全子宮 + 雙側附件切除 (腫瘤常 ER/PR+)', k:'TH + BSO'}],
+          adj:[{s:'gap', t:'肉瘤過度生長者高復發、無輔助證據', k:'SO 無證據', idea:'腺肉瘤 SO 登錄研究'}],
+          adv:[{s:'cond', t:'無 SO:荷爾蒙治療;有 SO:Dox-based 化療', k:'荷爾蒙 / Dox'}],
+        }
+      },
+      {
+        id:'target', group:'oth', label:'PEComa · IMT', sub:'TSC1/2 · ALK fusion',
+        cells:{
+          dx:[{s:'std', t:'HMB45 / Melan-A (PEComa);ALK IHC (IMT)', k:'HMB45 · ALK'}],
+          surg:[{s:'std', t:'完整切除', k:'完整切除'}],
+          adv:[
+            {s:'std', t:'nab-Sirolimus (FDA 核准;TSC2 突變反應最佳)', k:'nab-Sirolimus', g:'PEComa · TSC1/2', ids:['ampect']},
+            {s:'std', t:'ALK 抑制劑 (Crizotinib 等)', k:'ALK 抑制劑', g:'IMT · ALK+', ids:['create-imt']},
+          ],
+          r2:[
+            {s:'cond', t:'其他 mTOR 抑制劑 (sirolimus / everolimus) 或 次世代 ALK 抑制劑', k:'換用 mTOR / ALK 抑制劑', ids:['ampect','create-imt']},
+            {s:'gap', t:'標靶抗藥後選項少', k:'標靶抗藥', idea:'次世代 ALK / mTOR 合併試驗'},
+          ],
+        }
+      },
+    ]
+  },
+  CC: {
+    title: '子宮頸癌 · 病程 × 生物標記 治療地圖',
+    subtitle: '橫軸 = 臨床病程 · 縱軸 = HPV 狀態 / 組織型 / PD-L1 · 點選格子看完整治療與試驗',
+    tests: [
+      '組織型: p16 IHC / HPV genotyping — IECC 2018 分類 (HPV 相關 vs HPV 非相關腺癌,如 gastric-type);神經內分泌標記 (SCNEC)',
+      '分期: MRI 骨盆 + PET-CT (FIGO 2018 IIIC 依影像 / 病理淋巴結)',
+      'R/M 系統治療前: PD-L1 CPS (22C3, KEYNOTE-826 / 158) · HER2 IHC (T-DXd) · MMR/MSI · TMB · NTRK / RET (tumor-agnostic)',
+    ],
+    colGroups: [
+      {label:'初始治療', span:5, cls:'cg-init'},
+      {label:'復發 / 轉移', span:4, cls:'cg-proc'},
+    ],
+    columns: [
+      {key:'pre',   label:'癌前 / 生育保留', sub:'CIN · IA–IB1 保留'},
+      {key:'early', label:'早期手術', sub:'IA2–IB2 · IIA1'},
+      {key:'adj',   label:'術後輔助', sub:'Sedlis / Peters'},
+      {key:'lacc',  label:'局部晚期 LACC', sub:'IB3–IVA · 根治 CCRT'},
+      {key:'mt1',   label:'根治後維持', sub:'CCRT 後'},
+      {key:'local', label:'局部 / 中央復發', sub:'可根治性挽救'},
+      {key:'rm1',   label:'R/M 一線', sub:'持續 / 復發 / 轉移'},
+      {key:'rm2',   label:'R/M 二線', sub:'IO / 含鉑後'},
+      {key:'late',  label:'IO + ADC 後', sub:'多線後'},
+    ],
+    groups: [
+      {id:'hpv', label:'HPV 相關 (SCC · 一般型腺癌)', sub:'佔 >90%;R/M 一線依 PD-L1 CPS 分流',
+        sharedNote:'HPV 相關共用',
+        shared:{
+          pre:[
+            {s:'std', t:'CIN2/3:LEEP / 錐狀切除', k:'LEEP / 錐切'},
+            {s:'trial', t:'HPV16 治療性 DNA 疫苗 (CIN2/3)', k:'HPV16 DNA 疫苗', g:'HPV16+', ids:['pvx4']},
+            {s:'std', t:'IA1 (無 LVSI):錐狀切除 (切緣陰性) 保留生育', k:'IA1 錐切'},
+            {s:'cond', t:'低風險 (≤2 cm、無 LVSI、間質侵犯 ≤10 mm):錐切 + 淋巴結評估', k:'錐切 + 淋巴結', ids:['concerv']},
+            {s:'cond', t:'IA2–IB1 (≤2 cm):廣泛子宮頸切除 (radical trachelectomy) + 前哨 / 骨盆淋巴結', k:'Radical trachelectomy'},
+            {s:'gap', t:'持續 HPV 感染 / 治療性疫苗仍無標準', k:'治療性疫苗', idea:'多型別 HPV 治療性疫苗;免疫導向 CIN 消退試驗'},
+          ],
+          early:[
+            {s:'std', t:'廣泛子宮切除 + 骨盆淋巴結 / 前哨淋巴結 (開腹)', k:'開腹廣泛切除', ids:['lacc-trial']},
+            {s:'neg', t:'微創 (MIS) 廣泛子宮切除:復發與死亡風險較高', k:'MIS 廣泛切除', ids:['lacc-trial']},
+            {s:'std', t:'低風險 (≤2 cm、間質侵犯 <10 mm 或 ≤50%):單純子宮切除', k:'單純子宮切除', ids:['shape-trial','concerv']},
+            {s:'std', t:'前哨淋巴結取代系統性清除 (雙側偵測)', k:'前哨淋巴結', ids:['senticol']},
+            {s:'gap', t:'MIS 在小腫瘤 / 錐切後無殘餘者是否安全', k:'MIS 是否可行', idea:'低風險族群 MIS (含機器手臂) 隨機試驗'},
+          ],
+          adj:[
+            {s:'std', t:'中度風險 (Sedlis:LVSI、間質侵犯深度、腫瘤大小) → 骨盆 RT', k:'Sedlis → RT', ids:['gog-92']},
+            {s:'std', t:'高風險 (淋巴結+、切緣+、宮旁侵犯) → CCRT', k:'Peters → CCRT', ids:['gog-109']},
+            {s:'cond', t:'序列化放化療 (化療 → RT → 化療;亞洲族群)', k:'序列化放化療', ids:['stars']},
+            {s:'gap', t:'中度風險加 Cisplatin、術後加 IO 的角色未定', k:'輔助強化?', idea:'高風險術後 IO 輔助試驗'},
+          ],
+          lacc:[
+            {s:'std', t:'Cisplatin weekly CCRT + MRI 影像導引近接治療', k:'CCRT + IGBT', ids:['embrace-i']},
+            {s:'std', t:'CCRT + Pembrolizumab → Pembrolizumab 維持', k:'CCRT + Pembro', g:'FIGO 2014 III–IVA (FDA)', ids:['keynote-a18']},
+            {s:'cond', t:'誘導化療 (weekly Carbo/Pac × 6) → CCRT', k:'誘導化療 → CCRT', ids:['interlace']},
+            {s:'neg', t:'CCRT + Durvalumab 未改善 PFS', k:'CCRT + Durva', ids:['calla']},
+            {s:'cond', t:'新輔助化療 + IO → 手術 (pCR 約 4 成,探索性)', k:'新輔助 IO → 手術', ids:['naci-study','natic-trial']},
+            {s:'trial', t:'Cadonilimab (PD-1/CTLA-4) + 新輔助化療', k:'Cadonilimab NACT', ids:['cadonilimab-nact']},
+            {s:'cond', t:'IO 時序:新輔助 Atezolizumab 引子 + CCRT (轉譯研究)', k:'IO 引子時序', g:'LN+', ids:['nrg-gy017']},
+            {s:'neg', t:'新輔助化療 + 手術 未優於 CCRT', k:'NACT + 手術', ids:['tata-nact','eortc-55994']},
+            {s:'gap', t:'誘導化療與 IO 如何整合;IB3–IIB 是否需 IO', k:'IO 整合策略', idea:'INTERLACE + IO 合併;依分期 / PD-L1 篩選'},
+          ],
+          mt1:[
+            {s:'std', t:'Pembrolizumab 維持 (KEYNOTE-A18 方案內)', k:'Pembro 維持', ids:['keynote-a18']},
+            {s:'neg', t:'CCRT 後輔助化療 4 cycles 無 OS 獲益', k:'輔助化療', ids:['outback']},
+            {s:'trial', t:'Volrustomig (PD-1/CTLA-4) 維持 (高風險 LACC)', k:'Volrustomig 維持', ids:['evolve-cervical']},
+            {s:'gap', t:'CCRT 後殘存病灶 / HPV ctDNA 陽性者無導向治療', k:'ctDNA 導向', idea:'HPV ctDNA 導向的輔助強化試驗'},
+          ],
+          local:[
+            {s:'std', t:'未曾放療 → CCRT ± 近接治療', k:'RT-naïve → CCRT'},
+            {s:'std', t:'照射野內中央復發 → 骨盆臟器切除 (exenteration)', k:'Exenteration'},
+            {s:'cond', t:'側壁復發:LEER / 術中放療 (經選擇)', k:'LEER / IORT'},
+            {s:'gap', t:'照射野內非中央復發可根治選項有限', k:'再放療選項', idea:'SBRT 再放療 + IO'},
+          ],
+          rm2:[
+            {s:'std', t:'Tisotumab vedotin (TF ADC)', k:'Tisotumab vedotin', ids:['innovatv-301']},
+            {s:'std', t:'Cemiplimab (IO-naïve,不論組織型)', k:'Cemiplimab', ids:['empower-cervical-1']},
+            {s:'cond', t:'Pembrolizumab 單藥 (IO-naïve)', k:'Pembro 單藥', g:'CPS ≥1', ids:['keynote-158']},
+            {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 2+/3+', ids:['destiny-pantumor02']},
+            {s:'cond', t:'Sacituzumab govitecan (TROP2 ADC,含 IO 後)', k:'Sacituzumab', ids:['ever-132-003']},
+            {s:'cond', t:'單藥化療 (Pemetrexed、Gemcitabine、Topotecan 等)', k:'單藥化療'},
+          ],
+          late:[
+            {s:'cond', t:'未用過的 ADC (HER2 / TROP2)', k:'未用過 ADC', ids:['destiny-pantumor02','ever-132-003']},
+            {s:'cond', t:'臨床試驗優先;單藥化療', k:'試驗 / 單藥化療'},
+            {s:'gap', t:'IO + TV 後無標準;ADC 序列未知', k:'IO + TV 後', idea:'TROP2 / HER2 ADC Phase III;ADC 序列研究'},
+          ],
+        }
+      },
+      {id:'rareh', label:'罕見組織型', sub:'化放療反應差、缺專屬試驗'},
+    ],
+    agnostic: {label:'跨癌別標記 (Tumor-agnostic)', t:'標準治療後', gates:'PD-L1 CPS ≥1 / MSI-H / TMB-H (Pembrolizumab) · HER2 IHC 3+ · NTRK fusion · RET fusion', ids:['keynote-158','destiny-pantumor02','ntrk-basket','libretto-001']},
+    rows: [
+      {
+        id:'cpspos', group:'hpv', label:'PD-L1 CPS ≥1', sub:'約 85–90% · IO 獲益明確',
+        cells:{
+          rm1:[
+            {s:'std', t:'Pembrolizumab + 含鉑化療 ± Bevacizumab', k:'Pembro + 化療 ± Bev', g:'CPS ≥1', ids:['keynote-826']},
+            {s:'std', t:'Atezolizumab + Cisplatin/Paclitaxel + Bevacizumab', k:'Atezo + 化療 + Bev', ids:['beatcc']},
+            {s:'std', t:'含鉑化療 + Bevacizumab (IO 禁忌時)', k:'化療 + Bev', ids:['gog-240']},
+            {s:'cond', t:'Cadonilimab (PD-1/CTLA-4) + 化療 ± Bev (中國核准)', k:'Cadonilimab + 化療', ids:['compassion-16']},
+            {s:'cond', t:'Tisotumab vedotin 合併方案 (一線探索)', k:'TV 合併 (1L)', ids:['innovatv-205']},
+            {s:'trial', t:'sac-TMT (TROP2 ADC) + Pembrolizumab 一線維持', k:'sac-TMT + Pembro 維持', g:'PD-L1+', ids:['trofuse-036']},
+            {s:'gap', t:'CCRT + IO (A18) 後早期復發:一線 IO 再挑戰無證據', k:'A18 後復發', idea:'IO 前治療族群的一線 ADC 合併試驗'},
+          ],
+        }
+      },
+      {
+        id:'cpsneg', group:'hpv', label:'PD-L1 CPS <1', sub:'約 10–15% · IO 獲益不明',
+        cells:{
+          rm1:[
+            {s:'std', t:'Atezolizumab + Cisplatin/Paclitaxel + Bevacizumab (不限 PD-L1)', k:'Atezo + 化療 + Bev', ids:['beatcc']},
+            {s:'std', t:'含鉑化療 + Bevacizumab', k:'化療 + Bev', ids:['gog-240']},
+            {s:'cond', t:'Cadonilimab (PD-1/CTLA-4) + 化療 ± Bev (不分 PD-L1;中國核准)', k:'Cadonilimab + 化療', ids:['compassion-16']},
+            {s:'cond', t:'Pembrolizumab + 化療 (CPS <1 獲益不明確,FDA 限 CPS ≥1)', k:'Pembro (獲益不明)', ids:['keynote-826']},
+            {s:'cond', t:'Tisotumab vedotin 合併方案 (一線探索)', k:'TV 合併 (1L)', ids:['innovatv-205']},
+            {s:'gap', t:'CPS <1 族群 IO 獲益不明、缺替代策略', k:'CPS<1 策略', idea:'CPS <1 一線 ADC 合併試驗'},
+          ],
+        }
+      },
+      {
+        id:'hpvi', group:'rareh', label:'HPV 非相關腺癌', sub:'Gastric-type 為主 · p16−',
+        cells:{
+          pre:[{s:'gap', t:'HPV 篩檢無法偵測,早期發現困難', k:'篩檢盲點', idea:'HPV 陰性腺癌早期偵測 biomarker'}],
+          early:[
+            {s:'std', t:'廣泛子宮切除 (開腹);預後較差,早期即可能卵巢 / 腹膜轉移', k:'開腹廣泛切除'},
+            {s:'cond', t:'不建議保留卵巢', k:'切除卵巢'},
+          ],
+          lacc:[{s:'std', t:'CCRT (化放療反應較差)', k:'CCRT (反應差)'}],
+          rm1:[{s:'cond', t:'比照一般 R/M 方案 (IO 反應率較低)', k:'比照一般方案'}],
+          rm2:[
+            {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 擴增亞群', ids:['destiny-pantumor02']},
+            {s:'gap', t:'化放療與 IO 抗性、缺專屬治療', k:'缺專屬治療', idea:'HER2 / Claudin18.2 標靶;胃癌方案借用試驗'},
+          ],
+        }
+      },
+      {
+        id:'scnec', group:'rareh', label:'神經內分泌癌', sub:'小細胞 (SCNEC) · 極易轉移',
+        cells:{
+          early:[{s:'std', t:'廣泛子宮切除 → 輔助 Etoposide + Cisplatin (EP) ± RT', k:'手術 → 輔助 EP'}],
+          lacc:[{s:'std', t:'CCRT (EP 為基礎) + 追加 EP', k:'EP-CCRT + EP'}],
+          rm1:[
+            {s:'std', t:'Etoposide + 含鉑 (比照小細胞肺癌)', k:'EP'},
+            {s:'cond', t:'EP + IO (比照小細胞肺癌,證據外推)', k:'EP + IO'},
+          ],
+          rm2:[
+            {s:'cond', t:'Topotecan / 其他比照 SCLC 方案', k:'比照 SCLC'},
+            {s:'gap', t:'SCNEC 無專屬試驗', k:'無專屬試驗', idea:'DLL3 標靶 (Tarlatamab) 等籃式試驗'},
+          ],
+        }
+      },
+    ]
+  },
+  EC: {
+    title: '子宮內膜癌 · 病程 × 分子分型 治療地圖',
+    subtitle: '橫軸 = 臨床病程 · 縱軸 = 分子分型 (FIGO 2023 / ProMisE) · 點選格子看完整治療與試驗',
+    tests: [
+      '所有 EC: 分子分型 — POLE 定序 (EDM 熱點) · MMR IHC (MLH1 loss → MLH1 promoter methylation;未甲基化 → germline Lynch) · p53 IHC;FIGO 2023 分期納入分子分型',
+      'ER / PR (NSMP 分層、荷爾蒙治療) · HER2 IHC (serous、p53abn、癌肉瘤;T-DXd) · L1CAM / CTNNB1 (NSMP 預後)',
+      '復發 / 晚期: MSI / TMB · TP53 定序 (SIENDO:TP53wt) · HRR / HRD (KEYLYNK-007、UTOLA) · RET / NTRK fusion (tumor-agnostic)',
+    ],
+    colGroups: [
+      {label:'初始治療', span:4, cls:'cg-init'},
+      {label:'復發 / 轉移', span:3, cls:'cg-proc'},
+    ],
+    columns: [
+      {key:'fs',    label:'生育 / 器官保留', sub:'IA G1 · 年輕 / dMMR'},
+      {key:'early', label:'早期 I–II', sub:'手術分期 + 分子導向輔助'},
+      {key:'adv',   label:'晚期 III–IV 一線', sub:'化療 ± IO'},
+      {key:'mt1',   label:'一線維持', sub:'IO 延續 / 新組合'},
+      {key:'recN',  label:'復發 · 未用 IO', sub:'含局部復發 · 含鉑後'},
+      {key:'recIO', label:'化療 + IO 後', sub:'二線以後'},
+      {key:'late',  label:'ADC 後 · 多線', sub:'再復發'},
+    ],
+    groups: [
+      {id:'pm', label:'POLEmut · MMRd', sub:'預後佳 / IO 高反應'},
+      {id:'pmmr', label:'pMMR · NSMP / p53abn', sub:'晚期與復發治療共用骨架,以標記細分',
+        sharedNote:'pMMR 共用',
+        shared:{
+          adv:[
+            {s:'std', t:'Carboplatin + Paclitaxel + Pembrolizumab / Dostarlimab → IO 維持 (pMMR 獲益較小)', k:'CP + PD-1', ids:['gy018','ruby-p1']},
+            {s:'std', t:'CP + Durvalumab → Durvalumab + Olaparib 維持', k:'CP + Durva (± Ola)', ids:['duo-e']},
+            {s:'cond', t:'CP + Atezolizumab (ITT OS 未達顯著)', k:'CP + Atezo', ids:['attend']},
+            {s:'std', t:'Carboplatin + Paclitaxel 化療骨架 (非劣於 TAP、毒性較低)', k:'CP 骨架', ids:['gog-209']},
+            {s:'std', t:'Stage III–IVA:化療為主,加 RT 未改善 OS;p53abn 可考慮 chemoRT', k:'化療 ± RT', ids:['portec-3','gog-258']},
+            {s:'cond', t:'Carboplatin + Paclitaxel + Trastuzumab', k:'CP + Trastuzumab', g:'HER2+ serous', ids:['fader-her2']},
+            {s:'cond', t:'荷爾蒙治療可為一線選項 (低腫瘤負荷)', k:'荷爾蒙治療', g:'NSMP ER+ 低惡性度'},
+            {s:'gap', t:'pMMR 一線加 IO 獲益有限,缺篩選 biomarker', k:'pMMR IO 篩選', idea:'pMMR 一線 IO 獲益預測標記 (TMB、PD-L1、免疫基因表現)'},
+          ],
+          mt1:[
+            {s:'std', t:'IO 延續維持 (一線含 IO 者)', k:'IO 延續', ids:['gy018','ruby-p1']},
+            {s:'std', t:'Durvalumab + Olaparib (pMMR 獲益最明顯)', k:'Durva + Ola', ids:['duo-e','duo-e-maint']},
+            {s:'cond', t:'Dostarlimab + Niraparib', k:'Dostar + Nira', ids:['ruby-p2']},
+            {s:'cond', t:'Selinexor (TP53 wild-type 次群組)', k:'Selinexor', g:'TP53wt', ids:['siendo']},
+            {s:'neg', t:'Olaparib 單藥維持未達主終點 (p53abn / HRD+ 趨勢)', k:'Olaparib 單藥', ids:['utola']},
+            {s:'trial', t:'Sacituzumab tirumotecan (TROP2 ADC) + Pembrolizumab', k:'sac-TMT + Pembro', ids:['trofuse-033']},
+            {s:'gap', t:'p53abn 一線維持無專屬標準', k:'p53abn 維持', idea:'HRD 導向 PARPi 或 HER2 ADC 維持試驗'},
+          ],
+          recN:[
+            {s:'std', t:'陰道局部復發 (未曾 RT) → 救援 EBRT + 近接治療', k:'局部復發 → RT', ids:['portec-1']},
+            {s:'std', t:'Carboplatin + Paclitaxel + IO (未用過 IO)', k:'CP + IO', ids:['gy018','ruby-p1']},
+            {s:'std', t:'Lenvatinib + Pembrolizumab (含鉑後、未用 IO)', k:'Lenva + Pembro', ids:['keynote-775']},
+            {s:'cond', t:'Letrozole + Everolimus (化療 naïve 獲益最大)', k:'Letrozole + Everolimus', g:'ER+ 低惡性度', ids:['gog-3007']},
+            {s:'cond', t:'Letrozole + Palbociclib', k:'Letrozole + CDK4/6i', g:'ER+ endometrioid', ids:['paleo']},
+            {s:'cond', t:'MPA / Megestrol ↔ Tamoxifen', k:'MPA / Tamoxifen', g:'ER/PR+', ids:['gog-3007']},
+            {s:'cond', t:'CP + Trastuzumab (HER2+ serous 復發)', k:'CP + Trastuzumab', g:'HER2+ serous', ids:['fader-her2']},
+            {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 3+', ids:['destiny-pantumor02']},
+          ],
+          recIO:[
+            {s:'cond', t:'Lenvatinib + Pembrolizumab (IO 後資料有限)', k:'Lenva + Pembro', ids:['keynote-775']},
+            {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 2+/3+', ids:['destiny-pantumor02']},
+            {s:'cond', t:'Sacituzumab govitecan (TROP2 ADC)', k:'Sacituzumab', ids:['tropics-03']},
+            {s:'trial', t:'Sacituzumab govitecan vs 化療 (含鉑 + IO 後)', k:'ASCENT-GYN-01', ids:['ascent-gyn-01']},
+            {s:'cond', t:'Dato-DXd (TROP2 ADC,早期試驗)', k:'Dato-DXd', ids:['tropion-pantumor03']},
+            {s:'trial', t:'B7-H4 ADC', k:'B7-H4 ADC', g:'B7-H4', ids:['bluestar']},
+            {s:'cond', t:'Olaparib + Pembrolizumab', k:'Ola + Pembro', g:'HRRm / HRD', ids:['keynote-867']},
+            {s:'cond', t:'荷爾蒙合併標靶 (未用過者)', k:'荷爾蒙 ± 標靶', g:'ER+', ids:['gog-3007','paleo']},
+            {s:'cond', t:'單藥化療 (Doxorubicin、wPac)', k:'單藥化療'},
+            {s:'gap', t:'含鉑 + IO 一線後無標準二線', k:'IO 後無標準', idea:'ADC Phase III 與 biomarker (TROP2、B7-H4、HER2) 篩選'},
+          ],
+          late:[
+            {s:'cond', t:'未用過的 ADC / 單藥化療 / 臨床試驗優先', k:'試驗 / 單藥化療'},
+            {s:'gap', t:'ADC 後無標準;ADC 序列與 payload 交叉抗藥未知', k:'ADC 後無標準', idea:'ADC 序列研究;ADC + IO 合併'},
+          ],
+        }
+      },
+      {id:'hist', label:'特殊組織型', sub:'FIGO 2023 歸為高侵襲性'},
+    ],
+    agnostic: {label:'跨癌別標記 (Tumor-agnostic)', t:'任何組織型、標準治療後', gates:'dMMR/MSI-H · TMB-H · HER2 IHC 3+ · HRRm · RET fusion · NTRK fusion', ids:['keynote-158','garnet-oc','destiny-pantumor02','keynote-867','libretto-001','ntrk-basket']},
+    rows: [
+      {
+        id:'pole', group:'pm', label:'POLEmut', sub:'超突變 · 預後極佳',
+        cells:{
+          fs:[{s:'cond', t:'生育保留 (高劑量黃體素 / LNG-IUS);POLEmut 資料有限', k:'黃體素 (資料有限)'}],
+          early:[
+            {s:'std', t:'TH/BSO + 前哨淋巴結 (MIS)', k:'TH/BSO + SLN'},
+            {s:'std', t:'I–II 期可省略輔助治療 (FIGO 2023 IAm-POLE)', k:'省略輔助', ids:['portec-4a']},
+            {s:'trial', t:'RAINBO-BLUE:POLEmut 輔助降階', k:'RAINBO-BLUE', ids:['rainbo-program']},
+          ],
+          adv:[{s:'cond', t:'晚期極罕見;比照 pMMR 化療 ± IO', k:'比照 pMMR'}],
+          recN:[{s:'cond', t:'復發極罕見;超突變 → 可考慮 IO', k:'IO (超突變)'}],
+        }
+      },
+      {
+        id:'dmmr', group:'pm', label:'dMMR / MSI-H', sub:'含 Lynch · IO 高反應',
+        cells:{
+          fs:[
+            {s:'cond', t:'黃體素反應率較低;需 Lynch 評估', k:'黃體素 (反應低)'},
+            {s:'cond', t:'新輔助 Nivolumab 器官保留 (探索,cCR 80%)', k:'新輔助 IO 保留', ids:['nivec']},
+            {s:'gap', t:'dMMR IO 器官保留的長期安全性未知', k:'IO 器官保留', idea:'dMMR 早期 IO 取代手術的前瞻隨機試驗'},
+          ],
+          early:[
+            {s:'std', t:'TH/BSO + 前哨淋巴結 (MIS)', k:'TH/BSO + SLN'},
+            {s:'std', t:'依風險:觀察 / VBT / EBRT', k:'VBT / EBRT', ids:['portec-2','portec-4a']},
+            {s:'cond', t:'輔助化療 + Pembrolizumab (整體陰性,dMMR 次群組 DFS 獲益)', k:'輔助 + IO (次群組)', ids:['keynote-b21']},
+            {s:'trial', t:'RAINBO-GREEN:RT ± Durvalumab', k:'RAINBO-GREEN', ids:['rainbo-program']},
+          ],
+          adv:[
+            {s:'std', t:'Carboplatin + Paclitaxel + PD-1/PD-L1 → IO 維持 (PFS HR 0.28–0.36)', k:'CP + IO', ids:['ruby-p1','gy018','attend','duo-e']},
+            {s:'trial', t:'Pembrolizumab 單藥 vs 含鉑化療 (去化療)', k:'IO 單藥 vs 化療', ids:['keynote-c93']},
+            {s:'std', t:'Stage III–IVA:化療為主,加 RT 未改善 OS', k:'化療 ± RT', ids:['gog-258']},
+          ],
+          mt1:[
+            {s:'std', t:'IO 延續維持 (Dostarlimab / Pembrolizumab / Durvalumab / Atezolizumab)', k:'IO 延續', ids:['ruby-p1','gy018','attend','duo-e']},
+            {s:'neg', t:'加 Olaparib 於 dMMR 無額外獲益', k:'+ Olaparib', ids:['duo-e-maint']},
+            {s:'gap', t:'IO 維持最佳時間長度未知', k:'IO 維持多久?', idea:'ctDNA 導向提早停止 IO 的降階試驗'},
+          ],
+          recN:[
+            {s:'std', t:'陰道局部復發 (未曾 RT) → 救援 RT', k:'局部復發 → RT', ids:['portec-1']},
+            {s:'std', t:'IO 單藥 (Dostarlimab / Pembrolizumab)', k:'IO 單藥', ids:['keynote-158','garnet']},
+            {s:'std', t:'CP + IO (未用過 IO)', k:'CP + IO', ids:['ruby-p1','gy018']},
+            {s:'trial', t:'Pembrolizumab 單藥 vs 含鉑化療', k:'KEYNOTE-C93', ids:['keynote-c93']},
+            {s:'cond', t:'Lenvatinib + Pembrolizumab', k:'Lenva + Pembro', ids:['keynote-775']},
+          ],
+          recIO:[
+            {s:'cond', t:'化療 (含鉑再挑戰 / 單藥)', k:'化療'},
+            {s:'cond', t:'Lenvatinib + Pembrolizumab (IO 後資料有限)', k:'Lenva + Pembro', ids:['keynote-775']},
+            {s:'cond', t:'ADC (HER2 / TROP2)', k:'ADC', ids:['destiny-pantumor02','tropics-03','ascent-gyn-01']},
+            {s:'gap', t:'IO 抗藥 dMMR (原發 / 續發抗藥) 機制與治療未明', k:'IO 抗藥', idea:'IO 抗藥機制 (B2M、JAK) 導向試驗;IO + ADC'},
+          ],
+          late:[{s:'gap', t:'多線後無標準', k:'無標準', idea:'籃式試驗 / ADC 序列'}],
+        }
+      },
+      {
+        id:'nsmpl', group:'pmmr', label:'NSMP · 低風險', sub:'ER+ · G1–2 · 低腫瘤負荷',
+        cells:{
+          fs:[
+            {s:'std', t:'高劑量黃體素 (MPA / MA) 或 LNG-IUS ± 子宮鏡切除;IA G1 無肌層侵犯', k:'黃體素 / LNG-IUS', ids:['femme']},
+            {s:'neg', t:'LNG-IUS 加 Metformin 或減重未顯著提升 pCR', k:'+ Metformin / 減重', ids:['femme']},
+            {s:'gap', t:'黃體素反應缺預測標記;復發率高', k:'反應預測', idea:'ER/PR 與分子導向的生育保留試驗 (合併 metformin / GLP-1)'},
+          ],
+          early:[
+            {s:'std', t:'TH/BSO + 前哨淋巴結 (MIS)', k:'TH/BSO + SLN'},
+            {s:'std', t:'低風險觀察;中 / 高中風險 → VBT', k:'觀察 / VBT', ids:['portec-1','portec-2','portec-4a']},
+            {s:'trial', t:'RAINBO-ORANGE:高中風險 NSMP ER+ → RT vs 黃體素', k:'RAINBO-ORANGE', ids:['rainbo-program']},
+          ],
+        }
+      },
+      {
+        id:'nsmph', group:'pmmr', label:'NSMP · 高風險', sub:'ER− · G3 · L1CAM+ · 深肌層 / LVSI',
+        cells:{
+          fs:[{s:'neg', t:'不建議生育保留', k:'不建議'}],
+          early:[
+            {s:'std', t:'TH/BSO + 淋巴結分期', k:'TH/BSO + SLN'},
+            {s:'std', t:'EBRT ± 化療 (高風險)', k:'EBRT ± 化療', ids:['portec-3','portec-4a']},
+            {s:'neg', t:'輔助化療加 Pembrolizumab 無 DFS 獲益', k:'+ Pembro', ids:['keynote-b21']},
+          ],
+        }
+      },
+      {
+        id:'p53', group:'pmmr', label:'p53abn', sub:'含 serous · HER2 (+) 亞群',
+        cells:{
+          fs:[{s:'neg', t:'不建議生育保留', k:'不建議'}],
+          early:[
+            {s:'std', t:'TH/BSO + 淋巴結分期 + 大網膜切片 (serous)', k:'完整分期'},
+            {s:'std', t:'化療 + RT (PORTEC-3 p53abn 獲益最大;含 IA 有肌層侵犯)', k:'ChemoRT', ids:['portec-3','portec-4a']},
+            {s:'cond', t:'CP + Trastuzumab', k:'CP + Trastuzumab', g:'HER2+ serous', ids:['fader-her2']},
+            {s:'trial', t:'RAINBO-RED:ChemoRT ± Olaparib', k:'RAINBO-RED', ids:['rainbo-program']},
+            {s:'neg', t:'輔助化療加 Pembrolizumab 無 DFS 獲益', k:'+ Pembro', ids:['keynote-b21']},
+          ],
+        }
+      },
+      {
+        id:'ucs', group:'hist', label:'癌肉瘤', sub:'Uterine carcinosarcoma · 多為 p53abn',
+        cells:{
+          fs:[{s:'neg', t:'不適用', k:'不適用'}],
+          early:[
+            {s:'std', t:'完整分期手術 → 化療 ± VBT (I 期亦建議化療)', k:'分期 + 化療', ids:['gog-150']},
+          ],
+          adv:[
+            {s:'std', t:'Carboplatin + Paclitaxel', k:'CP', ids:['gog-0261']},
+            {s:'cond', t:'CP + IO (RUBY / AtTEnd 允許入組;GY018、KEYNOTE-775 排除)', k:'CP + IO', ids:['ruby-p1','attend']},
+            {s:'cond', t:'Ifosfamide + Paclitaxel', k:'Ifo + Pac', ids:['gog-161']},
+          ],
+          mt1:[{s:'gap', t:'無專屬維持證據', k:'無證據', idea:'癌肉瘤 HER2 / TROP2 ADC 維持'}],
+          recN:[
+            {s:'cond', t:'Ifosfamide-based / 未用過的化療', k:'Ifosfamide-based', ids:['gog-161']},
+            {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 3+', ids:['destiny-pantumor02']},
+          ],
+          recIO:[{s:'gap', t:'預後差、多被排除於 IO / ADC 試驗', k:'常被排除', idea:'癌肉瘤專屬 ADC (HER2 / TROP2) 試驗'}],
+        }
+      },
+    ]
+  },
+  OC: {
+    title: '卵巢癌 · 病程 × 生物標記 治療地圖',
+    subtitle: '橫軸 = 臨床病程 · 縱軸 = 組織型 / 分子分型 · 點選格子看完整治療與試驗',
+    tests: [
+      '所有上皮性卵巢癌: germline BRCA1/2 + 多基因 panel (Lynch) 檢測;HGSC/HG endometrioid 加做 somatic BRCA + HRD (Myriad myChoice GIS / FoundationOne CDx LOH)',
+      '復發 / PROC: FRα IHC (VENTANA FOLR1, PS2+ ≥75%) · HER2 IHC · MMR/MSI · TMB · PD-L1 CPS (KEYNOTE-B96)',
+      'LGSOC / LG endometrioid: ER/PR · KRAS / BRAF / NRAS ;  OCCC: MMR · ARID1A / PIK3CA ;  Mucinous: 排除 GI 原發 (CK7/CK20/SATB2/PAX8) · HER2 ;  CCNE1 amp (HRP)',
+      'PARPi 後復發: 可考慮 ctDNA 偵測 BRCA reversion 突變',
+    ],
+    colGroups: [
+      {label:'初始治療', span:4, cls:'cg-init'},
+      {label:'首次鉑敏感復發 (PFI > 6m)', span:3, cls:'cg-psoc'},
+      {label:'鉑抗藥 / 多線', span:2, cls:'cg-proc'},
+    ],
+    columns: [
+      {key:'early', label:'早期 I–II', sub:'分期手術 / 輔助化療'},
+      {key:'adv',   label:'晚期初始處置', sub:'PDS / NACT-IDS'},
+      {key:'tx1',   label:'一線化療', sub:'CP ± Bev'},
+      {key:'mt1',   label:'一線維持', sub:'CR / PR 後'},
+      {key:'psoc',  label:'PSOC · 未用 PARPi', sub:'PARPi-naïve'},
+      {key:'psocp', label:'PSOC · PARPi 後', sub:'一線 PARPi 後復發'},
+      {key:'rmt',   label:'復發維持', sub:'含鉑反應後'},
+      {key:'proc',  label:'PROC / 鉑難治', sub:'PFI < 6m · 一線中進展'},
+      {key:'late',  label:'ADC / MIRV 後', sub:'再復發 · 多線後'},
+    ],
+    groups: [
+      {id:'hgsc', label:'HGSC / HG endometrioid', sub:'BRCA · HRD 從一線維持開始分流',
+        sharedNote:'三種分子型共用',
+        shared:{
+          early:[
+            {s:'std', t:'完整分期手術 (經選擇可 MIS)', k:'完整分期手術'},
+            {s:'std', t:'高惡性度 / IC 以上 → 輔助含鉑化療 (OS 獲益;未完整分期者獲益最大)', k:'輔助含鉑化療', ids:['icon1-action']},
+            {s:'std', t:'CP 3 vs 6 cycles:整體無差異,HGSC (serous) 傾向 6 cycles', k:'CP 3–6 cycles', ids:['gog-157']},
+            {s:'gap', t:'早期高風險 HGSC 是否需 BRCA/HRD 導向維持', k:'早期 PARPi 維持?', idea:'早期高風險 BRCAm/HRD+ PARPi 維持試驗'},
+          ],
+          adv:[
+            {s:'std', t:'可達 R0 → PDS;Stage IV / 高腫瘤負荷 → NACT 3 cycles + IDS', k:'PDS R0 / NACT-IDS', ids:['eortc-55971','chorus','jcog0602','scorpion','eortc-chorus-pooled']},
+            {s:'std', t:'IDS 合併 HIPEC (Cisplatin 100 mg/m²)', k:'IDS + HIPEC', ids:['van-driel-hipec']},
+            {s:'trial', t:'高品質中心 PDS vs NACT 再驗證', k:'TRUST', ids:['trust']},
+            {s:'neg', t:'臨床陰性淋巴結 → 系統性淋巴清掃無效益', k:'淋巴清掃', ids:['lion']},
+            {s:'gap', t:'NACT 反應不佳 / IDS 無法達 R0', k:'NACT 反應差', idea:'NACT 期間早期換線或加入 ADC / PARPi 的 window 試驗'},
+          ],
+          tx1:[
+            {s:'std', t:'Carboplatin + Paclitaxel q3w ± Bevacizumab (高風險:Stage IV / 殘餘病灶)', k:'CP q3w ± Bev', ids:['gog-0218','icon7']},
+            {s:'cond', t:'Dose-dense weekly Paclitaxel (亞洲族群;不加 Bev 時)', k:'Dose-dense wPac', ids:['jgog3016','gog-262']},
+            {s:'cond', t:'Weekly 低劑量 CP (體能差 / 減毒)', k:'Weekly 低劑量 CP', ids:['mito-7']},
+            {s:'neg', t:'Weekly dose-dense 於西方族群無 PFS 獲益', k:'DDCT (西方)', ids:['icon8']},
+            {s:'cond', t:'IP 化療 (optimal debulking;加 Bev 後 IP 優勢消失)', k:'IP 化療', ids:['swog-8501','gog-114','gog-172','ov21-petroc','gog-252']},
+          ],
+          proc:[
+            {s:'std', t:'單藥化療 (wPac / PLD / Topotecan) + Bevacizumab', k:'單藥化療 + Bev', ids:['aurelia']},
+            {s:'std', t:'Mirvetuximab soravtansine', k:'MIRV', g:'FRα PS2+ ≥75%', ids:['mirasol']},
+            {s:'cond', t:'MIRV + Bevacizumab', k:'MIRV + Bev', g:'FRα+', ids:['forward-ii']},
+            {s:'std', t:'Pembrolizumab + weekly Paclitaxel ± Bev', k:'Pembro + wPac', g:'PD-L1 CPS ≥1 主分析', ids:['keynote-b96']},
+            {s:'cond', t:'Relacorilant + nab-Paclitaxel', k:'Relacorilant', ids:['rosella']},
+            {s:'cond', t:'Dato-DXd (TROP2 ADC,早期試驗)', k:'Dato-DXd', g:'TROP2', ids:['tropion-pantumor03']},
+            {s:'trial', t:'Raludotatug deruxtecan (R-DXd, CDH6 ADC)', k:'R-DXd (CDH6)', g:'CDH6', ids:['rejoice-ovarian01','engot-ov77']},
+            {s:'neg', t:'Nivolumab 單藥不優於化療', k:'Nivo 單藥', ids:['ninja']},
+            {s:'gap', t:'鉑難治 (一線治療中進展) — 多數試驗排除', k:'鉑難治', idea:'專為鉑難治族群設計的 ADC / IO 試驗'},
+            {s:'gap', t:'FRα-low 且 HER2− 的 PROC', k:'FRα-low · HER2−', idea:'CDH6 / B7-H4 / TROP2 / CLDN6 ADC'},
+          ],
+          late:[
+            {s:'cond', t:'未用過的非交叉單藥化療 ± Bev / 臨床試驗優先', k:'非交叉化療 / 試驗'},
+            {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 3+', ids:['destiny-pantumor02']},
+            {s:'trial', t:'FRα ADC 新藥 ± Bev', k:'FRα ADC (新)', g:'FRα', ids:['framework-01']},
+            {s:'trial', t:'不同 payload / 標靶的 ADC (CDH6)', k:'R-DXd', g:'CDH6', ids:['engot-ov77']},
+            {s:'gap', t:'MIRV / ADC 後無標準治療;ADC 序列與 payload 交叉抗藥未知', k:'ADC 後無標準', idea:'ADC 序列研究 (不同 payload);ADC + IO 合併'},
+          ],
+        }
+      },
+      {id:'rare', label:'罕見上皮組織型', sub:'依組織型與驅動突變分流'},
+      {id:'nonepi', label:'癌肉瘤 / 非上皮性', sub:'治療邏輯與上皮性不同'},
+    ],
+    agnostic: {label:'跨癌別標記 (Tumor-agnostic)', t:'任何組織型、標準治療後', gates:'dMMR/MSI-H · TMB-H · RET fusion · HER2 IHC 3+ · NTRK fusion · BRAF V600E', ids:['keynote-158','garnet-oc','libretto-001','destiny-pantumor02','ntrk-basket']},
+    rows: [
+      {
+        id:'brcam', group:'hgsc', label:'BRCAm', sub:'gBRCA / sBRCA',
+        cells:{
+          mt1:[
+            {s:'std', t:'Olaparib 2 年', k:'Olaparib', ids:['solo-1']},
+            {s:'std', t:'Olaparib + Bevacizumab (一線已用 Bev)', k:'Ola + Bev', ids:['paola-1']},
+            {s:'std', t:'Niraparib', k:'Niraparib', ids:['prima','prime-study']},
+            {s:'cond', t:'Rucaparib', k:'Rucaparib', ids:['athena-mono']},
+          ],
+          psoc:[
+            {s:'std', t:'含鉑雙藥 (CP / C-PLD / C-Gem) ± Bevacizumab', k:'含鉑 ± Bev', ids:['calypso','oceans','gog-0213','mito16b']},
+            {s:'std', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
+          ],
+          psocp:[
+            {s:'cond', t:'含鉑雙藥 ± Bevacizumab (PARPi 後反應率與 PFS 較低)', k:'含鉑 ± Bev', ids:['mito16b']},
+            {s:'cond', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
+            {s:'gap', t:'PARPi 後含鉑反應差;BRCA reversion 等抗藥機制無對應治療', k:'BRCA reversion', idea:'ctDNA reversion 篩選 + ATR / POLθ / WEE1 抑制劑'},
+          ],
+          rmt:[
+            {s:'std', t:'PARPi 維持 (PARPi-naïve)', k:'PARPi 維持', ids:['study-19','solo2','nova','ariel3','l-moca','nora']},
+            {s:'cond', t:'Bevacizumab 延續維持 (含鉑 + Bev 後)', k:'Bev 維持', ids:['oceans','gog-0213']},
+            {s:'gap', t:'一線已用 PARPi → PARPi 再挑戰證據有限', k:'PARPi 再挑戰?', idea:'PARPi rechallenge ± ATR/WEE1 抑制劑;ADC 維持'},
+          ],
+        }
+      },
+      {
+        id:'hrdpos', group:'hgsc', label:'HRD+', sub:'BRCAwt · GIS ≥42 / LOH 高',
+        cells:{
+          mt1:[
+            {s:'std', t:'Olaparib + Bevacizumab', k:'Ola + Bev', ids:['paola-1']},
+            {s:'std', t:'Niraparib', k:'Niraparib', ids:['prima','prime-study']},
+            {s:'cond', t:'Rucaparib', k:'Rucaparib', ids:['athena-mono']},
+            {s:'cond', t:'Olaparib + Bev + Durvalumab (OS 未達顯著)', k:'Ola + Bev + Durva', ids:['duo-o']},
+            {s:'cond', t:'Niraparib + Bevacizumab (Phase II)', k:'Nira + Bev', ids:['ovario']},
+          ],
+          psoc:[
+            {s:'std', t:'含鉑雙藥 ± Bevacizumab', k:'含鉑 ± Bev', ids:['calypso','oceans','gog-0213','mito16b']},
+            {s:'std', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
+          ],
+          psocp:[
+            {s:'cond', t:'含鉑雙藥 ± Bevacizumab', k:'含鉑 ± Bev', ids:['mito16b']},
+            {s:'cond', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
+            {s:'gap', t:'一線 PARPi 後復發的最佳序列未定', k:'最佳序列未定', idea:'PARPi 後 PSOC:含鉑 + ADC / 新藥合併'},
+          ],
+          rmt:[
+            {s:'std', t:'PARPi 維持 (PARPi-naïve)', k:'PARPi 維持', ids:['study-19','nova','ariel3','opinion','l-moca','nora']},
+            {s:'cond', t:'Bevacizumab 延續維持', k:'Bev 維持', ids:['oceans','gog-0213']},
+            {s:'gap', t:'一線已用 PARPi 者無有效維持', k:'PARPi 後維持', idea:'PARPi rechallenge 隨機試驗;ADC 維持'},
+          ],
+        }
+      },
+      {
+        id:'hrp', group:'hgsc', label:'HRD− / HRP', sub:'含 CCNE1 amp · 最大族群',
+        cells:{
+          mt1:[
+            {s:'std', t:'Bevacizumab 維持 (共 15 個月)', k:'Bev 維持', ids:['gog-0218','icon7','boost-engot-ov15']},
+            {s:'cond', t:'PARPi (Niraparib / Rucaparib;HRD− 獲益小,OS 無差異)', k:'PARPi (獲益小)', ids:['prima','prime-study','athena-mono']},
+            {s:'cond', t:'Olaparib + Bev + Durvalumab', k:'Ola + Bev + Durva', ids:['duo-o']},
+            {s:'trial', t:'ADC 一線維持 (台灣中心收案中)', k:'ADC 維持', g:'HER2 (DESTINY)', ids:['trofuse-021','destiny-ovarian01']},
+            {s:'gap', t:'HRP 一線維持無生物標記導向治療;CCNE1 amp 預後最差', k:'CCNE1 amp', idea:'CCNE1 amp → WEE1 / PKMYT1 / CDK2 抑制劑'},
+          ],
+          psoc:[
+            {s:'std', t:'含鉑雙藥 ± Bevacizumab', k:'含鉑 ± Bev', ids:['calypso','oceans','gog-0213','mito16b']},
+            {s:'cond', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
+          ],
+          psocp:[
+            {s:'cond', t:'含鉑雙藥 ± Bevacizumab', k:'含鉑 ± Bev', ids:['mito16b']},
+            {s:'gap', t:'HRP 一線 PARPi 後復發:鉑敏感度與後續選擇資料極少', k:'資料極少', idea:'HRP + 一線 PARPi 後復發族群的前瞻登錄'},
+          ],
+          rmt:[
+            {s:'cond', t:'Niraparib (non-gBRCA 族群獲益較小)', k:'Niraparib', ids:['nova']},
+            {s:'cond', t:'Bevacizumab 延續維持', k:'Bev 維持', ids:['oceans','gog-0213']},
+            {s:'trial', t:'ADC 復發維持', k:'ADC 維持', ids:['trofuse-022']},
+            {s:'gap', t:'PARPi 對 HRP 效益有限,維持選項不足', k:'維持選項不足', idea:'ADC / IO 維持試驗'},
+          ],
+        }
+      },
+      {
+        id:'lgsoc', group:'rare', label:'LGSOC', sub:'低惡性度漿液性 · KRAS/BRAF · ER+',
+        cells:{
+          early:[
+            {s:'std', t:'完整分期手術;IA–IB 可觀察', k:'分期手術 / 觀察'},
+            {s:'cond', t:'生育保留手術 (IA,經選擇)', k:'生育保留'},
+            {s:'cond', t:'IC–II:荷爾蒙治療或化療 (證據有限)', k:'荷爾蒙 / 化療'},
+          ],
+          adv:[{s:'std', t:'完整減積手術為核心 (化療反應率低,NACT 較不適合)', k:'完整減積'}],
+          tx1:[
+            {s:'cond', t:'CP 化療 → Letrozole 維持 為現行常見做法', k:'CP → Letrozole'},
+            {s:'trial', t:'Letrozole 單用 vs 化療 + Letrozole', k:'Letrozole ± 化療', ids:['nrg-gy019']},
+          ],
+          mt1:[{s:'cond', t:'Letrozole 荷爾蒙維持', k:'Letrozole', g:'ER+'}],
+          psoc:[
+            {s:'std', t:'Trametinib (LGSOC 不以 PFI 分流)', k:'Trametinib', ids:['gog-281']},
+            {s:'std', t:'Avutometinib + Defactinib', k:'Avuto + Defac', g:'KRAS mut 效益最大', ids:['ramp-201']},
+            {s:'cond', t:'Letrozole + Ribociclib', k:'AI + CDK4/6i', g:'ER+', ids:['gog-3026']},
+            {s:'cond', t:'二次減積手術', k:'二次減積'},
+            {s:'neg', t:'Binimetinib 未達主要終點', k:'Binimetinib', ids:['milo']},
+          ],
+          rmt:[{s:'gap', t:'MEKi / 荷爾蒙治療後無標準維持', k:'無標準維持', idea:'MEKi + CDK4/6i 序列研究'}],
+          late:[
+            {s:'cond', t:'Dabrafenib + Trametinib', k:'Dabrafenib + Trametinib', g:'BRAF V600E'},
+            {s:'gap', t:'MEKi 抗藥後選項空白', k:'MEKi 抗藥後', idea:'RAS(ON) / pan-RAF 抑制劑'},
+          ],
+        }
+      },
+      {
+        id:'lgec', group:'rare', label:'LG Endometrioid', sub:'低惡性度子宮內膜樣 · ER+ · MMR',
+        cells:{
+          early:[
+            {s:'std', t:'完整分期手術;IA–IB G1 可觀察', k:'分期手術 / 觀察'},
+            {s:'cond', t:'生育保留手術 (IA G1,經選擇)', k:'生育保留'},
+            {s:'std', t:'MMR IHC + Lynch 檢測;排除同步子宮內膜癌', k:'MMR / Lynch 檢測'},
+          ],
+          adv:[{s:'std', t:'完整減積手術', k:'完整減積'}],
+          tx1:[{s:'std', t:'Carboplatin + Paclitaxel', k:'CP'}],
+          mt1:[
+            {s:'cond', t:'荷爾蒙維持 (比照 LGSOC)', k:'荷爾蒙維持', g:'ER+'},
+            {s:'gap', t:'無前瞻性維持證據', k:'無前瞻證據', idea:'LG endometrioid 納入 LGSOC 荷爾蒙試驗'},
+          ],
+          psoc:[
+            {s:'std', t:'含鉑化療', k:'含鉑化療'},
+            {s:'cond', t:'荷爾蒙治療 (AI / progestin)', k:'荷爾蒙治療', g:'ER+'},
+          ],
+          proc:[{s:'cond', t:'免疫治療', k:'IO', g:'dMMR', ids:['garnet-oc']}],
+          late:[{s:'gap', t:'罕見族群缺前瞻性證據', k:'缺前瞻證據', idea:'籃式試驗 / 國際登錄'}],
+        }
+      },
+      {
+        id:'occc', group:'rare', label:'OCCC', sub:'亮細胞癌 · ARID1A / PIK3CA',
+        cells:{
+          early:[
+            {s:'std', t:'完整分期手術', k:'完整分期'},
+            {s:'cond', t:'IA–IC 輔助 CP (IA 是否需化療有爭議);IA 經選擇可生育保留', k:'輔助 CP (爭議)'},
+          ],
+          adv:[{s:'std', t:'完整減積手術 (亞洲比例高,化療反應較差)', k:'完整減積'}],
+          tx1:[
+            {s:'std', t:'Carboplatin + Paclitaxel', k:'CP'},
+            {s:'neg', t:'Irinotecan + Cisplatin 未優於 TC', k:'Irinotecan + Cis', ids:['jgog3017']},
+          ],
+          mt1:[
+            {s:'neg', t:'Temsirolimus 合併 / 維持無效', k:'Temsirolimus', ids:['temsirolimus-tc']},
+            {s:'gap', t:'無有效一線維持', k:'無有效維持', idea:'IO / 抗血管新生合併維持'},
+          ],
+          psoc:[
+            {s:'std', t:'含鉑化療 (反應率低)', k:'含鉑 (反應低)'},
+            {s:'cond', t:'二次減積手術', k:'二次減積'},
+          ],
+          rmt:[{s:'gap', t:'無維持證據', k:'無證據'}],
+          proc:[
+            {s:'cond', t:'Nivolumab + Ipilimumab', k:'Nivo + Ipi', ids:['most-circuit','bruog-354']},
+            {s:'trial', t:'Dostarlimab ± Bevacizumab', k:'Dostarlimab ± Bev', ids:['dove']},
+            {s:'trial', t:'ATR 抑制劑', k:'ATR 抑制劑', g:'ARID1A loss', ids:['atari']},
+            {s:'cond', t:'免疫治療', k:'IO', g:'dMMR', ids:['garnet-oc']},
+            {s:'neg', t:'Sunitinib 單藥無效', k:'Sunitinib', ids:['gog-254']},
+          ],
+          late:[{s:'gap', t:'鉑抗藥 OCCC 幾無標準', k:'幾無標準', idea:'ARID1A 合成致死 (ATR / EZH2) 試驗'}],
+        }
+      },
+      {
+        id:'muc', group:'rare', label:'Mucinous', sub:'黏液性 · 先排除 GI 轉移',
+        cells:{
+          early:[
+            {s:'std', t:'排除 GI 原發;完整分期 (含闌尾切除)', k:'排除 GI 原發'},
+            {s:'cond', t:'IA expansile 型可生育保留 / 觀察;infiltrative 或 IC 以上考慮輔助化療', k:'expansile 可保守'},
+          ],
+          adv:[{s:'std', t:'減積手術 (晚期少見,預後差)', k:'減積手術'}],
+          tx1:[
+            {s:'std', t:'Carboplatin + Paclitaxel', k:'CP'},
+            {s:'cond', t:'GI-type 化療 (Oxaliplatin-based)', k:'GI-type 化療', ids:['meoc-gog0241']},
+          ],
+          mt1:[{s:'gap', t:'無維持證據', k:'無證據', idea:'HER2 / Claudin18.2 篩選導向'}],
+          psoc:[
+            {s:'cond', t:'GI-type 化療 ± Bevacizumab', k:'GI-type ± Bev', ids:['meoc-gog0241','folfiri-mucinous']},
+          ],
+          proc:[
+            {s:'trial', t:'mFOLFIRINOX + Bevacizumab', k:'mFOLFIRINOX + Bev', ids:['mfolfirinox-bev']},
+            {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 3+', ids:['destiny-pantumor02']},
+          ],
+          late:[{s:'gap', t:'罕見族群缺前瞻性證據', k:'缺前瞻證據', idea:'籃式試驗 / 國際合作登錄'}],
+        }
+      },
+      {
+        id:'ocs', group:'nonepi', label:'癌肉瘤', sub:'Ovarian carcinosarcoma',
+        cells:{
+          early:[{s:'std', t:'完整分期 + CP 輔助化療 (I 期亦建議)', k:'分期 + 輔助 CP'}],
+          adv:[{s:'std', t:'減積手術 (比照 HGSC 原則)', k:'減積手術'}],
+          tx1:[
+            {s:'std', t:'Carboplatin + Paclitaxel (GOG-261 含卵巢癌肉瘤族群)', k:'CP', ids:['gog-0261']},
+            {s:'cond', t:'Ifosfamide-based', k:'Ifosfamide-based', ids:['gog-161']},
+          ],
+          mt1:[{s:'gap', t:'無維持證據;BRCA/HRD 結果可參考', k:'無證據', idea:'癌肉瘤 BRCA/HRD 導向 PARPi 維持'}],
+          psoc:[{s:'cond', t:'比照 HGSC 含鉑原則', k:'比照 HGSC'}],
+          proc:[{s:'cond', t:'比照 HGSC PROC 方案', k:'比照 HGSC'}],
+          late:[{s:'gap', t:'預後差、缺專屬試驗', k:'缺專屬試驗', idea:'癌肉瘤 ADC (HER2 / TROP2) 試驗'}],
+        }
+      },
+      {
+        id:'gct', group:'nonepi', label:'Germ cell', sub:'惡性生殖細胞瘤 · 年輕',
+        cells:{
+          early:[
+            {s:'std', t:'生育保留手術;IA 無性細胞瘤 / IA G1 未成熟畸胎瘤可追蹤', k:'生育保留 / 追蹤'},
+            {s:'std', t:'其餘 → BEP 3 cycles', k:'BEP'},
+          ],
+          adv:[{s:'std', t:'減積手術 (盡量保留生育)', k:'保留生育減積'}],
+          tx1:[{s:'std', t:'BEP 3–4 cycles', k:'BEP 3–4'}],
+          psoc:[
+            {s:'std', t:'TIP / VeIP 救援化療', k:'TIP / VeIP'},
+            {s:'cond', t:'高劑量化療 + 自體幹細胞移植', k:'HDCT + ASCT'},
+          ],
+          proc:[{s:'gap', t:'鉑難治 GCT 預後差', k:'鉑難治', idea:'參考睪丸 GCT 經驗之跨癌別合作試驗'}],
+        }
+      },
+      {
+        id:'scst', group:'nonepi', label:'Sex cord-stromal', sub:'成人型顆粒細胞瘤為主',
+        cells:{
+          early:[
+            {s:'std', t:'分期手術 (成人型不需淋巴清掃);年輕者可生育保留', k:'分期 / 生育保留'},
+            {s:'cond', t:'IC 以上輔助化療有爭議', k:'輔助化療 (爭議)'},
+          ],
+          adv:[{s:'std', t:'減積手術', k:'減積手術'}],
+          tx1:[{s:'std', t:'BEP 或 Carboplatin + Paclitaxel', k:'BEP / CP'}],
+          mt1:[{s:'gap', t:'無維持證據', k:'無證據'}],
+          psoc:[
+            {s:'std', t:'二次減積 (晚期復發常見,可多次)', k:'二次減積'},
+            {s:'cond', t:'荷爾蒙治療 (Aromatase inhibitor)', k:'AI 荷爾蒙'},
+            {s:'cond', t:'化療 ± Bevacizumab', k:'化療 ± Bev'},
+          ],
+          late:[{s:'gap', t:'無標準系統治療', k:'無標準', idea:'FOXL2 / 荷爾蒙組合試驗'}],
+        }
+      },
+    ]
+  }
+};
+
+
+let PATHWAY_VIEW = 'grid';
+let PG_SEL = null;        // {r:rowId, c:colKey}
+let PG_FILTER = 'all';    // all | gap | trial | site
+const PG_RANK = ['std','cond','trial','gap','neg'];
+
+function pgTrial(id){ return TRIALS.find(x => x.id === id); }
+
+// 年份:已發表 = 主結果發表年;進行中 = 開展年 (取 trial-in-progress / 設計發表年)
+function pgYearNum(t){
+  const y = parseInt(extractTrialYear(t), 10);
+  return isNaN(y) ? null : y;
+}
+function pgYearLabel(t){
+  const y = pgYearNum(t);
+  if(t.status === 'ongoing') return y ? `${y} 開展` : '進行中';
+  return y ? String(y) : '—';
+}
+// 一個治療段落的代表年份:已發表取最早 (證據建立年);全為進行中則取最早開展年
+function pgSegYear(sg){
+  const ts = (sg.ids || []).map(pgTrial).filter(Boolean);
+  const pub = ts.filter(t => t.status !== 'ongoing').map(pgYearNum).filter(Boolean);
+  if(pub.length) return {y: Math.min(...pub), kind:'pub'};
+  const st = ts.map(pgYearNum).filter(Boolean);
+  if(st.length) return {y: Math.min(...st), kind:'start'};
+  return null;
+}
+
+function pgTrialChip(id){
+  const t = pgTrial(id);
+  if(!t) return '';
+  const ongoing = t.status === 'ongoing';
+  const yr = pgYearLabel(t);
+  const site = t.siteInfo ? '<span class="pg-site" title="本院收案中">🏥</span>' : '';
+  return `<button class="pg-chip${ongoing?' ongoing':''}" onclick="navToDetail('${escapeJsAttr(id)}')" title="${escapeHtml(t.fullName||t.name)}">${escapeHtml(t.name)}<span class="pg-yr">${escapeHtml(yr)}</span>${site}</button>`;
+}
+
+function pgSortIds(ids){
+  const key = id => {
+    const t = pgTrial(id);
+    if(!t) return 9999;
+    if(t.status === 'ongoing') return 9000;
+    const y = parseInt(extractTrialYear(t), 10);
+    return isNaN(y) ? 8000 : y;
+  };
+  return [...ids].filter(pgTrial).sort((a,b) => key(a) - key(b));
+}
+
+// 摘要一格的特性
+function pgCellInfo(segs){
+  const ids = [...new Set(segs.flatMap(s => s.ids || []))].filter(pgTrial);
+  const trials = ids.map(pgTrial);
+  const has = k => segs.some(s => s.s === k);
+  const top = PG_RANK.find(has) || 'empty';
+  return {
+    ids, top,
+    nTrial: ids.length,
+    nOngoing: trials.filter(t => t.status === 'ongoing').length,
+    nSite: trials.filter(t => t.siteInfo).length,
+    gap: has('gap'),
+  };
+}
+
+function pgMatchFilter(info){
+  if(PG_FILTER === 'gap') return info.gap;
+  if(PG_FILTER === 'trial') return info.nOngoing > 0;
+  if(PG_FILTER === 'site') return info.nSite > 0;
+  return true;
+}
+
+function pgSegFull(sg){
+  const chips = sg.ids ? pgSortIds(sg.ids).map(pgTrialChip).join('') : '';
+  return `<div class="pg-seg ${sg.s}">
+    <div class="pg-seg-t"><span class="pg-ic">${PG_STATUS[sg.s].icon}</span>${escapeHtml(sg.t)}${sg.g?` <span class="pg-gate">${escapeHtml(sg.g)}</span>`:''}${(()=>{const sy=pgSegYear(sg);return sy?` <span class="pg-seg-yr">${sy.kind==='pub'?'證據 '+sy.y:sy.y+' 開展'}</span>`:'';})()}</div>
+    ${chips?`<div class="pg-chips">${chips}</div>`:''}
+    ${sg.idea?`<div class="pg-idea">💡 ${escapeHtml(sg.idea)}</div>`:''}
+  </div>`;
+}
+
+function pgSelect(r, c){
+  PG_SEL = (PG_SEL && PG_SEL.r === r && PG_SEL.c === c) ? null : {r, c};
+  renderPathway();
+
+}
+
+function pgSetFilter(f){
+  PG_FILTER = (PG_FILTER === f) ? 'all' : f;
+  renderPathway();
+}
+
+function renderPathwayGrid(cancer){
+  const data = PATHWAY_GRID[cancer];
+  if(!data) return '';
+  const gaps = [];
+  const groups = data.groups || [];
+  const cg = data.colGroups || null;
+  const hdrRows = cg ? 2 : 1;
+  const MAX = 3;
+
+  // ---- header ----
+  let mx = `<div class="pg-cell pg-corner" style="grid-row:1/span ${hdrRows};grid-column:1/3">分型 \\ 病程</div>`;
+  if(cg){
+    let col = 3;
+    cg.forEach(g => {
+      mx += `<div class="pg-cell pg-cghead ${g.cls||''}" style="grid-row:1;grid-column:${col}/span ${g.span}">${escapeHtml(g.label)}</div>`;
+      col += g.span;
+    });
+  }
+  mx += data.columns.map((c,ci) => `<div class="pg-cell pg-colhead" style="grid-row:${hdrRows};grid-column:${ci+3}"><b>${escapeHtml(c.label)}</b><small>${escapeHtml(c.sub)}</small></div>`).join('');
+
+  // ---- cells ----
+  const cellHTML = (rid, rlabel, c, segs, place, opt = {}) => {
+    const max = opt.max || MAX;
+    segs.filter(s => s.s === 'gap').forEach(s => gaps.push({r:rid, c:c.key, row:rlabel, col:c.label, text:s.t, idea:s.idea}));
+    if(!segs.length) return `<div class="pg-cell pg-mx empty" style="${place}"></div>`;
+    const info = pgCellInfo(segs);
+    const sel = PG_SEL && PG_SEL.r === rid && PG_SEL.c === c.key;
+    const dim = !pgMatchFilter(info);
+    const lines = segs.slice(0, max).map(s => {
+      const sy = pgSegYear(s);
+      const ytag = sy ? `<span class="pg-mx-yr ${sy.kind}" title="${sy.kind==='pub'?'最早關鍵試驗發表年':'試驗開展年'}">${sy.kind==='start'?'▶':''}'${String(sy.y).slice(2)}</span>` : '';
+      return `<div class="pg-mx-line ${s.s}"><span class="pg-dot ${s.s}"></span><span class="pg-mx-nm">${escapeHtml(s.k || s.t)}</span>${ytag}</div>`;
+    }).join('');
+    const meta = [
+      segs.length > max ? `<span class="more">+${segs.length - max}項</span>` : '',
+      info.nTrial ? `<span>📚${info.nTrial}</span>` : '',
+      info.nOngoing ? `<span class="on">🧪${info.nOngoing}</span>` : '',
+      info.nSite ? `<span>🏥${info.nSite}</span>` : '',
+    ].join('');
+    return `<button class="pg-cell pg-mx top-${info.top}${info.gap?' has-gap':''}${sel?' sel':''}${dim?' dim':''}${opt.shared?' shared':''}" style="${place}" onclick="pgSelect('${rid}','${c.key}')" title="${escapeHtml(rlabel + ' × ' + c.label)}">
+      <div class="pg-strip">${segs.map(x => `<i class="${x.s}"></i>`).join('')}</div>
+      ${opt.shared ? `<div class="pg-shared-note">${escapeHtml(opt.shared)}</div>` : ''}
+      <div class="pg-mx-lines">${lines}</div>
+      <div class="pg-mx-meta">${meta}${info.gap?'<span class="flag">🚩</span>':''}</div>
+    </button>`;
+  };
+
+  let rowNo = hdrRows + 1;
+  const groupIds = groups.length ? groups.map(g => g.id) : [null];
+  groupIds.forEach(gid => {
+    const g = groups.find(x => x.id === gid);
+    const rows = data.rows.filter(r => (r.group || null) === gid);
+    if(!rows.length) return;
+    const start = rowNo, n = rows.length;
+    if(g) mx += `<div class="pg-cell pg-grouphead g-${g.id}" style="grid-row:${start}/span ${n};grid-column:1" title="${escapeHtml(g.sub||'')}"><span>${escapeHtml(g.label)}</span></div>`;
+    rows.forEach((r, ri) => {
+      const rr = start + ri;
+      mx += `<div class="pg-cell pg-rowhead${g?'':' nogroup'}" style="grid-row:${rr};grid-column:${g?2:'1/3'}"><b>${escapeHtml(r.label)}</b><small>${escapeHtml(r.sub||'')}</small></div>`;
+      data.columns.forEach((c, ci) => {
+        const sharedSegs = g && g.shared && g.shared[c.key];
+        if(sharedSegs){
+          if(ri === 0) mx += cellHTML('g:'+g.id, g.label, c, sharedSegs, `grid-row:${start}/span ${n};grid-column:${ci+3}`, {shared: g.sharedNote || '共用', max: 2 + n * 2});
+          return;
+        }
+        mx += cellHTML(r.id, r.label, c, (r.cells && r.cells[c.key]) || [], `grid-row:${rr};grid-column:${ci+3}`);
+      });
+    });
+    rowNo += n;
+  });
+
+  const ag = data.agnostic;
+  const agHtml = ag ? `<div class="pg-agnostic"><b>🧬 ${escapeHtml(ag.label)}</b><span class="pg-ag-t">${escapeHtml(ag.t)}:${escapeHtml(ag.gates)}</span><span class="pg-chips">${pgSortIds(ag.ids).map(pgTrialChip).join('')}</span></div>` : '';
+
+  // ---- drawer (selected cell 或 未滿足需求清單) ----
+  let panel = '';
+  if(PG_SEL){
+    const c = data.columns.find(x => x.key === PG_SEL.c);
+    let r, segs;
+    if(PG_SEL.r.startsWith('g:')){
+      const g = groups.find(x => 'g:'+x.id === PG_SEL.r);
+      r = {id:PG_SEL.r, label:g.label, sub:g.sharedNote || '共用'};
+      segs = (g.shared && g.shared[PG_SEL.c]) || [];
+    } else {
+      r = data.rows.find(x => x.id === PG_SEL.r);
+      segs = (r && r.cells && r.cells[PG_SEL.c]) || [];
+    }
+    panel = `
+      <div class="pg-pn-head">
+        <div><div class="pg-pn-kicker">${escapeHtml(r.label)} · ${escapeHtml(r.sub||'')}</div>
+        <div class="pg-pn-title">${escapeHtml(c.label)} <small>${escapeHtml(c.sub)}</small></div></div>
+        <button class="pg-pn-x" onclick="pgClosePanel()" title="關閉">✕</button>
+      </div>
+      <div class="pg-pn-body">${segs.map(pgSegFull).join('')}</div>
+      <div class="pg-pn-hint">點試驗名稱進入詳情 · 名稱後小字 = 主結果年份</div>`;
+  } else if(PG_GAPS_OPEN){
+    panel = `
+      <div class="pg-pn-head"><div><div class="pg-pn-kicker">點任一項跳到該格</div>
+      <div class="pg-pn-title">🚩 未滿足需求 <small>${gaps.length} 處 · 可開展試驗的位置</small></div></div>
+      <button class="pg-pn-x" onclick="pgClosePanel()" title="關閉">✕</button></div>
+      <div class="pg-pn-body">
+        ${gaps.map(g => `<button class="pg-gap-item" onclick="pgSelect('${g.r}','${g.c}')">
+          <span class="pg-gap-where">${escapeHtml(g.row)} · ${escapeHtml(g.col)}</span>
+          <span class="pg-gap-text">${escapeHtml(g.text)}</span>
+          ${g.idea?`<span class="pg-gap-idea">💡 ${escapeHtml(g.idea)}</span>`:''}
+        </button>`).join('')}
+      </div>`;
+  }
+
+  const legend = ['std','cond','trial','gap','neg'].map(k =>
+    `<span class="pg-lg ${k}"><span class="pg-dot ${k}"></span>${PG_STATUS[k].label}</span>`).join('') +
+    `<span class="pg-lg"><span class="pg-mx-yr pub">'18</span>證據發表年</span><span class="pg-lg"><span class="pg-mx-yr start">▶'24</span>試驗開展年</span>`;
+  const filters = [['gap','🚩 只看未滿足需求'],['trial','🧪 有進行中試驗'],['site','🏥 本院收案']].map(([k,l]) =>
+    `<button class="pg-flt${PG_FILTER===k?' active':''}" onclick="pgSetFilter('${k}')">${l}</button>`).join('') +
+    `<button class="pg-flt list${PG_GAPS_OPEN && !PG_SEL?' active':''}" onclick="pgToggleGaps()">📋 未滿足需求清單 (${gaps.length})</button>`;
+
+  return `
+    <div class="pg-wrap">
+      <div class="pg-topbar">
+        <div class="pg-legend">${legend}</div>
+        <div class="pg-filters">${filters}
+          <details class="pg-tests"><summary>🧬 必要檢測</summary><ul>${data.tests.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></details>
+        </div>
+      </div>
+      <div class="pg-scroll"><div class="pg-grid" style="--pg-cols:${data.columns.length}">${mx}</div></div>
+      ${agHtml}
+      ${panel ? `<aside class="pg-panel" id="pgPanel">${panel}</aside>` : ''}
+    </div>`;
+}
+
+let PG_GAPS_OPEN = false;
+// 讓滑出面板對齊 modal 內容區 (modal 高度隨內容變動)
+function pgPlacePanel(){
+  const pn = el('pgPanel');
+  const box = document.querySelector('.pathway-modal-content');
+  if(!pn || !box || window.innerWidth <= 900) return;
+  const r = box.getBoundingClientRect();
+  const body = el('pathwayBody').getBoundingClientRect();
+  pn.style.top = Math.max(body.top + 8, 20) + 'px';
+  pn.style.bottom = Math.max(window.innerHeight - r.bottom + 12, 12) + 'px';
+  pn.style.right = Math.max(window.innerWidth - r.right + 14, 14) + 'px';
+}
+window.addEventListener('resize', () => { if(typeof pgPlacePanel === 'function') pgPlacePanel(); });
+function pgToggleGaps(){
+  PG_SEL = null;
+  PG_GAPS_OPEN = !PG_GAPS_OPEN;
+  renderPathway();
+}
+function pgClosePanel(){
+  PG_SEL = null;
+  PG_GAPS_OPEN = false;
+  renderPathway();
+}
+
+function setPathwayView(v){
+  PATHWAY_VIEW = v;
+  renderPathway();
+}
+
+function renderPathway(){
+  const cancer = currentPathwayCancer;
+  const hasGrid = !!PATHWAY_GRID[cancer];
+  const view = hasGrid ? PATHWAY_VIEW : 'legacy';
+  const switcher = `
+    <div class="pg-viewswitch">
+      <button class="${view==='grid'?'active':''}" ${hasGrid?'':'disabled'} onclick="setPathwayView('grid')">🧭 病程 × 生物標記矩陣</button>
+      <button class="${view==='legacy'?'active':''}" onclick="setPathwayView('legacy')">🕐 年份矩陣 / 舊版</button>
+    </div>
+    ${hasGrid?'':'<div class="pg-notice">此癌別的「病程 × 生物標記」矩陣建置中,先顯示舊版視圖。</div>'}`;
+  if(view === 'grid'){
+    el('pathwayBody').innerHTML = switcher + renderPathwayGrid(cancer);
+    pgPlacePanel();
+  } else {
+    el('pathwayBody').innerHTML = switcher + '<div id="pathwayLegacyBody"></div>';
+    renderPathwayLegacy();
+  }
+}
+
+// 主頁:治療階段快速跳轉
+function jumpToStage(id){
+  const s = el(id);
+  if(s) s.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 // ============================================================
