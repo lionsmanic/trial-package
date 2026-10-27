@@ -3199,22 +3199,23 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 .pg-tests ul{position:absolute;right:30px;z-index:5;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:8px 12px 8px 26px;margin:4px 0 0;max-width:620px;box-shadow:0 8px 24px rgba(0,0,0,.12);}
 .pg-tests li{margin:3px 0;}
 .pg-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:start;}
-.pg-scroll{overflow-x:auto;border:1px solid #e2e8f0;border-radius:12px;}
-.pg-grid{display:grid;grid-template-columns:30px 92px repeat(var(--pg-cols),minmax(112px,1fr));background:#e2e8f0;gap:1px;}
-.pg-cghead{color:#fff;font-weight:800;font-size:12px;text-align:center;padding:4px;letter-spacing:.04em;}
+.pg-scroll{overflow:auto;max-height:calc(100vh - 270px);min-height:260px;border:1px solid #e2e8f0;border-radius:12px;position:relative;overscroll-behavior:contain;background:#e2e8f0;}
+.pg-grid{display:grid;grid-template-columns:30px 96px repeat(var(--pg-cols),minmax(134px,1fr));background:#e2e8f0;gap:1px;}
+.pg-cghead{color:#fff;font-weight:800;font-size:12px;text-align:center;padding:0 6px;letter-spacing:.04em;height:28px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:5;}
 .pg-cghead.cg-init{background:#334155;} .pg-cghead.cg-psoc{background:#0e7490;} .pg-cghead.cg-proc{background:#9a3412;}
 .pg-shared-note{font-size:9.5px;color:#64748b;font-weight:700;text-align:right;margin-top:-1px;}
 .pg-left{min-width:0;}
-.pg-grouphead{display:flex;align-items:center;justify-content:center;padding:4px 0;position:sticky;left:0;z-index:2;color:#fff;font-weight:800;font-size:11.5px;letter-spacing:.04em;}
+.pg-grouphead{display:flex;align-items:center;justify-content:center;padding:4px 0;position:sticky;left:0;color:#fff;font-weight:800;font-size:11.5px;letter-spacing:.04em;}
 .pg-grouphead span{writing-mode:vertical-rl;white-space:nowrap;}
 .pg-grouphead.g-hgsc{background:#7c3aed;} .pg-grouphead.g-rare{background:#0f766e;} .pg-grouphead.g-nonepi{background:#475569;} .pg-grouphead.g-pm{background:#0369a1;} .pg-grouphead.g-pmmr{background:#b91c1c;} .pg-grouphead.g-hist{background:#475569;} .pg-grouphead.g-hpv{background:#c2410c;} .pg-grouphead.g-rareh{background:#475569;} .pg-grouphead.g-lms{background:#1d4ed8;} .pg-grouphead.g-ess{background:#15803d;} .pg-grouphead.g-oth{background:#475569;}
-@media (min-width:1201px){
-  .pg-scroll{overflow:visible;}
-  .pg-grid{border-radius:12px;}
-  .pg-cghead{position:sticky;top:-16px;z-index:3;}
-  .pg-colhead{position:sticky;top:15px;z-index:3;}
-  .pg-corner{position:sticky;top:-16px;z-index:3;}
-}
+/* 凍結: 標題列 (上) + 分型欄 (左) */
+.pg-colhead{position:sticky;top:0;z-index:5;}
+.pg-grid.has-cg .pg-colhead{top:28px;}
+.pg-colhead{box-shadow:0 -2px 0 #1e293b, 0 2px 4px rgba(15,23,42,.18);}
+
+.pg-corner{position:sticky;top:0;left:0;z-index:8;}
+.pg-grouphead{z-index:4;}
+.pg-rowhead{z-index:4;}
 .pg-mx.shared{justify-content:center;}
 .pg-mx.shared .pg-mx-lines{gap:3px;}
 .pg-agnostic{margin-top:8px;border:1px solid #e2e8f0;border-left:4px solid #2563eb;border-radius:10px;background:#f8fafc;padding:7px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12px;}
@@ -3225,7 +3226,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 .pg-corner{background:#f1f5f9;font-size:10.5px;color:#64748b;font-weight:700;display:flex;align-items:center;}
 .pg-colhead{background:#1e293b;color:#fff;display:flex;flex-direction:column;}
 .pg-colhead b{font-size:12.5px;} .pg-colhead small{font-size:10.5px;opacity:.7;}
-.pg-rowhead{background:#f8fafc;display:flex;flex-direction:column;justify-content:center;position:sticky;left:31px;z-index:1;}
+.pg-rowhead{background:#f8fafc;display:flex;flex-direction:column;justify-content:center;position:sticky;left:31px;box-shadow:2px 0 4px rgba(15,23,42,.06);}
 .pg-rowhead.nogroup{left:0;}
 .pg-rowhead b{font-size:13px;color:#1e293b;} .pg-rowhead small{font-size:10.5px;color:#64748b;line-height:1.3;}
 .pg-mx{border:none;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px;font:inherit;min-height:64px;position:relative;transition:box-shadow .12s, opacity .12s;}
@@ -3241,8 +3242,10 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 .pg-strip i.std{background:#16a34a;} .pg-strip i.cond{background:#2563eb;} .pg-strip i.trial{background:#d97706;}
 .pg-strip i.gap{background:repeating-linear-gradient(90deg,#dc2626 0 4px,transparent 4px 7px);} .pg-strip i.neg{background:#cbd5e1;}
 .pg-mx-lines{display:flex;flex-direction:column;gap:1px;}
-.pg-mx-line{font-size:11.5px;font-weight:700;color:#1e293b;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;line-height:1.45;}
-.pg-mx-nm{overflow:hidden;text-overflow:ellipsis;min-width:0;}
+.pg-mx-line{font-size:11.5px;font-weight:700;color:#1e293b;display:flex;align-items:flex-start;gap:4px;line-height:1.4;}
+.pg-mx-line .pg-dot{margin-top:4px;}
+.pg-mx-line .pg-mx-yr{margin-top:1px;}
+.pg-mx-nm{flex:1;min-width:0;word-break:break-word;}
 .pg-mx-yr{flex:none;margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#64748b;background:rgba(255,255,255,.75);border:1px solid #e2e8f0;border-radius:3px;padding:0 3px;line-height:1.35;text-decoration:none;display:inline-block;}
 .pg-mx-yr.start{color:#b45309;border-color:#fcd34d;background:#fffbeb;}
 .pg-lg .pg-mx-yr{margin-left:0;}
@@ -3285,7 +3288,8 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 .pg-gap-idea{color:#7f1d1d;font-size:11.5px;}
 @media (max-width:900px){
   .pg-panel{left:0;right:0;bottom:0;top:auto;width:auto;max-height:68vh;border-radius:14px 14px 0 0;animation:none;}
-  .pg-grid{grid-template-columns:24px 74px repeat(var(--pg-cols),112px);}
+  .pg-grid{grid-template-columns:24px 78px repeat(var(--pg-cols),126px);}
+  .pg-scroll{max-height:64vh;}
   .pg-cghead{text-align:left;padding-left:10px;}
   .pg-rowhead{left:25px;}
   .pg-tests ul{position:static;box-shadow:none;}
@@ -4018,7 +4022,7 @@ const TRIALS = [
   regimen:"Arm A (n=245):\n  Dostarlimab 500mg IV Q3W + Carboplatin AUC5 + Paclitaxel 175mg/m² Q3W × 6 cycles\n  → 維持: Dostarlimab 1000mg IV Q6W 持續 3 年\nArm B (n=249):\n  Placebo + Carboplatin AUC5 + Paclitaxel 175mg/m² Q3W × 6 cycles\n  → 維持: Placebo Q6W × 3 年",
   inc:["FIGO Stage III-IV 或首次復發 EC, 不適合手術/放療根治","Stage IIIA/IIIB/IIIC1: 需有 measurable/evaluable disease (RECIST v1.1)","Stage IIIC1 伴 unfavorable histology (癌肉瘤/透明細胞/漿液/混合 ≥10%): 不需 measurable disease","Stage IIIC2 或 Stage IV: 任何 histology, 不需 measurable disease","首次復發: 無前系統治療, 或前新輔助/輔助治療後 ≥6 個月復發","ECOG 0-1","允許 carcinosarcoma / clear cell / serous / mixed 組織型態 (與 GY018 最大差異)"],
   exc:["既往 PD-1/PD-L1 治療","活動性自體免疫疾病需治療","未控制感染","活動性 CNS 轉移"],
-  outcomes:"【dMMR/MSI-H subgroup】24m PFS 61.4% vs 15.7% (HR 0.28, CI 0.16-0.50, P<0.001); 24m OS 83.3% vs 58.7% (HR 0.32, CI 0.17-0.63)\n【ITT】24m mOS 71.3% vs 56.0% (HR 0.69, P=0.0021); mPFS 11.8 vs 7.9m\n【MMRp/MSS subgroup】mOS 34.0 vs 27.0m (HR 0.79, CI 0.60-1.04, 21% 風險降低)",
+  outcomes:"【dMMR/MSI-H subgroup】24m PFS 61.4% vs 15.7% (HR 0.28, CI 0.16-0.50, P<0.001); 24m OS 83.3% vs 58.7% (HR 0.32, CI 0.17-0.63)\n【ITT】24m mOS 71.3% vs 56.0% (HR 0.69, P=0.0021); mPFS 11.8 vs 7.9m\n【MMRp/MSS subgroup】mOS 34.0 vs 27.0m (HR 0.79, CI 0.60-1.04, 21% 風險降低)\n\n【ESMO 2026 / GCIG 2026 更新】\n【MMRd post-hoc (GCIG 2026)】n=118,中位追蹤 55.6 個月,PFS HR 0.30;24 個月 PFS 63.1% vs 15.7%;24 個月後曲線呈平台 (僅 27 人仍在風險中) → 支持討論計畫性停用 ICI",
 
   // === 擴充欄位 ===
   enrolled:"494 (245 dostar / 249 placebo)",
@@ -4047,7 +4051,7 @@ const TRIALS = [
   regimen:"dMMR cohort (n=222) + pMMR cohort (n=588), 各自獨立隨機 1:1\n試驗組:\n  Pembrolizumab 200mg IV Q3W + Carboplatin AUC5 + Paclitaxel 175mg/m² Q3W × 6 cycles\n  → 維持: Pembrolizumab 400mg IV Q6W × 14 cycles (~24m)\n對照組:\n  Placebo Q3W + Carbo/Pacli × 6 cycles\n  → 維持: Placebo Q6W × 14 cycles",
   inc:["Measurable Stage III 或 Stage IVA (必須有 measurable disease — 與 RUBY 關鍵差異!)","Stage IVB: measurable 或 non-measurable 皆可","Recurrent EC: measurable 或 non-measurable 皆可","MMR IHC 中央檢測 (分 dMMR/pMMR 兩獨立 cohort)","ECOG 0-2","前線輔助化療必須 ≥12 個月前完成 (RUBY 僅需 ≥6 個月)"],
   exc:["既往 anti-PD-(L)1 治療","活動性自體免疫需治療","活動性 CNS","**Carcinosarcoma 排除** (RUBY 允許)"],
-  outcomes:"【dMMR cohort】mPFS NR vs 7.6m (HR 0.30, CI 0.19-0.48); 12m PFS 74% vs 38% (P<0.001); mOS NR (HR 0.55/0.56, 44% 死亡風險降低, 4年追蹤)\n【pMMR cohort】mPFS 13.1 vs 8.7m (HR 0.54-0.57, CI 0.41-0.74); mOS 27.96 vs 27.37m (HR 0.79, CI 0.53-1.17, P=0.116)",
+  outcomes:"【dMMR cohort】mPFS NR vs 7.6m (HR 0.30, CI 0.19-0.48); 12m PFS 74% vs 38% (P<0.001); mOS NR (HR 0.55/0.56, 44% 死亡風險降低, 4年追蹤)\n【pMMR cohort】mPFS 13.1 vs 8.7m (HR 0.54-0.57, CI 0.41-0.74); mOS 27.96 vs 27.37m (HR 0.79, CI 0.53-1.17, P=0.116)\n\n【ESMO 2026 / GCIG 2026 更新】\ndMMR: 48 個月 OS 78.6% vs 60.4%;pMMR: OS HR 0.86 (Nature Medicine 2025)",
 
   enrolled:"819 randomized (810 ITT) — dMMR cohort 222 (27%) / pMMR cohort 588 (73%)",
   hist:"【dMMR cohort】子宮內膜樣 ~85% / 其他 ~15% (含 serous, clear cell, dedifferentiated/undifferentiated, mixed epithelial, adenocarcinoma NOS)\n\n【pMMR cohort】子宮內膜樣 ~57% / 漿液 ~22% / clear cell ~6% / 其他 ~15%\n\n⚠️ 關鍵: GY018 排除癌肉瘤 (carcinosarcoma) — 與 RUBY 最大差異",
@@ -4075,7 +4079,7 @@ const TRIALS = [
   regimen:"三臂 1:1:1 randomization, n=718\nArm 1 (n=241, Control):\n  Carbo AUC5-6 + Paclitaxel 175mg/m² Q3W × 6 cycles\n  → 維持: Placebo (durva) + Placebo (ola)\nArm 2 (n=238, Durvalumab maintenance):\n  Carbo + Pacli + Durvalumab 1120mg IV Q3W × 6 cycles\n  → 維持: Durvalumab 1500mg IV Q4W + Placebo (ola)\nArm 3 (n=239, Durva + Olaparib maintenance):\n  Carbo + Pacli + Durvalumab 1120mg Q3W × 6 cycles\n  → 維持: Durvalumab 1500mg Q4W + Olaparib 300mg PO bid",
   inc:["新診斷晚期 FIGO Stage III-IV 或首次復發 EC","適合 carbo/pacli","ECOG 0-1","允許 carcinosarcoma","輔助化療間隔 ≥12 個月"],
   exc:["既往免疫治療 / PARPi","活動性自體免疫需治療","活動性 CNS","Sarcoma (除 carcinosarcoma)"],
-  outcomes:"【ITT】Arm2 vs Arm1 PFS HR 0.71; Arm3 vs Arm1 HR 0.55\n【pMMR subgroup】Arm2 HR 0.77; Arm3 HR 0.57 (CI 0.42-0.79)\n【dMMR subgroup】Arm2 HR 0.41; Arm3 HR 0.42 (CI 0.22-0.80)\n【ITT OS, interim】Arm3 vs Arm1 HR 0.59 (P=0.0028)",
+  outcomes:"【ITT】Arm2 vs Arm1 PFS HR 0.71; Arm3 vs Arm1 HR 0.55\n【pMMR subgroup】Arm2 HR 0.77; Arm3 HR 0.57 (CI 0.42-0.79)\n【dMMR subgroup】Arm2 HR 0.41; Arm3 HR 0.42 (CI 0.22-0.80)\n【ITT OS, interim】Arm3 vs Arm1 HR 0.59 (P=0.0028)\n\n【ESMO 2026 / GCIG 2026 更新】\n【OS IA2 (ESMO 2026,ITT,未跨越 P<0.0165 邊界)】\nCP+D+O vs CP: mOS 51.1 vs 39.6 個月 (HR 0.77, P=0.037)\nCP+D vs CP: 40.7 vs 39.6 個月 (HR 0.87)\ndMMR: CP+D HR 0.57;CP+D+O HR 0.43\npMMR: CP+D+O vs CP HR 0.85 (mOS +8.0 個月);CP+D+O vs CP+D HR 0.89\n維持期 ≥3 級 AE: D+O 49.5% vs D 26.8%\n結論: OS 獲益主要來自 Durvalumab,Olaparib 加成有限且毒性增加",
 
   enrolled:"718 randomized (Arm1: 241 / Arm2: 238 / Arm3: 239)\npMMR 575 (80%) / dMMR 143 (20%) — biomarker-evaluable population (BEP) N=486",
   hist:"子宮內膜樣 52% / 漿液 27% / 其他 21% (含 carcinosarcoma, mixed, clear cell, undifferentiated)\n\n關鍵: 允許 carcinosarcoma 入組 (與 RUBY 一致)\n漿液型多伴隨 TP53 突變 (119/132, 90%) — 但 TP53m 中只有 42% 為 serous 組織學",
@@ -4085,7 +4089,7 @@ const TRIALS = [
   combo:"獨特設計:同時測試 PD-L1 (Durvalumab) 單藥維持 vs PD-L1+PARPi (Durva+Ola) 雙藥維持\n為 pMMR 族群提供 PARPi 加成的關鍵實證\n與 RUBY Part 2 (PD-1+PARPi) 為間接競爭",
   guideline:"NCCN v2.2026 Category 1 (preferred)\nArm 3 (Durva+Ola) 特別推薦給 pMMR 高風險族群,尤其 HRRm 與 TP53m\nFDA approved Aug 2024 (Imjudo + Olaparib + carbo/pacli)\nEMA approved 2024",
   nct:"NCT04269200",
-  publication:"JCO 2023 (Westin et al., 主分析); SGO 2025 post-hoc biomarker analysis (Westin); Gynecol Oncol 2026 (pMMR biomarker heterogeneity)"
+  publication:"JCO 2023 (Westin et al., 主分析); SGO 2025 post-hoc biomarker analysis (Westin); Gynecol Oncol 2026 (pMMR biomarker heterogeneity); ESMO 2026 (OS IA2)"
 },
 
 {
@@ -4131,7 +4135,7 @@ const TRIALS = [
   regimen:"1:1 randomization, n=1095\n試驗組 (n=545):\n  Pembrolizumab 200mg Q3W × 6 + Carbo/Paclitaxel × 6 ± 放射治療\n  → 維持: Pembrolizumab 400mg Q6W × 14 cycles\n對照組 (n=550):\n  Placebo + Carbo/Paclitaxel × 6 ± 放射治療\n  → 維持: Placebo × 14 cycles",
   inc:["新診斷高風險且完全切除 (R0) EC","FIGO 2009 Stage I/II (Serous 或 Clear cell only) 或 Stage III/IV","ECOG 0-1","允許 carcinosarcoma"],
   exc:["先前全身性治療","活動性自體免疫疾病","已知 BRCA m 接受 PARPi"],
-  outcomes:"【ITT 2yr DFS】75.2% vs 74.2% (HR 1.02, CI 0.79-1.32, P=0.57) — 未達顯著\n【dMMR subgroup, n=~280】可能存在小幅獲益趨勢但未顯著\n【pMMR subgroup】無獲益",
+  outcomes:"【ITT 2yr DFS】75.2% vs 74.2% (HR 1.02, CI 0.79-1.32, P=0.57) — 未達顯著\n【dMMR subgroup, n=~280】可能存在小幅獲益趨勢但未顯著\n【pMMR subgroup】無獲益\n\n【ESMO 2026 / GCIG 2026 更新】\n【dMMR 次群組 (ESMO 2026;ESGO 2025)】\n36 個月 DSFS 94.8% vs 80.1% (HR 0.25, 95% CI 0.11–0.54)\n【ctDNA】術後 ctDNA+ 約 20%;Pembro 組治療結束 ctDNA+ 0% (100% 清除) vs 安慰劑 7.5–9.5%;治療中 ctDNA 陰性 NPV 96%",
 
   enrolled:"1095 randomized (Pembrolizumab arm 545 / Placebo arm 550)",
   hist:"子宮內膜樣 G3 / 漿液 / 癌肉瘤 / Clear cell / 混合 等高風險組織型態均納入\n約 25-30% 為非子宮內膜樣型 (高侵襲性)",
@@ -4141,7 +4145,7 @@ const TRIALS = [
   combo:"無 PARPi / Bev — 設計探索 ICI 在輔助情境的 add-on 效益\n與 GOG-3053 platform 整合,可能後續探索亞組精準分流",
   guideline:"NCCN 不推薦輔助情境常規加入 pembrolizumab (無顯著 DFS 獲益)\n仍可考慮 dMMR 高風險族群入分子分型導航試驗 (RAINBO-AMBER)",
   nct:"NCT04634877",
-  publication:"SGO 2025 plenary (Van Gorp et al.); Manuscript pending"
+  publication:"SGO 2025 plenary (Van Gorp et al.); Manuscript pending; ESMO 2026 (dMMR DSFS / ctDNA)"
 },
 
 // ========== P-MT (一線維持) ==========
@@ -4214,7 +4218,7 @@ const TRIALS = [
   regimen:"2:1 randomization, n=147\n試驗組 (n=98): Olaparib 300mg PO bid 至 PD\n對照組 (n=49): Placebo bid\n分層因子: p53 status, MMR status, 對前線 CT 反應",
   inc:["Advanced/metastatic 子宮內膜癌, 完成 1L 含鉑化療後未進展 (CR/PR/SD)","ECOG 0-1","≥6 cycles 化療優先 (82% 達成)"],
   exc:["先前 PARPi","活動性 MDS/AML 風險","懷孕"],
-  outcomes:"【ITT mPFS】4.4 vs 4.0m (HR 0.94, P=0.74) — 未達顯著 (主終點失敗)\n【ITT OS】無顯著差異\n【p53abn subgroup PFS】numeric 改善\n【HRD+ subgroup PFS】numeric 改善 (探索性)\n【Complete Response subgroup】numeric trend\n【G3-4 AE】Olaparib 36% vs Placebo 10% (與已知 profile 一致)\n【Lancet 2024 / Nature Comm 2025 published】",
+  outcomes:"【ITT mPFS】4.4 vs 4.0m (HR 0.94, P=0.74) — 未達顯著 (主終點失敗)\n【ITT OS】無顯著差異\n【p53abn subgroup PFS】numeric 改善\n【HRD+ subgroup PFS】numeric 改善 (探索性)\n【Complete Response subgroup】numeric trend\n【G3-4 AE】Olaparib 36% vs Placebo 10% (與已知 profile 一致)\n【Lancet 2024 / Nature Comm 2025 published】\n\n【ESMO 2026 / GCIG 2026 更新】\n【Ancillary (GCIG 2026;IGCS 2026;Clin Cancer Res 2026)】\nITT mPFS 5.6 vs 4.0 個月 (HR 0.94)\np53abn HR 0.70;LGE ≥6 (HRD) HR 0.59;化療 CR 者 HR 0.45\np53abn + 低 miR-622 (n=47): 5.6 vs 3.3 個月 (HR 0.33, p=0.004)\np53abn LGE-high / GIScar HRD: PFS 10 vs 3.5 個月\nNSMP 或僅 HR 基因突變: 無獲益\n結論: Olaparib 獲益限於鉑敏感、染色體不穩定的 p53abn",
 
   enrolled:"147 randomized — Olaparib 98 / Placebo 49\n法國 GINECO 主導, 多中心",
   hist:"Advanced/metastatic EC, 分子分型分布:\n  • p53m: 53% (n=75)\n  • NSMP: 35%\n  • MMRd: 12%\n  • POLEm: 1%",
@@ -4378,7 +4382,7 @@ const TRIALS = [
   regimen:"單臂 Phase II 籃式試驗 (7 cohort: 子宮內膜 / 子宮頸 / 卵巢 / 膀胱 / 膽道 / 胰臟 / 其他)\n\nT-DXd 5.4mg/kg IV Q3W 直至 PD / 不可耐受",
   inc:["HER2 表現 (IHC 3+/2+) 進展 EC, 經 local 或 central testing","≥1 線先前系統性治療","或無其他標準治療選項","ECOG 0-1"],
   exc:["先前接受 HER2 ADC","活動性 ILD/pneumonitis 病史需類固醇治療","CNS 轉移未控制","左心室功能異常 (LVEF<50%)"],
-  outcomes:"【EC cohort, n=40, primary analysis】Investigator-assessed ORR 57.5% (vs 子宮頸 50.0% / 卵巢 45.0%); mPFS 11.1m; mOS 26.0m\n【All cohorts overall, n=267】ORR 37.1%; mPFS 6.9m; mOS 13.4m\n【IHC 3+ subset (post-hoc, n=111)】ORR 51.4%, mDOR 14.2 個月\n【IHC 2+ subset (n=151)】ORR 26.5%, mDOR 9.8 個月",
+  outcomes:"【EC cohort, n=40, primary analysis】Investigator-assessed ORR 57.5% (vs 子宮頸 50.0% / 卵巢 45.0%); mPFS 11.1m; mOS 26.0m\n【All cohorts overall, n=267】ORR 37.1%; mPFS 6.9m; mOS 13.4m\n【IHC 3+ subset (post-hoc, n=111)】ORR 51.4%, mDOR 14.2 個月\n【IHC 2+ subset (n=151)】ORR 26.5%, mDOR 9.8 個月\n\n【ESMO 2026 / GCIG 2026 更新】\nEC HER2 IHC 3+: ORR 84.6%,mPFS 未達到;CC 全體 ORR 50%、IHC 3+ 75%、IHC 2+ 40%",
 
   enrolled:"DESTINY-PanTumor02 全試驗: 267 patients (7 cohort 籃式)\nEndometrial cohort: 40 patients (其中 IHC 3+ 13 / IHC 2+ 27)\n\n依 enrolling HER2 IHC 結果:\n  • IHC 3+ (全試驗): n=111 (41.6%)\n  • IHC 2+ (全試驗): n=151 (56.6%)\n  • 75.7% 採用 local IHC testing",
   hist:"EC cohort 組織學:\n  • Serous adenocarcinoma 占比最高 (HER2 高表現族群)\n  • Carcinosarcoma\n  • 子宮內膜樣 G3\n  • 其他 (clear cell, mixed)\n\n關鍵: HER2 表現於 EC 中以 serous (~25-30% IHC 3+) 與 carcinosarcoma 最高",
@@ -4459,7 +4463,7 @@ const TRIALS = [
   regimen:"Phase I/II 籃式設計, dose-escalation + dose-expansion\n\n單藥: AZD8205 1.6-2.4mg/kg IV Q3W\n聯用 cohort:\n  + Rilvegostomig (PD-1xTIGIT bispecific)\n  + Saruparib (PARP1-selective)",
   inc:["晚期/轉移性 EC, 先前標準治療進展","B7-H4 IHC 陽性 (>25% 腫瘤細胞)","ECOG 0-1"],
   exc:["先前接受 Topo-I 抑制劑 ADC (T-DXd, SG)","活動性 ILD/pneumonitis 病史需類固醇","活動性 CNS 轉移","左心室功能異常"],
-  outcomes:"【EC dose-expansion】\n  • 1.6mg/kg cohort: ORR ~25%\n  • 2.0mg/kg cohort: ORR 34.6%\n  • 2.4mg/kg cohort: ORR 38.5%, mPFS 7.0m\n【ovarian cohort】ORR 略低於 EC",
+  outcomes:"【EC dose-expansion】\n  • 1.6mg/kg cohort: ORR ~25%\n  • 2.0mg/kg cohort: ORR 34.6%\n  • 2.4mg/kg cohort: ORR 38.5%, mPFS 7.0m\n【ovarian cohort】ORR 略低於 EC\n\n【ESMO 2026 / GCIG 2026 更新】\nB7-H4 表現者 ORR 47.1%;先前用過含鉑 + IO 者 ORR 60.6%",
 
   enrolled:"EC cohort 擴展至 ~50 patients (持續入組中)\n全試驗 Phase I/II 籃式 (含 EC, 卵巢, 乳癌等)",
   hist:"B7-H4 IHC+ EC (cutoff: >25% tumor cells)\n包含子宮內膜樣 / 漿液 / 混合\nB7-H4 在 EC 表現率: 子宮內膜樣 G3 (60-70%), serous (50-60%), carcinosarcoma (30-40%)",
@@ -4477,17 +4481,17 @@ const TRIALS = [
   cancer:"EC",
   id:"keynote-c93",
   phase:["R-TX","R-MT"],
-  status:"ongoing",
+  status:"published",
   name:"KEYNOTE-C93",
   fullName:"KEYNOTE-C93 / GOG-3064 / ENGOT-en15 / MK-3475-C93",
   pharma:"MSD",
   drug:"Pembrolizumab 單藥 vs 化療",
-  tagline:"dMMR 復發 EC 去化療策略: 單藥 Pembrolizumab vs 含鉑化療。直接挑戰化療作為 1L 標準。",
+  tagline:"dMMR 晚期 / 復發 EC 一線去化療: Pembrolizumab 單藥 mPFS 38.2 vs 8.4 個月 (HR 0.57);OS HR 0.77 未達顯著 (化療組 85% 後續用 ICI);約 20% 原發抗藥。",
   rationale:"基於 GARNET / KEYNOTE-158 dMMR 單藥 ICI 高 ORR 與持久緩解的證據,挑戰 dMMR 復發 EC 是否可省略含鉑化療毒性,直接以單藥 PD-1 治療達成不劣於甚至優於化療的結果。",
   regimen:"1:1 randomization\n試驗組: Pembrolizumab 200mg IV Q3W (限 35 cycles ≈ 2 年) → 進展可加入 chemo\n對照組: Carboplatin AUC5 + Paclitaxel 175mg/m² Q3W × 6 cycles → 觀察",
   inc:["dMMR/MSI-H advanced/recurrent EC (中央 IHC 確認)","Anti-PD-(L)1 naïve","先前無針對 advanced disease 系統治療","ECOG 0-1"],
   exc:["既往 PD-(L)1 治療","既往含鉑化療為 advanced disease 治療 (輔助化療間隔 ≥12 個月可)","活動性自體免疫"],
-  outcomes:"【招募中】Primary: PFS\nSecondary: OS, ORR, DOR, PFS2\n預計 2026-2027 公布 interim analysis",
+  outcomes:"【招募中】Primary: PFS\nSecondary: OS, ORR, DOR, PFS2\n預計 2026-2027 公布 interim analysis\n\n【ESMO 2026 / GCIG 2026 更新】\n【期中分析 (Lancet 2026;ESMO 2026)】\nmPFS 38.2 vs 8.4 個月 (HR 0.57, P=0.0002) ✅\n36 個月 PFS 52.8% vs 30.0%\nOS HR 0.77 (P=0.10) 未達顯著;化療組 85.2% 後續接受 ICI\nORR 64.1% vs 62.1%;mDOR NR vs 10.2 個月\nPFS 曲線約 6 個月交叉 → 約 20% 原發抗藥,前 6 個月需密切監測\nTRAE 71.1% vs 97.9%",
 
   enrolled:"預計 ~350 patients (招募中)",
   hist:"dMMR/MSI-H EC 限定 (中央 IHC 確認)\n子宮內膜樣 ~75% / 其他 ~25%\n排除 carcinosarcoma (與 GY018 一致)",
@@ -4497,7 +4501,7 @@ const TRIALS = [
   combo:"無聯用 — Pembrolizumab 單藥\n\n與 GARNET 比較:\n  • GARNET: 單臂、先前曾含鉑化療失敗\n  • KEYNOTE-C93: 隨機、 對照含鉑化療 (1L 取代)\n  • 若成功,將改變 dMMR EC 的 1L 標準\n\n與 RUBY/GY018 比較:\n  • RUBY/GY018: IO + chemo (combo upfront)\n  • KEYNOTE-C93: IO alone (de-escalation 策略)",
   guideline:"未進入指引 (招募中)",
   nct:"NCT05173987",
-  publication:"Trial-in-progress: SGO 2023 / 2024"
+  publication:"Trial-in-progress: SGO 2023 / 2024; Lancet 2026 (Slomovitz BM, 期中分析); ESMO 2026"
 },
 
 {
@@ -4579,6 +4583,1234 @@ const TRIALS = [
   guideline:"歷史試驗, 結論已內化為 NCCN/ESMO 標準: Stage I 中等風險才考慮 RT",
   nct:"-",
   publication:"Lancet 2000 (Creutzberg et al., 主結果); Lancet Oncol 2011 (15y FU)"
+},
+
+// ========== ESMO 2026 / GCIG 2026 新增 ==========
+{
+  cancer:"EC",
+  id:"trofuse-005",
+  phase:["R-TX"],
+  status:"published",
+  name:"TroFuse-005",
+  fullName:"TroFuse-005 (Sac-TMT vs TPC, ESMO 2026 LBA11)",
+  pharma:"MSD",
+  drug:"Sacituzumab tirumotecan (Sac-TMT, TROP2 ADC, Topo1i payload) vs TPC (Doxorubicin 或 Paclitaxel)",
+  tagline:"含鉑 + IO 後晚期 EC: 首個改善 PFS 與 OS 的 ADC Phase 3 — mPFS 7.2 vs 3.9 個月 (HR 0.59)、mOS 19.0 vs 12.1 個月 (HR 0.68);TROP2-low 與癌肉瘤獲益受限。",
+  rationale:"一線含鉑 + IO 後晚期 EC 缺乏標準二線,化療 (Dox / wPac) 效果有限;TROP2 在 EC 廣泛表現。",
+  regimen:"Phase 3 隨機分配\n試驗組: Sac-TMT\n對照組: 醫師選擇化療 (Doxorubicin 或 Paclitaxel)",
+  inc:["晚期或復發 EC", "曾接受含鉑化療與 anti-PD-1/PD-L1", "≤3 線全身性治療"],
+  exc:["—"],
+  outcomes:"【ESMO 2026 LBA11】\nmPFS: 7.2 vs 3.9 個月 (HR 0.59, P<0.0001) ✅\nmOS: 19.0 vs 12.1 個月 (HR 0.68, P=0.0001) ✅\nORR: 35.1% vs 17.3%;mDOR 11.1 個月\n【次族群】TROP2 low (<50%) OS HR 1.07;癌肉瘤 (TROP2 low 64.6%) PFS HR 1.52\n【安全性】Stomatitis 54.9%、Dry eye 18.5%、貧血最常見;導入含 Dexamethasone 預防漱口水後口腔炎下降 (因口腔炎停藥 1%)\n疾病惡化後: TPC 組 49.0% 接受後續治療 (含 ADC 12.1%)",
+  enrolled:"—",
+  hist:"晚期 / 復發 EC (所有組織型,含癌肉瘤)",
+  stageDist:"含鉑 + IO 後",
+  tech:"TROP2 IHC 為探索性次族群 (不需篩選)",
+  subgroup:"TROP2 low 與癌肉瘤可能不具優勢",
+  combo:"與 TROPiCS-03、ASCENT-GYN-01 (Sacituzumab govitecan) 同屬 TROP2 ADC;可能成為 IO 後二線新標準",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"ESMO 2026 LBA11 (Liu JF et al.)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  subcat:["dMMR", "pMMR"],
+  id:"leap-001",
+  phase:["P-TX"],
+  status:"published",
+  name:"LEAP-001",
+  fullName:"LEAP-001 / ENGOT-en9",
+  pharma:"MSD / Eisai",
+  drug:"Lenvatinib + Pembrolizumab vs Carboplatin + Paclitaxel (一線)",
+  tagline:"一線晚期 EC: Lenva + Pembro 整體未優於 CP;MMRd 次族群 PFS 31.8 vs 9.0 個月 (HR 0.62)、OS HR 0.60 — 但毒性較高,IO + 化療仍為一線標準。",
+  rationale:"KEYNOTE-775 證實 Lenva + Pembro 於含鉑後有效,驗證能否取代一線化療。",
+  regimen:"Phase 3 隨機分配\n試驗組: Lenvatinib + Pembrolizumab\n對照組: Carboplatin + Paclitaxel",
+  inc:["晚期 / 復發 EC 一線 (未接受全身治療)"],
+  exc:["—"],
+  outcomes:"【JCO 2025 / IJGC 2025 (Marth et al.)】\n主要分析 (pMMR / ITT) 未達優越\n【MMRd 次族群】PFS 31.8 vs 9.0 個月 (HR 0.62);OS HR 0.60",
+  enrolled:"—",
+  hist:"所有組織型",
+  stageDist:"Stage III–IV / 復發",
+  tech:"MMR IHC 分層",
+  subgroup:"MMRd 次族群獲益",
+  combo:"一線標準仍為 CP + IO (GY018 / RUBY / AtTEnd / DUO-E)",
+  guideline:"未改變一線標準 (化療 + IO 為主)",
+  nct:"—",
+  publication:"JCO 2025 (Marth et al.); 筆記引述 ESMO 2026",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  subcat:["dMMR"],
+  id:"nrg-gy020",
+  phase:["P-TX"],
+  status:"published",
+  name:"NRG-GY020",
+  fullName:"NRG-GY020 (RT ± Pembrolizumab, HIR dMMR)",
+  pharma:"NRG Oncology / NCI",
+  drug:"輔助 RT (VBT 70.2% 或 EBRT) ± Pembrolizumab (~1 年,無化療)",
+  tagline:"陰性結論: Stage I–II 高中風險 dMMR endometrioid EC 輔助 RT 加 Pembrolizumab 未改善 3 年 RFS (77% vs 73%, P=0.31) — RT 單獨仍為標準。",
+  rationale:"dMMR EC 對 IO 高度敏感;驗證早期高中風險族群於 RT 外加 IO 是否降低復發。",
+  regimen:"Phase 3, 1:2 隨機, n=168\n對照組: RT 單獨 (n=56)\n試驗組: RT + Pembrolizumab 約 1 年 (n=112)\n主要終點: 3 年 RFS 成功率",
+  inc:["Stage I–II 高中風險 (HIR) dMMR endometrioid EC", "完成手術分期"],
+  exc:["—"],
+  outcomes:"【ESMO 2026】\n主要終點: 3 年 RFS 成功率 77% vs 73% (P=0.3057) — 未達成\n次要: 3 年 KM RFS 88% vs 81% (HR 0.632, 95% CI 0.299–1.337)\nOS 未成熟;兩組 5 年 OS >90%\n因 AE 停藥 20.7%;皮疹 32.4%、搔癢 23.4%、甲狀腺低下 16.2%\n事件率低 (3 年約 13%)",
+  enrolled:"168 randomized (RT 56 / RT+Pembro 112);追蹤中位 53.8 個月",
+  hist:"dMMR endometrioid EC",
+  stageDist:"Stage I–II HIR",
+  tech:"MMR IHC",
+  subgroup:"—",
+  combo:"與 KEYNOTE-B21 (高風險 dMMR 次群組獲益)、RAINBO-GREEN (RT ± Durvalumab) 互相對照",
+  guideline:"HIR dMMR 輔助標準仍為 RT (VBT / EBRT)",
+  nct:"—",
+  publication:"ESMO 2026 (2026/10/24)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  id:"sac-tmt-ec-ph2",
+  phase:["R-TX"],
+  status:"published",
+  name:"Sac-TMT Ph2 (EC)",
+  fullName:"Sacituzumab tirumotecan Phase 2 — EC cohort (MK-2870-001)",
+  pharma:"MSD / Kelun",
+  drug:"Sacituzumab tirumotecan 單臂",
+  tagline:"晚期 EC Sac-TMT 單臂 Phase 2: confirmed ORR 32.3%、mOS 17.6 個月,pMMR 與非 endometrioid 均有活性 — TroFuse-005 前導。",
+  rationale:"TROP2 ADC 於多線後 EC 的早期活性評估。",
+  regimen:"Phase 2 單臂",
+  inc:["晚期 EC (約 30% ≥3 線)"],
+  exc:["—"],
+  outcomes:"Confirmed ORR 32.3%\nmOS 17.6 個月\npMMR、非 endometrioid 組織型皆有反應",
+  enrolled:"—",
+  hist:"各組織型",
+  stageDist:"多線後",
+  tech:"—",
+  subgroup:"—",
+  combo:"→ Phase 3 TroFuse-005",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026 EC ADC 場次)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  id:"behold-1-ec",
+  phase:["R-TX"],
+  status:"published",
+  name:"BEHOLD-1 (EC)",
+  fullName:"BEHOLD-1 — Mocertatug rezetecan (B7-H4 ADC), EC cohort",
+  pharma:"—",
+  drug:"Mocertatug rezetecan (Mo-Rez, B7-H4 ADC) 4.8 mg/kg",
+  tagline:"B7-H4 ADC Mo-Rez 於 EC: confirmed ORR 67% (未篩選 B7-H4) — 與 BLUESTAR 同為 B7-H4 新標的。",
+  rationale:"B7-H4 於 EC 高表現且正常組織低表現,為 ADC 新標的。",
+  regimen:"Phase 1 劑量擴展 (EC cohort)",
+  inc:["晚期 EC (未篩選 B7-H4)"],
+  exc:["—"],
+  outcomes:"Confirmed ORR 67% (4.8 mg/kg)",
+  enrolled:"—",
+  hist:"EC",
+  stageDist:"多線後",
+  tech:"未篩選 B7-H4",
+  subgroup:"—",
+  combo:"與 BLUESTAR (B7-H4 ADC) 並列",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  id:"rainfol-01-ec",
+  phase:["R-TX"],
+  status:"published",
+  name:"RAINFOL-01 (EC)",
+  fullName:"RAINFOL-01 — Rinatabart sesutecan (Rina-S, FRα ADC), EC cohort",
+  pharma:"Genmab",
+  drug:"Rinatabart sesutecan (Rina-S)",
+  tagline:"FRα ADC Rina-S 於含鉑 + IO 後 EC: ORR 46.4%;FRα PS1+ ≥25% 者 89% 腫瘤縮小 — FRα 成為 EC 新標的。",
+  rationale:"FRα 於部分 EC 表現;Rina-S 為 Topo1i payload FRα ADC。",
+  regimen:"Phase 1/2 擴展 cohort",
+  inc:["EC,含鉑 + IO 失敗後"],
+  exc:["—"],
+  outcomes:"ORR 46.4%\nFRα PS1+ ≥25%: 89% 腫瘤縮小",
+  enrolled:"—",
+  hist:"EC",
+  stageDist:"含鉑 + IO 後",
+  tech:"FRα IHC 未預先篩選 (PS1+ ≥25% 探索)",
+  subgroup:"—",
+  combo:"同藥於卵巢癌見 Rina-S Ph1 / RAINFOL-OV2",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  subcat:["pMMR"],
+  id:"fulv-abema-ec",
+  phase:["R-TX"],
+  status:"published",
+  name:"Fulvestrant + Abemaciclib (EC)",
+  fullName:"Fulvestrant + Abemaciclib Phase I (ER+ NSMP EC)",
+  pharma:"Eli Lilly (藥物)",
+  drug:"Fulvestrant + Abemaciclib",
+  tagline:"ER+ NSMP EC: Fulvestrant + Abemaciclib ORR 56% (TP53abn 0%) — 依分子分型選病人大幅提升荷爾蒙合併療法反應 (單用荷爾蒙 15–20%)。",
+  rationale:"NSMP 約 85% ER/PR+;CDK4/6i 合併 SERD 可克服荷爾蒙抗藥。",
+  regimen:"Phase I",
+  inc:["ER+ 晚期 / 復發 EC"],
+  exc:["—"],
+  outcomes:"ER+ NSMP: ORR 56%\nER+ TP53abn: ORR 0%\n(歷史: 單用荷爾蒙 RR 15–20%)",
+  enrolled:"—",
+  hist:"ER+ NSMP",
+  stageDist:"復發",
+  tech:"ER IHC + 分子分型",
+  subgroup:"NSMP 有效、p53abn 無效",
+  combo:"與 PALEO (Letrozole + Palbociclib)、GOG-3007 同屬荷爾蒙合併策略",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026 EC 新趨勢場次)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  id:"e7386-lenva",
+  phase:["R-TX"],
+  status:"published",
+  name:"E7386 + Lenvatinib",
+  fullName:"E7386 (β-catenin 抑制劑) + Lenvatinib Phase I/II",
+  pharma:"Eisai",
+  drug:"E7386 + Lenvatinib",
+  tagline:"Wnt/β-catenin 路徑: E7386 + Lenvatinib 於 Lenvatinib-naïve EC ORR 57% — CTNNB1 (NSMP 預後標記) 的潛在標靶策略。",
+  rationale:"CTNNB1 突變見於 NSMP 低惡性度 EC 且與復發相關。",
+  regimen:"Phase I/II",
+  inc:["Lenvatinib-naïve EC"],
+  exc:["—"],
+  outcomes:"ORR 57%",
+  enrolled:"—",
+  hist:"EC",
+  stageDist:"復發",
+  tech:"Wnt/β-catenin (CTNNB1)",
+  subgroup:"—",
+  combo:"—",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  subcat:["dMMR"],
+  id:"wrn-ro7589831",
+  phase:["R-TX"],
+  status:"published",
+  name:"RO7589831 (WRN 抑制劑)",
+  fullName:"RO7589831 WRN helicase inhibitor Phase I",
+  pharma:"Roche",
+  drug:"RO7589831 (WRN 抑制劑)",
+  tagline:"MSI / MMRd EC IO 失敗後: WRN 抑制劑 ORR 50% — 與 MSI 合成致死,為 1L IO 後惡化的 dMMR (25–30%) 提供非細胞毒性新解方。",
+  rationale:"MSI 腫瘤依賴 WRN helicase 存活 (合成致死)。",
+  regimen:"Phase I 劑量遞增 (小樣本)",
+  inc:["MSI-H / dMMR EC,ICI 治療失敗後"],
+  exc:["—"],
+  outcomes:"MMRd EC: ORR 50%",
+  enrolled:"—",
+  hist:"dMMR / MSI-H EC",
+  stageDist:"IO 後",
+  tech:"MSI-H / dMMR",
+  subgroup:"—",
+  combo:"對應 dMMR「IO 抗藥」未滿足需求",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  subcat:["pMMR"],
+  id:"camizestrant-ec",
+  phase:["R-TX"],
+  status:"ongoing",
+  name:"Camizestrant (NSMP EC)",
+  fullName:"Camizestrant (AZD9833, 口服 SERD) — 復發 NSMP EC",
+  pharma:"AstraZeneca",
+  drug:"Camizestrant 75 mg PO qd (停經前加 LHRH analog)",
+  tagline:"口服 SERD 進入 NSMP EC: ER ≥10% 復發 NSMP、未接受轉移性全身治療者,主要終點 6 個月 PFR。",
+  rationale:"乳癌 SERD 經驗延伸至 ER+ NSMP EC。",
+  regimen:"單臂;主要終點 6 個月無惡化率 (PFR-6m)",
+  inc:["復發 NSMP EC", "ER ≥10%", "未接受轉移性全身治療"],
+  exc:["—"],
+  outcomes:"進行中 (GCIG 2026 報告)",
+  enrolled:"—",
+  hist:"NSMP EC",
+  stageDist:"復發一線",
+  tech:"ER IHC ≥10%",
+  subgroup:"—",
+  combo:"與 Fulvestrant + Abemaciclib、PALEO 同屬 ER+ NSMP 策略",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  subcat:["POLE", "pMMR"],
+  id:"en10-taper",
+  phase:["P-TX"],
+  status:"ongoing",
+  name:"EN.10 / GY032 (TAPER + RAINBO-BLUE)",
+  fullName:"CCTG EN.10 / NRG-GY032",
+  pharma:"CCTG / NRG",
+  drug:"分子導向早期低風險 EC 輔助降階 (省略輔助治療)",
+  tagline:"早期 EC 分子導向降階: TAPER (p53wt/NSMP ER+) 已完成 180 人收案;RAINBO-BLUE (POLEmut) 收案中。",
+  rationale:"分子分型可辨識復發風險極低族群,避免過度治療。",
+  regimen:"Sub-study A: RAINBO-BLUE (POLEmut)\nSub-study B: TAPER (p53wt / NSMP ER+)",
+  inc:["早期低風險 EC"],
+  exc:["—"],
+  outcomes:"TAPER 收案完成 180 人;RAINBO-BLUE 收案中",
+  enrolled:"—",
+  hist:"EC",
+  stageDist:"早期",
+  tech:"POLE / p53 / ER",
+  subgroup:"—",
+  combo:"與 PORTEC-4a、RAINBO 同屬分子導向輔助",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"EC",
+  subcat:["dMMR"],
+  id:"mmrd-ici-24m",
+  phase:["R-TX"],
+  status:"published",
+  name:"MMRd ICI 24 個月停藥世代",
+  fullName:"Long-term outcomes of ICI in advanced/recurrent MMRd EC — international cohort (Leary)",
+  pharma:"研究者發起 (國際多中心)",
+  drug:"ICI (不含化療) 治療滿 24 個月無事件者之後續追蹤 (91.9% 停藥)",
+  tagline:"MMRd EC ICI 24 個月無事件者: 91.9% 停藥,24 個月後再惡化或死亡風險 21% — 真實世界支持 24 個月計畫性停用 ICI。",
+  rationale:"IO 維持最佳時間長度未知;RUBY MMRd PFS 24 個月後呈平台。",
+  regimen:"國際多中心回溯世代, n=62",
+  inc:["晚期 / 復發 MMRd EC 接受 ICI 滿 24 個月無事件"],
+  exc:["—"],
+  outcomes:"追蹤中位 60.6 個月\n91.9% 停用 ICI\n24 個月 landmark 後惡化或死亡風險 21%\n(72.6% 低惡性度、61.3% MLH1 甲基化)",
+  enrolled:"62 patients",
+  hist:"MMRd EC",
+  stageDist:"晚期 / 復發",
+  tech:"MMR IHC / MLH1 甲基化",
+  subgroup:"—",
+  combo:"呼應 RUBY MMRd post-hoc (24 個月後平台)",
+  guideline:"支持計畫性停藥討論 (非前瞻證據)",
+  nct:"—",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC"],
+  id:"denali",
+  phase:["R-TX"],
+  status:"published",
+  name:"DENALI (Azenosertib)",
+  fullName:"DENALI Part 1b — Azenosertib (WEE1 抑制劑)",
+  pharma:"Zentalis",
+  drug:"Azenosertib 單藥",
+  tagline:"Cyclin E1 IHC+ PROC: WEE1 抑制劑 Azenosertib ORR 37.2%、mOS 15.9 vs 7.5 個月 (IHC+ vs IHC−) — Cyclin E1 IHC 將適用族群擴至約 50% (CCNE1 擴增僅約 20%)。",
+  rationale:"CCNE1 擴增 / Cyclin E1 過度表現造成複製壓力,依賴 WEE1 檢查點。",
+  regimen:"Phase 2 (Part 1b),單藥",
+  inc:["PROC,1–5 線治療後"],
+  exc:["—"],
+  outcomes:"【ESMO 2026】\nCyclin E1 IHC+: ORR 37.2%,mDOR 5.5 個月\nmOS: IHC+ 15.9 vs IHC− 7.5 個月",
+  enrolled:"—",
+  hist:"HGSC",
+  stageDist:"PROC",
+  tech:"Cyclin E1 IHC",
+  subgroup:"IHC+ 獲益明顯",
+  combo:"→ DENALI Part 2 與 Phase 3 ASPENOVA 進行中;與 INCB123667 (CDK2i) 同攻 Cyclin E1 路徑",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"ESMO 2026 (Simpkins F)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC"],
+  id:"aspenova",
+  phase:["R-TX"],
+  status:"ongoing",
+  name:"ASPENOVA",
+  fullName:"ASPENOVA — Azenosertib Phase 3 (Cyclin E1+ PROC)",
+  pharma:"Zentalis",
+  drug:"Azenosertib",
+  tagline:"Cyclin E1+ PROC 之 WEE1 抑制劑 Phase 3 驗證試驗 (DENALI 後續)。",
+  rationale:"DENALI 顯示 Cyclin E1 IHC+ 獲益。",
+  regimen:"Phase 3",
+  inc:["Cyclin E1+ PROC"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"HGSC",
+  stageDist:"PROC",
+  tech:"Cyclin E1 IHC",
+  subgroup:"—",
+  combo:"承接 DENALI",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC"],
+  id:"incb123667-bev",
+  phase:["R-TX"],
+  status:"published",
+  name:"INCB123667 + Bev",
+  fullName:"INCB123667 (CDK2 抑制劑) + Bevacizumab Phase 1",
+  pharma:"Incyte",
+  drug:"INCB123667 + Bevacizumab",
+  tagline:"重度預治 PROC: CDK2 抑制劑 INCB123667 + Bev ORR 48%、DCR 91%、mPFS 7.4 個月 — 直接抑制 Cyclin E1/CDK2 路徑。",
+  rationale:"Cyclin E1 與 CDK2 結合驅動細胞週期;CDK2 抑制為直接標靶。",
+  regimen:"Phase 1",
+  inc:["重度預治 PROC"],
+  exc:["—"],
+  outcomes:"ORR 48%,DCR 91%\nmDOR 5.7 個月,mPFS 7.4 個月\nTEAE: 貧血 70%、便秘 48%、嗜中性球低下 48% (多為低分級)",
+  enrolled:"—",
+  hist:"HGSC",
+  stageDist:"PROC",
+  tech:"Cyclin E1 路徑",
+  subgroup:"—",
+  combo:"與 DENALI (WEE1i) 互補",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"NCT05238922",
+  publication:"ESMO 2026",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PARPi"],
+  id:"dovacc",
+  phase:["R-MT"],
+  status:"published",
+  name:"DOVACC",
+  fullName:"DOVACC — UV1 (hTERT 疫苗) + Olaparib + Durvalumab",
+  pharma:"Ultimovacs / NSGO",
+  drug:"Arm C: Olaparib + Durvalumab + UV1 vs Arm A: Olaparib (另有 Ola + Durva arm)",
+  tagline:"BRCAwt 復發 OC 維持: 加入 hTERT 疫苗 UV1 PFS 8.7 vs 5.9 個月 (HR 0.83, p=0.066) 未達顯著;HRD− (HR 0.73) 與 PARPi-naïve 有訊號。",
+  rationale:"治療性疫苗合併 PARPi + IO 增強抗腫瘤免疫。",
+  regimen:"Open-label 三臂隨機 Phase 2;主要終點 PFS (Arm C vs A)",
+  inc:["BRCAwt 復發 OC 含鉑反應後維持"],
+  exc:["—"],
+  outcomes:"【ESMO 2026】\nmPFS 8.7 vs 5.9 個月 (HR 0.83, p=0.066) — 未達主要終點\nHRD negative HR 0.73;PARPi-naïve HR 0.81\nUV1 增加疫苗注射反應、頭痛、類流感症狀",
+  enrolled:"—",
+  hist:"HGSC (BRCAwt)",
+  stageDist:"PSOC 維持",
+  tech:"BRCA / HRD",
+  subgroup:"HRD− 與 PARPi-naïve 訊號",
+  combo:"下一代疫苗試驗應限縮族群或合併 Bevacizumab",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"ESMO 2026 (Nøttrup TJ)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["HRDneg", "HGSC"],
+  id:"andrometa-oc-488",
+  phase:["P-MT"],
+  status:"ongoing",
+  name:"AndroMETa-OC-488",
+  fullName:"AndroMETa-OC-488 / M26-488 / ENGOT-ov114 / GEICO 197-O",
+  pharma:"AbbVie",
+  drug:"Telisotuzumab adizutecan (Temab-A, c-Met ADC) + Bevacizumab vs Bevacizumab",
+  tagline:"一線維持新標的: c-Met 表現 HGSC / 亮細胞癌,c-Met ADC Temab-A + Bev vs Bev 維持 Phase 3。",
+  rationale:"c-Met 蛋白表現常見於 HGSC 與 OCCC;Topo1i payload ADC。",
+  regimen:"Phase 3 隨機",
+  inc:["新診斷 HGSC 或亮細胞 OC 一線後維持", "c-Met 蛋白表現 (不需 MET 擴增 / 突變)"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"HGSC / OCCC",
+  stageDist:"一線維持",
+  tech:"c-Met IHC (cutoff 待公布)",
+  subgroup:"—",
+  combo:"與 TroFuse-021、DESTINY-Ovarian01 同屬 ADC 一線維持",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC"],
+  id:"behold-1-oc",
+  phase:["R-TX"],
+  status:"published",
+  name:"BEHOLD-1 (OC)",
+  fullName:"BEHOLD-1 — Mocertatug rezetecan (Mo-Rez, B7-H4 ADC), PROC (LBA41)",
+  pharma:"—",
+  drug:"Mo-Rez (B7-H4 ADC, TOP1i, DAR 6) 2.8 / 4.8 / 5.8 mg/kg Q3W",
+  tagline:"PROC: B7-H4 ADC Mo-Rez 5.8 mg/kg cORR 62%、mDOR 12.2 個月、mPFS 11.1 個月;B7-H4 表現量不預測反應。",
+  rationale:"B7-H4 在卵巢癌高表現 (97%),正常組織低。",
+  regimen:"Phase 1b PROC 劑量隨機, n=136",
+  inc:["PROC (36% ≥3 線;77% 用過 Bev;58% 用過 PARPi)"],
+  exc:["—"],
+  outcomes:"【ESMO 2026 LBA41】\n5.8 mg/kg: cORR 62% (CR 11%),mDOR 12.2 個月,mPFS 11.1 個月 (vs 低劑量 HR 0.66)\n4.8 mg/kg: mPFS 8.3 個月\n5.8 mg/kg ≥3 級嗜中性球低下 60% (建議 G-CSF 預防)、≥3 級貧血 9%;噁心 87%、掉髮 58%\n反應與 B7-H4 表現量無關;CTSB 與基質重塑訊號較高者反應較佳",
+  enrolled:"136 (PROC)",
+  hist:"HGSC 為主",
+  stageDist:"PROC",
+  tech:"B7-H4 (不需篩選)",
+  subgroup:"—",
+  combo:"與 BLUESTAR 同屬 B7-H4 ADC",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"ESMO 2026 LBA41 (Oaknin A); Gynecol Oncol 2026;200:S454",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC", "PSOC"],
+  id:"sofe-m",
+  phase:["R-TX"],
+  status:"published",
+  name:"Sofe-M (LY4170156)",
+  fullName:"Sofetabart mipitecan (FRα ADC, exatecan, DAR 8) Phase 1",
+  pharma:"Eli Lilly",
+  drug:"Sofe-M 單藥 (PROC) / Sofe-M 4 mg/kg + Bevacizumab 15 mg/kg (PSOC)",
+  tagline:"FRα ADC Sofe-M: PSOC + Bev cORR 79.3% (DCR 100%,不論 FRα 與 PARPi 史);PROC 單藥 cORR 50.5% (含 MIRV 後) — 支持 Phase 3 FRAmework-01。",
+  rationale:"高 DAR exatecan payload,旁觀者效應可涵蓋低 FRα 表現。",
+  regimen:"Phase 1\n• PSOC + Bev: n=33 (29 可評估),中位 3 線,66.7% 用過 PARPi\n• PROC 單藥",
+  inc:["重度預治 PSOC (合併 Bev)", "PROC (單藥)"],
+  exc:["—"],
+  outcomes:"【PSOC + Bev (ESMO 2026)】cORR 79.3% (cCR 20.7%),DCR 100%;FRα <75% ORR 80.0%;PARPi 中 / 後 6 個月內復發 ORR 76.9%;mPFS / mDOR 未達到\n≥3 級嗜中性球低下 42.4%、貧血 24.2%;因 AE 停藥 6.1%\n【PROC 單藥 (SGO 2026)】cORR 50.5%;低 FRα 與 MIRV 後仍有效;≥3 級貧血 25%、嗜中性球低下 24%;ILD 8% (多 1–2 級)",
+  enrolled:"—",
+  hist:"HGSC",
+  stageDist:"PSOC / PROC",
+  tech:"FRα (不需篩選)",
+  subgroup:"不受 FRα 表現與 PARPi 史影響",
+  combo:"→ Phase 3 FRAmework-01 (Part A PROC / Part B PSOC)",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"NCT06400472",
+  publication:"ESMO 2026; SGO 2026 (Pothuri B)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC"],
+  id:"rejoice-ovarian02",
+  phase:["R-TX"],
+  status:"published",
+  name:"REJOICE-Ovarian02 (R-DXd + Bev)",
+  fullName:"REJOICE-Ovarian02 Cohort B-1 — Raludotatug deruxtecan + Bevacizumab",
+  pharma:"Daiichi Sankyo / MSD",
+  drug:"R-DXd 4.8 或 5.6 mg/kg + Bevacizumab 15 mg/kg Q3W",
+  tagline:"PROC: CDH6 ADC R-DXd + Bev — 4.8 mg/kg ORR 80%、DCR 100%;5.6 mg/kg 毒性較高 (1 例 5 級 ILD) — 進入 Phase 3 REJOICE-Ovarian03/04/05。",
+  rationale:"腫瘤細胞 (CDH6) + 血管 (Bev) 雙重標靶。",
+  regimen:"Phase 1b, n=25 (4.8 mg/kg 10;5.6 mg/kg 15)",
+  inc:["PROC,1–3 線"],
+  exc:["—"],
+  outcomes:"【ESMO 2026】\n無 DLT\n4.8 mg/kg: ORR 80%,DCR 100%\n5.6 mg/kg: ORR 53%,DCR 100%;≥3 級嗜中性球低下 30%、腹瀉 35%\nILD: 4.8 mg/kg 1 例 1 級;5.6 mg/kg 1 例藥物相關 5 級",
+  enrolled:"25",
+  hist:"HGSC",
+  stageDist:"PROC",
+  tech:"CDH6 (65–85% 表現,未篩選)",
+  subgroup:"4.8 mg/kg 療效 / 安全性較佳",
+  combo:"→ REJOICE-Ovarian03/04/05 (一線與 PSOC)",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"ESMO 2026",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PSOC"],
+  id:"imgn853-0420",
+  phase:["R-TX"],
+  status:"published",
+  name:"IMGN853-0420 (MIRV + Carbo)",
+  fullName:"IMGN853-0420 — Mirvetuximab + Carboplatin (依 PARPi 暴露分析)",
+  pharma:"AbbVie (ImmunoGen)",
+  drug:"Mirvetuximab soravtansine + Carboplatin",
+  tagline:"PSOC MIRV + Carbo: PARPi 中惡化者 ORR 59.5% / mPFS 7.7 個月,PARPi 後惡化者 70.8% / 12.7 個月 — PARPi 中惡化預示較差,挑戰「PFI >6 個月」的 PSOC 定義。",
+  rationale:"一線 PARPi 普及後,PSOC 族群異質性增加。",
+  regimen:"N=125,依先前 PARPi 暴露分層",
+  inc:["PSOC,FRα+"],
+  exc:["—"],
+  outcomes:"PARPi 中惡化: ORR 59.5%,mPFS 7.7 個月\nPARPi 後惡化: ORR 70.8%,mPFS 12.7 個月\nPARPi-naïve 趨勢更佳;PARPi 停藥 <6 個月內復發最差",
+  enrolled:"125",
+  hist:"HGSC",
+  stageDist:"PSOC (PARPi 後)",
+  tech:"FRα",
+  subgroup:"PARPi 中惡化 vs 後惡化",
+  combo:"對應「PSOC · PARPi 後」欄位",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026 卵巢癌 ADC 場次)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC"],
+  id:"zw191",
+  phase:["R-TX"],
+  status:"published",
+  name:"ZW191",
+  fullName:"ZW191 Phase 1 (FRα ADC, TOP1i ZD06519, DAR 8)",
+  pharma:"Zymeworks",
+  drug:"ZW191 6.4 vs 9.6 mg/kg",
+  tagline:"重度預治 PROC: FRα ADC ZW191 HGSOC cORR 64.5% (6.4 mg/kg),FRα 低 / 陰性亦 55%;亮細胞癌反應有限 (0–20%)。",
+  rationale:"新一代 FRα ADC,涵蓋低 FRα 表現。",
+  regimen:"Phase 1 劑量優化",
+  inc:["重度預治 PROC (HGSOC;11% 亮細胞)"],
+  exc:["—"],
+  outcomes:"【ESMO 2026】\nHGSOC 6.4 mg/kg: cORR 64.5% (95% CI 45.4–80.8),mPFS 7.9 個月\n9.6 mg/kg: cORR 55.3%,mPFS 9.8 個月;6 個月 PFS 約 61%\nFRα 高 ≥75% cORR 69.2%;中 25–74% 50.0%;低 / 陰性 0–24% 55.0%\n亮細胞癌: cORR 20% (6.4) / 0% (9.6)",
+  enrolled:"—",
+  hist:"HGSOC / OCCC",
+  stageDist:"PROC",
+  tech:"FRα (所有表現量)",
+  subgroup:"HGSOC 不論 FRα 皆有效;OCCC 有限",
+  combo:"新一代 FRα ADC (Rina-S、Sofe-M、Torvu-Sam)",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"ESMO 2026",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC"],
+  id:"fontana",
+  phase:["R-TX"],
+  status:"published",
+  name:"FONTANA (Torvu-Sam)",
+  fullName:"FONTANA — Torvutatug samrotecan (FRα ADC, DAR 8.1)",
+  pharma:"AstraZeneca",
+  drug:"Torvu-Sam 1.6 / 2.0 / 2.4 mg/kg",
+  tagline:"PROC: FRα ADC Torvu-Sam ORR 不論 FRα 高 (61.7%)、低 (57.1%)、極低 / 無 (48.1%) 皆有活性 — 進入 Phase 3 TREVI-OC-01/02/03。",
+  rationale:"新一代 Topo1i FRα ADC,降低對 FRα 表現量依賴。",
+  regimen:"Phase 1/2a",
+  inc:["PROC"],
+  exc:["—"],
+  outcomes:"【ESMO 2026 更新】\nFRα 高 (≥75%): ORR 61.7%,mPFS 9.7 個月\nFRα 低 (25–74%): ORR 57.1%,mPFS 7.6 個月\nFRα 極低 / 無: ORR 48.1%\nctDNA: cMR 47%、any MR 87%",
+  enrolled:"—",
+  hist:"HGSC",
+  stageDist:"PROC",
+  tech:"FRα (所有表現量)",
+  subgroup:"—",
+  combo:"→ TREVI-OC-01/02/03 Phase 3",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"ESMO 2026; Clin Cancer Res 2025 (Zoeller J)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC"],
+  id:"rina-s-ph1",
+  phase:["R-TX"],
+  status:"published",
+  name:"Rina-S Ph1/2 (OC)",
+  fullName:"Rinatabart sesutecan (PRO1184) Phase 1/2 — PROC",
+  pharma:"Genmab",
+  drug:"Rina-S 120 mg/m²",
+  tagline:"PROC: FRα ADC Rina-S ORR 50–55.6%,反應與 FRα 表現量無關;約一半需 G-CSF — 進入 Phase 3 RAINFOL-OV2。",
+  rationale:"Topo1i FRα ADC,寬治療窗。",
+  regimen:"Phase 1/2 劑量擴展 (Cohort B1)",
+  inc:["重度預治 PROC (HGOC)"],
+  exc:["—"],
+  outcomes:"ORR 50% (120 mg/m²,ESMO 2024)\nCohort B1: confirmed ORR 55.6% (95% CI 30.8–78.5, n=18;SGO 2025)\n低 FRα 亦有反應;約 50% 需 G-CSF;噁心、嘔吐、腹瀉",
+  enrolled:"—",
+  hist:"HGSC",
+  stageDist:"PROC",
+  tech:"FRα (不需篩選)",
+  subgroup:"—",
+  combo:"→ RAINFOL-OV2 (Phase 3);FLORALIA 提案用於 LGSOC",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"NCT05579366",
+  publication:"ESMO 2024 (Lee EK); SGO 2025",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PSOC"],
+  id:"mirova",
+  phase:["R-TX"],
+  status:"published",
+  name:"MIROVA",
+  fullName:"MIROVA — Carboplatin + Mirvetuximab vs SOC",
+  pharma:"AGO",
+  drug:"Carboplatin + Mirvetuximab vs 標準化療",
+  tagline:"陰性 PFS: Carbo + MIRV ORR 66.2% vs 32.8%,但 mPFS 9.53 vs 9.79 個月 (HR 1.0) — 高反應率未轉化為 PFS。",
+  rationale:"探索 MIRV 與含鉑合併於復發 OC。",
+  regimen:"隨機",
+  inc:["復發 OC (鉑敏感)", "FRα+"],
+  exc:["—"],
+  outcomes:"ORR 66.2% vs 32.8%\nmPFS 9.53 vs 9.79 個月 (HR 1.0, p=0.996)",
+  enrolled:"—",
+  hist:"HGSC",
+  stageDist:"PSOC",
+  tech:"FRα",
+  subgroup:"—",
+  combo:"講者質疑現行劑量是否適合維持概念",
+  guideline:"不建議常規使用",
+  nct:"—",
+  publication:"ASCO 2026 (Harter P)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PARPi", "ADC"],
+  id:"gloriosa",
+  phase:["R-MT"],
+  status:"ongoing",
+  name:"GLORIOSA",
+  fullName:"GLORIOSA / ENGOT-ov76",
+  pharma:"AbbVie (ImmunoGen)",
+  drug:"Mirvetuximab + Bevacizumab vs Bevacizumab 維持",
+  tagline:"FRα 高 (≥75%) PSOC 含鉑三合一後維持: MIRV + Bev vs Bev Phase 3 (收案中)。",
+  rationale:"MIRV 由 PROC 延伸至 PSOC 維持。",
+  regimen:"Phase 3;主要終點 PFS",
+  inc:["PSOC 含鉑 + Bev 後維持", "FRα ≥75% (PS2+)"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"HGSC",
+  stageDist:"PSOC 維持",
+  tech:"FRα ≥75%",
+  subgroup:"—",
+  combo:"—",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["PROC"],
+  id:"rainfol-ov2",
+  phase:["R-TX"],
+  status:"ongoing",
+  name:"RAINFOL-OV2",
+  fullName:"RAINFOL-OV2 / ENGOT-ov86 / AGO 86",
+  pharma:"Genmab",
+  drug:"Rina-S vs 醫師選擇化療 (FRα 高者不可用 MIRV)",
+  tagline:"PROC: FRα ADC Rina-S vs 醫師選擇 Phase 3;對照組 FRα 高者不允許 MIRV 受質疑。",
+  rationale:"Rina-S Phase 1/2 ORR 50–56%。",
+  regimen:"Phase 3",
+  inc:["PROC"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"HGSC",
+  stageDist:"PROC",
+  tech:"FRα",
+  subgroup:"—",
+  combo:"—",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["NACT"],
+  id:"salvovar",
+  phase:["P-TX"],
+  status:"ongoing",
+  name:"SALVOVAR",
+  fullName:"SALVOVAR (KELIM 導向化療強化)",
+  pharma:"GINECO (研究者發起)",
+  drug:"Weekly dose-dense (Carbo AUC5 q3w + 每週 Paclitaxel) ± Bev vs 持續標準 q3w 化療",
+  tagline:"NACT 後 KELIM <1 且無法完整 IDS: 改為劑量密集化療 ± Bev,目標提升延遲完整減積率 5%→20%、mOS 20.0→32.8 個月 — KELIM 導向的適應性治療。",
+  rationale:"KELIM <1 預測 IDS 完整切除機率 <50%;ICON8B 顯示「兩紅旗」族群劑量密集獲益。",
+  regimen:"隨機, N=250 (125/125)",
+  inc:["Stage III–IV HGSOC,NACT 3–4 cycles 後 KELIM <1.0 且無法完整 IDS"],
+  exc:["—"],
+  outcomes:"假設: 延遲完整減積 5% → 20%;mOS 20.0 → 32.8 個月 (HR 0.61)",
+  enrolled:"250 (計畫)",
+  hist:"HGSOC",
+  stageDist:"NACT 中",
+  tech:"KELIM (CA-125 動力學)",
+  subgroup:"—",
+  combo:"與 RegeNovar 同針對 KELIM 不佳族群",
+  guideline:"未進入指引 (進行中)",
+  nct:"NCT06476184",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"OC",
+  subcat:["NACT"],
+  id:"regenovar",
+  phase:["P-TX"],
+  status:"ongoing",
+  name:"RegeNovar",
+  fullName:"RegeNovar — Ubamatamab + CP + Bev (KELIM <1)",
+  pharma:"Regeneron / GINECO",
+  drug:"Ubamatamab (CD3×MUC16 雙特異性) + Carboplatin + Paclitaxel + Bevacizumab;維持依 HRD / BRCA",
+  tagline:"NACT 反應差 (KELIM <1、無法完整 IDS) 的「兩紅旗」族群: 雙特異性抗體 Ubamatamab 作為化療增敏劑。",
+  rationale:"化療反應不佳者需新機轉增敏。",
+  regimen:"Phase 1/2, n=27 (最多 43);主要終點 ORR",
+  inc:["Stage III/IV HGSOC,NACT 3–4 cycles 後 KELIM <1.0 且無法完整 IDS"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"27 (計畫)",
+  hist:"HGSOC",
+  stageDist:"NACT 中",
+  tech:"KELIM;HRD / BRCA (維持)",
+  subgroup:"—",
+  combo:"同藥見 CONEXIO-OV2;與 SALVOVAR 同族群",
+  guideline:"未進入指引 (進行中)",
+  nct:"NCT07637851",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["1L-RM", "IO"],
+  id:"dubhe-c-301",
+  phase:["R-TX"],
+  status:"published",
+  name:"DUBHE-C-301 (QL1706)",
+  fullName:"DUBHE-C-301 — QL1706 (Iparomlimab + Tuvonralimab)",
+  pharma:"Qilu",
+  drug:"QL1706 (PD-1 IgG4 + 短半衰期 CTLA-4 IgG1 雙功能抗體) + 化療 ± Bev vs Placebo + 化療 ± Bev",
+  tagline:"R/M CC 一線: PD-1/CTLA-4 雙阻斷 QL1706 mPFS 12.35 vs 7.75 個月 (HR 0.64)、mOS 30.95 vs 21.78 個月 (HR 0.73) — 但對照組無 IO、單一國家、免疫毒性較高。",
+  rationale:"雙重阻斷可能涵蓋 PD-L1 低表現族群。",
+  regimen:"Phase 3 雙盲安慰劑對照, N=492 (中國);BICR 評估",
+  inc:["R/M CC 一線"],
+  exc:["—"],
+  outcomes:"【ESMO 2026】\nBICR ORR 78.2% vs 68.7%;mDoR 16.10 vs 6.77 個月\nmPFS 12.35 vs 7.75 個月 (HR 0.64, p=0.0001) ✅\nmOS 30.95 vs 21.78 個月 (HR 0.73, p=0.0101) ✅ (成熟度 54%)\n各 CPS 次族群 OS HR CI 跨 1\n≥3 級 TRAE 80.6% vs 75.9%;SAE 44.6% vs 25.3%;≥3 級 irAE 13.6% vs 0%\n後續 ICI 約 15–17%",
+  enrolled:"492",
+  hist:"鱗癌 / 腺癌",
+  stageDist:"持續 / 復發 / 轉移",
+  tech:"PD-L1 CPS 分層",
+  subgroup:"CPS 次族群 OS CI 跨 1",
+  combo:"與 COMPASSION-16 同屬雙阻斷;需與含單一 ICI 對照比較才能確立定位",
+  guideline:"中國核准方向;國際指引未納入",
+  nct:"NCT05446883",
+  publication:"ESMO 2026 (Wu X)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["IO"],
+  id:"atomicc",
+  phase:["P-MT"],
+  status:"published",
+  name:"ATOMICC",
+  fullName:"ATOMICC — Dostarlimab 維持 (CRT 後)",
+  pharma:"—",
+  drug:"CRT 後 Dostarlimab 維持 vs 觀察",
+  tagline:"高風險 LACC CRT 後維持: Dostarlimab 期中 PFS HR 0.64 (p=0.11) — 未達顯著。",
+  rationale:"CRT 後 IO 維持以延長控制。",
+  regimen:"隨機 Phase II",
+  inc:["高風險 LACC,CRT 後 CR/PR"],
+  exc:["—"],
+  outcomes:"期中 PFS HR 0.64 (p=0.11)",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"LACC CRT 後",
+  tech:"—",
+  subgroup:"—",
+  combo:"與 KEYNOTE-A18 (同步 + 維持)、CALLA (陰性) 對照",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026 子宮頸癌場次)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["NIC"],
+  id:"colibri-1",
+  phase:["P-TX"],
+  status:"published",
+  name:"COLIBRI-1",
+  fullName:"COLIBRI-1 — Neoadjuvant Nivolumab + Ipilimumab (LACC)",
+  pharma:"GINECO / ARCAGY",
+  drug:"新輔助 Nivolumab + Ipilimumab → CRT",
+  tagline:"LACC 新輔助雙免疫阻斷: 提升 CD8+/FOXP3+ 比例,3 年 PFS 83% (收錄較多 IIIB–IVA)。",
+  rationale:"先給 IO 引子再 CRT,強化免疫反應。",
+  regimen:"Phase I/II",
+  inc:["LACC (IIIB 20%、IIIC1 20%、IIIC2 10%、IVA 15%)"],
+  exc:["—"],
+  outcomes:"3 年 PFS 83%\nCD8+/FOXP3+ 比例與 CD8A 表現提升",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"LACC",
+  tech:"—",
+  subgroup:"—",
+  combo:"與 NRG-GY017 同屬 IO 時序研究",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"Nature Communications (Ray-Coquard I)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["IO"],
+  id:"gog-9929",
+  phase:["P-MT"],
+  status:"published",
+  name:"GOG-9929",
+  fullName:"GOG-9929 — Ipilimumab after CRT",
+  pharma:"NRG / NCI",
+  drug:"CRT 後序貫 Ipilimumab",
+  tagline:"LACC CRT 後序貫 CTLA-4 阻斷: T 細胞進一步活化,MTD 10 mg/kg — IO 時序的早期證據。",
+  rationale:"CRT 後免疫活化可被 CTLA-4 阻斷延續。",
+  regimen:"Phase I",
+  inc:["LACC (淋巴結陽性)"],
+  exc:["—"],
+  outcomes:"MTD 10 mg/kg;T 細胞活化",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"LACC",
+  tech:"—",
+  subgroup:"—",
+  combo:"—",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"JAMA Oncol 2019 (Mayadev JS)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["IO"],
+  id:"pembro-crt-timing",
+  phase:["P-TX"],
+  status:"published",
+  name:"Pembro 同步 vs 序貫 CRT",
+  fullName:"NCT02635360 — Pembrolizumab concurrent vs sequential with CRT",
+  pharma:"NCI",
+  drug:"Pembrolizumab 同步 vs CRT 後序貫",
+  tagline:"LACC IO 時序: 同步 vs 序貫 Pembrolizumab 臨床 PFS / OS 無差異;同步組 12 週 HPV 特異性 CD8+ T 細胞反應較多。",
+  rationale:"IO 與 CRT 最佳時序未知。",
+  regimen:"Phase II 隨機",
+  inc:["LACC"],
+  exc:["—"],
+  outcomes:"PFS / OS 無顯著差異\n同步組 12 週 HPV 特異性 CD8+ T 細胞較多",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"LACC",
+  tech:"—",
+  subgroup:"—",
+  combo:"支持 KEYNOTE-A18 同步給藥設計",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"NCT02635360",
+  publication:"Cancer 2020 (Duska); Gynecol Oncol 2023 (Zamarin)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["2L-ADC"],
+  id:"kl264-01",
+  phase:["R-TX"],
+  status:"published",
+  name:"KL264-01 (Sac-TMT, CC)",
+  fullName:"KL264-01 — Sacituzumab tirumotecan (CC cohort)",
+  pharma:"Kelun / MSD",
+  drug:"Sac-TMT 4 mg/kg Q2W",
+  tagline:"二線以上 R/M CC: TROP2 ADC Sac-TMT ORR 24.8–33.3%、mOS 12.7 個月 — Phase 3 MK2870-020 進行中。",
+  rationale:"TROP2 於 CC 高表現。",
+  regimen:"Phase 2",
+  inc:["二線以上 R/M CC"],
+  exc:["—"],
+  outcomes:"Confirmed ORR 24.8% (數據表) / 33.3% (內文,待查證)\nmPFS 5.5 個月;mOS 12.7 個月",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"二線以上",
+  tech:"TROP2",
+  subgroup:"—",
+  combo:"→ MK2870-020 Phase 3",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"筆記引述 (ESMO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["2L-ADC"],
+  id:"mk2870-020",
+  phase:["R-TX"],
+  status:"ongoing",
+  name:"MK2870-020",
+  fullName:"MK2870-020 / TroFuse-020 — Sac-TMT vs TPC (CC)",
+  pharma:"MSD",
+  drug:"Sac-TMT vs 醫師選擇化療",
+  tagline:"二線以上 R/M CC: TROP2 ADC Sac-TMT vs 化療 Phase 3 (進行中)。",
+  rationale:"KL264-01 顯示活性。",
+  regimen:"Phase 3",
+  inc:["二線以上 R/M CC"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"二線以上",
+  tech:"TROP2",
+  subgroup:"—",
+  combo:"—",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"筆記引述 (ASCO 2026)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["2L-ADC"],
+  id:"jskn033-102",
+  phase:["R-TX"],
+  status:"published",
+  name:"JSKN033-102",
+  fullName:"JSKN033-102 — 皮下 HER2 ADC (CC)",
+  pharma:"Alphamab",
+  drug:"JSKN033 皮下注射 8.4 vs 6.7 mg/kg (QW/Q2W + loading)",
+  tagline:"已治療 R/M CC: 皮下 HER2 ADC JSKN033 8.4 mg/kg ORR 52.9%、mPFS 8.2 個月,不論 HER2 表現 (72% 為 HER2 0) — 支持 Phase 3 JSKN033-301。",
+  rationale:"皮下 ADC 便利性 + 不依賴 HER2 高表現。",
+  regimen:"Phase I/II",
+  inc:["復發 / 轉移性 CC,曾接受治療", "HER2 不限"],
+  exc:["—"],
+  outcomes:"【ESMO 2026】\n8.4 mg/kg: ORR 52.9%,DCR 94.1%,mPFS 8.2 個月\n6.7 mg/kg: ORR 28.6%,mPFS 4.1 個月\nHER2、PD-L1 CPS、先前 IO / Bev 次族群一致\nTRAE 以 1–2 級注射部位反應為主,無停藥或死亡,ILD 低",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"已治療 R/M",
+  tech:"HER2 (不需篩選)",
+  subgroup:"各次族群一致",
+  combo:"→ JSKN033-301 Phase 3",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"NCT06770881",
+  publication:"ESMO 2026 (Wu X)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["2L-ADC"],
+  id:"shr-a2102",
+  phase:["R-TX"],
+  status:"published",
+  name:"SHR-A2102 (Nectin-4 ADC)",
+  fullName:"SHR-A2102 — Nectin-4 ADC (Topo I payload), CC",
+  pharma:"Hengrui",
+  drug:"SHR-A2102 6 vs 8 mg/kg",
+  tagline:"含鉑失敗 R/M CC: Nectin-4 ADC SHR-A2102 6 mg/kg ORR 47.2%、mPFS 7.0 個月 — Topo I payload 優於第一代 MMAE Nectin-4 ADC。",
+  rationale:"Nectin-4 為 CC 新 ADC 標的。",
+  regimen:"Phase 2",
+  inc:["復發 / 轉移性 CC,含鉑化療失敗"],
+  exc:["—"],
+  outcomes:"6 mg/kg: confirmed ORR 47.2%,mPFS 7.0 個月\n8 mg/kg: ORR 21.4%,mPFS 5.5 個月",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"含鉑後",
+  tech:"Nectin-4 (未說明是否篩選)",
+  subgroup:"6 mg/kg 優於 8 mg/kg",
+  combo:"需 Phase 3 驗證",
+  guideline:"尚未進入指引 (ESMO 2026 首次發表 / 早期數據)",
+  nct:"—",
+  publication:"ESMO 2026 (Chen J)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["Surgery"],
+  id:"rocc",
+  phase:["P-TX"],
+  status:"ongoing",
+  name:"ROCC (GOG-3043)",
+  fullName:"ROCC / GOG-3043 — Robotic vs Open radical hysterectomy",
+  pharma:"NRG / GOG",
+  drug:"機器手臂 vs 開腹廣泛子宮切除",
+  tagline:"早期 CC 機器手臂 vs 開腹再驗證 (LACC trial 後);v4.0 允許符合 SHAPE 標準者行單純子宮切除,並納入 ctDNA 研究。",
+  rationale:"LACC trial 顯示 MIS 較差,但機器手臂與小腫瘤族群仍有爭議。",
+  regimen:"Phase 3",
+  inc:["早期 CC"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"早期",
+  tech:"—",
+  subgroup:"—",
+  combo:"與 LACC trial、SHAPE 對照",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["Surgery"],
+  id:"senticol-iii-iv",
+  phase:["P-TX"],
+  status:"ongoing",
+  name:"SENTICOL III / IV",
+  fullName:"SENTICOL III (國際驗證) / SENTICOL IV (省略骨盆淋巴結清除)",
+  pharma:"法國 / 國際 (研究者發起)",
+  drug:"前哨淋巴結取代系統性骨盆淋巴結清除",
+  tagline:"早期 CC: SENTICOL III 國際驗證 SLN;SENTICOL IV 驗證省略骨盆淋巴結清除。",
+  rationale:"SENTICOL I/II 顯示 SLN 可降低併發症。",
+  regimen:"前瞻性",
+  inc:["早期 CC"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"早期",
+  tech:"—",
+  subgroup:"—",
+  combo:"承接 SENTICOL I/II",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["CCRT"],
+  id:"parola",
+  phase:["P-TX"],
+  status:"ongoing",
+  name:"PAROLA",
+  fullName:"PAROLA / ENGOT-cx18",
+  pharma:"ENGOT",
+  drug:"治療前主動脈旁淋巴結切除 → 個別化 CCRT vs 標準 CCRT",
+  tagline:"FIGO IIIC1 (PET 骨盆淋巴結+、主動脈旁−): 先手術分期主動脈旁淋巴結,依結果調整放療野。",
+  rationale:"PET 對主動脈旁微轉移偽陰性。",
+  regimen:"隨機",
+  inc:["LACC IIIC1 (PET 骨盆淋巴結陽性、主動脈旁陰性)"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"LACC IIIC1",
+  tech:"FDG-PET",
+  subgroup:"—",
+  combo:"—",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"CC",
+  subcat:["CCRT"],
+  id:"debulk",
+  phase:["P-TX"],
+  status:"ongoing",
+  name:"DEBULK (KGOG1047)",
+  fullName:"DEBULK / KGOG1047 — Nodal debulking before CCRT",
+  pharma:"KGOG",
+  drug:"CCRT 前手術淋巴結減積 vs CCRT",
+  tagline:"FIGO IIICr (單顆 ≥1.5 cm 或 ≥2 顆淋巴結): CCRT 前切除大淋巴結,主要終點 3 年 PFS。",
+  rationale:"大顆淋巴結放療控制率較差。",
+  regimen:"Phase 3;主要終點 3 年 PFS",
+  inc:["IIICr (影像單顆 ≥1.5 cm 或 ≥2 顆)"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"SCC / 腺癌",
+  stageDist:"LACC IIIC",
+  tech:"影像",
+  subgroup:"—",
+  combo:"—",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"US",
+  subcat:["CS"],
+  id:"rocsan",
+  phase:["R-TX"],
+  status:"ongoing",
+  name:"ROCSAN",
+  fullName:"ROCSAN / GINECO-EN203b / ENGOT-en28",
+  pharma:"GINECO / ENGOT",
+  drug:"Step 2 最佳組: Dostarlimab + Niraparib",
+  tagline:"復發子宮 / 卵巢癌肉瘤 (MMMT) 化療後: Step 1 選出 Dostarlimab + Niraparib,Step 2 擴展收案 N=74。",
+  rationale:"癌肉瘤化療後缺乏有效治療。",
+  regimen:"Phase II (Step 1 選組 → Step 2 擴展);RECIST 1.1;須腫瘤檢體",
+  inc:["轉移或復發子宮 / 卵巢癌肉瘤,≥1 線化療後"],
+  exc:["—"],
+  outcomes:"進行中 (Step 2, N=74)",
+  enrolled:"74 (Step 2 計畫)",
+  hist:"癌肉瘤 (MMMT)",
+  stageDist:"化療後",
+  tech:"—",
+  subgroup:"—",
+  combo:"對應癌肉瘤「常被排除於試驗」缺口",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
+},
+
+{
+  cancer:"US",
+  subcat:["LMS"],
+  id:"jgog2052",
+  phase:["R-TX"],
+  status:"ongoing",
+  name:"JGOG2052",
+  fullName:"JGOG2052 — Niraparib in BRCA1/2-mut or HRD+ uLMS",
+  pharma:"JGOG (研究者發起)",
+  drug:"Niraparib",
+  tagline:"BRCA1/2 突變或 HRD+ 子宮平滑肌肉瘤: Niraparib Phase 2 (日本)。",
+  rationale:"uLMS 約 10–25% 具 HRD。",
+  regimen:"Phase 2",
+  inc:["uLMS,BRCA1/2 突變或 HRD+"],
+  exc:["—"],
+  outcomes:"進行中",
+  enrolled:"—",
+  hist:"uLMS",
+  stageDist:"復發",
+  tech:"BRCA1/2 / HRD",
+  subgroup:"—",
+  combo:"對應「HRD uLMS PARPi 證據不足」缺口",
+  guideline:"未進入指引 (進行中)",
+  nct:"—",
+  publication:"GCIG 2026 Autumn Meeting (Madrid)",
+  esmo2026:true
 },
 
 {
@@ -4731,7 +5963,7 @@ const TRIALS = [
   regimen:"前瞻性觀察性多中心研究, n=1341\nEBRT 45 Gy ± 同步 Cisplatin → MRI 導引近接治療 (含組織間插針),依 HR-CTV D90 處方",
   inc:["FIGO IB–IVA LACC,根治性放化療"],
   exc:["遠端轉移","先前骨盆放療"],
-  outcomes:"【Lancet Oncol 2021 (Pötter et al.)】\n5y 局部控制: 92%\n5y 骨盆控制: 87%\n5y OS: 74%;DFS 68%\n5y 3–5 級併發症累積: 14.6%\nHR-CTV D90 ≥85 Gy 與局部控制顯著相關",
+  outcomes:"【Lancet Oncol 2021 (Pötter et al.)】\n5y 局部控制: 92%\n5y 骨盆控制: 87%\n5y OS: 74%;DFS 68%\n5y 3–5 級併發症累積: 14.6%\nHR-CTV D90 ≥85 Gy 與局部控制顯著相關\n\n【ESMO 2026 / GCIG 2026 更新】\nEMBRACE I / II: 2 年骨盆控制 95–96%;≥3 級併發症 11% / 18% (GCIG 2026 引述)",
   enrolled:"1341 patients (疾病反應) / 1251 (併發症),24 中心",
   hist:"鱗癌、腺癌",
   stageDist:"FIGO IB–IVA",
@@ -5082,7 +6314,7 @@ const TRIALS = [
   regimen:"Phase III, 1:1 randomization, n=813\nArm A (chemoRT): RT 45 Gy + Cisplatin 50mg/m² (day 1, 29) → 4 cycles Carbo (AUC 5-6) + Pacli 175mg/m² q3w\nArm B (chemo alone): 6 cycles Carbo (AUC 6) + Pacli 175mg/m² q3w",
   inc:["FIGO 2009 Stage III 或 IVA EC (任何組織型)","Stage I-IVA serous 或 clear cell EC + 腹腔細胞陽性","完成完整 staging surgery","ECOG 0-1"],
   exc:["Carcinosarcoma","Recurrent EC","其他活動性惡性腫瘤"],
-  outcomes:"【NEJM 2019 (主要結果, 5y FU)】\nPrimary: 5y RFS chemoRT 59% vs chemo 58% — 沒差異 (HR 0.90, P NS)\n局控復發 (locoregional): chemoRT 2% vs chemo 7% (HR 0.36) ✅ chemoRT 較好\n遠端復發: chemoRT 27% vs chemo 21% (HR 1.35) ❌ chemoRT 反而更多\n\n【SGO 2023 (終局 OS, 112m FU)】\nOS HR 1.05 NS — 任何 subgroup 都沒看到 OS 加成\n所有 subgroup (期別、組織、BMI、residual、年齡) 趨勢都偏向 chemo alone\n\n結論: chemoRT 沒有 RFS / OS 加成; 進階期 EC chemo alone 已足夠",
+  outcomes:"【NEJM 2019 (主要結果, 5y FU)】\nPrimary: 5y RFS chemoRT 59% vs chemo 58% — 沒差異 (HR 0.90, P NS)\n局控復發 (locoregional): chemoRT 2% vs chemo 7% (HR 0.36) ✅ chemoRT 較好\n遠端復發: chemoRT 27% vs chemo 21% (HR 1.35) ❌ chemoRT 反而更多\n\n【SGO 2023 (終局 OS, 112m FU)】\nOS HR 1.05 NS — 任何 subgroup 都沒看到 OS 加成\n所有 subgroup (期別、組織、BMI、residual、年齡) 趨勢都偏向 chemo alone\n\n結論: chemoRT 沒有 RFS / OS 加成; 進階期 EC chemo alone 已足夠\n\n【ESMO 2026 / GCIG 2026 更新】\n【10 年結果】C-RT 降低局部復發,但 RFS / OS 無改善;無次族群可預測 C-RT OS 獲益",
   enrolled:"813 patients (2009-2017)\n美國 NRG Oncology 多中心",
   hist:"Stage III-IVA EC 混合組織型 (~75% 為子宮內膜樣 IIIC1/IIIC2; 含 serous, clear cell)\n排除 carcinosarcoma",
   stageDist:"Stage IIIC1/IIIC2 為主 (~75%); Stage IIIA, IIIB, IVA, 早期 serous/clear cell 含腹腔陽性也收",
@@ -5109,7 +6341,7 @@ const TRIALS = [
   regimen:"1:2 randomization, n=500\n試驗組 (n=333): 依分子整合風險模型決定\n  • 低風險 → 觀察 (no RT)\n  • 中等風險 → 陰道近接 (VBT)\n  • 高風險 → 骨盆放療 (EBRT)\n對照組 (n=167): 依傳統臨床病理風險\n  • 一律 VBT (基於 PORTEC-2 標準)",
   inc:["FIGO 2009 Stage I 子宮內膜樣 EC","具備中度風險病理特徵 (Grade 1-2 + LVSI / Grade 3 / 深層侵犯)","完成完整分子分型標記檢測","ECOG 0-1"],
   exc:["Stage II 以上","非子宮內膜樣組織型態","Grade 3 + LVSI+ (高風險,直接 EBRT)"],
-  outcomes:"【ITT 5y vaginal recurrence】2.1% vs 1.0% — 達非劣性 (NI margin 7%)\n【ITT 5y pelvic recurrence】4.3% vs 4.4% — 等效\n【低風險族群觀察結果】5y RFS 95% — de-escalation 安全\n【RT 使用減少】試驗組 ~30% 患者免除 RT",
+  outcomes:"【ITT 5y vaginal recurrence】2.1% vs 1.0% — 達非劣性 (NI margin 7%)\n【ITT 5y pelvic recurrence】4.3% vs 4.4% — 等效\n【低風險族群觀察結果】5y RFS 95% — de-escalation 安全\n【RT 使用減少】試驗組 ~30% 患者免除 RT\n\n【ESMO 2026 / GCIG 2026 更新】\n【Lancet Oncol 2026 (Van den Heerik)】Unfavourable 分子組: 局部區域復發 8.4% vs 30.5% (HR 0.28);Favourable 組省略治療安全 (46% 免除輔助治療)",
 
   enrolled:"500 randomized — 分子模型 333 / 臨床標準 167\n荷蘭多中心",
   hist:"子宮內膜樣 EC only — 嚴格病理確認\n排除 serous, clear cell, carcinosarcoma",
@@ -5119,7 +6351,7 @@ const TRIALS = [
   combo:"與 PORTEC-3 (高風險輔助化放療), PORTEC-1/2 (歷史輔助 RT) 形成完整 PORTEC 系列\nRAINBO Program 在更晚期 stage 進一步應用此框架",
   guideline:"NCCN v2.2026 已納入分子整合風險評估為 EC 輔助治療決策參考\nESMO 2024 推薦\nESGO 2024 接受\n台灣: 部分中心已採用",
   nct:"NCT03469674",
-  publication:"JCO 2024 (van den Heerik et al., 主要結果); Lancet Oncol 2025 (long-term FU)"
+  publication:"JCO 2024 (van den Heerik et al., 主要結果); Lancet Oncol 2025 (long-term FU); Lancet Oncol 2026 (主要結果)"
 },
 
 // ============================================================
@@ -5678,7 +6910,7 @@ const TRIALS = [
   regimen:"3-arm 1:1:1 randomization, n=1566\nArm 1: Carbo AUC5 + Pacli 175mg/m² Q3W (標準)\nArm 2: Carbo AUC5 Q3W + Pacli 80mg/m² weekly\nArm 3: Carbo AUC2 weekly + Pacli 80mg/m² weekly",
   inc:["Stage IC-IV 上皮性卵巢癌","計畫接受輔助化療或 NACT","ECOG 0-2"],
   exc:[],
-  outcomes:"【ITT PFS】mPFS Arm1 17.7m / Arm2 20.8m / Arm3 21.0m — 三組無顯著差異\n【ITT OS】無差異\n【G3+ 血液毒性】Arm 2/3 顯著高於 Arm 1",
+  outcomes:"【ITT PFS】mPFS Arm1 17.7m / Arm2 20.8m / Arm3 21.0m — 三組無顯著差異\n【ITT OS】無差異\n【G3+ 血液毒性】Arm 2/3 顯著高於 Arm 1\n\n【ESMO 2026 / GCIG 2026 更新】\n【KELIM 分析 (ESMO GYN 2026)】NACT 中 KELIM <1.0 → 完整 IDS 機率 <50%;ICON8B 顯示劑量密集 ± Bev 於「兩紅旗」(KELIM 差 + 手術不完整) 族群有 PFS / OS 獲益 → 衍生 SALVOVAR、RegeNovar",
 
   enrolled:"1566 randomized\n主要為歐洲族群 (~95%)",
   hist:"高級別漿液癌 ~75%",
@@ -6361,7 +7593,7 @@ const TRIALS = [
   regimen:"1:1 randomization, n=643\n試驗組: Pembrolizumab 400mg Q6W + Paclitaxel 80mg/m² weekly ± Bev 10mg/kg Q2W (依適合性)\n對照組: Placebo + Pacli ± Bev\n187 中心, 25 國家",
   inc:["Platinum-resistant recurrent epithelial ovarian, fallopian tube, or primary peritoneal cancer","PFI ≤6 個月 from last platinum","先前 1-2 線系統治療","ECOG 0-1"],
   exc:["先前 IO","活動性自體免疫","Bev 禁忌 (則納入無 Bev arm)"],
-  outcomes:"【All-comers ITT mOS】統計顯著改善, 風險降低 18%\n【PD-L1+ (CPS≥1) subgroup mOS】較化療延長 4.2 個月 — 顯著\n【ITT mPFS】顯著改善 (primary endpoint 已達)\n【G3+ AE】Pembro+chemo 與化療相當\n【Lancet 2026 Apr 發表】",
+  outcomes:"【All-comers ITT mOS】統計顯著改善, 風險降低 18%\n【PD-L1+ (CPS≥1) subgroup mOS】較化療延長 4.2 個月 — 顯著\n【ITT mPFS】顯著改善 (primary endpoint 已達)\n【G3+ AE】Pembro+chemo 與化療相當\n【Lancet 2026 Apr 發表】\n\n【ESMO 2026 / GCIG 2026 更新】\n【CPS ≥1 (n=643,Lancet 2026)】PFS HR 0.72 (P=0.0014,+1 個月);OS HR 0.76 (P=0.0053,+4 個月) — 目前 PROC 唯一陽性 IO Phase 3;為 GCIG 提案 RACIM 之骨架",
 
   enrolled:"643 randomized — Pembro 322 / Placebo 321\n187 sites, 25 國家 (亞洲 + 歐洲 + 美洲 + 大洋洲)\n約 75% 加入 Bev",
   hist:"PROC HGSC 為主\n含 endometrioid, clear cell minor",
@@ -6933,7 +8165,7 @@ const TRIALS = [
   regimen:"1:1 randomization, n=1060\n試驗組 (n=529): Pembrolizumab 200mg IV Q3W × 5 cycles concurrent with CCRT → Pembrolizumab 400mg Q6W maintenance × 15 cycles\n對照組 (n=531): Placebo + CCRT → Placebo maintenance × 15 cycles\n\nCCRT 標準方案:\n  Cisplatin 40mg/m² IV weekly × 5-6 cycles\n  EBRT (45-50.4 Gy) + Brachytherapy (HDR/LDR)",
   inc:["新診斷 high-risk locally advanced cervical cancer","FIGO 2014 Stage IB2-IIB 且 LN+ (≥2 顆 LN 短軸 ≥1.5 cm)","FIGO 2014 Stage III-IVA (任何 LN status)","ECOG 0-1","計劃接受根治性 CCRT","Squamous, adenocarcinoma 或 adenosquamous"],
   exc:["既往系統性治療 / 免疫治療","活動性自體免疫需治療","不可控感染","放療禁忌","CNS 轉移"],
-  outcomes:"【First interim PFS, FU 17.9m】24m PFS 67.8% vs 57.3% (HR 0.70, P=0.002)\n【Second interim OS, FU 29.9m】36m OS 82.6% vs 74.8% (HR 0.67, P=0.0040) — 顯著\n【Final analysis FU 41.9m, SGO 2025】PFS HR 0.72; OS HR 0.73 (CI 0.57-0.94)",
+  outcomes:"【First interim PFS, FU 17.9m】24m PFS 67.8% vs 57.3% (HR 0.70, P=0.002)\n【Second interim OS, FU 29.9m】36m OS 82.6% vs 74.8% (HR 0.67, P=0.0040) — 顯著\n【Final analysis FU 41.9m, SGO 2025】PFS HR 0.72; OS HR 0.73 (CI 0.57-0.94)\n\n【ESMO 2026 / GCIG 2026 更新】\n【5 年 OS (ESMO 2026 引述)】ITT 死亡風險降 23%;FIGO 2014 III–IVA HR 0.64,50 個月 OS 76.2% vs 65.8%\nESMO 指引: FIGO 2018 IIIA–IVA LACC 以 CCRT + Pembrolizumab 為標準 (I, A)",
 
   enrolled:"1060 randomized — Pembro+CCRT 529 / Placebo+CCRT 531\n176 sites, 30 國家\nFIGO IB2-IIB LN+ ~24% / Stage III-IVA ~76%",
   hist:"鱗狀細胞癌 ~85% / 腺癌或腺鱗癌 ~15%\nPD-L1 CPS ≥1: ~95%",
@@ -6969,7 +8201,7 @@ const TRIALS = [
   tech:"【誘導化療 (induction)】\n  Carbo AUC2 + Pacli 80mg/m² weekly × 6 cycles\n  注意: 較傳統 NACT (3 cycles Q3W) 短而密集\n  完成後 7 天內開始 CCRT\n\n【CCRT 標準】\n  Cisplatin 40mg/m² weekly × 5\n  EBRT 45-50.4 Gy + Brachytherapy\n\n關鍵差異於 RT modality:\n  • 約 40% 採用 IMRT (現代)\n  • 60% 仍 3D-CRT 或更舊技術\n  • 影響 contemporary applicability — 引發 ASCO/ESMO 評論\n\n安全性:\n  • Induction 期 G3-4 嗜中性球減少: 30%\n  • 治療延遲較常見\n  • 整體完成率 90%",
   subgroup:"【ITT 5y PFS】HR 0.65; 5y OS HR 0.60\n【FIGO Stage subgroup】\n  • Early (IB1+LN+ to IIB): HR 較佳\n  • Late (III-IVA): 仍見獲益\n\n【Histology subgroup】\n  • 鱗狀細胞: 略佳獲益\n  • 腺癌: 仍見\n\n【RT modality 探索 (post-hoc, 引發討論)】\n  • 60% 患者非 IMRT — 限制 contemporary applicability\n  • 在 IMRT 主流時代,獲益是否一致仍有爭議\n  • ASCO 2024 / NCCN 評論: 結果可能高估 — 需個別中心評估\n\n【CCRT alone arm benchmark】\n  • 5y OS 72% — 對應現代美國 / 歐洲 CCRT 預期\n  • 適合與 KEYNOTE-A18 placebo arm 對比",
   combo:"與 KEYNOTE-A18 兩個成功的 LACC 強化策略:\n  • KEYNOTE-A18: Pembro 同步 + 維持 (免疫主導)\n  • INTERLACE: 短期高劑量誘導 (化療主導)\n  • 兩者可能為互補策略,但尚未直接比較\n\n挑戰: 兩種策略整合的可行性 (Pembro + Induction → CCRT) 為下一步研究方向",
-  guideline:"NCCN v2.2026 Category 2A for high-risk LACC (induction chemo + CCRT)\nNICE UK guideline 已納入\n台灣: 部分中心採用,健保允許範圍內執行\n\n注意: 與 KEYNOTE-A18 為平行的選擇,並非互斥",
+  guideline:"NCCN v2.2026 Category 2A for high-risk LACC (induction chemo + CCRT)\nNICE UK guideline 已納入\n台灣: 部分中心採用,健保允許範圍內執行\n\n注意: 與 KEYNOTE-A18 為平行的選擇,並非互斥\nESMO 2026 指引: IMRT/VMAT 或 IGABT 不可得時可考慮誘導化療 (II, B);不可因誘導延遲放療",
   nct:"NCT01566240",
   publication:"Lancet 2024 (McCormack et al., 主要結果); ASCO 2024 (post-hoc analyses)"
 },
@@ -6989,7 +8221,7 @@ const TRIALS = [
   regimen:"1:1 randomization, n=770\n試驗組 (n=385): Durvalumab 1500mg IV Q4W × 24 cycles + CCRT (concurrent + maintenance)\n對照組 (n=385): Placebo + CCRT",
   inc:["Untreated locally advanced cervical cancer","FIGO 2009 Stage IB2-IIB 且 LN+ (任何 LN+ 即可, 不需 ≥2 顆 / ≥1.5 cm)","FIGO 2009 Stage IIIA-IVA (任何 LN status)","ECOG 0-1","接受根治性 CCRT","Squamous, adenocarcinoma 或 adenosquamous"],
   exc:["既往免疫治療","活動性自體免疫需治療","放療 / 化療禁忌"],
-  outcomes:"【ITT PFS】HR 0.84 (CI 0.65-1.08, P=0.174) — 未達顯著\n【24m PFS】65.9% vs 62.1% — 數值上 Durva 略佳但 NS\n【ITT OS】Trend HR 0.78 — 未達顯著\n【G3+ AE】兩組相當",
+  outcomes:"【ITT PFS】HR 0.84 (CI 0.65-1.08, P=0.174) — 未達顯著\n【24m PFS】65.9% vs 62.1% — 數值上 Durva 略佳但 NS\n【ITT OS】Trend HR 0.78 — 未達顯著\n【G3+ AE】兩組相當\n\n【ESMO 2026 / GCIG 2026 更新】\n【ctDNA 分析】CRT 後 3 個月 ctDNA 可偵測 vs 未偵測: PFS HR 0.04、OS HR 0.04 (兩組皆然) — CRT 後 ctDNA 為強力預後標記",
 
   enrolled:"770 randomized — Durva 385 / Placebo 385\n105 sites, 17 國家",
   hist:"鱗狀 ~74% / 腺癌或腺鱗癌 ~26%",
@@ -7304,7 +8536,7 @@ const TRIALS = [
   regimen:"1:1 randomization, n=410\n試驗組 (n=206): Atezolizumab 1200mg + Cisplatin 50mg/m² (或 Carbo AUC5) + Paclitaxel 175mg/m² + Bev 15mg/kg Q3W → Atezolizumab+Bev 維持\n對照組 (n=204): Cisplatin/Carbo + Paclitaxel + Bev Q3W → Bev 維持",
   inc:["Metastatic (Stage IVB) / persistent / recurrent cervical cancer","measurable disease","previously untreated for advanced setting","可接受 Bev 之患者","ECOG 0-1"],
   exc:["既往免疫治療","活動性自體免疫需治療","不適合 Bev (出血/廔管/血栓)","CNS 轉移"],
-  outcomes:"【ITT mPFS】13.7 vs 10.4m (HR 0.62, CI 0.49-0.78, P<0.0001) — 顯著\n【ITT mOS interim】32.1 vs 22.8m (HR 0.68, CI 0.52-0.88, P=0.0046) — 顯著\n【ORR】84% vs 72%\n【G3+ AE】79% vs 75% (兩組相當)",
+  outcomes:"【ITT mPFS】13.7 vs 10.4m (HR 0.62, CI 0.49-0.78, P<0.0001) — 顯著\n【ITT mOS interim】32.1 vs 22.8m (HR 0.68, CI 0.52-0.88, P=0.0046) — 顯著\n【ORR】84% vs 72%\n【G3+ AE】79% vs 75% (兩組相當)\n\n【ESMO 2026 / GCIG 2026 更新】\n【最終分析 (ESMO 2026, 中位追蹤 57.2 個月)】\nmOS 31.9 vs 22.7 個月 (HR 0.69);60 個月 OS 34% vs 21%\nmPFS 13.7 vs 10.4 個月 (HR 0.62);TFST HR 0.57;PFS2 HR 0.62\n探索性 PD-L1: CPS ≥1 OS HR 0.71;CPS <1 OS HR 0.53 (24% 缺 PD-L1 資料)\n未曾 CCRT 次群組 OS HR 0.92;對照組 58% 後續交叉使用 ICI\n專家意見 (Colombo): PD-L1 agnostic 說法證據薄弱、無 BICR、僅限可用 Bev 者",
 
   enrolled:"410 randomized — Atezo+Bev+chemo 206 / Bev+chemo 204\n92 sites, 歐洲 + 日本 + 美國\nMedian FU 32.9m (primary analysis)",
   hist:"鱗狀 ~76% / 腺癌或腺鱗癌 ~24%\nPD-L1 CPS ≥1: ~70%",
@@ -7314,7 +8546,7 @@ const TRIALS = [
   combo:"與 KEYNOTE-826 並列一線 R/M CC 兩大標準:\n  • KEYNOTE-826: PD-1 (Pembro), 限 CPS≥1 主要適應症\n  • BEATcc: PD-L1 (Atezo), 全人群 (但 CPS<1 趨勢稀釋)\n\n選擇取決:\n  • 健保 / 可及性\n  • PD-L1 status\n  • Bev 適合性\n  • 中心經驗\n\n後續探索:\n  • COMPASSION-16 (Cadonilimab) 中國族群\n  • Cervical 雙特異性抗體擴展",
   guideline:"NCCN v2.2026 Category 1 for 1L R/M CC (與 KEYNOTE-826 並列)\nFDA approved Aug 2024 (BEATcc data)\nEMA approved 2024\n台灣健保: 已給付 (與 KEYNOTE-826 平行)",
   nct:"NCT03556839",
-  publication:"Lancet 2024 (Oaknin et al., 主分析); ESMO Plenary 2023 (interim); SGO 2025 (FU update)"
+  publication:"Lancet 2024 (Oaknin et al., 主分析); ESMO Plenary 2023 (interim); SGO 2025 (FU update); ESMO 2026 (final OS)"
 },
 
 {
@@ -7388,7 +8620,7 @@ const TRIALS = [
   regimen:"1:1 randomization, n=608\n試驗組 (n=304): Cemiplimab 350mg IV Q3W 至 PD 或 96 週\n對照組 (n=304): 醫師選擇單藥化療 — Pemetrexed / Vinorelbine / Topotecan / Irinotecan / Gemcitabine",
   inc:["Recurrent / metastatic 宮頸癌","Progressed after 1L platinum-based therapy","ECOG 0-1","具備可測量病灶"],
   exc:["既往免疫治療","活動性自體免疫需治療","活動性 CNS 轉移"],
-  outcomes:"【ITT mOS】12.0 vs 8.5m (HR 0.69, CI 0.56-0.84, P<0.001) — 顯著\n【ITT mPFS】2.8 vs 2.9m (HR 0.75)\n【ORR】16% vs 6%\n【DOR】mDOR 16.4m",
+  outcomes:"【ITT mOS】12.0 vs 8.5m (HR 0.69, CI 0.56-0.84, P<0.001) — 顯著\n【ITT mPFS】2.8 vs 2.9m (HR 0.75)\n【ORR】16% vs 6%\n【DOR】mDOR 16.4m\n\n【ESMO 2026 / GCIG 2026 更新】\nPD-L1 ≥1%: OS HR 0.614 (12.1 vs 7.7 個月);PD-L1 <1%: OS HR 0.650 (10.8 vs 7.0 個月);改善 QoL (EJC 2025)",
 
   enrolled:"608 randomized — Cemiplimab 304 / Chemo 304\n國際多中心\n組織學: 鱗狀 ~78% / 腺癌或腺鱗癌 ~22%",
   hist:"鱗狀 (n=477): mOS 11.1 vs 8.8m (HR 0.73)\n腺癌或腺鱗癌 (n=131): mOS 13.3 vs 7.0m (HR 0.56)\n  • 腺癌獲益略大",
@@ -12833,9 +14065,11 @@ function closePathway(){
 }
 
 function switchPathwayTab(cancer){
+  const changed = cancer !== currentPathwayCancer;
   currentPathwayCancer = cancer;
   currentPathwayNode = null;
-  if(typeof PG_SEL !== 'undefined'){ PG_SEL = null; PG_GAPS_OPEN = false; }
+  // 同一癌別 (例如從試驗詳情返回) 保留選取格與捲動位置,畫面不跑掉
+  if(changed && typeof PG_SEL !== 'undefined'){ PG_SEL = null; PG_GAPS_OPEN = false; }
   document.querySelectorAll('.pathway-tab').forEach(b => {
     b.classList.toggle('active', b.dataset.cancer === cancer);
   });
@@ -13038,6 +14272,7 @@ const PATHWAY_GRID = {
             {s:'std', t:'Trabectedin (HRD 者 DNA 修復缺陷可能更敏感)', k:'Trabectedin', ids:['et743-sar-3007']},
             {s:'cond', t:'Olaparib + Temozolomide (HRD 次群組反應較佳)', k:'Olaparib + TMZ', g:'HRD / BRCA2', ids:['olaparib-tmz']},
             {s:'cond', t:'PARPi 單藥 (BRCA2 缺失,個案 / 小型系列)', k:'PARPi 單藥', g:'BRCA2'},
+            {s:'trial', t:'Niraparib (BRCA1/2 突變或 HRD+)', k:'Niraparib', g:'HRD', ids:['jgog2052']},
             {s:'std', t:'Pazopanib', k:'Pazopanib', ids:['palette']},
             {s:'cond', t:'Eribulin', k:'Eribulin', ids:['eribulin-vs-dacarbazine']},
             {s:'gap', t:'HRD uLMS 的 PARPi 前瞻隨機證據不足', k:'PARPi 證據', idea:'HRD 篩選 uLMS 的 PARPi 隨機試驗'},
@@ -13106,7 +14341,11 @@ const PATHWAY_GRID = {
             {s:'cond', t:'Ifosfamide-based / 未用過化療', k:'Ifosfamide-based', ids:['gog-161']},
             {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 3+', ids:['destiny-pantumor02']},
           ],
-          late:[{s:'gap', t:'常被排除於 IO / ADC 試驗', k:'常被排除', idea:'癌肉瘤專屬 ADC 試驗'}],
+          late:[
+            {s:'trial', t:'Dostarlimab + Niraparib (化療後)', k:'Dostar + Nira', ids:['rocsan']},
+            {s:'neg', t:'Sac-TMT (TROP2 ADC) 於癌肉瘤 PFS HR 1.52', k:'Sac-TMT', ids:['trofuse-005']},
+            {s:'gap', t:'常被排除於 IO / ADC 試驗', k:'常被排除', idea:'癌肉瘤專屬試驗 (HER2 ADC、PARPi + IO)'},
+          ],
         }
       },
       {
@@ -13173,8 +14412,9 @@ const PATHWAY_GRID = {
             {s:'std', t:'廣泛子宮切除 + 骨盆淋巴結 / 前哨淋巴結 (開腹)', k:'開腹廣泛切除', ids:['lacc-trial']},
             {s:'neg', t:'微創 (MIS) 廣泛子宮切除:復發與死亡風險較高', k:'MIS 廣泛切除', ids:['lacc-trial']},
             {s:'std', t:'低風險 (≤2 cm、間質侵犯 <10 mm 或 ≤50%):單純子宮切除', k:'單純子宮切除', ids:['shape-trial','concerv']},
-            {s:'std', t:'前哨淋巴結取代系統性清除 (雙側偵測)', k:'前哨淋巴結', ids:['senticol']},
-            {s:'gap', t:'MIS 在小腫瘤 / 錐切後無殘餘者是否安全', k:'MIS 是否可行', idea:'低風險族群 MIS (含機器手臂) 隨機試驗'},
+            {s:'std', t:'前哨淋巴結取代系統性清除 (雙側偵測)', k:'前哨淋巴結', ids:['senticol','senticol-iii-iv']},
+            {s:'trial', t:'機器手臂 vs 開腹 (v4.0 允許 SHAPE 族群單純切除)', k:'ROCC', ids:['rocc']},
+            {s:'gap', t:'MIS 在小腫瘤 / 錐切後無殘餘者是否安全', k:'MIS 是否可行', idea:'ROCC 結果;低風險族群 MIS'},
           ],
           adj:[
             {s:'std', t:'中度風險 (Sedlis:LVSI、間質侵犯深度、腫瘤大小) → 骨盆 RT', k:'Sedlis → RT', ids:['gog-92']},
@@ -13189,15 +14429,18 @@ const PATHWAY_GRID = {
             {s:'neg', t:'CCRT + Durvalumab 未改善 PFS', k:'CCRT + Durva', ids:['calla']},
             {s:'cond', t:'新輔助化療 + IO → 手術 (pCR 約 4 成,探索性)', k:'新輔助 IO → 手術', ids:['naci-study','natic-trial']},
             {s:'trial', t:'Cadonilimab (PD-1/CTLA-4) + 新輔助化療', k:'Cadonilimab NACT', ids:['cadonilimab-nact']},
-            {s:'cond', t:'IO 時序:新輔助 Atezolizumab 引子 + CCRT (轉譯研究)', k:'IO 引子時序', g:'LN+', ids:['nrg-gy017']},
+            {s:'cond', t:'IO 時序:新輔助 IO 引子 / 同步 vs 序貫 (轉譯研究)', k:'IO 時序', g:'LN+', ids:['nrg-gy017','colibri-1','pembro-crt-timing']},
+            {s:'trial', t:'IIIC 淋巴結處理:主動脈旁手術分期 / 淋巴結減積後 CCRT', k:'淋巴結手術 + CCRT', g:'IIIC', ids:['parola','debulk']},
             {s:'neg', t:'新輔助化療 + 手術 未優於 CCRT', k:'NACT + 手術', ids:['tata-nact','eortc-55994']},
-            {s:'gap', t:'誘導化療與 IO 如何整合;IB3–IIB 是否需 IO', k:'IO 整合策略', idea:'INTERLACE + IO 合併;依分期 / PD-L1 篩選'},
+            {s:'gap', t:'誘導化療與 IO 如何整合;IB3–IIB 是否需 IO', k:'IO 整合策略', idea:'INTERLACE + IO 合併;GCIG 提案 sNIC (新輔助化免疫 → 手術)、OPTI-LACC;RAPID (EBRT 40 Gy/20 fx)'},
           ],
           mt1:[
             {s:'std', t:'Pembrolizumab 維持 (KEYNOTE-A18 方案內)', k:'Pembro 維持', ids:['keynote-a18']},
             {s:'neg', t:'CCRT 後輔助化療 4 cycles 無 OS 獲益', k:'輔助化療', ids:['outback']},
             {s:'trial', t:'Volrustomig (PD-1/CTLA-4) 維持 (高風險 LACC)', k:'Volrustomig 維持', ids:['evolve-cervical']},
-            {s:'gap', t:'CCRT 後殘存病灶 / HPV ctDNA 陽性者無導向治療', k:'ctDNA 導向', idea:'HPV ctDNA 導向的輔助強化試驗'},
+            {s:'cond', t:'Dostarlimab 維持 (期中 PFS HR 0.64,未顯著)', k:'Dostarlimab 維持', ids:['atomicc']},
+            {s:'cond', t:'CRT 後序貫 Ipilimumab (Phase I)', k:'序貫 Ipilimumab', ids:['gog-9929']},
+            {s:'gap', t:'CCRT 後 ctDNA 陽性 (PFS / OS HR 0.04) 者無導向治療', k:'ctDNA 導向', idea:'CRT 後 3 個月 ctDNA 導向的輔助強化試驗 (CALLA ctDNA 分析)'},
           ],
           local:[
             {s:'std', t:'未曾放療 → CCRT ± 近接治療', k:'RT-naïve → CCRT'},
@@ -13211,12 +14454,15 @@ const PATHWAY_GRID = {
             {s:'cond', t:'Pembrolizumab 單藥 (IO-naïve)', k:'Pembro 單藥', g:'CPS ≥1', ids:['keynote-158']},
             {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 2+/3+', ids:['destiny-pantumor02']},
             {s:'cond', t:'Sacituzumab govitecan (TROP2 ADC,含 IO 後)', k:'Sacituzumab', ids:['ever-132-003']},
+            {s:'trial', t:'Sacituzumab tirumotecan (TROP2 ADC)', k:'Sac-TMT', ids:['kl264-01','mk2870-020']},
+            {s:'trial', t:'皮下 HER2 ADC JSKN033 (ORR 52.9%,含 HER2 0)', k:'JSKN033 (SC)', ids:['jskn033-102']},
+            {s:'trial', t:'Nectin-4 ADC SHR-A2102 (ORR 47.2%)', k:'Nectin-4 ADC', g:'Nectin-4', ids:['shr-a2102']},
             {s:'cond', t:'單藥化療 (Pemetrexed、Gemcitabine、Topotecan 等)', k:'單藥化療'},
           ],
           late:[
             {s:'cond', t:'未用過的 ADC (HER2 / TROP2)', k:'未用過 ADC', ids:['destiny-pantumor02','ever-132-003']},
             {s:'cond', t:'臨床試驗優先;單藥化療', k:'試驗 / 單藥化療'},
-            {s:'gap', t:'IO + TV 後無標準;ADC 序列未知', k:'IO + TV 後', idea:'TROP2 / HER2 ADC Phase III;ADC 序列研究'},
+            {s:'gap', t:'IO + TV 後無標準;ADC 序列未知', k:'IO + TV 後', idea:'TROP2 / HER2 / Nectin-4 / B7-H3 ADC Phase III;ADC 序列研究;GCIG 提案 LOPERA (低劑量 Pembro,資源有限地區)'},
           ],
         }
       },
@@ -13231,6 +14477,7 @@ const PATHWAY_GRID = {
             {s:'std', t:'Pembrolizumab + 含鉑化療 ± Bevacizumab', k:'Pembro + 化療 ± Bev', g:'CPS ≥1', ids:['keynote-826']},
             {s:'std', t:'Atezolizumab + Cisplatin/Paclitaxel + Bevacizumab', k:'Atezo + 化療 + Bev', ids:['beatcc']},
             {s:'std', t:'含鉑化療 + Bevacizumab (IO 禁忌時)', k:'化療 + Bev', ids:['gog-240']},
+            {s:'cond', t:'QL1706 (PD-1/CTLA-4) + 化療 ± Bev (中國,OS HR 0.73)', k:'QL1706 + 化療', ids:['dubhe-c-301']},
             {s:'cond', t:'Cadonilimab (PD-1/CTLA-4) + 化療 ± Bev (中國核准)', k:'Cadonilimab + 化療', ids:['compassion-16']},
             {s:'cond', t:'Tisotumab vedotin 合併方案 (一線探索)', k:'TV 合併 (1L)', ids:['innovatv-205']},
             {s:'trial', t:'sac-TMT (TROP2 ADC) + Pembrolizumab 一線維持', k:'sac-TMT + Pembro 維持', g:'PD-L1+', ids:['trofuse-036']},
@@ -13242,9 +14489,10 @@ const PATHWAY_GRID = {
         id:'cpsneg', group:'hpv', label:'PD-L1 CPS <1', sub:'約 10–15% · IO 獲益不明',
         cells:{
           rm1:[
-            {s:'std', t:'Atezolizumab + Cisplatin/Paclitaxel + Bevacizumab (不限 PD-L1)', k:'Atezo + 化療 + Bev', ids:['beatcc']},
+            {s:'std', t:'Atezolizumab + Cisplatin/Paclitaxel + Bevacizumab (不限 PD-L1;final OS CPS<1 HR 0.53)', k:'Atezo + 化療 + Bev', ids:['beatcc']},
             {s:'std', t:'含鉑化療 + Bevacizumab', k:'化療 + Bev', ids:['gog-240']},
             {s:'cond', t:'Cadonilimab (PD-1/CTLA-4) + 化療 ± Bev (不分 PD-L1;中國核准)', k:'Cadonilimab + 化療', ids:['compassion-16']},
+            {s:'cond', t:'QL1706 (PD-1/CTLA-4) + 化療 ± Bev (中國)', k:'QL1706 + 化療', ids:['dubhe-c-301']},
             {s:'cond', t:'Pembrolizumab + 化療 (CPS <1 獲益不明確,FDA 限 CPS ≥1)', k:'Pembro (獲益不明)', ids:['keynote-826']},
             {s:'cond', t:'Tisotumab vedotin 合併方案 (一線探索)', k:'TV 合併 (1L)', ids:['innovatv-205']},
             {s:'gap', t:'CPS <1 族群 IO 獲益不明、缺替代策略', k:'CPS<1 策略', idea:'CPS <1 一線 ADC 合併試驗'},
@@ -13314,6 +14562,7 @@ const PATHWAY_GRID = {
             {s:'std', t:'Carboplatin + Paclitaxel + Pembrolizumab / Dostarlimab → IO 維持 (pMMR 獲益較小)', k:'CP + PD-1', ids:['gy018','ruby-p1']},
             {s:'std', t:'CP + Durvalumab → Durvalumab + Olaparib 維持', k:'CP + Durva (± Ola)', ids:['duo-e']},
             {s:'cond', t:'CP + Atezolizumab (ITT OS 未達顯著)', k:'CP + Atezo', ids:['attend']},
+            {s:'neg', t:'Lenvatinib + Pembrolizumab 一線未優於 CP (毒性較高)', k:'Lenva + Pembro 1L', ids:['leap-001']},
             {s:'std', t:'Carboplatin + Paclitaxel 化療骨架 (非劣於 TAP、毒性較低)', k:'CP 骨架', ids:['gog-209']},
             {s:'std', t:'Stage III–IVA:化療為主,加 RT 未改善 OS;p53abn 可考慮 chemoRT', k:'化療 ± RT', ids:['portec-3','gog-258']},
             {s:'cond', t:'Carboplatin + Paclitaxel + Trastuzumab', k:'CP + Trastuzumab', g:'HER2+ serous', ids:['fader-her2']},
@@ -13325,7 +14574,7 @@ const PATHWAY_GRID = {
             {s:'std', t:'Durvalumab + Olaparib (pMMR 獲益最明顯)', k:'Durva + Ola', ids:['duo-e','duo-e-maint']},
             {s:'cond', t:'Dostarlimab + Niraparib', k:'Dostar + Nira', ids:['ruby-p2']},
             {s:'cond', t:'Selinexor (TP53 wild-type 次群組)', k:'Selinexor', g:'TP53wt', ids:['siendo']},
-            {s:'neg', t:'Olaparib 單藥維持未達主終點 (p53abn / HRD+ 趨勢)', k:'Olaparib 單藥', ids:['utola']},
+            {s:'neg', t:'Olaparib 單藥維持未達主終點 (獲益限於鉑敏感、染色體不穩定的 p53abn)', k:'Olaparib 單藥', ids:['utola']},
             {s:'trial', t:'Sacituzumab tirumotecan (TROP2 ADC) + Pembrolizumab', k:'sac-TMT + Pembro', ids:['trofuse-033']},
             {s:'gap', t:'p53abn 一線維持無專屬標準', k:'p53abn 維持', idea:'HRD 導向 PARPi 或 HER2 ADC 維持試驗'},
           ],
@@ -13335,21 +14584,26 @@ const PATHWAY_GRID = {
             {s:'std', t:'Lenvatinib + Pembrolizumab (含鉑後、未用 IO)', k:'Lenva + Pembro', ids:['keynote-775']},
             {s:'cond', t:'Letrozole + Everolimus (化療 naïve 獲益最大)', k:'Letrozole + Everolimus', g:'ER+ 低惡性度', ids:['gog-3007']},
             {s:'cond', t:'Letrozole + Palbociclib', k:'Letrozole + CDK4/6i', g:'ER+ endometrioid', ids:['paleo']},
+            {s:'cond', t:'Fulvestrant + Abemaciclib (ER+ NSMP ORR 56%;p53abn 0%)', k:'Fulv + Abema', g:'ER+ NSMP', ids:['fulv-abema-ec']},
+            {s:'trial', t:'口服 SERD Camizestrant', k:'Camizestrant', g:'ER ≥10% NSMP', ids:['camizestrant-ec']},
             {s:'cond', t:'MPA / Megestrol ↔ Tamoxifen', k:'MPA / Tamoxifen', g:'ER/PR+', ids:['gog-3007']},
             {s:'cond', t:'CP + Trastuzumab (HER2+ serous 復發)', k:'CP + Trastuzumab', g:'HER2+ serous', ids:['fader-her2']},
             {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 3+', ids:['destiny-pantumor02']},
           ],
           recIO:[
+            {s:'cond', t:'Sacituzumab tirumotecan:PFS / OS 均改善 (Phase 3,新標準候選)', k:'Sac-TMT ★', ids:['trofuse-005','sac-tmt-ec-ph2']},
             {s:'cond', t:'Lenvatinib + Pembrolizumab (IO 後資料有限)', k:'Lenva + Pembro', ids:['keynote-775']},
-            {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 2+/3+', ids:['destiny-pantumor02']},
+            {s:'cond', t:'T-DXd (HER2 3+ ORR 84.6%)', k:'T-DXd', g:'HER2 IHC 2+/3+', ids:['destiny-pantumor02']},
             {s:'cond', t:'Sacituzumab govitecan (TROP2 ADC)', k:'Sacituzumab', ids:['tropics-03']},
             {s:'trial', t:'Sacituzumab govitecan vs 化療 (含鉑 + IO 後)', k:'ASCENT-GYN-01', ids:['ascent-gyn-01']},
             {s:'cond', t:'Dato-DXd (TROP2 ADC,早期試驗)', k:'Dato-DXd', ids:['tropion-pantumor03']},
-            {s:'trial', t:'B7-H4 ADC', k:'B7-H4 ADC', g:'B7-H4', ids:['bluestar']},
+            {s:'trial', t:'B7-H4 ADC (BLUESTAR ORR 47–61%;Mo-Rez ORR 67%)', k:'B7-H4 ADC', g:'B7-H4', ids:['bluestar','behold-1-ec']},
+            {s:'trial', t:'FRα ADC Rina-S (ORR 46.4%)', k:'FRα ADC', g:'FRα', ids:['rainfol-01-ec']},
+            {s:'trial', t:'E7386 (β-catenin) + Lenvatinib (ORR 57%)', k:'E7386 + Lenva', g:'Wnt / CTNNB1', ids:['e7386-lenva']},
             {s:'cond', t:'Olaparib + Pembrolizumab', k:'Ola + Pembro', g:'HRRm / HRD', ids:['keynote-867']},
             {s:'cond', t:'荷爾蒙合併標靶 (未用過者)', k:'荷爾蒙 ± 標靶', g:'ER+', ids:['gog-3007','paleo']},
             {s:'cond', t:'單藥化療 (Doxorubicin、wPac)', k:'單藥化療'},
-            {s:'gap', t:'含鉑 + IO 一線後無標準二線', k:'IO 後無標準', idea:'ADC Phase III 與 biomarker (TROP2、B7-H4、HER2) 篩選'},
+            {s:'gap', t:'含鉑 + IO 後二線:ADC 選擇與序列、TROP2-low 族群', k:'ADC 選擇 / 序列', idea:'TROP2 / B7-H4 / FRα / HER2 biomarker 導向 ADC 選擇與序列試驗'},
           ],
           late:[
             {s:'cond', t:'未用過的 ADC / 單藥化療 / 臨床試驗優先', k:'試驗 / 單藥化療'},
@@ -13368,7 +14622,7 @@ const PATHWAY_GRID = {
           early:[
             {s:'std', t:'TH/BSO + 前哨淋巴結 (MIS)', k:'TH/BSO + SLN'},
             {s:'std', t:'I–II 期可省略輔助治療 (FIGO 2023 IAm-POLE)', k:'省略輔助', ids:['portec-4a']},
-            {s:'trial', t:'RAINBO-BLUE:POLEmut 輔助降階', k:'RAINBO-BLUE', ids:['rainbo-program']},
+            {s:'trial', t:'RAINBO-BLUE:POLEmut 輔助降階', k:'RAINBO-BLUE', ids:['rainbo-program','en10-taper']},
           ],
           adv:[{s:'cond', t:'晚期極罕見;比照 pMMR 化療 ± IO', k:'比照 pMMR'}],
           recN:[{s:'cond', t:'復發極罕見;超突變 → 可考慮 IO', k:'IO (超突變)'}],
@@ -13385,31 +14639,36 @@ const PATHWAY_GRID = {
           early:[
             {s:'std', t:'TH/BSO + 前哨淋巴結 (MIS)', k:'TH/BSO + SLN'},
             {s:'std', t:'依風險:觀察 / VBT / EBRT', k:'VBT / EBRT', ids:['portec-2','portec-4a']},
-            {s:'cond', t:'輔助化療 + Pembrolizumab (整體陰性,dMMR 次群組 DFS 獲益)', k:'輔助 + IO (次群組)', ids:['keynote-b21']},
+            {s:'cond', t:'高風險:輔助化療 + Pembrolizumab (整體陰性;dMMR DSFS HR 0.25、ctDNA 全清除)', k:'輔助 + IO (dMMR)', ids:['keynote-b21']},
+            {s:'neg', t:'高中風險:RT + Pembrolizumab 未改善 3 年 RFS', k:'RT + Pembro (HIR)', ids:['nrg-gy020']},
             {s:'trial', t:'RAINBO-GREEN:RT ± Durvalumab', k:'RAINBO-GREEN', ids:['rainbo-program']},
           ],
           adv:[
             {s:'std', t:'Carboplatin + Paclitaxel + PD-1/PD-L1 → IO 維持 (PFS HR 0.28–0.36)', k:'CP + IO', ids:['ruby-p1','gy018','attend','duo-e']},
-            {s:'trial', t:'Pembrolizumab 單藥 vs 含鉑化療 (去化療)', k:'IO 單藥 vs 化療', ids:['keynote-c93']},
+            {s:'cond', t:'Pembrolizumab 單藥去化療 (mPFS 38.2 vs 8.4 個月;約 20% 原發抗藥)', k:'Pembro 單藥 ★', ids:['keynote-c93']},
+            {s:'cond', t:'Lenvatinib + Pembrolizumab (MMRd PFS HR 0.62,毒性較高)', k:'Lenva + Pembro', ids:['leap-001']},
             {s:'std', t:'Stage III–IVA:化療為主,加 RT 未改善 OS', k:'化療 ± RT', ids:['gog-258']},
           ],
           mt1:[
             {s:'std', t:'IO 延續維持 (Dostarlimab / Pembrolizumab / Durvalumab / Atezolizumab)', k:'IO 延續', ids:['ruby-p1','gy018','attend','duo-e']},
             {s:'neg', t:'加 Olaparib 於 dMMR 無額外獲益', k:'+ Olaparib', ids:['duo-e-maint']},
-            {s:'gap', t:'IO 維持最佳時間長度未知', k:'IO 維持多久?', idea:'ctDNA 導向提早停止 IO 的降階試驗'},
+            {s:'cond', t:'24 個月後計畫性停用 ICI (真實世界 + RUBY 平台)', k:'24 個月停藥', ids:['mmrd-ici-24m','ruby-p1']},
+            {s:'gap', t:'IO 維持最佳時間長度未有前瞻證據', k:'IO 維持多久?', idea:'ctDNA 導向提早停止 IO 的降階試驗'},
           ],
           recN:[
             {s:'std', t:'陰道局部復發 (未曾 RT) → 救援 RT', k:'局部復發 → RT', ids:['portec-1']},
             {s:'std', t:'IO 單藥 (Dostarlimab / Pembrolizumab)', k:'IO 單藥', ids:['keynote-158','garnet']},
             {s:'std', t:'CP + IO (未用過 IO)', k:'CP + IO', ids:['ruby-p1','gy018']},
-            {s:'trial', t:'Pembrolizumab 單藥 vs 含鉑化療', k:'KEYNOTE-C93', ids:['keynote-c93']},
+            {s:'cond', t:'Pembrolizumab 單藥 (KEYNOTE-C93 陽性,去化療)', k:'Pembro 單藥 ★', ids:['keynote-c93']},
             {s:'cond', t:'Lenvatinib + Pembrolizumab', k:'Lenva + Pembro', ids:['keynote-775']},
           ],
           recIO:[
             {s:'cond', t:'化療 (含鉑再挑戰 / 單藥)', k:'化療'},
             {s:'cond', t:'Lenvatinib + Pembrolizumab (IO 後資料有限)', k:'Lenva + Pembro', ids:['keynote-775']},
             {s:'cond', t:'ADC (HER2 / TROP2)', k:'ADC', ids:['destiny-pantumor02','tropics-03','ascent-gyn-01']},
-            {s:'gap', t:'IO 抗藥 dMMR (原發 / 續發抗藥) 機制與治療未明', k:'IO 抗藥', idea:'IO 抗藥機制 (B2M、JAK) 導向試驗;IO + ADC'},
+            {s:'trial', t:'WRN 抑制劑 (MSI 合成致死)', k:'WRN 抑制劑', g:'MSI-H / dMMR', ids:['wrn-ro7589831']},
+            {s:'cond', t:'Sac-TMT (TROP2 ADC)', k:'Sac-TMT', ids:['trofuse-005']},
+            {s:'gap', t:'IO 抗藥 dMMR (約 20–30%) 機制與治療未明', k:'IO 抗藥', idea:'WRN 抑制劑 Phase 2/3;IO 抗藥機制 (B2M、JAK) 導向試驗'},
           ],
           late:[{s:'gap', t:'多線後無標準', k:'無標準', idea:'籃式試驗 / ADC 序列'}],
         }
@@ -13426,6 +14685,7 @@ const PATHWAY_GRID = {
             {s:'std', t:'TH/BSO + 前哨淋巴結 (MIS)', k:'TH/BSO + SLN'},
             {s:'std', t:'低風險觀察;中 / 高中風險 → VBT', k:'觀察 / VBT', ids:['portec-1','portec-2','portec-4a']},
             {s:'trial', t:'RAINBO-ORANGE:高中風險 NSMP ER+ → RT vs 黃體素', k:'RAINBO-ORANGE', ids:['rainbo-program']},
+            {s:'trial', t:'TAPER:低風險 p53wt / NSMP ER+ 省略輔助 (收案完成)', k:'TAPER 降階', ids:['en10-taper']},
           ],
         }
       },
@@ -13470,7 +14730,11 @@ const PATHWAY_GRID = {
             {s:'cond', t:'Ifosfamide-based / 未用過的化療', k:'Ifosfamide-based', ids:['gog-161']},
             {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 3+', ids:['destiny-pantumor02']},
           ],
-          recIO:[{s:'gap', t:'預後差、多被排除於 IO / ADC 試驗', k:'常被排除', idea:'癌肉瘤專屬 ADC (HER2 / TROP2) 試驗'}],
+          recIO:[
+            {s:'neg', t:'Sac-TMT 於癌肉瘤 (TROP2 low 64.6%) PFS HR 1.52', k:'Sac-TMT (CS)', ids:['trofuse-005']},
+            {s:'trial', t:'Dostarlimab + Niraparib', k:'Dostar + Nira', ids:['rocsan']},
+            {s:'gap', t:'預後差、TROP2 low、多被排除於 IO / ADC 試驗', k:'常被排除', idea:'癌肉瘤專屬試驗 (HER2 ADC、PARPi + IO)'},
+          ],
         }
       },
     ]
@@ -13515,7 +14779,8 @@ const PATHWAY_GRID = {
             {s:'std', t:'IDS 合併 HIPEC (Cisplatin 100 mg/m²)', k:'IDS + HIPEC', ids:['van-driel-hipec']},
             {s:'trial', t:'高品質中心 PDS vs NACT 再驗證', k:'TRUST', ids:['trust']},
             {s:'neg', t:'臨床陰性淋巴結 → 系統性淋巴清掃無效益', k:'淋巴清掃', ids:['lion']},
-            {s:'gap', t:'NACT 反應不佳 / IDS 無法達 R0', k:'NACT 反應差', idea:'NACT 期間早期換線或加入 ADC / PARPi 的 window 試驗'},
+            {s:'trial', t:'KELIM <1 (化療反應差) 適應性策略:劑量密集 ± Bev / Ubamatamab 增敏', k:'KELIM 導向', g:'KELIM <1', ids:['salvovar','regenovar','icon8']},
+            {s:'gap', t:'NACT 反應不佳 / IDS 無法達 R0', k:'NACT 反應差', idea:'GCIG 提案 LOTUS:低腫瘤負荷 IDS vs PDS;KELIM 導向換線'},
           ],
           tx1:[
             {s:'std', t:'Carboplatin + Paclitaxel q3w ± Bevacizumab (高風險:Stage IV / 殘餘病灶)', k:'CP q3w ± Bev', ids:['gog-0218','icon7']},
@@ -13531,15 +14796,18 @@ const PATHWAY_GRID = {
             {s:'std', t:'Pembrolizumab + weekly Paclitaxel ± Bev', k:'Pembro + wPac', g:'PD-L1 CPS ≥1 主分析', ids:['keynote-b96']},
             {s:'cond', t:'Relacorilant + nab-Paclitaxel', k:'Relacorilant', ids:['rosella']},
             {s:'cond', t:'Dato-DXd (TROP2 ADC,早期試驗)', k:'Dato-DXd', g:'TROP2', ids:['tropion-pantumor03']},
-            {s:'trial', t:'Raludotatug deruxtecan (R-DXd, CDH6 ADC)', k:'R-DXd (CDH6)', g:'CDH6', ids:['rejoice-ovarian01','engot-ov77']},
+            {s:'trial', t:'Raludotatug deruxtecan (R-DXd, CDH6 ADC) ± Bev (+Bev ORR 80%)', k:'R-DXd (CDH6)', g:'CDH6', ids:['rejoice-ovarian01','engot-ov77','rejoice-ovarian02']},
+            {s:'trial', t:'新一代 FRα ADC (不受 FRα 表現量限制,ORR 50–65%)', k:'新 FRα ADC', g:'FRα 全表現量', ids:['sofe-m','rina-s-ph1','zw191','fontana','rainfol-ov2']},
+            {s:'trial', t:'B7-H4 ADC Mo-Rez (cORR 62%,mPFS 11.1 個月)', k:'B7-H4 ADC', g:'B7-H4', ids:['behold-1-oc']},
+            {s:'trial', t:'Cyclin E1 標靶:WEE1i Azenosertib / CDK2i', k:'WEE1i / CDK2i', g:'Cyclin E1 IHC+', ids:['denali','aspenova','incb123667-bev']},
             {s:'neg', t:'Nivolumab 單藥不優於化療', k:'Nivo 單藥', ids:['ninja']},
             {s:'gap', t:'鉑難治 (一線治療中進展) — 多數試驗排除', k:'鉑難治', idea:'專為鉑難治族群設計的 ADC / IO 試驗'},
-            {s:'gap', t:'FRα-low 且 HER2− 的 PROC', k:'FRα-low · HER2−', idea:'CDH6 / B7-H4 / TROP2 / CLDN6 ADC'},
+            {s:'gap', t:'FRα-low 且 HER2− 的 PROC;ADC 間如何選擇', k:'ADC 選擇', idea:'新 FRα / CDH6 / B7-H4 ADC 頭對頭或 biomarker 導向選擇;GCIG 提案 RACIM (低劑量放療 + IO)、SOC-P (二次減積 + QL1706)'},
           ],
           late:[
             {s:'cond', t:'未用過的非交叉單藥化療 ± Bev / 臨床試驗優先', k:'非交叉化療 / 試驗'},
             {s:'cond', t:'T-DXd', k:'T-DXd', g:'HER2 IHC 3+', ids:['destiny-pantumor02']},
-            {s:'trial', t:'FRα ADC 新藥 ± Bev', k:'FRα ADC (新)', g:'FRα', ids:['framework-01']},
+            {s:'trial', t:'FRα ADC 新藥 ± Bev (含 MIRV 後仍有反應)', k:'FRα ADC (新)', g:'FRα', ids:['framework-01','sofe-m']},
             {s:'trial', t:'不同 payload / 標靶的 ADC (CDH6)', k:'R-DXd', g:'CDH6', ids:['engot-ov77']},
             {s:'gap', t:'MIRV / ADC 後無標準治療;ADC 序列與 payload 交叉抗藥未知', k:'ADC 後無標準', idea:'ADC 序列研究 (不同 payload);ADC + IO 合併'},
           ],
@@ -13562,15 +14830,19 @@ const PATHWAY_GRID = {
           psoc:[
             {s:'std', t:'含鉑雙藥 (CP / C-PLD / C-Gem) ± Bevacizumab', k:'含鉑 ± Bev', ids:['calypso','oceans','gog-0213','mito16b']},
             {s:'std', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
+            {s:'neg', t:'Carbo + MIRV:ORR 倍增但 PFS 無差異', k:'Carbo + MIRV', ids:['mirova']},
           ],
           psocp:[
             {s:'cond', t:'含鉑雙藥 ± Bevacizumab (PARPi 後反應率與 PFS 較低)', k:'含鉑 ± Bev', ids:['mito16b']},
+            {s:'cond', t:'MIRV + Carboplatin (PARPi 中惡化 ORR 59.5% / PARPi 後 70.8%)', k:'MIRV + Carbo', g:'FRα', ids:['imgn853-0420']},
+            {s:'trial', t:'Sofe-M + Bev (cORR 79.3%,不論 PARPi 史)', k:'Sofe-M + Bev', ids:['sofe-m','framework-01']},
             {s:'cond', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
             {s:'gap', t:'PARPi 後含鉑反應差;BRCA reversion 等抗藥機制無對應治療', k:'BRCA reversion', idea:'ctDNA reversion 篩選 + ATR / POLθ / WEE1 抑制劑'},
           ],
           rmt:[
             {s:'std', t:'PARPi 維持 (PARPi-naïve)', k:'PARPi 維持', ids:['study-19','solo2','nova','ariel3','l-moca','nora']},
             {s:'cond', t:'Bevacizumab 延續維持 (含鉑 + Bev 後)', k:'Bev 維持', ids:['oceans','gog-0213']},
+            {s:'trial', t:'MIRV + Bev 維持', k:'MIRV + Bev 維持', g:'FRα ≥75%', ids:['gloriosa']},
             {s:'gap', t:'一線已用 PARPi → PARPi 再挑戰證據有限', k:'PARPi 再挑戰?', idea:'PARPi rechallenge ± ATR/WEE1 抑制劑;ADC 維持'},
           ],
         }
@@ -13588,15 +14860,20 @@ const PATHWAY_GRID = {
           psoc:[
             {s:'std', t:'含鉑雙藥 ± Bevacizumab', k:'含鉑 ± Bev', ids:['calypso','oceans','gog-0213','mito16b']},
             {s:'std', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
+            {s:'neg', t:'Carbo + MIRV:ORR 倍增但 PFS 無差異', k:'Carbo + MIRV', ids:['mirova']},
           ],
           psocp:[
             {s:'cond', t:'含鉑雙藥 ± Bevacizumab', k:'含鉑 ± Bev', ids:['mito16b']},
             {s:'cond', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
-            {s:'gap', t:'一線 PARPi 後復發的最佳序列未定', k:'最佳序列未定', idea:'PARPi 後 PSOC:含鉑 + ADC / 新藥合併'},
+            {s:'cond', t:'MIRV + Carboplatin (PARPi 中惡化反應較差)', k:'MIRV + Carbo', g:'FRα', ids:['imgn853-0420']},
+            {s:'trial', t:'Sofe-M + Bev (cORR 79.3%)', k:'Sofe-M + Bev', ids:['sofe-m','framework-01']},
+            {s:'gap', t:'一線 PARPi 後復發的最佳序列未定;PARPi 中惡化者挑戰「PFI >6 個月」定義', k:'最佳序列未定', idea:'依 PARPi 暴露 (中 / 後惡化) 重新定義 PSOC 的 ADC 合併試驗'},
           ],
           rmt:[
             {s:'std', t:'PARPi 維持 (PARPi-naïve)', k:'PARPi 維持', ids:['study-19','nova','ariel3','opinion','l-moca','nora']},
             {s:'cond', t:'Bevacizumab 延續維持', k:'Bev 維持', ids:['oceans','gog-0213']},
+            {s:'trial', t:'MIRV + Bev 維持', k:'MIRV + Bev 維持', g:'FRα ≥75%', ids:['gloriosa']},
+            {s:'neg', t:'UV1 疫苗 + Ola + Durva 未達主終點 (HRD− 有訊號)', k:'UV1 疫苗', ids:['dovacc']},
             {s:'gap', t:'一線已用 PARPi 者無有效維持', k:'PARPi 後維持', idea:'PARPi rechallenge 隨機試驗;ADC 維持'},
           ],
         }
@@ -13609,11 +14886,13 @@ const PATHWAY_GRID = {
             {s:'cond', t:'PARPi (Niraparib / Rucaparib;HRD− 獲益小,OS 無差異)', k:'PARPi (獲益小)', ids:['prima','prime-study','athena-mono']},
             {s:'cond', t:'Olaparib + Bev + Durvalumab', k:'Ola + Bev + Durva', ids:['duo-o']},
             {s:'trial', t:'ADC 一線維持 (台灣中心收案中)', k:'ADC 維持', g:'HER2 (DESTINY)', ids:['trofuse-021','destiny-ovarian01']},
-            {s:'gap', t:'HRP 一線維持無生物標記導向治療;CCNE1 amp 預後最差', k:'CCNE1 amp', idea:'CCNE1 amp → WEE1 / PKMYT1 / CDK2 抑制劑'},
+            {s:'trial', t:'c-Met ADC Temab-A + Bev 一線維持 (含 OCCC)', k:'c-Met ADC 維持', g:'c-Met', ids:['andrometa-oc-488']},
+            {s:'gap', t:'HRP 一線維持無生物標記導向治療;CCNE1 amp 預後最差', k:'CCNE1 amp', idea:'Cyclin E1 IHC+ → WEE1 (Azenosertib) / CDK2 抑制劑移至一線維持'},
           ],
           psoc:[
             {s:'std', t:'含鉑雙藥 ± Bevacizumab', k:'含鉑 ± Bev', ids:['calypso','oceans','gog-0213','mito16b']},
             {s:'cond', t:'二次減積手術 (AGO score 陽性)', k:'二次減積', ids:['desktop-iii']},
+            {s:'neg', t:'Carbo + MIRV:ORR 倍增但 PFS 無差異', k:'Carbo + MIRV', ids:['mirova']},
           ],
           psocp:[
             {s:'cond', t:'含鉑雙藥 ± Bevacizumab', k:'含鉑 ± Bev', ids:['mito16b']},
@@ -13622,7 +14901,8 @@ const PATHWAY_GRID = {
           rmt:[
             {s:'cond', t:'Niraparib (non-gBRCA 族群獲益較小)', k:'Niraparib', ids:['nova']},
             {s:'cond', t:'Bevacizumab 延續維持', k:'Bev 維持', ids:['oceans','gog-0213']},
-            {s:'trial', t:'ADC 復發維持', k:'ADC 維持', ids:['trofuse-022']},
+            {s:'trial', t:'ADC 復發維持', k:'ADC 維持', ids:['trofuse-022','gloriosa']},
+            {s:'neg', t:'UV1 疫苗 + Ola + Durva (HRD− HR 0.73,未達顯著)', k:'UV1 疫苗', ids:['dovacc']},
             {s:'gap', t:'PARPi 對 HRP 效益有限,維持選項不足', k:'維持選項不足', idea:'ADC / IO 維持試驗'},
           ],
         }
@@ -13651,7 +14931,7 @@ const PATHWAY_GRID = {
           rmt:[{s:'gap', t:'MEKi / 荷爾蒙治療後無標準維持', k:'無標準維持', idea:'MEKi + CDK4/6i 序列研究'}],
           late:[
             {s:'cond', t:'Dabrafenib + Trametinib', k:'Dabrafenib + Trametinib', g:'BRAF V600E'},
-            {s:'gap', t:'MEKi 抗藥後選項空白', k:'MEKi 抗藥後', idea:'RAS(ON) / pan-RAF 抑制劑'},
+            {s:'gap', t:'MEKi 抗藥後選項空白', k:'MEKi 抗藥後', idea:'RAS(ON) / pan-RAF 抑制劑;GCIG 提案 FLORALIA (Rina-S 於 LGSOC)'},
           ],
         }
       },
@@ -13704,6 +14984,7 @@ const PATHWAY_GRID = {
             {s:'trial', t:'ATR 抑制劑', k:'ATR 抑制劑', g:'ARID1A loss', ids:['atari']},
             {s:'cond', t:'免疫治療', k:'IO', g:'dMMR', ids:['garnet-oc']},
             {s:'neg', t:'Sunitinib 單藥無效', k:'Sunitinib', ids:['gog-254']},
+            {s:'neg', t:'FRα ADC (ZW191) 於亮細胞癌反應低 (0–20%)', k:'FRα ADC (CCC)', ids:['zw191']},
           ],
           late:[{s:'gap', t:'鉑抗藥 OCCC 幾無標準', k:'幾無標準', idea:'ARID1A 合成致死 (ATR / EZH2) 試驗'}],
         }
@@ -13771,7 +15052,7 @@ const PATHWAY_GRID = {
           ],
           adv:[{s:'std', t:'減積手術', k:'減積手術'}],
           tx1:[{s:'std', t:'BEP 或 Carboplatin + Paclitaxel', k:'BEP / CP'}],
-          mt1:[{s:'gap', t:'無維持證據', k:'無證據'}],
+          mt1:[{s:'gap', t:'無維持證據', k:'無證據', idea:'GCIG 提案 GHOST:FOXL2 ctDNA 導向輔助化療 vs 荷爾蒙 / 追蹤'}],
           psoc:[
             {s:'std', t:'二次減積 (晚期復發常見,可多次)', k:'二次減積'},
             {s:'cond', t:'荷爾蒙治療 (Aromatase inhibitor)', k:'AI 荷爾蒙'},
@@ -13881,7 +15162,7 @@ function renderPathwayGrid(cancer){
   const groups = data.groups || [];
   const cg = data.colGroups || null;
   const hdrRows = cg ? 2 : 1;
-  const MAX = 3;
+  const MAX = 99;   // 顯示全部項目,不截斷
 
   // ---- header ----
   let mx = `<div class="pg-cell pg-corner" style="grid-row:1/span ${hdrRows};grid-column:1/3">分型 \\ 病程</div>`;
@@ -13997,13 +15278,22 @@ function renderPathwayGrid(cancer){
           <details class="pg-tests"><summary>🧬 必要檢測</summary><ul>${data.tests.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></details>
         </div>
       </div>
-      <div class="pg-scroll"><div class="pg-grid" style="--pg-cols:${data.columns.length}">${mx}</div></div>
+      <div class="pg-scroll" id="pgScroll"><div class="pg-grid${cg?' has-cg':''}" style="--pg-cols:${data.columns.length}">${mx}</div></div>
       ${agHtml}
       ${panel ? `<aside class="pg-panel" id="pgPanel">${panel}</aside>` : ''}
     </div>`;
 }
 
 let PG_GAPS_OPEN = false;
+// 記住矩陣捲動位置 (點格子 / 進入試驗詳情再返回時還原)
+let PG_SCROLL = {cancer:null, body:0, x:0, y:0};
+function pgRestoreScroll(){
+  const body = el('pathwayBody'), sc = el('pgScroll');
+  if(!body || !sc) return;
+  body.scrollTop = PG_SCROLL.body;
+  sc.scrollLeft = PG_SCROLL.x;
+  sc.scrollTop = PG_SCROLL.y;
+}
 // 讓滑出面板對齊 modal 內容區 (modal 高度隨內容變動)
 function pgPlacePanel(){
   const pn = el('pgPanel');
@@ -14043,7 +15333,18 @@ function renderPathway(){
     </div>
     ${hasGrid?'':'<div class="pg-notice">此癌別的「病程 × 生物標記」矩陣建置中,先顯示舊版視圖。</div>'}`;
   if(view === 'grid'){
-    el('pathwayBody').innerHTML = switcher + renderPathwayGrid(cancer);
+    const body = el('pathwayBody');
+    const keep = PG_SCROLL.cancer === cancer;
+    body.innerHTML = switcher + renderPathwayGrid(cancer);
+    if(!keep) PG_SCROLL = {cancer, body:0, x:0, y:0};
+    pgRestoreScroll();
+    requestAnimationFrame(pgRestoreScroll);
+    const sc = el('pgScroll');
+    if(sc) sc.addEventListener('scroll', () => { PG_SCROLL.x = sc.scrollLeft; PG_SCROLL.y = sc.scrollTop; }, {passive:true});
+    if(!body._pgBound){
+      body._pgBound = true;
+      body.addEventListener('scroll', () => { if(el('pgScroll')) PG_SCROLL.body = body.scrollTop; }, {passive:true});
+    }
     pgPlacePanel();
   } else {
     el('pathwayBody').innerHTML = switcher + '<div id="pathwayLegacyBody"></div>';
