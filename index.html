@@ -3290,6 +3290,7 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 @media (max-width:900px){.pg-panel.wide{width:auto;}}
 .pg-flt.adc.active{background:#0e7490;border-color:#0e7490;color:#fff;}
 .pg-adc-wrap{overflow-x:auto;margin:8px 0;flex:none;}
+.pg-nonadc{font-size:12px;line-height:1.6;background:#fff7ed;border:1px solid #fdba74;border-radius:6px;padding:6px 9px;margin:6px 0;color:#7c2d12;}
 .pg-pn-body > *{flex-shrink:0;}
 .pg-adc-tbl{min-width:640px;}
 .pg-adc-tbl tr.mt td:nth-child(3){color:#9a3412;font-weight:700;}
@@ -4392,7 +4393,7 @@ const TRIALS = [
   fullName:"SIENDO / ENGOT-EN5 / GOG-3055",
   pharma:"Karyopharm",
   drug:"Selinexor (XPO1 抑制劑)",
-  tagline:"TP53 wild-type subgroup 突破:mPFS 27.4 vs 5.2m (HR 0.41) — 5 倍延長。SIENDO-2 確認中。",
+  tagline:"ITT 僅小幅改善 (HR 0.71);TP53 wild-type 探索性亞組 mPFS 27.4 vs 5.2m (HR 0.41) — 但確認性 Phase 3 XPORT-EC-042 於 2026/07 未達主終點。",
   rationale:"XPO1 (Exportin 1) 抑制劑 Selinexor 在 TP53 wild-type 患者中誘導細胞核內抑癌蛋白 (p53, FoxO 等) 蓄積,引發腫瘤細胞凋亡。針對化療反應後的維持階段。",
   regimen:"2:1 randomization, n=263\n試驗組 (n=174): Selinexor 80mg PO QW (每週一次,持續至進展)\n對照組 (n=89): Placebo PO QW",
   inc:["完成一線含鉑化療後達 CR 或 PR 之晚期/復發 EC","ECOG 0-1","提供組織樣本進行 p53 狀態判定 (Sanger 或 NGS)","Stage IV 或 recurrent"],
@@ -4405,9 +4406,35 @@ const TRIALS = [
   tech:"Selinexor 80mg PO 每週一次 (QW)\n\n常見副作用 (G≥3):\n  • Nausea: 80% (G3 ~10%)\n  • Fatigue: 50%\n  • Thrombocytopenia: 50% (G3 ~10%)\n  • Hyponatremia: 30% (G3 ~5%)\n  • Anorexia: 50%\n\n劑量調整: 嚴重血小板減少時減至 60mg QW\n\n持續至進展或不可耐受 (無時間封頂)",
   subgroup:"【Primary ITT (n=263)】\n  • mPFS 5.7 vs 3.8m (HR 0.71, P=0.024)\n  • 全體獲益有限,p 值 0.024 屬 borderline 顯著\n\n【TP53 wild-type subgroup, n=113 (43%)】 — 突破性\n  • mPFS 27.4 vs 5.2m (HR 0.41, CI 0.23-0.73)\n  • 5 倍以上 PFS 延長\n  • 優於目前所有 EC 維持方案\n\n【TP53 mutant subgroup, n=92】\n  • 無獲益 (HR ~1.0)\n  • 確認 selinexor 機制依賴 p53 完整功能\n\n【pMMR + TP53wt + 子宮內膜樣 G1-2】獲益最大族群\n\n【SIENDO-2 確認性試驗】\n  • NCT05611931\n  • 限定 TP53 wild-type advanced/recurrent EC\n  • 預計 2026-2027 主要結果",
   combo:"無聯用 — single-agent 維持治療\n探索組合: + Pembrolizumab (Selinexor + ICI for pMMR/TP53wt)",
-  guideline:"NCCN Category 2B for TP53 wild-type advanced EC maintenance\n尚未獲 FDA 完整核准,等待 SIENDO-2\nEMA: orphan designation",
+  guideline:"FDA 未核准;確認性試驗 XPORT-EC-042 (TP53wt) 2026/07 未達主終點 → 藥廠縮減 EC 開發\nNCCN 列入狀態請查證 (曾為 2B 選項)\nEMA: orphan designation",
   nct:"NCT03555422",
   publication:"J Clin Oncol 2023 (Vergote et al., 主分析); SGO 2024 TP53 subgroup detailed analysis"
+},
+
+{
+  cancer:"EC",
+  id:"xport-ec-042",
+  phase:["P-MT"],
+  status:"published",
+  name:"XPORT-EC-042",
+  fullName:"XPORT-EC-042 / ENGOT-EN20 / GOG-3083 (NCT05611931)",
+  pharma:"Karyopharm",
+  drug:"Selinexor 60 mg PO QW vs Placebo 維持",
+  tagline:"TP53 wild-type 晚期 / 復發 EC 一線化療 (± IO) 後 Selinexor 維持:確認 SIENDO 亞組的 Phase 3 — 2026/07 未達 PFS 主終點 (HR 0.76, NS)。",
+  rationale:"SIENDO 探索性 TP53wt 亞組 PFS HR 0.41 → 前瞻性以 TP53wt 篩選確認;XPO1 抑制使 p53 滯留核內,理論上需 p53 為野生型才有作用。",
+  regimen:"Phase 3 雙盲 1:1 隨機, n=257\n試驗組: Selinexor 60 mg PO 每週一次至惡化\n對照組: Placebo",
+  inc:["TP53 wild-type (IHC / NGS) 晚期或復發子宮內膜癌", "完成一線含鉑化療 (± 免疫檢查點抑制劑) 後達 CR / PR", "主分析 (mITT):TP53wt/pMMR,或 TP53wt/dMMR 但不適合 IO"],
+  exc:["先前接受 XPO1 抑制劑", "TP53 突變 / p53abn"],
+  outcomes:"【PFS (mITT, n=236,主終點)】12.75 vs 7.43 個月,HR 0.76 (95% CI 0.51–1.12),單側 p=0.0791 → 未達主終點\n【ITT / OS】尚未公布\n【安全性】與已知相符,無新訊號",
+  enrolled:"257 randomized (mITT 236)",
+  hist:"各組織型 (需 TP53 wild-type)",
+  stageDist:"晚期 / 復發 EC,一線化療後維持",
+  tech:"Selinexor 劑量由 SIENDO 80 mg 降為 60 mg QW (改善耐受性:噁心、血小板低下、低血鈉)",
+  subgroup:"dMMR 適用 IO 者排除於主分析;ITT (含 dMMR) 為階層檢定第二層,因第一層未達而無法正式檢定",
+  combo:"否定 SIENDO TP53wt 亞組假說 (探索性亞組在確認試驗中縮水的典型例子)",
+  guideline:"FDA 未核准;藥廠 2026/07 宣布縮減 EC 投資,轉向骨髓纖維化 / 多發性骨髓瘤",
+  nct:"NCT05611931",
+  publication:"Karyopharm topline 2026/07/30;完整數據待會議發表"
 },
 
 // ========== R-TX (復發治療) ==========
@@ -8507,22 +8534,22 @@ const TRIALS = [
   fullName:"ROSELLA (NCT05257408)",
   pharma:"Corcept Therapeutics",
   drug:"Relacorilant + nab-Paclitaxel",
-  tagline:"PROC 新機制: 醣皮質受體拮抗劑 + nab-Pacli 改善 OS;首個非 IO/ADC 機制 PROC 突破。",
+  tagline:"PROC (曾用 Bev): 口服糖皮質受體拮抗劑 Relacorilant + nab-Pacli 同時改善 PFS 與 OS — 非 IO、非 ADC、不需 biomarker;FDA 2026/03 核准 (Lifyorli)。",
   rationale:"探索 selective glucocorticoid receptor (GR) modulator (Relacorilant) — 阻斷 GR 抑制癌細胞凋亡訊號, 強化 nab-paclitaxel 細胞毒殺效應。為 PROC 首個非 IO/非 ADC 機制突破試驗。",
-  regimen:"1:1 randomization, Phase III\n試驗組: Relacorilant 150mg PO (D-1, 1, 2 of weekly cycle) + nab-Paclitaxel 80mg/m² weekly (3 weeks on / 1 week off)\n對照組: nab-Paclitaxel 100mg/m² weekly (3 weeks on / 1 week off)",
-  inc:["Platinum-resistant 上皮性卵巢癌","先前 1-3 線治療進展","ECOG 0-1","具備可測量病灶"],
-  exc:["先前 GR 拮抗劑","活動性 CNS 轉移","臨床顯著 cardiac dysfunction"],
-  outcomes:"【ITT mOS】顯著改善 (primary endpoint 達成, 2025-2026 更新)\n【ITT mPFS】顯著改善\n【ORR】Relacorilant arm 較高\n【G3+ AE】無顯著增加\n【口服機制】較 IV 治療便利",
+  regimen:"Phase III 開放標籤 1:1 隨機, n=381\n試驗組: Relacorilant 150 mg PO (nab-Pacli 前一天、當天、後一天) + nab-Paclitaxel 80 mg/m² D1/8/15 q28d\n對照組: nab-Paclitaxel 100 mg/m² D1/8/15 q28d\n(不使用類固醇前置給藥)",
+  inc:["Platinum-resistant 上皮性卵巢癌 / 輸卵管癌 / 原發腹膜癌","先前 1–3 線全身治療,且至少一線含 Bevacizumab","最後一次含鉑後 <6 個月內惡化","ECOG 0–1;具可測量病灶 (RECIST 1.1)"],
+  exc:["需長期使用類固醇者 (救命適應症為禁忌)","鉑難治 (一線含鉑中即惡化)","活動性 CNS 轉移","先前 GR 拮抗劑"],
+  outcomes:"【PFS (BICR,主要終點)】6.5 vs 5.5 個月,HR 0.70 (95% CI 0.54–0.91),p=0.0076\n  6 個月 PFS 52% vs 42%;12 個月 25% vs 13%\n【OS (最終分析,SGO 2026)】16.0 vs 11.9 個月,HR 0.65 (0.51–0.83),p=0.0004\n  12 個月 OS 60% vs 50%;18 個月 46% vs 27%\n【安全性】≥3 級 AE 74.5% vs 59.5% (嗜中性球低下 44% vs 25%、貧血 18% vs 9%);發燒性嗜中性球低下 2.1% vs 0.5%;未見腎上腺功能不足",
 
-  enrolled:"招募完成 — 確切 N 待最終公布\n國際多中心",
+  enrolled:"381 patients (188 vs 193)",
   hist:"PROC 高惡性度上皮性卵巢癌\nHGSC, endometrioid 為主",
   stageDist:"PROC, 先前 1-3 線治療",
-  tech:"【Relacorilant】口服 selective GR modulator\n  • 機制: 阻斷糖皮質受體 — 抑制 cortisol-induced anti-apoptotic 訊號\n  • Schedule: D-1, 1, 2 of nab-Pacli cycle (3 doses/week)\n  • 副作用: 主要為 fatigue, GI 不適\n  • 不影響糖皮質激素相關 supportive care\n\n【nab-Paclitaxel】80mg/m² weekly (試驗組,降低劑量)\n   vs 100mg/m² weekly (對照組)\n  • Albumin-bound 降低過敏風險\n  • 不需 premedication",
-  subgroup:"【ITT】OS / PFS 雙顯著\n【Histology subgroup】HGSC 主導獲益\n【Prior lines subgroup】各線均見獲益\n【Prior Bev subgroup】仍獲益\n\n機制獨特:\n  • GR 拮抗為 PROC 全新方向\n  • 不依賴 PD-L1, FRα, CDH6 等 ADC target\n  • 適合 biomarker-naive 族群",
+  tech:"【Relacorilant (CORT125134)】口服選擇性糖皮質受體 (GR) 拮抗劑 — 不是 ADC\n  • 無抗體、無 payload、無 DAR → 不需先驗任何抗原 / biomarker\n  • 機制: 腫瘤 GR 被 cortisol 活化 → SGK1 / DUSP1 等存活基因 → 抗凋亡、taxane 抗藥;阻斷 GR 恢復化療誘導的細胞凋亡\n  • 給藥: 150 mg PO,每次 nab-Pacli 前一天 / 當天 / 後一天\n  • 注意: 腎上腺功能不足、加重需類固醇控制的疾病、嗜中性球低下 / 嚴重感染、胚胎毒性;避免類固醇前置給藥",
+  subgroup:"所有預設亞組 OS 皆傾向獲益:\n  • 先前 2 線 HR 0.68;3 線 HR 0.60\n  • 曾用 PARPi HR 0.70;未用 PARPi HR 0.67\n  • PFI ≤6 個月 HR 0.61;>6 個月 HR 0.68\n  • BRCA 突變約 12% (未報告 biomarker 亞組) → 不需 biomarker 篩選",
   combo:"PROC 領域近年第三大突破 (繼 MIRASOL ADC, KEYNOTE-B96 IO+chemo 之後):\n  • ROSELLA: 全新機制 (GR 拮抗)\n  • 不互斥, 可能未來 sequencing\n\n後續探索:\n  • Relacorilant 在 platinum-sensitive setting\n  • Relacorilant + IO\n  • Relacorilant + 其他化療 backbone",
-  guideline:"FDA accelerated approval 期待 2026 (基於 ROSELLA Phase III)\nNCCN 預期更新\n台灣食藥署: 期待後續核准",
+  guideline:"FDA 2026/03/25 核准 (Lifyorli + nab-Paclitaxel):PROC、先前 1–3 線、至少一線含 Bevacizumab\nNCCN 2026: PROC preferred regimen (勿用類固醇前置給藥)\n台灣 TFDA / 健保: 請查證",
   nct:"NCT05257408",
-  publication:"ESGO 2025 / SGO 2026 (FDA 核准基礎)"
+  publication:"ASCO 2025 LBA5507;Lancet 2025 (Olawaiye et al.);最終 OS: SGO 2026"
 },
 
 // ========== OC R-TX 復發治療: LGSC ==========
@@ -10873,7 +10900,7 @@ const CORE_CONCLUSIONS = {
   },
   'rosella': {
     summary: 'Relacorilant + nab-Pacli 為 PROC 全新機制 (GR 拮抗 + chemo) 改善 OS, 不依賴 biomarker',
-    exam: '【關鍵】PROC + 1-3 prior lines; Relacorilant 150mg PO + nab-Pacli weekly; FDA 2026 預期核准',
+    exam: '【關鍵】PROC + 1-3 prior lines; Relacorilant 150mg PO + nab-Pacli weekly; FDA 2026/03 核准 (需曾用 Bev)',
     clinical: 'biomarker-naive PROC 選項; 與 ADC (MIRASOL) / IO+chemo (KEYNOTE-B96) 機制互補'
   },
   'aurelia': {
@@ -15590,7 +15617,7 @@ const PATHWAY_GRID = {
           ],
           adv:[
             {s:'std', t:'Carboplatin + Paclitaxel (不劣於 Ifo + Pac,毒性較低)', k:'CP', ids:['gog-0261']},
-            {s:'cond', t:'CP + IO (RUBY / AtTEnd 允許癌肉瘤)', k:'CP + IO', ids:['ruby-p1','attend']},
+            {s:'cond', t:'CP + IO (RUBY / AtTEnd / DUO-E 允許癌肉瘤;GY018 排除)', k:'CP + IO', ids:['ruby-p1','attend','duo-e']},
             {s:'cond', t:'Ifosfamide + Paclitaxel', k:'Ifo + Pac', ids:['gog-161']},
           ],
           mt1:[{s:'gap', t:'無專屬維持證據', k:'無證據', idea:'HER2 / TROP2 ADC 維持'}],
@@ -15831,7 +15858,7 @@ const PATHWAY_GRID = {
             {s:'std', t:'IO 延續維持 (CP + PD-1/PD-L1 → IO 單藥;OS 獲益主要來自 IO)', k:'IO 延續', ids:['gy018','ruby-p1','duo-e']},
             {s:'cond', t:'Durvalumab + Olaparib 維持 (pMMR;EU 核准):OS 增益有限且不精確 (vs CP+D HR 0.89, 95% CI 0.67–1.16),≥3 級 AE 49.5% vs 26.8%', k:'Durva + Ola (增益有限)', ids:['duo-e','duo-e-maint']},
             {s:'cond', t:'Dostarlimab + Niraparib 維持 (pMMR PFS 獲益;本次會議無新數據)', k:'Dostar + Nira', ids:['ruby-p2']},
-            {s:'cond', t:'Selinexor (TP53 wild-type 次群組)', k:'Selinexor', g:'TP53wt', ids:['siendo']},
+            {s:'neg', t:'Selinexor 維持 (XPO1 抑制劑):SIENDO TP53wt 探索亞組 HR 0.41,但確認性 XPORT-EC-042 (TP53wt) 未達主終點 (HR 0.76,NS;2026/07)', k:'Selinexor (確認試驗陰性)', g:'TP53wt', ids:['siendo','xport-ec-042']},
             {s:'neg', t:'Olaparib 單藥維持未達主終點 (獲益限於鉑敏感、染色體不穩定的 p53abn)', k:'Olaparib 單藥', ids:['utola']},
             {s:'trial', t:'Sacituzumab tirumotecan (TROP2 ADC) + Pembrolizumab', k:'sac-TMT + Pembro', ids:['trofuse-033']},
             {s:'gap', t:'p53abn 一線維持無專屬標準', k:'p53abn 維持', idea:'HRD 導向 PARPi 或 HER2 ADC 維持試驗'},
@@ -15981,7 +16008,7 @@ const PATHWAY_GRID = {
           ],
           adv:[
             {s:'std', t:'Carboplatin + Paclitaxel', k:'CP', ids:['gog-0261']},
-            {s:'cond', t:'CP + IO (RUBY / AtTEnd 允許入組;GY018、KEYNOTE-775 排除)', k:'CP + IO', ids:['ruby-p1','attend']},
+            {s:'cond', t:'CP + IO (RUBY / AtTEnd / DUO-E 允許入組;GY018、KEYNOTE-775 排除)', k:'CP + IO', ids:['ruby-p1','attend','duo-e']},
             {s:'cond', t:'Ifosfamide + Paclitaxel', k:'Ifo + Pac', ids:['gog-161']},
           ],
           mt1:[{s:'gap', t:'無專屬維持證據', k:'無證據', idea:'癌肉瘤 HER2 / TROP2 ADC 維持'}],
@@ -16053,7 +16080,7 @@ const PATHWAY_GRID = {
             {s:'std', t:'Mirvetuximab soravtansine', k:'MIRV', g:'FRα PS2+ ≥75%', ids:['mirasol']},
             {s:'cond', t:'MIRV + Bevacizumab', k:'MIRV + Bev', g:'FRα+', ids:['forward-ii']},
             {s:'std', t:'Pembrolizumab + weekly Paclitaxel ± Bev', k:'Pembro + wPac', g:'PD-L1 CPS ≥1 主分析', ids:['keynote-b96']},
-            {s:'cond', t:'Relacorilant + nab-Paclitaxel', k:'Relacorilant', ids:['rosella']},
+            {s:'std', t:'Relacorilant (口服 GR 拮抗劑,非 ADC) + nab-Paclitaxel', k:'Relacorilant + nab-Pac', g:'曾用 Bev (不需 biomarker)', ids:['rosella']},
             {s:'early', t:'Dato-DXd (TROP2 ADC)', k:'Dato-DXd', g:'TROP2 不需篩選', ids:['tropion-pantumor03']},
             {s:'trial', t:'R-DXd (CDH6 ADC) vs 化療 Phase 3', k:'R-DXd (CDH6)', g:'CDH6 不需篩選', ids:['rejoice-ovarian01','engot-ov77']},
             {s:'early', t:'R-DXd + Bev (Phase 1b ORR 80%)', k:'R-DXd + Bev', g:'CDH6 不需篩選', ids:['rejoice-ovarian02']},
@@ -16441,7 +16468,7 @@ function pgSortIds(ids){
 // 標記條件分類: req = 需檢測才適用;ref = 參考 (不需篩選);clin = 臨床條件
 function pgGateType(g){
   if(/不需篩選|參考|未篩選/.test(g)) return 'ref';
-  if(/FIGO|LN\+|IIIC|KELIM/.test(g)) return 'clin';
+  if(/FIGO|LN\+|IIIC|KELIM|曾用/.test(g)) return 'clin';
   return 'req';
 }
 const PG_GATE_LBL = {req:'🎯 需檢測', ref:'○ 參考', clin:'📋 臨床條件'};
@@ -16623,6 +16650,7 @@ function renderPathwayGrid(cancer){
         ${pgMechHTML(['adc'])}
         <div class="pg-adc-wrap"><table class="pg-mech-tbl pg-adc-tbl"><tr><th>ADC</th><th>標靶抗原</th><th>Payload</th><th>Payload 類別</th><th>DAR</th><th>需先驗抗原?</th><th>主要毒性</th><th>關鍵試驗 · 地位</th></tr>
         ${PG_ADC.map(a=>`<tr class="${/微管/.test(a.plc)?'mt':'t1'}"><td><b>${escapeHtml(a.n)}</b></td><td>${escapeHtml(a.ag)}</td><td>${escapeHtml(a.pl)}</td><td>${escapeHtml(a.plc)}</td><td>${escapeHtml(a.dar)}</td><td class="tst ${a.test}">${PG_TEST_LBL[a.test]}<br><small>${escapeHtml(a.testTxt)}</small></td><td>${escapeHtml(a.tox)}</td><td>${escapeHtml(a.trials)}<br><small>${escapeHtml(a.status)}</small></td></tr>`).join('')}</table></div>
+        <div class="pg-nonadc"><b>⚠ 易混淆 · 非 ADC:</b><b>Relacorilant (Lifyorli)</b> — 口服小分子<b>糖皮質受體 (GR) 拮抗劑</b>,無抗體、無 payload、<b>不需驗 biomarker</b>;與 nab-Paclitaxel 合併用於曾用 Bev 的 PROC (ROSELLA:OS 16.0 vs 11.9 個月,HR 0.65;FDA 2026/03)。<br><b>Ubamatamab</b> — MUC16 × CD3 T 細胞雙特異性抗體 (TCE),亦非 ADC。<b>Navicixizumab</b> — DLL4 × VEGF 雙特異性抗體,非 ADC。</div>
         <div class="pg-mech-mn">口訣:微管類 (DM4 / MMAE) 傷眼傷神經、Topo I 類 (DXd / SN-38 / Exatecan) 傷血球傷肺 (DXd 的 ILD);高 DAR + 旁觀者 → 抗原低也能打。</div>
         ${pgMechHTML(['pl_dm4','pl_mmae','pl_dxd','pl_sn38','pl_top1'])}
       </div>`;
@@ -16688,6 +16716,14 @@ function renderPathwayGrid(cancer){
 let PG_GAPS_OPEN = false;
 // 🧬 作用機轉 (路徑鏈 → 藥物作用點 → 檢測 → 口訣)
 const PG_MECH = {
+  xpo1:{ title:'核輸出 XPO1 (Exportin-1) 路徑', chain:['p53 / FOXO / IκB / p21 等抑癌蛋白','XPO1 運出細胞核','抑癌蛋白在細胞質失活','腫瘤存活'],
+         drugs:[['Selinexor (口服 SINE)','選擇性核輸出抑制劑,共價結合 XPO1 (Cys528) → 抑癌蛋白滯留核內重新活化 → 細胞週期停滯 / 凋亡;亦降低 c-Myc、Cyclin D1 等致癌 mRNA 轉譯']],
+         note:'作用需要「功能正常的 p53」→ 故以 TP53 wild-type 篩選 (p53abn 無效)。SIENDO TP53wt 探索亞組 HR 0.41,但確認性 XPORT-EC-042 (60 mg QW) 2026/07 未達主終點 (HR 0.76)。主要毒性:噁心 / 食慾差 (預防性止吐,5-HT3 + olanzapine)、疲倦、血小板低下、低血鈉、體重下降。FDA 核准於多發性骨髓瘤 / DLBCL,EC 無適應症。',
+         mnemonic:'Seli 關上核門 (XPO1),把 p53 留在核內 — 所以要 p53 是好的 (TP53wt)。' },
+  gr:  { title:'糖皮質受體 (GR) 路徑 — 非 ADC', chain:['Cortisol','GR (糖皮質受體)','SGK1 / DUSP1 等存活基因','抗凋亡 → 化療抗藥'],
+         drugs:[['Relacorilant (Lifyorli)','口服選擇性 GR 拮抗劑 (SGRM);不是 ADC、沒有抗體與 payload → 恢復 taxane 誘導的細胞凋亡']],
+         note:'化療前一天、當天、後一天各口服 150 mg,搭配 nab-Paclitaxel 80 mg/m² D1/8/15 q28d。不需驗任何 biomarker (所有預設亞組皆獲益)。禁忌:需類固醇救命者;注意腎上腺功能不足、嗜中性球低下;不用類固醇前置給藥。',
+         mnemonic:'Rela 擋皮質醇,讓紫杉醇重新殺得動 — 口服、非 ADC、不驗 marker。' },
   mapk:{ title:'MAPK 增殖路徑', chain:['KRAS','RAF','MEK','ERK','細胞增殖'],
          drugs:[['Trametinib','MEK 抑制劑'],['Avutometinib','RAF/MEK clamp (同時夾住 RAF 與 MEK)'],['Binimetinib','MEK 抑制劑 (MILO 陰性)'],['Dabrafenib','BRAF V600E 抑制劑']],
          note:'LGSOC 常見 KRAS / BRAF / NRAS 變異 → MAPK 持續活化。' },
@@ -16747,6 +16783,8 @@ const PG_MECH = {
 };
 // 依藥名自動對應機轉
 const PG_MECH_MAP = [
+  [/Selinexor|XPO1/, ['xpo1']],
+  [/Relacorilant/, ['gr']],
   [/Avutometinib/, ['mapk','fak']], [/Trametinib|Binimetinib|MEKi/, ['mapk']], [/Dabrafenib/, ['mapk']],
   [/Ribociclib|Palbociclib|Abemaciclib|CDK4\/6/, ['cdk','er']],
   [/Letrozole|Anastrozole|芳香環酶|AI 荷爾蒙|Fulvestrant|Camizestrant/, ['er']],
@@ -16929,7 +16967,7 @@ const PG_REG = [
   {c:'US', re:/ALK 抑制劑/, fda:'y', nccn:'y', note:'Crizotinib FDA 2022:ALK+ IMT'},
   {c:'US', re:/Doxorubicin|Gem \+ Doc|Gemcitabine \+ Doc|Ifosfamide|Carboplatin \+ Paclitaxel/, nccn:'y'},
   {c:'US', re:/芳香環酶|荷爾蒙|黃體素/, nccn:'y'},
-  {c:'US', re:/CP \+ IO/, fda:'n', nccn:'q', note:'癌肉瘤僅為 RUBY / AtTEnd 子群;FDA 核准適用於子宮內膜癌整體'},
+  {c:'US', re:/CP \+ IO/, fda:'n', nccn:'q', note:'癌肉瘤僅為 RUBY / AtTEnd / DUO-E 子群 (GY018 排除);FDA 核准適用於子宮內膜癌整體'},
   // ---- CC ----
   {c:'CC', re:/Pembrolizumab \+ 化療 \(CPS <1/, fda:'n', nccn:'n', note:'FDA 核准限 PD-L1 CPS ≥1'},
   {c:'CC', re:/Pembrolizumab \+ 含鉑化療/, fda:'y', nccn:'y', note:'FDA 2021:持續 / 復發 / 轉移 CC,PD-L1 CPS ≥1'},
@@ -16976,8 +17014,8 @@ const PG_REG = [
   {c:'OC', re:/單藥化療.*\+ Bevacizumab/, fda:'y', nccn:'y', note:'FDA 2014 (AURELIA)'},
   {c:'OC', re:/^Mirvetuximab soravtansine/, fda:'y', nccn:'y', note:'FDA 2022 加速 / 2024 完整核准:FRα+ PROC'},
   {c:'OC', re:/MIRV \+ Bevacizumab/, fda:'n', nccn:'q'},
-  {c:'OC', re:/Pembrolizumab \+ weekly Paclitaxel/, fda:'p', nccn:'q', note:'KEYNOTE-B96 陽性;FDA 核准狀態請查證 (2026)'},
-  {c:'OC', re:/Relacorilant/, fda:'p', nccn:'q', note:'ROSELLA 陽性;FDA 審查中 (2026),請查證'},
+  {c:'OC', re:/Pembrolizumab \+ weekly Paclitaxel/, fda:'y', nccn:'q', note:'FDA 2026/02/10:PROC、PD-L1 CPS ≥1 (22C3 伴隨診斷)、先前 1–2 線,± Bev;NCCN 列入狀態請查證'},
+  {c:'OC', re:/Relacorilant/, fda:'y', nccn:'y', note:'FDA 2026/03/25 (Lifyorli):PROC、先前 1–3 線且至少一線含 Bev;NCCN 2026 列為 preferred (勿用類固醇前置給藥)'},
   {c:'OC', re:/Trametinib \(MEKi/, fda:'n', nccn:'y', note:'LGSOC off-label;NCCN 列入'},
   {c:'OC', re:/Avutometinib/, fda:'y', nccn:'y', note:'FDA 2025 加速核准:KRAS 突變復發 LGSOC'},
   {c:'OC', re:/Letrozole \+ Ribociclib/, fda:'n', nccn:'y'},
@@ -18752,7 +18790,7 @@ const NEXTSTEP_TREES = {
         recommendations: [
           '【標準】single-agent: Doxil (PLD), weekly paclitaxel, gemcitabine, topotecan',
           '【+Bev】GOG-218 / OCEANS / AURELIA — 加 Bev 提升 PFS',
-          '【ROSELLA】Relacorilant + nab-Pacli (FDA 2024) — 不需 biomarker',
+          '【ROSELLA】Relacorilant + nab-Pacli (FDA 2026/03;需曾用 Bev) — 非 ADC,不需 biomarker',
           '【KEYNOTE-B96】Pembro + weekly pacli ± Bev — 第一個 IO+chemo PROC OS+',
           '【臨床試驗】broad NGS panel for tumor-agnostic targets',
           '【緩和】早期介入',
@@ -20824,7 +20862,7 @@ const HR_MNEMONICS = {
   '0.62': '六二 (PRIMA ITT / PAOLA-1 5y)', '0.65': '六五 (GY018 ITT OS)',
   '0.67': '六七 (KEYNOTE-A18 OS / van Driel / MIRASOL)',
   '0.68': '六八 (BEATcc / KEYNOTE-775 OS)',
-  '0.69': '六九 (RUBY ITT / EMPOWER / ROSELLA)',
+  '0.69': '六九 (RUBY ITT / EMPOWER)',
   '0.70': '七零 (KEYNOTE-A18 PFS / innovaTV 301 OS)',
   '0.71': '七一 (PRIMA OS NS / GOG-240 OS)',
   '0.717':'七一七 (GOG-218 PFS)',
@@ -21308,9 +21346,9 @@ const TRIAL_CMP_GROUPS = {
     trials: ['mirasol', 'aurelia', 'keynote-b96', 'rosella', 'ninja'],
     columns: [
       {label: '主藥物', getter: (t) => ({mirasol:'Mirvet (FRα-ADC)', aurelia:'Bev+chemo', 'keynote-b96':'Pembro+Pacli±Bev', rosella:'Relacorilant+nab-P', ninja:'Nivo 單藥'})[t.id] || '-'},
-      {label: 'PFS HR', getter: (t) => ({mirasol:'0.65', aurelia:'0.48', 'keynote-b96':'-', rosella:'0.69 (OS)', ninja:'0.96 NS'})[t.id] || '-'},
-      {label: 'OS HR', getter: (t) => ({mirasol:'0.67', aurelia:'NS', 'keynote-b96':'0.74 (+4.2m)', rosella:'0.69', ninja:'1.03 NS'})[t.id] || '-'},
-      {label: 'biomarker', getter: (t) => ({mirasol:'FRα PS2+ ≥75%', aurelia:'無', 'keynote-b96':'無', rosella:'無', ninja:'無'})[t.id] || '-'},
+      {label: 'PFS HR', getter: (t) => ({mirasol:'0.65', aurelia:'0.48', 'keynote-b96':'-', rosella:'0.70', ninja:'0.96 NS'})[t.id] || '-'},
+      {label: 'OS HR', getter: (t) => ({mirasol:'0.67', aurelia:'NS', 'keynote-b96':'0.76 (CPS≥1)', rosella:'0.65 (16.0 vs 11.9m)', ninja:'1.03 NS'})[t.id] || '-'},
+      {label: 'biomarker', getter: (t) => ({mirasol:'FRα PS2+ ≥75%', aurelia:'無', 'keynote-b96':'PD-L1 CPS ≥1 (FDA)', rosella:'無 (非 ADC;需曾用 Bev)', ninja:'無'})[t.id] || '-'},
     ],
   },
 
@@ -21642,7 +21680,7 @@ const NUMBER_HOOKS = {
   'aurelia-pfs-itt':      { val:'mPFS 6.7 vs 3.4m', endpoint:'PFS', subgroup:'PROC ITT', hook:'六七比三四 (PROC 翻倍)' },
   'aurelia-hr-itt':       { val:'HR 0.48', endpoint:'PFS', subgroup:'PROC ITT', hook:'四八, PROC + Bev 強' },
   'keynote-b96-os-itt':   { val:'OS HR 0.74', endpoint:'OS', subgroup:'PROC ITT', hook:'七四 (+4.2m, 首個 PD-1 PROC OS+)' },
-  'rosella-os-itt':       { val:'OS HR 0.69', endpoint:'OS', subgroup:'PROC ITT', hook:'六九, GR 拮抗新機制' },
+  'rosella-os-itt':       { val:'OS HR 0.65', endpoint:'OS', subgroup:'PROC ITT (最終分析)', hook:'六五, GR 拮抗新機制' },
 
   // === OC LGSOC ===
   'gog-281-pfs-lgsoc':    { val:'HR 0.48', endpoint:'PFS', subgroup:'LGSOC', hook:'四八, Trametinib LGSOC 強' },
@@ -22659,7 +22697,7 @@ const TRIAL_MNEMONICS = {
   },
 
   'rosella': {
-    main: '💎 「ROSELLA 用 Relacorilant+nab-Pacli, PROC OS HR 六九, GR 拮抗」',
+    main: '💎 「ROSELLA 用 Relacorilant+nab-Pacli, PROC OS HR 六五, GR 拮抗 (非 ADC)」',
     breakdown: [
       { key: 'ROSELLA', meaning: 'ROSELLA 試驗 (試驗名)' },
       { key: 'Relacorilant', meaning: '【藥物】醣皮質受體拮抗劑 (Glucocorticoid receptor antagonist)' },
