@@ -3341,6 +3341,19 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 .site-crit ul{margin:4px 0 0 18px;padding:0;} .site-crit li{margin:2px 0;}
 .site-crit div{margin-top:4px;color:#1e293b;line-height:1.55;}
 .site-src{margin-top:6px;font-size:11px;color:#64748b;}
+.pg-st-site{display:inline-block;font-size:8.5px;font-weight:800;line-height:1.35;padding:0 4px;margin-right:3px;border-radius:3px;vertical-align:1px;text-decoration:none;font-style:normal;white-space:nowrap;}
+.pg-st-site.open{background:#15803d;color:#fff;} .pg-st-site.siv{background:#1d4ed8;color:#fff;}
+.pg-st-site.paused{background:#ca8a04;color:#fff;} .pg-st-site.plan{background:#e2e8f0;color:#334155;border:1px dashed #64748b;}
+.pg-lg .pg-st-site{font-size:9.5px;margin:0 2px 0 4px;}
+.pg-mx-line.site-open,.pg-mx-line.site-siv{background:#dcfce7;border-radius:4px;margin:0 -3px;padding:1px 3px;}
+.pg-mx-line.site-siv{background:#dbeafe;}
+.pg-mx.has-site{box-shadow:inset 0 0 0 2px #16a34a;}
+.pg-mx.has-site::before{content:'🏥';position:absolute;top:3px;left:4px;font-size:10px;}
+.pg-mx.has-site .pg-strip{margin-left:14px;}
+.pg-seg.is-site{box-shadow:0 0 0 2px #16a34a;}
+.pg-seg-site{font-size:11px;font-weight:800;border-radius:5px;padding:2px 6px;margin:-1px 0 4px;}
+.pg-seg-site.open{background:#15803d;color:#fff;} .pg-seg-site.siv{background:#1d4ed8;color:#fff;}
+.pg-seg-site.paused{background:#ca8a04;color:#fff;} .pg-seg-site.plan{background:#e2e8f0;color:#334155;}
 .pg-io{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:800;line-height:1.3;padding:0 3px;margin:0 2px;border-radius:3px;vertical-align:1px;text-decoration:none;border:1px solid;}
 .pg-seg-t .pg-io{font-size:9.5px;}
 .pg-io.pd1{color:#0e7490;background:#ecfeff;border-color:#67e8f9;}
@@ -4346,7 +4359,6 @@ const TRIALS = [
   cancer:"EC",
   subcat:["pMMR","ADC","IO"],
   id:"trofuse-033",
-  siteInfo:{pi:"賴瓊慧",planned:6,enrolled:1,available:5,sc:"陳裕融",phone:"0975056344",note:"pMMR primary advanced/recurrent EC, sac-TMT+Pembro vs Pembro 維持"},
   phase:["P-MT"],
   status:"ongoing",
   name:"TroFuse-033",
@@ -4701,7 +4713,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["PROC"],
   id:"feng-nav-202",
-  siteInfo:{"pi": "周宏學", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "待院內更新", "phone": "待院內更新", "status": "SIV / 啟動中", "note": "2–5 prior therapies", "scenario": "PROC；已接受 2–5 種 standard therapies，並符合 Xerna TME、BRCA/PARPi 與 platinum-resistant 條件。", "prior": "需曾接受 ≥2 且 ≤5 種 standard therapies；neoadjuvant/adjuvant 合計算 1 line；maintenance（bevacizumab/PARPi）併入前一線、不另計；因 toxicity 換藥但未 progression 仍算同一線；非 maintenance hormonal therapy 另算一線；已知 BRCA1/2 mutation 者應曾接受 PARPi。", "inc": "≥18 歲；符合允許的 epithelial histology；platinum-resistant（完成 platinum 後 ≤6 個月 progression）；可提供 FFPE/fresh core tissue 做 Xerna™ TME；RECIST 1.1 measurable disease；ECOG 0–1；器官功能符合。", "exc": "Mucinous 或 low-grade serous carcinoma；primary platinum-refractory（首個 platinum course 期間或完成後約 4 週內 progression）；uncontrolled cardiac disease/LVEF <50% 或 BP >140/90；active/uncontrolled brain metastasis/leptomeningeal disease；目前或近 6 個月 bowel obstruction、GI perforation/fistula/abscess；clinically significant bleeding 或需 anticoagulation；近期 major surgery；pregnancy/lactation。", "source": "公開資料 · SIV 後請由院內更新 PI/SC/名額/最新版條件"},
+  siteInfo:{"src":"excel","pi": "周宏學", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "待院內更新", "phone": "待院內更新", "status": "SIV / 啟動中", "note": "2–5 prior therapies", "scenario": "PROC；已接受 2–5 種 standard therapies，並符合 Xerna TME、BRCA/PARPi 與 platinum-resistant 條件。", "prior": "需曾接受 ≥2 且 ≤5 種 standard therapies；neoadjuvant/adjuvant 合計算 1 line；maintenance（bevacizumab/PARPi）併入前一線、不另計；因 toxicity 換藥但未 progression 仍算同一線；非 maintenance hormonal therapy 另算一線；已知 BRCA1/2 mutation 者應曾接受 PARPi。", "inc": "≥18 歲；符合允許的 epithelial histology；platinum-resistant（完成 platinum 後 ≤6 個月 progression）；可提供 FFPE/fresh core tissue 做 Xerna™ TME；RECIST 1.1 measurable disease；ECOG 0–1；器官功能符合。", "exc": "Mucinous 或 low-grade serous carcinoma；primary platinum-refractory（首個 platinum course 期間或完成後約 4 週內 progression）；uncontrolled cardiac disease/LVEF <50% 或 BP >140/90；active/uncontrolled brain metastasis/leptomeningeal disease；目前或近 6 個月 bowel obstruction、GI perforation/fistula/abscess；clinically significant bleeding 或需 anticoagulation；近期 major surgery；pregnancy/lactation。", "source": "公開資料 · SIV 後請由院內更新 PI/SC/名額/最新版條件"},
   phase:["R-TX"],
   status:"ongoing",
   name:"FENG-NAV-202",
@@ -4729,7 +4741,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["HRDneg"],
   id:"rejoice-ovarian04",
-  siteInfo:{"pi": "湯雲心", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "李兆芸/丁秋煥", "phone": "", "status": "未開案", "note": "HRD-negative / non-HRD-positive | Bevacizumab-based 1L maintenance", "scenario": "Newly diagnosed advanced ovarian cancer；完成 1L platinum-based chemotherapy 後，non-HRD-positive / HRD-negative maintenance 情境。", "prior": "第一線 maintenance；已完成 1L platinum-based chemotherapy；除 protocol 規定的 frontline treatment 外，不應有額外 prior systemic anticancer line；若 1L 未用 bevacizumab 且 screening 僅 SD/PR，公開 criteria 列為不符合。", "inc": "Newly diagnosed FIGO III/IV high-grade serous 或 high-grade endometrioid ovarian / fallopian tube / primary peritoneal cancer；PDS 或 IDS；完成 1L platinum-based chemotherapy，screening 可為 SD/PR/CR/NED；central testing 為 non-HRD-positive（公開資料主要指 HRD-negative）；需提供未曾放療 tumor tissue；ECOG/器官功能依 protocol。", "exc": "HRD-positive、unknown 或 inconclusive；non-serous/non-endometrioid high-grade、non-epithelial、borderline、mucinous 等不符合 histology；額外 prior systemic anticancer therapy；未從 major surgery 恢復；active IBD；嚴重 pulmonary compromise；clinically relevant bowel obstruction / fistula / GI perforation / abscess；active infection。", "source": ""},
+  siteInfo:{"src":"excel","pi": "湯雲心", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "李兆芸/丁秋煥", "phone": "", "status": "未開案", "note": "HRD-negative / non-HRD-positive | Bevacizumab-based 1L maintenance", "scenario": "Newly diagnosed advanced ovarian cancer；完成 1L platinum-based chemotherapy 後，non-HRD-positive / HRD-negative maintenance 情境。", "prior": "第一線 maintenance；已完成 1L platinum-based chemotherapy；除 protocol 規定的 frontline treatment 外，不應有額外 prior systemic anticancer line；若 1L 未用 bevacizumab 且 screening 僅 SD/PR，公開 criteria 列為不符合。", "inc": "Newly diagnosed FIGO III/IV high-grade serous 或 high-grade endometrioid ovarian / fallopian tube / primary peritoneal cancer；PDS 或 IDS；完成 1L platinum-based chemotherapy，screening 可為 SD/PR/CR/NED；central testing 為 non-HRD-positive（公開資料主要指 HRD-negative）；需提供未曾放療 tumor tissue；ECOG/器官功能依 protocol。", "exc": "HRD-positive、unknown 或 inconclusive；non-serous/non-endometrioid high-grade、non-epithelial、borderline、mucinous 等不符合 histology；額外 prior systemic anticancer therapy；未從 major surgery 恢復；active IBD；嚴重 pulmonary compromise；clinically relevant bowel obstruction / fistula / GI perforation / abscess；active infection。", "source": ""},
   phase:["P-MT"],
   status:"ongoing",
   name:"REJOICE-Ovarian04",
@@ -4757,7 +4769,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["PSOC"],
   id:"rejoice-ovarian05",
-  siteInfo:{"pi": "湯雲心", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "李兆芸/丁秋煥", "phone": "", "status": "未開案", "note": "Progression on/soon after 1L PARPi", "scenario": "PSOC；僅 1 line prior platinum-based therapy，且 1L PARPi maintenance 中或停藥後短期內 radiographic progression。", "prior": "僅 1 line prior platinum-based therapy；至少 4 cycles platinum-doublet；需 platinum-sensitive；1L platinum 後接受 PARPi maintenance，且於 PARPi 治療中或最後一劑後 42 天內 radiographic progression。", "inc": "Advanced high-grade serous 或 high-grade endometrioid ovarian / primary peritoneal / fallopian tube cancer；1 line platinum-based therapy 且 platinum-sensitive；prior 1L PARPi maintenance with progression during treatment or ≤42 days after last PARPi dose；ECOG 0–1；prior treatment adverse events 已恢復至 protocol 可接受程度。", "exc": "Clear cell、mucinous、sarcomatous、mixed、low-grade/borderline histology；重要 thrombotic/bleeding history；uncontrolled cardiovascular disease；嚴重 pulmonary compromise；chronic systemic steroids；clinically relevant bowel obstruction / fistula / GI perforation / abscess；近期需要治療的其他 malignancy。", "source": ""},
+  siteInfo:{"src":"excel","pi": "湯雲心", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "李兆芸/丁秋煥", "phone": "", "status": "未開案", "note": "Progression on/soon after 1L PARPi", "scenario": "PSOC；僅 1 line prior platinum-based therapy，且 1L PARPi maintenance 中或停藥後短期內 radiographic progression。", "prior": "僅 1 line prior platinum-based therapy；至少 4 cycles platinum-doublet；需 platinum-sensitive；1L platinum 後接受 PARPi maintenance，且於 PARPi 治療中或最後一劑後 42 天內 radiographic progression。", "inc": "Advanced high-grade serous 或 high-grade endometrioid ovarian / primary peritoneal / fallopian tube cancer；1 line platinum-based therapy 且 platinum-sensitive；prior 1L PARPi maintenance with progression during treatment or ≤42 days after last PARPi dose；ECOG 0–1；prior treatment adverse events 已恢復至 protocol 可接受程度。", "exc": "Clear cell、mucinous、sarcomatous、mixed、low-grade/borderline histology；重要 thrombotic/bleeding history；uncontrolled cardiovascular disease；嚴重 pulmonary compromise；chronic systemic steroids；clinically relevant bowel obstruction / fistula / GI perforation / abscess；近期需要治療的其他 malignancy。", "source": ""},
   phase:["R-TX"],
   status:"ongoing",
   name:"REJOICE-Ovarian05",
@@ -4785,7 +4797,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["PROC"],
   id:"trevi-oc-01",
-  siteInfo:{"pi": "賴瓊慧", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "陳裕融", "phone": "0975056344", "status": "未開案", "note": "1–3 prior lines | FRα stratified", "scenario": "PROC；1–3 prior systemic lines，依 FRα status 分層，並注意 prior FRα-targeted therapy / TOP1 ADC 限制。", "prior": "1–3 prior systemic anticancer lines；若僅 1 line platinum，至少 4 cycles、曾達 CR/PR，並於 last platinum 後 >3 至 ≤6 months progression；若 2–3 lines platinum，需於 last platinum ≤6 months progression；BRCA mutation 且適合標準照護者需 prior PARPi。", "inc": "High-grade serous epithelial ovarian / primary peritoneal / fallopian tube cancer；platinum-resistant；最近一線治療後有 radiographic progression；single-agent therapy 適合作為下一線；需 tumor tissue / FRα assessment；其他 ECOG/organ function 依 protocol。", "exc": "Endometrioid、clear cell、mucinous、sarcomatous、mixed、low-grade/borderline 等不符合 histology；primary platinum-refractory（first-line platinum 後 ≤3 months progression）；prior FRα-targeted therapy（含 MIRV）；prior TOP1-inhibitor ADC；active/chronic corneal disorder；bowel obstruction；prior/current steroid-requiring ILD/pneumonitis；近期 major surgery。", "source": ""},
+  siteInfo:{"src":"excel","pi": "賴瓊慧", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "陳裕融", "phone": "0975056344", "status": "未開案", "note": "1–3 prior lines | FRα stratified", "scenario": "PROC；1–3 prior systemic lines，依 FRα status 分層，並注意 prior FRα-targeted therapy / TOP1 ADC 限制。", "prior": "1–3 prior systemic anticancer lines；若僅 1 line platinum，至少 4 cycles、曾達 CR/PR，並於 last platinum 後 >3 至 ≤6 months progression；若 2–3 lines platinum，需於 last platinum ≤6 months progression；BRCA mutation 且適合標準照護者需 prior PARPi。", "inc": "High-grade serous epithelial ovarian / primary peritoneal / fallopian tube cancer；platinum-resistant；最近一線治療後有 radiographic progression；single-agent therapy 適合作為下一線；需 tumor tissue / FRα assessment；其他 ECOG/organ function 依 protocol。", "exc": "Endometrioid、clear cell、mucinous、sarcomatous、mixed、low-grade/borderline 等不符合 histology；primary platinum-refractory（first-line platinum 後 ≤3 months progression）；prior FRα-targeted therapy（含 MIRV）；prior TOP1-inhibitor ADC；active/chronic corneal disorder；bowel obstruction；prior/current steroid-requiring ILD/pneumonitis；近期 major surgery。", "source": ""},
   phase:["R-TX"],
   status:"ongoing",
   name:"TREVI-OC-01",
@@ -4813,7 +4825,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["HRDneg"],
   id:"trevi-oc-02",
-  siteInfo:{"pi": "張宸邠", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "陳裕融", "phone": "0975056344", "status": "未開案", "note": "HRD-negative | Bevacizumab-based 1L maintenance", "scenario": "Newly diagnosed HRD-negative advanced ovarian cancer；完成 frontline treatment 後評估 torvutatug samrotecan + bevacizumab maintenance。", "prior": "第一線 maintenance trial；公開資料確認為完成 frontline treatment 後進入 maintenance 的研究；實際允許的 chemotherapy cycles、bevacizumab exposure 與 randomization window 請以本院 SIV / 最新 protocol 補上。", "inc": "HRD-negative advanced epithelial ovarian / fallopian tube / primary peritoneal cancer；適合 bevacizumab maintenance；女性；其他 stage、histology、response、tissue、ECOG 與 organ function 細節請以正式 protocol 為準。", "exc": "目前公開 portal 尚未提供足夠完整的 exclusion criteria；先特別注意 bevacizumab-related contraindications、重要 GI complication、uncontrolled cardiovascular disease、ILD/pneumonitis 與 prior ADC restrictions 是否列入正式 protocol；請 SIV 後更新。", "source": ""},
+  siteInfo:{"src":"excel","pi": "張宸邠", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "陳裕融", "phone": "0975056344", "status": "未開案", "note": "HRD-negative | Bevacizumab-based 1L maintenance", "scenario": "Newly diagnosed HRD-negative advanced ovarian cancer；完成 frontline treatment 後評估 torvutatug samrotecan + bevacizumab maintenance。", "prior": "第一線 maintenance trial；公開資料確認為完成 frontline treatment 後進入 maintenance 的研究；實際允許的 chemotherapy cycles、bevacizumab exposure 與 randomization window 請以本院 SIV / 最新 protocol 補上。", "inc": "HRD-negative advanced epithelial ovarian / fallopian tube / primary peritoneal cancer；適合 bevacizumab maintenance；女性；其他 stage、histology、response、tissue、ECOG 與 organ function 細節請以正式 protocol 為準。", "exc": "目前公開 portal 尚未提供足夠完整的 exclusion criteria；先特別注意 bevacizumab-related contraindications、重要 GI complication、uncontrolled cardiovascular disease、ILD/pneumonitis 與 prior ADC restrictions 是否列入正式 protocol；請 SIV 後更新。", "source": ""},
   phase:["P-MT"],
   status:"ongoing",
   name:"TREVI-OC-02",
@@ -4841,7 +4853,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["PSOC"],
   id:"rainfol-07",
-  siteInfo:{"pi": "趙安琪", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "李兆芸/丁秋煥", "phone": "", "status": "未開案", "note": "2L platinum treatment", "scenario": "PSOC；first recurrence / second-line treatment 情境，使用 platinum-based chemotherapy ± bevacizumab，而非完成 platinum 後的 maintenance。", "prior": "第二線 treatment；先前 1L platinum-based chemotherapy（carboplatin + paclitaxel）至少 4 cycles ± bevacizumab；需 platinum-sensitive，定義為 last platinum 後 >183 days radiographic progression；BRCA1/2-mutated 或 HRD-positive 者需 prior PARPi maintenance。", "inc": "High-grade serous 或 endometrioid epithelial ovarian / primary peritoneal / fallopian tube cancer；1L platinum 後 recurrent/progressive PSOC；RECIST 1.1 measurable disease；需 tumor specimen；ECOG 0–1。", "exc": "Clear cell、mucinous、sarcomatous、mixed、low-grade/borderline histology；prior anti-angiogenic agent（bevacizumab/biosimilar 除外）；prior TOP1-inhibitor ADC；prior FRα-targeted ADC；其他 protocol-defined exclusions。", "source": ""},
+  siteInfo:{"src":"excel","pi": "趙安琪", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "李兆芸/丁秋煥", "phone": "", "status": "未開案", "note": "2L platinum treatment", "scenario": "PSOC；first recurrence / second-line treatment 情境，使用 platinum-based chemotherapy ± bevacizumab，而非完成 platinum 後的 maintenance。", "prior": "第二線 treatment；先前 1L platinum-based chemotherapy（carboplatin + paclitaxel）至少 4 cycles ± bevacizumab；需 platinum-sensitive，定義為 last platinum 後 >183 days radiographic progression；BRCA1/2-mutated 或 HRD-positive 者需 prior PARPi maintenance。", "inc": "High-grade serous 或 endometrioid epithelial ovarian / primary peritoneal / fallopian tube cancer；1L platinum 後 recurrent/progressive PSOC；RECIST 1.1 measurable disease；需 tumor specimen；ECOG 0–1。", "exc": "Clear cell、mucinous、sarcomatous、mixed、low-grade/borderline histology；prior anti-angiogenic agent（bevacizumab/biosimilar 除外）；prior TOP1-inhibitor ADC；prior FRα-targeted ADC；其他 protocol-defined exclusions。", "source": ""},
   phase:["R-TX"],
   status:"ongoing",
   name:"RAINFOL-07",
@@ -5744,7 +5756,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["PROC"],
   id:"aspenova",
-  siteInfo:{"pi": "周宏學", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "李兆芸/丁秋煥", "phone": "", "status": "未開案", "note": "1–3 prior lines | Cyclin E1 positive", "scenario": "PROC；Cyclin E1-positive high-grade serous disease；通常 1–3 prior lines，特定 prior MIRV 情況可依 protocol 放寬。", "prior": "1–3 prior lines/regimens；若曾接受 mirvetuximab，可允許最多 4 prior lines；若符合 standard of care，需 prior bevacizumab；BRCA1/2 mutation 或 HRD 且適合者需 prior PARPi；FRα-high 且適合者需 prior MIRV。", "inc": "女性 ≥18；high-grade serous ovarian / primary peritoneal / fallopian tube cancer；platinum-resistant；Cyclin E1 protein positive by sponsor IHC assay；RECIST 1.1 measurable disease；ECOG 0–1；hematologic/organ function adequate。", "exc": "Primary platinum-refractory；prior azenosertib 或其他 WEE1 / ATR / CHK1/2 / PKMYT1 inhibitor；unstable brain metastasis / leptomeningeal disease；significant GI abnormality affecting oral absorption；其他 serious medical condition / organ dysfunction 依 protocol。", "source": ""},
+  siteInfo:{"src":"excel","pi": "周宏學", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "李兆芸/丁秋煥", "phone": "", "status": "未開案", "note": "1–3 prior lines | Cyclin E1 positive", "scenario": "PROC；Cyclin E1-positive high-grade serous disease；通常 1–3 prior lines，特定 prior MIRV 情況可依 protocol 放寬。", "prior": "1–3 prior lines/regimens；若曾接受 mirvetuximab，可允許最多 4 prior lines；若符合 standard of care，需 prior bevacizumab；BRCA1/2 mutation 或 HRD 且適合者需 prior PARPi；FRα-high 且適合者需 prior MIRV。", "inc": "女性 ≥18；high-grade serous ovarian / primary peritoneal / fallopian tube cancer；platinum-resistant；Cyclin E1 protein positive by sponsor IHC assay；RECIST 1.1 measurable disease；ECOG 0–1；hematologic/organ function adequate。", "exc": "Primary platinum-refractory；prior azenosertib 或其他 WEE1 / ATR / CHK1/2 / PKMYT1 inhibitor；unstable brain metastasis / leptomeningeal disease；significant GI abnormality affecting oral absorption；其他 serious medical condition / organ dysfunction 依 protocol。", "source": ""},
   phase:["R-TX"],
   status:"ongoing",
   name:"ASPENOVA",
@@ -5913,7 +5925,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["PROC"],
   id:"rejoice-ovarian02",
-  siteInfo:{"pi": "賴瓊慧", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "陳裕融", "phone": "0975056344", "status": "SIV / 啟動中", "note": "Combination cohort | 1–3 prior lines | Prior PARPi dependent", "scenario": "R-DXd combination study；包含 PSOC 與 PROC cohorts，各 cohort 的 platinum interval、prior lines 與搭配藥物條件不同。", "prior": "依 cohort 不同；PSOC cohort 多為 1–3 prior lines；部分 expansion cohort 僅允許 1 prior line；PROC cohort 為 1–3 prior lines；PROC + bevacizumab cohort 對 prior bevacizumab exposure 有額外限制；特定 PSOC cohort 要求 first-line PARPi treatment 中 progression。", "inc": "High-grade serous epithelial ovarian / primary peritoneal / fallopian tube cancer；RECIST 1.1 measurable disease；ECOG 0–1；需提供 tumor tissue；PSOC cohort 需符合 platinum-sensitive 定義；PROC cohort 需符合 platinum-resistant 定義；各 combination cohort 另依搭配藥物條件篩選。", "exc": "Prior CDH6-targeted therapy；≥Grade 2 peripheral neuropathy；重要或未控制 cardiovascular disease；嚴重 pulmonary compromise；任何重要 ILD/pneumonitis history 或目前疑似 ILD；active CNS metastasis / carcinomatous meningitis；active infection requiring systemic therapy；近期 systemic anticancer therapy / radiotherapy 未達 washout；其他 cohort-specific exclusions 依最新版 protocol。", "source": ""},
+  siteInfo:{"src":"excel","pi": "賴瓊慧", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "陳裕融", "phone": "0975056344", "status": "SIV / 啟動中", "note": "Combination cohort | 1–3 prior lines | Prior PARPi dependent", "scenario": "R-DXd combination study；包含 PSOC 與 PROC cohorts，各 cohort 的 platinum interval、prior lines 與搭配藥物條件不同。", "prior": "依 cohort 不同；PSOC cohort 多為 1–3 prior lines；部分 expansion cohort 僅允許 1 prior line；PROC cohort 為 1–3 prior lines；PROC + bevacizumab cohort 對 prior bevacizumab exposure 有額外限制；特定 PSOC cohort 要求 first-line PARPi treatment 中 progression。", "inc": "High-grade serous epithelial ovarian / primary peritoneal / fallopian tube cancer；RECIST 1.1 measurable disease；ECOG 0–1；需提供 tumor tissue；PSOC cohort 需符合 platinum-sensitive 定義；PROC cohort 需符合 platinum-resistant 定義；各 combination cohort 另依搭配藥物條件篩選。", "exc": "Prior CDH6-targeted therapy；≥Grade 2 peripheral neuropathy；重要或未控制 cardiovascular disease；嚴重 pulmonary compromise；任何重要 ILD/pneumonitis history 或目前疑似 ILD；active CNS metastasis / carcinomatous meningitis；active infection requiring systemic therapy；近期 systemic anticancer therapy / radiotherapy 未達 washout；其他 cohort-specific exclusions 依最新版 protocol。", "source": ""},
   phase:["R-TX"],
   status:"published",
   name:"REJOICE-Ovarian02 (R-DXd + Bev)",
@@ -8062,7 +8074,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["HRDneg","HER2"],
   id:"destiny-ovarian01",
-  siteInfo:{"pi": "湯雲心", "planned": 10, "enrolled": 0, "available": 10, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "HER2-expressing | Bevacizumab-based 1L maintenance", "scenario": "Newly diagnosed advanced ovarian cancer；HER2 IHC 1+/2+/3+，完成 frontline platinum + bevacizumab 後評估 maintenance。", "prior": "第一線 maintenance trial；完成 6–8 cycles frontline platinum-based chemotherapy with bevacizumab；trial intervention 需在最後一劑化療後 3–12 週開始；尚未開始 bevacizumab maintenance monotherapy；依本院資料 NACT/HIPEC allowed。", "inc": "Newly diagnosed FIGO III/IV high-grade epithelial ovarian/fallopian tube/primary peritoneal cancer；HER2 IHC 1+/2+/3+ by central testing；完成 frontline platinum + bevacizumab 且為 Non-PD；eligible to continue bevacizumab maintenance；需足夠 tumor tissue；需有 local HRD/BRCA result。", "exc": "Non-epithelial tumor；deleterious BRCA alteration 而適合 PARPi，或預計使用 PARPi maintenance；severe hypersensitivity to study drugs/monoclonal antibodies；近期 CVA/TIA/SAH；significant bleeding/coagulopathy；近期 abdominal fistula/GI perforation/active GI bleeding；重要心肺/ILD 等限制以最新版 protocol 為準。", "source": "2026-10-02 · 科內簡報"},
+  siteInfo:{"src":"excel","pi": "湯雲心", "planned": 10, "enrolled": 0, "available": 10, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "HER2-expressing | Bevacizumab-based 1L maintenance", "scenario": "Newly diagnosed advanced ovarian cancer；HER2 IHC 1+/2+/3+，完成 frontline platinum + bevacizumab 後評估 maintenance。", "prior": "第一線 maintenance trial；完成 6–8 cycles frontline platinum-based chemotherapy with bevacizumab；trial intervention 需在最後一劑化療後 3–12 週開始；尚未開始 bevacizumab maintenance monotherapy；依本院資料 NACT/HIPEC allowed。", "inc": "Newly diagnosed FIGO III/IV high-grade epithelial ovarian/fallopian tube/primary peritoneal cancer；HER2 IHC 1+/2+/3+ by central testing；完成 frontline platinum + bevacizumab 且為 Non-PD；eligible to continue bevacizumab maintenance；需足夠 tumor tissue；需有 local HRD/BRCA result。", "exc": "Non-epithelial tumor；deleterious BRCA alteration 而適合 PARPi，或預計使用 PARPi maintenance；severe hypersensitivity to study drugs/monoclonal antibodies；近期 CVA/TIA/SAH；significant bleeding/coagulopathy；近期 abdominal fistula/GI perforation/active GI bleeding；重要心肺/ILD 等限制以最新版 protocol 為準。", "source": "2026-10-02 · 科內簡報"},
   phase:["P-MT"],
   status:"ongoing",
   name:"DESTINY-Ovarian01",
@@ -8091,7 +8103,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:"BRCAm",
   id:"trofuse-021",
-  siteInfo:{"pi": "董秀容", "planned": 8, "enrolled": 0, "available": 8, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "HRD-negative / HRP | Bevacizumab-based 1L maintenance", "scenario": "Newly diagnosed advanced ovarian cancer，完成 frontline platinum 後進入 1L maintenance；以 HRD-negative / HRP 為主要情境。", "prior": "第一線 maintenance trial；完成 4–6 cycles frontline platinum-based chemotherapy；不是 recurrent 多線治療；除 protocol 規定的 frontline treatment 外，不應有額外 prior systemic anticancer lines；本院資料註記 prior HIPEC excluded。", "inc": "FIGO III/IV epithelial ovarian/primary peritoneal/fallopian tube cancer（specified high-grade histologies）；PDS 或 IDS；完成 1L platinum-based chemotherapy；screening 為 SD/PR/CR/NED；HRD-negative / HRP by protocol testing；需提供 tumor tissue；HIV/HBV/HCV 如有需符合 protocol 控制條件。", "exc": "HRD-positive、unknown 或 inconclusive（依 protocol）；non-epithelial、low-grade、borderline、mucinous 等不符合 histology；額外 prior systemic anticancer therapy 不符合 1L maintenance setting；prior/current clinically significant ILD/pneumonitis；severe ocular disease；active IBD；uncontrolled cardiovascular/cerebrovascular disease；active infection；未從 major surgery 恢復；prior HIPEC（依本院資料）excluded。", "source": "2026-10-02 · 科內簡報"},
+  siteInfo:{"src":"excel","pi": "董秀容", "planned": 8, "enrolled": 0, "available": 8, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "HRD-negative / HRP | Bevacizumab-based 1L maintenance", "scenario": "Newly diagnosed advanced ovarian cancer，完成 frontline platinum 後進入 1L maintenance；以 HRD-negative / HRP 為主要情境。", "prior": "第一線 maintenance trial；完成 4–6 cycles frontline platinum-based chemotherapy；不是 recurrent 多線治療；除 protocol 規定的 frontline treatment 外，不應有額外 prior systemic anticancer lines；本院資料註記 prior HIPEC excluded。", "inc": "FIGO III/IV epithelial ovarian/primary peritoneal/fallopian tube cancer（specified high-grade histologies）；PDS 或 IDS；完成 1L platinum-based chemotherapy；screening 為 SD/PR/CR/NED；HRD-negative / HRP by protocol testing；需提供 tumor tissue；HIV/HBV/HCV 如有需符合 protocol 控制條件。", "exc": "HRD-positive、unknown 或 inconclusive（依 protocol）；non-epithelial、low-grade、borderline、mucinous 等不符合 histology；額外 prior systemic anticancer therapy 不符合 1L maintenance setting；prior/current clinically significant ILD/pneumonitis；severe ocular disease；active IBD；uncontrolled cardiovascular/cerebrovascular disease；active infection；未從 major surgery 恢復；prior HIPEC（依本院資料）excluded。", "source": "2026-10-02 · 科內簡報"},
   phase:["P-MT"],
   status:"ongoing",
   name:"TroFuse-021",
@@ -8319,7 +8331,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:"PROC",
   id:"framework-01",
-  siteInfo:{"pi": "陳威君", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "蔡如杰", "phone": "0921131855", "status": "SIV / 啟動中", "note": "FRα-related | Prior PARPi dependent | 1–3/4 lines", "scenario": "同時涵蓋 PROC 與 PSOC parts；依 FRα、prior lines、prior PARPi / bevacizumab 與 Part A/B/C 分流。", "prior": "Part A / PROC：1–3 prior systemic cytotoxic lines；若其中一線為 mirvetuximab，可允許最多 4 lines；需 prior bevacizumab，除非有 contraindication/intolerance；BRCA mutation 且 clinically indicated 時需 prior PARPi。Part B/C / PSOC：1–2 prior systemic cytotoxic lines；Part B 需 prior PARPi 且在 PARPi 治療中或完成後 6 個月內 progression；Part C 不得有 prior PARPi。", "inc": "≥18 歲；high-grade serous 或 high-grade endometrioid ovarian/primary peritoneal/fallopian tube cancer；需 tumor tissue 並完成 FRα status；最近一線 systemic therapy during/after radiographic progression；RECIST 1.1 measurable disease；ECOG 0–1；Part A PFI ≤6 months；Parts B/C PFI >6 months。", "exc": "任何 prior ADC with a topoisomerase-inhibitor payload；Part A：primary platinum-refractory（最新版公開資料定義為 first-line platinum 後非常早期 progression）；Parts B/C：clinically significant proteinuria；Part C：known pathogenic BRCA1/2 alteration；另有 ILD/pneumonitis、infection/cardiovascular/CNS 等 general exclusions，完整條件以本院最新版 protocol 為準。", "source": "公開資料 · 台灣/全球 Part 定義可能有版本差異；SIV 後以本院最新版 protocol 為準"},
+  siteInfo:{"src":"excel","pi": "陳威君", "planned": "待更新", "enrolled": "待更新", "available": "待更新", "sc": "蔡如杰", "phone": "0921131855", "status": "SIV / 啟動中", "note": "FRα-related | Prior PARPi dependent | 1–3/4 lines", "scenario": "同時涵蓋 PROC 與 PSOC parts；依 FRα、prior lines、prior PARPi / bevacizumab 與 Part A/B/C 分流。", "prior": "Part A / PROC：1–3 prior systemic cytotoxic lines；若其中一線為 mirvetuximab，可允許最多 4 lines；需 prior bevacizumab，除非有 contraindication/intolerance；BRCA mutation 且 clinically indicated 時需 prior PARPi。Part B/C / PSOC：1–2 prior systemic cytotoxic lines；Part B 需 prior PARPi 且在 PARPi 治療中或完成後 6 個月內 progression；Part C 不得有 prior PARPi。", "inc": "≥18 歲；high-grade serous 或 high-grade endometrioid ovarian/primary peritoneal/fallopian tube cancer；需 tumor tissue 並完成 FRα status；最近一線 systemic therapy during/after radiographic progression；RECIST 1.1 measurable disease；ECOG 0–1；Part A PFI ≤6 months；Parts B/C PFI >6 months。", "exc": "任何 prior ADC with a topoisomerase-inhibitor payload；Part A：primary platinum-refractory（最新版公開資料定義為 first-line platinum 後非常早期 progression）；Parts B/C：clinically significant proteinuria；Part C：known pathogenic BRCA1/2 alteration；另有 ILD/pneumonitis、infection/cardiovascular/CNS 等 general exclusions，完整條件以本院最新版 protocol 為準。", "source": "公開資料 · 台灣/全球 Part 定義可能有版本差異；SIV 後以本院最新版 protocol 為準"},
   phase:["R-TX"],
   status:"ongoing",
   name:"FRAmework-01",
@@ -8404,7 +8416,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:["PROC","ADC"],
   id:"engot-ov77",
-  siteInfo:{"pi": "周宏學", "planned": "待更新", "enrolled": 0, "available": "本院預計8", "sc": "李芸蕙", "phone": "0975937602", "status": "PAUSED", "note": "1–4 prior lines | CDH6 ADC candidate", "scenario": "PROC；prior systemic lines 1–4，並符合 protocol 對 prior bevacizumab 與 platinum resistance 的要求。", "prior": "1–4 prior systemic anticancer lines；其中至少一線需含 bevacizumab（依本院資料）；若僅 1 line platinum：至少 4 cycles，best response 非 PD，且距最後 platinum >90 至 ≤180 days progression；若 2–4 lines platinum：至少 2 cycles，且 on/within 180 days progression。", "inc": "≥18 歲；high-grade serous 或 high-grade endometrioid ovarian/primary peritoneal/fallopian tube cancer；PROC；RECIST 1.1 至少 1 個 measurable lesion；ECOG 0–1；器官/骨髓功能符合。", "exc": "Clear-cell、mucinous、sarcomatous、mixed/low-grade/borderline 等不符合 histology；prior lines 超過 protocol 上限；近期 major surgery/radiotherapy/systemic anticancer therapy 未達 washout；近期其他 investigational drug；其他重要心肺/感染/既往毒性限制依最新版 protocol。", "source": "2026-04-07 · 科內簡報；上線前請再次確認 status/slots"},
+  siteInfo:{"src":"excel","pi": "周宏學", "planned": "待更新", "enrolled": 0, "available": "本院預計8", "sc": "李芸蕙", "phone": "0975937602", "status": "PAUSED", "note": "1–4 prior lines | CDH6 ADC candidate", "scenario": "PROC；prior systemic lines 1–4，並符合 protocol 對 prior bevacizumab 與 platinum resistance 的要求。", "prior": "1–4 prior systemic anticancer lines；其中至少一線需含 bevacizumab（依本院資料）；若僅 1 line platinum：至少 4 cycles，best response 非 PD，且距最後 platinum >90 至 ≤180 days progression；若 2–4 lines platinum：至少 2 cycles，且 on/within 180 days progression。", "inc": "≥18 歲；high-grade serous 或 high-grade endometrioid ovarian/primary peritoneal/fallopian tube cancer；PROC；RECIST 1.1 至少 1 個 measurable lesion；ECOG 0–1；器官/骨髓功能符合。", "exc": "Clear-cell、mucinous、sarcomatous、mixed/low-grade/borderline 等不符合 histology；prior lines 超過 protocol 上限；近期 major surgery/radiotherapy/systemic anticancer therapy 未達 washout；近期其他 investigational drug；其他重要心肺/感染/既往毒性限制依最新版 protocol。", "source": "2026-04-07 · 科內簡報；上線前請再次確認 status/slots"},
   phase:["R-TX"],
   status:"ongoing",
   name:"ENGOT-ov77 / GOG-3096",
@@ -8687,7 +8699,6 @@ const TRIALS = [
   cancer:"OC",
   subcat:"CCC",
   id:"dove",
-  siteInfo:{pi:"黃慧君",planned:10,enrolled:1,available:9,sc:"陳裕融",phone:"0975056344",note:"復發/持續性婦癌亮細胞癌, ≥50% clear cell histology"},
   phase:["R-TX"],
   status:"ongoing",
   name:"DOVE",
@@ -8999,7 +9010,7 @@ const TRIALS = [
   cancer:"OC",
   subcat:"ADC",
   id:"trofuse-022",
-  siteInfo:{"pi": "董秀容", "planned": 5, "enrolled": 0, "available": 5, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "Post-2L platinum maintenance", "scenario": "Platinum-sensitive recurrence 完成 second-line carboplatin-based doublet 後，評估 maintenance。", "prior": "第二線 platinum-sensitive recurrence setting；1L platinum-based doublet ≥4 cycles；2L carboplatin-based doublet 通常共 6 cycles（因 toxicity 可依 protocol 減至 4–5）；公開 eligibility 明列 >2 prior systemic lines 為 exclusion。", "inc": "Histologically confirmed epithelial ovarian/primary peritoneal/fallopian tube cancer（protocol-allowed histologies）；platinum-sensitive recurrence；完成 first-line platinum 與 second-line carboplatin-based doublet；ECOG 0–1；需提供未曾放療 tumor tissue；BRCAm/HRD+ 病人依本院資料需 prior PARPi frontline maintenance。", "exc": "Platinum-resistant 或 platinum-refractory；>2 prior systemic lines；non-epithelial/borderline/mucinous 等不符合 histology；severe ocular/corneal disease；active IBD；uncontrolled cardiovascular/cerebrovascular disease；prior/current ILD/pneumonitis；近期 systemic anticancer therapy 未達 washout；active CNS disease/infection 等依 protocol。", "source": "2026-10-02 · 科內簡報"},
+  siteInfo:{"src":"excel","pi": "董秀容", "planned": 5, "enrolled": 0, "available": 5, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "Post-2L platinum maintenance", "scenario": "Platinum-sensitive recurrence 完成 second-line carboplatin-based doublet 後，評估 maintenance。", "prior": "第二線 platinum-sensitive recurrence setting；1L platinum-based doublet ≥4 cycles；2L carboplatin-based doublet 通常共 6 cycles（因 toxicity 可依 protocol 減至 4–5）；公開 eligibility 明列 >2 prior systemic lines 為 exclusion。", "inc": "Histologically confirmed epithelial ovarian/primary peritoneal/fallopian tube cancer（protocol-allowed histologies）；platinum-sensitive recurrence；完成 first-line platinum 與 second-line carboplatin-based doublet；ECOG 0–1；需提供未曾放療 tumor tissue；BRCAm/HRD+ 病人依本院資料需 prior PARPi frontline maintenance。", "exc": "Platinum-resistant 或 platinum-refractory；>2 prior systemic lines；non-epithelial/borderline/mucinous 等不符合 histology；severe ocular/corneal disease；active IBD；uncontrolled cardiovascular/cerebrovascular disease；prior/current ILD/pneumonitis；近期 systemic anticancer therapy 未達 washout；active CNS disease/infection 等依 protocol。", "source": "2026-10-02 · 科內簡報"},
   phase:["R-MT"],
   status:"ongoing",
   name:"TroFuse-022",
@@ -9316,7 +9327,7 @@ const TRIALS = [
   cancer:"CC",
   subcat:"IO",
   id:"evolve-cervical",
-  siteInfo:{"pi": "湯雲心", "planned": 8, "enrolled": 4, "available": 4, "sc": "王筠婷", "phone": "0975056154", "status": "OPEN", "note": "High-risk post-CCRT maintenance", "scenario": "局部晚期 cervical cancer 完成 definitive platinum-based CCRT 後未 progression，評估 maintenance。", "prior": "Newly diagnosed setting；已完成 protocol-defined definitive platinum-based CCRT；屬 post-CCRT maintenance，而非多線復發治療。", "inc": "FIGO 2018 stage IIIA–IVA cervical SCC/adenocarcinoma/adenosquamous；無遠端轉移；完成 definitive CCRT 後未 progression；若有 persistent disease，須無其他 curative-intent option；ECOG 0–1；可提供 FFPE tumor sample；器官/骨髓功能符合。", "exc": "Small-cell/neuroendocrine 或 mucinous adenocarcinoma；遠端轉移；計畫 fertility-sparing treatment；organ/stem-cell transplant history；active/prior significant autoimmune or inflammatory disorder；未控制共病；CCRT toxicity 尚未恢復；vesicovaginal/colovaginal/rectovaginal fistula history；近期 systemic immunosuppression。", "source": "2026-10-02 · 科內簡報"},
+  siteInfo:{"src":"excel","pi": "湯雲心", "planned": 8, "enrolled": 4, "available": 4, "sc": "王筠婷", "phone": "0975056154", "status": "OPEN", "note": "High-risk post-CCRT maintenance", "scenario": "局部晚期 cervical cancer 完成 definitive platinum-based CCRT 後未 progression，評估 maintenance。", "prior": "Newly diagnosed setting；已完成 protocol-defined definitive platinum-based CCRT；屬 post-CCRT maintenance，而非多線復發治療。", "inc": "FIGO 2018 stage IIIA–IVA cervical SCC/adenocarcinoma/adenosquamous；無遠端轉移；完成 definitive CCRT 後未 progression；若有 persistent disease，須無其他 curative-intent option；ECOG 0–1；可提供 FFPE tumor sample；器官/骨髓功能符合。", "exc": "Small-cell/neuroendocrine 或 mucinous adenocarcinoma；遠端轉移；計畫 fertility-sparing treatment；organ/stem-cell transplant history；active/prior significant autoimmune or inflammatory disorder；未控制共病；CCRT toxicity 尚未恢復；vesicovaginal/colovaginal/rectovaginal fistula history；近期 systemic immunosuppression。", "source": "2026-10-02 · 科內簡報"},
   phase:["P-MT"],
   status:"ongoing",
   name:"eVOLVE-Cervical",
@@ -9345,7 +9356,7 @@ const TRIALS = [
   cancer:"CC",
   subcat:["1L-RM","ADC","IO"],
   id:"trofuse-036",
-  siteInfo:{"pi": "湯雲心", "planned": 2, "enrolled": 0, "available": 2, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "1L systemic / maintenance for persistent-recurrent-metastatic", "scenario": "Persistent/recurrent/metastatic cervical cancer；依 Part 1 / Part 2 的 prior systemic treatment 與 induction therapy 條件分流。", "prior": "Part 1：完成 6 cycles induction platinum doublet 後進入 maintenance；Part 2：不得有 prior systemic treatment，包含 prior immunotherapy；prior radiation ± radiosensitizing chemotherapy 可依 protocol。", "inc": "Histologically confirmed SCC/adenosquamous/adenocarcinoma；persistent/recurrent/newly metastatic 且不適合 curative surgery/radiation；PD-L1 CPS ≥1；ECOG 0–1；Part 1/2 依 protocol 符合 TROP2 與 prior-treatment 條件；HBV/HCV/HIV 如有需達 protocol 控制標準。", "exc": "不符合 Part 1/2 規定的 prior systemic therapy；severe dry eye/Meibomian gland disease/corneal disease；active inflammatory bowel disease；uncontrolled significant cardiovascular/cerebrovascular disease；active autoimmune disease requiring systemic treatment；prior/current ILD/pneumonitis；active CNS metastasis/carcinomatous meningitis；近期 major surgery 未恢復。", "source": "2026-10-02 · 科內簡報"},
+  siteInfo:{"src":"excel","pi": "湯雲心", "planned": 2, "enrolled": 0, "available": 2, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "1L systemic / maintenance for persistent-recurrent-metastatic", "scenario": "Persistent/recurrent/metastatic cervical cancer；依 Part 1 / Part 2 的 prior systemic treatment 與 induction therapy 條件分流。", "prior": "Part 1：完成 6 cycles induction platinum doublet 後進入 maintenance；Part 2：不得有 prior systemic treatment，包含 prior immunotherapy；prior radiation ± radiosensitizing chemotherapy 可依 protocol。", "inc": "Histologically confirmed SCC/adenosquamous/adenocarcinoma；persistent/recurrent/newly metastatic 且不適合 curative surgery/radiation；PD-L1 CPS ≥1；ECOG 0–1；Part 1/2 依 protocol 符合 TROP2 與 prior-treatment 條件；HBV/HCV/HIV 如有需達 protocol 控制標準。", "exc": "不符合 Part 1/2 規定的 prior systemic therapy；severe dry eye/Meibomian gland disease/corneal disease；active inflammatory bowel disease；uncontrolled significant cardiovascular/cerebrovascular disease；active autoimmune disease requiring systemic treatment；prior/current ILD/pneumonitis；active CNS metastasis/carcinomatous meningitis；近期 major surgery 未恢復。", "source": "2026-10-02 · 科內簡報"},
   phase:["P-MT"],
   status:"ongoing",
   name:"TroFuse-036",
@@ -9374,7 +9385,7 @@ const TRIALS = [
   cancer:"CC",
   subcat:["CIN","Vaccine"],
   id:"pvx4",
-  siteInfo:{"pi": "賴瓊慧", "planned": 15, "enrolled": 0, "available": 15, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "HPV16+ CIN2/3", "scenario": "HPV16-positive CIN2/3；重點先確認病理、HPV16、既往 cervical procedure 與免疫相關排除條件。", "prior": "不適用（非癌症化療線別試驗）；重點看既往 cervical procedure / immunotherapy / investigational treatment。", "inc": "女性 18–60 歲；中央病理確認 CIN2/3；Roche Cobas 確認 HPV16+（可合併其他 HPV）；HIV negative；基本血球/肝腎功能符合；可完成 1 年追蹤並依規定避孕。", "exc": "懷孕/哺乳或近期計畫懷孕；免疫功能不全或使用免疫抑制劑；近期其他試驗/抗癌治療/重大手術；活動性自體免疫病或未控制共病；既往 conization/LEEP 等可能影響評估的 cervical procedure；AIS/AGC/SCC 或 colposcopy 無法完整評估病灶；不適合 IM injection/electroporation。", "source": "2026-10-02 · 科內簡報"},
+  siteInfo:{"src":"excel","pi": "賴瓊慧", "planned": 15, "enrolled": 0, "available": 15, "sc": "陳裕融", "phone": "0975056344", "status": "OPEN", "note": "HPV16+ CIN2/3", "scenario": "HPV16-positive CIN2/3；重點先確認病理、HPV16、既往 cervical procedure 與免疫相關排除條件。", "prior": "不適用（非癌症化療線別試驗）；重點看既往 cervical procedure / immunotherapy / investigational treatment。", "inc": "女性 18–60 歲；中央病理確認 CIN2/3；Roche Cobas 確認 HPV16+（可合併其他 HPV）；HIV negative；基本血球/肝腎功能符合；可完成 1 年追蹤並依規定避孕。", "exc": "懷孕/哺乳或近期計畫懷孕；免疫功能不全或使用免疫抑制劑；近期其他試驗/抗癌治療/重大手術；活動性自體免疫病或未控制共病；既往 conization/LEEP 等可能影響評估的 cervical procedure；AIS/AGC/SCC 或 colposcopy 無法完整評估病灶；不適合 IM injection/electroporation。", "source": "2026-10-02 · 科內簡報"},
   phase:["P-TX"],
   status:"ongoing",
   name:"PVX4",
@@ -15064,7 +15075,7 @@ const PG_STATUS = {
   std:  {label:'標準治療', icon:'✅', badge:''},
   cond: {label:'有條件 / 次選', icon:'🔷', badge:''},
   early:{label:'早期數據 (Phase 1/2 訊號,尚未確認)', icon:'🔬', badge:'早期'},
-  trial:{label:'試驗進行中 (等結果)', icon:'⏳', badge:'等結果'},
+  trial:{label:'非本院 · 收案結束 / 等待結果', icon:'⏳', badge:'等結果'},
   neg:  {label:'陰性 (試驗失敗 / 未優於對照 / 撤回)', icon:'⛔', badge:'陰性'},
   gap:  {label:'無標準也無試驗 → 未滿足需求', icon:'🚩', badge:'無標準'},
   na:   {label:'不適用 (無此臨床情境)', icon:'➖', badge:'不適用'},
@@ -16463,8 +16474,9 @@ function pgMatchFilter(info){
 
 function pgSegFull(sg){
   const chips = sg.ids ? pgSortIds(sg.ids).map(pgTrialChip).join('') : '';
-  return `<div class="pg-seg ${sg.s}">
-    <div class="pg-seg-t"><span class="pg-ic">${PG_STATUS[sg.s].icon}</span>${PG_STATUS[sg.s].badge?`<span class="pg-st st-${sg.s}">${PG_STATUS[sg.s].badge}</span>`:''}${pgIO(escapeHtml(sg.t))}${sg.g?` ${pgGateHTML(sg.g)}`:''}${sg.reg?`<div class="pg-rg-row">🏛 ${pgRegHTML(sg.reg)}</div>`:''}${(()=>{const sy=pgSegYear(sg);return sy?` <span class="pg-seg-yr">${sy.kind==='pub'?'證據 '+sy.y:sy.y+' 開展'}</span>`:'';})()}</div>
+  const siteBanner = sg.site ? `<div class="pg-seg-site ${PG_SITE_ST[sg.site].cls}">${PG_SITE_ST[sg.site].ic} ${PG_SITE_ST[sg.site].lbl} — 可轉介本院試驗 (點試驗名稱看收案條件與 SC 聯絡)</div>` : '';
+  return `<div class="pg-seg ${sg.s}${sg.site?' is-site':''}">${siteBanner}
+    <div class="pg-seg-t"><span class="pg-ic">${sg.site&&sg.s==='trial'?PG_SITE_ST[sg.site].ic:PG_STATUS[sg.s].icon}</span>${PG_STATUS[sg.s].badge&&!(sg.site&&sg.s==='trial')?`<span class="pg-st st-${sg.s}">${PG_STATUS[sg.s].badge}</span>`:''}${pgIO(escapeHtml(sg.t))}${sg.g?` ${pgGateHTML(sg.g)}`:''}${sg.reg?`<div class="pg-rg-row">🏛 ${pgRegHTML(sg.reg)}</div>`:''}${(()=>{const sy=pgSegYear(sg);return sy?` <span class="pg-seg-yr">${sy.kind==='pub'?'證據 '+sy.y:sy.y+' 開展'}</span>`:'';})()}</div>
     ${chips?`<div class="pg-chips">${chips}</div>`:''}
     ${sg.idea?`<div class="pg-idea">💡 ${escapeHtml(sg.idea)}</div>`:''}
     ${(()=>{const ad=pgADCFor(sg);return ad.length?ad.map(pgADCCard).join(''):'';})()}
@@ -16516,9 +16528,10 @@ function renderPathwayGrid(cancer){
     const lines = segs.slice(0, max).map(s => {
       const sy = pgSegYear(s);
       const ytag = sy ? `<span class="pg-mx-yr ${sy.kind}" title="${sy.kind==='pub'?'最早關鍵試驗發表年':'試驗開展年'}">${sy.kind==='start'?'▶':''}'${String(sy.y).slice(2)}</span>` : '';
-      const bd = PG_STATUS[s.s].badge ? `<span class="pg-st st-${s.s}">${PG_STATUS[s.s].badge}</span>` : '';
+      const sb = s.site ? `<span class="pg-st-site ${PG_SITE_ST[s.site].cls}" title="${PG_SITE_ST[s.site].lbl}">${PG_SITE_ST[s.site].ic}本院${{OPEN:'收案',SIV:'啟動',PAUSED:'暫停','未開案':'籌備',CLOSED:'關閉'}[s.site]}</span>` : '';
+      const bd = sb ? (s.s === 'trial' ? sb : `<span class="pg-st st-${s.s}">${PG_STATUS[s.s].badge}</span>${sb}`) : (PG_STATUS[s.s].badge ? `<span class="pg-st st-${s.s}">${PG_STATUS[s.s].badge}</span>` : '');
       const nm = (s.s === 'na' && (s.k || '') === '不適用') ? '' : pgIO(escapeHtml(s.k || s.t));
-      return `<div class="pg-mx-line ${s.s}"><span class="pg-dot ${s.s}"></span><span class="pg-mx-nm">${bd}${nm}${s.g?pgGateHTML(s.g, true):''}${pgRegHTML(s.reg, true)}${pgMechIds(s).length?'<span class="pg-mech-ic" title="有作用機轉說明">🧬</span>':''}</span>${ytag}</div>`;
+      return `<div class="pg-mx-line ${s.s}${s.site?' site site-'+PG_SITE_ST[s.site].cls:''}"><span class="pg-dot ${s.s}"></span><span class="pg-mx-nm">${bd}${nm}${s.g?pgGateHTML(s.g, true):''}${pgRegHTML(s.reg, true)}${pgMechIds(s).length?'<span class="pg-mech-ic" title="有作用機轉說明">🧬</span>':''}</span>${ytag}</div>`;
     }).join('');
     const meta = [
       segs.length > max ? `<span class="more">+${segs.length - max}項</span>` : '',
@@ -16526,7 +16539,8 @@ function renderPathwayGrid(cancer){
       info.nOngoing ? `<span class="on">🧪${info.nOngoing}</span>` : '',
       info.nSite ? `<span>🏥${info.nSite}</span>` : '',
     ].join('');
-    return `<button class="pg-cell pg-mx top-${info.top}${info.gap?' has-gap':''}${sel?' sel':''}${dim?' dim':''}${opt.shared?' shared':''}" style="${place}" onclick="pgSelect('${rid}','${c.key}')" title="${escapeHtml(rlabel + ' × ' + c.label)}">
+    const hasSite = segs.some(x => x.site === 'OPEN' || x.site === 'SIV');
+    return `<button class="pg-cell pg-mx top-${info.top}${info.gap?' has-gap':''}${hasSite?' has-site':''}${sel?' sel':''}${dim?' dim':''}${opt.shared?' shared':''}" style="${place}" onclick="pgSelect('${rid}','${c.key}')" title="${escapeHtml(rlabel + ' × ' + c.label)}">
       <div class="pg-strip">${segs.map(x => `<i class="${x.s}"></i>`).join('')}</div>
       ${opt.shared ? `<div class="pg-shared-note">${escapeHtml(opt.shared)}</div>` : ''}
       <div class="pg-mx-lines">${lines}</div>
@@ -16646,9 +16660,10 @@ function renderPathwayGrid(cancer){
 
   const ioLegend = `<span class="pg-lg">IO 標靶:<span class="pg-io pd1">PD-1</span><span class="pg-io pdl1">PD-L1</span><span class="pg-io ctla4">CTLA-4</span><span class="pg-io bs">PD-1×CTLA-4</span></span>`;
   const regLegend = `<span class="pg-lg" title="依截至 2026 年中資料整理;請以最新 FDA 仿單 / NCCN 為準;台灣健保另查">適應症:<span class="pg-rg fda">FDA</span>已核准<span class="pg-rg nofda">非FDA</span>未核准<span class="pg-rg nccn">NCCN</span>指引列入<span class="pg-rg pend">待查</span></span>`;
+  const siteLegend = `<span class="pg-lg">本院 (依團隊 Excel):<span class="pg-st-site open">🏥本院收案</span><span class="pg-st-site siv">🚀本院啟動</span><span class="pg-st-site paused">⏸本院暫停</span><span class="pg-st-site plan">🗓本院籌備</span></span>`;
   const gateLegend = `<span class="pg-lg">標記:<span class="pg-gt req">🎯需檢測才適用</span><span class="pg-gt ref">參考 (不需篩選)</span><span class="pg-gt clin">臨床條件</span></span>`;
   const legend = ['std','cond','early','trial','neg','gap','na'].map(k =>
-    `<span class="pg-lg ${k}"><span class="pg-dot ${k}"></span>${PG_STATUS[k].label}</span>`).join('') + gateLegend + regLegend +
+    `<span class="pg-lg ${k}"><span class="pg-dot ${k}"></span>${PG_STATUS[k].label}</span>`).join('') + siteLegend + gateLegend + regLegend +
     `<span class="pg-lg"><span class="pg-mx-yr pub">'18</span>證據發表年</span><span class="pg-lg"><span class="pg-mx-yr start">▶'24</span>試驗開展年</span>` + ioLegend;
   const filters = [['gap','🚩 只看未滿足需求'],['trial','🧪 有進行中試驗'],['site','🏥 本院試驗']].map(([k,l]) =>
     `<button class="pg-flt${PG_FILTER===k?' active':''}" onclick="pgSetFilter('${k}')">${l}</button>`).join('') +
@@ -17004,12 +17019,18 @@ function pgNormalize(){
     });
   });
   // 「試驗」但所列試驗皆已發表 → 早期數據
-  const fix = seg => {
+  const SITE_RANK = ['OPEN','SIV','PAUSED','未開案','CLOSED'];
+  const markSite = seg => {
+    const ks = (seg.ids||[]).map(pgTrial).filter(t => t && t.siteInfo && t.siteInfo.src === 'excel').map(pgSiteKey);
+    if(ks.length) seg.site = SITE_RANK.find(k => ks.includes(k));
+  };
+  const fix0 = seg => {
     if(seg.s === 'trial' && seg.ids && seg.ids.length){
       const ts = seg.ids.map(pgTrial).filter(Boolean);
       if(ts.length && ts.every(t => t.status !== 'ongoing')) seg.s = 'early';
     }
   };
+  const fix = seg => { fix0(seg); markSite(seg); };
   Object.entries(PATHWAY_GRID).forEach(([cn, d]) => {
     d.rows.forEach(r => Object.values(r.cells || {}).forEach(a => a.forEach(sg => { fix(sg); pgReg(cn, sg); })));
     (d.groups || []).forEach(g => Object.values(g.shared || {}).forEach(a => a.forEach(sg => { fix(sg); pgReg(cn, sg); })));
