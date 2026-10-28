@@ -3294,6 +3294,19 @@ footer{text-align:center;padding:30px 16px;color:var(--ink-muted);font-size:11px
 .pg-adc-tbl{min-width:640px;}
 .pg-adc-tbl tr.mt td:nth-child(3){color:#9a3412;font-weight:700;}
 .pg-adc-tbl tr.t1 td:nth-child(3){color:#155e75;font-weight:700;}
+.pg-adc-tbl{min-width:900px;}
+.pg-adc-tbl td.tst.req{background:#fff1f2;color:#9f1239;font-weight:700;}
+.pg-adc-tbl td.tst.strat{background:#fffbeb;color:#92400e;font-weight:700;}
+.pg-adc-tbl td.tst.no{background:#f0fdf4;color:#166534;font-weight:700;}
+.pg-adc-tbl td small{font-weight:500;color:#475569;}
+.pg-adc-card{margin-top:6px;background:#fff;border:1px solid #c7d2fe;border-left:4px solid #6366f1;border-radius:8px;padding:6px 8px;}
+.pg-adc-n{font-size:12px;font-weight:800;color:#3730a3;}
+.pg-adc-g{display:flex;flex-wrap:wrap;gap:4px 10px;margin:3px 0;font-size:11.5px;color:#1e293b;}
+.pg-adc-g i{font-style:normal;font-size:10px;color:#64748b;margin-right:3px;}
+.pg-adc-g span.mt{color:#9a3412;font-weight:700;} .pg-adc-g span.t1{color:#155e75;font-weight:700;}
+.pg-adc-test{font-size:11.5px;font-weight:700;border-radius:5px;padding:2px 6px;display:inline-block;}
+.pg-adc-test.req{background:#fff1f2;color:#9f1239;} .pg-adc-test.strat{background:#fffbeb;color:#92400e;} .pg-adc-test.no{background:#f0fdf4;color:#166534;}
+.pg-adc-tox{font-size:10.5px;color:#64748b;margin-top:3px;}
 .pg-mech-tbl{width:100%;border-collapse:collapse;font-size:11px;margin-top:4px;}
 .pg-mech-tbl th{background:#155e75;color:#fff;text-align:left;padding:4px 5px;font-weight:700;}
 .pg-mech-tbl td{border-bottom:1px solid #e2e8f0;padding:4px 5px;vertical-align:top;color:#1e293b;}
@@ -7403,12 +7416,12 @@ const TRIALS = [
   fullName:"PRIMA / ENGOT-OV26 / GOG-3012",
   pharma:"GSK / Tesaro",
   drug:"Niraparib 一線維持 (全人群)",
-  tagline:"全人群一線維持: HRD+ PFS HR 0.43, ITT HR 0.62。**最終 OS 無顯著差異 (HR 1.01, P=0.88)**。",
+  tagline:"一線維持: HRD+ PFS HR 0.43、ITT HR 0.62;最終 OS 無差異 (ITT HR 1.01;HRD+ 0.95;HRD− 0.89) → 2025/06 FDA 將適應症限縮為 HRD+ (含 BRCAm)。",
   rationale:"擴展 PARPi 維持至非 BRCAm/HRD- 族群,涵蓋所有完成一線含鉑化療的高風險新診斷晚期卵巢癌。Niraparib 為 selective PARP1/2 inhibitor。",
   regimen:"2:1 randomization, n=733\n試驗組 (n=487): Niraparib 個別化起始劑量 (IDS) PO QD\n  • 體重 <77kg 或 platelet <150K → 200mg QD\n  • 否則 → 300mg QD\n對照組 (n=246): Placebo PO QD\n維持治療達 36 個月或進展 (較 SOLO-1 2 年延長)",
   inc:["新診斷 FIGO Stage III/IV 高級別漿液癌或子宮內膜樣","高復發風險 (Stage III 不完全切除 / Stage IV / NACT)","一線含鉑化療後達 CR 或 PR","ECOG 0-1"],
   exc:["MDS/AML 風險","先前 PARP 抑制劑","持續性骨髓抑制未恢復","Stage III 完全切除且 BRCA wild-type (預後好族群排除)"],
-  outcomes:"【HRD+ PFS】mPFS 21.9 vs 10.4m (HR 0.43, CI 0.31-0.59, P<0.001)\n【ITT PFS】mPFS 13.8 vs 8.2m (HR 0.62, CI 0.50-0.76, P<0.001)\n【Final OS (Ann Oncol 2024)】ITT HR 1.01 (CI 0.84-1.23, P=0.88, NS); HRD+ HR 0.95",
+  outcomes:"【HRD+ PFS】mPFS 21.9 vs 10.4m (HR 0.43, CI 0.31-0.59, P<0.001)\n【ITT PFS】mPFS 13.8 vs 8.2m (HR 0.62, CI 0.50-0.76, P<0.001)\n【Final OS (Ann Oncol 2024)】ITT HR 1.01 (CI 0.84-1.23, P=0.88, NS); HRD+ HR 0.95\n\n【最終 OS (FDA 審查,DCO 2024/04)】ITT HR 1.01 (95% CI 0.84–1.23);HRD+ HR 0.95 (0.71–1.29);HRD− HR 0.89 (0.65–1.21,探索性);HRD 未確定 HR 1.44\n→ FDA 2025/06 限縮適應症至 HRD+ (含 BRCAm)",
 
   enrolled:"733 randomized — Niraparib 487 / Placebo 246 (2:1)\nHRD+ 50.9% (n=373) / HRD- 33.7% (n=249) / HRD-unknown 15.4%\n**最高風險族群** (Stage IV 35.4%, NACT 接受率 67%, post-op residual 48%)",
   hist:"高級別漿液癌 ~85%\n子宮內膜樣 ~10%\n其他 ~5%",
@@ -7416,7 +7429,7 @@ const TRIALS = [
   tech:"【PARPi】Niraparib 個別化起始劑量 (IDS, individualized dosing strategy):\n  • 200mg QD: 體重 <77kg 或 baseline platelet <150K\n  • 300mg QD: 其他患者\n  • 此 IDS 顯著降低血小板減少率\n\n【治療期限】至 36 個月或進展 (較 SOLO-1 / PAOLA-1 2y 長 50%)\n\n關鍵安全性:\n  • Thrombocytopenia G3-4: 39% (高於 olaparib) — IDS 可降至 ~21%\n  • Anemia G3-4: 31%\n  • Neutropenia G3-4: 21%\n  • Hypertension: 約 20%\n  • Nausea / fatigue 多 G1-2",
   subgroup:"【主分析 (NEJM 2019)】\n  • HRD+ PFS HR 0.43 (mPFS 21.9 vs 10.4m)\n  • ITT PFS HR 0.62 (mPFS 13.8 vs 8.2m)\n\n【HRD+ subgroup (n=373)】\n  • BRCAm subset (n=223): mPFS 22.1 vs 10.9m (HR 0.40)\n  • Non-BRCAm HRD+ (n=150): mPFS 19.6 vs 8.2m (HR 0.50)\n\n【HRD- subgroup (n=249)】\n  • mPFS 8.1 vs 5.4m (HR 0.68) — 仍見統計獲益但臨床意義較小\n\n【Final OS (Ann Oncol 2024, Gonzalez-Martin et al.)】\n  • ITT OS HR 1.01 (CI 0.84-1.23, P=0.88) — **NS, 引發學界討論**\n  • HRD+ HR 0.95\n  • HRD- HR 1.13\n\n【關鍵 confounding 解釋】\n  • 37.8% placebo 後續接受 PARPi (HRD+: 48.8%; BRCAm: 57.7%)\n  • 高比例 cross-over 後續 PARPi 治療稀釋差異\n  • PRIMA 收案最高風險族群 (vs SOLO-1 排除 Stage III 完全切除)\n  • Post-op residual 48% (vs SOLO-1 23%) — 預後較差\n\n【vs SOLO-1 / PAOLA-1 比較】\n  • SOLO-1 BRCAm 7y OS HR 0.55 ✓\n  • PAOLA-1 HRD+ 5y OS HR 0.62 ✓\n  • PRIMA HRD+ 5y OS HR 0.95 ✗ — 唯一 OS 失敗",
   combo:"無 Bev (與 PAOLA-1/DUO-O 差異)\n為單藥 PARPi 維持\n後續 NIRVANA-1 (Niraparib + Bev maintenance) 探索組合",
-  guideline:"NCCN v2.2026 Category 1 for HRD+ 一線維持\nHRD- 為 Category 2A (因 OS 未達顯著)\nFDA approved Apr 2020 (Zejula 一線維持 advanced ovarian cancer)\nEMA approved 2020\n台灣健保: 已給付 (HRD+ 限制族群)",
+  guideline:"FDA: 2020 核准一線維持 (不限 biomarker) → 2025/06 依 PRIMA 最終 OS 限縮為 HRD 陽性 (含 BRCAm);非 HRD 陽性不應新開始使用,已在用者個別評估\nNCCN: HRD+ 一線維持;HRD− 之地位請查最新版\n台灣健保: 給付條件請查最新規定",
   nct:"NCT02655016",
   publication:"NEJM 2019 (Gonzalez-Martin et al., 主分析); Ann Oncol 2024 (Gonzalez-Martin et al., final OS)"
 },
@@ -8808,7 +8821,7 @@ const TRIALS = [
   tech:"Niraparib 300mg PO QD (固定劑量, 與 PRIMA 後改 IDS 不同)\n\n關鍵安全性 (固定劑量):\n  • Thrombocytopenia G3-4: 33.8%\n  • Anemia G3-4: 25.3%\n  • Neutropenia G3-4: 19.6%\n  • 後續引入 IDS (個別化起始劑量) 大幅降低血小板毒性",
   subgroup:"【gBRCA cohort】mPFS 21.0 vs 5.5m (HR 0.27) — 最大獲益\n【non-gBRCA HRD+】mPFS 12.9 vs 3.8m (HR 0.38) — 顯著\n【整體 non-gBRCA】mPFS 9.3 vs 3.9m (HR 0.45) — 全 cohort 仍益\n【non-gBRCA HRD-】mPFS ~6.9 vs 3.8m (HR ~0.58) — 仍見獲益\n  → biomarker 連續光譜: BRCAm > HRD+ > HRD-, 但無族群完全無效\n【全人群覆蓋】不需 BRCA 篩選即可使用 — 為 PARPi 復發維持普及奠基\n\n【Final OS (Lancet Oncol 2023)】\n  • gBRCAm: HR 0.85 (NS)\n  • non-gBRCA: HR 1.06 (NS)\n  • 主因 cross-over 治療稀釋",
   combo:"與 ARIEL3 (Rucaparib), SOLO2 (Olaparib BRCAm) 並列 PSOC PARPi 維持三大試驗",
-  guideline:"NCCN v2.2026 Category 1 for PSOC PARPi maintenance (Niraparib 廣譜選擇)\nFDA approved Mar 2017\nEMA approved 2017\n台灣健保: 已給付\n⚠️ 2022/11 FDA 限縮: 二線維持僅限 gBRCAm (非 gBRCA 次群組最終 OS 不利,HR 約 1.06);ASCO 2022 降級為「may be used」",
+  guideline:"NCCN v2.2026 Category 1 for PSOC PARPi maintenance (Niraparib 廣譜選擇)\nFDA approved Mar 2017\nEMA approved 2017\n台灣健保: 已給付\n⚠️ 2022/11 FDA 限縮: 二線維持僅限 gBRCAm (非 gBRCA 次群組最終 OS 不利,HR 約 1.06);ASCO 2022 降級為「may be used」\n⚠️ 現行 FDA 仿單:Olaparib 復發維持限 g/sBRCAm (CR/PR to platinum);Niraparib 限 gBRCAm;Rucaparib 限 g/sBRCAm。BRCAwt 無 FDA 適應症 (EMA 仍不限 biomarker)。",
   nct:"NCT01847274",
   publication:"NEJM 2016 (Mirza et al., 主要結果); Lancet Oncol 2023 (final OS); Eur J Cancer 2024 (long-term safety)"
 },
@@ -8836,7 +8849,7 @@ const TRIALS = [
   tech:"Rucaparib 600mg PO bid (固定劑量)\nLOH 檢測: Foundation Medicine T5 NGS\n  • LOH ≥16% = HRD+\n  • LOH <16% = HRD-\n\n安全性:\n  • Anemia G3-4 ~19%\n  • Transaminase elevation 較高 (~14% G3+)\n  • Nausea / fatigue\n  • MDS/AML rare",
   subgroup:"【三層 nested cohort PFS (主要終點)】\n  • BRCA-mutant: mPFS 16.6 vs 5.4m (HR 0.23) — 最大獲益\n  • HRD (含 BRCAwt/LOH-high): HR ~0.32 — 顯著\n  • ITT: mPFS 10.8 vs 5.4m (HR 0.36)\n\n【關鍵預先分析: BRCA wild-type】\n  • BRCAwt + LOH-high: rucaparib 仍顯著延長 PFS\n  • BRCAwt + LOH-low: 亦見獲益 (HR ~0.58)\n  → 證明 HRD cohort 獲益「不只」來自 BRCA 突變者\n\n【Final OS (Lancet Oncol 2023)】\n  • BRCAm 5y OS: 51.0% vs 45.6% (HR 0.83, NS)\n  • Cross-over rate 高",
   combo:"與 NOVA (Niraparib), SOLO2 (Olaparib) 並列\n關鍵差異: ARIEL3 用 LOH-high 作為 HRD biomarker (vs MyChoice 用 GIS scoring)",
-  guideline:"NCCN v2.2026 Category 1 for PSOC PARPi maintenance\nFDA approved Apr 2018 (Rubraca)\n注意: Clovis 已破產, Rubraca 全球供應變動 — 部分國家已停用\n台灣: Rubraca 已撤銷,健保未涵蓋 — 改用 Niraparib / Olaparib\n⚠️ 2022/12 FDA 限縮: 二線維持僅限 BRCAm (germline / somatic);非 BRCA 不再核准",
+  guideline:"NCCN v2.2026 Category 1 for PSOC PARPi maintenance\nFDA approved Apr 2018 (Rubraca)\n注意: Clovis 已破產, Rubraca 全球供應變動 — 部分國家已停用\n台灣: Rubraca 已撤銷,健保未涵蓋 — 改用 Niraparib / Olaparib\n⚠️ 2022/12 FDA 限縮: 二線維持僅限 BRCAm (germline / somatic);非 BRCA 不再核准\n⚠️ 現行 FDA 仿單:Olaparib 復發維持限 g/sBRCAm (CR/PR to platinum);Niraparib 限 gBRCAm;Rucaparib 限 g/sBRCAm。BRCAwt 無 FDA 適應症 (EMA 仍不限 biomarker)。",
   nct:"NCT01968213",
   publication:"Lancet 2017 (Coleman et al., 主要結果); Lancet Oncol 2023 (final OS)"
 },
@@ -8864,7 +8877,7 @@ const TRIALS = [
   tech:"Olaparib tablets 300mg bid (與 SOLO-1 一致)\n\n關鍵安全性:\n  • Anemia G3-4: 19.5%\n  • Neutropenia G3-4: 5%\n  • Nausea / fatigue\n  • MDS/AML 8% vs 4% — 較高,需長期追蹤\n  • 治療期限: 至 PD (與 SOLO-1 一線 2y 限制不同)",
   subgroup:"【ITT PFS】HR 0.30 — 顯著\n【ITT OS】HR 0.74, P=0.054\n  • Pre-specified post-hoc 排除 placebo cross-over (~38%) 後: HR 0.56 — 顯著\n\n【BRCA1 vs BRCA2】BRCA2 反應略佳\n【Germline vs somatic】兩者均見獲益\n\n【MDS/AML 警示】\n  • 8% Olaparib vs 4% placebo\n  • 主因含鉑化療累積暴露\n  • 需長期血液學追蹤",
   combo:"BRCAm 限定族群 — 與 NOVA (全人群)、ARIEL3 (LOH 分流) 互補\n為 PSOC PARPi 維持的 OS 證據基石",
-  guideline:"NCCN v2.2026 Category 1 for BRCAm PSOC maintenance\nFDA approved Aug 2017 (BRCAm 限定)\n台灣健保: 已給付 (BRCAm 限定)",
+  guideline:"NCCN v2.2026 Category 1 for BRCAm PSOC maintenance\nFDA approved Aug 2017 (BRCAm 限定)\n台灣健保: 已給付 (BRCAm 限定)\n⚠️ 現行 FDA 仿單:Olaparib 復發維持限 g/sBRCAm (CR/PR to platinum);Niraparib 限 gBRCAm;Rucaparib 限 g/sBRCAm。BRCAwt 無 FDA 適應症 (EMA 仍不限 biomarker)。",
   nct:"NCT01874353",
   publication:"Lancet Oncol 2017 (Pujade-Lauraine et al., 主要結果); Lancet Oncol 2020 (final OS)"
 },
@@ -8892,7 +8905,7 @@ const TRIALS = [
   tech:"Olaparib capsule 400mg bid (與後續 tablet 300mg 規格不同):\n  • 8 capsule per dose (高 pill burden)\n  • Nausea, fatigue, anemia 主要 AE\n  • 後續轉為 tablet 300mg bid\n\n關鍵歷史性: 為第一個證明 PARPi 維持價值的 randomized 試驗\nOS 趨勢顯著但未達預設多重檢定閾值\n長期 follow-up 顯示 11% 患者持續使用 >6 年 (unprecedented in PSOC)",
   subgroup:"【ITT PFS】HR 0.35 — 顯著\n【BRCAm subgroup】HR 0.18 — 強烈獲益\n【BRCAwt subgroup】HR 0.54 — 仍見獲益\n【ITT OS final (FU 2016)】HR 0.73 (P=0.021, NS due to multiple testing)\n\n【Long-term outcomes】\n  • 24% 用藥 >2 年\n  • 11% 用藥 >6 年\n  • 啟發 PSOC PARPi 持久維持概念",
   combo:"PARPi 在卵巢癌的開山之作\n後續延伸:\n  • SOLO2 (BRCAm only, tablet)\n  • NOVA (Niraparib 全人群)\n  • ARIEL3 (Rucaparib + LOH 分流)\n  • L-MOCA (亞洲族群擴展)\n\nStudy 19 證明的概念被多個後續試驗驗證",
-  guideline:"NCCN v2.2026 已將 PARPi 列為 PSOC 維持標準\nFDA initial approval Dec 2014 (Olaparib for BRCAm 卵巢癌, 基於 Study 19 + Phase II 數據)\n後續被 SOLO2 (BRCAm) 與 NOVA (全人群) 取代為 evidence base\n台灣健保: 經由後續試驗已給付",
+  guideline:"NCCN v2.2026 已將 PARPi 列為 PSOC 維持標準\nFDA initial approval Dec 2014 (Olaparib for BRCAm 卵巢癌, 基於 Study 19 + Phase II 數據)\n後續被 SOLO2 (BRCAm) 與 NOVA (全人群) 取代為 evidence base\n台灣健保: 經由後續試驗已給付\n⚠️ 現行 FDA 仿單:Olaparib 復發維持限 g/sBRCAm (CR/PR to platinum);Niraparib 限 gBRCAm;Rucaparib 限 g/sBRCAm。BRCAwt 無 FDA 適應症 (EMA 仍不限 biomarker)。",
   nct:"NCT00753545",
   publication:"NEJM 2012 (Ledermann et al., 主要 PFS 結果); Lancet Oncol 2014 (BRCA subgroup); Lancet Oncol 2016 (final OS); Br J Cancer 2018 (long-term FU)"
 },
@@ -8920,7 +8933,7 @@ const TRIALS = [
   tech:"Olaparib tablet 300mg bid (與 SOLO2 一致)\n安全性:\n  • Anemia G3 ~20%\n  • Neutropenia G3 ~10%\n  • Nausea, fatigue\n  • 與全球族群一致\n\n單臂設計: 因中國 NMPA 已核准 olaparib 之故,placebo 對照倫理不允許",
   subgroup:"【ITT mPFS】16.1m\n【BRCAm】mPFS 21.2m\n【BRCAwt】mPFS 11.0m\n【HRD+ (含 BRCAm)】mPFS ~20m\n【HRD-】mPFS ~7-8m\n\n【PD-L1 expression sub-analysis (Li et al. BMC Med 2024)】\n  • PD-L1+: 反應更佳\n  • 探索性發現,需進一步驗證\n\n顯示亞洲族群 PARPi 反應與全球族群一致",
   combo:"亞洲族群擴展驗證 — 與 NORA (Niraparib in 中國), FZOCUS-2 (Fuzuloparib in 中國) 並列\n為亞洲患者提供完整 PARPi 維持證據\n為台灣 / 日本 / 韓國臨床決策提供區域數據",
-  guideline:"NCCN v2.2026 認可亞洲族群 PARPi 證據\n中國 NMPA 已核准 (基於全球 + L-MOCA)\n台灣健保: 已給付 PSROC PARPi 維持 (含台灣患者類似族群)",
+  guideline:"NCCN v2.2026 認可亞洲族群 PARPi 證據\n中國 NMPA 已核准 (基於全球 + L-MOCA)\n台灣健保: 已給付 PSROC PARPi 維持 (含台灣患者類似族群)\n⚠️ 現行 FDA 仿單:Olaparib 復發維持限 g/sBRCAm (CR/PR to platinum);Niraparib 限 gBRCAm;Rucaparib 限 g/sBRCAm。BRCAwt 無 FDA 適應症 (EMA 仍不限 biomarker)。",
   nct:"NCT03534453",
   publication:"Clin Cancer Res 2022 (Gao et al., 主要結果); BMC Medicine 2024 (Li et al., biomarker analysis)"
 },
@@ -8948,7 +8961,7 @@ const TRIALS = [
   tech:"Niraparib 個別化起始劑量 (IDS):\n  • 200mg QD: 體重 <77kg 或 plt <150K\n  • 300mg QD: 體重 ≥77kg 且 plt ≥150K\n\n關鍵: IDS 大幅降低 G3+ thrombocytopenia (vs NOVA 全 300mg)\n  • NOVA 全 300mg: G3+ plt drop ~33.8%\n  • NORA IDS: G3+ plt drop ~10-15%\n\n後續 PRIMA 試驗也採用 IDS — 成為 niraparib 臨床標準",
   subgroup:"【ITT PFS】HR 0.32 — 顯著\n【BRCAm】HR 0.22 — 強烈獲益\n【BRCAwt】HR 0.40 — 仍顯著\n【Final OS (Lancet 2024)】尚未達 mature\n\n【Subgroup by lines】\n  • 2 prior lines: HR 0.31\n  • ≥3 prior lines: HR 0.34",
   combo:"中國族群代表性 — 與 L-MOCA (Olaparib 中國), FZOCUS-2 (Fuzuloparib 中國) 並列\n啟發 IDS 概念在 niraparib 全球應用 (PRIMA 採用)\n為亞洲族群 PARPi 維持提供關鍵證據",
-  guideline:"NCCN v2.2026 認可亞洲族群 PARPi 證據 + IDS 為 niraparib 標準起始策略\n中國 NMPA 已核准 (基於 NOVA + NORA)\n台灣食藥署: niraparib 已核准, IDS 為標準",
+  guideline:"NCCN v2.2026 認可亞洲族群 PARPi 證據 + IDS 為 niraparib 標準起始策略\n中國 NMPA 已核准 (基於 NOVA + NORA)\n台灣食藥署: niraparib 已核准, IDS 為標準\n⚠️ 現行 FDA 仿單:Olaparib 復發維持限 g/sBRCAm (CR/PR to platinum);Niraparib 限 gBRCAm;Rucaparib 限 g/sBRCAm。BRCAwt 無 FDA 適應症 (EMA 仍不限 biomarker)。",
   nct:"NCT03705156",
   publication:"Annals of Oncology 2021 (Wu et al., 主要結果); Lancet Oncol 2024 (final OS)"
 },
@@ -8976,7 +8989,7 @@ const TRIALS = [
   tech:"Olaparib tablet 300mg bid\n單臂設計: 因 olaparib 已於 BRCAm 核准,placebo 對照不適合\n\n安全性:\n  • Anemia G3 ~20%\n  • 與 SOLO2 / Study 19 一致\n  • MDS/AML 罕見 (<2%)\n\n結果與歷史 placebo 對照 (Study 19, NOVA placebo arm) 比較",
   subgroup:"【ITT mPFS】9.2m\n【sBRCAm subgroup】mPFS 16.4m — 與 gBRCAm 類似\n【HRD+ (含 sBRCAm)】mPFS 11.1m\n【HRD+ (排除 sBRCAm)】mPFS 9.7m\n【HRD-】mPFS 7.3m\n\n【Final OS (Gynecol Oncol 2025)】\n  • Overall mOS 32.7m\n  • HRD+ subgroup OS 較長\n  • 顯示 HRD status 在 non-gBRCAm 仍為預測因子",
   combo:"與 SOLO2 (gBRCAm), NOVA (全人群), ARIEL3 (LOH 分流) 完整覆蓋 PSROC PARPi 維持族群\n為 sBRCAm + HRD+ non-BRCAm 提供強化證據\nFDA / EMA 將 olaparib 適應症擴展至 BRCAwt",
-  guideline:"NCCN v2.2026 Category 1 for non-gBRCAm PSROC PARPi 維持\nFDA expanded approval 2018 (Olaparib for non-gBRCAm based on Study 19 + OPINION 數據)\n台灣健保: 已給付 (PSROC 全人群)",
+  guideline:"NCCN v2.2026 Category 1 for non-gBRCAm PSROC PARPi 維持\nFDA expanded approval 2018 (Olaparib for non-gBRCAm based on Study 19 + OPINION 數據)\n台灣健保: 已給付 (PSROC 全人群)\n⚠️ 現行 FDA 仿單:Olaparib 復發維持限 g/sBRCAm (CR/PR to platinum);Niraparib 限 gBRCAm;Rucaparib 限 g/sBRCAm。BRCAwt 無 FDA 適應症 (EMA 仍不限 biomarker)。",
   nct:"NCT03402841",
   publication:"Gynecol Oncol 2022 (Poveda et al., 主要 PFS); Gynecol Oncol 2025 (Lheureux et al., final OS)"
 },
@@ -16037,7 +16050,7 @@ const PATHWAY_GRID = {
             {s:'early', t:'Sofe-M (FRα ADC) cORR 50.5%,含 MIRV 後', k:'Sofe-M (FRα)', g:'FRα 不需篩選', ids:['sofe-m']},
             {s:'early', t:'ZW191 (FRα ADC) HGSOC cORR 64.5%;OCCC 反應低', k:'ZW191 (FRα)', g:'FRα 不需篩選', ids:['zw191']},
             {s:'early', t:'Torvu-Sam (FRα ADC) 各 FRα 層級 ORR 48–62% → TREVI Phase 3', k:'Torvu-Sam (FRα)', g:'FRα 不需篩選', ids:['fontana']},
-            {s:'trial', t:'Torvu-Sam vs MIRV (FRα 高) / vs 單藥化療 (FRα 低) Phase 3', k:'TREVI-OC-01', g:'FRα 分層', ids:['trevi-oc-01']},
+            {s:'trial', t:'Torvu-Sam vs MIRV (FRα 高) / vs 單藥化療 (FRα 低) Phase 3', k:'TREVI-OC-01', g:'FRα 分層 (參考)', ids:['trevi-oc-01']},
             {s:'trial', t:'Navicixizumab (DLL4 × VEGF 雙特異) 單藥 Phase II', k:'Navicixizumab', g:'Xerna TME 參考', ids:['feng-nav-202']},
             {s:'early', t:'Mo-Rez (B7-H4 ADC) cORR 62%,mPFS 11.1 個月', k:'Mo-Rez (B7-H4)', g:'B7-H4 不需篩選', ids:['behold-1-oc']},
             {s:'early', t:'Azenosertib (WEE1i) ORR 37.2% → ASPENOVA Phase 3 進行中', k:'Azenosertib (WEE1i)', g:'Cyclin E1 IHC+', ids:['denali','aspenova']},
@@ -16087,7 +16100,7 @@ const PATHWAY_GRID = {
             {s:'gap', t:'PARPi 後含鉑反應差;BRCA reversion 等抗藥機制無對應治療', k:'BRCA reversion', idea:'ctDNA reversion 篩選 + ATR / POLθ / WEE1 抑制劑'},
           ],
           rmt:[
-            {s:'std', t:'PARPi 維持 (PARPi-naïve):Olaparib / Niraparib (限 gBRCA) / Rucaparib (限 BRCAm)', k:'PARPi 維持', ids:['study-19','solo2','nova','ariel3','l-moca','nora']},
+            {s:'std', t:'PARPi 維持 (PARPi-naïve,含鉑 CR/PR 後):Olaparib (g/sBRCAm) · Rucaparib (g/sBRCAm) · Niraparib (僅 gBRCAm;sBRCA 不適用)', k:'PARPi 維持 (BRCAm)', g:'BRCA (g/s;Nira 限 g)', ids:['study-19','solo2','nova','ariel3','l-moca','nora']},
             {s:'cond', t:'Bevacizumab 延續維持 (含鉑 + Bev 後)', k:'Bev 維持', ids:['oceans','gog-0213']},
             {s:'trial', t:'MIRV + Bev 維持', k:'MIRV + Bev 維持', g:'FRα ≥75%', ids:['gloriosa']},
             {s:'gap', t:'一線已用 PARPi → PARPi 再挑戰證據有限', k:'PARPi 再挑戰?', idea:'PARPi rechallenge ± ATR/WEE1 抑制劑;ADC 維持'},
@@ -16120,7 +16133,7 @@ const PATHWAY_GRID = {
             {s:'gap', t:'一線 PARPi 後復發的最佳序列未定;PARPi 中惡化者挑戰「PFI >6 個月」定義', k:'最佳序列未定', idea:'依 PARPi 暴露 (中 / 後惡化) 重新定義 PSOC 的 ADC 合併試驗'},
           ],
           rmt:[
-            {s:'cond', t:'Olaparib 維持 (BRCAwt;FDA 仍為全人群適應症)', k:'Olaparib 維持', ids:['study-19','opinion','l-moca']},
+            {s:'cond', t:'Olaparib / Niraparib 維持 (BRCAwt):FDA 已限縮為 BRCAm,無 BRCAwt (含 HRD+) 適應症;EMA 仍不限 biomarker', k:'PARPi 維持 (BRCAwt,非FDA)', ids:['study-19','opinion','l-moca','nova']},
             {s:'neg', t:'Niraparib 非 gBRCA:最終 OS HR 1.06 → 2022 FDA 限縮至 gBRCAm', k:'Niraparib (非 gBRCA)', ids:['nova','nora']},
             {s:'neg', t:'Rucaparib 非 BRCA:ARIEL3 最終 OS 無益 → 2022 FDA 限縮至 BRCAm', k:'Rucaparib (非 BRCA)', ids:['ariel3']},
             {s:'cond', t:'Bevacizumab 延續維持', k:'Bev 維持', ids:['oceans','gog-0213']},
@@ -16135,7 +16148,8 @@ const PATHWAY_GRID = {
         cells:{
           mt1:[
             {s:'std', t:'Bevacizumab 維持 (共 15 個月)', k:'Bev 維持', ids:['gog-0218','icon7','boost-engot-ov15']},
-            {s:'cond', t:'PARPi (Niraparib / Rucaparib;HRD− 獲益小,OS 無差異)', k:'PARPi (獲益小)', ids:['prima','prime-study','athena-mono']},
+            {s:'neg', t:'Niraparib (HRD−):PRIMA 最終 OS 無益 → 2025/06 FDA 將一線維持限縮於 HRD+ (含 BRCAm),不建議新開始用於非 HRD 陽性', k:'Niraparib (HRD−,2025 撤回)', ids:['prima','prime-study']},
+            {s:'cond', t:'Rucaparib (ATHENA-MONO HRD− HR 0.65;EMA 核准,美國未核准)', k:'Rucaparib (HRD−)', ids:['athena-mono']},
             {s:'cond', t:'Olaparib + Bev + Durvalumab', k:'Ola + Bev + Durva', ids:['duo-o']},
             {s:'trial', t:'ADC 一線維持 (台灣中心收案中)', k:'ADC 維持', g:'HER2 (DESTINY)', ids:['trofuse-021','destiny-ovarian01']},
             {s:'trial', t:'c-Met ADC Temab-A + Bev 一線維持 (含 OCCC)', k:'c-Met ADC 維持', g:'c-Met', ids:['andrometa-oc-488']},
@@ -16156,7 +16170,7 @@ const PATHWAY_GRID = {
             {s:'gap', t:'HRP 一線 PARPi 後復發:鉑敏感度與後續選擇資料極少', k:'資料極少', idea:'HRP + 一線 PARPi 後復發族群的前瞻登錄'},
           ],
           rmt:[
-            {s:'cond', t:'Olaparib 維持 (FDA 仍為全人群;HRP 獲益較小)', k:'Olaparib 維持', ids:['study-19','opinion']},
+            {s:'cond', t:'Olaparib / Niraparib 維持 (HRP):FDA 無此族群適應症,獲益最小;EMA 仍不限 biomarker', k:'PARPi 維持 (HRP,非FDA)', ids:['study-19','opinion']},
             {s:'neg', t:'Niraparib / Rucaparib 非 BRCA:OS 不利或無益 → 2022 FDA 撤回此族群適應症', k:'Nira / Ruca (非 BRCA)', ids:['nova','ariel3']},
             {s:'cond', t:'Bevacizumab 延續維持', k:'Bev 維持', ids:['oceans','gog-0213']},
             {s:'trial', t:'ADC 復發維持', k:'ADC 維持', ids:['trofuse-022','gloriosa']},
@@ -16453,6 +16467,7 @@ function pgSegFull(sg){
     <div class="pg-seg-t"><span class="pg-ic">${PG_STATUS[sg.s].icon}</span>${PG_STATUS[sg.s].badge?`<span class="pg-st st-${sg.s}">${PG_STATUS[sg.s].badge}</span>`:''}${pgIO(escapeHtml(sg.t))}${sg.g?` ${pgGateHTML(sg.g)}`:''}${sg.reg?`<div class="pg-rg-row">🏛 ${pgRegHTML(sg.reg)}</div>`:''}${(()=>{const sy=pgSegYear(sg);return sy?` <span class="pg-seg-yr">${sy.kind==='pub'?'證據 '+sy.y:sy.y+' 開展'}</span>`:'';})()}</div>
     ${chips?`<div class="pg-chips">${chips}</div>`:''}
     ${sg.idea?`<div class="pg-idea">💡 ${escapeHtml(sg.idea)}</div>`:''}
+    ${(()=>{const ad=pgADCFor(sg);return ad.length?ad.map(pgADCCard).join(''):'';})()}
     ${(()=>{const mi=pgMechIds(sg);return mi.length?`<details class="pg-mech"><summary>🧬 作用機轉與檢測</summary>${pgMechHTML(mi)}</details>`:'';})()}
   </div>`;
 }
@@ -16592,8 +16607,8 @@ function renderPathwayGrid(cancer){
       <button class="pg-pn-x" onclick="pgClosePanel()" title="關閉">✕</button></div>
       <div class="pg-pn-body">
         ${pgMechHTML(['adc'])}
-        <div class="pg-adc-wrap"><table class="pg-mech-tbl pg-adc-tbl"><tr><th>ADC</th><th>標靶</th><th>Payload</th><th>DAR</th><th>旁觀者</th><th>主要毒性</th><th>篩選</th><th>地位</th></tr>
-        ${PG_ADC_ROWS.map(r=>`<tr class="${/微管/.test(r[2])?'mt':'t1'}">${r.map(c=>`<td>${escapeHtml(c)}</td>`).join('')}</tr>`).join('')}</table></div>
+        <div class="pg-adc-wrap"><table class="pg-mech-tbl pg-adc-tbl"><tr><th>ADC</th><th>標靶抗原</th><th>Payload</th><th>Payload 類別</th><th>DAR</th><th>需先驗抗原?</th><th>主要毒性</th><th>關鍵試驗 · 地位</th></tr>
+        ${PG_ADC.map(a=>`<tr class="${/微管/.test(a.plc)?'mt':'t1'}"><td><b>${escapeHtml(a.n)}</b></td><td>${escapeHtml(a.ag)}</td><td>${escapeHtml(a.pl)}</td><td>${escapeHtml(a.plc)}</td><td>${escapeHtml(a.dar)}</td><td class="tst ${a.test}">${PG_TEST_LBL[a.test]}<br><small>${escapeHtml(a.testTxt)}</small></td><td>${escapeHtml(a.tox)}</td><td>${escapeHtml(a.trials)}<br><small>${escapeHtml(a.status)}</small></td></tr>`).join('')}</table></div>
         <div class="pg-mech-mn">口訣:微管類 (DM4 / MMAE) 傷眼傷神經、Topo I 類 (DXd / SN-38 / Exatecan) 傷血球傷肺 (DXd 的 ILD);高 DAR + 旁觀者 → 抗原低也能打。</div>
         ${pgMechHTML(['pl_dm4','pl_mmae','pl_dxd','pl_sn38','pl_top1'])}
       </div>`;
@@ -16768,24 +16783,41 @@ function pgToggleSite(){
   PG_SITETBL = !PG_SITETBL;
   renderPathway();
 }
-const PG_ADC_ROWS = [
-  // ADC, 標靶, payload, DAR, 旁觀者, 主要毒性, 是否需篩選, 癌別 / 地位
-  ['Mirvetuximab (MIRV)','FRα','DM4 (微管)','~3.4','有限','眼毒性、神經病變','🎯 需 FRα PS2+ ≥75%','OC PROC 標準 (MIRASOL)'],
-  ['Tisotumab vedotin (TV)','Tissue factor','MMAE (微管)','~4','有','眼表毒性、神經病變、出血','不需','CC 二線標準 (innovaTV 301)'],
-  ['T-DXd','HER2','DXd (Topo I)','~8','強','ILD、噁心、骨髓抑制','🎯 HER2 IHC 2+/3+ (3+ 跨癌別核准)','EC / CC / OC 後線'],
-  ['R-DXd','CDH6','DXd (Topo I)','8','強','ILD、腹瀉、嗜中性球低下','不需','OC PROC Phase 3 (REJOICE)'],
-  ['Dato-DXd','TROP2','DXd (Topo I)','~4','有','口腔炎、眼表事件、ILD','不需','早期數據 (OC / EC)'],
-  ['Sacituzumab govitecan','TROP2','SN-38 (Topo I)','~7.6','有','嗜中性球低下、腹瀉 (UGT1A1)','不需','CC / EC 早期 / Phase 3 (ASCENT-GYN-01)'],
-  ['Sac-TMT','TROP2','KL610023 (Topo I)','~7.4','有','口腔炎、貧血','不需 (TROP2-low 獲益差)','EC 二線 Phase 3 陽性 (TroFuse-005)'],
-  ['Sofe-M','FRα','Exatecan (Topo I)','8','有','骨髓抑制、ILD ~8%','不需','OC Phase 3 (FRAmework-01)'],
-  ['Rina-S','FRα','Exatecan (Topo I)','8','有','骨髓抑制 (約半數需 G-CSF)','不需','OC Phase 3 (RAINFOL-OV2);EC'],
-  ['ZW191','FRα','TOP1i (ZD06519)','8','有','—','不需','OC 早期數據'],
-  ['Torvu-Sam','FRα','TOP1i','~8.1','有','—','不需','OC Phase 3 (TREVI)'],
-  ['Mo-Rez','B7-H4','TOP1i','6','有','嗜中性球低下 (G-CSF)、噁心','不需','OC / EC 早期數據'],
-  ['BLUESTAR ADC','B7-H4','TOP1i','—','有','—','參考 (B7-H4 表現者反應較佳)','EC 早期 / 進行中'],
-  ['Temab-A','c-Met','TOP1i','—','—','—','🎯 c-Met 表現','OC 一線維持 Phase 3 (AndroMETa)'],
-  ['SHR-A2102','Nectin-4','TOP1i','—','—','—','未說明','CC 早期數據'],
+// ADC 檔案: re 比對藥名;cls 抗原類別;pl payload;plc payload 類別;test 是否需驗 (req 必須 / strat 分層用 / no 不需)
+const PG_ADC = [
+  {n:'Mirvetuximab soravtansine (MIRV)', re:/Mirvetuximab|MIRV/, ag:'FRα (葉酸受體 α)', pl:'DM4', plc:'微管抑制劑 (Maytansinoid)', dar:'~3.4', by:'有限', test:'req', testTxt:'必須:FRα IHC (VENTANA FOLR1) PS2+ ≥75% 腫瘤細胞 (伴隨診斷)', tox:'眼毒性 (預防性眼藥)、周邊神經病變', trials:'MIRASOL、GLORIOSA、FORWARD II', status:'FDA ✓ (FRα-high PROC)'},
+  {n:'Tisotumab vedotin (TV)', re:/Tisotumab|\bTV\b/, ag:'Tissue factor (TF)', pl:'MMAE', plc:'微管抑制劑 (Auristatin)', dar:'~4', by:'有', test:'no', testTxt:'不需驗 TF', tox:'眼表毒性 (結膜 / 角膜,需眼科預防)、神經病變、出血', trials:'innovaTV 301 / 205', status:'FDA ✓ (CC 二線)'},
+  {n:'Disitamab vedotin', re:/Disitamab/, ag:'HER2', pl:'MMAE', plc:'微管抑制劑 (Auristatin)', dar:'~4', by:'有', test:'strat', testTxt:'HER2 IHC (表現者;CC 早期資料)', tox:'神經病變、骨髓抑制', trials:'CC 早期試驗', status:'中國核准 (其他癌別)'},
+  {n:'Trastuzumab deruxtecan (T-DXd)', re:/T-DXd/, ag:'HER2', pl:'DXd (Deruxtecan)', plc:'Topo I 抑制劑', dar:'~8', by:'強', test:'req', testTxt:'必須:HER2 IHC — 3+ 為 FDA 跨癌別適應症;2+ 有反應 (證據較弱)', tox:'ILD / 肺炎 (須監測)、噁心、骨髓抑制', trials:'DESTINY-PanTumor02、DESTINY-Ovarian01', status:'FDA ✓ (HER2 IHC 3+ 跨癌別)'},
+  {n:'Raludotatug deruxtecan (R-DXd)', re:/R-DXd|Raludotatug/, ag:'CDH6 (Cadherin-6)', pl:'DXd (Deruxtecan)', plc:'Topo I 抑制劑', dar:'8', by:'強', test:'no', testTxt:'不需驗 CDH6 (卵巢癌 65–85% 表現;不作為收案條件)', tox:'ILD (5.6 mg/kg 曾有 5 級)、腹瀉、嗜中性球低下', trials:'REJOICE-Ovarian01/02/04/05、ENGOT-ov77', status:'試驗中'},
+  {n:'Datopotamab deruxtecan (Dato-DXd)', re:/Dato-DXd/, ag:'TROP2', pl:'DXd (Deruxtecan)', plc:'Topo I 抑制劑', dar:'~4', by:'有', test:'no', testTxt:'不需驗 TROP2', tox:'口腔炎、眼表事件、ILD', trials:'TROPION-PanTumor01/03', status:'早期數據 (婦癌)'},
+  {n:'Sacituzumab govitecan (SG)', re:/Sacituzumab govitecan|Sacituzumab \(|SG\b/, ag:'TROP2', pl:'SN-38', plc:'Topo I 抑制劑 (Irinotecan 活性代謝物)', dar:'~7.6', by:'有', test:'no', testTxt:'不需驗 TROP2', tox:'嗜中性球低下、腹瀉 (UGT1A1*28 風險高)', trials:'TROPiCS-03、ASCENT-GYN-01、EVER-132-003', status:'試驗中 (婦癌)'},
+  {n:'Sacituzumab tirumotecan (Sac-TMT)', re:/Sac-TMT|Sacituzumab tirumotecan|sac-TMT/, ag:'TROP2', pl:'KL610023 (Belotecan 衍生)', plc:'Topo I 抑制劑', dar:'~7.4', by:'有', test:'no', testTxt:'不需驗 TROP2 (但 TROP2-low / 癌肉瘤獲益差)', tox:'口腔炎 (預防性類固醇漱口水)、貧血、乾眼', trials:'TroFuse-005 / 021 / 022 / 033 / 036、KL264-01', status:'EC 二線 Phase 3 陽性,待核准'},
+  {n:'Sofetabart mipitecan (Sofe-M)', re:/Sofe-M|Sofetabart/, ag:'FRα', pl:'Exatecan', plc:'Topo I 抑制劑', dar:'8', by:'有', test:'strat', testTxt:'不以 FRα 篩選 (FRα <75% 亦有效);試驗需檢測 FRα status 作分層', tox:'骨髓抑制、ILD 約 8%', trials:'FRAmework-01', status:'試驗中'},
+  {n:'Rinatabart sesutecan (Rina-S)', re:/Rina-S|Rinatabart/, ag:'FRα', pl:'Exatecan', plc:'Topo I 抑制劑', dar:'8', by:'有', test:'no', testTxt:'不需驗 FRα (反應與表現量無關)', tox:'骨髓抑制 (約半數需 G-CSF)、噁心', trials:'RAINFOL-01、RAINFOL-OV2、RAINFOL-07', status:'試驗中'},
+  {n:'Torvutatug samrotecan (Torvu-Sam / AZD5335)', re:/Torvu-Sam|Torvutatug|AZD5335/, ag:'FRα', pl:'AZ14170132', plc:'Topo I 抑制劑', dar:'~8.1', by:'有', test:'strat', testTxt:'不需達某表現量 (FRα 極低 / 陰性 ORR 48%);TREVI-OC-01 依 FRα 高 / 低分層', tox:'—', trials:'FONTANA、TREVI-OC-01 / 02 / 03', status:'試驗中'},
+  {n:'ZW191', re:/ZW191/, ag:'FRα', pl:'ZD06519', plc:'Topo I 抑制劑', dar:'8', by:'有', test:'no', testTxt:'不需驗 FRα (HGSOC 各表現量皆有反應;OCCC 反應低)', tox:'—', trials:'ZW191 Phase 1', status:'早期數據'},
+  {n:'Mocertatug rezetecan (Mo-Rez)', re:/Mo-Rez|Mocertatug/, ag:'B7-H4', pl:'TOP1i', plc:'Topo I 抑制劑', dar:'6', by:'有', test:'no', testTxt:'不需驗 B7-H4 (表現量不預測反應)', tox:'嗜中性球低下 (G-CSF 預防)、噁心、掉髮', trials:'BEHOLD-1', status:'早期數據'},
+  {n:'BLUESTAR ADC', re:/BLUESTAR|B7-H4 ADC/, ag:'B7-H4', pl:'TOP1i', plc:'Topo I 抑制劑', dar:'—', by:'有', test:'strat', testTxt:'參考:B7-H4 ≥25% 者 ORR 較高', tox:'—', trials:'BLUESTAR', status:'試驗中'},
+  {n:'Telisotuzumab adizutecan (Temab-A)', re:/Temab-A|c-Met ADC/, ag:'c-Met', pl:'TOP1i', plc:'Topo I 抑制劑', dar:'—', by:'—', test:'req', testTxt:'需 c-Met 蛋白表現 (IHC,不需 MET 擴增 / 突變)', tox:'—', trials:'AndroMETa-OC-488', status:'試驗中'},
+  {n:'SHR-A2102', re:/SHR-A2102|Nectin-4/, ag:'Nectin-4', pl:'TOP1i', plc:'Topo I 抑制劑', dar:'—', by:'—', test:'strat', testTxt:'未說明是否篩選', tox:'—', trials:'SHR-A2102 Phase 2 (CC)', status:'早期數據'},
+  {n:'JSKN033 (皮下 HER2 ADC)', re:/JSKN033/, ag:'HER2', pl:'—', plc:'—', dar:'—', by:'—', test:'no', testTxt:'不需驗 HER2 (72% 為 HER2 0 仍有反應)', tox:'注射部位反應', trials:'JSKN033-102 / 301', status:'早期數據'},
 ];
+const PG_TEST_LBL = {req:'🎯 必須先驗', strat:'○ 分層 / 參考', no:'✕ 不需驗'};
+function pgADCFor(sg){
+  if(['gap','na'].includes(sg.s)) return [];
+  // 只看試驗組藥物 ('vs' 之後為對照組,不列)
+  const t = ((sg.t||'').split(/\svs\s/)[0]) + ' ' + ((sg.k||'').split(/\svs\s/)[0]);
+  return PG_ADC.filter(a => a.re.test(t));
+}
+function pgADCCard(a){
+  return `<div class="pg-adc-card">
+    <div class="pg-adc-n">💊 ${escapeHtml(a.n)}</div>
+    <div class="pg-adc-g"><span><i>抗原</i>${escapeHtml(a.ag)}</span><span><i>Payload</i>${escapeHtml(a.pl)}</span><span class="${/微管/.test(a.plc)?'mt':'t1'}"><i>類別</i>${escapeHtml(a.plc)}</span><span><i>DAR</i>${escapeHtml(a.dar)}</span></div>
+    <div class="pg-adc-test ${a.test}">${PG_TEST_LBL[a.test]}:${escapeHtml(a.testTxt)}</div>
+    <div class="pg-adc-tox">毒性:${escapeHtml(a.tox)} · ${escapeHtml(a.status)}</div>
+  </div>`;
+}
 function pgToggleADC(){
   PG_SEL = null; PG_GAPS_OPEN = false; PG_DEF = null; PG_ROWM = null;
   PG_ADCTBL = !PG_ADCTBL;
@@ -16917,12 +16949,14 @@ const PG_REG = [
   // ---- OC ----
   {c:'OC', re:/^Olaparib 2 年/, fda:'y', nccn:'y', note:'FDA 2018:BRCAm 一線維持 (SOLO-1)'},
   {c:'OC', re:/^Olaparib \+ Bevacizumab/, fda:'y', nccn:'y', note:'FDA 2020:HRD+ 一線維持 (PAOLA-1)'},
-  {c:'OC', re:/^Niraparib$/, fda:'y', nccn:'y', note:'FDA 2020:一線維持 (不限 biomarker,PRIMA)'},
+  {c:'OC', re:/^Niraparib$/, fda:'y', nccn:'y', note:'FDA 2020 一線維持 → 2025/06 依 PRIMA 最終 OS 限縮為 HRD+ (含 BRCAm)'},
+  {c:'OC', re:/^Rucaparib \(ATHENA-MONO HRD−/, fda:'n', nccn:'q', other:'EMA ✓'},
   {c:'OC', re:/^Rucaparib$/, fda:'n', nccn:'y', other:'EMA ✓', note:'一線維持 (ATHENA-MONO):EMA 核准;美國未核准'},
   {c:'OC', re:/Olaparib \+ Bev \+ Durvalumab|MIRV \+ Carboplatin|Nivolumab \+ Ipilimumab/, fda:'n', nccn:'n'},
   {c:'OC', re:/PARPi \(Niraparib \/ Rucaparib/, fda:'y', nccn:'y', note:'Niraparib 一線維持 FDA 不限 HRD;Rucaparib 一線美國未核准'},
-  {c:'OC', re:/PARPi 維持 \(PARPi-naïve\)/, fda:'y', nccn:'y', note:'Olaparib 全人群;Niraparib 限 gBRCA (2022);Rucaparib 限 BRCAm (2022)'},
-  {c:'OC', re:/Olaparib 維持/, fda:'y', nccn:'y', note:'Olaparib 二線維持 FDA 仍為全人群'},
+  {c:'OC', re:/PARPi 維持 \(PARPi-naïve/, fda:'y', nccn:'y', note:'FDA 二線維持:Olaparib 限 g/sBRCAm (現行仿單);Niraparib 限 gBRCAm (2022);Rucaparib 限 g/sBRCAm (2022)'},
+  {c:'OC', re:/Olaparib \/ Niraparib 維持/, fda:'n', nccn:'q', other:'EMA ✓', note:'FDA 三藥二線維持皆已限縮為 BRCAm;BRCAwt / HRD+ / HRP 無 FDA 適應症;EMA 仿單仍不限 biomarker'},
+  
   {c:'OC', re:/Bevacizumab 維持 \(共|Bevacizumab 延續|含鉑雙藥.*Bev|Carboplatin \+ Paclitaxel q3w ± Bev|化療 ± Bevacizumab/, fda:'y', nccn:'y', note:'Bev:一線 FDA 2018;PSOC FDA 2016;PROC FDA 2014'},
   {c:'OC', re:/單藥化療.*\+ Bevacizumab/, fda:'y', nccn:'y', note:'FDA 2014 (AURELIA)'},
   {c:'OC', re:/^Mirvetuximab soravtansine/, fda:'y', nccn:'y', note:'FDA 2022 加速 / 2024 完整核准:FRα+ PROC'},
