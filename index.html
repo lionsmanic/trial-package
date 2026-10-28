@@ -4636,22 +4636,22 @@ const TRIALS = [
   fullName:"KEYNOTE-C93 / GOG-3064 / ENGOT-en15 / MK-3475-C93",
   pharma:"MSD",
   drug:"Pembrolizumab 單藥 vs 化療",
-  tagline:"dMMR 晚期 / 復發 EC 一線去化療: Pembrolizumab 單藥 mPFS 38.2 vs 8.4 個月 (HR 0.57);OS HR 0.77 未達顯著 (化療組 85% 後續用 ICI);約 20% 原發抗藥。",
+  tagline:"dMMR 晚期 / 復發 EC 一線去化療:Pembrolizumab 單藥 vs CP 化療 — PFS 38.2 vs 8.4 個月 (HR 0.57);OS HR 0.77 未達顯著 (化療組 85% 後續用 IO);≥3 級 TRAE 18% vs 51%;PFS 曲線前 6 個月交叉 (早期惡化風險)。ESMO 2026 LBA12 / Lancet 2026。",
   rationale:"基於 GARNET / KEYNOTE-158 dMMR 單藥 ICI 高 ORR 與持久緩解的證據,挑戰 dMMR 復發 EC 是否可省略含鉑化療毒性,直接以單藥 PD-1 治療達成不劣於甚至優於化療的結果。",
-  regimen:"1:1 randomization\n試驗組: Pembrolizumab 200mg IV Q3W (限 35 cycles ≈ 2 年) → 進展可加入 chemo\n對照組: Carboplatin AUC5 + Paclitaxel 175mg/m² Q3W × 6 cycles → 觀察",
-  inc:["dMMR/MSI-H advanced/recurrent EC (中央 IHC 確認)","Anti-PD-(L)1 naïve","先前無針對 advanced disease 系統治療","ECOG 0-1"],
-  exc:["既往 PD-(L)1 治療","既往含鉑化療為 advanced disease 治療 (輔助化療間隔 ≥12 個月可)","活動性自體免疫"],
-  outcomes:"【招募中】Primary: PFS\nSecondary: OS, ORR, DOR, PFS2\n預計 2026-2027 公布 interim analysis\n\n【ESMO 2026 / GCIG 2026 更新】\n【期中分析 (Lancet 2026;ESMO 2026)】\nmPFS 38.2 vs 8.4 個月 (HR 0.57, P=0.0002) ✅\n36 個月 PFS 52.8% vs 30.0%\nOS HR 0.77 (P=0.10) 未達顯著;化療組 85.2% 後續接受 ICI\nORR 64.1% vs 62.1%;mDOR NR vs 10.2 個月\nPFS 曲線約 6 個月交叉 → 約 20% 原發抗藥,前 6 個月需密切監測\nTRAE 71.1% vs 97.9%",
+  regimen:"Phase 3 開放標籤 1:1 隨機, n=299 (122 中心 / 24 國)\n試驗組: Pembrolizumab 400 mg IV Q6W,最多 18 個週期 (約 2 年)\n對照組: Carboplatin AUC 5–6 + Paclitaxel 175 mg/m² Q3W × 6 週期,無維持\n化療組經 BICR 確認惡化可交叉至 Pembrolizumab\n雙主要終點: PFS (BICR) 與 OS (階層檢定);關鍵次要: ORR",
+  inc:["中央確認 dMMR 之無法手術晚期或復發子宮內膜癌 (含 carcinosarcoma)", "未曾針對晚期疾病接受全身治療", "曾接受 (新) 輔助化療者需於最後一劑 ≥6 個月後復發", "ECOG 0–1;RECIST 1.1 可評估病灶"],
+  exc:["既往 PD-(L)1 治療", "活動性自體免疫疾病"],
+  outcomes:"【期中分析 (ESMO 2026 LBA12,Presidential;Lancet 2026;資料截止 2026/04/24;追蹤中位 36.7 個月)】\n【PFS (BICR)】38.2 vs 8.4 個月,HR 0.57 (95% CI 0.42–0.79),P=0.0002 ✅\n  24 個月 55.4% vs 31.0%;36 個月 52.8% vs 30.0%\n  曲線約 6 個月交叉 → 約 20–30% 早期惡化 (講者借鏡大腸癌 KEYNOTE-177:ICI 組前 6 個月 best response PD 29.4% vs 12.3%)\n【OS (雙主要終點)】HR 0.77 (0.52–1.15),P=0.10,未跨越 0.0189 界限;中位均未達到;36 個月 70.7% vs 62.0%\n  化療組惡化者 85.2% 後續接受 IO;校正後續 IO 的 OS HR 0.55–0.66\n【ORR】64.1% vs 62.1%;CR 33.8% vs 26.2%;mDOR NR vs 10.2 個月 (≥36 個月持續 70.7% vs 40.0%)\n【安全性】TRAE 71.1% vs 97.9%;≥3 級 18.1% vs 50.7%;免疫相關 AE 41.6%;治療相關死亡 2 vs 1\n【生活品質】第 12 週 GHS/QoL 差 7 分,偏好 Pembrolizumab",
 
-  enrolled:"預計 ~350 patients (招募中)",
-  hist:"dMMR/MSI-H EC 限定 (中央 IHC 確認)\n子宮內膜樣 ~75% / 其他 ~25%\n排除 carcinosarcoma (與 GY018 一致)",
-  stageDist:"Advanced (Stage III-IV) 或 first recurrent\nAnti-PD-(L)1 與化療 (for advanced) 雙 naïve",
-  tech:"Pembrolizumab 200mg IV Q3W × 35 cycles (~24m)\n停藥後可進入交叉化療 (cross-over allowed)\n\n關鍵特色: 不限制 1L,允許 dMMR 患者直接以 IO 單藥開始,避免含鉑化療毒性",
-  subgroup:"招募中,尚無亞組分析\n預先規劃 subgroup:\n  • TP53 mutation status\n  • POLE mutation status (預後好,可能影響獲益判讀)\n  • Histology\n  • Stage (Stage III vs IV vs recurrent)\n  • Tumor PD-L1 CPS",
-  combo:"無聯用 — Pembrolizumab 單藥\n\n與 GARNET 比較:\n  • GARNET: 單臂、先前曾含鉑化療失敗\n  • KEYNOTE-C93: 隨機、 對照含鉑化療 (1L 取代)\n  • 若成功,將改變 dMMR EC 的 1L 標準\n\n與 RUBY/GY018 比較:\n  • RUBY/GY018: IO + chemo (combo upfront)\n  • KEYNOTE-C93: IO alone (de-escalation 策略)",
-  guideline:"未進入指引 (招募中)",
+  enrolled:"299 randomized (Pembro 149 / 化療 150)",
+  hist:"dMMR (中央 IHC 確認) 子宮內膜癌或 carcinosarcoma\n子宮內膜樣約 91%\n復發約 54–56% / 新診斷晚期約 44–46%",
+  stageDist:"新診斷晚期 n=136 / 復發 n=163\n一線 (未曾為晚期疾病接受全身治療)",
+  tech:"Pembrolizumab 400 mg Q6W × 最多 18 週期 (約 2 年);中位治療時間 23.4 vs 3.5 個月\n交叉: 化療組 BICR 確認惡化後可改 Pembrolizumab\n臨床重點: 前 6 個月密切影像追蹤 (早期惡化陷阱),惡化可救援含鉑化療 (Pembro 組惡化者 46% 後續接受含鉑)",
+  subgroup:"【復發 (n=163)】PFS HR 0.45 (0.29–0.70)\n【新診斷晚期 (n=136)】PFS HR 0.77 (0.49–1.21) — 未達顯著,新診斷晚期是否省略化療仍有疑問\n【下一線 PFS】HR 0.63 (0.43–0.91),偏好先用 Pembro\nPOLE / 組織型亞組: 未公布",
+  combo:"單藥去化療策略\n與 RUBY / GY018 / AtTEnd / DUO-E (CP + IO) 未直接比較 — 對照組為單純化療,非現行一線標準\n與 GARNET / KEYNOTE-158 (含鉑後單藥、單臂) 不同:C93 為一線隨機\n臨床取捨: 免除化療毒性與 QoL 優勢 vs 早期惡化風險、OS 未證實",
+  guideline:"尚未核准 (MSD 2026/10 表示將與各國主管機關分享結果)\n指引尚未更新 — 現行一線標準仍為 CP + PD-(L)1",
   nct:"NCT05173987",
-  publication:"Trial-in-progress: SGO 2023 / 2024; Lancet 2026 (Slomovitz BM, 期中分析); ESMO 2026"
+  publication:"ESMO 2026 LBA12 (Presidential Symposium,Slomovitz BM);Lancet 2026 (online 2026/10/26);Topline 2026/07"
 },
 
 {
@@ -12799,7 +12799,7 @@ const TRIAL_MECHANISMS = {
   "innovaTV 205": "TF-ADC + 化療 (1L)",
   "KEYNOTE-158": "IO Basket (dMMR)",
   "PVX4": "HPV 疫苗探索",
-  "KEYNOTE-C93": "IO 探索",
+  "KEYNOTE-C93": "IO 單藥去化療 (PFS 陽性)",
   "KEYNOTE-B96": "IO+化療+Bev 探索",
   "TroFuse-036": "TROP2-ADC + IO",
   "eVOLVE-Cervical": "雙特異性 IO 維持",
@@ -13301,7 +13301,7 @@ const PATHWAY_OVERVIEW = {
       {stage: "LACC 新輔助 NIC", column: "primary", trials: ["NACI Study", "NATIC Trial", "Cadonilimab + NACT"]},
       {stage: "R/M 一線", column: "primary", trials: ["KEYNOTE-826", "BEATcc", "GOG-240"]},
       {stage: "CCRT 後維持 (探索)", column: "primary", trials: ["eVOLVE-Cervical"]},
-      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "GOG-240", "EMPOWER-Cervical 1", "innovaTV 301", "innovaTV 205", "GOG-240", "KEYNOTE-158", "PVX4", "KEYNOTE-C93"]},
+      {stage: "Recurrent 治療", column: "recurrent", trials: ["KEYNOTE-826", "BEATcc", "GOG-240", "EMPOWER-Cervical 1", "innovaTV 301", "innovaTV 205", "GOG-240", "KEYNOTE-158", "PVX4"]},
       {stage: "TROP2 ADC 探索", column: "recurrent", trials: ["TroFuse-036", "EVER-132-003 (SG in CC)", "TROPION-PanTumor01 (Dato-DXd)"]},
       {stage: "HER2 ADC (CC)", column: "recurrent", trials: ["DESTINY-PanTumor02 (T-DXd)"]},
       {stage: "跨癌別 Basket (CC 相關)", column: "recurrent", trials: ["LIBRETTO-001"]},
@@ -15617,7 +15617,7 @@ const PATHWAY_GRID = {
           ],
           adv:[
             {s:'std', t:'Carboplatin + Paclitaxel (不劣於 Ifo + Pac,毒性較低)', k:'CP', ids:['gog-0261']},
-            {s:'cond', t:'CP + IO (RUBY / AtTEnd / DUO-E 允許癌肉瘤;GY018 排除)', k:'CP + IO', ids:['ruby-p1','attend','duo-e']},
+            {s:'cond', t:'CP + IO (RUBY / AtTEnd / DUO-E 允許癌肉瘤;GY018 排除);dMMR 癌肉瘤:KEYNOTE-C93 Pembro 單藥亦允許入組', k:'CP + IO', ids:['ruby-p1','attend','duo-e']},
             {s:'cond', t:'Ifosfamide + Paclitaxel', k:'Ifo + Pac', ids:['gog-161']},
           ],
           mt1:[{s:'gap', t:'無專屬維持證據', k:'無證據', idea:'HER2 / TROP2 ADC 維持'}],
@@ -15931,7 +15931,7 @@ const PATHWAY_GRID = {
           ],
           adv:[
             {s:'std', t:'Carboplatin + Paclitaxel + PD-1/PD-L1 → IO 維持 (PFS HR 0.28–0.36)', k:'CP + IO', ids:['ruby-p1','gy018','attend','duo-e']},
-            {s:'cond', t:'Pembrolizumab 單藥去化療 (mPFS 38.2 vs 8.4 個月;約 20% 原發抗藥)', k:'Pembro 單藥 ★', ids:['keynote-c93']},
+            {s:'cond', t:'Pembrolizumab 單藥去化療 vs 單純化療 (ESMO 2026 / Lancet 2026):PFS 38.2 vs 8.4 個月 (HR 0.57);OS HR 0.77 未達顯著;≥3 級 TRAE 18% vs 51%。PFS 曲線約 6 個月交叉 → 前 6 個月早期惡化風險 (借鏡大腸癌 KEYNOTE-177 約 29%),需密切追蹤;未與 CP + IO 直接比較;新診斷晚期次群 HR 0.77 (CI 跨 1),復發次群 HR 0.45', k:'Pembro 單藥 ★ (去化療)', g:'dMMR', ids:['keynote-c93']},
             {s:'cond', t:'Lenvatinib + Pembrolizumab (MMRd PFS HR 0.62,毒性較高)', k:'Lenva + Pembro', ids:['leap-001']},
             {s:'std', t:'Stage III–IVA:化療為主,加 RT 未改善 OS', k:'化療 ± RT', ids:['gog-258']},
           ],
@@ -15945,7 +15945,7 @@ const PATHWAY_GRID = {
             {s:'std', t:'陰道局部復發 (未曾 RT) → 救援 RT', k:'局部復發 → RT', ids:['portec-1']},
             {s:'std', t:'IO 單藥 (含鉑後:Dostarlimab / Pembrolizumab)', k:'IO 單藥 (含鉑後)', ids:['keynote-158','garnet']},
             {s:'std', t:'CP + IO (未用過 IO)', k:'CP + IO', ids:['ruby-p1','gy018']},
-            {s:'cond', t:'Pembrolizumab 單藥 (KEYNOTE-C93 陽性,去化療)', k:'Pembro 單藥 ★', ids:['keynote-c93']},
+            {s:'cond', t:'Pembrolizumab 單藥 (KEYNOTE-C93:復發次群 PFS HR 0.45,去化療;前 6 個月注意早期惡化)', k:'Pembro 單藥 ★', ids:['keynote-c93']},
             {s:'cond', t:'Lenvatinib + Pembrolizumab', k:'Lenva + Pembro', ids:['keynote-775']},
           ],
           recIO:[
@@ -16008,7 +16008,7 @@ const PATHWAY_GRID = {
           ],
           adv:[
             {s:'std', t:'Carboplatin + Paclitaxel', k:'CP', ids:['gog-0261']},
-            {s:'cond', t:'CP + IO (RUBY / AtTEnd / DUO-E 允許入組;GY018、KEYNOTE-775 排除)', k:'CP + IO', ids:['ruby-p1','attend','duo-e']},
+            {s:'cond', t:'CP + IO (RUBY / AtTEnd / DUO-E 允許入組;GY018、KEYNOTE-775 排除);dMMR 者 KEYNOTE-C93 亦收癌肉瘤', k:'CP + IO', ids:['ruby-p1','attend','duo-e']},
             {s:'cond', t:'Ifosfamide + Paclitaxel', k:'Ifo + Pac', ids:['gog-161']},
           ],
           mt1:[{s:'gap', t:'無專屬維持證據', k:'無證據', idea:'癌肉瘤 HER2 / TROP2 ADC 維持'}],
@@ -16987,7 +16987,7 @@ const PG_REG = [
   {c:'EC', re:/CP \+ Atezolizumab/, fda:'n', nccn:'n'},
   {c:'EC', re:/Dostarlimab \+ Niraparib|Selinexor|Olaparib \+ Pembrolizumab|新輔助 Nivolumab|輔助化療 \+ Pembrolizumab|Sacituzumab govitecan/, fda:'n', nccn:'n'},
   {c:'EC', re:/Sacituzumab tirumotecan|Sac-TMT/, fda:'n', nccn:'n', note:'TroFuse-005 (ESMO 2026) 陽性,尚待核准'},
-  {c:'EC', re:/Pembrolizumab 單藥去化療|Pembrolizumab 單藥 \(KEYNOTE-C93/, fda:'n', nccn:'n', note:'KEYNOTE-C93 (2026) 陽性,一線單藥尚待核准'},
+  {c:'EC', re:/Pembrolizumab 單藥去化療|Pembrolizumab 單藥 \(KEYNOTE-C93/, fda:'n', nccn:'n', note:'KEYNOTE-C93 (ESMO 2026 LBA12 / Lancet 2026) PFS 陽性、OS 未達顯著;MSD 表示將提交各國主管機關,尚未核准'},
   {c:'EC', re:/Lenvatinib \+ Pembrolizumab \(MMRd PFS/, fda:'n', nccn:'n', note:'LEAP-001 一線未獲核准'},
   {c:'EC', re:/^Lenvatinib \+ Pembrolizumab$/, fda:'n', nccn:'q', note:'FDA 適應症限非 MSI-H / pMMR'},
   {c:'EC', re:/Lenvatinib \+ Pembrolizumab/, fda:'y', nccn:'y', note:'FDA 2021:pMMR、含鉑後 (KEYNOTE-775)'},
@@ -20620,6 +20620,8 @@ const EXAM_WARNINGS = {
   ],
   'keynote-c93': [
     { tag:'⚠️ 限定 dMMR', text:'KEYNOTE-C93 主指 dMMR 一線; 不是所有 EC 一線都可去化療' },
+    { tag:'⚠️ 對照組不是 CP+IO', text:'C93 對照為單純化療 (非現行 CP + IO 標準); OS HR 0.77 未顯著; PFS 曲線前 6 個月交叉 → 早期惡化風險' },
+    { tag:'⚠️ 有收癌肉瘤', text:'C93 收 dMMR endometrial carcinoma 或 carcinosarcoma (與 GY018 不同)' },
   ],
   'keynote-b21': [
     { tag:'⚠️ adjuvant 不適用', text:'KEYNOTE-B21 (adjuvant Pembro+chemo) DFS HR 1.02 NS 翻車; 早期 EC 不要套用' },
@@ -21097,7 +21099,7 @@ const TIMELINE_DATA = {
           { year:'2023', label:'IO+chemo 雙開山 (NEJM 同期)', trials:['gy018','ruby-p1'], note:'GY018 排除肉瘤 / RUBY P1 含癌肉瘤 — 雙範式確立' },
           { year:'2023', label:'PD-L1 路徑 (Atezo)', trials:['attend'], note:'唯一用 PD-L1 阻斷; dMMR 顯效但 ITT OS NS — 與 GY018/RUBY 對比' },
           { year:'2023', label:'三標靶整合 (Durva+Olap+chemo)', trials:['duo-e'], note:'DUO-E 三臂; Arm3 加 Olap 在 p53/HRR 拔尖' },
-          { year:'2024+', label:'dMMR 去化療嘗試', trials:['keynote-c93'], note:'Pembro 單藥 1L 挑戰 SOC chemo' },
+          { year:'2026', label:'dMMR 去化療', trials:['keynote-c93'], note:'Pembro 單藥 1L vs 化療: PFS HR 0.57、OS NS (ESMO 2026 / Lancet)' },
         ],
       },
       {
@@ -21537,7 +21539,7 @@ const TRIAL_CMP_GROUPS = {
     columns: [
       {label: '方案', getter: (t) => ({'keynote-158':'Pembro 單藥 (2L+)', garnet:'Dostar 單藥 (2L+)', 'keynote-c93':'Pembro 單藥 vs 含鉑化療 (1L)'})[t.id] || '-'},
       {label: '族群', getter: (t) => ({'keynote-158':'dMMR 跨癌 basket', garnet:'dMMR 復發 single-arm', 'keynote-c93':'dMMR 1L RCT'})[t.id] || '-'},
-      {label: '結果', getter: (t) => ({'keynote-158':'EC ORR 46% / 跨癌 ORR 33-34%', garnet:'ORR 45.5%, DOR 24m 83.7%', 'keynote-c93':'PFS HR 0.30 ✅'})[t.id] || '-'},
+      {label: '結果', getter: (t) => ({'keynote-158':'EC ORR 46% / 跨癌 ORR 33-34%', garnet:'ORR 45.5%, DOR 24m 83.7%', 'keynote-c93':'PFS HR 0.57 ✅ / OS HR 0.77 NS'})[t.id] || '-'},
       {label: '地位', getter: (t) => ({'keynote-158':'Tumor-agnostic 開山 (2017→2023 full)', garnet:'FDA 加速核准 (2021→2023 full)', 'keynote-c93':'挑戰 SOC 化療'})[t.id] || '-'},
     ],
   },
@@ -22052,7 +22054,7 @@ const TRIAL_MNEMONICS = {
   // ============================================================
 
   'keynote-c93': {
-    main: '💎 「KEYNOTE-C93 用 Pembro 單藥, dMMR 1L PFS HR 三零, 挑戰 SOC」',
+    main: '💎 「KEYNOTE-C93 用 Pembro 單藥, dMMR 1L PFS HR 五七、OS 未顯著, 前 6 個月小心早期惡化」',
     breakdown: [
       { key: 'KEYNOTE-C93', meaning: 'KEYNOTE-C93 (試驗名)' },
       { key: 'Pembro 單藥', meaning: 'Pembrolizumab 單藥 (no chemo)' },
